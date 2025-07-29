@@ -3,7 +3,8 @@
 % or later, see http://www.latex-project.org/lppl.txt
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{postit}[2025/02/25 0.1.4 Display sticky notes in a doc]
+\ProvidesPackage{postit}[2025/07/29 0.1.5 Display sticky notes in a doc]
+%0.1.5	Bugfix with spacing
 %0.1.4	Enhancements with AlignH
 %0.1.3	Nodes for tikz' link between postits
 %0.1.2	English version (keys & command)
@@ -192,7 +193,7 @@
 			\IfStrEq{\PostItTitre}{}%
 				{}%
 				{%
-					\hfill{}{\PostItPoliceTitre\PostItTitre}\hfill~\\%
+					\hfill{}{\PostItPoliceTitre\PostItTitre}\hfill\null\\%
 				}%
 			#3%
 			\end{tcolorbox}%
@@ -203,7 +204,7 @@
 			\StrDel{\PostItExtraMargin}{cm}[\PostItExtraMargin]%
 			\def\LargeurTextePostIt{\fpeval{\PostItLarg-\MarginHGPostIt-\MarginHDPostIt}}%
 			\def\TextePostIt{%
-				\IfStrEq{\PostItTitre}{}{}{\hfill{}{\PostItPoliceTitre\PostItTitre}\hfill~\\}%
+				\IfStrEq{\PostItTitre}{}{}{\hfill{}{\PostItPoliceTitre\PostItTitre}\hfill\null\\}%
 				#3%
 			}%
 			\IfStrEq{\PostItHauteur}{auto}%
@@ -420,7 +421,7 @@
 			\StrDel{\PostItExtraMargin}{cm}[\PostItExtraMargin]%
 			\def\LargeurTextePostIt{\fpeval{\PostItLarg-\MarginHGPostIt-\MarginHDPostIt}}%
 			\def\TextePostIt{%
-				\IfStrEq{\PostItTitre}{}{}{\hfill{}{\PostItPoliceTitre\PostItTitre}\hfill~\\}%
+				\IfStrEq{\PostItTitre}{}{}{\hfill{}{\PostItPoliceTitre\PostItTitre}\hfill\null\\}%
 				#3%
 			}%
 			\IfStrEq{\PostItHauteur}{auto}%
@@ -776,7 +777,7 @@
 			\IfStrEq{\PostItTitre}{}%
 				{}%
 				{%
-					\hfill{}{\PostItPoliceTitre\PostItTitre}\hfill~\\%
+					\hfill{}{\PostItPoliceTitre\PostItTitre}\hfill\null\\%
 				}%
 			#3%
 			\end{tcolorbox}%
@@ -787,7 +788,7 @@
 			\StrDel{\PostItExtraMargin}{cm}[\PostItExtraMargin]%
 			\def\LargeurTextePostIt{\fpeval{\PostItLarg-\MarginHGPostIt-\MarginHDPostIt}}%
 			\def\TextePostIt{%
-				\IfStrEq{\PostItTitre}{}{}{\hfill{}{\PostItPoliceTitre\PostItTitre}\hfill~\\}%
+				\IfStrEq{\PostItTitre}{}{}{\hfill{}{\PostItPoliceTitre\PostItTitre}\hfill\null\\}%
 				#3%
 			}%
 			\IfStrEq{\PostItHauteur}{auto}%
@@ -1004,7 +1005,7 @@
 			\StrDel{\PostItExtraMargin}{cm}[\PostItExtraMargin]%
 			\def\LargeurTextePostIt{\fpeval{\PostItLarg-\MarginHGPostIt-\MarginHDPostIt}}%
 			\def\TextePostIt{%
-				\IfStrEq{\PostItTitre}{}{}{\hfill{}{\PostItPoliceTitre\PostItTitre}\hfill~\\}%
+				\IfStrEq{\PostItTitre}{}{}{\hfill{}{\PostItPoliceTitre\PostItTitre}\hfill\null\\}%
 				#3%
 			}%
 			\IfStrEq{\PostItHauteur}{auto}%
