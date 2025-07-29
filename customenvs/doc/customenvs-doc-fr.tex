@@ -39,8 +39,8 @@
 \usepackage[margin=1.5cm]{geometry}
 \setlength{\parindent}{0pt}
 
-\def\TPversion{0.40f}
-\def\TPdate{17 juillet 2025}
+\def\TPversion{0.41a}
+\def\TPdate{29 juillet 2025}
 \usepackage{tcolorbox}
 \tcbuselibrary{listingsutf8}
 %\usepackage{eurosym}
@@ -147,6 +147,8 @@
 \pagebreak
 
 \section{Historique}
+
+\verb|v0.41a|~:~~~Option \textsf{noninlinegraphicx} pour garder la compatibilité avec \textsf{MikTeX} + Bugfix
 
 \verb|v0.40f|~:~~~Style \textsf{WhatsApp} pour les fenêtre \textit{conversation}
 
@@ -267,7 +269,7 @@ Les packages chargés sont :
 	\end{itemize}
 \end{itemize}
 
-À noter que, pour des raisons de compatibilité (ou d'incompatibilité), les packages \MontreCode{enumitem}/\MontreCode{multicol}/\MontreCode{tabularray}/\MontreCode{xcolor}/\MontreCode{adjustbox}/\MontreCode{fontawesome5/6} peuvent ne pas être chargés par \MontreCode{customenvs} (auxquels cas l'utilisateur devra les avoir chargés pour faire fonctionner certains environnements) via les options :
+À noter que, pour des raisons de compatibilité (ou d'incompatibilité), les packages \MontreCode{enumitem}/\MontreCode{multicol}/\MontreCode{tabularray}/\MontreCode{xcolor}/\MontreCode{adjustbox}/\MontreCode{fontawesome5/6}/\MontreCode{inlinegraphicx} peuvent ne pas être chargés par \MontreCode{customenvs} (auxquels cas l'utilisateur devra les avoir chargés pour faire fonctionner certains environnements) via les options :
 
 \begin{itemize}
 	\item \MontreCode{$\mathtt{\langle}$beamer$\mathtt{\rangle}$} (pour assurer une compatibilité avec \textsf{beamer});
@@ -276,6 +278,7 @@ Les packages chargés sont :
 	\item \MontreCode{$\mathtt{\langle}$nontblr$\mathtt{\rangle}$} ;
 	\item \MontreCode{$\mathtt{\langle}$nonxcolor$\mathtt{\rangle}$} ;
 	\item \MontreCode{$\mathtt{\langle}$nonadjustbox$\mathtt{\rangle}$} ;
+	\item \MontreCode{$\mathtt{\langle}$noninlinegraphicx$\mathtt{\rangle}$} ;
 	\item \MontreCode{$\mathtt{\langle}$nonfa$\mathtt{\rangle}$}.
 \end{itemize}
 

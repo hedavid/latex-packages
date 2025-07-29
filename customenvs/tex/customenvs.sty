@@ -3,9 +3,10 @@
 % source pencil...: CC-BY-SA 4.0 https://tex.stackexchange.com/questions/504092/replicating-a-fancy-bordered-text-style-in-latex/504145#504145
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{customenvs}[2025/07/17 0.40f Custom classic environments]
+\ProvidesPackage{customenvs}[2025/07/29 0.41a Custom classic environments]
 
 %====HISTORIQUE
+% v 0.41a	Bugfix with inlinegraphicx and MiKTeX...
 % v 0.40f	WhatsApp like Chat
 % v 0.40e	Sous-package customenvs-icons
 % v 0.40d	Sous-package customenvs-exams + picto 'dballs' + Amélioration de code (compatibilité twemojis) + Alt version Exercice + Strut for pictos
@@ -53,6 +54,9 @@
 \newif\if@tblr\@tblrtrue%
 \DeclareOption{nontblr}{\@tblrfalse}%
 \DeclareOption{notblr}{\@tblrfalse}%
+\newif\if@inlinegraphicx\@inlinegraphicxtrue%
+\DeclareOption{noninlinegraphicx}{\@inlinegraphicxfalse}%
+\DeclareOption{noinlinegraphicx}{\@inlinegraphicxfalse}%
 \newif\if@multicol\@multicoltrue%
 \DeclareOption{nonmulticol}{\@multicolfalse}%
 \DeclareOption{nomulticol}{\@multicolfalse}%
@@ -136,7 +140,9 @@
 \if@adjustbox
 	\RequirePackage{adjustbox}
 \fi
-\RequirePackage{inlinegraphicx}
+\if@inlinegraphicx
+	\RequirePackage{inlinegraphicx}
+\fi
 \RequirePackage{ifthen}
 \RequirePackage{calc}
 \RequirePackage{tikz}
@@ -1672,7 +1678,7 @@
 	enhanced,arc=0pt,outer arc=0pt,colback=\ProjectSmsColback,toptitle=0.3cm,bottomtitle=0.3cm,title={\null},
 	overlay={
 		%la barre de titre
-		\node[anchor=east,smscoltitle,font=\large] at ([xshift=-1mm]title.east) {\faVideo~~\faFlipPhone~~\faThreeDotsV};
+		\node[anchor=east,smscoltitle,font=\large] at ([xshift=-1mm]title.east) {\faVideo\:\:\faFlipPhone\:\:\faThreeDotsV};
 		\node[draw=none,anchor=west,inner sep=1pt,text=smscoltitle,font=\large] at ([xshift=1mm]title.west) (picture) {\ProjectSmsAvat};
 		\node[draw=none,anchor=west,text=smscoltitle,font=\large,text depth=0pt,inner sep=1pt] at (picture.east) {\sffamily\bfseries\vphantom{pB}\NameofSMS} ;
 		%le bas
@@ -1793,7 +1799,7 @@
 	attach boxed title to top left,
 	coltitle=black,fonttitle=\scriptsize\sffamily,
 	boxed title style={size=fbox,bottom=0pt,boxsep=2pt,frame empty,interior empty},
-	title={\@ifpackageloaded{babel}{\NoAutoSpacing#2}{#2}\IfBooleanTF{#1}{$\cdot$\scalebox{0.6}[0.6]{\faCheckCircleReg\!\faCheckCircleReg}~}{}},left=1mm,right=1mm,boxsep=0mm,SMSAffLogo]{#3}%
+	title={\@ifpackageloaded{babel}{\NoAutoSpacing#2}{#2}\IfBooleanTF{#1}{$\cdot$\scalebox{0.6}[0.6]{\faCheckCircleReg\!\faCheckCircleReg}\:}{}},left=1mm,right=1mm,boxsep=0mm,SMSAffLogo]{#3}%
 }
 \NewDocumentCommand\SMSenv{ s m m }{%
 	\tcbox[enhanced,interior code={},before skip=0.5mm,after skip=0.5mm,halign=left,left=1.5mm,right=1.5mm,
@@ -1806,7 +1812,7 @@
 	attach boxed title to top right,
 	coltitle=black,fonttitle=\scriptsize\sffamily,
 	boxed title style={size=fbox,bottom=0pt,boxsep=2pt,frame empty,interior empty},
-	title={\@ifpackageloaded{babel}{\NoAutoSpacing#2}{#2}\IfBooleanTF{#1}{}{$\cdot$\scalebox{0.6}[0.6]{\faCheckCircleReg\!\faCheckCircleReg}~}},left=1mm,right=1mm,boxsep=0mm]{#3}%
+	title={\@ifpackageloaded{babel}{\NoAutoSpacing#2}{#2}\IfBooleanTF{#1}{}{$\cdot$\scalebox{0.6}[0.6]{\faCheckCircleReg\!\faCheckCircleReg}\:}},left=1mm,right=1mm,boxsep=0mm]{#3}%
 }
 
 %====Nutriscore
@@ -2334,7 +2340,7 @@
 	attach boxed title to top left,
 	coltitle=black,fonttitle=\scriptsize\sffamily,
 	boxed title style={size=fbox,bottom=0pt,boxsep=2pt,frame empty,interior empty},
-	title={#2\IfBooleanTF{#1}{$\cdot$\scalebox{0.6}[0.6]{\faCheckCircleReg\!\faCheckCircleReg}~}{}},left=1mm,right=1mm,boxsep=0mm,SMSAffLogo]{#3}%
+	title={#2\IfBooleanTF{#1}{$\cdot$\scalebox{0.6}[0.6]{\faCheckCircleReg\!\faCheckCircleReg}\:}{}},left=1mm,right=1mm,boxsep=0mm,SMSAffLogo]{#3}%
 }
 \NewDocumentCommand\OutSMS{ s m m }{%
 	\tcbox[enhanced,interior code={},before skip=0.5mm,after skip=0.5mm,halign=left,left=1.5mm,right=1.5mm,
@@ -2347,7 +2353,7 @@
 	attach boxed title to top right,
 	coltitle=black,fonttitle=\scriptsize\sffamily,
 	boxed title style={size=fbox,bottom=0pt,boxsep=2pt,frame empty,interior empty},
-	title={#2\IfBooleanTF{#1}{}{$\cdot$\scalebox{0.6}[0.6]{\faCheckCircleReg\!\faCheckCircleReg}~}},left=1mm,right=1mm,boxsep=0mm]{#3}%
+	title={#2\IfBooleanTF{#1}{}{$\cdot$\scalebox{0.6}[0.6]{\faCheckCircleReg\!\faCheckCircleReg}\:}},left=1mm,right=1mm,boxsep=0mm]{#3}%
 }
 
 %====SMALL BOXES CREATION
@@ -4528,12 +4534,12 @@
 		enhanced,arc=1.25pt,colback=\ProjectWaColback,toptitle=0.3cm,bottomtitle=0.3cm,title={\null},
 		overlay={
 			%la barre de titre
-			\node[anchor=east,wacoltitle,text=wacoltitle] at ([xshift=-1mm]title.east) {\faVideo~\faFlipPhone~\faThreeDotsV};
+			\node[anchor=east,wacoltitle,text=wacoltitle] at ([xshift=-1mm]title.east) {\faVideo\:\faFlipPhone\:\faThreeDotsV};
 			\node[draw=none,anchor=west,inner sep=1pt,text=wacoltitle] at ([xshift=1mm]title.west) (arrowleft) {\faArrowLeft};
-			\node[draw=none,anchor=west,inner sep=1pt,text=wacoltitle] at ([xshift=1mm]title.west) (picture) {\phantom{\faArrowLeft}~\ProjectWaAvat};
-			\node[draw=none,anchor=west,text=wacoltitle,text depth=0pt,inner sep=1pt] at (picture.east) {~\sffamily\vphantom{pB}\NameofWa} ;
+			\node[draw=none,anchor=west,inner sep=1pt,text=wacoltitle] at ([xshift=1mm]title.west) (picture) {\phantom{\faArrowLeft}\:\ProjectWaAvat};
+			\node[draw=none,anchor=west,text=wacoltitle,text depth=0pt,inner sep=1pt] at (picture.east) {\:\sffamily\vphantom{pB}\NameofWa} ;
 			%le bas
-			\node[draw=white,fill=white,line width=1pt,rounded corners=8pt,text width={\WidthofWa-2.5mm-1cm},minimum height=0.75cm,font=\ProjectWaFonte,text=darkgray,inner xsep=3pt,anchor=west] at ([shift={(1.25mm,0.5cm)}]frame.south west) {\faIcon{smile}~\rule[-0.1cm]{1pt}{0.5cm}\,\ProjectWaWrite\hfill\faPaperclip~~\faVideo~};
+			\node[draw=white,fill=white,line width=1pt,rounded corners=8pt,text width={\WidthofWa-2.5mm-1cm},minimum height=0.75cm,font=\ProjectWaFonte,text=darkgray,inner xsep=3pt,anchor=west] at ([shift={(1.25mm,0.5cm)}]frame.south west) {\faIcon{smile}\:\rule[-0.1cm]{1pt}{0.5cm}\,\ProjectWaWrite\hfill\faPaperclip\:\:\faVideo\:};
 			\node[draw=wacolmicro,fill=wacolmicro,line width=1pt,rounded corners=8pt,text width={0.35cm},minimum height=0.75cm,font=\ProjectWaFonte,text=white,anchor=east,align=center] at ([shift={(-1.25mm,0.5cm)}]frame.south east) {\faMicrophone};
 		},
 		boxrule=0.8pt,colframe=wacolmicro!50!gray,title style={color=white},

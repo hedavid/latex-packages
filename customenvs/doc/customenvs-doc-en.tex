@@ -34,8 +34,8 @@
 \usepackage[margin=1.5cm]{geometry}
 \setlength{\parindent}{0pt}
 
-\def\TPversion{0.40f}
-\def\TPdate{17/07/2025}
+\def\TPversion{0.41a}
+\def\TPdate{29/07/2025}
 \usepackage{tcolorbox}
 \sethlcolor{lightgray!25}
 \NewDocumentCommand\MontreCode{ m }{%
@@ -113,6 +113,8 @@
 \vfill
 
 \section{History}
+
+\verb|v0.41a|~:~~~Option \textsf{noninlinegraphicx} for compatibility with \textsf{MikTeX} + Bugfix
 
 \verb|v0.40f|~:~~~\textsf{WhatsApp} style for 'Chat'
 
@@ -213,13 +215,14 @@ Loaded packages are
 	\item \MontreCode{fontawesome} ;
 \end{itemize}
 
-Due to limitations, \MontreCode{enumitem}/\MontreCode{multicol}/\MontreCode{tabularray}\MontreCode{fontawesome5/6} can be \textit{un}loaded by \MontreCode{customenvs} (user must load them manually) via options :
+Due to limitations, \MontreCode{enumitem}/\MontreCode{multicol}/\MontreCode{tabularray}/\MontreCode{fontawesome5/6}/\MontreCode{inlinegraphicx} can be \textit{un}loaded by \MontreCode{customenvs} (user must load them manually) via options :
 
 \begin{itemize}
 	\item \MontreCode{$\mathtt{\langle}$beamer$\mathtt{\rangle}$} for using with \textsf{beamer} ;
 	\item \MontreCode{$\mathtt{\langle}$noenum$\mathtt{\rangle}$} ;
 	\item \MontreCode{$\mathtt{\langle}$nomulticol$\mathtt{\rangle}$} ;
 	\item \MontreCode{$\mathtt{\langle}$notblr$\mathtt{\rangle}$} ;
+	\item \MontreCode{$\mathtt{\langle}$noinlinegraphicx$\mathtt{\rangle}$} ;
 	\item \MontreCode{$\mathtt{\langle}$nofa$\mathtt{\rangle}$}.
 \end{itemize}
 
