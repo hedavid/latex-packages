@@ -1,0 +1,152 @@
+% !TeX TXS-program:compile = txs:///arara
+% arara: pdflatex: {shell: no, synctex: no, interaction: batchmode}
+% arara: pdflatex: {shell: no, synctex: no, interaction: batchmode}
+
+\documentclass{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{lucide-icons}
+\usepackage{longtable}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{fancyvrb}
+\usepackage{shortvrb}
+\MakeShortVerb{\|}
+\setlength{\parindent}{0pt}
+
+\newenvironment{lucideiconcase}
+{%
+	\begin{longtable}{cllr}%icon + name + macro + page
+		\cmidrule[\heavyrulewidth]{1-4}% \toprule
+		\bfseries Icon & \bfseries Name & \bfseries Direct command & \bfseries PDF page \\
+		\cmidrule{1-4}
+		\endhead
+}%
+{%
+		\cmidrule[\heavyrulewidth]{1-4}
+	\end{longtable}%
+}
+
+\NewDocumentCommand{\showcaselucideicons}{mm}{%name + macro + page
+	\Large\lucideicon{#1} & \itshape #1 & \ttfamily \textbackslash lucideicon\{#1\} & \sffamily #2 \\
+}
+
+\begin{document}
+
+\title{The \textsf{lucide-icons} package (0.1.0) -- \today}
+\author{%
+	Cédric Pierquet\\%
+	\url{https://lucide.dev} (Source version 0.534.0)\\%
+	\url{https://github.com/cpierquet/latex-packages/tree/main/lucide-icons} (\LaTeX{} package)
+}
+\date{cpierquet -- at -- outlook . fr}\maketitle
+
+This package provides \LaTeX{} support for the \textsf{Lucide-Icons} project (\url{https://lucide.dev}).
+
+\medskip
+
+\hspace*{5mm}\fbox{\begin{minipage}{0.75\linewidth}{\emph{A set of 1624 free ISC License high-quality SVG/PDF icons for you to use in your web projects.}}\end{minipage}}
+
+\medskip
+
+To use \textsf{lucide-icons} in your document, include the package with |\usepackage{lucide-icons}|.
+
+An icon can be accessed using the icon name. A list of all included icons with their respective \textit{page} can be found at the end of this document.
+
+\section{Example}
+
+\begin{Verbatim}[frame=single]
+...
+\usepackage{lucide-icons}
+...
+\begin{document}
+...
+Inline \lucideicon{anchor} version
+...
+\end{document}
+\end{Verbatim}
+
+Result: Inline \lucideicon{anchor} version
+
+\section{Usage}
+
+\subsection{Generic macro}
+
+\begin{Verbatim}[frame=single]
+\lucideicon[height=...,(d)strut=...]<includegraphics options>{name}
+\end{Verbatim}
+
+Key \texttt{[height=...]} can be:
+
+\begin{itemize}
+	\item \texttt{dauto} (by default): inline insertion with height/depth;
+	\item \texttt{auto}: inline insertion with height/nodepth;
+	\item \texttt{a length}: normal insertion with fixed height;
+	\item \texttt{manuel height/depth}: normal insertion with fixed height/depth.
+\end{itemize}
+
+The keys \texttt{[(d)strut=...]} can be used to set the \textit{reference} box for dimension calculations.
+
+\medskip
+
+By default, icons are given with a small border, so the given height is the height of the \textit{full} box, not the hight of the icons.
+
+\medskip
+
+Example: Inline{\setlength\fboxsep{0pt}\fbox{\lucideicon{anchor}}}version or inline {\setlength\fboxsep{0pt}\fbox{\lucideicon{anchor}}} version
+
+\pagebreak
+
+\subsection{Examples}
+
+\begin{Verbatim}[frame=single]
+%normal version: inline with automatic height/depth (from qX characters)
+\lucideicon[height=dauto]{anchor} %or \lucideicon{anchor}
+\end{Verbatim}
+
+{\Huge q\lucideicon{anchor}X}
+
+\begin{Verbatim}[frame=single]
+%normal version: inline with automatic height/depth (from specified characters)
+(q\lucideicon[height=dauto,dstrut=(qB)]{anchor}B)
+\end{Verbatim}
+
+{\Huge (q\lucideicon[height=dauto,dstrut=(qB)]{anchor}B)}
+
+\begin{Verbatim}[frame=single]
+%normal version: inline with automatic height (from X character) default version
+\lucideicon[height=auto]{anchor}
+\end{Verbatim}
+
+{\Huge X\lucideicon[height=auto]{anchor}X}
+
+\begin{Verbatim}[frame=single]
+%normal version: inline with manual height/depth
+\lucideicon[height={0.8em/-0.4em}]{anchor}
+\end{Verbatim}
+
+{\Huge qb\lucideicon[height={0.8em/-0.4em}]{anchor}Xz}
+
+\begin{Verbatim}[frame=single]
+%fixed height
+\lucideicon[height=2in]{anchor}
+\end{Verbatim}
+
+\lucideicon[height=1.5in]{anchor}
+
+\subsection{Used packages}
+
+\texttt{ifthen}, \texttt{calc}, \texttt{graphicx}, \texttt{xstring} and \texttt{simplekv} are loaded and used by the package.
+
+\subsection{Bugs}
+
+For bug reports and feature requests, report on the GitHub repository \url{https://github.com/cpierquet/latex-packages/issues}.
+
+\newpage
+
+\section{List of icons}
+
+The \textsf{PDF} file is \texttt{lucide-icons-all}
+
+\input{lucideiconsbindings}
+
+\end{document}
