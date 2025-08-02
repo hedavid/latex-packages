@@ -1,0 +1,96 @@
+% Author        : C. Pierquet
+% licence       : Released under the LaTeX Project Public License v1.3c or later, see http://www.latex-project.org/lppl.txt
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{fontawesomescaled}[2025/08/02 0.1.0 Small patchs for scaling fontawesome icons]
+
+%====HISTORY
+% v 0.1.0  Initial version
+
+%====PACKAGES
+\RequirePackage{xkeyval}     %keyval for package
+\RequirePackage{ifthen}      %tests
+\RequirePackage{graphicx}    %for scalebox
+\RequirePackage{simplekv}    %keyval for macro
+\RequirePackage{relsize}     %for \smaller
+
+%====OPTIONS
+\newif\if@hook\@hookfalse
+\DeclareOptionX{versionfa}[0]{\def\fascaled@fa@version{#1}}
+\DeclareOptionX{scale}[0.85]{\def\fascaled@fa@scale{#1}}
+\DeclareOptionX{hook}{\@hooktrue}
+\DeclareOptionX*{}
+\ExecuteOptionsX{versionfa,hook,scale}
+\ProcessOptionsX\relax
+
+%====FONTAWESOME
+\ifnum\fascaled@fa@version=1
+  \RequirePackage{fontawesome}
+\fi
+\ifnum\fascaled@fa@version=5
+  \RequirePackage{fontawesome5}
+\fi
+\ifnum\fascaled@fa@version=6
+  \RequirePackage{fontawesome6}
+\fi
+\ifnum\fascaled@fa@version=7
+  \RequirePackage{fontawesome7}
+\fi
+
+%====KEYS
+\defKV[faIconScaled]{scale=\def\faiconscale{#1}}
+\setKVdefault[faIconScaled]{regular=false,scale=\fascaled@fa@scale}
+
+%====MAIN MACROS
+\NewDocumentCommand\faIconScaled{sO{}m}{%
+  \restoreKV[faIconScaled]%
+  \setKV[faIconScaled]{#2}%
+  \ifboolKV[faIconScaled]{regular}%
+    {%
+      \ifthenelse{\equal{\faiconscale}{1}}%
+        {\IfBooleanTF{#1}{\faIcon*[regular]{#3}}{\faIcon[regular]{#3}}}%
+        {%
+          \scalebox{\faiconscale}[\faiconscale]%
+          {\IfBooleanTF{#1}{\faIcon*[regular]{#3}}{\faIcon[regular]{#3}}}%
+        }%
+    }%
+    {%
+      \ifthenelse{\equal{\faiconscale}{1}}%
+        {\IfBooleanTF{#1}{\faIcon*{#3}}{\faIcon{#3}}}%
+        {\scalebox{\faiconscale}[\faiconscale]{\IfBooleanTF{#1}{\faIcon*{#3}}{\faIcon{#3}}}}%
+    }%
+}
+
+\NewDocumentCommand\faScaled{sO{}m}{%
+  \restoreKV[faIconScaled]%
+  \setKV[faIconScaled]{#2}%
+  \ifboolKV[faIconScaled]{regular}%
+    {%
+      \ifthenelse{\equal{\faiconscale}{1}}%
+        {\IfBooleanTF{#1}{\csname fa#3\endcsname*[regular]}{\csname fa#3\endcsname[regular]}}%
+        {%
+          \scalebox{\faiconscale}[\faiconscale]%
+          {\IfBooleanTF{#1}{\csname fa#3\endcsname*[regular]}{\csname fa#3\endcsname[regular]}}%
+        }%
+    }%
+    {%
+      \ifthenelse{\equal{\faiconscale}{1}}%
+        {\IfBooleanTF{#1}{\csname fa#3\endcsname*}{\csname fa#3\endcsname}}%
+        {%
+          \scalebox{\faiconscale}[\faiconscale]%
+          {\IfBooleanTF{#1}{\csname fa#3\endcsname*}{\csname fa#3\endcsname}}%
+        }%
+    }%
+}
+
+\NewDocumentCommand\DefineFaScale{m}{%
+  \setKVdefault[faIconScaled]{scale=#1}%
+}
+
+\if@hook
+  \RequirePackage{relsize}
+  \AddToHook{cmd/faIcon/before}{\begingroup\smaller}
+  \AddToHook{cmd/faIcon/after}{\endgroup}
+\fi
+
+\endinput

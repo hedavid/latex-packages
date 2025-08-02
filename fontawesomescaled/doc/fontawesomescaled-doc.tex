@@ -1,0 +1,182 @@
+% !TeX TXS-program:compile = txs:///arara
+% arara: pdflatex: {shell: no, synctex: no, interaction: batchmode}
+% arara: pdflatex: {shell: no, synctex: no, interaction: batchmode}
+
+\documentclass{article}
+\usepackage[margin=1in]{geometry}
+\usepackage[versionfa=5]{fontawesomescaled}
+\usepackage{tabularray}
+\usepackage{codehigh}
+\usepackage{hyperref}
+\usepackage{fancyvrb}
+\usepackage{fvextra}
+\usepackage{shortvrb}
+\MakeShortVerb{\|}
+\setlength{\parindent}{0pt}
+
+\begin{document}
+
+\title{The \textsf{fontawesomescaled} package (0.1.0) -- \today}
+\author{%
+	Cédric Pierquet\\%
+	\url{https://github.com/cpierquet/latex-packages/tree/main/fontawesomescaled}%
+}
+\date{cpierquet -- at -- outlook . fr}\maketitle
+
+This package provides \LaTeX{} support for (automatic) scaling \texttt{fontawesome(s)} icons (\texttt{0.85} by default).
+
+\medskip
+
+To use \texttt{fontawesomescaled} in your document, include the package with |\usepackage{fontawesomescaled}|.
+
+\section{Usage and option}
+
+\subsection{Global usage}
+
+The package don't load (by default)  \texttt{fontawesome(x)} package, it define macro in order to use \texttt{fontawesome(x)} icons.
+
+By default, a scale of \texttt{0.85} is applied, within a \texttt{scalebox}, and if the scale is set to \texttt{1}, \textit{normal} insertion is used, w/o \texttt{scalebox}.
+
+Few \textit{options} (which can be combined) are available within the loading :
+
+\begin{itemize}
+	\item with option \texttt{[versionfa=<version>]}, \texttt{fontawesome<version>} can be automatically loaded;
+	\item with option \texttt{[hook]}, an automatic patch with |\smaller| macro of \texttt{relsize} package is used, when |\faIcon| is used;
+	\item with option \texttt{[scale=<value>]}, a global scale is applied.
+\end{itemize}
+
+\begin{Verbatim}[frame=single]
+\usepackage{fontawesomescaled}              %default loading (no fa + scale=0.85)
+\usepackage[versionfa=1]{fontawesomescaled} %with fontawesome loaded
+\usepackage[versionfa=5]{fontawesomescaled} %with fontawesome5 loaded
+\usepackage[versionfa=6]{fontawesomescaled} %with fontawesome6 loaded
+\usepackage[versionfa=7]{fontawesomescaled} %with fontawesome7 loaded
+\usepackage[hook]{fontawesomescaled}        %\smaller (rellsize) usage for \faIcon{...}
+\usepackage[scale=0.925]{fontawesomescaled} %with global scale of 0.925
+\end{Verbatim}
+
+\begin{Verbatim}[frame=single]
+\DefineFaScale{<value>}                     %change default value of the scaling
+\end{Verbatim}
+
+\subsection{Used packages}
+
+\texttt{ifthen}, \texttt{graphicx}, \texttt{xkeyval}, \texttt{simplekv}, and optionally \texttt{relsize}, are loaded and used by the package.
+
+\subsection{Bugs}
+
+For bug reports and feature requests, report on the GitHub repository \url{https://github.com/cpierquet/latex-packages/issues}.
+
+\pagebreak
+
+\section{The macros}
+
+\subsection{Normal version}
+
+Normal version of the main macro is |\faIconScaled| (relative to |\faIcon|!).
+
+Starred version (for \texttt{fontawesome5}), and \texttt{[regular]} version can be specified.
+
+\begin{Verbatim}[frame=single]
+For example, \faIconScaled{exclamation-circle}%
+\faIconScaled[scale=1]{exclamation-circle}%
+\faIconScaled[scale=0.5]{exclamation-circle}.
+\end{Verbatim}
+
+\textbf{Result:} For example, \faIconScaled{exclamation-circle}\faIconScaled[scale=1]{exclamation-circle}\faIconScaled[scale=0.5]{exclamation-circle}.
+
+\begin{Verbatim}[frame=single]
+%patched version of \faIcon(*)[regular]{<name>}    %if * and regular are available!
+
+\faIconScaled(*)[regular=TF,scale=<value>]{<name>}
+\end{Verbatim}
+
+\begin{tblr}{hlines,vlines,colspec={ccccc},cells={font=\footnotesize}}
+	\SetCell[r=1,c=5]{c}{\texttt{scale=0.85} by default}&&&&\\
+	\textbf{Name} & \textbf{Initial macro} & \textbf{Initial version} & \textbf{Patched macro} & \textbf{Patched version} \\
+	\SetCell[r=4,c=1]{c}{file}&\fakeverb{\faIcon{file}} & \faIcon{file}~test & \fakeverb{\faIconScaled{file}} & \faIconScaled{file}~test  \\
+	&\fakeverb{\faIcon*{file}} & \faIcon*{file}~test & \fakeverb{\faIconScaled*{file}} & \faIconScaled*{file}~test  \\
+	&\fakeverb{\faIcon[regular]{file}} & \faIcon[regular]{file}~test & \fakeverb{\faIconScaled[regular]{file}} & \faIconScaled[regular]{file}~test  \\
+	&\fakeverb{\faIcon*[regular]{file}} & \faIcon*[regular]{file}~test & \fakeverb{\faIconScaled*[regular]{file}} & \faIconScaled*[regular]{file}~test  \\
+\end{tblr}
+
+\DefineFaScale{0.66}
+\begin{tblr}{hlines,vlines,colspec={ccccc},cells={font=\footnotesize}}
+	\SetCell[r=1,c=5]{c}{\texttt{scale=0.66} with \fakeverb{\DefineFaScale{0.66}}}&&&&\\
+	\textbf{Name} & \textbf{Initial macro} & \textbf{Initial version} & \textbf{Patched macro} & \textbf{Patched version} \\
+	\SetCell[r=4,c=1]{c}{file}&\fakeverb{\faIcon{file}} & \faIcon{file}~test & \fakeverb{\faIconScaled{file}} & \faIconScaled{file}~test  \\
+	&\fakeverb{\faIcon*{file}} & \faIcon*{file}~test & \fakeverb{\faIconScaled*{file}} & \faIconScaled*{file}~test  \\
+	&\fakeverb{\faIcon[regular]{file}} & \faIcon[regular]{file}~test & \fakeverb{\faIconScaled[regular]{file}} & \faIconScaled[regular]{file}~test  \\
+	&\fakeverb{\faIcon*[regular]{file}} & \faIcon*[regular]{file}~test & \fakeverb{\faIconScaled*[regular]{file}} & \faIconScaled*[regular]{file}~test  \\
+\end{tblr}
+
+\DefineFaScale{1.25}
+\begin{tblr}{hlines,vlines,colspec={ccccc},cells={font=\footnotesize}}
+	\SetCell[r=1,c=5]{c}{\texttt{scale=1.25} with \fakeverb{\DefineFaScale{1.25}}}&&&&\\
+	\textbf{Name} & \textbf{Initial macro} & \textbf{Initial version} & \textbf{Patched macro} & \textbf{Patched version} \\
+	\SetCell[r=4,c=1]{c}{file}&\fakeverb{\faIcon{file}} & \faIcon{file}~test & \fakeverb{\faIconScaled{file}} & \faIconScaled{file}~test  \\
+	&\fakeverb{\faIcon*{file}} & \faIcon*{file}~test & \fakeverb{\faIconScaled*{file}} & \faIconScaled*{file}~test  \\
+	&\fakeverb{\faIcon[regular]{file}} & \faIcon[regular]{file}~test & \fakeverb{\faIconScaled[regular]{file}} & \faIconScaled[regular]{file}~test  \\
+	&\fakeverb{\faIcon*[regular]{file}} & \faIcon*[regular]{file}~test & \fakeverb{\faIconScaled*[regular]{file}} & \faIconScaled*[regular]{file}~test  \\
+\end{tblr}
+
+\pagebreak\DefineFaScale{0.85}
+
+\subsection{Alias version}
+
+Alias version of the main macro is |\faScaled| (relative to |\fa<alias>|!).
+
+Starred version (for \texttt{fontawesome5}), and \texttt{[regular]} version can be specified.
+
+\begin{Verbatim}[frame=single]
+For example, \faScaled{Eye}%
+\faScaled[scale=1]{Eye}%
+\faScaled[scale=0.5]{Eye}.
+\end{Verbatim}
+
+\textbf{Result:} For example, \faScaled{Eye}\faScaled[scale=1]{Eye}\faScaled[scale=0.5]{Eye}.
+
+\begin{Verbatim}[frame=single]
+%patched version of \fa<Alias>(*)[regular]         %if * and regular are available!
+
+\faScaled(*)[regular=TF,scale=<value>]{<Alias>}
+\end{Verbatim}
+
+\begin{tblr}{hlines,vlines,colspec={ccccc},cells={font=\footnotesize}}
+	\SetCell[r=1,c=5]{c}{\texttt{scale=0.85} by default}&&&&\\
+	\textbf{Alias} & \textbf{Initial macro} & \textbf{Initial version} & \textbf{Patched macro} & \textbf{Patched version} \\
+	\SetCell[r=4,c=1]{c}{File}&\fakeverb{\faFile} & \faFile~test & \fakeverb{\faScaled{File}} & \faScaled{File}~test  \\
+	&\fakeverb{\faFile*} & \faFile~test & \fakeverb{\faScaled*{File}} & \faScaled*{File}~test  \\
+	&\fakeverb{\faFile[regular]} & \faFile[regular]~test & \fakeverb{\faScaled[regular]{File}} & \faScaled[regular]{File}~test  \\
+	&\fakeverb{\faFile*[regular]} & \faFile*[regular]~test & \fakeverb{\faScaled*[regular]{File}} & \faScaled*[regular]{File}~test  \\
+\end{tblr}
+
+\DefineFaScale{0.66}
+\begin{tblr}{hlines,vlines,colspec={ccccc},cells={font=\footnotesize}}
+	\SetCell[r=1,c=5]{c}{\texttt{scale=0.66} with \fakeverb{\DefineFaScale{0.66}}}&&&&\\
+	\textbf{Alias} & \textbf{Initial macro} & \textbf{Initial version} & \textbf{Patched macro} & \textbf{Patched version} \\
+	\SetCell[r=4,c=1]{c}{File}&\fakeverb{\faFile} & \faFile~test & \fakeverb{\faScaled{File}} & \faScaled{File}~test  \\
+	&\fakeverb{\faFile*} & \faFile~test & \fakeverb{\faScaled*{File}} & \faScaled*{File}~test  \\
+	&\fakeverb{\faFile[regular]} & \faFile[regular]~test & \fakeverb{\faScaled[regular]{File}} & \faScaled[regular]{File}~test  \\
+	&\fakeverb{\faFile*[regular]} & \faFile*[regular]~test & \fakeverb{\faScaled*[regular]{File}} & \faScaled*[regular]{File}~test  \\
+\end{tblr}
+
+\DefineFaScale{1.25}
+\begin{tblr}{hlines,vlines,colspec={ccccc},cells={font=\footnotesize}}
+	\SetCell[r=1,c=5]{c}{\texttt{scale=1.25} with \fakeverb{\DefineFaScale{1.25}}}&&&&\\
+	\textbf{Alias} & \textbf{Initial macro} & \textbf{Initial version} & \textbf{Patched macro} & \textbf{Patched version} \\
+	\SetCell[r=4,c=1]{c}{File}&\fakeverb{\faFile} & \faFile~test & \fakeverb{\faScaled{File}} & \faScaled{File}~test  \\
+	&\fakeverb{\faFile*} & \faFile~test & \fakeverb{\faScaled*{File}} & \faScaled*{File}~test  \\
+	&\fakeverb{\faFile[regular]} & \faFile[regular]~test & \fakeverb{\faScaled[regular]{File}} & \faScaled[regular]{File}~test  \\
+	&\fakeverb{\faFile*[regular]} & \faFile*[regular]~test & \fakeverb{\faScaled*[regular]{File}} & \faScaled*[regular]{File}~test  \\
+\end{tblr}
+
+\pagebreak
+
+\section{The code}
+
+\fvset{frame=single,numbers=left,numbersep=3pt,fontsize=\footnotesize,breaklines=true}
+\VerbatimInput{fontawesomescaled.sty}
+
+
+\end{document}
