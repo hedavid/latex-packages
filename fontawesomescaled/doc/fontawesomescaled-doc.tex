@@ -16,7 +16,7 @@
 
 \begin{document}
 
-\title{The \textsf{fontawesomescaled} package (0.1.0) -- \today}
+\title{The \textsf{fontawesomescaled} package (0.1.1) -- 04/08/2025}
 \author{%
 	Cédric Pierquet\\%
 	\url{https://github.com/cpierquet/latex-packages/tree/main/fontawesomescaled}%
@@ -24,6 +24,8 @@
 \date{cpierquet -- at -- outlook . fr}\maketitle
 
 This package provides \LaTeX{} support for (automatic) scaling \texttt{fontawesome(s)} icons (\texttt{0.85} by default).
+
+It can also provide \textit{universal} custom aliases compatible with several version of \texttt{fontawesome(s)}
 
 \medskip
 
@@ -51,7 +53,7 @@ Few \textit{options} (which can be combined) are available within the loading :
 \usepackage[versionfa=5]{fontawesomescaled} %with fontawesome5 loaded
 \usepackage[versionfa=6]{fontawesomescaled} %with fontawesome6 loaded
 \usepackage[versionfa=7]{fontawesomescaled} %with fontawesome7 loaded
-\usepackage[hook]{fontawesomescaled}        %\smaller (rellsize) usage for \faIcon{...}
+\usepackage[hook]{fontawesomescaled}        %\smaller (relsize) usage for \faIcon{...}
 \usepackage[scale=0.925]{fontawesomescaled} %with global scale of 0.925
 \end{Verbatim}
 
@@ -170,6 +172,44 @@ For example, \faScaled{Eye}%
 	&\fakeverb{\faFile[regular]} & \faFile[regular]~test & \fakeverb{\faScaled[regular]{File}} & \faScaled[regular]{File}~test  \\
 	&\fakeverb{\faFile*[regular]} & \faFile*[regular]~test & \fakeverb{\faScaled*[regular]{File}} & \faScaled*[regular]{File}~test  \\
 \end{tblr}
+
+\pagebreak
+
+\subsection{Macro for creating universal alias with \texttt{fa<x>} version}
+
+Some icons have changed names between different versions of \texttt{fontawesome<x>}.
+
+This macro can create \textit{universal} alias with compatibility with different versions of \texttt{fontawesome<x>}.
+
+\begin{Verbatim}[frame=single]
+\CreateAliasFa{<\globalalias>}%
+  [<default value>]%
+  {<fa macro>}%
+  {<f5 macro>}%
+  {<fa6 macro>}%
+  {<fa7 macro>}
+\end{Verbatim}
+
+For example, the \textit{ambulance} is named |\faAmbulance| for \texttt{fa/fa5} and is named |\faTruckMedical| for \texttt{fa6/fa7}.
+
+\begin{Verbatim}[frame=single]
+\CreateAliasFa{\myfaambulance}%
+  [nofa]                %w/o any fa package loaded
+  {\faAmbulance}        %with fa loaded
+  {\faAmbulance}        %with fa5 loaded
+  {\faTruckMedical}     %with fa6 loaded
+  {\faTruckMedical}     %with fa7 loaded
+\end{Verbatim}
+
+\textbf{Result:} |\myfaambulance| will produce :
+
+\begin{itemize}
+	\item w/o \texttt{fontawesome<x>}: \fbox{\raisebox{-\depth}{\includegraphics{testaliaswithout.pdf}}}
+	\item with \texttt{fontawesome}: \fbox{\raisebox{-\depth}{\includegraphics{testaliaswithfa.pdf}}}
+	\item with \texttt{fontawesome5}: \fbox{\raisebox{-\depth}{\includegraphics{testaliaswithfa5.pdf}}}
+	\item with \texttt{fontawesome6}: \fbox{\raisebox{-\depth}{\includegraphics{testaliaswithfa6.pdf}}}
+	\item with \texttt{fontawesome6}: \fbox{\raisebox{-\depth}{\includegraphics{testaliaswithfa7.pdf}}}
+\end{itemize}
 
 \pagebreak
 
