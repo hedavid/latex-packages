@@ -2,7 +2,8 @@
 % licence........: Released under the LaTeX Project Public License v1.3c or later, see http://www.latex-project.org/lppl.txt
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{OutilsGeomTikz}[2024/08/29 v0.1.6 Outils geometriques en TikZ]
+\ProvidesPackage{OutilsGeomTikz}[2025/08/04 v0.1.7 Outils geometriques en TikZ]
+% 0.1.7		Clé pour ne pas afficher les graduations (tks Cyril I. ^^ pour l'idée)
 % 0.1.6		Correction de bugs avec pdflatex + amélioration de la gestion des rotations/échelles des labels (tks Cyril I. ^^)
 % 0.1.5		Modification de la graduation intérieure pour les rapporteurs 180°
 % 0.1.4		Possibilité de positionner les outils avec deux points (angle calculé automatiquement)
@@ -16,7 +17,6 @@
 \RequirePackage{simplekv}
 \RequirePackage{xstring}
 \RequirePackage{nicefrac}
-%\RequirePackage{tkz-euclide}
 %librairies tikz
 \usetikzlibrary{calc,positioning}
 
@@ -74,6 +74,7 @@
 	Origine={(0,0)},%
 	Rotation=0,%
 	AfficheValeurs=true,%
+	AfficheTraits=true,%
 	Fond=false,%
 	Opacite=0.5,%
 	PosVal=m,%
@@ -83,6 +84,12 @@
 \NewDocumentCommand{\tkzRegle}{ O{} }{%
 	\useKVdefault[RegleGeom]%
 	\setKV[RegleGeom]{#1}%
+	%la clé [AfficheTraits]%
+	\ifboolKV[RegleGeom]{AfficheTraits}%
+		{}%
+		{%
+			\setKV[RegleGeom]{AfficheValeurs=false}%
+		}%
 	\IfSubStr{\REGLangle}{auto/}%
 		{%
 			\StrBehind{\REGLangle}{/}[\tmppointdeux]%
@@ -101,9 +108,13 @@
 			{}
 		%bord et trou
 		\draw[semithick,\REGLcouleur] (-0.375,0)--({\REGLlongueur+0.375},0) to[bend left=15] ({\REGLlongueur+0.375},{-\REGLlargeur}) -- (-0.375,{-\REGLlargeur}) to[bend left=15] (-0.375,0) (0.5,{-0.5*\REGLlargeur}) circle[radius={0.125*\REGLlargeur}] ;
-		\foreach \x in {0,0.1,...,\REGLlongueur} {\draw[\REGLcouleur] (\x,0)--++(0,-0.25) (\x,{-\REGLlargeur})--++(0,0.25) ;}
-		\foreach \x in {0,0.5,...,\REGLlongueur} {\draw[\REGLcouleur] (\x,0)--++(0,-0.375) (\x,{-\REGLlargeur})--++(0,0.375) ;}
-		\foreach \x in {0,1,...,\REGLlongueur} {\draw[\REGLcouleur] (\x,0)--++(0,-0.5) (\x,{-\REGLlargeur})--++(0,0.5) ;}
+		\ifboolKV[RegleGeom]{AfficheTraits}%
+			{%
+				\foreach \x in {0,0.1,...,\REGLlongueur} {\draw[\REGLcouleur] (\x,0)--++(0,-0.25) (\x,{-\REGLlargeur})--++(0,0.25) ;}
+				\foreach \x in {0,0.5,...,\REGLlongueur} {\draw[\REGLcouleur] (\x,0)--++(0,-0.375) (\x,{-\REGLlargeur})--++(0,0.375) ;}
+				\foreach \x in {0,1,...,\REGLlongueur} {\draw[\REGLcouleur] (\x,0)--++(0,-0.5) (\x,{-\REGLlargeur})--++(0,0.5) ;}
+			}%
+			{}%
 		\ifboolKV[RegleGeom]{AfficheValeurs}%
 			{%
 				\IfSubStr{\REGLposval}{h}
@@ -142,6 +153,7 @@
 	Origine={(0,0)},%
 	Rotation=0,%
 	AfficheValeurs=true,%
+	AfficheTraits=true,%
 	Fond=false,%
 	Opacite=0.5,%
 	Retourne=false,%
@@ -151,6 +163,12 @@
 \NewDocumentCommand{\tkzRegleRepere}{ O{} }{%
 	\useKVdefault[RegleRepereGeom]%
 	\setKV[RegleRepereGeom]{#1}%
+	%la clé [AfficheTraits]%
+	\ifboolKV[RegleRepereGeom]{AfficheTraits}%
+		{}%
+		{%
+			\setKV[RegleRepereGeom]{AfficheValeurs=false}%
+		}%
 	\xdef\REGLREPlongueur{\fpeval{max(4,2*round(0.5*\REGLREPlongueur,0))}}%valeurs mini
 	\xdef\REGLREPlargeur{\fpeval{max(4,round(\REGLREPlargeur,0))}}%
 	\IfSubStr{\REGLREPangle}{auto/}%
@@ -169,12 +187,16 @@
 			\draw[\REGLREPcouleur,densely dotted,xstep=0.2,ystep=0.2] ({-0.5},{-\REGLREPlargeur+1}) grid ({\REGLREPlongueur+1},{-1}) ;
 			\draw[\REGLREPcouleur] ({-0.5},{-\REGLREPlargeur+1}) grid ({\REGLREPlongueur+1},{-1}) ;
 		%graduations
-		\foreach \x in {0,0.1,...,\REGLREPlongueur}
-			{\draw[\REGLREPcouleur] (\x,0)--++(0,-0.25) (\x,{-\REGLREPlargeur})--++(0,0.25) ;}
-		\foreach \x in {0,0.5,...,\REGLREPlongueur}
-			{\draw[\REGLREPcouleur] (\x,0)--++(0,-0.375) (\x,{-\REGLREPlargeur})--++(0,0.375) ;}
-		\foreach \x in {0,1,...,\REGLREPlongueur}
-			{\draw[\REGLREPcouleur] (\x,0)--++(0,-0.5) (\x,{-\REGLREPlargeur})--++(0,0.5) ;}
+		\ifboolKV[RegleRepereGeom]{AfficheTraits}%
+			{%
+				\foreach \x in {0,0.1,...,\REGLREPlongueur}
+					{\draw[\REGLREPcouleur] (\x,0)--++(0,-0.25) (\x,{-\REGLREPlargeur})--++(0,0.25) ;}
+				\foreach \x in {0,0.5,...,\REGLREPlongueur}
+					{\draw[\REGLREPcouleur] (\x,0)--++(0,-0.375) (\x,{-\REGLREPlargeur})--++(0,0.375) ;}
+				\foreach \x in {0,1,...,\REGLREPlongueur}
+					{\draw[\REGLREPcouleur] (\x,0)--++(0,-0.5) (\x,{-\REGLREPlargeur})--++(0,0.5) ;}
+			}%
+			{}%
 		%valeurs
 		\ifboolKV[RegleRepereGeom]{AfficheValeurs}%
 			{%
@@ -214,6 +236,7 @@
 	Origine={(0,0)},%
 	Rotation=0,%
 	AfficheValeurs=true,%
+	AfficheTraits=true,%
 	Fond=false,%
 	Opacite=0.5,%
 	EchelleValeurs=0.8
@@ -222,6 +245,12 @@
 \NewDocumentCommand{\tkzRequerre}{ O{} }{%
 	\useKVdefault[RequerreGeom]%
 	\setKV[RequerreGeom]{#1}%
+	%la clé [AfficheTraits]%
+	\ifboolKV[RequerreGeom]{AfficheTraits}%
+		{}%
+		{%
+			\setKV[RequerreGeom]{AfficheValeurs=false}%
+		}%
 	\xdef\REQlongueur{\fpeval{max(6,\REQlongueur)}}%valeurs mini
 	\xdef\REQlargeur{\fpeval{max(1.5,\REQlargeur)}}%
 	\IfSubStr{\REQangle}{auto/}%
@@ -238,11 +267,15 @@
 			{}
 		\draw[semithick,\REQcouleur,rounded corners] ({-\REQlongueur*0.5},0) rectangle ({\REQlongueur*0.5},{-\REQlargeur}) ;
 		\draw[\REQcouleur] (0,-1)--(0,-\REQlargeur) ;
-		\foreach \x in {0,0.1,...,\fpeval{0.5*\REQlongueur-0.5}} {\draw[\REQcouleur] (\x,0)--(\x,-0.25) (-\x,0)--(-\x,-0.25) ;}
-		\foreach \x in {0,0.5,...,\fpeval{0.5*\REQlongueur-0.5}} {\draw[\REQcouleur] (\x,0)--(\x,-0.375) (-\x,0)--(-\x,-0.375) ;}
-		\foreach \x in {0,1,...,\fpeval{0.5*\REQlongueur-0.5}} {\draw[\REQcouleur] (\x,0)--(\x,-0.5) (-\x,0)--(-\x,-0.5) ;}
-		\foreach \x in {0.7,0.8,...,\REQlargeur} {\draw[\REQcouleur] (-2.65,-\x)--(-2.35,-\x) (2.65,-\x)--(2.35,-\x) ;}
-		\foreach \x in {1,1.5,...,\REQlargeur} {\draw[\REQcouleur] (-2.8,-\x)--(-2.2,-\x) (2.2,-\x)--(2.8,-\x) ;}
+		\ifboolKV[RequerreGeom]{AfficheTraits}%
+			{%
+				\foreach \x in {0,0.1,...,\fpeval{0.5*\REQlongueur-0.5}} {\draw[\REQcouleur] (\x,0)--(\x,-0.25) (-\x,0)--(-\x,-0.25) ;}
+				\foreach \x in {0,0.5,...,\fpeval{0.5*\REQlongueur-0.5}} {\draw[\REQcouleur] (\x,0)--(\x,-0.375) (-\x,0)--(-\x,-0.375) ;}
+				\foreach \x in {0,1,...,\fpeval{0.5*\REQlongueur-0.5}} {\draw[\REQcouleur] (\x,0)--(\x,-0.5) (-\x,0)--(-\x,-0.5) ;}
+				\foreach \x in {0.7,0.8,...,\REQlargeur} {\draw[\REQcouleur] (-2.65,-\x)--(-2.35,-\x) (2.65,-\x)--(2.35,-\x) ;}
+				\foreach \x in {1,1.5,...,\REQlargeur} {\draw[\REQcouleur] (-2.8,-\x)--(-2.2,-\x) (2.2,-\x)--(2.8,-\x) ;}
+			}%
+			{}%
 		\begin{scope}
 			\clip ({-\REQlongueur*0.5},0) rectangle ({\REQlongueur*0.5},{-\REQlargeur}) ;
 			\draw[\REQcouleur] (0,-1) rectangle++ (0.2,-0.2) (0,-2) rectangle++ (-0.2,0.2) ;
@@ -268,6 +301,7 @@
 	Origine=\def\EQposOrigin{#1},%
 	Rotation=\def\EQangle{#1},%
 	Opacite=\def\EQopac{#1},%
+	LargeurBordure=\def\EQlargbord{#1},%
 	EchelleValeurs=\def\EQechlabel{#1}
 }
 
@@ -279,8 +313,10 @@
 	Origine={(0,0)},%
 	Rotation=0,%
 	AfficheValeurs=true,%
+	AfficheTraits=true,%
 	Fond=false,%
 	Opacite=0.5,%
+	LargeurBordure=1,%
 	PetitCote=false,%
 	EchelleValeurs=0.8
 }
@@ -290,6 +326,13 @@
 	\setKV[EquerreGeom]{#1}%
 	\xdef\EQlongueur{\fpeval{max(4.5,\EQlongueur)}}%valeurs mini
 	\def\EQlargeur{\fpeval{\EQlongueur*tand(30)}}%
+	%la clé [AfficheTraits]%
+	\ifboolKV[EquerreGeom]{AfficheTraits}%
+		{}%
+		{%
+			\setKV[EquerreGeom]{AfficheValeurs=false}%
+			\def\EQlargbord{\fpeval{1/5*(\EQlargeur)}}%
+		}%
 	\IfSubStr{\EQangle}{auto/}%
 		{%
 			\StrBehind{\EQangle}{/}[\tmppointdeux]%
@@ -303,28 +346,47 @@
 				}%
 		}{}%
 	\begin{scope}[shift={(\EQposOrigin)},rotate=\EQangle,scale=\EQechelle,transform shape]
+	%---
 		\ifboolKV[EquerreGeom]{Fond}
 			{%
 				\begin{scope} %diff extérieur-intérieur
-					\fill[draw=none,fill=\EQcouleurfond!10!white,fill opacity=\EQopac,even odd rule]
-						(0,0) -- ({\EQlargeur},0) -- (0,{\EQlongueur}) -- cycle
-						({1},{1}) -- ({\EQlargeur-sqrt(3)},{1}) -- ({1},{\EQlongueur-(2+sqrt(3))}) -- cycle ;
+					\ifboolKV[EquerreGeom]{AfficheTraits}%
+						{%
+							\fill[draw=none,fill=\EQcouleurfond!10!white,fill opacity=\EQopac,even odd rule]
+								(0,0) -- ({\EQlargeur},0) -- (0,{\EQlongueur}) -- cycle
+								({\EQlargbord},{\EQlargbord}) -- ({\EQlargeur-\EQlargbord*sqrt(3)},{\EQlargbord}) -- ({\EQlargbord},{\EQlongueur-\EQlargbord*(2+sqrt(3))}) -- cycle ;
+						}%
+						{%
+							\fill[draw=none,fill=\EQcouleurfond!10!white,fill opacity=\EQopac,even odd rule]
+								(0,0) -- ({\EQlargeur},0) -- (0,{\EQlongueur}) -- cycle
+								({\EQlargbord},{\EQlargbord}) -- ({\EQlargeur-\EQlargbord*sqrt(3)},{\EQlargbord}) -- ({\EQlargbord},{\EQlongueur-\EQlargbord*(2+sqrt(3))}) -- cycle ;
+						}%
 				\end{scope}
 			}%
 			{}
 		\draw[semithick,\EQcouleur] (0,0) -- ({\EQlargeur},0) -- (0,{\EQlongueur}) -- cycle ; %contour extérieur
-		\draw[semithick,\EQcouleur] ({1},{1}) -- ({\EQlargeur-sqrt(3)},{1}) -- ({1},{\EQlongueur-(2+sqrt(3))}) -- cycle ; %contour intérieur
+		\ifboolKV[EquerreGeom]{AfficheTraits}%
+			{%
+				\draw[semithick,\EQcouleur] ({\EQlargbord},{\EQlargbord}) -- ({\EQlargeur-\EQlargbord*sqrt(3)},{\EQlargbord}) -- ({\EQlargbord},{\EQlongueur-\EQlargbord*(2+sqrt(3))}) -- cycle ; %contour intérieur
+			}%
+			{%
+				\draw[semithick,\EQcouleur] ({\EQlargbord},{\EQlargbord}) -- ({\EQlargeur-\EQlargbord*sqrt(3)},{\EQlargbord}) -- ({\EQlargbord},{\EQlongueur-\EQlargbord*(2+sqrt(3))}) -- cycle ; %contour intérieur
+			}%
 		%graduations
 		\begin{scope}
 			\clip (0,0) -- ({\EQlargeur},0) -- (0,{\EQlongueur}) -- cycle ;
-			\draw[\EQcouleur] (0.1,0)--(0.1,0.075) (0.2,0)--(0.2,0.15) ;
-			\foreach \x in {0.3,0.4,...,\fpeval{0.925*\EQlargeur}} {\draw[\EQcouleur] (\x,0)--(\x,0.2) ;}
-			\foreach \x in {0.5,1,...,\fpeval{0.925*\EQlargeur}} {\draw[\EQcouleur] (\x,0)--(\x,0.3) ;}
-			\foreach \x in {0,1,...,\fpeval{0.925*\EQlargeur}} {\draw[\EQcouleur] (\x,0)--(\x,0.4) ;}
-			\draw[\EQcouleur] (0,0.1)--(0.075,0.1) (0,0.2)--(0.15,0.2) ;
-			\foreach \y in {0.3,0.4,...,\fpeval{0.925*\EQlongueur}} {\draw[\EQcouleur] (0,\y)--(0.2,\y) ;}
-			\foreach \y in {0.5,1,...,\fpeval{0.925*\EQlongueur}} {\draw[\EQcouleur] (0,\y)--(0.3,\y) ;}
-			\foreach \y in {0,1,...,\fpeval{0.925*\EQlongueur}} {\draw[\EQcouleur] (0,\y)--(0.4,\y) ;}
+			\ifboolKV[EquerreGeom]{AfficheTraits}%
+				{%
+					\draw[\EQcouleur] (0.1,0)--(0.1,0.075) (0.2,0)--(0.2,0.15) ;
+					\foreach \x in {0.3,0.4,...,\fpeval{0.925*\EQlargeur}} {\draw[\EQcouleur] (\x,0)--(\x,0.2) ;}
+					\foreach \x in {0.5,1,...,\fpeval{0.925*\EQlargeur}} {\draw[\EQcouleur] (\x,0)--(\x,0.3) ;}
+					\foreach \x in {0,1,...,\fpeval{0.925*\EQlargeur}} {\draw[\EQcouleur] (\x,0)--(\x,0.4) ;}
+					\draw[\EQcouleur] (0,0.1)--(0.075,0.1) (0,0.2)--(0.15,0.2) ;
+					\foreach \y in {0.3,0.4,...,\fpeval{0.925*\EQlongueur}} {\draw[\EQcouleur] (0,\y)--(0.2,\y) ;}
+					\foreach \y in {0.5,1,...,\fpeval{0.925*\EQlongueur}} {\draw[\EQcouleur] (0,\y)--(0.3,\y) ;}
+					\foreach \y in {0,1,...,\fpeval{0.925*\EQlongueur}} {\draw[\EQcouleur] (0,\y)--(0.4,\y) ;}
+				}%
+				{}%
 			\ifboolKV[EquerreGeom]{AfficheValeurs}%
 				{%
 					\foreach \i in {1,2,...,\fpeval{0.9*\EQlongueur-1}}{%
@@ -359,6 +421,7 @@
 	Origine={(0,0)},%
 	Rotation=0,%
 	AfficheAngles=true,%
+	AfficheTraits=true,%
 	Fond=false,%
 	Opacite=0.5,%
 	Complet=false,%
@@ -369,6 +432,12 @@
 \NewDocumentCommand{\tkzRapporteur}{ O{} }{%
 	\useKVdefault[RapporteurGeom]%
 	\setKV[RapporteurGeom]{#1}%
+	%la clé [AfficheTraits]%
+	\ifboolKV[RapporteurGeom]{AfficheTraits}%
+		{}%
+		{%
+			\setKV[RapporteurGeom]{AfficheAngles=false}%
+		}%
 	\begin{scope}[shift={(\RAPPposOrigin)},rotate=\RAPPangle,scale=\RAPPechelle,transform shape]
 		\ifboolKV[RapporteurGeom]{Complet}
 			{
@@ -387,11 +456,15 @@
 				\draw[semithick,\RAPPcouleur] (-2.5,0) -- (2.5,0) ;
 				\draw[semithick,\RAPPcouleur] (0,-2.5) -- (0,2.5) ;
 				%grad degrés
-				\foreach \i in {0,1,...,360} {\draw[\RAPPcouleur] (\i:3.75)--(\i:3.55) ;}
-				\foreach \i in {0,5,...,360} {\draw[\RAPPcouleur] (\i:3.75)--(\i:3.45) ;}
-				\foreach \i in {0,10,...,360} {\draw[\RAPPcouleur] (\i:3.75)--(\i:3.35) ;}
-				%grad radians
-				\foreach \i in {0,30,45,60,90,120,135,150,180,210,225,240,270,300,315,330} {\draw[\RAPPcouleur] (\i:2.5)--(\i:2.65) (\i:2.9)--(\i:3.1) ;}
+				\ifboolKV[RapporteurGeom]{AfficheTraits}%
+					{%
+						\foreach \i in {0,1,...,360} {\draw[\RAPPcouleur] (\i:3.75)--(\i:3.55) ;}
+						\foreach \i in {0,5,...,360} {\draw[\RAPPcouleur] (\i:3.75)--(\i:3.45) ;}
+						\foreach \i in {0,10,...,360} {\draw[\RAPPcouleur] (\i:3.75)--(\i:3.35) ;}
+						%grad radians
+						\foreach \i in {0,30,45,60,90,120,135,150,180,210,225,240,270,300,315,330} {\draw[\RAPPcouleur] (\i:2.5)--(\i:2.65) (\i:2.9)--(\i:3.1) ;}
+					}%
+					{}%
 				%valeurs si booléen
 				\ifboolKV[RapporteurGeom]{AfficheAngles}
 					{%
@@ -430,25 +503,29 @@
 					}%
 					{}
 				%extérieur et intérieur
-				\draw[semithick,\RAPPcouleur] (-3.75,-0.75) -- (3.75,-0.75) -- (3.75,0) arc (0:180:3.75) -- cycle ;
-				\draw[semithick,\RAPPcouleur] (0.5,0) arc (0:180:0.5) -- (-2.25,0) arc (180:0:2.25) -- cycle  ;
-				%croix
-				\draw[semithick,\RAPPcouleur] (-0.2,0)--(0.2,0) (0,-0.2)--(0,0.2) ;
-				%grad ext
-				\foreach \i in {0,1,...,180} {\draw[\RAPPcouleur] (\i:3.75)--(\i:3.55) ;}
-				\foreach \i in {0,5,...,180} {\draw[\RAPPcouleur] (\i:3.75)--(\i:3.45) ;}
-				\foreach \i in {0,10,...,180} {\draw[\RAPPcouleur] (\i:3.75)--(\i:3.35) ;}
-				%grad int
-				\ifboolKV[RapporteurGeom]{GraduationsInt}%
+					\draw[semithick,\RAPPcouleur] (-3.75,-0.75) -- (3.75,-0.75) -- (3.75,0) arc (0:180:3.75) -- cycle ;
+					\draw[semithick,\RAPPcouleur] (0.5,0) arc (0:180:0.5) -- (-2.25,0) arc (180:0:2.25) -- cycle  ;
+					%croix
+					\draw[semithick,\RAPPcouleur] (-0.2,0)--(0.2,0) (0,-0.2)--(0,0.2) ;
+				\ifboolKV[RapporteurGeom]{AfficheTraits}%
 					{%
-						\foreach \i in {0,1,...,180} {\draw[\RAPPcouleur] (\i:2.25)--(\i:2.4) ;}
-						\foreach \i in {0,5,...,180} {\draw[\RAPPcouleur] (\i:2.25)--(\i:2.475) ;}
-						\foreach \i in {0,10,...,180} {\draw[\RAPPcouleur] (\i:2.25)--(\i:2.55) ;}
+						%grad ext
+						\foreach \i in {0,1,...,180} {\draw[\RAPPcouleur] (\i:3.75)--(\i:3.55) ;}
+						\foreach \i in {0,5,...,180} {\draw[\RAPPcouleur] (\i:3.75)--(\i:3.45) ;}
+						\foreach \i in {0,10,...,180} {\draw[\RAPPcouleur] (\i:3.75)--(\i:3.35) ;}
+						%grad int
+						\ifboolKV[RapporteurGeom]{GraduationsInt}%
+							{%
+								\foreach \i in {0,1,...,180} {\draw[\RAPPcouleur] (\i:2.25)--(\i:2.4) ;}
+								\foreach \i in {0,5,...,180} {\draw[\RAPPcouleur] (\i:2.25)--(\i:2.475) ;}
+								\foreach \i in {0,10,...,180} {\draw[\RAPPcouleur] (\i:2.25)--(\i:2.55) ;}
+							}%
+							{%
+								\foreach \i in {0,5,...,180} {\draw[\RAPPcouleur] (\i:2.25)--(\i:2.45) ;}
+								\foreach \i in {0,10,...,180} {\draw[\RAPPcouleur] (\i:2.25)--(\i:2.55) ;}
+							}%
 					}%
-					{%
-						\foreach \i in {0,5,...,180} {\draw[\RAPPcouleur] (\i:2.25)--(\i:2.45) ;}
-						\foreach \i in {0,10,...,180} {\draw[\RAPPcouleur] (\i:2.25)--(\i:2.55) ;}
-					}%
+					{}%
 				%valeurs si booléen
 				\ifboolKV[RapporteurGeom]{AfficheAngles}
 					{%

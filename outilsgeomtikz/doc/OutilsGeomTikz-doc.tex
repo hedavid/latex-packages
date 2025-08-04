@@ -4,8 +4,8 @@
 
 \documentclass[french,a4paper,11pt]{article}
 \usepackage[margin=2cm,includefoot]{geometry}
-\def\TPversion{0.1.6}
-\def\TPdate{29 août 2024}
+\def\TPversion{0.1.7}
+\def\TPdate{04 août 2025}
 \usepackage{amssymb}
 \usepackage[table,svgnames]{xcolor}
 \usepackage[utf8]{inputenc}
@@ -58,6 +58,7 @@
 
 \usepackage[most]{tcolorbox}
 \usetikzlibrary{calc}
+\usepackage{minted2}
 \tcbuselibrary{minted}
 \NewTCBListing{PresentationCode}{ O{blue} m }{%
 	sharp corners=downhill,enhanced,arc=12pt,skin=bicolor,%
@@ -135,7 +136,7 @@
 	\begin{tabular}{c}
 	\texttt{Cédric Pierquet}\\
 	{\ttfamily c pierquet -- at -- outlook . fr}\\
-	\texttt{\url{https://github.com/cpierquet/OutilsGeomTikz}}
+	\texttt{\url{https://github.com/cpierquet/latex-packages/tree/main/outilsgeomtikz}}
 \end{tabular}
 \end{center}
 
@@ -199,6 +200,8 @@
 \vfill
 
 \part{Historique}
+
+\verb|v0.1.7 : |Ajout d'une clé (pour certains outils) pour ne pas afficher les graduations
 
 \verb|v0.1.6 : |Correction d'un bug avec une compilation en \textsf{pdflatex} + Améliorations pour les rotations des labels
 
@@ -437,6 +440,7 @@ Quelques \Cle{clés} de personnalisation sont disponibles :
 	\item \Cle{CouleurFond} pour la couleur du fond de la règle ;\hfill~(défaut : \Cle{black})
 	\item \Cle{Opacite} pour régler l'opacité du fond de la règle ;\hfill~(défaut : \Cle{0.5})
 	\item le booléen \Cle{AfficheValeurs} pour afficher les valeurs des graduations ;\hfill~(défaut : \Cle{true})
+	\item le booléen \Cle{AfficheTraits} pour afficher les traits des graduations ;\hfill~(défaut : \Cle{true})
 	\item \Cle{EchelleValeurs} pour l'échelle (relative) des valeurs ;\hfill~(défaut : \Cle{0.8})
 	\item \Cle{PosVal} pour spécifier la position (haut, milieu, etc) des valeurs, parmi \Cle{h/m/b/hb}.
 	
@@ -570,8 +574,11 @@ Quelques \Cle{clés} de personnalisation sont disponibles :
 
 \begin{itemize}
 	\item \Cle{Longueur} pour la longueur, en cm, de l'équerre ;\hfill~(défaut : \Cle{10} et mini \Cle{4.5})
+	\item \Cle{LargeurBordure} pour la largeur, en cm, de la bordure ;\hfill~(défaut : \Cle{1})
 	\item \Cle{Origine} pour le placer l'équerre (au niveau du coin) ;\hfill~(défaut : \Cle{\{(0,0)\}})
 	\item \Cle{Rotation} pour pivoter l'équerre (au niveau du coin) ;\hfill~(défaut : \Cle{0})
+	\item le booléen \Cle{AfficheValeurs} pour afficher les valeurs des graduations ;\hfill~(défaut : \Cle{true})
+	\item le booléen \Cle{AfficheTraits} pour afficher les traits des graduations ;\hfill~(défaut : \Cle{true})
 	\item \Cle{Echelle} pour l'échelle globale de l'équerre ;\hfill~(défaut : \Cle{1})
 	\item \Cle{EchelleValeurs} pour l'échelle (relative) des valeurs ;\hfill~(défaut : \Cle{0.8})
 	\item \Cle{Couleur} pour la couleur des éléments de l'équerre ;\hfill~(défaut : \Cle{black})
@@ -592,7 +599,9 @@ Le booléen \Cle{PetitCote} permet de forcer le placement de l'équerre sur le p
 \coordinate (Q) at (11,10) ;
 \tkzEquerre[Fond]
 \tkzEquerre[Echelle=0.61,Origine=P,Couleur=DarkBlue,Rotation=auto/Q]
-\tkzEquerre[Longueur=10,Origine={(2.5,-1)},Couleur=red,Rotation=-105]
+\tkzEquerre[Longueur=10,Origine={(2.5,-1)},Couleur=red,Rotation=-105,LargeurBordure=1.25]
+\tkzEquerre[Longueur=5.5,Origine={(7,3)},Couleur=orange,%
+	Rotation=-85,AfficheTraits=false,Fond,Opacite=1,CouleurFond=orange!50!yellow]
 \end{PresentationCode}
 
 \begin{PresentationCode}{text only}
@@ -600,10 +609,12 @@ Le booléen \Cle{PetitCote} permet de forcer le placement de l'équerre sur le p
 	\affichegrille{-1}{13}{-7}{11}
 	\coordinate (P) at (8,6) ;
 	\coordinate (Q) at (11,10) ;
-	\pointsutiles{(0,0),(8,6),(2.5,-1),(11,10)}
+	\pointsutiles{(0,0),(8,6),(2.5,-1),(11,10),(7,3)}
 	\tkzEquerre[Fond]
 	\tkzEquerre[Echelle=0.61,Origine=P,Couleur=DarkBlue,Rotation=auto/Q]
-	\tkzEquerre[Longueur=10,Origine={(2.5,-1)},Couleur=red,Rotation=-105]
+	\tkzEquerre[Longueur=10,Origine={(2.5,-1)},Couleur=red,Rotation=-105,LargeurBordure=1.25]
+	\tkzEquerre[Longueur=5.5,Origine={(7,3)},,CouleurFond=orange!50!yellow,
+		Couleur=orange,Rotation=-85,AfficheTraits=false,Fond,Opacite=1]
 \end{tikzpicture}
 \end{PresentationCode}
 
