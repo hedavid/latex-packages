@@ -4,7 +4,8 @@
 
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{TrivialPursuit}[2025/06/24 0.1.5 Present a Trivial Pursuit Board]
+\ProvidesPackage{TrivialPursuit}[2025/08/04 0.1.6 Present a Trivial Pursuit Board]
+% 0.1.6	Compatibility with fa5/6/7
 % 0.1.5	Bugfix
 % 0.1.4	Bugfix
 % 0.1.3	Compatibility with fa5/6
@@ -17,11 +18,11 @@
 %====Option
 \newif\if@fafive \@fafivetrue
 \newif\if@fasix \@fasixfalse
-\newif\if@fafivesix \@fafivesixfalse
-\DeclareOption{nonfa}{\@fafivefalse\@fasixfalse\@fafivesixfalse}
-\DeclareOption{nofa}{\@fafivefalse\@fasixfalse\@fafivesixfalse}
-\DeclareOption{fa6}{\@fafivefalse\@fafivesixfalse\@fasixtrue}
-\DeclareOption{fa5fa6}{\@fafivefalse\@fasixfalse\@fafivesixtrue}
+\newif\if@faseven \@fasevenfalse
+\DeclareOption{nonfa}{\@fafivefalse\@fasixfalse\@fasevenfalse}
+\DeclareOption{nofa}{\@fafivefalse\@fasixfalse\@fasevenfalse}
+\DeclareOption{fa6}{\@fafivefalse\@fasixtrue\@fasevenfalse}
+\DeclareOption{fa7}{\@fafivefalse\@fasixfalse\@faseventrue}
 \DeclareOption*{}
 \ProcessOptions\relax
 
@@ -29,22 +30,25 @@
 \RequirePackage{tikz}
 \usetikzlibrary{calc,positioning}
 \RequirePackage{calc}
-%\RequirePackage{fontawesome5}
-\if@fafive
-	\RequirePackage{fontawesome5}
-	\def\faTennis{\faTableTennis}
-\fi
-\if@fasix
-	\RequirePackage{fontawesome6}
-	\def\faTennis{\faTableTennisPaddleBall}
-\fi
-\if@fafivesix
-	\RequirePackage[fa5alias]{fontawesome6}
-	\def\faTennis{\faTableTennisPaddleBall}
-\fi
 \RequirePackage{simplekv}
 \RequirePackage{xintexpr}
 \RequirePackage{listofitems}
+
+%====FONTAWESOME...
+\if@fafive
+	\RequirePackage{fontawesome5}
+\fi
+\if@fasix
+	\RequirePackage{fontawesome6}
+\fi
+\if@faseven
+	\RequirePackage{fontawesome7}
+\fi
+
+\def\faTennis{}
+\@ifpackageloaded{fontawesome5}{\def\faTennis{\faTableTennis}\def\categtrivialpursuit{\faArchway,\faTennis,\faUmbrellaBeach,\faGuitar,\faTree,\faMusic}}{}
+\@ifpackageloaded{fontawesome6}{\def\faTennis{\faTableTennisPaddleBall}\def\categtrivialpursuit{\faArchway,\faTennis,\faUmbrellaBeach,\faGuitar,\faTree,\faMusic}}{}
+\@ifpackageloaded{fontawesome7}{\def\faTennis{\faTableTennisPaddleBall}\def\categtrivialpursuit{\faArchway,\faTennis,\faUmbrellaBeach,\faGuitar,\faTree,\faMusic}}{}
 
 %====COLORS (tks to quark67)
 %styleA
@@ -64,6 +68,7 @@
 \def\TPColorsB{TPyellowB,TPorangeB,TPblueB,TPbrownB,TPgreenB,TPpinkB}
 
 %====KEYS [FR]
+
 \defKV[TrivPurs]{%
 	Rayon=\def\triv@purs@rayon{#1},%
 	HauteurCases=\def\triv@purs@hautcases{#1},
@@ -80,7 +85,8 @@
 	Rayon=8,%
 	HauteurCases=1.5,%
 	ListeCouleurs={yellow,orange,blue,brown,green,pink},%
-	ListeIcones={\faArchway,\faTennis,\faUmbrellaBeach,\faGuitar,\faTree,\faMusic},%
+	%ListeIcones={\faArchway,\faTennis,\faUmbrellaBeach,\faGuitar,\faTree,\faMusic},%
+	ListeIcones={A,B,C,D,E,F},%
 	Icones=true,%
 	Centre=true,%
 	CouleurCentre=lightgray!25,%
@@ -91,7 +97,7 @@
 	Epaisseur=0.8pt,%
 	Rotation=0,%
 	Jokers=true,%
-	IconeJoker={\faDice},%
+	IconeJoker={J},%
 	VersionCourte=false
 }
 
@@ -869,7 +875,8 @@
 	Radius=8,%
 	BorderHeight=1.5,%
 	ListColors={yellow,orange,blue,brown,green,pink},%
-	ListIcons={\faArchway,\faTennis,\faUmbrellaBeach,\faGuitar,\faTree,\faMusic},%
+	%ListIcons={\faArchway,\faTennis,\faUmbrellaBeach,\faGuitar,\faTree,\faMusic},%
+	ListIcons={A,B,C,D,E,F},%
 	Icons=true,%
 	Center=true,%
 	ColorCenter=lightgray!25,%
@@ -880,7 +887,8 @@
 	Thickness=0.8pt,%
 	Rotation=0,%
 	Jokers=true,%
-	IconJoker={\faDice},%
+	%IconJoker={\faDice},%
+	IconJoker={J},%
 	ShortVersion=false
 }
 
