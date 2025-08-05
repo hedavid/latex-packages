@@ -36,8 +36,8 @@
 \usepackage[margin=1.5cm]{geometry}
 \setlength{\parindent}{0pt}
 
-\def\TPversion{0.1.5}
-\def\TPdate{29 juillet 2025}
+\def\TPversion{0.1.6}
+\def\TPdate{04/08/2025}
 \sethlcolor{lightgray!25}
 \NewDocumentCommand\MontreCode{ m }{%
 	\hl{\vphantom{\texttt{pf}}\texttt{#1}}%
@@ -175,7 +175,9 @@ Les seuls packages chargés sont :
 
 \begin{codehigh}[language=latex/latex2,style/main=cyan!10,style/code=cyan!10]
 \usepackage{CreationBoites}                    %version classique, avec fa5, par défaut
+\usepackage[nonfa]{CreationBoites}             %sans fa
 \usepackage[fa6]{CreationBoites}               %version  avec fa6
+\usepackage[fa7]{CreationBoites}               %version  avec fa7
 \end{codehigh}
 
 \begin{codehigh}[language=latex/latex2,style/main=cyan!10,style/code=cyan!10]
@@ -632,6 +634,8 @@ Toute couleur (\MontreCode{xcolor} n'est pas chargé avec des options spécifiqu
 \pagebreak
 
 \section{Historique}
+
+\verb|v0.1.6|~:~~~~Pré-compatibilité avec \texttt{fontawesome7}
 
 \verb|v0.1.5|~:~~~~Correction des espacements
 
