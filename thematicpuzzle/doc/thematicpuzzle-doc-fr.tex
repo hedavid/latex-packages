@@ -24,8 +24,8 @@
 \hypersetup{pdfborder=0 0 0}
 \usepackage[margin=2cm]{geometry}
 \setlength{\parindent}{0pt}
-\def\TPversion{0.1.2}
-\def\TPdate{05/05/2024}
+\def\TPversion{0.1.3}
+\def\TPdate{04/08/2025}
 \usepackage{soul}
 \usepackage{codehigh}
 \usepackage{tabularray}
@@ -62,7 +62,7 @@
 	\begin{tabular}{c}
 	\texttt{Cédric Pierquet}\\
 	{\ttfamily c pierquet -- at -- outlook . fr}\\
-	\texttt{\url{https://forge.apps.education.fr/pierquetcedric/packages-latex}} \\
+	\texttt{\url{https://github.com/cpierquet/latex-packages/tree/main/thematicpuzzle}} \\
 \end{tabular}
 \end{center}
 
@@ -128,15 +128,17 @@ Pour charger le package, il suffit d'ajouter dans le préambule :
 
 \begin{quote}
 \begin{verbatim}
-\usepackage{thematicpuzzle}                  %avec fontawesome5, par défaut
-\usepackage[fa6]{thematicpuzzle}             %avec fontawesome6 (en test)
+\usepackage{thematicpuzzle}                  %avec fa5, default
+\usepackage[fa6]{thematicpuzzle}             %avec fa6 (test)
+\usepackage[fa7]{thematicpuzzle}             %avec fa7 (test)
+\usepackage[nonfa]{thematicpuzzle}           %sans fa (test), à charger manuellement
 \end{verbatim}
 \end{quote}
 
 Les packages utiles, et chargés sont :
 
 \begin{itemize}
-	\item \MontreCode{tikz}, \MontreCode{fontawesome} et \MontreCode{xintexpr} ;
+	\item \MontreCode{tikz}, \MontreCode{fontawesome5} et \MontreCode{xintexpr} ;
 	\item \MontreCode{simplekv}, \MontreCode{listofitems} et \MontreCode{xstring}.
 \end{itemize}
 
@@ -146,6 +148,7 @@ Les packages utiles, et chargés sont :
 
 \begin{quote}
 \begin{verbatim}
+0.1.3 : Bugfix  + pre-compatibilité avec fontawesome7
 0.1.2 : Bugfix  + pre-compatibilité avec fontawesome6
 0.1.1 : Amélioration de la gestion des couleurs
 0.1.0 : Version initiale

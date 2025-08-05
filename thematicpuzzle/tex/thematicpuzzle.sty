@@ -2,7 +2,8 @@
 % licence    : Released under the LaTeX Project Public License v1.3c or later, see http://www.latex-project.org/lppl.txt
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{thematicpuzzle}[2025/05/05 0.1.2 Present 'puzzle' with different thematics, in TikZ]
+\ProvidesPackage{thematicpuzzle}[2025/08/04 0.1.3 Present 'puzzle' with different thematics, in TikZ]
+% 0.1.3	Bugfix + Compatibility with fa5/6/7
 % 0.1.2	Bugfix + Compatibility with fa5/6
 % 0.1.1	Enhancments for colors
 % 0.1.0	Initial version
@@ -10,77 +11,105 @@
 %====Option
 \newif\if@fafive \@fafivetrue
 \newif\if@fasix \@fasixfalse
-\newif\if@fafivesix \@fafivesixfalse
-\DeclareOption{nofa}{\@fafivefalse\@fasixfalse\@fafivesixfalse}
-\DeclareOption{nonfa}{\@fafivefalse\@fasixfalse\@fafivesixfalse}
-\DeclareOption{fa6}{\@fafivefalse\@fafivesixfalse\@fasixtrue}
-\DeclareOption{fa5fa6}{\@fafivefalse\@fasixfalse\@fafivesixtrue}
+\newif\if@faseven \@fasevenfalse
+\DeclareOption{nofa}{\@fafivefalse\@fasixfalse\@fasevenfalse}
+\DeclareOption{nonfa}{\@fafivefalse\@fasixfalse\@fasevenfalse}
+\DeclareOption{fa6}{\@fafivefalse\@fasixtrue\@fasevenfalse}
+\DeclareOption{fa7}{\@fafivefalse\@fasixfalse\@faseventrue}
 \DeclareOption*{}
 \ProcessOptions\relax
 
 %====PACKAGES
 \RequirePackage{tikz}
+\newcommand\VAlignTikz{current bounding box.center}
 \RequirePackage{simplekv}
 \RequirePackage{xstring}
 \RequirePackage{xintexpr}
 \RequirePackage{listofitems}
+
+%====FONTAWESOME...
 \if@fafive
 	\RequirePackage{fontawesome5}
 \fi
 \if@fasix
 	\RequirePackage{fontawesome6}
 \fi
-\if@fafivesix
-	\RequirePackage[fa5alias]{fontawesome6}
-\fi
-%\RequirePackage{fontawesome5}
-
-%====ALIASES FA5 FRENCH
-\if@fasix
-	\newcommand\ThemProbas{\faDice}
-	\newcommand\ThemStats{\faChartBar}
-	\newcommand\ThemChimie{\faBong}
-	\newcommand\ThemArithm{\faListOl}
-	\newcommand\ThemGraphes{\faDiagramProject}
-	\newcommand\ThemComplexes{\faInfo}
-	\newcommand\ThemMPM{\faSitemap}
-	\newcommand\ThemCalculs{\faIcon{square-root-variable}}
-	\newcommand\ThemMatrices{\faTableCells}
-	\newcommand\ThemGeometrie{\faPenRuler}
-	\newcommand\ThemEspace{\faCube}
-	\newcommand\ThemPhysique{\faRocket}
-	\newcommand\ThemFonctions{\faChartArea}
-	\newcommand\ThemSuites{\faSignal}
-	\newcommand\ThemTableur{\faTable}
-	\newcommand\ThemAlgo{\faCode}
-	\newcommand\ThemEco{\faIcon{money-bill-wave}}
-	\newcommand\ThemPython{\faPython}
-	\newcommand\ThemLogique{\faYinYang}
-	\newcommand\VAlignTikz{current bounding box.center}
-\fi
-\if@fafive
-	\newcommand\ThemProbas{\faDice}
-	\newcommand\ThemStats{\faChartBar}
-	\newcommand\ThemChimie{\faBong}
-	\newcommand\ThemArithm{\faListOl}
-	\newcommand\ThemGraphes{\faProjectDiagram}
-	\newcommand\ThemComplexes{\faInfo}
-	\newcommand\ThemMPM{\faSitemap}
-	\newcommand\ThemCalculs{\faIcon{square-root-alt}}
-	\newcommand\ThemMatrices{\faTh}
-	\newcommand\ThemGeometrie{\faPencilRuler}
-	\newcommand\ThemEspace{\faCube}
-	\newcommand\ThemPhysique{\faRocket}
-	\newcommand\ThemFonctions{\faChartArea}
-	\newcommand\ThemSuites{\faSignal}
-	\newcommand\ThemTableur{\faTable}
-	\newcommand\ThemAlgo{\faCode}
-	\newcommand\ThemEco{\faIcon{money-bill-wave}}
-	\newcommand\ThemPython{\faPython}
-	\newcommand\ThemLogique{\faYinYang}
-	\newcommand\VAlignTikz{current bounding box.center}
+\if@faseven
+	\RequirePackage{fontawesome7}
 \fi
 
+\@ifpackageloaded{fontawesome5}%
+	{%
+		\newcommand\ThemProbas{\faDice}
+		\newcommand\ThemStats{\faChartBar}
+		\newcommand\ThemChimie{\faBong}
+		\newcommand\ThemArithm{\faListOl}
+		\newcommand\ThemGraphes{\faProjectDiagram}
+		\newcommand\ThemComplexes{\faInfo}
+		\newcommand\ThemMPM{\faSitemap}
+		\newcommand\ThemCalculs{\faIcon{square-root-alt}}
+		\newcommand\ThemMatrices{\faTh}
+		\newcommand\ThemGeometrie{\faPencilRuler}
+		\newcommand\ThemEspace{\faCube}
+		\newcommand\ThemPhysique{\faRocket}
+		\newcommand\ThemFonctions{\faChartArea}
+		\newcommand\ThemSuites{\faSignal}
+		\newcommand\ThemTableur{\faTable}
+		\newcommand\ThemAlgo{\faCode}
+		\newcommand\ThemEco{\faIcon{money-bill-wave}}
+		\newcommand\ThemPython{\faPython}
+		\newcommand\ThemLogique{\faYinYang}
+	}%
+	{}
+
+\@ifpackageloaded{fontawesome6}%
+	{%
+		\newcommand\ThemProbas{\faDice}
+		\newcommand\ThemStats{\faChartBar}
+		\newcommand\ThemChimie{\faBong}
+		\newcommand\ThemArithm{\faListOl}
+		\newcommand\ThemGraphes{\faDiagramProject}
+		\newcommand\ThemComplexes{\faInfo}
+		\newcommand\ThemMPM{\faSitemap}
+		\newcommand\ThemCalculs{\faIcon{square-root-variable}}
+		\newcommand\ThemMatrices{\faTableCells}
+		\newcommand\ThemGeometrie{\faPenRuler}
+		\newcommand\ThemEspace{\faCube}
+		\newcommand\ThemPhysique{\faRocket}
+		\newcommand\ThemFonctions{\faChartArea}
+		\newcommand\ThemSuites{\faSignal}
+		\newcommand\ThemTableur{\faTable}
+		\newcommand\ThemAlgo{\faCode}
+		\newcommand\ThemEco{\faIcon{money-bill-wave}}
+		\newcommand\ThemPython{\faPython}
+		\newcommand\ThemLogique{\faYinYang}
+	}%
+	{}
+	
+\@ifpackageloaded{fontawesome7}%
+	{%
+		\newcommand\ThemProbas{\faDice}
+		\newcommand\ThemStats{\faChartBar}
+		\newcommand\ThemChimie{\faBong}
+		\newcommand\ThemArithm{\faListOl}
+		\newcommand\ThemGraphes{\faDiagramProject}
+		\newcommand\ThemComplexes{\faInfo}
+		\newcommand\ThemMPM{\faSitemap}
+		\newcommand\ThemCalculs{\faIcon{square-root-variable}}
+		\newcommand\ThemMatrices{\faTableCells}
+		\newcommand\ThemGeometrie{\faPenRuler}
+		\newcommand\ThemEspace{\faCube}
+		\newcommand\ThemPhysique{\faRocket}
+		\newcommand\ThemFonctions{\faChartArea}
+		\newcommand\ThemSuites{\faSignal}
+		\newcommand\ThemTableur{\faTable}
+		\newcommand\ThemAlgo{\faCode}
+		\newcommand\ThemEco{\faIcon{money-bill-wave}}
+		\newcommand\ThemPython{\faPython}
+		\newcommand\ThemLogique{\faYinYang}
+	}%
+	{}
+	
 %====FRENCH VERSION
 \defKV[puzzlethemes]{%
 	Epaisseur=\def\puzzthmthick{#1},%
