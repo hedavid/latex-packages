@@ -1,7 +1,7 @@
 % !TeX TXS-program:compile = txs:///pdflatex
 
 \documentclass[11pt,a4paper]{ltxdoc}
-\usepackage{sim-os-menus}
+\usepackage[forest]{sim-os-menus}
 \usepackage{graphicx}
 \usepackage{fancyvrb}
 \usepackage{fancyhdr}
@@ -23,8 +23,8 @@
 \hypersetup{pdfborder=0 0 0}
 \usepackage[margin=2cm]{geometry}
 \setlength{\parindent}{0pt}
-\def\TPversion{0.1.6}
-\def\TPdate{05/05/2025}
+\def\TPversion{0.1.9}
+\def\TPdate{04/08/2025}
 \usepackage{soul}
 \sethlcolor{lightgray!25}
 \NewDocumentCommand\MontreCode{ m }{%
@@ -58,7 +58,7 @@
 	\begin{tabular}{c}
 	\texttt{Cédric Pierquet}\\
 	{\ttfamily c pierquet -- at -- outlook . fr}\\
-	\texttt{\url{https://forge.apps.education.fr/pierquetcedric/packages-latex}} \\
+	\texttt{\url{https://github.com/cpierquet/latex-packages/tree/main/sim-os-menus}} \\
 \end{tabular}
 \end{center}
 
@@ -140,12 +140,14 @@ The package loads the packages:
 	\item \MontreCode{tcolorbox} (with \MontreCode{breakable,fitting,skins,listings,listingsutf8,hooks}).
 \end{itemize}
 
-For \MontreCode{fontawesome5} and \MontreCode{fontawesome6} :
+For \MontreCode{fontawesome5} or \MontreCode{fontawesome6} and \MontreCode{fontawesome7} :
 
 \begin{quote}
 \begin{verbatim}
 \usepackage{sim-os-menus}                  %fa5, default
 \usepackage[fa6]{sim-os-menus}             %with fa6
+\usepackage[fa7]{sim-os-menus}             %with fa7
+\usepackage[nofa]{sim-os-menus}            %w/o fa, but needs to be loaded anyway
 \end{verbatim}
 \end{quote}
 
@@ -155,6 +157,8 @@ For \MontreCode{fontawesome5} and \MontreCode{fontawesome6} :
 
 \begin{quote}
 \begin{verbatim}
+0.1.9: Compatibility with fa5/6/7 + option [forest]
+0.1.7: Bugfix (compatibity with twemoji)
 0.1.6: Bugfix + pre-compatibity with fa5/fa6
 0.1.4: Mastodon or BlueSky posts 'like'
 0.1.3: Fofders/Files like in explorer
@@ -416,6 +420,7 @@ The \MontreCode{forest} package, with his library \MontreCode{edges}, can presen
 
 \begin{quote}
 \begin{verbatim}
+%\usepackage[forest,...]{sim-os-menus}
 \begin{ForestDirTree}[keys]{forest options}
     [folder,FTdir
         [subfolder1,FTdir]

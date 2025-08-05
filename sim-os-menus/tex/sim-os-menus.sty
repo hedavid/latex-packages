@@ -2,7 +2,10 @@
 % licence    : Released under the LaTeX Project Public License v1.3c or later, see http://www.latex-project.org/lppl.txt
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{sim-os-menus}[2025/05/05 0.1.6 Present 'context menu'/'terminal'/'windows', with TikZ or tcolorbox (en or fr commands)]
+\ProvidesPackage{sim-os-menus}[2025/08/04 0.1.9 Present 'context menu'/'terminal'/'windows', with TikZ or tcolorbox (en or fr commands)]
+% 0.1.9	Compatibility with fa5/6/7
+% 0.1.8	Option [forest] (?)
+% 0.1.7	Bugfix (compatibiliy with twemoji)
 % 0.1.6	Bugfix
 % 0.1.5	Compatibility with fa5/6
 % 0.1.4	Mastodon/BlueSky posts 'like'
@@ -14,11 +17,13 @@
 %====Option
 \newif\if@fafive \@fafivetrue
 \newif\if@fasix \@fasixfalse
-\newif\if@fafivesix \@fafivesixfalse
-\DeclareOption{nonfa}{\@fafivefalse\@fasixfalse\@fafivesixfalse}
-\DeclareOption{nofa}{\@fafivefalse\@fasixfalse\@fafivesixfalse}
-\DeclareOption{fa6}{\@fafivefalse\@fafivesixfalse\@fasixtrue}
-\DeclareOption{fa5fa6}{\@fafivefalse\@fasixfalse\@fafivesixtrue}
+\newif\if@faseven \@fasevenfalse
+\DeclareOption{nonfa}{\@fafivefalse\@fasixfalse\@fasevenfalse}
+\DeclareOption{nofa}{\@fafivefalse\@fasixfalse\@fasevenfalse}
+\DeclareOption{fa6}{\@fafivefalse\@fasixtrue\@fasevenfalse}
+\DeclareOption{fa7}{\@fafivefalse\@fasixfalse\@faseventrue}
+\newif\if@forest \@forestfalse
+\DeclareOption{forest}{\@foresttrue}
 \DeclareOption*{}
 \ProcessOptions\relax
 
@@ -26,42 +31,6 @@
 \RequirePackage{tikz,pgf,pgffor}
 \usetikzlibrary{calc,positioning}
 \RequirePackage{calc}
-\if@fafive
-	\RequirePackage{fontawesome5}
-	\def\faPencilAlt{\faIcon{pencil-alt}}
-	\def\faExpandAlt{\faIcon{expand-alt}}
-	\def\faAggrand{\faIcon{expand-arrows-alt}}
-	\def\faFileAlt{\faFile*[regular]}
-	\def\faSaveAs{\faSave}
-	\def\faAmericas{\faGlobeAmericas}
-	\def\faThreeDots{\faEllipsisH}
-	\def\faCommentsSN{\faComment*[regular]}
-	\def\faIconFileAlt{\faIcon*[regular]{file}}
-\fi
-\if@fasix
-	\RequirePackage{fontawesome6}
-	\def\faPencilAlt{\faPencil}
-	\def\faExpandAlt{\faUpRightAndDownLeftFromCenter}
-	\def\faAggrand{\faMaximize}
-	\def\faFileAlt{\faFileLines[regular]}
-	\def\faSaveAs{\faFloppyDisk}
-	\def\faAmericas{\faIcon{earth-americas}}
-	\def\faThreeDots{\faEllipsis~~}
-	\def\faCommentsSN{\faMessage[regular]}
-	\def\faIconFileAlt{\faFileLines}
-\fi
-\if@fafivesix
-	\RequirePackage[fa5alias]{fontawesome6}
-	\def\faPencilAlt{\faPencil}
-	\def\faExpandAlt{\faUpRightAndDownLeftFromCenter}
-	\def\faAggrand{\faMaximize}
-	\def\faFileAlt{\faFileLines[regular]}
-	\def\faSaveAs{\faFloppyDisk}
-	\def\faAmericas{\faIcon{earth-americas}}
-	\def\faThreeDots{\faEllipsis~~}
-	\def\faCommentsSN{\faMessage[regular]}
-	\def\faIconFileAlt{\faFileLines}
-\fi
 \RequirePackage{simplekv}
 \RequirePackage{xintexpr}
 \RequirePackage{listofitems}
@@ -70,6 +39,68 @@
 \RequirePackage{tabularray}
 \RequirePackage{tcolorbox}
 \tcbuselibrary{breakable,fitting,skins,listings,listingsutf8,hooks}
+
+%=====FONTAWESOME...
+\if@fafive
+	\RequirePackage{fontawesome5}
+\fi
+\if@fasix
+	\RequirePackage{fontawesome6}
+\fi
+\if@faseven
+	\RequirePackage{fontawesome7}
+\fi
+
+\def\faPencilAlt{}
+\def\faExpandAlt{}
+\def\faAggrand{}
+\def\faFileAlt{}
+\def\faSaveAs{}
+\def\faAmericas{}
+\def\faThreeDots{}
+\def\faCommentsSN{}
+\def\faIconFileAlt{}
+
+\@ifpackageloaded{fontawesome5}%
+	{%
+		\def\faPencilAlt{\faIcon{pencil-alt}}
+		\def\faExpandAlt{\faIcon{expand-alt}}
+		\def\faAggrand{\faIcon{expand-arrows-alt}}
+		\def\faFileAlt{\faFile*[regular]}
+		\def\faSaveAs{\faSave}
+		\def\faAmericas{\faGlobeAmericas}
+		\def\faThreeDots{\faEllipsisH}
+		\def\faCommentsSN{\faComment*[regular]}
+		\def\faIconFileAlt{\faIcon*[regular]{file}}
+	}%
+	{}
+
+\@ifpackageloaded{fontawesome6}%
+	{%
+		\def\faPencilAlt{\faPencil}
+		\def\faExpandAlt{\faUpRightAndDownLeftFromCenter}
+		\def\faAggrand{\faMaximize}
+		\def\faFileAlt{\faFileLines[regular]}
+		\def\faSaveAs{\faFloppyDisk}
+		\def\faAmericas{\faIcon{earth-americas}}
+		\def\faThreeDots{\faEllipsis~~}
+		\def\faCommentsSN{\faMessage[regular]}
+		\def\faIconFileAlt{\faFileLines}
+	}%
+	{}%
+\@ifpackageloaded{fontawesome7}%
+	{%
+		\def\faPencilAlt{\faPencil}
+		\def\faExpandAlt{\faUpRightAndDownLeftFromCenter}
+		\def\faAggrand{\faMaximize}
+		\def\faFileAlt{\faFileLines[regular]}
+		\def\faSaveAs{\faFloppyDisk}
+		\def\faAmericas{\faIcon{earth-americas}}
+		\def\faThreeDots{\faEllipsis~~}
+		\def\faCommentsSN{\faMessage[regular]}
+		\def\faIconFileAlt{\faFileLines}
+	}%
+	{}%
 
 %====USEFULL DATA
 %****CONTEXTMENU
@@ -187,11 +218,11 @@
 	MarginV=\setlength{\ContMenOffsetV}{#1},%
 	MarginH=\setlength{\ContMenOffset}{#1},
 	Arrow=\def\ContMenArrow{#1},%
-	ListSeps=\xdef\ContMenSep{#1},%
-	ListIcons=\xdef\ContMenIcons{#1},%
+	ListSeps=\def\ContMenSep{#1},%
+	ListIcons=\def\ContMenIcons{#1},%
 	Space=\def\ContMenSpace{#1},%
 	ColItems=\def\ContMenuColItems{#1},%
-	ListOffsets=\xdef\ContMenOffsets{#1}
+	ListOffsets=\def\ContMenOffsets{#1}
 }
 
 \setKVdefault[ContextMenu]{%
@@ -521,11 +552,11 @@
 	MargeV=\setlength{\ContMenOffsetV}{#1},%
 	MargeH=\setlength{\ContMenOffset}{#1},
 	Fleche=\def\ContMenArrow{#1},%
-	ListeSeps=\xdef\ContMenSep{#1},%
-	ListeIcones=\xdef\ContMenIcons{#1},%
+	ListeSeps=\def\ContMenSep{#1},%
+	ListeIcones=\def\ContMenIcons{#1},%
 	Espacement=\def\ContMenSpace{#1},%
 	CoulItems=\def\ContMenuColItems{#1},%
-	ListeDecals=\xdef\ContMenOffsets{#1}
+	ListeDecals=\def\ContMenOffsets{#1}
 }
 
 \setKVdefault[MenuContext]{%
@@ -907,6 +938,8 @@
 }
 
 %====FOLDERTREEE (forest)
+\if@forest
+
 \RequirePackage{forest}
 \useforestlibrary{edges}
 
@@ -1020,6 +1053,8 @@
 {%
 	\endforest%
 }
+
+\fi
 
 %====mastodon & bluesky
 \newcommand\mastodonheader{%
