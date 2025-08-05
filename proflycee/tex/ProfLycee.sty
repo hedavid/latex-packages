@@ -5,7 +5,9 @@
 % code
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{ProfLycee}[2025/06/26 3.12b Aide pour l'utilisation de LaTeX en lycee]
+\ProvidesPackage{ProfLycee}[2025/08/04 3.12d Aide pour l'utilisation de LaTeX en lycee]
+% 3.12d	Compat fa567
+% 3.12c	Pictosbac version 'flat'
 % 3.12b Style grille histo + améliorations de qques codes + binôme Newton + corrections de bugs (nouveaux codes 'piton')
 % 3.12a	Ajout de cliparts 'zone bac' (via ProfLycee-Pictosbac)
 % 3.11g	Ajout de deux cliparts (bullseye)
@@ -128,7 +130,7 @@
 \newif\if@compatmax \@compatmaxfalse
 \newif\if@fafive \@fafivetrue
 \newif\if@fasix \@fasixfalse
-\newif\if@fafivesix \@fafivesixfalse
+\newif\if@faseven \@fasevenfalse
 
 \DeclareOption{xcolor}{\@xcolortrue}%
 \DeclareOption{build}{\@buildtrue}%
@@ -139,9 +141,9 @@
 \DeclareOption{nontikzbabel}{\@loadtikzbabelfalse}%
 \DeclareOption{noncancel}{\@loadcancelfalse}%
 \DeclareOption{compat}{\@compatmaxtrue}%
-\DeclareOption{nonfa}{\@fafivefalse\@fasixfalse\@fafivesixfalse}
-\DeclareOption{fa6}{\@fafivefalse\@fafivesixfalse\@fasixtrue}
-\DeclareOption{fa5fa6}{\@fafivefalse\@fasixfalse\@fafivesixtrue}
+\DeclareOption{nonfa}{\@fafivefalse\@fasixfalse\@fasevenfalse}
+\DeclareOption{fa6}{\@fafivefalse\@fasixtrue\@fasevenfalse}
+\DeclareOption{fa7}{\@fafivefalse\@fasixfalse\@faseventrue}
 
 \DeclareOption*{}
 \ProcessOptions\relax
@@ -193,19 +195,7 @@
 		group-minimum-digits=4%
 	}%
 \fi
-\if@fafive
-	\RequirePackage{fontawesome5}
-	\def\pflfacog{\faIcon{cog}}
-\fi
-\if@fasix
-	\RequirePackage{fontawesome6}
-	\def\pflfacog{\faIcon{gear}}
-\fi
-\if@fafivesix
-	\RequirePackage[fa5alias]{fontawesome6}
-	\def\pflfacog{\faIcon{gear}}
-\fi
-%\RequirePackage{fontawesome5}
+
 %tcolorbox
 \RequirePackage{tcolorbox}%
 \tcbuselibrary{breakable,fitting,skins,listings,listingsutf8,hooks}
@@ -217,6 +207,49 @@
 \colorlet{MotsClesPseudoCodeA}{blue!75}
 \colorlet{MotsClesPseudoCodeB}{green!50!black}
 \colorlet{MotsClesPseudoCodeChaine}{red!75}
+
+%%=====FONTAWESOME...
+\if@fafive
+	\RequirePackage{fontawesome5}
+\fi
+\if@fasix
+	\RequirePackage{fontawesome6}
+\fi
+\if@faseven
+	\RequirePackage{fontawesome7}
+\fi
+
+\def\pflfacog{}
+\def\pflfapseudocode{}
+\def\pflfapcode{}
+\def\pflfaclone{}
+\def\pflfapython{}
+
+\@ifpackageloaded{fontawesome5}%
+	{%
+		\def\pflfacog{\faIcon{cog}}%
+		\def\pflfapseudocode{\faFileCode}%
+		\def\pflfapcode{\faCode}%
+		\def\pflfaclone{\faClone}%
+		\def\pflfapython{\faPython}%
+	}%
+	{}
+\@ifpackageloaded{fontawesome6}
+	{%
+		\def\pflfacog{\faIcon{gear}}%
+		\def\pflfapseudocode{\faFileCode}%
+		\def\pflfapcode{\faCode}%
+		\def\pflfapython{\faPython}%
+	}%
+	{}%
+\@ifpackageloaded{fontawesome7}%
+	{%
+		\def\pflfacog{\faIcon{gear}}%
+		\def\pflfapseudocode{\faFileCode}%
+		\def\pflfapcode{\faCode}%
+		\def\pflfapython{\faPython}%
+	}%
+	{}%
 
 %%------LIBRAIRIES/BIBIOTHÈQUES
 \newcommand\useproflyclib[1]{%ajout d'une commande "librairie" pour charger des modules

@@ -46,11 +46,11 @@
 	Style=Classique,%
 	Cadre=true,%
 	BarreTitre=true,%
-	Titre={{\scriptsize\faCode}~Code Python},%
+	Titre={{\scriptsize\pflfapcode}\enspace Code Python},%
 	EspacementV=0.5\baselineskip,%
 	CouleurNombres={orange!75!black},%
 	Couleur=red,%
-	IconesCarbon={\textcolor{red}{\faClone}\;\textcolor{orange}{\faClone}\;\textcolor{greensilicon}{\faClone}}
+	IconesCarbon={\textcolor{red}{\pflfaclone}\;\textcolor{orange}{\pflfaclone}\;\textcolor{greensilicon}{\pflfaclone}}
 }
 
 %==Style Moderne
@@ -68,7 +68,7 @@
 		top=2pt,bottom=1pt,left=6pt,right=6pt
 		},
 	fonttitle=\color{CouleurVertForet}\itshape\ttfamily\footnotesize,
-	title={{\scriptsize\faPython}~Code Python}
+	title={{\scriptsize\pflfapython}\space Code Python}
 	}
 }
 
@@ -168,7 +168,7 @@
 	Style=Classique,%
 	Cadre=true,%
 	BarreTitre=true,%
-	Titre={{\scriptsize\faFileCode}~PseudoCode},%
+	Titre={{\scriptsize\pflfapseudocode}\enspace PseudoCode},%
 	EspacementV=0.5\baselineskip,%
 	Couleurs=true
 }
@@ -187,7 +187,7 @@
 		arc=12pt,
 		top=2pt,bottom=1pt,left=6pt,right=6pt
 		},
-	fonttitle=\color{CouleurVertForet}~~PseudoCode
+	fonttitle=\color{CouleurVertForet}\space PseudoCode
 	}
 }
 
@@ -251,7 +251,7 @@
 			\tcbset{titre/.style={}}
 			\tcbset{stylebase/.style={stylepiton,colframe=CouleurVertForet,colback=CouleurVertForet!5,fontupper=\CODPITfonte,fontlower=\CODPITfonte,\CODPITalign,leftupper=0.75em}}
 			\ifboolKV[envpiton]{Filigrane}%si filigrane
-				{\tcbset{filigrane/.style={watermark text={\faPython},watermark opacity=0.175,watermark zoom=0.50}}}%
+				{\tcbset{filigrane/.style={watermark text={\pflfapython},watermark opacity=0.175,watermark zoom=0.50}}}%
 				{\tcbset{filigrane/.style={}}}%
 			\SetPitonStyle{Number=\color{\CODPITcolnb}}%
 		}
@@ -263,7 +263,7 @@
 			\tcbset{titre/.style={fonttitle=\bfseries\footnotesize\sffamily},title={\CODPITtitre}}
 			\tcbset{stylebase/.style={stylepitononglet,fontupper=\CODPITfonte,fontlower=\CODPITfonte,\CODPITalign,leftupper=0.75em}}
 			\ifboolKV[envpiton]{Filigrane}%si filigrane
-				{\tcbset{filigrane/.style={watermark text={\faPython},watermark opacity=0.175,watermark zoom=0.50}}}%
+				{\tcbset{filigrane/.style={watermark text={\pflfapython},watermark opacity=0.175,watermark zoom=0.50}}}%
 				{\tcbset{filigrane/.style={}}}%
 			\SetPitonStyle{Number=\color{\CODPITcolnb}}%
 		}
@@ -275,7 +275,7 @@
 			\tcbset{cadre/.style={}}
 			\tcbset{stylebase/.style={stylepitonsilicon,fontupper=\CODPITfonte,fontlower=\CODPITfonte,\CODPITalign,leftupper=0.75em}}
 			\ifboolKV[envpiton]{Filigrane}%si filigrane
-				{\tcbset{filigrane/.style={watermark text={\faPython},watermark opacity=0.025,watermark zoom=0.50,watermark color=white}}}%
+				{\tcbset{filigrane/.style={watermark text={\pflfapython},watermark opacity=0.025,watermark zoom=0.50,watermark color=white}}}%
 				{\tcbset{filigrane/.style={}}}%
 			\SetPitonStyle%
 				{%
@@ -300,7 +300,7 @@
 			%\tcbset{titre/.style={fonttitle=\bfseries\footnotesize\sffamily},title={\CODPITtitre}}
 			\tcbset{stylebase/.style={stylepitonsiliconlight,fontupper=\CODPITfonte,fontlower=\CODPITfonte,\CODPITalign,leftupper=0.75em}}
 			\ifboolKV[envpiton]{Filigrane}%si filigrane
-				{\tcbset{filigrane/.style={watermark text={\faPython},watermark opacity=0.075,watermark zoom=0.50,watermark color=gray}}}%
+				{\tcbset{filigrane/.style={watermark text={\pflfapython},watermark opacity=0.075,watermark zoom=0.50,watermark color=gray}}}%
 				{\tcbset{filigrane/.style={}}}%
 			\ifboolKV[envpiton]{BarreTitre}%
 				{%
@@ -325,7 +325,7 @@
 				{\tcbset{stylebase/.style={thonnystyle,leftupper=0.4em,colframe=darkgray!50!black,fontupper=\CODPITfonte,fontlower=\CODPITfonte,\CODPITalign}}}%
 			%\tcbset{width=\CODPITlargeur,colframe=darkgray!50!black,fontupper=\CODPITfonte,fontlower=\CODPITfonte,\CODPITalign}
 			\ifboolKV[envpiton]{Filigrane}%si filigrane
-				{\tcbset{filigrane/.style={watermark text={\faPython},watermark opacity=0.25,watermark zoom=0.50}}}%
+				{\tcbset{filigrane/.style={watermark text={\pflfapython},watermark opacity=0.25,watermark zoom=0.50}}}%
 				{\tcbset{filigrane/.style={}}}%
 			\ifboolKV[envpiton]{BarreTitre}%
 				{%
@@ -368,7 +368,7 @@
 			\tcbset{titre/.style={}}%
 			\tcbset{stylebase/.style={stylepiton,colframe=CouleurVertForet,colback=CouleurVertForet!5,width=\CODPITlargeur,fontupper=\CODPITfonte,fontlower=\CODPITfonte,\CODPITalign,leftupper=0.75em}}%
 			\ifboolKV[envpiton]{Filigrane}%si filigrane
-				{\tcbset{filigrane/.style={watermark text={\faPython},watermark opacity=0.175,watermark zoom=0.50}}}%
+				{\tcbset{filigrane/.style={watermark text={\pflfapython},watermark opacity=0.175,watermark zoom=0.50}}}%
 				{\tcbset{filigrane/.style={}}}%
 			\SetPitonStyle{Number=\color{\CODPITcolnb}}%
 		}%
@@ -380,7 +380,7 @@
 			\tcbset{titre/.style={fonttitle=\bfseries\footnotesize\sffamily},title={\CODPITtitre}}%
 			\tcbset{stylebase/.style={stylepitononglet,width=\CODPITlargeur,fontupper=\CODPITfonte,fontlower=\CODPITfonte,\CODPITalign,leftupper=0.75em}}%
 			\ifboolKV[envpiton]{Filigrane}%si filigrane
-				{\tcbset{filigrane/.style={watermark text={\faPython},watermark opacity=0.175,watermark zoom=0.50}}}%
+				{\tcbset{filigrane/.style={watermark text={\pflfapython},watermark opacity=0.175,watermark zoom=0.50}}}%
 				{\tcbset{filigrane/.style={}}}%
 			\SetPitonStyle{Number=\color{\CODPITcolnb}}%
 		}%
@@ -392,7 +392,7 @@
 			\tcbset{cadre/.style={}}%
 			\tcbset{stylebase/.style={stylepitonsilicon,width=\CODPITlargeur,fontupper=\CODPITfonte,fontlower=\CODPITfonte,\CODPITalign,leftupper=0.75em}}%
 			\ifboolKV[envpiton]{Filigrane}%si filigrane
-				{\tcbset{filigrane/.style={watermark text={\faPython},watermark opacity=0.025,watermark zoom=0.50,watermark color=white}}}%
+				{\tcbset{filigrane/.style={watermark text={\pflfapython},watermark opacity=0.025,watermark zoom=0.50,watermark color=white}}}%
 				{\tcbset{filigrane/.style={}}}%
 			\SetPitonStyle%
 				{%
@@ -416,7 +416,7 @@
 			%\tcbset{titre/.style={fonttitle=\bfseries\footnotesize\sffamily},title={\CODPITtitre}}
 			\tcbset{stylebase/.style={stylepitonsiliconlight,width=\CODPITlargeur,fontupper=\CODPITfonte,fontlower=\CODPITfonte,\CODPITalign,leftupper=0.75em}}%
 			\ifboolKV[envpiton]{Filigrane}%si filigrane
-				{\tcbset{filigrane/.style={watermark text={\faPython},watermark opacity=0.075,watermark zoom=0.50,watermark color=gray}}}%
+				{\tcbset{filigrane/.style={watermark text={\pflfapython},watermark opacity=0.075,watermark zoom=0.50,watermark color=gray}}}%
 				{\tcbset{filigrane/.style={}}}%
 			\ifboolKV[envpiton]{BarreTitre}%
 				{%
@@ -440,7 +440,7 @@
 			{\tcbset{stylebase/.style={thonnystylelineos,leftupper=0.75em,width=\CODPITlargeur,colframe=darkgray!50!black,fontupper=\CODPITfonte,fontlower=\CODPITfonte,\CODPITalign}}}%
 			{\tcbset{stylebase/.style={thonnystyle,leftupper=0.4em,width=\CODPITlargeur,colframe=darkgray!50!black,fontupper=\CODPITfonte,fontlower=\CODPITfonte,\CODPITalign}}}%
 			\ifboolKV[envpiton]{Filigrane}%si filigrane
-				{\tcbset{filigrane/.style={watermark text={\faPython},watermark opacity=0.25,watermark zoom=0.50}}}%
+				{\tcbset{filigrane/.style={watermark text={\pflfapython},watermark opacity=0.25,watermark zoom=0.50}}}%
 				{\tcbset{filigrane/.style={}}}%
 			\ifboolKV[envpiton]{BarreTitre}%
 				{%
@@ -526,7 +526,7 @@
 			\tcbset{titre/.style={}}%
 			\tcbset{stylebase/.style={stylepcpiton,colframe=CouleurVertForet,colback=CouleurVertForet!5,width=\CODPITPClargeur,fontupper=\CODPITPCfonte,fontlower=\CODPITPCfonte,\CODPITPCalign,leftupper=0.75em}}%
 			\ifboolKV[envpcpiton]{Filigrane}%si filigrane
-				{\tcbset{filigrane/.style={watermark text={\faCode},watermark opacity=0.175,watermark zoom=0.50}}}%
+				{\tcbset{filigrane/.style={watermark text={\pflfapcode},watermark opacity=0.175,watermark zoom=0.50}}}%
 				{\tcbset{filigrane/.style={}}}%
 		}%
 		{}%
@@ -537,7 +537,7 @@
 			\tcbset{titre/.style={fonttitle=\bfseries\footnotesize\sffamily},title={\CODPITPCtitre}}%
 			\tcbset{stylebase/.style={stylepitononglet,width=\CODPITPClargeur,fontupper=\CODPITPCfonte,fontlower=\CODPITPCfonte,\CODPITPCalign,leftupper=0.75em}}%
 			\ifboolKV[envpcpiton]{Filigrane}%si filigrane
-				{\tcbset{filigrane/.style={watermark text={\faCode},watermark opacity=0.175,watermark zoom=0.50}}}%
+				{\tcbset{filigrane/.style={watermark text={\pflfapcode},watermark opacity=0.175,watermark zoom=0.50}}}%
 				{\tcbset{filigrane/.style={}}}%
 		}%
 		{}%
@@ -549,7 +549,7 @@
 				{\tcbset{stylebase/.style={thonnypcstyle,leftupper=0.4em,width=\CODPITPClargeur,colframe=darkgray!50!black,fontupper=\CODPITPCfonte,fontlower=\CODPITPCfonte,\CODPITPCalign}}}%
 			%\tcbset{width=\CODPITlargeur,colframe=darkgray!50!black,fontupper=\CODPITfonte,fontlower=\CODPITfonte,\CODPITalign}
 			\ifboolKV[envpcpiton]{Filigrane}%si filigrane
-				{\tcbset{filigrane/.style={watermark text={\faCode},watermark opacity=0.25,watermark zoom=0.50}}}%
+				{\tcbset{filigrane/.style={watermark text={\pflfapcode},watermark opacity=0.25,watermark zoom=0.50}}}%
 				{\tcbset{filigrane/.style={}}}%
 			\ifboolKV[envpcpiton]{BarreTitre}%
 				{%
@@ -620,7 +620,7 @@
 			\tcbset{titre/.style={}}
 			\tcbset{stylebase/.style={stylepcpiton,colframe=CouleurVertForet,colback=CouleurVertForet!5,width=\CODPITPClargeur,fontupper=\CODPITPCfonte,fontlower=\CODPITPCfonte,\CODPITPCalign,leftupper=0.75em}}
 			\ifboolKV[envpcpiton]{Filigrane}%si filigrane
-				{\tcbset{filigrane/.style={watermark text={\faCode},watermark opacity=0.175,watermark zoom=0.50}}}%
+				{\tcbset{filigrane/.style={watermark text={\pflfapcode},watermark opacity=0.175,watermark zoom=0.50}}}%
 				{\tcbset{filigrane/.style={}}}%
 		}
 		{}%
@@ -631,7 +631,7 @@
 			\tcbset{titre/.style={fonttitle=\bfseries\footnotesize\sffamily},title={\CODPITPCtitre}}
 			\tcbset{stylebase/.style={stylepitononglet,width=\CODPITPClargeur,fontupper=\CODPITPCfonte,fontlower=\CODPITPCfonte,\CODPITPCalign,leftupper=0.75em}}
 			\ifboolKV[envpcpiton]{Filigrane}%si filigrane
-				{\tcbset{filigrane/.style={watermark text={\faCode},watermark opacity=0.175,watermark zoom=0.50}}}%
+				{\tcbset{filigrane/.style={watermark text={\pflfapcode},watermark opacity=0.175,watermark zoom=0.50}}}%
 				{\tcbset{filigrane/.style={}}}%
 		}
 		{}%
@@ -642,7 +642,7 @@
 				{\tcbset{stylebase/.style={thonnypcstylelineos,leftupper=0.75em,width=\CODPITPClargeur,colframe=darkgray!50!black,fontupper=\CODPITPCfonte,fontlower=\CODPITPCfonte,\CODPITPCalign}}}%
 				{\tcbset{stylebase/.style={thonnypcstyle,leftupper=0.4em,width=\CODPITPClargeur,colframe=darkgray!50!black,fontupper=\CODPITPCfonte,fontlower=\CODPITPCfonte,\CODPITPCalign}}}%
 			\ifboolKV[envpcpiton]{Filigrane}%si filigrane
-				{\tcbset{filigrane/.style={watermark text={\faCode},watermark opacity=0.25,watermark zoom=0.50}}}%
+				{\tcbset{filigrane/.style={watermark text={\pflfapcode},watermark opacity=0.25,watermark zoom=0.50}}}%
 				{\tcbset{filigrane/.style={}}}%
 			\ifboolKV[envpcpiton]{BarreTitre}%
 				{%
@@ -676,8 +676,8 @@
 \tcbset{consolepyluatexlogo/.style={%avec logo python
 	consolepylua,%
 	overlay={%
-		\draw ([yshift=0.5pt]frame.south) node[CouleurVertForet!50!black,fill=white,font=\scriptsize\ttfamily,inner ysep=1pt] {\scalebox{0.8}[0.8]{\faPython} Fin de la Console Python \scalebox{0.8}[0.8]{\faPython}} ;
-		\draw ([yshift=-0.5pt]frame.north) node[CouleurVertForet!50!black,fill=white,font=\scriptsize\ttfamily,inner ysep=1pt] {\scalebox{0.8}[0.8]{\faPython} Début de la Console Python \scalebox{0.8}[0.8]{\faPython}} ;
+		\draw ([yshift=0.5pt]frame.south) node[CouleurVertForet!50!black,fill=white,font=\scriptsize\ttfamily,inner ysep=1pt] {\scalebox{0.8}[0.8]{\pflfapython} Fin de la Console Python \scalebox{0.8}[0.8]{\pflfapython}} ;
+		\draw ([yshift=-0.5pt]frame.north) node[CouleurVertForet!50!black,fill=white,font=\scriptsize\ttfamily,inner ysep=1pt] {\scalebox{0.8}[0.8]{\pflfapython} Début de la Console Python \scalebox{0.8}[0.8]{\pflfapython}} ;
 		}
 	}
 }
