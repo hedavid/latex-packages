@@ -4,24 +4,53 @@
 %            : 'Tout le monde veut prendre sa place' is a Tradematk from Air Productions.
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{quizztex}[2024/09/10 0.1.4 Construire des quizz 'comme dans les jeux' ]
+\ProvidesPackage{quizztex}[2025/08/04 0.1.6 Construire des quizz 'comme dans les jeux' ]
+%0.1.6	Copatibilité avec fa7
+%0.1.5	Compatibilité avec fa5/6
 %0.1.4	Macro pour modifier les paramètres par défaut des clés
 %0.1.3	Annulation du chargement de tikz.babel
 %0.1.2	Passage \tikzstyle vers \tikzset (merci à Sam C.)
 %0.1.1	Amélioration de la gestion des réponses dans WWTBAM + Position des Jokers (cc P. Bideault ;-))
 %0.1.0	Version initiale
 
+%------Option
+\newif\if@fafive \@fafivetrue
+\newif\if@fasix \@fasixfalse
+\newif\if@faseven \@fasevenfalse
+\DeclareOption{nonfa}{\@fafivefalse\@fasixfalse\@fasevenfalse}
+\DeclareOption{fa6}{\@fafivefalse\@fasixtrue\@fasevenfalse}
+\DeclareOption{fa7}{\@fafivefalse\@fasixfalse\@faseventrue}
+\DeclareOption*{}
+\ProcessOptions\relax
+
 %------Packages utiles
 \RequirePackage{tikz,pgf,pgffor}
 \RequirePackage{xstring}
 \RequirePackage{simplekv}
 \RequirePackage{settobox}
-\RequirePackage{fontawesome5}
 \RequirePackage{calc}
 \RequirePackage{varwidth}
+
+%------Fontawesome...
+\if@fafive
+	\RequirePackage{fontawesome5}
+\fi
+\if@fasix
+	\RequirePackage{fontawesome6}
+\fi
+\if@faseven
+	\RequirePackage{fontawesome7}
+\fi
+
+\def\quizztexiconphone{}
+\def\quizztexiconcrowd{}
+
+\@ifpackageloaded{fontawesome5}{\def\quizztexiconphone{\faIcon{phone-alt}}\def\quizztexiconcrowd{\faDiagnoses}}{}
+\@ifpackageloaded{fontawesome6}{\def\quizztexiconphone{\faIcon{phone-flip}}\def\quizztexiconcrowd{\faPersonDotsFromLine}}{}%
+\@ifpackageloaded{fontawesome7}{\def\quizztexiconphone{\faIcon{phone-flip}}\def\quizztexiconcrowd{\faPersonDotsFromLine}}{}%
+
 %------Librairies
 \usetikzlibrary{calc,positioning,shapes.geometric,fadings}
-%\usetikzlibrary{babel}
 
 %------Longueurs globales
 \newlength{\HauteurQuest}
@@ -34,7 +63,7 @@
 \definecolor{ColorMauvaiseWWTBAM}{HTML}{F1901C}%orange!75
 \definecolor{ColorWWBTAM}{HTML}{140676}%blue!25!black ou 140676
 \definecolor{ColorChoixWWBTAM}{HTML}{F40FDC}%violet!80
-\definecolor{ColorLettreWWBTAM}{HTML}{F32828}%red!75!purple
+\definecolor{ColorLettreWWBTAM}{HTML}{FF0000}%red!75!purple
 
 %Boîtes et dimensions utiles
 \newsavebox{\boitequestionwwtbam}
@@ -438,7 +467,7 @@
 					}%
 					\begin{scope}
 						\clip (CartoucheJokerTEL) ellipse (0.65cm and 0.35cm) ;
-						\draw (CartoucheJokerTEL) node[\CouleurTexteWWTBAM] {\faPhone} ;
+						\draw (CartoucheJokerTEL) node[\CouleurTexteWWTBAM] {\quizztexiconphone} ;
 						\IfSubStr{\AffJokersWWTBAM}{TEL}%
 							{}%
 							{%
@@ -456,7 +485,7 @@
 					}%
 					\begin{scope}
 						\clip (CartoucheJokerPUB) ellipse (0.65cm and 0.35cm) ;
-						\draw (CartoucheJokerPUB) node[\CouleurTexteWWTBAM] {\faDiagnoses\!\!\raisebox{-0.2em}{\faDiagnoses}\!\!\faDiagnoses} ;
+						\draw (CartoucheJokerPUB) node[\CouleurTexteWWTBAM] {\quizztexiconcrowd\!\!\raisebox{-0.2em}{\quizztexiconcrowd}\!\!\quizztexiconcrowd} ;
 						\IfSubStr{\AffJokersWWTBAM}{PUB}%
 							{}%
 							{%
