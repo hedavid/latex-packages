@@ -2,9 +2,10 @@
 % licence       : Released under the LaTeX Project Public License v1.3c or later, see http://www.latex-project.org/lppl.txt
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{calculatoritems}[2025/02/03 0.1.3 Menus from classic calculators]
+\ProvidesPackage{calculatoritems}[2025/08/12 0.1.4 Menus from classic calculators]
 
 %====HISTORIQUE
+% v 0.1.4	Bugfix with circledtext
 % v 0.1.3	New styles for graph math+
 % v 0.1.2	New version with resizebox (better render and calc)
 % v 0.1.1	Sample keys + fonts config for LUA + shortcut with img pdf
@@ -57,12 +58,13 @@
 	\newcommand\nwkstri{\footnotesize\textcolor{orange}{$\blacktriangleright$}}
 \fi
 \RequirePackage{xstring}
+\RequirePackage{tikz} %bugfix with circledtext...
 \RequirePackage{settobox}
 \RequirePackage{ifthen}
 \RequirePackage{calc}
 \RequirePackage{simplekv}
 \RequirePackage{tcolorbox}
-\RequirePackage{circledtext}
+%\RequirePackage{circledtext}
 \usetikzlibrary{calc}
 \tcbuselibrary{skins}
 
@@ -74,7 +76,8 @@
 \newlength\calcsimmenusdepth
 \newlength\calcsimmenusheight
 \newcommand\tidots{\scalebox{0.44}[0.55]{...}}
-\newcommand\casiodots{\circledtext[resize=real,width=0.75em]{$\cdots$}}
+%\newcommand\casiodots{\circledtext[resize=real,width=0.75em]{$\cdots$}}%bug 0.1.3 -> 0.1.4
+\newcommand\casiodots{{\tikz {\draw[fill=white] (0,0) circle[radius=0.375em] node[inner sep=0pt,midway,text=black] {.\kern-0.1em.\kern-0.1em.} ;}}}
 
 %====TCSTYLES
 \tcbset{casiotc/.style={%
@@ -1078,6 +1081,53 @@
 \newcommand\osfontCASIOCWeit{\char"01D48A}
 \newcommand\osfontCASIOCWsto{\char"2192}
 \newcommand\osfontCASIOCWsqrt{\char"221A}
+
+%=====SHORTCUTS FOR CASIO fx-CG100 (ClassWizCG100menus.ttf)
+%ygras   := Ÿ || %x ital  := § || %i gras  := Ï
+\newcommand\menufontCASIOCWCGyit{\char"0178}
+\newcommand\menufontCASIOCWCGxit{\char"00A7}
+\newcommand\menufontCASIOCWCGiit{\char"00CF}
+\newcommand\menufontCASIOCWCGpi{\char"03C0}
+\newcommand\menufontCASIOCWCGsum{\char"2211}
+\newcommand\menufontCASIOCWCGint{\char"222B}
+\newcommand\menufontCASIOCWCGsto{\char"25B6}
+\newcommand\menufontCASIOCWCGone{\char"2460}
+\newcommand\menufontCASIOCWCGtwo{\char"2461}
+\newcommand\menufontCASIOCWCGthree{\char"2462}
+\newcommand\menufontCASIOCWCGfour{\char"2463}
+\newcommand\menufontCASIOCWCGfive{\char"2464}
+\newcommand\menufontCASIOCWCGsix{\char"2465}
+\newcommand\menufontCASIOCWCGseven{\char"2466}
+\newcommand\menufontCASIOCWCGeight{\char"2467}
+\newcommand\menufontCASIOCWCGnine{\char"2468}
+\newcommand\menufontCASIOCWCGzero{\char"24EA}
+\newcommand\menufontCASIOCWCGa{\char"24B6}
+\newcommand\menufontCASIOCWCGb{\char"24B7}
+\newcommand\menufontCASIOCWCGc{\char"24B8}
+\newcommand\menufontCASIOCWCGd{\char"24B9}
+\newcommand\menufontCASIOCWCGe{\char"24BA}
+\newcommand\menufontCASIOCWCGf{\char"24BB}
+\newcommand\menufontCASIOCWCGg{\char"24BC}
+\newcommand\menufontCASIOCWCGh{\char"24BD}
+\newcommand\menufontCASIOCWCGi{\char"24BE}
+\newcommand\menufontCASIOCWCGj{\char"24BF}
+\newcommand\menufontCASIOCWCGk{\char"24C0}
+\newcommand\menufontCASIOCWCGl{\char"24C1}
+\newcommand\menufontCASIOCWCGm{\char"24C2}
+\newcommand\menufontCASIOCWCGn{\char"24C3}
+\newcommand\menufontCASIOCWCGo{\char"24C4}
+\newcommand\menufontCASIOCWCGp{\char"24C5}
+\newcommand\menufontCASIOCWCGq{\char"24C6}
+\newcommand\menufontCASIOCWCGr{\char"24C7}
+\newcommand\menufontCASIOCWCGs{\char"24C8}
+\newcommand\menufontCASIOCWCGt{\char"24C9}
+\newcommand\menufontCASIOCWCGu{\char"24CA}
+\newcommand\menufontCASIOCWCGv{\char"24CB}
+\newcommand\menufontCASIOCWCGw{\char"24CC}
+\newcommand\menufontCASIOCWCGx{\char"24CD}
+\newcommand\menufontCASIOCWCGy{\char"24CE}
+\newcommand\menufontCASIOCWCGz{\char"24CF}
+\newcommand\menufontCASIOCWCGpin{\char"00A9}
 
 %=====SHORTCUTS FOR NUMWORKS (CartographCF-Light.otf)
 \newcommand\osfontNWKSpi{\char"03C0}
