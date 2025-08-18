@@ -2,6 +2,7 @@
 % Copyright 2023-2025  Cédric Pierquet
 % Released under the LaTeX Project Public License v1.3c or later, see http://www.latex-project.org/lppl.txt
 
+%3.12e	Oubli d'une clé pitonconsole...
 %3.12b	Modifs pour piton (semblent ok)...
 %3.11e	Ajout de styles pour piton (carbon & onglet)
 %3.04f	Ajout de clés pour la coloration des nombres et Piton
@@ -668,7 +669,7 @@
 %======CONSOLE PYLUATEX (package à charger manuellement !!)
 \tcbset{consolepylua/.style={%base de la boîte
 	enhanced,colback=white,colframe=CouleurVertForet,sharp corners,boxrule=1pt,%
-	top=1.5mm,bottom=-0.5mm,left=2mm,right=3mm,fontupper=\footnotesize,%
+	top=1.5mm,bottom=0mm,left=0.5mm,right=3mm,fontupper=\footnotesize,%test 3.12e
 	before skip=0.5\baselineskip,after skip=0.5\baselineskip,%
 	}
 }
@@ -714,7 +715,8 @@
 	\tcbset{reset}%
 	\SetPitonStyle[Python]{Number=\color{\CODPITcolnb} }%
 	\PitonOptions{width=\ConsPyluaLarg-5mm,break-lines,end-of-broken-line={\,},continuation-symbol={\;},#1}%
-	\PitonOptions{line-numbers=false,left-margin=auto}%
+	%\PitonOptions{line-numbers=false,left-margin=0mm}%
+	\PitonOptions{background-color=,prompt-background-color=white}%cf 3.12e
 	\PyLTVerbatimEnv
 	\ifboolKV[consolepyluatex]{Logo}%
 	{%
@@ -724,16 +726,16 @@
 	\begin{tcolorbox}[consolepyluatex,width=\ConsPyluaLarg,\ConsPyluaAlign,#3]
 	}%
 	\begin{pythonrepl}
-	}
-	{
+	}%
+	{%
 	\end{pythonrepl}
 	\lua_now:n
-	{
+	{%
 		tex.print("\\begin{Piton}")
 		tex.print(pyluatex.get_last_output())
 		tex.print("\\end{Piton}")
 		tex.print("") 
-	}
+	}%
 	\end{tcolorbox}%
 	\ignorespacesafterend%
 }
@@ -877,7 +879,9 @@
 	\tcbset{reset}%
 	\tcbset{tcbthonnypitonconsole/.style={title=\vphantom{pf}\thonnypitonshellname\:\textcolor{gray}{×}},before skip=0.33\baselineskip,after skip=0.33\baselineskip}%
 	\noindent%
-	\PitonOptions{width=\LargeurThonny-5mm,line-numbers=false,left-margin=auto,#3}%
+	\PitonOptions{#3}%
+	%\PitonOptions{line-numbers=false,left-margin=0mm}%
+	\PitonOptions{background-color=,prompt-background-color=white}%cf 3.12e
 	\SetPitonStyle[Python]{Number=\color{\CODPITcolnb}}%
 	%--gestion du gobble
 	\IfStrEqCase{\thonnypitongobble}{%
@@ -892,8 +896,8 @@
 	%--fin gestion du gobble
 	\PitonOptions{width={\LargeurThonny-5mm},break-lines,end-of-broken-line={\,},continuation-symbol={\;}}%
 	\tcolorbox[sharp corners=all,enhanced,size=small,width=\LargeurThonny,colframe=gray,colback=white,tcbthonnypitonconsole,fonttitle=\scriptsize\sffamily,coltitle=black,
-	attach boxed title to top left={yshift*=-0.4pt},fontupper=\footnotesize,bottom=-0.5mm,#2,boxed title style={size=tight,colback=lightgray!15,sharp corners=all,boxrule=0.4pt,boxsep=2pt},boxrule=0.4pt,top=1mm,#3]%
-	\textcolor{gray}{\texttt{\thonnypitonintroconsole}}
+	attach boxed title to top left={yshift*=-0.4pt},fontupper=\footnotesize,bottom=0mm,#2,boxed title style={size=tight,colback=lightgray!15,sharp corners=all,boxrule=0.4pt,boxsep=2pt},boxrule=0.4pt,top=1mm,left=0.5mm,#2]%
+	\textcolor{gray}{\texttt{\space\thonnypitonintroconsole}}
 	\begin{pythonrepl}
 }
 {
