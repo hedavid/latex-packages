@@ -2,15 +2,17 @@
 % licence.........: Released under the LaTeX Project Public License v1.3c or later, see http://www.latex-project.org/lppl.txt
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{tikzbrickfigurines}[2025/08/12 0.1.0 Small brickfigurines, made with tikz]
+\ProvidesPackage{tikzbrickfigurines}[2025/08/18 0.1.1 Small brickfigurines, made with tikz]
 
 %====HISTORY
+% v 0.1.1  Enhancements for adjusted logo
 % v 0.1.0  Initial version
 
 %====PACKAGES
 \RequirePackage{simplekv}
 \RequirePackage{xstring}
 \RequirePackage{ifthen}
+\RequirePackage{etoolbox}
 \RequirePackage{listofitems}
 \RequirePackage{graphicx}
 \RequirePackage{calc}
@@ -50,6 +52,7 @@
   color middle pant=\tikzset{brickfig shape middle pant/.style={fill=#1}},
   color foot=\tikzset{brickfig shape foot/.style={fill=#1}},%
   logo=\def\tkzshapebrickfiglogo{#1},%
+  adjusted logo=\def\tkzshapebrickadjustlogo{#1},%
   scale logo=\def\tkzshapebrickfigscalelogo{#1},%
   figure name=\def\tkzshapebrickfigname{#1}
 }
@@ -73,7 +76,7 @@
   color foot=darkgray!50!black,%
   display logo=false,%
   custom logo=false,%
-  logo={ },%
+  logo={},%
   scale logo=0.667,
   man=false,%
   woman=false,%
@@ -89,7 +92,8 @@
   bbox=false,%
   head=false,%
   vcenter=false,%
-  figure name=MYBRICKFIG
+  figure name=MYBRICKFIG,%
+  adjusted logo={}
 }
 
 %----init styles
@@ -589,7 +593,24 @@
   \coordinate (\tkzshapebrickfigname-BELT) at (0,-0.4) ;
   \coordinate (\tkzshapebrickfigname-RIGHTSHOULDER) at (-2.75,4.5) ;
   \coordinate (\tkzshapebrickfigname-LEFTSHOULDER) at (2.75,4.5) ;
-	\coordinate (\tkzshapebrickfigname-NECK) at (0,5.225) ;
+  \coordinate (\tkzshapebrickfigname-NECK) at (0,5.225) ;
+}
+%----internal macro adjustedlogo
+\newsavebox\tmpboxlogotofith
+\newsavebox\tmpboxlogotofitv
+\newlength\tmpwidthlogotofitv
+
+\newcommand\adjustlogotosweat[1]{%
+  \savebox{\tmpboxlogotofitv}{\resizebox*{!}{\fpeval{1/\tkzbrickfigscale}\tkzbrickfigheightlogo}{#1}}%v-stretch
+  \savebox{\tmpboxlogotofith}{\resizebox*{\fpeval{1/\tkzbrickfigscale}\tkzbrickfigwidthlogo}{!}{#1}}%h-stretch
+  \settowidth\tmpwidthlogotofitv{\usebox{\tmpboxlogotofitv}}%
+  \ifthenelse{\tmpwidthlogotofitv < \tkzbrickfigwidthlogo}%
+    {%width ok
+      {\usebox{\tmpboxlogotofitv}}%
+    }%
+    {%width ko => h-stretch
+      {\usebox{\tmpboxlogotofith}}%
+    }%
 }
 
 %----main macro
@@ -641,6 +662,10 @@
       \tikzset{brickfig shape foot/.style={}}%
     }%
     {}%
+  %----adjusted logo
+  \ifdefempty{\tkzshapebrickadjustlogo}%
+    {}%
+    {\setKV[tkzshapebrickfig]{display logo=false,custom logo=false}}%
   %----prefefined styles (??)
   \ifboolKV[tkzshapebrickfig]{man}%
     {%
@@ -661,8 +686,8 @@
   %----lengths
   \setlength\tkzbrickfigheight{#3}%
   \xdef\tkzbrickfigscale{\fpeval{\tkzbrickfigheight/16cm}}%
-  \setlength\tkzbrickfigheightlogo{\fpeval{\tkzshapebrickfigscalelogo*4/16}\tkzbrickfigheight}%
-  \setlength\tkzbrickfigwidthlogo{\fpeval{\tkzshapebrickfigscalelogo*4/16}\tkzbrickfigheight}%
+  \setlength\tkzbrickfigheightlogo{\fpeval{\tkzshapebrickfigscalelogo*5/16}\tkzbrickfigheight}%
+  \setlength\tkzbrickfigwidthlogo{\fpeval{\tkzshapebrickfigscalelogo*4.5/16}\tkzbrickfigheight}%
   %----picture
   \begin{tikzpicture}[\tkzshapebrickfiglinescolor,scale=\tkzbrickfigscale,line width=\fpeval{\tkzbrickfigscale*0.8}mm,line join=round,line cap=round,#2,brickfig shape bbox,brickfig shape vcenter,transform shape]
     %----body / neck / head / legs / arms
@@ -685,13 +710,16 @@
     %logo (auto or custom)
     \begin{scope}
       \clip (-2.25,0) rectangle (2.25,5) ;
-      \ifboolKV[tkzshapebrickfig]{display logo}%
+      \ifboolKV[tkzshapebrickfig]{display logo}%with cancel scale
         {\node[inner sep=0pt,scale=\fpeval{1/(\tkzbrickfigscale)}] at (\tkzshapebrickfigname-LOGO) {\resizebox{!}{\tkzbrickfigheightlogo}{\tkzshapebrickfiglogo}};}%
         {}%
-      \ifboolKV[tkzshapebrickfig]{custom logo}%
-        {\node[inner sep=0pt] at (\tkzshapebrickfigname-LOGO) {\tkzshapebrickfiglogo} ;}%
+      \ifboolKV[tkzshapebrickfig]{custom logo}%with scale propagated
+        {\node[inner sep=0pt] at (\tkzshapebrickfigname-LOGO) {\tkzshapebrickfiglogo} ;}%play with \tkzbrickfigscale...
         %{\node[inner sep=0pt,scale=\fpeval{1/(\tkzbrickfigscale)}] at (\tkzshapebrickfigname-LOGO) {\tkzshapebrickfiglogo} ;}%
         {}%
+      \ifdefempty{\tkzshapebrickadjustlogo}%with adjusted logo (test...)
+        {}%
+        {\node[inner sep=0pt] at (\tkzshapebrickfigname-LOGO) {\adjustlogotosweat{\tkzshapebrickadjustlogo}} ;}%
     \end{scope}
   \end{tikzpicture}%
 }
@@ -708,16 +736,12 @@
       \setsepchar[.]{/}%
       \readlist*\tmpNUMlist{#4}%
       \itemtomacro\tmpNUMlist[1]\tmpNUMmouth%
-      %\StrChar{#3}{1}[\tmpNUMmouth]%
       \IfStrEq{\tmpNUMmouth}{*}{\xdef\tmpNUMmouth{\fpeval{randint(1,10)}}}{}%
       \itemtomacro\tmpNUMlist[2]\tmpNUMeye%
-      %\StrChar{#3}{2}[\tmpNUMeye]%
       \IfStrEq{\tmpNUMeye}{*}{\xdef\tmpNUMeye{\fpeval{randint(1,10)}}}{}%
       \itemtomacro\tmpNUMlist[3]\tmpNUMeyebrow%
-      %\StrChar{#3}{3}[\tmpNUMeyebrow]%
       \IfStrEq{\tmpNUMeyebrow}{*}{\xdef\tmpNUMeyebrow{\fpeval{randint(1,10)}}}{}%
       \itemtomacro\tmpNUMlist[4]\tmpNUMhair%
-      %\StrChar{#3}{4}[\tmpNUMhair]%
       \IfStrEq{\tmpNUMhair}{*}{\xdef\tmpNUMhair{\fpeval{randint(0,10)}}}{}%
     }%
   \tikzbrickfigurine[#1,mouthstyle=\tmpNUMmouth,hairstyle=\tmpNUMhair,eyestyle=\tmpNUMeye,eyebrowstyle=\tmpNUMeyebrow]<#2>{#3}%
