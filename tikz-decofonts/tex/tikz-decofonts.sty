@@ -4,9 +4,10 @@
 %                 :              (https://tex.stackexchange.com/questions/460836/custom-line-cap-to-simulate-inked-line-in-tikz/460842#460842 from user121799)
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{tikz-decofonts}[2025/07/17 0.1.4 Custom fonts, made with TikZ, with effects]
+\ProvidesPackage{tikz-decofonts}[2025/08/20 0.1.5 Custom fonts, made with TikZ, with effects]
 
 %------History
+% 0.1.5	Small 'freehand' circled text
 % 0.1.4	Arrow (fixed size) with text
 % 0.1.3	Underline/surround small texts
 % 0.1.2	Bd fonts (with callout.shapes)
@@ -1212,6 +1213,124 @@
 			}%
 			{}%
 	\end{tikzpicture}%
+}
+
+%----freehand simple circled text
+\newlength\mytmpwidthfreehandnode
+\newlength\mytmpheightfreehandnode
+
+\ExplSyntaxOn
+\tl_new:N \c_tikzdecocct_alphabet_tl
+\box_new:N \l__tikzdecocct_widest_box
+\dim_new:N \l__tikzdecocct_widest_dim
+\tl_new:N \l__tikzdecocct_widest_tl
+\dim_new:N \mytmpmaxdimfreehandnode
+
+\NewDocumentCommand{\tikzdecocctcomputewidest}{O{}m}
+{
+	\group_begin:
+	\tl_set:Nn \c_tikzdecocct_alphabet_tl { #2 } %samples characters
+	#1 % optionally select a font
+	\dim_zero:N \l__tikzdecocct_widest_dim
+	\tl_clear:N \l__tikzdecocct_widest_tl
+	\tl_map_inline:Nn \c_tikzdecocct_alphabet_tl
+	{
+		\hbox_set:Nn \l__tikzdecocct_widest_box { ##1 }
+		\dim_compare:nT { \box_wd:N \l__tikzdecocct_widest_box > \l__tikzdecocct_widest_dim }
+		{
+			\dim_set:Nn \l__tikzdecocct_widest_dim { \box_wd:N \l__tikzdecocct_widest_box }
+			\tl_set:Nn \l__tikzdecocct_widest_tl { ##1 }
+		}
+	}
+	\dim_gset_eq:NN \mytmpmaxdimfreehandnode \l__tikzdecocct_widest_dim
+	\group_end:
+}
+\ExplSyntaxOff
+
+\defKV[customcircletxt]{%
+	height=\setlength\mytmpheightfreehandnode{#1},%
+	width=\setlength\mytmpwidthfreehandnode{#1},%
+	fill color=\colorlet{fillcolorcustomcircletxt}{#1},%
+	rule color=\colorlet{rulecolorcustomcircletxt}{#1},%
+	thickness=\def\mytmpthicknessfreehandnode{#1}
+}
+
+\setKVdefault[customcircletxt]{%
+	height=2em,
+	width=2.3em,
+	thickness=0.05,
+	fill color=lightgray!30,%
+	rule color=black,%
+	rotate=0,
+	auto=0,
+	fill=true,%
+	font={},
+	vstretch=1.5,%
+	hoffset=0.8,%
+	random=false,%
+	arabic=false,%
+	alph=false,%
+	Alph=false
+}
+
+\NewDocumentCommand\tkzcircledtxt{O{}D<>{}m}{%
+	\restoreKV[customcircletxt]%
+	\setKV[customcircletxt]{#1}%
+	\ifboolKV[customcircletxt]{random}%
+		{%
+			\xdef\mytmprandfreehandnode{\fpeval{randint(5,15)}}%
+		}%
+		{%
+			\def\mytmprandfreehandnode{7}%
+		}%
+	%
+	\begingroup\useKV[customcircletxt]{font}%
+	\ifnum\useKV[customcircletxt]{auto}=0\relax%
+		\begin{tikzpicture}[rotate={\useKV[customcircletxt]{rotate}},line width=\mytmpthicknessfreehandnode\mytmpheightfreehandnode,line cap=round,#2]
+	\else%
+		\settototalheight\mytmpheightfreehandnode{\hbox{0123456789}}%
+		\tikzdecocctcomputewidest{0123456789}%
+		\ifboolKV[customcircletxt]{arabic}%samples with 0123456789
+			{%
+				\settototalheight\mytmpheightfreehandnode{\hbox{0123456789}}%
+				\tikzdecocctcomputewidest{0123456789}%
+			}%
+			{}%
+		\ifboolKV[customcircletxt]{alph}%
+			{%
+				\settototalheight\mytmpheightfreehandnode{\hbox{abcdefghijklmnopqrstuvwxyz}}%
+				\tikzdecocctcomputewidest{abcdefghijklmnopqrstuvwxyz}%
+			}%
+			{}%
+		\ifboolKV[customcircletxt]{Alph}%
+			{%
+				\settototalheight\mytmpheightfreehandnode{\hbox{ABCDEFGHIJKLMNOPQRSTUVWXYZ}}%
+				\tikzdecocctcomputewidest{ABCDEFGHIJKLMNOPQRSTUVWXYZ}%
+			}%
+			{}%
+		\setlength\mytmpheightfreehandnode{\useKV[customcircletxt]{vstretch}\mytmpheightfreehandnode}%
+		\setlength\mytmpwidthfreehandnode{\fpeval{\useKV[customcircletxt]{auto}+\useKV[customcircletxt]{hoffset}}\mytmpmaxdimfreehandnode}%
+		\begin{tikzpicture}[rotate={\useKV[customcircletxt]{rotate}},line width=\mytmpthicknessfreehandnode\mytmpheightfreehandnode,line cap=round,baseline=(ZZZ-TXT.base),#2]
+	\fi%
+		\ifboolKV[customcircletxt]{fill}%
+			{%
+				%fill bg
+				\begin{scope}
+					\fill[fillcolorcustomcircletxt] (0,0.5\mytmpheightfreehandnode) to[out=\fpeval{180-\mytmprandfreehandnode},in=\fpeval{90+\mytmprandfreehandnode}] ++ ({-0.5\mytmpwidthfreehandnode},{-0.5\mytmpheightfreehandnode}) to[out=\fpeval{-90+\mytmprandfreehandnode},in=\fpeval{180+\mytmprandfreehandnode}] ++  ({0.5\mytmpwidthfreehandnode},{-0.5\mytmpheightfreehandnode}) to[out=\mytmprandfreehandnode,in=\fpeval{-90-\mytmprandfreehandnode}] ++ (0.5\mytmpwidthfreehandnode,0.5\mytmpheightfreehandnode) to[out=\fpeval{90-\mytmprandfreehandnode},in=1.5\mytmprandfreehandnode] cycle ;
+				\end{scope}
+			}%
+			{}%
+		%border
+		\begin{scope}
+			\draw[rulecolorcustomcircletxt] ([xshift=0.0275\mytmpmaxdimfreehandnode,yshift=\fpeval{-0.75*\mytmpthicknessfreehandnode}\mytmpheightfreehandnode]0,0.5\mytmpheightfreehandnode) to[out=\fpeval{180-\mytmprandfreehandnode},in=\fpeval{90+\mytmprandfreehandnode}] ++ ({-0.5\mytmpwidthfreehandnode},{-0.5\mytmpheightfreehandnode}) to[out=\fpeval{-90+\mytmprandfreehandnode},in=\fpeval{180+\mytmprandfreehandnode}] ++  ({0.5\mytmpwidthfreehandnode},{-0.5\mytmpheightfreehandnode}) to[out=\mytmprandfreehandnode,in=\fpeval{-90-\mytmprandfreehandnode}] ++ (0.5\mytmpwidthfreehandnode,0.5\mytmpheightfreehandnode) to[out=\fpeval{90-\mytmprandfreehandnode},in=\fpeval{1.5*\mytmprandfreehandnode}] ++ ([xshift=-0.155\mytmpwidthfreehandnode,yshift=\fpeval{2*\mytmpthicknessfreehandnode}\mytmpheightfreehandnode]{-0.5\mytmpwidthfreehandnode},{0.5\mytmpheightfreehandnode}) ;
+		\end{scope}
+		%node
+		\begin{scope}
+			\clip (0,0.5\mytmpheightfreehandnode) to[out=\fpeval{180-\mytmprandfreehandnode},in=\fpeval{90+\mytmprandfreehandnode}] ++ ({-0.5\mytmpwidthfreehandnode},{-0.5\mytmpheightfreehandnode}) to[out=\fpeval{-90+\mytmprandfreehandnode},in=\fpeval{180+\mytmprandfreehandnode}] ++  ({0.5\mytmpwidthfreehandnode},{-0.5\mytmpheightfreehandnode}) to[out=\mytmprandfreehandnode,in=\fpeval{-90-\mytmprandfreehandnode}] ++ (0.5\mytmpwidthfreehandnode,0.5\mytmpheightfreehandnode) to[out=\fpeval{90-\mytmprandfreehandnode},in=-\mytmprandfreehandnode] cycle ;
+			\node[inner sep=0pt] (ZZZ-TXT) at (0,0) {#3} ;
+		\end{scope}
+	\end{tikzpicture}%
+	\endgroup%
 }
 
 \endinput
