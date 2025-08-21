@@ -2,9 +2,10 @@
 % licence    : Released under the LaTeX Project Public License v1.3c or later, see http://www.latex-project.org/lppl.txt
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{tkz-grapheur}[2025/05/30 0.2.5 Des outils en TikZ pour travailler comme avec un grapheur]
+\ProvidesPackage{tkz-grapheur}[2025/08/21 0.2.6 Des outils en TikZ pour travailler comme avec un grapheur]
 
 %====HISTORIQUE
+% v 0.2.6	Inégalité linéraire (test)
 % v 0.2.5	Interpolation de Lagrange + améliorations 
 % v 0.2.4	Clé [StyleTrace] pour dotted/dashed par exemple
 % v 0.2.3	Bug with length
@@ -4900,6 +4901,238 @@
 			\gensplinecubicpgf{#4}{#3}[#5]%
 		}%
 	\draw[#2] #5 ;
+}
+
+%====linear inequality [fr]
+\defKV[GraphiquetikzInegLin]{%
+	Opacite=\def\pflineglinopac{#1},%
+	Nom=\def\pflineglinname{#1},%
+	Style=\def\pflineglintikzstyle{#1},%
+	Hachures=\def\pflineglintikzhatch{#1}
+}
+
+\setKVdefault[GraphiquetikzInegLin]{%
+	Opacite=0.25,
+	Couleur=black,%
+	Style=hachures,
+	Hachures={north west lines}
+}
+
+\NewDocumentCommand\InegaliteLineaire{O{}D<>{f}mm}{%
+	\restoreKV[GraphiquetikzInegLin]%
+	\setKV[GraphiquetikzInegLin]{#1}%
+	%style for filling... ?
+	\IfStrEq{\pflineglintikzstyle}{hachures}%
+		{%
+			\tikzset{dominegallintikzstyle/.style={draw=none,pattern=\pflineglintikzhatch,pattern color={\useKV[GraphiquetikzInegLin]{Couleur}},line join=bevel}}
+		}%
+		{}%
+	\IfStrEq{\pflineglintikzstyle}{remplissage}%
+		{%
+			\tikzset{dominegallintikzstyle/.style={draw=none,fill={\useKV[GraphiquetikzInegLin]{Couleur}},fill opacity=\pflineglinopac,line join=bevel}}
+		}%
+		{}%
+	%dummy equation
+	\xintdeffloatfunc pfldummy(x,y) := #3;
+	%coeffc
+	\xdef\coeffc{\xintfloateval{pfldummy(0,0)}}%
+	%coeffa
+	\xdef\coeffa{\xintfloateval{pfldummy(1,0)-pfldummy(0,0)}}%
+	%coeffb
+	\xdef\coeffb{\xintfloateval{pfldummy(0,1)-pfldummy(0,0)}}%
+	%particular part
+	\xintifboolexpr{ \coeffb == 0 }%vertical
+		{%
+			\begin{scope}
+				\clip ({\pflxmin},{\pflymin}) rectangle ({\pflxmax},{\pflymax}) ;
+				\xintifboolexpr{ \coeffa > 0 }%
+					{%
+						\IfBeginWith{#4}{>}%
+							{%
+								\draw[pfltrait,dominegallintikzstyle] ({-(\coeffc)/(\coeffa)},{\pflymin}) rectangle ({\pflxmax},{\pflymax}) ;
+							}%
+							{%
+								\draw[pfltrait,dominegallintikzstyle] ({-(\coeffc)/(\coeffa)},{\pflymin}) rectangle ({\pflxmin},{\pflymax}) ;
+							}%
+					}%
+					{%
+						\IfBeginWith{#4}{>}%
+							{%
+								\draw[pfltrait,dominegallintikzstyle] ({-(\coeffc)/(\coeffa)},{\pflymin}) rectangle ({\pflxmin},{\pflymax}) ;
+							}%
+							{%
+								\draw[pfltrait,dominegallintikzstyle] ({-(\coeffc)/(\coeffa)},{\pflymin}) rectangle ({\pflxmax},{\pflymax}) ;
+							}%
+					}%
+				\draw[pfltrait,{\useKV[GraphiquetikzInegLin]{Couleur}}] ({-(\coeffc)/(\coeffa)},{\pflymin}) -- ({-(\coeffc)/(\coeffa)},{\pflymax}) ;
+			\end{scope}
+		}%
+		{% b!=0 ()
+			\xdef\tmpvalzzyxmin{\xintfloateval{(-\coeffc-\coeffa*(\pflxmin))/(\coeffb)}}%
+			\xdef\tmpvalzzyxmax{\xintfloateval{(-\coeffc-\coeffa*(\pflxmax))/(\coeffb)}}%
+			\begin{scope}
+				\clip ({\pflxmin},{\pflymin}) rectangle ({\pflxmax},{\pflymax}) ;
+				%---
+					\xintifboolexpr{ \coeffb > 0 }%
+						{%
+							\IfBeginWith{#4}{>}%
+								{%
+									\draw[pfltrait,dominegallintikzstyle] ({\pflxmin},{\tmpvalzzyxmin}) |- ({\pflxmax},{\tmpvalzzyxmax}) ;
+									\xintifboolexpr{\tmpvalzzyxmax < \pflymax}%
+										{%
+											\filldraw[pfltrait,dominegallintikzstyle] ({\pflxmin},{\pflxmax}) rectangle ({\pflxmax},{\tmpvalzzyxmax}) ;
+										}%
+										{}%
+								}%
+								{%
+									\draw[pfltrait,dominegallintikzstyle] ({\pflxmin},{\tmpvalzzyxmin}) -| ({\pflxmax},{\tmpvalzzyxmax}) ;
+									\xintifboolexpr{\tmpvalzzyxmin > \pflymin}%
+										{%
+											\filldraw[pfltrait,dominegallintikzstyle] ({\pflxmax},{\pflymin}) rectangle ({\pflxmin},{\tmpvalzzyxmin}) ;
+										}%
+										{}%
+								}%
+						}%
+						{%
+							\IfBeginWith{#4}{>}%
+								{%
+									\draw[pfltrait,dominegallintikzstyle] ({\pflxmin},{\tmpvalzzyxmin}) |- ({\pflxmax},{\tmpvalzzyxmax}) ;
+									\xintifboolexpr{\tmpvalzzyxmax > \pflymin}%
+										{%
+											\filldraw[pfltrait,dominegallintikzstyle] ({\pflxmin},{\pflymin}) rectangle ({\pflxmax},{\tmpvalzzyxmax}) ;
+										}%
+										{}%
+								}%
+								{%
+									\draw[pfltrait,dominegallintikzstyle] ({\pflxmin},{\tmpvalzzyxmin}) -| ({\pflxmax},{\tmpvalzzyxmax}) ;
+									\xintifboolexpr{\tmpvalzzyxmin < \pflymax}%
+										{%
+											\filldraw[pfltrait,dominegallintikzstyle] ({\pflxmin},{\tmpvalzzyxmin}) rectangle ({\pflxmax},{\pflymax}) ;
+										}%
+										{}%
+								}%
+						}%
+				%---
+				\draw[pfltrait,{\useKV[GraphiquetikzInegLin]{Couleur}}] ({\pflymin},{(-\coeffc-\coeffa*(\pflxmin))/(\coeffb)}) -- ({\pflymax},{(-\coeffc-\coeffa*(\pflxmax))/(\coeffb)}) ;
+			\end{scope}
+		}%
+	
+}
+
+%====linear inequality [en]
+\defKV[GraphiquetikzInegLinEN]{%
+	opacity=\def\pflineglinopac{#1},%
+	name=\def\pflineglinname{#1},%
+	style=\def\pflineglintikzstyle{#1},%
+	hatch=\def\pflineglintikzhatch{#1}
+}
+
+\setKVdefault[GraphiquetikzInegLinEN]{%
+	opacity=0.25,
+	color=black,
+	style=hatch,
+	hatch={north west lines}
+}
+
+\NewDocumentCommand\LinearInequality{O{}D<>{f}mm}{%
+	\restoreKV[GraphiquetikzInegLinEN]%
+	\setKV[GraphiquetikzInegLinEN]{#1}%
+	%style for filling... ?
+	\IfStrEq{\pflineglintikzstyle}{hatch}%
+		{%
+			\tikzset{dominegallintikzstyle/.style={draw=none,pattern=\pflineglintikzhatch,pattern color={\useKV[GraphiquetikzInegLinEN]{color}},line join=bevel}}
+		}%
+		{}%
+	\IfStrEq{\pflineglintikzstyle}{fill}%
+		{%
+			\tikzset{dominegallintikzstyle/.style={draw=none,fill={\useKV[GraphiquetikzInegLinEN]{color}},fill opacity=\pflineglinopac,line join=bevel}}
+		}%
+		{}%
+	%dummy equation
+	\xintdeffloatfunc pfldummy(x,y) := #3;
+	%coeffc
+	\xdef\coeffc{\xintfloateval{pfldummy(0,0)}}%
+	%coeffa
+	\xdef\coeffa{\xintfloateval{pfldummy(1,0)-pfldummy(0,0)}}%
+	%coeffb
+	\xdef\coeffb{\xintfloateval{pfldummy(0,1)-pfldummy(0,0)}}%
+	%particular part
+	\xintifboolexpr{ \coeffb == 0 }%vertical
+		{%
+			\begin{scope}
+				\clip ({\pflxmin},{\pflymin}) rectangle ({\pflxmax},{\pflymax}) ;
+				\xintifboolexpr{ \coeffa > 0 }%
+					{%
+						\IfBeginWith{#4}{>}%
+							{%
+								\draw[tkzgrphline,dominegallintikzstyle] ({-(\coeffc)/(\coeffa)},{\pflymin}) rectangle ({\pflxmax},{\pflymax}) ;
+							}%
+							{%
+								\draw[tkzgrphline,dominegallintikzstyle] ({-(\coeffc)/(\coeffa)},{\pflymin}) rectangle ({\pflxmin},{\pflymax}) ;
+							}%
+					}%
+					{%
+						\IfBeginWith{#4}{>}%
+							{%
+								\draw[tkzgrphline,dominegallintikzstyle] ({-(\coeffc)/(\coeffa)},{\pflymin}) rectangle ({\pflxmin},{\pflymax}) ;
+							}%
+							{%
+								\draw[tkzgrphline,dominegallintikzstyle] ({-(\coeffc)/(\coeffa)},{\pflymin}) rectangle ({\pflxmax},{\pflymax}) ;
+							}%
+					}%
+				\draw[tkzgrphline,{\useKV[GraphiquetikzInegLinEN]{color}}] ({-(\coeffc)/(\coeffa)},{\pflymin}) -- ({-(\coeffc)/(\coeffa)},{\pflymax}) ;
+			\end{scope}
+		}%
+		{% b!=0 ()
+			\xdef\tmpvalzzyxmin{\xintfloateval{(-\coeffc-\coeffa*(\pflxmin))/(\coeffb)}}%
+			\xdef\tmpvalzzyxmax{\xintfloateval{(-\coeffc-\coeffa*(\pflxmax))/(\coeffb)}}%
+			\begin{scope}
+				\clip ({\pflxmin},{\pflymin}) rectangle ({\pflxmax},{\pflymax}) ;
+				%---
+					\xintifboolexpr{ \coeffb > 0 }%
+						{%
+							\IfBeginWith{#4}{>}%
+								{%
+									\draw[tkzgrphline,dominegallintikzstyle] ({\pflxmin},{\tmpvalzzyxmin}) |- ({\pflxmax},{\tmpvalzzyxmax}) ;
+									\xintifboolexpr{\tmpvalzzyxmax < \pflymax}%
+										{%
+											\filldraw[tkzgrphline,dominegallintikzstyle] ({\pflxmin},{\pflxmax}) rectangle ({\pflxmax},{\tmpvalzzyxmax}) ;
+										}%
+										{}%
+								}%
+								{%
+									\draw[tkzgrphline,dominegallintikzstyle] ({\pflxmin},{\tmpvalzzyxmin}) -| ({\pflxmax},{\tmpvalzzyxmax}) ;
+									\xintifboolexpr{\tmpvalzzyxmin > \pflymin}%
+										{%
+											\filldraw[tkzgrphline,dominegallintikzstyle] ({\pflxmax},{\pflymin}) rectangle ({\pflxmin},{\tmpvalzzyxmin}) ;
+										}%
+										{}%
+								}%
+						}%
+						{%
+							\IfBeginWith{#4}{>}%
+								{%
+									\draw[tkzgrphline,dominegallintikzstyle] ({\pflxmin},{\tmpvalzzyxmin}) |- ({\pflxmax},{\tmpvalzzyxmax}) ;
+									\xintifboolexpr{\tmpvalzzyxmax > \pflymin}%
+										{%
+											\filldraw[tkzgrphline,dominegallintikzstyle] ({\pflxmin},{\pflymin}) rectangle ({\pflxmax},{\tmpvalzzyxmax}) ;
+										}%
+										{}%
+								}%
+								{%
+									\draw[tkzgrphline,dominegallintikzstyle] ({\pflxmin},{\tmpvalzzyxmin}) -| ({\pflxmax},{\tmpvalzzyxmax}) ;
+									\xintifboolexpr{\tmpvalzzyxmin < \pflymax}%
+										{%
+											\filldraw[tkzgrphline,dominegallintikzstyle] ({\pflxmin},{\tmpvalzzyxmin}) rectangle ({\pflxmax},{\pflymax}) ;
+										}%
+										{}%
+								}%
+						}%
+				%---
+				\draw[tkzgrphline,{\useKV[GraphiquetikzInegLinEN]{color}}] ({\pflymin},{(-\coeffc-\coeffa*(\pflxmin))/(\coeffb)}) -- ({\pflymax},{(-\coeffc-\coeffa*(\pflxmax))/(\coeffb)}) ;
+			\end{scope}
+		}%
+	
 }
 
 \endinput
