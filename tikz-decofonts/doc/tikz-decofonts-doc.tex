@@ -3,12 +3,16 @@
 % arara: pdflatex: {shell: no, synctex: no, interaction: batchmode}
 
 \documentclass[11pt,a4paper]{ltxdoc}
-\usepackage{amsmath}
-\usepackage{bera}
-\usepackage{inconsolata}
+%\usepackage{amsmath}
+%\usepackage{bera}
+%\usepackage{inconsolata}
+%\usepackage[T1]{fontenc}
+%\usepackage[scale=0.875]{cabin}
 \usepackage[T1]{fontenc}
-\usepackage[scale=0.875]{cabin}
+\usepackage[nott]{kpfonts}
+\usepackage{inconsolata}
 \usepackage{tikz-decofonts}
+\usepackage{enumitem}
 \usepackage{fancyvrb}
 \usepackage{setspace}
 \usepackage{fancyhdr}
@@ -29,8 +33,8 @@
 \hypersetup{pdfborder=0 0 0}
 \usepackage[margin=2cm]{geometry}
 \setlength{\parindent}{0pt}
-\def\TPversion{0.1.3}
-\def\TPdate{28/03/2025}
+\def\TPversion{0.1.5}
+\def\TPdate{20/08/2025}
 \usepackage{tcolorbox}
 \tcbuselibrary{breakable,skins,hooks,listingsutf8}
 
@@ -48,7 +52,7 @@
 	keywordstyle={\color{violet}},%
 	classoffset=2,%
 	alsoletter={-},%
-	morekeywords={\tkzbrush,\tkzink,\tkzpixl,\tkzpixletter,\tkzpixlquote,\tkzcomicbubble,\tkzunderline,\tkzsurround},%
+	morekeywords={\tkzbrush,\tkzink,\tkzpixl,\tkzpixletter,\tkzpixlquote,\tkzcomicbubble,\tkzunderline,\tkzsurround,\tkzfittextinarrow,\tkzcircledtxt},%
 	keywordstyle={\color{green!50!black}},%
 	classoffset=3,%
 	morekeywords={},%
@@ -78,10 +82,10 @@
 		keywordstyle={\color{violet}},%
 		classoffset=2,%
 		alsoletter={-},%
-		morekeywords={\tkzbrush,\tkzink,\tkzpixl,\tkzpixletter,\tkzpixlquote,\tkzbicolor,\tkzcomicbubble,\tkzunderline,\tkzsurround},%
+		morekeywords={\tkzbrush,\tkzink,\tkzpixl,\tkzpixletter,\tkzpixlquote,\tkzbicolor,\tkzcomicbubble,\tkzunderline,\tkzsurround,\tkzfittextinarrow,\tkzcircledtxt},%
 		keywordstyle={\color{green!50!black}},%
 		classoffset=3,%
-		morekeywords={color,lines,scale,height,offseth,offsetv,thick,gridcolor,gridafter,nospaceafter,border,colors,style,intdelta,paralcolors,width,node},%
+		morekeywords={color,lines,scale,height,offseth,offsetv,thick,gridcolor,gridafter,nospaceafter,border,colors,style,intdelta,paralcolors,width,node,txtcolor,width,bheight,sheight,hoffset,shadow,shownodes,expand,globalwidth},%
 		keywordstyle={\color{orange}}
 	},%
 	#1
@@ -142,6 +146,7 @@
 		\texttt{Cédric Pierquet}\\
 		{\ttfamily c pierquet -- at -- outlook . fr}\\
 		\texttt{\url{https://forge.apps.education.fr/pierquetcedric/packages-latex}} \\
+		\texttt{\url{https://github.com/cpierquet/latex-packages/tree/main/tikz-decofonts}} \\
 	\end{tabular}
 \end{center}
 
@@ -220,7 +225,7 @@ In order to load \texttt{tikz-decofonts}, simply use:
 \usepackage{tikz-decofonts}
 \end{DemoCode}
 
-Loaded packages are \texttt{tikz}, \texttt{xintexpr}, \texttt{simplekv}, \texttt{listofitems} and \texttt{xstring}.
+Loaded packages are \texttt{tikz}, \texttt{xintexpr}, \texttt{simplekv}, \texttt{listofitems}, \texttt{xstring}, \texttt{ifthen} and \texttt{calc}.
 
 Loaded \texttt{tikz.librairies} are \texttt{decorations}, \texttt{decorations.pathreplacing}, \texttt{calc}, \texttt{positioning}, \texttt{bbox}, \texttt{arrows.meta}, \texttt{shapes.callouts} and \texttt{bending}.
 
@@ -503,7 +508,154 @@ by \tkzsurround[color=blue,width=1.5pt,node=BBB]{surrounding} certain portions o
 
 \pagebreak
 
+\subsection{Arrow with fitted text}
+
+\begin{DemoCode}{listing only}
+\tkzbrush[<keys>]<tikzpicture options>{text}
+
+%color       = color of arrow (gray)
+%txtcolor    = color of text (white)
+%width       = width 'with or without ending' width of arrow (2cm)
+%bheight     = big height (8mm)
+%sheight     = small height (4mm)
+%hoffset     = text h offset (0.2mm)
+%shadow      = boolean for shadow (true)
+%shownodes   = boolean for helping nodes (false)
+%expand      = use 'max' width for txt (false)
+%globalwidth = boolean for width including 'ending' (false)
+\end{DemoCode}
+
+Nodes (eg for positionning) are:
+%
+\begin{multicols}{2}
+	\begin{itemize}
+		\item \texttt{arrow-bottomleft}
+		\item \texttt{arrow-topleft}
+		\item \texttt{arrow-begin}
+		\item \texttt{arrow-end}
+		\item \texttt{arrow-textcenter}
+		\item \texttt{arrow-bottom}
+		\item \texttt{arrow-textright}
+		\item \texttt{arrow-top}
+		\item \texttt{arrow-smallbottom}
+		\item \texttt{arrow-smalltop}
+	\end{itemize}
+\end{multicols}
+
+\begin{DemoCode}{}
+\tkzfittextinarrow%
+  [bheight=3cm,sheight=1.75cm,width=6cm,color=orange,shownodes]%
+  {\vphantom{q}Demo}
+\end{DemoCode}
+
+\begin{DemoCode}{}
+\tkzfittextinarrow%
+  [bheight=3cm,sheight=1.75cm,width=6cm,color=teal,globalwidth,expand,txtcolor=yellow]%
+  {\vphantom{q}\bfseries\sffamily Demo}
+\end{DemoCode}
+
+\begin{DemoCode}{}
+\tkzfittextinarrow%
+  [bheight=2cm,sheight=1cm,width=5cm,color=orange,expand]%
+  {\vphantom{q}Démonstration}
+\end{DemoCode}
+
+\begin{DemoCode}{}
+Text before
+\tkzfittextinarrow%
+  [bheight=1em,sheight=0.6em,width=3em,color=green!50!black]%
+  <rotate=-15,baseline=(arrow-smallbottom)>%
+  {\itshape My examples}
+\tkzfittextinarrow%
+  [bheight=1em,sheight=0.6em,width=3em,color=green!50!black,expand]%
+  <rotate=15,baseline=(arrow-textcenter)>%
+  {\ttfamily My examples}
+with text after
+\end{DemoCode}
+
+\pagebreak
+
+\subsection{Freehand circled text}
+
+\begin{DemoCode}{listing only}
+\tkzcircledtxt[<keys>]<tikzpicture options>{text}
+
+%height       = height for manual insertion (2em)
+%width        = width for manual insertion (2.3em)
+%thickness    = thickness, percentage of height (0.05)
+%fill color   = bg color (lightgray!30)
+%rule color   = boxrule color (black)
+%rotate       = optional rotation (0)
+%auto         = auto width/height/raise relative to len of inside text (0)
+%fill         = boolean for filling (true)
+%font         = optional font
+%vstretch     = coefficient for vertical stretch, with auto usage (1.5)
+%hoffset      = coefficient for horizontal offset with auto usage (0.8)
+%random       = boolean for random effect (false)
+%arabic       = boolean for arabic version of counter (false)
+%alph         = boolean for alph version of counter (false)
+%Alph         = boolean for Alpha version of counter (false)
+\end{DemoCode}
+
+\begin{DemoCode}{}
+%manual insertion (height + width + font)
+{q\LARGE\sffamily\bfseries\tkzcircledtxt{99}H}\\
+{q\LARGE\sffamily\bfseries\tkzcircledtxt[random]{99}H}\\
+{q\LARGE\sffamily\bfseries\tkzcircledtxt[random]{text}H}
+\end{DemoCode}
+
+\begin{DemoCode}{}
+%automatic insertion relative to len of small text
+{\Huge q\tkzcircledtxt[auto=1]{7}H or q\tkzcircledtxt[auto=2]{7}H}\\
+{\Huge q\tkzcircledtxt[auto=2]{99}H or q\tkzcircledtxt[auto=3]{99}H}\\
+{\Huge q\tkzcircledtxt[auto=2]{154}H or q\tkzcircledtxt[auto=3]{154}H }
+\end{DemoCode}
+
+\begin{DemoCode}{}
+%with custom font
+{\Huge\sffamily q\tkzcircledtxt[font=\small\ttfamily,auto=3]{105}H}
+\end{DemoCode}
+
+\begin{DemoCode}{}
+\tkzcircledtxt[auto=1]{7} Let $f$ defined by $f(x)=x^{2}+5x-3$.
+\end{DemoCode}
+
+\begin{DemoCode}{}
+%with enumitem package
+\begin{enumerate}[label={%
+    \color{darkgray}%
+    \tkzcircledtxt[thickness=0.075,fill=false,arabic,font=\large\bfseries,auto=1,%
+    fill color=teal!25,rule color=orange]{\arabic*}%
+    }%
+  ]
+  \item AAF
+  \item AAF
+  \begin{enumerate}[label={%
+      \color{red}%
+      \tkzcircledtxt[thickness=0.0375,fill=false,hoffset=0.25,alph,%
+      font=\bfseries,auto=1,rule color=teal]{\alph*}%
+      }%
+    ]
+    \item AA
+    \item BGHMG
+  \end{enumerate}
+  \item AAF
+  \item AAF
+  \item AAF
+  \item AAF
+  \item AAF
+  \item AAF
+  \item AAF
+\end{enumerate}
+\end{DemoCode}
+
+\pagebreak
+
 \section{History}
+
+\texttt{0.1.5: Small 'freehand' circled text}
+
+\texttt{0.1.4: Arrow with fitted text}
 
 \texttt{0.1.3: Underline or surround effect}
 

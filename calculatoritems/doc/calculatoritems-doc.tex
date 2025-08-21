@@ -9,6 +9,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage[scale=0.875]{cabin}
 \usepackage{calculatoritems}
+\usepackage{hyperref}
 \usepackage{fancyvrb}
 \usepackage{fancyhdr}
 \usepackage{tabularray}
@@ -23,13 +24,12 @@
 \providecommand\TeXLive{\TeX{}Live\xspace}
 \let\TikZ\tikzlogo
 
-\usepackage{hyperref}
 \urlstyle{same}
 \hypersetup{pdfborder=0 0 0}
 \usepackage[margin=2cm]{geometry}
 \setlength{\parindent}{0pt}
-\def\TPversion{0.1.3}
-\def\TPdate{03/02/2025}
+\def\TPversion{0.1.4}
+\def\TPdate{12/08/2025}
 \usepackage{enumitem}
 \usepackage{tcolorbox}
 \usepackage{pgffor}
@@ -166,7 +166,7 @@
 	\begin{tabular}{c}
 		\texttt{Cédric Pierquet}\\
 		{\ttfamily cpierquet -- at -- outlook . fr}\\
-		\texttt{\url{https://forge.apps.education.fr/pierquetcedric/packages-latex}} \\
+		\texttt{\url{https://github.com/cpierquet/latex-packages/tree/main/calculatoritems}} \\
 	\end{tabular}
 \end{center}
 
@@ -229,6 +229,8 @@ Classic calulators items or menus :
 
 \section{History \& Future}
 
+\texttt{0.1.4: bugfix with circledtext package}
+
 \texttt{0.1.3: new styles for math+}
 
 \texttt{0.1.2: New version with resizebox (better render and calc)}
@@ -253,13 +255,13 @@ In order to load \ShowCode{calculatoritems}, simply use:
 \usepackage{calculatoritems}
 \end{DemoCode}
 
-Loaded packages are \ShowCode{xstring}, \ShowCode{settobox}, \ShowCode{ifthen}, \ShowCode{calc}, \ShowCode{simplekv}, \ShowCode{tcolorbox} and \ShowCode{circledtext}.
+Loaded packages are \ShowCode{xstring}, \ShowCode{settobox}, \ShowCode{ifthen}, \ShowCode{calc}, \ShowCode{simplekv}, \ShowCode{tcolorbox} and \ShowCode{tikz}.
 
 Loaded libraries are \ShowCode{calc} and \ShowCode{skins}.
 
 \smallskip
 
-If \ShowCode{ammsymb} doen't need to be loaded (useful for int. macro), just add \ShowCode{[noamssymb]} to the loading.
+If \ShowCode{ammsymb} doesn't need to be loaded (useful for int. macro), just add \ShowCode{[noamssymb]} to the loading.
 
 \begin{DemoCode}{listing only}
 %w/o amssymb loading

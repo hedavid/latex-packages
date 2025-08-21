@@ -21,8 +21,8 @@
 \hypersetup{pdfborder=0 0 0}
 \usepackage[margin=2cm]{geometry}
 \setlength{\parindent}{0pt}
-\def\TPversion{0.1.5}
-\def\TPdate{24 juin 2025}
+\def\TPversion{0.1.6}
+\def\TPdate{4 août 2025}
 \usepackage{tcolorbox}
 \tcbuselibrary{skins,hooks,listingsutf8}
 \usepackage{soul}
@@ -58,7 +58,7 @@
 	\begin{tabular}{c}
 	\texttt{Cédric Pierquet}\\
 	{\ttfamily c pierquet -- at -- outlook . fr}\\
-	\texttt{\url{https://forge.apps.education.fr/pierquetcedric/packages-latex}} \\
+	\texttt{\url{https://github.com/cpierquet/latex-packages/tree/main/trivialpursuit}} \\
 	\\
 	\texttt{Trivial Pursuit\texttrademark, est une marque déposée par Hasbro.}
 \end{tabular}
@@ -119,6 +119,8 @@ Pour charger le package, il suffit d'ajouter, dans le préambule :
 \begin{verbatim}
 \usepackage{TrivialPursuit}                   %avec fa5, par défaut
 \usepackage[fa6]{TrivialPursuit}              %avec fa6 (test)
+\usepackage[fa7]{TrivialPursuit}              %avec fa7 (test)
+\usepackage[nonfa]{TrivialPursuit}            %sans fa (test), à charger manuellement
 \end{verbatim}
 \end{quote}
 
@@ -126,16 +128,17 @@ Les packages chargés et utilisés par \MontreCode{TrivialPursuit} sont :
 
 \begin{itemize}
 	\item \MontreCode{tikz} avec les librairies \MontreCode{calc,positioning} ;
-	\item \MontreCode{calc} et \item \MontreCode{fontawesome} ;
+	\item \MontreCode{calc} et \MontreCode{fontawesome5} ;
 	\item \MontreCode{simplekv} ; \MontreCode{xintexpr} et \MontreCode{listofitems}.
 \end{itemize}
 
-\vfill
+\pagebreak
 
-\subsection{Historique}
+\section{Historique}
 
 \begin{quote}
 \begin{verbatim}
+0.1.6 : Bugfix + pré-compatibilité avec fa67
 0.1.5 : Bugfix (compatibilité avec twemoji)
 0.1.4 : Bugfix + pré-compatibilité avec fa6
 0.1.2 : Ajout d'une clé [VersionCourte] pour diminuer le nombre de cases
@@ -155,8 +158,8 @@ Le code se charge de tracer le plateau avec les éventuels \textit{ornements}.
 Toutes les clés disponibles sont présentées dans le paragraphe suivant, mais concernant les dimensions, des \textit{générales} sont proposées par défaut, mais il est toutefois possible de les modifier :
 
 \begin{itemize}
-	\item soit explicitement par les clés \MontreCode{[Rayon=]} et \MontreCode{[HauteurCases=]} ;
-	\item soit en spécifiant une unité particulière grâce à la clé \MontreCode{[Unite=]}, au quel cas la forme générale du plateau sera conservée.
+	\item soit explicitement par les clés \MontreCode{[Rayon=...]} et \MontreCode{[HauteurCases=...]} ;
+	\item soit en spécifiant une unité particulière grâce à la clé \MontreCode{[Unite=...]}, au quel cas la forme générale du plateau sera conservée.
 \end{itemize}
 
 \begin{tcblisting}{colframe=lightgray,colback=lightgray!5}
@@ -183,14 +186,15 @@ Les \textsf{clés} disponibles sont :
 	\hfill{}et valant \MontreCode{yellow,orange,blue,brown,green,pink} par défaut ;
 	\item \MontreCode{ListeIcones} := icônes des catégories (sens trigo),
 	
-	\hfill\MontreCode{\textbackslash faArchway,\textbackslash faTableTennis,\textbackslash faUmbrellaBeach,\textbackslash faGuitar,\textbackslash faTree,\textbackslash faMusic} par défaut ;
+	\hfill\MontreCode{A,B,C,D,E,F} par défaut ;
+	%\hfill\MontreCode{\textbackslash faArchway,\textbackslash faTableTennis,\textbackslash faUmbrellaBeach,\textbackslash faGuitar,\textbackslash faTree,\textbackslash faMusic} par défaut ;
 	\item \MontreCode{Icones} := booléen pour afficher les icônes, et valant \MontreCode{true} par défaut ;
 	\item \MontreCode{Centre} := booléen pour colorer l'hexagone centrale, et valant \MontreCode{true} par défaut ;
 	\item \MontreCode{CouleurCentre} := couleur du centre hexagonal, et valant \MontreCode{lightgray!25} par défaut ;
 	\item \MontreCode{Couleurs} := booléen pour afficher les couleurs, et valant \MontreCode{true} par défaut ;
 	\item \MontreCode{Logo} := booléen pour afficher un logo central, et valant \MontreCode{true} par défaut ;
 	\item \MontreCode{Jokers} := booléen pour afficher les jokers, et valant \MontreCode{true} par défaut ;
-	\item \MontreCode{IconeJoker} := icône des jokers, et valant \MontreCode{\textbackslash faDice} par défaut ;
+	\item \MontreCode{IconeJoker} := icône des jokers, et valant \MontreCode{J} par défaut ;%\MontreCode{\textbackslash faDice} par défaut ;
 	\item \MontreCode{Vide} := booléen pour afficher le plateau vide, et valant \MontreCode{false} par défaut ;
 	\item \MontreCode{Unite} := pour préciser l'unité (et gérer un facteur d'échelle), et valant \MontreCode{1} par défaut ;
 	\item \MontreCode{Epaisseur} := épaisseur des tracés, et valant \MontreCode{0.8pt} par défaut ;
@@ -218,7 +222,7 @@ Les \textsf{clés} disponibles sont :
 	Jokers=false,%
 	ListeCouleurs={%
 		blue!25,red!25,teal!25,orange!25,gray!50,violet!25},%
-	ListeIcones={
+	ListeIcones={%avec fa5
 		\faAddressCard,\faAngleDoubleRight,\faAngry[regular],%
 		\faAtom,\faBalanceScaleLeft,\faBell}
 ]
@@ -226,7 +230,7 @@ Les \textsf{clés} disponibles sont :
 
 \pagebreak
 
-\subsection{Palettes de couleurs prédéfinies}
+\subsection{Palettes de couleurs prédéfinies, icônes fa prédéfinies}
 
 En complément (sur une suggestion de \textsf{quark67}), deux styles de couleurs ont été définies en interne :
 
@@ -242,5 +246,15 @@ En complément (sur une suggestion de \textsf{quark67}), deux styles de couleurs
 \PlateauTrivialPursuit[Unite=0.5,ListeCouleurs=\TPColorsB]
 \end{tcblisting}
 
+\begin{quote}
+\begin{verbatim}
+\categtrivialpursuit
+\end{verbatim}
+\end{quote}
+
+\begin{tcblisting}{colframe=lightgray,colback=lightgray!5}
+\PlateauTrivialPursuit%
+  [ListeIcones=\categtrivialpursuit,ListeCouleurs=\TPColorsB,IconeJoker=\faDice]
+\end{tcblisting}
 
 \end{document}

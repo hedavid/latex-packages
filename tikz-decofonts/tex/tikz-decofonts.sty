@@ -4,9 +4,11 @@
 %                 :              (https://tex.stackexchange.com/questions/460836/custom-line-cap-to-simulate-inked-line-in-tikz/460842#460842 from user121799)
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{tikz-decofonts}[2025/03/28 0.1.3 Custom fonts, made with TikZ, with effects]
+\ProvidesPackage{tikz-decofonts}[2025/08/20 0.1.5 Custom fonts, made with TikZ, with effects]
 
 %------History
+% 0.1.5	Small 'freehand' circled text
+% 0.1.4	Arrow (fixed size) with text
 % 0.1.3	Underline/surround small texts
 % 0.1.2	Bd fonts (with callout.shapes)
 % 0.1.1	Bicolor txt
@@ -18,6 +20,8 @@
 \RequirePackage{xintexpr}
 \RequirePackage{listofitems}
 \RequirePackage{simplekv}
+\RequirePackage{ifthen}
+\RequirePackage{calc}
 \usetikzlibrary{decorations,decorations.pathreplacing,decorations.pathmorphing,calc,positioning,bbox,arrows.meta,bending,shapes.callouts}
 
 %------Paintbrush
@@ -1025,9 +1029,10 @@
 }
 
 \newlength\tkzheightunderline
+\newlength\tkzheightwidth
 
 \defKV[tkzundersurr]{%
-	width=\def\tkzsurroundthick{#1},%
+	width=\setlength\tkzheightwidth{#1},%
 	color=\def\tkzsurroundcolor{#1},%
 	node=\def\tkzsurroundnode{#1},%
 	height=\setlength\tkzheightunderline{#1}
@@ -1049,21 +1054,20 @@
 	}%
 	\begin{tikzpicture}[remember picture,overlay]
 		\calcwidthnodetikz{\tkzsurroundnode}{\mytmpwidthnode}%
-		\xdef\offsettmpdecoh{\fpeval{-0.15*\mytmpwidthnode}}%
-		\xdef\offsettmpdecohb{\fpeval{0.25*\mytmpwidthnode}}%
-		\path[draw,line width=\tkzsurroundthick,\tkzsurroundcolor,{ink[bend]}-{ink[bend]}] plot[smooth] coordinates {%
-			([yshift=1.5mm]\tkzsurroundnode.north)
-			([xshift=-0.25mm,yshift=0.1mm]\tkzsurroundnode.north west)
-			([yshift=-0.2mm]\tkzsurroundnode.south west)
+		\xdef\offsettmpdecoh{\fpeval{-(0.125+0.15*rand())*\mytmpwidthnode}}%
+		\xdef\offsettmpdecohb{\fpeval{(0.1+0.25*rand())*\mytmpwidthnode}}%
+		\path[draw,line width=\tkzheightwidth,\tkzsurroundcolor,{ink[bend]}-{ink[bend]}] plot[smooth] coordinates {%
+			([yshift=\fpeval{1.2+0.3*rand()}mm]\tkzsurroundnode.north)
+			([xshift=-0.15mm,yshift=0.1mm]\tkzsurroundnode.north west)
+			([xshift=-0.1mm,yshift=-0.25mm]\tkzsurroundnode.south west)
 			([xshift=-\offsettmpdecoh cm,yshift=-1mm]\tkzsurroundnode.south)
 			([yshift=-0.15mm]\tkzsurroundnode.south east)
-			([xshift=0.25mm,yshift=0.2mm]\tkzsurroundnode.north east)
-			([xshift=\offsettmpdecohb cm,yshift=1mm]\tkzsurroundnode.north)
-			([xshift=\offsettmpdecoh cm,yshift=-0.1mm]\tkzsurroundnode.north)
+			([xshift=0.05mm,yshift=0.15mm]\tkzsurroundnode.north east)
+			([xshift=\offsettmpdecohb cm,yshift=\fpeval{0.8+0.1*rand()}mm]\tkzsurroundnode.north)
+			([xshift=\offsettmpdecoh cm,yshift=\fpeval{-0.1*rand()}mm]\tkzsurroundnode.north)
 		};%
 	\end{tikzpicture}%
 }
-
 
 \NewDocumentCommand\tkzunderline{ O{} m }{%
 	%#1=options
@@ -1079,16 +1083,254 @@
 		\xdef\offsettmpdecohb{\fpeval{0.175*\mytmpwidthnode}}%
 		\xdef\offsettmpdecohc{\fpeval{0.1*\mytmpwidthnode}}%
 		\xdef\offsettmpdecohd{\fpeval{0.005*\mytmpwidthnode}}%
-		\path[draw,line width=\tkzsurroundthick,\tkzsurroundcolor,{ink[bend]}-{ink[bend]}] plot[smooth] 
+		\path[draw,line width=\tkzheightwidth,\tkzsurroundcolor,{ink[bend]}-{ink[bend]}] plot[smooth] 
 			coordinates {%
-				([yshift=-0.5*\tkzsurroundthick]\tkzsurroundnode.south west)
-				([yshift=-\tkzsurroundthick]\tkzsurroundnode.south east)
+				([yshift=-0.5\tkzheightwidth]\tkzsurroundnode.south west)
+				([yshift=-\tkzheightwidth]\tkzsurroundnode.south east)
 				([xshift=-\offsettmpdecoha cm,yshift=-0.15\tkzheightunderline]\tkzsurroundnode.south)
 				([xshift=\offsettmpdecohb cm,yshift=-0.275\tkzheightunderline]\tkzsurroundnode.south)
 				([xshift=-\offsettmpdecohc cm,yshift=-0.4\tkzheightunderline]\tkzsurroundnode.south)
 				([yshift=-0.525\tkzheightunderline]\tkzsurroundnode.south)}
 			to ([xshift=\offsettmpdecohd cm,yshift=-\tkzheightunderline]\tkzsurroundnode.south) ;
 	\end{tikzpicture}%
+}
+
+%----arrow with fitted text
+%data lengths
+\newlength\tikzdecoarrowsmallheight
+\newlength\tikzdecoarrowbigheight
+\newlength\tikzdecoarrowrounded
+\newlength\tikzdecoarrowwidth
+\newlength\tikzdecoarrowwidtharrow
+\newlength\tikzdecoarrowhoffset
+\newlength\tikzdecoarrowtextwidth
+%data boxes
+\newsavebox{\tikzdecoarrowtextvstretch}
+\newsavebox{\tikzdecoarrowtexthstretch}
+
+\setlength\tikzdecoarrowhoffset{0.5mm}
+\setlength\tikzdecoarrowsmallheight{4mm}
+\setlength\tikzdecoarrowbigheight{8mm}
+\setlength\tikzdecoarrowrounded{0.05\tikzdecoarrowbigheight}%
+\setlength\tikzdecoarrowwidth{2cm}
+
+\defKV[txtarrowfit]{%
+	color=\colorlet{arrowcolor}{#1},%
+	txtcolor=\colorlet{arrowtxtcolor}{#1},%
+	width=\setlength\tikzdecoarrowwidth{#1},%
+	bheight=\setlength\tikzdecoarrowbigheight{#1},%
+	sheight=\setlength\tikzdecoarrowsmallheight{#1},%
+	hoffset=\setlength\tikzdecoarrowhoffset{#1}
+}
+\setKVdefault[txtarrowfit]{%
+	color=gray,%
+	txtcolor=white,%
+	width=2cm,%
+	bheight=8mm,%
+	sheight=4mm,%
+	hoffset=0.2mm,%
+	shadow=true,%
+	shownodes=false,%
+	expand=false,%
+	globalwidth=false
+}
+
+\tikzset{txtarrow main/.style={rounded corners=\tikzdecoarrowrounded}}
+\tikzset{txtarrow shift shadow/.style={xshift=-0.1mm,rotate around={1.5:(arrow-end)}}}
+\tikzset{txtarrow shadow/.style={gray,opacity=0.5,rounded corners=\tikzdecoarrowrounded}}
+
+\NewDocumentCommand\tkzfittextinarrow{ O{} D<>{} m }{%
+	\restoreKV[txtarrowfit]%
+	\setKV[txtarrowfit]{#1}%
+	%lengths calc
+	\ifboolKV[txtarrowfit]{globalwidth}%
+		{%
+			\setlength\tikzdecoarrowwidth{\tikzdecoarrowwidth-0.866\tikzdecoarrowbigheight}%
+		}%
+		{}%
+	\savebox{\tikzdecoarrowtextvstretch}{\resizebox*{!}{\tikzdecoarrowsmallheight}{\textcolor{arrowtxtcolor}{#3}}}%
+	\ifboolKV[txtarrowfit]{expand}%
+		{%
+			\savebox{\tikzdecoarrowtexthstretch}{\resizebox*{\dimexpr\tikzdecoarrowwidth+0.866\tikzdecoarrowbigheight-0.866\tikzdecoarrowsmallheight-2\tikzdecoarrowhoffset\relax}{!}{\textcolor{arrowtxtcolor}{#3}}}%
+		}%
+		{%
+			\savebox{\tikzdecoarrowtexthstretch}{\resizebox*{\dimexpr\tikzdecoarrowwidth-2\tikzdecoarrowhoffset\relax}{!}{\textcolor{arrowtxtcolor}{#3}}}%
+		}%
+	\settowidth\tikzdecoarrowtextwidth{\usebox{\tikzdecoarrowtextvstretch}}%
+	\setlength\tikzdecoarrowrounded{0.075\tikzdecoarrowbigheight}%
+	%tikzpicture
+	\begin{tikzpicture}[transform shape,#2]
+		%nodes
+		\coordinate (arrow-bottomleft) at ({0},{0}) ;
+		\coordinate (arrow-topleft) at ({0},{\tikzdecoarrowbigheight}) ;
+		\coordinate (arrow-begin) at ({0},{0.5\tikzdecoarrowbigheight}) ;
+		\coordinate (arrow-end) at ({\tikzdecoarrowwidth+0.866\tikzdecoarrowbigheight},{0.5\tikzdecoarrowbigheight}) ;
+		\ifboolKV[txtarrowfit]{expand}%
+			{%
+				\coordinate (arrow-textcenter) at ({0.5\tikzdecoarrowwidth+0.433\tikzdecoarrowbigheight-0.433\tikzdecoarrowsmallheight},0.5\tikzdecoarrowbigheight) ;
+				\coordinate (arrow-textright) at ({\tikzdecoarrowwidth+0.866\tikzdecoarrowbigheight-0.866\tikzdecoarrowsmallheight},0.5\tikzdecoarrowbigheight) ;
+			}%
+			{%
+				\coordinate (arrow-textcenter) at (0.5\tikzdecoarrowwidth,0.5\tikzdecoarrowbigheight) ;
+				\coordinate (arrow-textright) at (\tikzdecoarrowwidth,0.5\tikzdecoarrowbigheight) ;
+			}%
+		\coordinate (arrow-bottom) at ({\tikzdecoarrowwidth},{0}) ;
+		\coordinate (arrow-top) at ({\tikzdecoarrowwidth},{\tikzdecoarrowbigheight}) ;
+		\coordinate (arrow-smallbottom) at ({\tikzdecoarrowwidth},{0.5\tikzdecoarrowbigheight-0.5\tikzdecoarrowsmallheight}) ;
+		\coordinate (arrow-smalltop) at ({\tikzdecoarrowwidth},{0.5\tikzdecoarrowbigheight+0.5\tikzdecoarrowsmallheight}) ;
+		%shadow arrow
+		\begin{scope}[txtarrow shift shadow]
+			\fill[draw=none,txtarrow shadow] (0,0) -- (\tikzdecoarrowwidth,{0.5\tikzdecoarrowbigheight-0.5\tikzdecoarrowsmallheight}) -- (\tikzdecoarrowwidth,0) --++ (0.866\tikzdecoarrowbigheight,0.5\tikzdecoarrowbigheight) --++ (-0.866\tikzdecoarrowbigheight,0.5\tikzdecoarrowbigheight) --++ (0,{-0.5\tikzdecoarrowbigheight+0.5\tikzdecoarrowsmallheight}) -- (0,\tikzdecoarrowbigheight) -- cycle;
+		\end{scope}
+		%main arrow
+		\fill[draw=none,arrowcolor,txtarrow main] (0,0) -- (\tikzdecoarrowwidth,{0.5\tikzdecoarrowbigheight-0.5\tikzdecoarrowsmallheight}) -- (\tikzdecoarrowwidth,0) --++ (0.866\tikzdecoarrowbigheight,0.5\tikzdecoarrowbigheight) --++ (-0.866\tikzdecoarrowbigheight,0.5\tikzdecoarrowbigheight) --++ (0,{-0.5\tikzdecoarrowbigheight+0.5\tikzdecoarrowsmallheight}) -- (0,\tikzdecoarrowbigheight) -- cycle;
+		%label
+		\ifboolKV[txtarrowfit]{expand}%
+			{%
+				\ifthenelse{\tikzdecoarrowtextwidth < \dimexpr\tikzdecoarrowwidth+0.866\tikzdecoarrowbigheight-0.866\tikzdecoarrowsmallheight-2\tikzdecoarrowhoffset\relax}%
+					{%width ok
+						\node[inner sep=0pt,align=center] at (arrow-textcenter) {\usebox{\tikzdecoarrowtextvstretch}} ;
+					}%
+					{%width ko => h-stretch
+						\node[inner sep=0pt,align=center] at (arrow-textcenter) {\usebox{\tikzdecoarrowtexthstretch}} ;
+					}%
+			}%
+			{%
+				\ifthenelse{\tikzdecoarrowtextwidth < \dimexpr\tikzdecoarrowwidth-2\tikzdecoarrowhoffset\relax}%
+					{%width ok
+						\node[inner sep=0pt,align=center] at (arrow-textcenter) {\usebox{\tikzdecoarrowtextvstretch}} ;
+					}%
+					{%width ko => h-stretch
+						\node[inner sep=0pt,align=center] at (arrow-textcenter) {\usebox{\tikzdecoarrowtexthstretch}} ;
+					}%
+			}%
+		%shownodes
+		\ifboolKV[txtarrowfit]{shownodes}%
+			{%
+				\foreach \nodepos in {arrow-bottomleft,arrow-topleft,arrow-begin,arrow-end,arrow-textcenter,arrow-bottom,arrow-textright,arrow-top,arrow-smallbottom,arrow-smalltop}{%
+					\fill[line width=0.1\tikzdecoarrowrounded,draw=black,fill=red] (\nodepos) circle[radius=0.5\tikzdecoarrowrounded] ;
+				}
+			}%
+			{}%
+	\end{tikzpicture}%
+}
+
+%----freehand simple circled text
+\newlength\mytmpwidthfreehandnode
+\newlength\mytmpheightfreehandnode
+
+\ExplSyntaxOn
+\tl_new:N \c_tikzdecocct_alphabet_tl
+\box_new:N \l__tikzdecocct_widest_box
+\dim_new:N \l__tikzdecocct_widest_dim
+\tl_new:N \l__tikzdecocct_widest_tl
+\dim_new:N \mytmpmaxdimfreehandnode
+
+\NewDocumentCommand{\tikzdecocctcomputewidest}{O{}m}
+{
+	\group_begin:
+	\tl_set:Nn \c_tikzdecocct_alphabet_tl { #2 } %samples characters
+	#1 % optionally select a font
+	\dim_zero:N \l__tikzdecocct_widest_dim
+	\tl_clear:N \l__tikzdecocct_widest_tl
+	\tl_map_inline:Nn \c_tikzdecocct_alphabet_tl
+	{
+		\hbox_set:Nn \l__tikzdecocct_widest_box { ##1 }
+		\dim_compare:nT { \box_wd:N \l__tikzdecocct_widest_box > \l__tikzdecocct_widest_dim }
+		{
+			\dim_set:Nn \l__tikzdecocct_widest_dim { \box_wd:N \l__tikzdecocct_widest_box }
+			\tl_set:Nn \l__tikzdecocct_widest_tl { ##1 }
+		}
+	}
+	\dim_gset_eq:NN \mytmpmaxdimfreehandnode \l__tikzdecocct_widest_dim
+	\group_end:
+}
+\ExplSyntaxOff
+
+\defKV[customcircletxt]{%
+	height=\setlength\mytmpheightfreehandnode{#1},%
+	width=\setlength\mytmpwidthfreehandnode{#1},%
+	fill color=\colorlet{fillcolorcustomcircletxt}{#1},%
+	rule color=\colorlet{rulecolorcustomcircletxt}{#1},%
+	thickness=\def\mytmpthicknessfreehandnode{#1}
+}
+
+\setKVdefault[customcircletxt]{%
+	height=2em,
+	width=2.3em,
+	thickness=0.05,
+	fill color=lightgray!30,%
+	rule color=black,%
+	rotate=0,
+	auto=0,
+	fill=true,%
+	font={},
+	vstretch=1.5,%
+	hoffset=0.8,%
+	random=false,%
+	arabic=false,%
+	alph=false,%
+	Alph=false
+}
+
+\NewDocumentCommand\tkzcircledtxt{O{}D<>{}m}{%
+	\restoreKV[customcircletxt]%
+	\setKV[customcircletxt]{#1}%
+	\ifboolKV[customcircletxt]{random}%
+		{%
+			\xdef\mytmprandfreehandnode{\fpeval{randint(5,15)}}%
+		}%
+		{%
+			\def\mytmprandfreehandnode{7}%
+		}%
+	%
+	\begingroup\useKV[customcircletxt]{font}%
+	\ifnum\useKV[customcircletxt]{auto}=0\relax%
+		\begin{tikzpicture}[rotate={\useKV[customcircletxt]{rotate}},line width=\mytmpthicknessfreehandnode\mytmpheightfreehandnode,line cap=round,#2]
+	\else%
+		\settototalheight\mytmpheightfreehandnode{\hbox{0123456789}}%
+		\tikzdecocctcomputewidest{0123456789}%
+		\ifboolKV[customcircletxt]{arabic}%samples with 0123456789
+			{%
+				\settototalheight\mytmpheightfreehandnode{\hbox{0123456789}}%
+				\tikzdecocctcomputewidest{0123456789}%
+			}%
+			{}%
+		\ifboolKV[customcircletxt]{alph}%
+			{%
+				\settototalheight\mytmpheightfreehandnode{\hbox{abcdefghijklmnopqrstuvwxyz}}%
+				\tikzdecocctcomputewidest{abcdefghijklmnopqrstuvwxyz}%
+			}%
+			{}%
+		\ifboolKV[customcircletxt]{Alph}%
+			{%
+				\settototalheight\mytmpheightfreehandnode{\hbox{ABCDEFGHIJKLMNOPQRSTUVWXYZ}}%
+				\tikzdecocctcomputewidest{ABCDEFGHIJKLMNOPQRSTUVWXYZ}%
+			}%
+			{}%
+		\setlength\mytmpheightfreehandnode{\useKV[customcircletxt]{vstretch}\mytmpheightfreehandnode}%
+		\setlength\mytmpwidthfreehandnode{\fpeval{\useKV[customcircletxt]{auto}+\useKV[customcircletxt]{hoffset}}\mytmpmaxdimfreehandnode}%
+		\begin{tikzpicture}[rotate={\useKV[customcircletxt]{rotate}},line width=\mytmpthicknessfreehandnode\mytmpheightfreehandnode,line cap=round,baseline=(ZZZ-TXT.base),#2]
+	\fi%
+		\ifboolKV[customcircletxt]{fill}%
+			{%
+				%fill bg
+				\begin{scope}
+					\fill[fillcolorcustomcircletxt] (0,0.5\mytmpheightfreehandnode) to[out=\fpeval{180-\mytmprandfreehandnode},in=\fpeval{90+\mytmprandfreehandnode}] ++ ({-0.5\mytmpwidthfreehandnode},{-0.5\mytmpheightfreehandnode}) to[out=\fpeval{-90+\mytmprandfreehandnode},in=\fpeval{180+\mytmprandfreehandnode}] ++  ({0.5\mytmpwidthfreehandnode},{-0.5\mytmpheightfreehandnode}) to[out=\mytmprandfreehandnode,in=\fpeval{-90-\mytmprandfreehandnode}] ++ (0.5\mytmpwidthfreehandnode,0.5\mytmpheightfreehandnode) to[out=\fpeval{90-\mytmprandfreehandnode},in=1.5\mytmprandfreehandnode] cycle ;
+				\end{scope}
+			}%
+			{}%
+		%border
+		\begin{scope}
+			\draw[rulecolorcustomcircletxt] ([xshift=0.0275\mytmpmaxdimfreehandnode,yshift=\fpeval{-0.75*\mytmpthicknessfreehandnode}\mytmpheightfreehandnode]0,0.5\mytmpheightfreehandnode) to[out=\fpeval{180-\mytmprandfreehandnode},in=\fpeval{90+\mytmprandfreehandnode}] ++ ({-0.5\mytmpwidthfreehandnode},{-0.5\mytmpheightfreehandnode}) to[out=\fpeval{-90+\mytmprandfreehandnode},in=\fpeval{180+\mytmprandfreehandnode}] ++  ({0.5\mytmpwidthfreehandnode},{-0.5\mytmpheightfreehandnode}) to[out=\mytmprandfreehandnode,in=\fpeval{-90-\mytmprandfreehandnode}] ++ (0.5\mytmpwidthfreehandnode,0.5\mytmpheightfreehandnode) to[out=\fpeval{90-\mytmprandfreehandnode},in=\fpeval{1.5*\mytmprandfreehandnode}] ++ ([xshift=-0.155\mytmpwidthfreehandnode,yshift=\fpeval{2*\mytmpthicknessfreehandnode}\mytmpheightfreehandnode]{-0.5\mytmpwidthfreehandnode},{0.5\mytmpheightfreehandnode}) ;
+		\end{scope}
+		%node
+		\begin{scope}
+			\clip (0,0.5\mytmpheightfreehandnode) to[out=\fpeval{180-\mytmprandfreehandnode},in=\fpeval{90+\mytmprandfreehandnode}] ++ ({-0.5\mytmpwidthfreehandnode},{-0.5\mytmpheightfreehandnode}) to[out=\fpeval{-90+\mytmprandfreehandnode},in=\fpeval{180+\mytmprandfreehandnode}] ++  ({0.5\mytmpwidthfreehandnode},{-0.5\mytmpheightfreehandnode}) to[out=\mytmprandfreehandnode,in=\fpeval{-90-\mytmprandfreehandnode}] ++ (0.5\mytmpwidthfreehandnode,0.5\mytmpheightfreehandnode) to[out=\fpeval{90-\mytmprandfreehandnode},in=-\mytmprandfreehandnode] cycle ;
+			\node[inner sep=0pt] (ZZZ-TXT) at (0,0) {#3} ;
+		\end{scope}
+	\end{tikzpicture}%
+	\endgroup%
 }
 
 \endinput

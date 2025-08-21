@@ -1,0 +1,856 @@
+% Author..........: C. Pierquet
+% licence.........: Released under the LaTeX Project Public License v1.3c or later, see http://www.latex-project.org/lppl.txt
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{tikzbrickfigurines}[2025/08/18 0.1.1 Small brickfigurines, made with tikz]
+
+%====HISTORY
+% v 0.1.1  Enhancements for adjusted logo
+% v 0.1.0  Initial version
+
+%====PACKAGES
+\RequirePackage{simplekv}
+\RequirePackage{xstring}
+\RequirePackage{ifthen}
+\RequirePackage{etoolbox}
+\RequirePackage{listofitems}
+\RequirePackage{graphicx}
+\RequirePackage{calc}
+\RequirePackage{tikz}
+\usetikzlibrary{shapes.geometric,bbox,decorations,decorations.pathmorphing,calc}
+
+%https://tex.stackexchange.com/questions/719042/tikz-how-clip-to-complement-of-a-region
+\usetikzlibrary{spath3}
+\tikzset{
+  invclip/.style={clip even odd rule,overlay,insert path={[reset cm](-16383.99999pt,-16383.99999pt) rectangle (16383.99999pt,16383.99999pt)},},
+  clip even odd rule/.code={\pgfseteorule}
+}
+\tikzset{use path now/.code={\pgfsyssoftpath@setcurrentpath#1}}
+
+%----lengths
+\newlength\tkzbrickfigheight
+\newlength\tkzbrickfigheightlogo
+\newlength\tkzbrickfigwidthlogo
+
+%----keys
+\defKV[tkzshapebrickfig]{%
+  color lines=\def\tkzshapebrickfiglinescolor{#1},%
+  color skin=\def\tkzshapebrickfigskincolor{#1},%
+  color sweat=\def\tkzshapebrickfigsweatcolor{#1},%
+  color pant=\def\tkzshapebrickfigpantcolor{#1},%
+  color belt=\tikzset{brickfig shape belt/.style={fill=#1}},
+  color bottom belt=\tikzset{brickfig shape bottom belt/.style={fill=#1}},
+  color body=\tikzset{brickfig shape body/.style={fill=#1}},
+  color arm=\tikzset{brickfig shape arm/.style={fill=#1}},
+  color arm shadow=\tikzset{brickfig shape arm shadow/.style={fill=#1}},
+  color hand=\tikzset{brickfig shape hand/.style={fill=#1}},
+  color hand shadow=\tikzset{brickfig shape hand shadow/.style={fill=#1}},
+  color neck=\tikzset{brickfig shape neck/.style={fill=#1}},
+  color head=\tikzset{brickfig shape head/.style={fill=#1}},
+  color hair=\tikzset{brickfig shape hair/.style={fill=#1}},
+  color top pant=\tikzset{brickfig shape top pant/.style={fill=#1}},
+  color middle pant=\tikzset{brickfig shape middle pant/.style={fill=#1}},
+  color foot=\tikzset{brickfig shape foot/.style={fill=#1}},%
+  logo=\def\tkzshapebrickfiglogo{#1},%
+  adjusted logo=\def\tkzshapebrickadjustlogo{#1},%
+  scale logo=\def\tkzshapebrickfigscalelogo{#1},%
+  figure name=\def\tkzshapebrickfigname{#1}
+}
+\setKVdefault[tkzshapebrickfig]{%
+  color lines={},%
+  color skin={},
+  color sweat={},%
+  color pant={},
+  color belt=darkgray,
+  color bottom belt=blue!75,
+  color body=red,
+  color arm=red,
+  color arm shadow=red!85!black,
+  color hand=yellow,
+  color hand shadow=yellow!85!black,
+  color neck=yellow,
+  color head=yellow,
+  color hair=brown,
+  color top pant=blue!75,
+  color middle pant=blue!75,
+  color foot=darkgray!50!black,%
+  display logo=false,%
+  custom logo=false,%
+  logo={},%
+  scale logo=0.667,
+  man=false,%
+  woman=false,%
+  empty=false,%
+  hairstyle=0,%
+  eyestyle=1,%
+  eyebrowstyle=1,%
+  mouthstyle=1,%
+  seed=365479,%
+  angry=false,%
+  scary=false,%
+  surprised=false,%
+  bbox=false,%
+  head=false,%
+  vcenter=false,%
+  figure name=MYBRICKFIG,%
+  adjusted logo={}
+}
+
+%----init styles
+\tikzset{brickfig shape belt/.style={fill=gray}}
+\tikzset{brickfig shape bottom belt/.style={fill=blue!75!black}}
+\tikzset{brickfig shape body/.style={fill=red}}
+\tikzset{brickfig shape arm/.style={fill=red}}
+\tikzset{brickfig shape arm shadow/.style={fill=red!85!black}}
+\tikzset{brickfig shape hand/.style={fill=yellow}}
+\tikzset{brickfig shape hand shadow/.style={fill=yellow!85!black}}
+\tikzset{brickfig shape neck/.style={fill=yellow}}
+\tikzset{brickfig shape head/.style={fill=yellow}}
+\tikzset{brickfig shape hair/.style={fill=brown}}
+\tikzset{brickfig shape top pant/.style={fill=blue!75!black}}
+\tikzset{brickfig shape middle pant/.style={fill=blue!75!black}}
+\tikzset{brickfig shape foot/.style={fill=white}}
+
+%----int eye
+\newcommand\inttkzshapebrickfigeye[1]{%gen eye macro 1/2/3/4
+  \ifcase#1\relax%
+  \or\inttkzshapebrickfigeyeA{\tkzshapebrickfigname-EYERIGHT}{\tkzshapebrickfigname-EYELEFT}{\tkzshapebrickfigname-EYERIGHTSHADOW}{\tkzshapebrickfigname-EYELEFTSHADOW}%=1
+  \or\inttkzshapebrickfigeyeA{\tkzshapebrickfigname-EYERIGHT}{\tkzshapebrickfigname-EYELEFT}{\tkzshapebrickfigname-EYERIGHTSHADOWBOTTOM}{\tkzshapebrickfigname-EYELEFTSHADOWBOTTOM}%=2
+  \or\inttkzshapebrickfigeyeB{\tkzshapebrickfigname-EYERIGHT}{\tkzshapebrickfigname-EYELEFT}{\tkzshapebrickfigname-EYERIGHTSHADOWBOTTOM}{\tkzshapebrickfigname-EYELEFTSHADOWBOTTOM}%=3
+  \or\inttkzshapebrickfigeyeB{\tkzshapebrickfigname-EYERIGHT}{\tkzshapebrickfigname-EYELEFT}{\tkzshapebrickfigname-EYERIGHT}{\tkzshapebrickfigname-EYELEFT}%=4
+  \or\inttkzshapebrickfigeyeC{\tkzshapebrickfigname-EYERIGHT}{\tkzshapebrickfigname-EYELEFT}{\tkzshapebrickfigname-EYERIGHTSHADOW}{\tkzshapebrickfigname-EYELEFTSHADOW}%=5
+  \or\inttkzshapebrickfigeyeD{\tkzshapebrickfigname-EYERIGHT}{\tkzshapebrickfigname-EYELEFT}{\tkzshapebrickfigname-EYERIGHTSHADOWBOTTOM}{\tkzshapebrickfigname-EYELEFTSHADOWBOTTOM}%=6
+  \or\inttkzshapebrickfigeyeE{\tkzshapebrickfigname-EYERIGHT}{\tkzshapebrickfigname-EYELEFT}{\tkzshapebrickfigname-EYERIGHTSHADOW}{\tkzshapebrickfigname-EYELEFT}%=7
+  \or\inttkzshapebrickfigeyeE[-1]{\tkzshapebrickfigname-EYELEFT}{\tkzshapebrickfigname-EYERIGHT}{\tkzshapebrickfigname-EYELEFT}{\tkzshapebrickfigname-EYERIGHT}%=8
+  \or\inttkzshapebrickfigeyeC{\tkzshapebrickfigname-EYERIGHT}{\tkzshapebrickfigname-EYELEFT}{\tkzshapebrickfigname-EYERIGHTSHADOWBOTTOM}{\tkzshapebrickfigname-EYELEFTSHADOWBOTTOM}%=9
+  \or\inttkzshapebrickfigeyeD{\tkzshapebrickfigname-EYERIGHT}{\tkzshapebrickfigname-EYELEFT}{\tkzshapebrickfigname-EYERIGHTSHADOW}{\tkzshapebrickfigname-EYELEFTSHADOW}%=10
+  \fi%
+}
+
+\newcommand\inttkzshapebrickfigeyeA[4]{%normal eye
+  \fill[] (#1) circle[x radius=0.3,y radius=0.35] ;
+  \fill[] (#2) circle[x radius=0.3,y radius=0.35] ;
+  \fill[white] (#3) circle[x radius=0.1,y radius=0.125] ;
+  \fill[white] (#4) circle[x radius=0.1,y radius=0.125] ;
+}
+
+\newcommand\inttkzshapebrickfigeyeB[4]{%sad eye
+  \fill[] (#1) circle[x radius=0.3,y radius=0.35] ;
+  \fill[] (#2) circle[x radius=0.3,y radius=0.35] ;
+  \fill[white] (#3) circle[x radius=0.125,y radius=0.15] ;
+  \fill[white] (#4) circle[x radius=0.125,y radius=0.15] ;
+}
+
+\newcommand\inttkzshapebrickfigeyeC[4]{%
+  \fill[] (#1) circle[x radius=0.3,y radius=0.35] ;
+  \fill[] (#2) circle[x radius=0.3,y radius=0.35] ;
+  \fill[white] (#3) circle[x radius=0.1,y radius=0.125] ;
+  \fill[white] (#4) circle[x radius=0.1,y radius=0.125] ;
+  \draw[line cap=rect] ([shift={(0.575,-0.05)}]#1) to[bend left=15]++ (0.35,0) to[bend right=10] cycle ;
+  \draw[line cap=rect] ([shift={(0.575,-0.05)}]#1) to[bend left=15]++ (0.3,-0.3) to[bend right=10] cycle ;
+  \draw[line cap=rect] ([shift={(-0.575,-0.05)}]#2) to[bend right=15]++ (-0.35,0) to[bend left=10] cycle ;
+  \draw[line cap=rect] ([shift={(-0.575,-0.05)}]#2) to[bend right=15]++ (-0.3,-0.3) to[bend left=10] cycle ;
+}
+
+\newcommand\inttkzshapebrickfigeyeD[4]{%
+  \fill[] (#1) circle[x radius=0.3,y radius=0.35] ;
+  \fill[] (#2) circle[x radius=0.3,y radius=0.35] ;
+  \fill[white] (#3) circle[x radius=0.1,y radius=0.125] ;
+  \fill[white] (#4) circle[x radius=0.1,y radius=0.125] ;
+  \draw[line cap=round,line width=\fpeval{\tkzbrickfigscale*0.9}mm] ([shift={(-0.2,0.41)}]#1) to[bend right=10]++ (0.5,-0.15) ;
+  \draw[line cap=round,line width=\fpeval{\tkzbrickfigscale*0.9}mm] ([shift={(0.2,0.41)}]#2) to[bend left=10]++ (-0.5,-0.15) ;
+}
+
+\newcommand\inttkzshapebrickfigeyeE[5][1]{%
+  \begin{scope}[xscale=#1]
+    \filldraw[] ([shift={(-0.21,-0.2)}]#3) to[bend left=10]++ ({0.37},0) to[bend right=12.5]++ (0,0.4) to[bend right=10]++ (-0.37,0) to[bend right=12.5] cycle ;
+    \filldraw[] ([shift={(0.24,0.2)}]#3) to[bend right=10]++ (-0.56,0) -- cycle ;
+    \begin{scope}
+      \draw[,line width=\fpeval{\tkzbrickfigscale*0.9}mm] ([shift={(-0.30,-0.05)}]#2) to[out=35,in=155,looseness=1.5]++ (0.3,0) to[out=-25,in=-155,looseness=1]++ (0.3,0) ;
+    \end{scope}
+    \fill[white] (#5) circle[x radius=0.1,y radius=0.125] ;
+  \end{scope}
+}
+
+%----int eyebrow
+\newcommand\inttkzshapebrickfigeyebrow[1]{%gen eyebrow macro 1/2/3/4/5/6/7/8
+  \ifcase#1\relax%
+  \or%=1
+    \inttkzshapebrickfigeyebrowB{\tkzshapebrickfigname-EYEBROWRIGHT}{\tkzshapebrickfigname-EYERIGHT}%
+    \inttkzshapebrickfigeyebrowB[-1]{\tkzshapebrickfigname-EYEBROWLEFT}{\tkzshapebrickfigname-EYELEFT}%
+  \or%=2
+    \inttkzshapebrickfigeyebrowA{\tkzshapebrickfigname-EYEBROWRIGHT}{\tkzshapebrickfigname-EYERIGHT}%
+    \inttkzshapebrickfigeyebrowA[-1]{\tkzshapebrickfigname-EYEBROWLEFT}{\tkzshapebrickfigname-EYELEFT}%
+  \or%=3
+    \inttkzshapebrickfigeyebrowC{\tkzshapebrickfigname-EYEBROWRIGHT}{\tkzshapebrickfigname-EYERIGHT}%
+    \inttkzshapebrickfigeyebrowC[-1]{\tkzshapebrickfigname-EYEBROWLEFT}{\tkzshapebrickfigname-EYELEFT}%
+  \or%=4
+    \inttkzshapebrickfigeyebrowD{\tkzshapebrickfigname-EYEBROWRIGHT}{\tkzshapebrickfigname-EYERIGHT}%
+    \inttkzshapebrickfigeyebrowD[-1]{\tkzshapebrickfigname-EYEBROWLEFT}{\tkzshapebrickfigname-EYELEFT}%
+  \or%=5
+    \inttkzshapebrickfigeyebrowE{\tkzshapebrickfigname-EYEBROWRIGHT}{\tkzshapebrickfigname-EYERIGHT}%
+    \inttkzshapebrickfigeyebrowE[-1]{\tkzshapebrickfigname-EYEBROWLEFT}{\tkzshapebrickfigname-EYELEFT}%
+  \or%=6
+    \inttkzshapebrickfigeyebrowF{\tkzshapebrickfigname-EYEBROWRIGHT}{\tkzshapebrickfigname-EYERIGHT}%
+    \inttkzshapebrickfigeyebrowF[-1]{\tkzshapebrickfigname-EYEBROWLEFT}{\tkzshapebrickfigname-EYELEFT}%
+  \or%=7
+    \inttkzshapebrickfigeyebrowG{\tkzshapebrickfigname-EYEBROWRIGHT}{\tkzshapebrickfigname-EYERIGHT}%
+    \inttkzshapebrickfigeyebrowG[-1]{\tkzshapebrickfigname-EYEBROWLEFT}{\tkzshapebrickfigname-EYELEFT}%
+  \or%=8
+    \inttkzshapebrickfigeyebrowH{\tkzshapebrickfigname-EYEBROWRIGHT}{\tkzshapebrickfigname-EYERIGHT}%
+    \inttkzshapebrickfigeyebrowH[-1]{\tkzshapebrickfigname-EYEBROWLEFT}{\tkzshapebrickfigname-EYELEFT}%
+  \or%=9
+    \inttkzshapebrickfigeyebrowI{\tkzshapebrickfigname-EYEBROWRIGHT}{\tkzshapebrickfigname-EYERIGHT}%
+    \inttkzshapebrickfigeyebrowI[-1]{\tkzshapebrickfigname-EYEBROWLEFT}{\tkzshapebrickfigname-EYELEFT}%
+  \or%=10
+    \inttkzshapebrickfigeyebrowJ{\tkzshapebrickfigname-EYEBROWRIGHT}{\tkzshapebrickfigname-EYERIGHT}%
+    \inttkzshapebrickfigeyebrowJ[-1]{\tkzshapebrickfigname-EYEBROWLEFT}{\tkzshapebrickfigname-EYELEFT}%
+  \fi%
+}
+
+\newcommand\inttkzshapebrickfigeyebrowA[3][1]{%woman eyebrow
+  \begin{scope}[shift={(#2)},xscale=#1]
+    \filldraw[,line width=\fpeval{\tkzbrickfigscale*0.3}mm] (-0.3,-0.2) to[bend left=45] (0.6,-0.05) to[bend right=25] cycle ;
+  \end{scope}
+  \begin{scope}[shift={(#3)},xscale=#1]
+    \draw[line width=\fpeval{\tkzbrickfigscale*0.8}mm] plot[smooth] coordinates{(-0.3,0.25) (0,0.35) (0.25,0.35) (0.6,0.45)} ;
+    \foreach \i in {0,2,4}{%
+      \draw[line width=\fpeval{\tkzbrickfigscale*0.6}mm] ({0.25+\i*(0.35)/4},{0.35+\i*(0.1)/4}) --++ (70:0.15) ;
+    }%
+  \end{scope}
+}
+
+\newcommand\inttkzshapebrickfigeyebrowB[2][1]{%man normal eyebrow
+  \begin{scope}[shift={(#2)},xscale=#1]
+    \filldraw[] (-0.3,-0.15) to[bend left=50] (0.5,-0.15) to[bend right=10] cycle ;
+  \end{scope}
+}
+
+\newcommand\inttkzshapebrickfigeyebrowC[2][1]{%man angry eyebrow
+  \begin{scope}[shift={(#2)},xscale=#1]
+    \filldraw[,line width=\fpeval{\tkzbrickfigscale*0.8}mm] plot[smooth] coordinates {(-0.3,-0.3) (0.3,0.15) (0.3,0.05)} -- cycle ;
+  \end{scope}
+}
+
+\newcommand\inttkzshapebrickfigeyebrowD[2][1]{%man scary eyebrow
+  \begin{scope}[shift={(#2)},xscale=#1]
+    \filldraw[] (-0.3,-0.05) to[bend left=50] (0.5,-0.3) to[bend right=10] cycle ;
+  \end{scope}
+}
+
+\newcommand\inttkzshapebrickfigeyebrowE[3][1]{%woman angry eyebrow
+  \begin{scope}[shift={(#2)},xscale=#1]
+    \filldraw[,line width=\fpeval{\tkzbrickfigscale*0.8}mm] plot[smooth] coordinates {(-0.3,-0.3) (0.4,0.1) (0.4,0.025)} -- cycle ;
+  \end{scope}
+  \begin{scope}[shift={(#3)},xscale=#1]%girly
+    \draw[line width=\fpeval{\tkzbrickfigscale*0.8}mm] plot[smooth] coordinates{(-0.3,0.25) (0,0.35) (0.25,0.35) (0.6,0.17)} ;
+    \foreach \i in {0,2,4}{%
+      \draw[line width=\fpeval{\tkzbrickfigscale*0.6}mm] ({0.25+\i*(0.35)/4},{0.35+\i*(0.17-0.35)/4}) --++ (70:0.15) ;
+    }%
+  \end{scope}
+}
+
+\newcommand\inttkzshapebrickfigeyebrowF[3][1]{%woman scary eyebrow
+  \begin{scope}[shift={(#2)},xscale=#1]
+    \filldraw[,line width=\fpeval{\tkzbrickfigscale*0.8}mm] plot[smooth] coordinates {(-0.3,-0.025) (0.5,-0.2) (0.4,-0.1)} -- cycle ;
+  \end{scope}
+  \begin{scope}[shift={(#3)},xscale=#1]%girly
+    \draw[,line width=\fpeval{\tkzbrickfigscale*0.8}mm] plot[smooth] coordinates{(-0.3,0.25) (0,0.35) (0.25,0.35) (0.6,0.17)} ;
+    \foreach \i in {0,2,4}{%
+      \draw[,line width=\fpeval{\tkzbrickfigscale*0.6}mm] ({0.25+\i*(0.35)/4},{0.35+\i*(0.17-0.35)/4}) --++ (70:0.15) ;
+    }%
+  \end{scope}
+}
+
+\newcommand\inttkzshapebrickfigeyebrowG[2][1]{%man surprised eyebrow
+  \begin{scope}[shift={(#2)},xscale=#1]
+    \filldraw[] (-0.3,-0.25) to[bend left=80,looseness=1.25] (0.5,-0.355) to[bend right=35,looseness=1.15] cycle ;
+  \end{scope}
+}
+
+\newcommand\inttkzshapebrickfigeyebrowH[3][1]{%woman surprised eyebrow
+  \begin{scope}[shift={(#2)},xscale=#1]
+    \filldraw[] (-0.3,-0.15) to[bend left=60,looseness=1.25] (0.6,-0.175) to[bend right=40,looseness=1.15] cycle ;
+  \end{scope}
+  \begin{scope}[shift={(#3)},xscale=#1]%girly
+    \draw[line width=\fpeval{\tkzbrickfigscale*0.8}mm] plot[smooth] coordinates{(-0.3,0.25) (0,0.35) (0.25,0.35) (0.6,0.325)} ;
+    \foreach \i in {0,2,4}{%
+      \draw[line width=\fpeval{\tkzbrickfigscale*0.6}mm] ({0.25+\i*(0.35)/4},{0.35+\i*(0.325-0.35)/4}) --++ (70:0.15) ;
+    }%
+  \end{scope}
+}
+
+\newcommand\inttkzshapebrickfigeyebrowI[2][1]{%man surprised eyebrow
+  \begin{scope}[shift={(#2)},xscale=#1]
+    \draw[line width=\fpeval{\tkzbrickfigscale*1.1}mm,] (-0.3,0) to[out=-45,in=180] (0.35,-0.25) to[out=0,in=100] (0.55,-0.4) ;
+  \end{scope}
+}
+
+\newcommand\inttkzshapebrickfigeyebrowJ[2][1]{%man surprised eyebrow
+  \begin{scope}[shift={(#2)},xscale=#1]
+    \filldraw[line width=\fpeval{\tkzbrickfigscale*1.1}mm,] (-0.3,-0.2) to[out=10,in=180]++ (0.65,0.2) to[out=0,in=100]++ (0.2,-0.175) to[out=100,in=0]++ (-0.2,0.15) to[out=180,in=5] cycle;
+  \end{scope}
+}
+
+%----int hair
+\newcommand\inttikzshapehair[1]{%gen hair macro 1/2/3/4/5/6/7
+  \ifcase#1\relax{\draw[brickfig shape head] (-1,{5.45+3.385}) {[rounded corners=\fpeval{\tkzbrickfigscale*2}mm] --++ (0,0.7) --++ (2,0)} --++ (0,-0.7) -- cycle ;}%=0
+  \or{\draw[brickfig shape hair] (-1,{5.45+3.385}) {[rounded corners=\fpeval{\tkzbrickfigscale*2}mm] --++ (0,0.7) --++ (2,0)} --++ (0,-0.7) -- cycle ;}%=1
+  \or\inttkzshapebrickfighairstyleA{\tkzshapebrickfigname-HAIRCENTER}%=2
+  \or\inttkzshapebrickfighairstyleB{\tkzshapebrickfigname-HAIRCENTER}%=3
+  \or\inttkzshapebrickfighairstyleC{\tkzshapebrickfigname-HAIRCENTER}%=4
+  \or\inttkzshapebrickfighairstyleD{\tkzshapebrickfigname-HAIRCENTER}%=5
+  \or\inttkzshapebrickfighairstyleE{\tkzshapebrickfigname-HAIRCENTER}%=6
+  \or\inttkzshapebrickfighairstyleF{\tkzshapebrickfigname-HAIRCENTER}%=7
+  \or\inttkzshapebrickfighairstyleG{\tkzshapebrickfigname-HAIRCENTER}%=8
+  \or\inttkzshapebrickfighairstyleH{\tkzshapebrickfigname-HAIRCENTER}%=9
+  \or\inttkzshapebrickfighairstyleI{\tkzshapebrickfigname-HAIRCENTER}%=10
+  \fi%
+}
+
+\newcommand\inttkzshapebrickfighairstyleA[1]{%woman normal hair
+  \begin{scope}[shift={(#1)}]
+    \pgfmathsetseed{\useKV[tkzshapebrickfig]{seed}}%
+    \draw[brickfig shape hair,decoration={random steps,segment length=\fpeval{\tkzbrickfigscale*6}mm,amplitude=\fpeval{\tkzbrickfigscale*1.5}mm}] (-2.15,-1) to[out=-90,in=10,looseness=0.5] (-2.5,-2.75) to[out=0,in=-95] (-1.7,-1) decorate { -- (1.7,-1)} to[out=-85,in=180] (2.5,-2.75) to[out=170,in=-90,looseness=0.5] (2.15,-1.075) to[bend right=85,looseness=1.3] cycle ;
+    \draw[brickfig shape hair] (-0.2,0.2) to[bend right=5] (-0.4,-0.6) (0.2,0.2) to[bend left=5] (0.4,-0.6) ;
+    \draw[brickfig shape hair] (-0.6,0.15) to[bend right=5] (-1,-0.6) (0.6,0.15) to[bend left=5] (1,-0.6) ;
+    \draw[brickfig shape hair] (-1.2,0.05) to[bend right=5] (-1.7,-0.6) (1.2,0.05) to[bend left=5] (1.7,-0.6) ;
+  \end{scope}
+}
+
+\newcommand\inttkzshapebrickfighairstyleB[1]{%man normal hair
+  \begin{scope}[shift={(#1)}]
+    \pgfmathsetseed{\useKV[tkzshapebrickfig]{seed}}%
+    \draw[brickfig shape hair,decoration={random steps,segment length=\fpeval{\tkzbrickfigscale*6}mm,amplitude=\fpeval{\tkzbrickfigscale*1.5}mm}] (-2.15,-1) -- (-2.15,-2) -- (-1.8,-1) decorate {-- (1.8,-1)} -- (2.15,-2) -- (2.15,-1.125) to[bend right=85,looseness=1.3] cycle ;
+    \draw[brickfig shape hair] (-0.2,0.2) to[bend right=5] (-0.4,-0.6) (0.2,0.2) to[bend left=5] (0.4,-0.6) ;
+    \draw[brickfig shape hair] (-0.6,0.15) to[bend right=5] (-1,-0.6) (0.6,0.15) to[bend left=5] (1,-0.6) ;
+    \draw[brickfig shape hair] (-1.2,0.05) to[bend right=5] (-1.7,-0.6) (1.2,0.05) to[bend left=5] (1.7,-0.6) ;
+  \end{scope}
+}
+
+\newcommand\inttkzshapebrickfighairstyleC[1]{%man 'brosse' hair
+  \begin{scope}[shift={(#1)}]
+    \draw[brickfig shape hair] (-2.025,-1.65) {[rounded corners=\fpeval{\tkzbrickfigscale*0.5}mm] -- (-1.7,-0.8) to[out=-15,in=165,looseness=0.5] (1.7,-0.8) -- (2.025,-1.685) to[bend right=10] (2.025,0.5) -- (1.75,0.05) -- (1.4,0.55) -- (1.05,0) -- (0.7,0.45) -- (0.35,-0.025) -- (0,0.475) -- (-0.35,0.1) -- (-0.7,0.525) -- (-1.05,-0.1) -- (-1.4,0.475) -- (-1.75,0) -- (-2.025,0.515)} to[bend right=10] cycle ;
+    \draw[brickfig shape hair] (0,-0.5) -- (0,-0.1)
+                               (0.5,-0.5) -- (0.51,-0.1)
+                               (1,-0.5) -- (1.1,-0.1)
+                               (1.5,-0.5) -- (1.6,-0.1)
+                               (1.9,-0.5) -- (2,-0.1)
+                               (-0.5,-0.5) -- (-0.51,-0.1)
+                               (-1,-0.5) -- (-1.1,-0.15)
+                               (-1.5,-0.5) -- (-1.6,-0.1)
+                               (-1.9,-0.5) -- (-2,-0.1) ;
+  \end{scope}
+}
+
+\newcommand\inttkzshapebrickfighairstyleD[1]{%woman alt hair
+  \begin{scope}[shift={(#1)}]
+    \draw[brickfig shape hair] (-0.25,0) to[bend left=75,looseness=1.5] (2.15,0) to[bend right=15,looseness=1.5] (2.6,-0.25) to[bend left=20,looseness=1.2] ++(-0.45,0) to[bend right=10] ++(0.5,-0.85) to[bend left=5] ++(-0.35,0.15) to[bend right=30] ++(0.55,-1.25) to[bend left=15] (2,-1.5) to[bend right=70,looseness=1.25] (0,0.15) -- cycle ;
+    \draw[brickfig shape hair] (0,-0.5) to[bend left=70,looseness=0.75] (2,-1.5) to[bend right=70,looseness=1.25] (0,0.15) to[bend right=70,looseness=1.25] (-2,-1.5) to[bend left=70,looseness=0.75] cycle ;
+    \draw[brickfig shape hair] (0,-0.315) -- (0,0)
+                               (0.85,-0.3) -- (1,-0.05)
+                               (1.65,-0.7) -- (1.8,-0.3)
+                               (-0.85,-0.3) -- (-1,-0.05)
+                               (-1.65,-0.7) -- (-1.8,-0.3) ;
+  \end{scope}
+}
+
+\newcommand\inttkzshapebrickfighairstyleE[1]{%man brushing hair
+  \begin{scope}[shift={(#1)}]
+    \draw[brickfig shape hair,smooth] (0.66,0.44) to[out=30,in=120] (2.2,-0.3) to[bend left] (2,-2) -- (2,-1.35) to[bend left=5] (0.66,-0.4) to[bend left=7.5] (-2,-1.4) -- (-2,-2.15) to[bend left=70,looseness=1.4] (0.66,0.44) -- (0.66,-0.4);
+    \draw[brickfig shape hair] (1.1,0) to[bend right=5] (1.87,-0.9)
+                               (0,0) to[bend left=10] (-1.8,-0.85)
+                               (-0.5,0.4) to[bend right=7.5] (-1.56,-0.3) ;
+  \end{scope}
+}
+
+\newcommand\inttkzshapebrickfighairstyleF[1]{%woman 'natte' brushing hair
+  \begin{scope}[shift={(#1)}]
+    \draw[brickfig shape hair,smooth] (0.66,0.44) to[out=30,in=120] (2.2,-0.3) to[bend left] (2,-2) -- (2,-1.35) to[bend left=5] (0.66,-0.4) to[bend left=7.5] (-2,-1.4) -- (-2,-2.15) to[bend left=70,looseness=1.4] (0.66,0.44) -- (0.66,-0.4);
+    \draw[brickfig shape hair] (1.1,0) to[bend right=5] (1.87,-0.9)
+    (0,0) to[bend left=10] (-1.8,-0.85)
+    (-0.5,0.4) to[bend right=7.5] (-1.56,-0.3) ;
+    \draw[brickfig shape hair] (-2,-2.15) to[bend right=30] (-2.44,-2.65) to[bend right=30] (-2.88,-3.2) to[bend right=40] (-3.12,-3.6) -- (-2.85,-3.8) to[bend right=40] (-2.58,-3.4) to[bend right=30] (-2.14,-2.85) to[bend right=30] (-2,-2.5) -- cycle  ;
+    \draw[brickfig shape hair] (-2.88,-3.2) -- (-2.58,-3.4) (-2.44,-2.65) to[out=-75,in=92.5] (-2.58,-3.4) (-2.14,-2.85) to[out=-170,in=62.5] (-2.88,-3.2) (-2.44,-2.65) -- (-2.14,-2.85) (-2,-2.15) to[out=-140,in=92.5] (-2.14,-2.85) (-2.44,-2.65) to[out=30,in=-160] (-2,-2.35) ;
+  \end{scope}
+}
+
+\newcommand\inttkzshapebrickfighairstyleG[1]{%woman long hair
+  \begin{scope}[shift={(#1)}]
+    \draw[brickfig shape hair] (1.35,-3.96) -- (2.3,-3.96) -- (2.3,-1) to[out=100,in=25] (0,0.3) to [out=155,in=80] (-2.3,-1) -- (-2.3,-3.96) -- (-1.35,-3.96) -- (-1.35,-3.735) {[rounded corners=\fpeval{\tkzbrickfigscale*8}mm] -- (-2,-3.735)} -- (-2,-1) to[out=5,in=-175] (2,-1) {[rounded corners=\fpeval{\tkzbrickfigscale*8}mm] -- (2,-3.735)} -- (1.35,-3.735) -- (1.35,-3.96);
+    %franges
+    \draw[brickfig shape hair] (-2,-1) to[bend left=10] ++ (60:1) (2,-1) to[bend right=10] ++ (120:1)
+                               (-1.4,-0.9) to[bend left=10] ++ (70:0.9) (1.4,-0.9) to[bend right=10] ++ (110:0.9)
+                               (-0.7,-0.9) to[bend left=10] ++ (80:0.9) (0.7,-0.9) to[bend right=10] ++ (100:0.9)
+                               (0,-0.9) --++ (0,0.8) ;
+    \draw[brickfig shape hair] (-1.9,-3.96) --++ (0,0.3) (1.9,-3.96) --++ (0,0.3)
+                               (-2.1,-3.96) --++ (0,0.5) (2.1,-3.96) --++ (0,0.5)
+                               (-2.3,-3.96) --++ (0,0.7) (2.3,-3.96) --++ (0,0.7) ;
+  \end{scope}
+}
+
+\newcommand\inttkzshapebrickfighairstyleH[1]{%neutral hair %%[out=15,in=80] (2.1,-1) to[bend left=5] 
+  \begin{scope}[shift={(#1)}]
+    \draw[brickfig shape hair] (0,0.3) to[bend left=60,looseness=1.25] (2.05,-1.85) to[bend left=5] (1.05,-0.65) -- (1.05,-1.1) to[bend left=5] (0.1,-0.68) -- (0.3,-1.175) to[bend left=25] (-0.75,-0.6) to[bend left=5] (-2.05,-1.85) to[bend left=60,looseness=1.25] cycle ;
+    \draw[brickfig shape hair] (1.05,-0.65) to[bend left=5]++ (-0.35,0.6) 
+                               (0.1,-0.68) to[bend left=5] (-0.1,0.1) 
+                               (-0.75,-0.6) to[bend left=10] (-0.5,0.125) 
+                               (-1.75,-0.75) to[bend left=15]++ (0.75,0.675) ;
+  \end{scope}
+}
+
+\newcommand\inttkzshapebrickfighairstyleI[1]{%neutral hair %%[out=15,in=80] (2.1,-1) to[bend left=5] 
+  \begin{scope}[shift={(#1)}]
+    \draw[brickfig shape hair] (0,0.3) to[bend left=40,looseness=1.5] (0.45,0.3) to[bend left=50,looseness=1.35]  (2.05,-1.85) to[bend left=10] (0.85,-0.6) to[bend right=10]++ (0.05,-0.5) to[bend left=10]++ (-0.75,0.5) to[bend right=10]++ (-0.35,-0.5) to[bend left=10]++ (-0.875,0.5) to[bend left=10] (-2.05,-1.85) to[bend left=50,looseness=1.35] (-0.45,0.3) to[bend left=40,looseness=1.5] cycle;%
+    \draw[brickfig shape hair] (1.2,0) to[bend left=10]++ (0.45,-0.5) 
+                               (0.1,0.05) to[bend right=7.5] (0.3,-0.4) 
+                               (-0.52,0.04) to[bend right=10]++ (0.4,-0.425) 
+                               (-1.75,-0.75) to[bend left=15]++ (0.75,0.675) ;
+  \end{scope}
+}
+
+%----int mouth
+\newcommand\inttkzshapebrickfigmouth[1]{%gen mouth macro 1/2/3/4
+  \ifcase#1\relax%
+  \or\inttkzshapebrickfigmouthA{\tkzshapebrickfigname-MOUTH}%=1
+  \or\inttkzshapebrickfigmouthB{\tkzshapebrickfigname-MOUTH}%=2
+  \or\inttkzshapebrickfigmouthC{\tkzshapebrickfigname-MOUTH}%=3
+  \or\inttkzshapebrickfigmouthD{\tkzshapebrickfigname-MOUTH}%=4
+  \or\inttkzshapebrickfigmouthE{\tkzshapebrickfigname-MOUTH}%=5
+  \or\inttkzshapebrickfigmouthF{\tkzshapebrickfigname-MOUTH}%=6
+  \or\inttkzshapebrickfigmouthG{\tkzshapebrickfigname-MOUTH}%=7
+  \or\inttkzshapebrickfigmouthH{\tkzshapebrickfigname-MOUTH}%=8
+  \or\inttkzshapebrickfigmouthE[-1]{\tkzshapebrickfigname-MOUTH}%=9
+  \or\inttkzshapebrickfigmouthG[-1]{\tkzshapebrickfigname-MOUTH}%=10
+  \fi%
+}
+
+\newcommand\inttkzshapebrickfigmouthA[1]{%happy mouth
+  \begin{scope}[shift={(#1)}]
+    \filldraw[] (-0.625,0.15) to[bend right=70] (0.625,0.15) to[bend left=20] cycle ;
+  \end{scope}
+}
+
+\newcommand\inttkzshapebrickfigmouthB[1]{%angry mouth
+  \begin{scope}[shift={(#1)}]
+    \draw[fill=white,line width=\fpeval{\tkzbrickfigscale*0.8}mm] plot[smooth] coordinates{(-0.625,-0.1) (0.625,-0.1) (0.625,0.25) (-0.625,0.05)} {[rounded corners=\fpeval{\tkzbrickfigscale*0.2}mm]-- cycle} ;
+    \clip plot[smooth] coordinates{(-0.625,-0.1) (0.625,-0.1) (0.625,0.25) (-0.625,0.05)} {[rounded corners=\fpeval{\tkzbrickfigscale*0.2}mm]-- cycle} ;
+    \filldraw[line width=\fpeval{\tkzbrickfigscale*0.5}mm] (0.45,0.045) -- (0.75,0.1) -- (0.75,0.075) --cycle;
+  \end{scope}
+}
+
+\newcommand\inttkzshapebrickfigmouthC[1]{%scary mouth
+  \begin{scope}[shift={(#1)}]
+    \draw[fill=white,line width=\fpeval{\tkzbrickfigscale*0.8}mm] plot[smooth] coordinates{(0,0.15) (0.625,0.225) (0.625,-0.275) (0,-0.15) (-0.6,-0.275) (-0.6,0.225) (0,0.15)} ;
+  \end{scope}
+}
+
+\newcommand\inttkzshapebrickfigmouthD[1]{%surprised mouth
+  \begin{scope}[shift={(#1)}]
+    \draw[fill=white,line width=\fpeval{\tkzbrickfigscale*1.2}mm] circle[x radius=0.325,y radius=0.375] ; ;
+  \end{scope}
+}
+
+\newcommand\inttkzshapebrickfigmouthE[2][1]{%enjoyed mouth
+  \begin{scope}[shift={(#2)},xscale=#1]
+    \filldraw[] (-0.8,0.45) to[bend right=20] (0.8,0.075) to[bend left=80,looseness=1.375] cycle ;
+    \begin{scope}[rotate=-20]
+      \filldraw[red!75!black,rounded corners=\fpeval{\tkzbrickfigscale*0.2}mm] (-0.15,-0.2) circle[x radius=0.375,y radius=0.115] ;
+    \end{scope}
+  \end{scope}
+}
+
+\newcommand\inttkzshapebrickfigmouthF[1]{%girly mouth
+  \begin{scope}[shift={(#1)}]
+    \fill[red!75!black,opacity=0.66] (-0.5,0.175) to[bend left=30] (0,0.075) to[bend left=30] (0.5,0.175) to[bend left=40] cycle ;
+    \fill[red!75!black,opacity=0.66] (-0.5,0) to[bend right=50] (0.5,0.0) -- cycle ;
+    \filldraw[] (-0.65,0.25) to[bend right=70] (0.65,0.25) to[bend left=45] cycle ;
+  \end{scope}
+}
+
+\newcommand\inttkzshapebrickfigmouthG[2][1]{%angry mouth
+  \begin{scope}[shift={(#2)},xscale=#1]
+    \draw[fill=white,line width=\fpeval{\tkzbrickfigscale*0.8}mm] (-0.66,0.2) to[out=-45,in=-170] (0.66,0) to[bend left=80,looseness=1.5] cycle ;
+    \draw[line width=\fpeval{\tkzbrickfigscale*0.8}mm] (-0.66,0.2) to[bend left=5] ++ (0.1,0.15)  ;
+    \draw[line width=\fpeval{\tkzbrickfigscale*0.8}mm] (-0.66,0.2) to[bend right=5] ++ (-0.1,-0.2)  ;
+    \clip (-0.66,0.2) to[out=-45,in=-170] (0.66,0) to[bend left=80,looseness=1.5] cycle ;
+    \draw[line join=rect] (-0.66,-0.1) -- (-0.325,-0.2) to[bend left=15] cycle ;
+  \end{scope}
+}
+
+\newcommand\inttkzshapebrickfigmouthH[1]{%happy mouth
+  \begin{scope}[shift={(#1)}]
+    \filldraw[] (-0.625,-0.15) to[bend left=70] (0.625,-0.15) to[bend right=20] cycle ;
+  \end{scope}
+}
+
+%----individual part
+\newcommand\inttkzshapebrickfigbody{%
+  \draw[brickfig shape body] (-3,0) -- (3,0) -- (3,0.6) {[rounded corners=\fpeval{\tkzbrickfigscale*4}mm] -- (2.25,5) -- (-2.25,5)} -- (-3,0.6) -- (-3,0) -- cycle ;
+}
+\newcommand\inttkzshapebrickfigneck{%
+  \draw[brickfig shape neck] (-1.35,5) rectangle (1.35,5.45) ;
+}
+\newcommand\inttkzshapebrickfighead{%
+  \draw[brickfig shape head,rounded corners=\fpeval{\tkzbrickfigscale*8}mm] (-2,5.45) rectangle (2,{5.45+3.385}) ;
+}
+\newcommand\inttkzshapebrickfigleftarmscratch{%
+  \draw[brickfig shape arm] (2.35,4.4) --++ (-170:0.3) --++ (100:0.075) to[bend right=95,looseness=1.5] ++ (-80:1.1) --++ (100:0.075) --++ (10:0.3) -- cycle ;
+}
+\newcommand\inttkzshapebrickfigleftarm{%
+  \draw[brickfig shape arm] (2.3175,4.6) {[rounded corners=\fpeval{\tkzbrickfigscale*6}mm] -- (3,4.6) -- (4.2,2.6)} -- (4.6,0.75) to[bend right=30] (3,0.5) -- cycle ;
+    \begin{scope}
+      \path[save path=\pathbrickfigtikzarm] (3.34,0.5375) --++(-80:0.5) to[bend right=60] ++ (-80:1.8) --++ (100:0.5) to[bend left=110,looseness=3] ++ (10:1) --++ (-80:0.5) to[bend right=60] ++ (100:1.8) --++ (100:0.45) to[bend right=20] (3.34,0.5375) ;
+      \clip[use path now=\pathbrickfigtikzarm,invclip];
+      \draw[brickfig shape arm,brickfig shape arm shadow] (4.6,0.75) to[bend right=30] (3,0.5) to[bend right=30] (4.6,0.75) ;
+    \end{scope}
+    \draw[brickfig shape hand shadow] (3.34,0.5375) --++(-80:0.5) to[bend right=60] ++ (-80:1.8) --++ (100:0.5) to[bend left=90,looseness=2] ++ (10:1) --++ (-80:0.5) to[bend right=60] ++ (100:1.8) --++ (100:0.45) to[bend right=20] (3.34,0.5375)  ;
+    \draw[brickfig shape hand] (3.34,0.5375) --++(-80:0.5) to[bend right=60] ++ (-80:1.8) --++ (100:0.5) to[bend left=110,looseness=3] ++ (10:1) --++ (-80:0.5) to[bend right=60] ++ (100:1.8) --++ (100:0.45) to[bend right=20] (3.34,0.5375) ;
+}
+\newcommand\inttkzshapebrickfigleftarmwohand{%
+  \draw[brickfig shape arm] (2.35,4.4) --++ (-170:0.3) --++ (100:0.075) to[bend right=95,looseness=1.5] ++ (-80:1.1) --++ (100:0.075) --++ (10:0.3) -- cycle ;
+  \draw[brickfig shape arm] (2.3175,4.6) {[rounded corners=\fpeval{\tkzbrickfigscale*6}mm] -- (3,4.6) -- (4.2,2.6)} -- (4.6,0.75) to[bend right=30] (3,0.5) -- cycle ;
+  \draw[brickfig shape arm,brickfig shape arm shadow] (4.6,0.75) to[bend right=30] (3,0.5) to[bend right=30] (4.6,0.75) ;
+}
+\newcommand\inttkzshapebrickfiglefthand{%
+  \begin{scope}
+    \path (3.34,0.5375) --++(-80:0.5) to[bend right=60] ++ (-80:1.8) --++ (100:0.5) to[bend left=90,looseness=2] ++ (10:1) --++ (-80:0.5) to[bend right=60] ++ (100:1.8) --++ (100:0.45) coordinate[at end] (tmpzzzzzzzz);
+    \draw[brickfig shape hand] ($(3.34,0.5375)!0.2!(tmpzzzzzzzz)$) --++ (100:1.65) to[bend left=20]++ (8:0.6) --++ (-81:1.65) -- cycle ;
+    \draw[brickfig shape hand shadow] (3.34,0.5375) --++(-80:0.5) to[bend right=60] ++ (-80:1.8) --++ (100:0.5) to[bend left=90,looseness=2] ++ (10:1) --++ (-80:0.5) to[bend right=60] ++ (100:1.8) --++ (100:0.45) to[bend right=20] (3.34,0.5375) ;
+    \draw[brickfig shape hand] (3.34,0.5375) --++(-80:0.5) to[bend right=60] ++ (-80:1.8) --++ (100:0.5) to[bend left=110,looseness=3] ++ (10:1) --++ (-80:0.5) to[bend right=60] ++ (100:1.8) --++ (100:0.45) to[bend right=20] (3.34,0.5375) ;
+  \end{scope}
+}
+\newcommand\inttkzshapebrickfigrighthand{%
+  \begin{scope}[xscale=-1]
+    \path (3.34,0.5375) --++(-80:0.5) to[bend right=60] ++ (-80:1.8) --++ (100:0.5) to[bend left=90,looseness=2] ++ (10:1) --++ (-80:0.5) to[bend right=60] ++ (100:1.8) --++ (100:0.45) coordinate[at end] (tmpzzzzzzzz);
+    \draw[brickfig shape hand] ($(3.34,0.5375)!0.2!(tmpzzzzzzzz)$) --++ (100:1.65) to[bend left=20]++ (8:0.6) --++ (-81:1.65) -- cycle ;
+    \draw[brickfig shape hand shadow] (3.34,0.5375) --++(-80:0.5) to[bend right=60] ++ (-80:1.8) --++ (100:0.5) to[bend left=90,looseness=2] ++ (10:1) --++ (-80:0.5) to[bend right=60] ++ (100:1.8) --++ (100:0.45) to[bend right=20] (3.34,0.5375)  ;
+    \draw[brickfig shape hand] (3.34,0.5375) --++(-80:0.5) to[bend right=60] ++ (-80:1.8) --++ (100:0.5) to[bend left=110,looseness=3] ++ (10:1) --++ (-80:0.5) to[bend right=60] ++ (100:1.8) --++ (100:0.45) to[bend right=20] (3.34,0.5375) ;
+  \end{scope}
+}
+\newcommand\inttkzshapebrickfigrightarmwohand{%
+  \begin{scope}[xscale=-1]
+    \draw[brickfig shape arm] (2.35,4.4) --++ (-170:0.3) --++ (100:0.075) to[bend right=95,looseness=1.5] ++ (-80:1.1) --++ (100:0.075) --++ (10:0.3) -- cycle ;
+    \draw[brickfig shape arm] (2.3175,4.6) {[rounded corners=\fpeval{\tkzbrickfigscale*6}mm] -- (3,4.6) -- (4.2,2.6)} -- (4.6,0.75) to[bend right=30] (3,0.5) -- cycle ;
+    \draw[brickfig shape arm,brickfig shape arm shadow] (4.6,0.75) to[bend right=30] (3,0.5) to[bend right=30] (4.6,0.75) ;
+  \end{scope}
+}
+\newcommand\inttkzshapebrickfigrightarmscratch{%
+  \begin{scope}[xscale=-1]
+    \draw[brickfig shape arm] (2.35,4.4) --++ (-170:0.3) --++ (100:0.075) to[bend right=95,looseness=1.5] ++ (-80:1.1) --++ (100:0.075) --++ (10:0.3) -- cycle ;
+  \end{scope}
+}
+\newcommand\inttkzshapebrickfigrightarm{%
+  \begin{scope}[xscale=-1]
+    \draw[brickfig shape arm] (2.3175,4.6) {[rounded corners=\fpeval{\tkzbrickfigscale*6}mm] -- (3,4.6) -- (4.2,2.6)} -- (4.6,0.75) to[bend right=30] (3,0.5) -- cycle ;
+      \begin{scope}
+        \path[save path=\pathbrickfigtikzarm] (3.34,0.5375) --++(-80:0.5) to[bend right=60] ++ (-80:1.8) --++ (100:0.5) to[bend left=110,looseness=3] ++ (10:1) --++ (-80:0.5) to[bend right=60] ++ (100:1.8) --++ (100:0.45) to[bend right=20] (3.34,0.5375) ;
+        \clip[use path now=\pathbrickfigtikzarm,invclip];
+        \draw[brickfig shape arm,brickfig shape arm shadow] (4.6,0.75) to[bend right=30] (3,0.5) to[bend right=30] (4.6,0.75) ;
+      \end{scope}
+    \draw[brickfig shape hand shadow] (3.34,0.5375) --++(-80:0.5) to[bend right=60] ++ (-80:1.8) --++ (100:0.5) to[bend left=90,looseness=2] ++ (10:1) --++ (-80:0.5) to[bend right=60] ++ (100:1.8) --++ (100:0.45) to[bend right=20] (3.34,0.5375)  ;
+    \draw[brickfig shape hand] (3.34,0.5375) --++(-80:0.5) to[bend right=60] ++ (-80:1.8) --++ (100:0.5) to[bend left=110,looseness=3] ++ (10:1) --++ (-80:0.5) to[bend right=60] ++ (100:1.8) --++ (100:0.45) to[bend right=20] (3.34,0.5375) ;
+  \end{scope}
+}
+\newcommand\inttkzshapebrickfigarms{%
+  \inttkzshapebrickfigleftarm
+  \inttkzshapebrickfigrightarm
+}
+\newcommand\inttkzshapebrickfigpant{%
+  %belt
+  \draw[brickfig shape belt] (-2.75,0) rectangle (2.75,-0.8) ;
+  \draw[brickfig shape bottom belt] (-0.25,-0.8) -- (-0.25,-3.1) -- (-0.1,-3.3) -- (0.1,-3.3) -- (0.25,-3.1) -- (0.25,-0.8) -- cycle ;
+  %leg 1
+  \draw[brickfig shape middle pant] (-2.75,-3) --++ (0,-3.3) --++ (2.65,0) --++ (0,3) -- (-0.25,-3.1) --++ (0,0.15) |- (-2.75,-0.8) -- cycle ;
+  \draw[brickfig shape top pant] (-2.75,-0.8) rectangle (-0.25,-3) ;
+  \draw[brickfig shape foot] (-2.75,-5.1) rectangle (-0.1,-6.3) ;
+  %leg 2
+  \begin{scope}[xscale=-1]
+    \draw[brickfig shape middle pant] (-2.75,-3) --++ (0,-3.3) --++ (2.65,0) --++ (0,3) -- (-0.25,-3.1) --++ (0,0.15) |- (-2.75,-0.8) -- cycle ;
+    \draw[brickfig shape top pant] (-2.75,-0.8) rectangle (-0.25,-3) ;
+    \draw[brickfig shape foot] (-2.75,-5.1) rectangle (-0.1,-6.3) ;
+  \end{scope}
+}
+\newcommand\inttkzshapebrickfignodes{%
+  \coordinate (\tkzshapebrickfigname-EYERIGHT) at (0.6,7.38) ;
+  \coordinate (\tkzshapebrickfigname-EYERIGHTSHADOW) at (0.6,7.5) ;
+  \coordinate (\tkzshapebrickfigname-EYERIGHTSHADOWBOTTOM) at (0.6,7.26) ;
+  \coordinate (\tkzshapebrickfigname-EYELEFT) at (-0.6,7.38) ;
+  \coordinate (\tkzshapebrickfigname-EYES) at (0,7.38) ;
+  \coordinate (\tkzshapebrickfigname-EYELEFTSHADOW) at (-0.6,7.5) ;
+  \coordinate (\tkzshapebrickfigname-EYELEFTSHADOWBOTTOM) at (-0.6,7.26) ;
+  \coordinate (\tkzshapebrickfigname-MOUTH) at (0,6.4) ;
+  \coordinate (\tkzshapebrickfigname-EYEBROWRIGHT) at (0.6,8.1) ;
+  \coordinate (\tkzshapebrickfigname-EYEBROWS) at (0,8.1) ;
+  \coordinate (\tkzshapebrickfigname-EYEBROWLEFT) at (-0.6,8.1) ;
+  \coordinate (\tkzshapebrickfigname-LOGO) at (0,2.5) ;
+  \coordinate (\tkzshapebrickfigname-HAIRCENTER) at (0,{5.45+3.385+0.5*0.7}) ;
+  \coordinate (\tkzshapebrickfigname-HAIR) at (0,{5.45+3.385+0.5*0.7}) ;
+  \coordinate (\tkzshapebrickfigname-LEFTHAND) at (4.15,-1.25) ;
+  \coordinate (\tkzshapebrickfigname-RIGHTHAND) at (-4.15,-1.25) ;
+  \coordinate (\tkzshapebrickfigname-RIGHTFOOT) at (-1.425,-5.7) ;
+  \coordinate (\tkzshapebrickfigname-LEFTFOOT) at (1.425,-5.7) ;
+  \coordinate (\tkzshapebrickfigname-BELT) at (0,-0.4) ;
+  \coordinate (\tkzshapebrickfigname-RIGHTSHOULDER) at (-2.75,4.5) ;
+  \coordinate (\tkzshapebrickfigname-LEFTSHOULDER) at (2.75,4.5) ;
+  \coordinate (\tkzshapebrickfigname-NECK) at (0,5.225) ;
+}
+%----internal macro adjustedlogo
+\newsavebox\tmpboxlogotofith
+\newsavebox\tmpboxlogotofitv
+\newlength\tmpwidthlogotofitv
+
+\newcommand\adjustlogotosweat[1]{%
+  \savebox{\tmpboxlogotofitv}{\resizebox*{!}{\fpeval{1/\tkzbrickfigscale}\tkzbrickfigheightlogo}{#1}}%v-stretch
+  \savebox{\tmpboxlogotofith}{\resizebox*{\fpeval{1/\tkzbrickfigscale}\tkzbrickfigwidthlogo}{!}{#1}}%h-stretch
+  \settowidth\tmpwidthlogotofitv{\usebox{\tmpboxlogotofitv}}%
+  \ifthenelse{\tmpwidthlogotofitv < \tkzbrickfigwidthlogo}%
+    {%width ok
+      {\usebox{\tmpboxlogotofitv}}%
+    }%
+    {%width ko => h-stretch
+      {\usebox{\tmpboxlogotofith}}%
+    }%
+}
+
+%----main macro
+\NewDocumentCommand\tikzbrickfigurine{O{}D<>{}m}{%
+  \restoreKV[tkzshapebrickfig]%
+  \setKV[tkzshapebrickfig]{#1}%
+  %----bbox if needed (compil increase time...)
+  \ifboolKV[tkzshapebrickfig]{bbox}%
+    {\tikzset{brickfig shape bbox/.style={bezier bounding box=true}}}%
+    {\tikzset{brickfig shape bbox/.style={bezier bounding box=false}}}%
+  \ifboolKV[tkzshapebrickfig]{vcenter}%
+    {\tikzset{brickfig shape vcenter/.style={baseline=(current bounding box.center)}}}%
+    {\tikzset{brickfig shape vcenter/.style={}}}%
+  %----colors shortcuts if necessary
+  \IfStrEq{\tkzshapebrickfigskincolor}{}{}%
+    {%
+      \tikzset{brickfig shape hand/.style={fill=\tkzshapebrickfigskincolor}}%
+      \tikzset{brickfig shape hand shadow/.style={fill=\tkzshapebrickfigskincolor!85!black}}%
+      \tikzset{brickfig shape neck/.style={fill=\tkzshapebrickfigskincolor}}%
+      \tikzset{brickfig shape head/.style={fill=\tkzshapebrickfigskincolor}}%
+    }%
+  \IfStrEq{\tkzshapebrickfigsweatcolor}{}{}%
+    {%
+      \tikzset{brickfig shape body/.style={fill=\tkzshapebrickfigsweatcolor}}%
+      \tikzset{brickfig shape arm/.style={fill=\tkzshapebrickfigsweatcolor}}%
+      \tikzset{brickfig shape arm shadow/.style={fill=\tkzshapebrickfigsweatcolor!85!black}}%
+    }%
+  \IfStrEq{\tkzshapebrickfigpantcolor}{}{}%
+    {%
+      \tikzset{brickfig shape belt/.style={fill=\tkzshapebrickfigpantcolor}}%
+      \tikzset{brickfig shape bottom belt/.style={fill=\tkzshapebrickfigpantcolor}}%
+      \tikzset{brickfig shape top pant/.style={fill=\tkzshapebrickfigpantcolor}}%
+      \tikzset{brickfig shape middle pant/.style={fill=\tkzshapebrickfigpantcolor}}%
+    }%
+  \ifboolKV[tkzshapebrickfig]{empty}%
+    {%
+      \tikzset{brickfig shape belt/.style={}}%
+      \tikzset{brickfig shape bottom belt/.style={}}%
+      \tikzset{brickfig shape body/.style={}}%
+      \tikzset{brickfig shape arm/.style={}}%
+      \tikzset{brickfig shape arm shadow/.style={}}%
+      \tikzset{brickfig shape hand/.style={}}%
+      \tikzset{brickfig shape hand shadow/.style={}}%
+      \tikzset{brickfig shape neck/.style={}}%
+      \tikzset{brickfig shape head/.style={}}%
+      \tikzset{brickfig shape hair/.style={}}%
+      \tikzset{brickfig shape top pant/.style={}}%
+      \tikzset{brickfig shape middle pant/.style={}}%
+      \tikzset{brickfig shape foot/.style={}}%
+    }%
+    {}%
+  %----adjusted logo
+  \ifdefempty{\tkzshapebrickadjustlogo}%
+    {}%
+    {\setKV[tkzshapebrickfig]{display logo=false,custom logo=false}}%
+  %----prefefined styles (??)
+  \ifboolKV[tkzshapebrickfig]{man}%
+    {%
+      \setKV[tkzshapebrickfig]{eyebrowstyle=1}%default man
+      \ifboolKV[tkzshapebrickfig]{angry}{\setKV[tkzshapebrickfig]{mouthstyle=2,eyebrowstyle=3}}{}%
+      \ifboolKV[tkzshapebrickfig]{scary}{\setKV[tkzshapebrickfig]{mouthstyle=3,eyestyle=2,eyebrowstyle=4}}{}%
+      \ifboolKV[tkzshapebrickfig]{surprised}{\setKV[tkzshapebrickfig]{mouthstyle=4,eyestyle=3,eyebrowstyle=7}}{}%
+    }%
+    {}%
+  \ifboolKV[tkzshapebrickfig]{woman}%
+    {%
+      \setKV[tkzshapebrickfig]{eyebrowstyle=2}%default woman%
+      \ifboolKV[tkzshapebrickfig]{angry}{\setKV[tkzshapebrickfig]{mouthstyle=2,eyebrowstyle=5}}{}%
+      \ifboolKV[tkzshapebrickfig]{scary}{\setKV[tkzshapebrickfig]{mouthstyle=3,eyestyle=2,eyebrowstyle=6}}{}%
+      \ifboolKV[tkzshapebrickfig]{surprised}{\setKV[tkzshapebrickfig]{mouthstyle=4,eyestyle=3,eyebrowstyle=8}}{}%
+    }%
+    {}%
+  %----lengths
+  \setlength\tkzbrickfigheight{#3}%
+  \xdef\tkzbrickfigscale{\fpeval{\tkzbrickfigheight/16cm}}%
+  \setlength\tkzbrickfigheightlogo{\fpeval{\tkzshapebrickfigscalelogo*5/16}\tkzbrickfigheight}%
+  \setlength\tkzbrickfigwidthlogo{\fpeval{\tkzshapebrickfigscalelogo*4.5/16}\tkzbrickfigheight}%
+  %----picture
+  \begin{tikzpicture}[\tkzshapebrickfiglinescolor,scale=\tkzbrickfigscale,line width=\fpeval{\tkzbrickfigscale*0.8}mm,line join=round,line cap=round,#2,brickfig shape bbox,brickfig shape vcenter,transform shape]
+    %----body / neck / head / legs / arms
+    \inttkzshapebrickfigbody
+    \inttkzshapebrickfigneck
+    \inttkzshapebrickfighead
+    \inttkzshapebrickfigpant
+    \inttkzshapebrickfigarms
+    %----nodes
+    \inttkzshapebrickfignodes
+    %-----decorations
+    \ifboolKV[tkzshapebrickfig]{empty}{}%
+      {%
+        %----simple eye + simple mouth + eyebrow + hairstyle
+        \inttkzshapebrickfigeye{\useKV[tkzshapebrickfig]{eyestyle}}
+        \inttkzshapebrickfigmouth{\useKV[tkzshapebrickfig]{mouthstyle}}
+        \inttkzshapebrickfigeyebrow{\useKV[tkzshapebrickfig]{eyebrowstyle}}
+        \inttikzshapehair{\useKV[tkzshapebrickfig]{hairstyle}}
+      }%
+    %logo (auto or custom)
+    \begin{scope}
+      \clip (-2.25,0) rectangle (2.25,5) ;
+      \ifboolKV[tkzshapebrickfig]{display logo}%with cancel scale
+        {\node[inner sep=0pt,scale=\fpeval{1/(\tkzbrickfigscale)}] at (\tkzshapebrickfigname-LOGO) {\resizebox{!}{\tkzbrickfigheightlogo}{\tkzshapebrickfiglogo}};}%
+        {}%
+      \ifboolKV[tkzshapebrickfig]{custom logo}%with scale propagated
+        {\node[inner sep=0pt] at (\tkzshapebrickfigname-LOGO) {\tkzshapebrickfiglogo} ;}%play with \tkzbrickfigscale...
+        %{\node[inner sep=0pt,scale=\fpeval{1/(\tkzbrickfigscale)}] at (\tkzshapebrickfigname-LOGO) {\tkzshapebrickfiglogo} ;}%
+        {}%
+      \ifdefempty{\tkzshapebrickadjustlogo}%with adjusted logo (test...)
+        {}%
+        {\node[inner sep=0pt] at (\tkzshapebrickfigname-LOGO) {\adjustlogotosweat{\tkzshapebrickadjustlogo}} ;}%
+    \end{scope}
+  \end{tikzpicture}%
+}
+
+\NewDocumentCommand\minitikzbrickfigurine{O{}D<>{}mm}{%gestion des 10...
+  \IfStrEq{#4}{*}%
+    {%full random
+      \xdef\tmpNUMmouth{\fpeval{randint(1,10)}}%
+      \xdef\tmpNUMeye{\fpeval{randint(1,10)}}%
+      \xdef\tmpNUMeyebrow{\fpeval{randint(1,10)}}%
+      \xdef\tmpNUMhair{\fpeval{randint(1,10)}}%
+    }%
+    {%partial random
+      \setsepchar[.]{/}%
+      \readlist*\tmpNUMlist{#4}%
+      \itemtomacro\tmpNUMlist[1]\tmpNUMmouth%
+      \IfStrEq{\tmpNUMmouth}{*}{\xdef\tmpNUMmouth{\fpeval{randint(1,10)}}}{}%
+      \itemtomacro\tmpNUMlist[2]\tmpNUMeye%
+      \IfStrEq{\tmpNUMeye}{*}{\xdef\tmpNUMeye{\fpeval{randint(1,10)}}}{}%
+      \itemtomacro\tmpNUMlist[3]\tmpNUMeyebrow%
+      \IfStrEq{\tmpNUMeyebrow}{*}{\xdef\tmpNUMeyebrow{\fpeval{randint(1,10)}}}{}%
+      \itemtomacro\tmpNUMlist[4]\tmpNUMhair%
+      \IfStrEq{\tmpNUMhair}{*}{\xdef\tmpNUMhair{\fpeval{randint(0,10)}}}{}%
+    }%
+  \tikzbrickfigurine[#1,mouthstyle=\tmpNUMmouth,hairstyle=\tmpNUMhair,eyestyle=\tmpNUMeye,eyebrowstyle=\tmpNUMeyebrow]<#2>{#3}%
+}
+
+\NewDocumentCommand\tikzbrickfigurinepiece{O{}D<>{}mm}{%
+  \restoreKV[tkzshapebrickfig]%
+  \setKV[tkzshapebrickfig]{#1}%
+  \ifboolKV[tkzshapebrickfig]{vcenter}%
+    {\tikzset{brickfig shape vcenter/.style={baseline=(current bounding box.center)}}}%
+    {\tikzset{brickfig shape vcenter/.style={}}}%
+  \setlength\tkzbrickfigheight{#4}%
+  \xdef\tkzbrickfigscale{\fpeval{\tkzbrickfigheight/16cm}}%
+  \begin{tikzpicture}[\tkzshapebrickfiglinescolor,scale=\tkzbrickfigscale,line width=\fpeval{\tkzbrickfigscale*0.8}mm,line join=round,line cap=round,#2,brickfig shape vcenter,transform shape]
+    \IfStrEq{#3}{head}{\setKV[tkzshapebrickfig]{head=true}}{}%
+    \IfStrEq{#3}{legs}{\setKV[tkzshapebrickfig]{head=false}}{}%
+    \IfStrEq{#3}{body}{\setKV[tkzshapebrickfig]{head=false}}{}%
+    \ifboolKV[tkzshapebrickfig]{head}%
+      {%
+        \IfSubStr{#3}{hair=}{}{\draw[brickfig shape head] (-1,{5.45+3.385}) {[rounded corners=\fpeval{\tkzbrickfigscale*2}mm] --++ (0,0.7) --++ (2,0)} --++ (0,-0.7) -- cycle ;}%
+        \inttkzshapebrickfighead
+        \inttkzshapebrickfigneck
+      }%
+      {}%
+    \inttkzshapebrickfignodes
+    %individual element ?
+    \IfSubStr{#3}{head=}%
+      {%
+        \inttkzshapebrickfighead
+        \inttkzshapebrickfigneck
+        \StrBehind{#3}{head=}[\tmpnbheadlist]%
+        \IfStrEq{\tmpnbheadlist}{*}%
+          {%
+            \xdef\tmpNUMmouth{\fpeval{randint(1,10)}}%
+            \xdef\tmpNUMeye{\fpeval{randint(1,10)}}%
+            \xdef\tmpNUMeyebrow{\fpeval{randint(1,10)}}%
+            \xdef\tmpNUMhair{\fpeval{randint(1,10)}}%
+          }%
+          {%
+            \setsepchar[.]{/}%
+            \readlist*\tmpNUMlist{\tmpnbheadlist}%
+            \itemtomacro\tmpNUMlist[1]\tmpNUMmouth%
+            \IfStrEq{\tmpNUMmouth}{*}{\xdef\tmpNUMmouth{\fpeval{randint(1,10)}}}{}%
+            \itemtomacro\tmpNUMlist[2]\tmpNUMeye%
+            \IfStrEq{\tmpNUMeye}{*}{\xdef\tmpNUMeye{\fpeval{randint(1,10)}}}{}%
+            \itemtomacro\tmpNUMlist[3]\tmpNUMeyebrow%
+            \IfStrEq{\tmpNUMeyebrow}{*}{\xdef\tmpNUMeyebrow{\fpeval{randint(1,10)}}}{}%
+            \itemtomacro\tmpNUMlist[4]\tmpNUMhair%
+            \IfStrEq{\tmpNUMhair}{*}{\xdef\tmpNUMhair{\fpeval{randint(0,10)}}}{}%
+          }%
+        %parts
+        \inttkzshapebrickfigmouth{\tmpNUMmouth}
+        \inttkzshapebrickfigeye{\tmpNUMeye}
+        \inttkzshapebrickfigeyebrow{\tmpNUMeyebrow}
+        \inttikzshapehair{\tmpNUMhair}
+      }%
+      {}%
+    \IfSubStr{#3}{mouth=}%
+      {%
+        \StrBehind{#3}{mouth=}[\tmpnbmouth]%
+        \inttkzshapebrickfigmouth{\tmpnbmouth}
+      }%
+      {}%
+    \IfSubStr{#3}{eyes=}%
+      {%
+        \StrBehind{#3}{eyes=}[\tmpnbeye]%
+        \inttkzshapebrickfigeye{\tmpnbeye}
+      }%
+      {}%
+    \IfSubStr{#3}{eyebrows=}%
+      {%
+        \StrBehind{#3}{eyebrows=}[\tmpnbeyebrow]%
+        \inttkzshapebrickfigeyebrow{\tmpnbeyebrow}
+      }%
+      {}%
+    \IfSubStr{#3}{hair=}%
+      {%
+        \StrBehind{#3}{hair=}[\tmpnbhair]%
+        \inttikzshapehair{\tmpnbhair}
+      }%
+      {}%
+    \IfStrEq{#3}{body}%
+      {%
+        \draw[brickfig shape body] (-0.85,5) rectangle++ ({2*0.85},1.95) ;%scratch
+        \inttkzshapebrickfigbody
+        \inttkzshapebrickfigarms
+      }%
+      {}%
+    \IfStrEq{#3}{legs}%
+      {%
+        \inttkzshapebrickfigpant
+        %scratchs
+        \draw[brickfig shape belt] (-2.35,0) -- (-2.35,0.65) -- (-2.2,1.75) -- (-0.675,1.75) |- cycle ;
+        \draw[brickfig shape belt] (2.35,0) -- (2.35,0.65) -- (2.2,1.75) -- (0.675,1.75) |- cycle ;
+      }%
+      {}%
+    \IfStrEq{#3}{left arm}{%
+      \inttkzshapebrickfigleftarm
+      \inttkzshapebrickfigleftarmscratch
+      }{}%
+    \IfStrEq{#3}{left arm wo hand}{\inttkzshapebrickfigleftarmwohand}{}%
+    \IfStrEq{#3}{right arm}{%
+      \inttkzshapebrickfigrightarm
+      \inttkzshapebrickfigrightarmscratch
+      }{}%
+    \IfStrEq{#3}{right arm wo hand}{\inttkzshapebrickfigrightarmwohand}{}%
+    \IfStrEq{#3}{left hand}{\inttkzshapebrickfiglefthand}{}%
+    \IfStrEq{#3}{right hand}{\inttkzshapebrickfigrighthand}{}%
+  \end{tikzpicture}%
+}
+
+\endinput

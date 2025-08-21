@@ -25,8 +25,8 @@
 \hypersetup{pdfborder=0 0 0}
 \usepackage[margin=2cm]{geometry}
 \setlength{\parindent}{0pt}
-\def\TPversion{0.1.2}
-\def\TPdate{05/05/2025}
+\def\TPversion{0.1.3}
+\def\TPdate{04/08/2025}
 \usepackage{soul}
 \usepackage{codehigh}
 \usepackage{tabularray}
@@ -63,7 +63,7 @@
 	\begin{tabular}{c}
 	\texttt{Cédric Pierquet}\\
 	{\ttfamily c pierquet -- at -- outlook . fr}\\
-	\texttt{\url{https://forge.apps.education.fr/pierquetcedric/packages-latex}} \\
+	\texttt{\url{https://github.com/cpierquet/latex-packages/tree/main/thematicpuzzle}} \\
 \end{tabular}
 \end{center}
 
@@ -123,19 +123,21 @@ Ultimately, it may be possible to insert images or \TikZ\ codes, this is one of 
 
 \subsection{Loading}
 
-To load the package, simply add in the preamble :
+To load the package, simply add in the preamble:
 
 \begin{quote}
 \begin{verbatim}
 \usepackage{thematicpuzzle}                  %with fa5, default
 \usepackage[fa6]{thematicpuzzle}             %with fa6 (test)
+\usepackage[fa7]{thematicpuzzle}             %with fa7 (test)
+\usepackage[nofa]{thematicpuzzle}            %w/o fa (test), manually loading
 \end{verbatim}
 \end{quote}
 
 The useful and loaded packages are:
 
 \begin{itemize}
-	\item \MontreCode{tikz}, \MontreCode{fontawesome} et \MontreCode{xintexpr} ;
+	\item \MontreCode{tikz}, \MontreCode{fontawesome5} et \MontreCode{xintexpr};
 	\item \MontreCode{simplekv}, \MontreCode{listofitems} et \MontreCode{xstring}.
 \end{itemize}
 
@@ -145,7 +147,8 @@ The useful and loaded packages are:
 
 \begin{quote}
 \begin{verbatim}
-0.1.2: Bugfix + pre-compatibility with fa6
+0.1.3: Bugfix + pre-compatibility with fa5/6/7
+0.1.2: Bugfix + pre-compatibility with fa5/6
 0.1.1: Enhancements for colors
 0.1.0: Initial release
 \end{verbatim}
@@ -169,14 +172,14 @@ In order to create a \textit{theme puzzle}, the command is:
 The \textsf{keys}, optional and between \MontreCode{[...]}, are:
 
 \begin{itemize}
-	\item \MontreCode{Thickness} := thickness of the lines (\MontreCode{1pt} by default);
-	\item \MontreCode{Scale} := global scale of the figure (\MontreCode{1} by default);
-	\item \MontreCode{BgColors} := background color(s) (see paragraph on colors);
-	\item \MontreCode{BorderColor} := color(s) of the borders (\MontreCode{black} by default);
-	\item \MontreCode{Labels} := (optional) labels of the themes (\MontreCode{\{\}} by default);
-	\item \MontreCode{ScaleLabels} := label scale (\MontreCode{1.15} by default);
-	\item \MontreCode{FontLabels} := label font (\MontreCode{\textbackslash tiny\textbackslash sffamily} by default);
-	\item \MontreCode{IconsColor} := color of icons and labels (\MontreCode{black} by default).
+	\item \MontreCode{Thickness}:= thickness of the lines (\MontreCode{1pt} by default);
+	\item \MontreCode{Scale}:= global scale of the figure (\MontreCode{1} by default);
+	\item \MontreCode{BgColors}:= background color(s) (see paragraph on colors);
+	\item \MontreCode{BorderColor}:= color(s) of the borders (\MontreCode{black} by default);
+	\item \MontreCode{Labels}:= (optional) labels of the themes (\MontreCode{\{\}} by default);
+	\item \MontreCode{ScaleLabels}:= label scale (\MontreCode{1.15} by default);
+	\item \MontreCode{FontLabels}:= label font (\MontreCode{\textbackslash tiny\textbackslash sffamily} by default);
+	\item \MontreCode{IconsColor}:= color of icons and labels (\MontreCode{black} by default).
 \end{itemize}
 
 \medskip
@@ -194,7 +197,7 @@ Concerning the color of the boxes, it's the key \MontreCode{BgColors} which is i
 It can work in several ways:
 
 \begin{itemize}
-	\item by default it is empty, which does not color the boxes ;
+	\item by default it is empty, which does not color the boxes;
 	\item it can be given in a single form, via \MontreCode{BgColors=mycolor}, in which case all the boxes are of the same color;
 	\item we can give it in the form of a list \MontreCode{BgColors=\{mycolorA,mycolorB,...\}} and:
 	\begin{itemize}

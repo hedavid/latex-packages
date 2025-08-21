@@ -12,6 +12,7 @@ https://ctan.org/author/pierquet
 * customenvs
 * euromoney
 * FenetreCas
+* fontawesomescaled
 * highlightx
 * inlinegraphicx
 * ipsum
@@ -34,8 +35,10 @@ https://ctan.org/author/pierquet
 * Scrabble
 * sim-os-menus
 * SympyCalc
+* tablericons
 * TangramTikZ
 * thematicpuzzle
+* tikzbrickfigurines
 * tikz2d-fr
 * tikz3d-fr
 * tikz-decofonts

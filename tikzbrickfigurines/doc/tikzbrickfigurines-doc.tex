@@ -1,0 +1,666 @@
+% !TeX TXS-program:compile = txs:///arara
+% arara: pdflatex: {shell: no, synctex: no, interaction: batchmode}
+% arara: pdflatex: {shell: no, synctex: no, interaction: batchmode}
+
+\documentclass[11pt,a4paper]{ltxdoc}
+\usepackage{bera}
+\usepackage{inconsolata}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[scale=0.875]{cabin}
+\usepackage{tikzbrickfigurines}
+\usepackage{fancyvrb}
+\usepackage{fancyhdr}
+\usepackage{tabularray}
+\usepackage{fontawesome5}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0pt}
+\lfoot{\sffamily\small [tikzbrickfigurines]}
+\cfoot{%
+	\raisebox{-1.75em}{\minitikzbrickfigurine[color sweat=white,display logo,scale logo=0.5,logo={\footnotesize\bfseries\sffamily\color{black}{\thepage}}]{3.5em}{*}}
+}
+\rfoot{\hyperlink{matoc}{\small\faArrowAltCircleUp[regular]}}
+\usepackage{hologo}
+\usepackage{xspace}
+\providecommand*{\CTAN}{\textsc{CTAN}\xspace}
+\providecommand*{\TikZ}{Ti\emph{k}Z\xspace}
+\providecommand*{\miktex}{MiK\TeX\xspace}
+\providecommand*{\texlive}{\TeX{}Live\xspace}
+\providecommand*{\tikzbrick}{Ti\emph{k}Zbricks\xspace}
+\providecommand*{\tikzbrickfigurines}{Ti\emph{k}Zbrickfigurines\xspace}
+
+\usepackage{openmoji}
+\definecolor{brickskin}{HTML}{FFDFC4}
+\definecolor{brickjean}{HTML}{24496B}
+\definecolor{brickblondhair}{HTML}{E2BC74}
+\newlength\brickfigfigurineheight
+
+\usepackage{hyperref}
+\urlstyle{same}
+\hypersetup{pdfborder=0 0 0}
+\usepackage[margin=2cm,includefoot]{geometry}
+\setlength{\parindent}{0pt}
+\def\TPversion{0.1.1}
+\def\TPdate{18/08/2025}
+\usepackage{enumitem}
+\usepackage{openmoji}
+\usepackage{tcolorbox}
+\usepackage{pgffor}
+\tcbuselibrary{breakable,skins,hooks,listingsutf8}
+
+\lstdefinestyle{packagestyle}
+{
+	language=[LaTeX]TeX,%
+	columns=fullflexible,%
+	extendedchars=true,%
+	basicstyle=\small\ttfamily,%
+	keywordstyle={\color{black}},%
+	classoffset=0,%
+	keywords={\includegraphics},%
+	alsoletter={-},%
+	keywordstyle={\color{blue}},%
+	classoffset=1,%
+	alsoletter={-},%
+	morekeywords={tikzbrickfigurines},%
+	keywordstyle={\color{violet}},%
+	classoffset=2,%
+	alsoletter={-},%
+	morekeywords={\tikzbrickfigurine,\minitikzbrickfigurine,\tikzbrickfigurinepiece},%
+	keywordstyle={\color{green!50!black}},%
+	classoffset=3,%
+	morekeywords={},%
+	keywordstyle={\color{orange}},%
+	inputencoding=utf8/latin1
+}
+
+\lstset{
+	basicstyle=\small\ttfamily,%
+	keywordstyle={},%
+}
+
+\newtcblisting{DemoCode}[1]{%
+	enhanced,width=\linewidth,%
+	bicolor,size=title,%
+	colback=cyan!10!white,%
+	colbacklower=cyan!5!white,%
+	colframe=cyan!75!black,%
+	listing options={%
+		breaklines=true,%
+		breakatwhitespace=true,%
+		style=packagestyle,%
+		basicstyle=\footnotesize\ttfamily,%
+		tabsize=4,%
+		commentstyle={\itshape\color{gray}},
+		keywordstyle={\color{blue}},%
+		classoffset=0,%
+		keywords={},%
+		alsoletter={-},%
+		keywordstyle={\color{blue}},%
+		classoffset=1,%
+		alsoletter={-},%
+		morekeywords={},%
+		keywordstyle={\color{violet}},%
+		classoffset=2,%
+		alsoletter={-},%
+		morekeywords={},%
+		keywordstyle={\color{green!50!black}},%
+		classoffset=3,%
+		morekeywords={},%
+		keywordstyle={\color{orange}}
+	},%
+	#1
+}
+
+\newtcbinputlisting\DemoCodeFile[1]{%
+	enhanced,width=\linewidth,%
+	bicolor,size=title,%
+	colback=lightgray!10!white,%
+	colbacklower=lightgray!5!white,%
+	colframe=lightgray!75!black,%
+	listing options={%
+		breaklines=true,%
+		breakatwhitespace=true,%
+		style=tcblatex,
+		extendedchars=true,%
+		basicstyle=\tiny\ttfamily,%
+		keywordstyle={},%
+		tabsize=2,%
+		commentstyle={\itshape\color{gray}},%
+		inputencoding=utf8/latin1
+	},%
+	breakable,
+	listing only,%
+	listing file={#1}
+}
+
+\setlength\fboxsep{1.5pt}
+
+\NewDocumentCommand\ShowCode{ O{lightgray!50} m }{%
+	\colorbox{#1}{\lstinline+#2+}%
+}
+
+\begin{document}
+
+\pagestyle{fancy}
+
+\begin{center}
+	\begin{minipage}{0.88\linewidth}
+		\begin{tcolorbox}[colframe=yellow,colback=yellow!15]
+			\begin{center}
+				\renewcommand{\arraystretch}{1.25}%
+				\begin{tabular}{c}
+					{\Huge \texttt{tikzbrickfigurines}}\\
+					\\
+					{\LARGE Drawing brick-figurines} \\
+					{\LARGE with \TikZ.} \\
+					\\
+					{\small \texttt{Version \TPversion\ -- \TPdate}}
+				\end{tabular}
+			\end{center}
+		\end{tcolorbox}
+	\end{minipage}
+\end{center}
+
+\begin{center}
+	\begin{tabular}{c}
+		\texttt{Cédric Pierquet}\\
+		{\ttfamily cpierquet -- at -- outlook . fr}\\
+		\texttt{\url{https://github.com/cpierquet/latex-packages/tikzbrickfigurines}} \\
+	\end{tabular}
+\end{center}
+
+\hrule
+
+\vfill
+
+\hfill%
+\tikzbrickfigurine%
+[%
+mouthstyle=7,%
+eyestyle=1,%
+eyebrowstyle=7,
+hairstyle=10,
+color skin=brickskin,
+color hair=brown,
+color sweat=white,
+color pant=brickjean,
+color foot=brickjean!50!black,
+custom logo,
+%logo={\openmoji{rhinoceros}}
+logo={\huge\bfseries\sffamily\rotatebox{30}{\begin{tabular}{c} {\Huge\openmoji{snake}} \\ {\LARGE \faHandPointRight} made with \\ \LaTeX/\TikZ\ {\LARGE \faHandPointLeft}  \\ {\Huge\openmoji{infinity}} \end{tabular}}}
+]%
+{3in}%
+\hfill\null
+
+\vfill
+
+\section{Introduction}
+
+The package allows to draw \textit{brick}-figurines with \TikZ.
+
+The user can modify their colour, shape and elements.
+
+\medskip
+
+The package is included in both \texlive and \miktex and available from \CTAN\  (\url{https://ctan.org/pkg/tikzbrickfigurines}).
+
+\medskip
+
+The development version of this package is located on github at \url{https://github.com/cpierquet/latex-packages/tikzbrickfigurines}. If you have any problems, ideas or other feedback, please make constructive use of its bug tracker.
+
+\medskip
+
+The style of this documentation is inspired by \texttt{samcarter}'s doc for their great \tikzbrick\ package (\url{https://ctan.org/pkg/tikzbricks}).
+
+\medskip
+
+Copyright \raisebox{0.2em}{\tiny\fontfamily{cmr}\selectfont\textcopyright} \texttt{Cédric Pierquet}.
+
+\textbullet~~Inspired by LEGO\texttrademark, but all graphics are made from scratch.
+
+\textbullet~~Permission is granted to copy, distribute and\slash or modify this software under the terms of the
+
+\hfill\href{https://www.latex-project.org/lppl.txt}{LaTeX project public licence, version 1.3c or later}.\hfill\null
+
+\vfill\null
+
+\pagebreak
+
+\phantomsection
+
+\hypertarget{matoc}{}
+
+\tableofcontents
+
+\vspace*{5mm}
+
+\vfill
+
+\section{History}
+
+\texttt{0.1.1: Enhancements for adjusted logo}
+
+\texttt{0.1.0: Initial version}
+
+\vspace*{5mm}
+
+\pagebreak
+
+\section{Loading, developments}
+
+\subsection{Loading, useful packages}
+
+To use \texttt{tikzbrickfigurines}, simply use \ShowCode{\\usepackage\{tikzbrickfigurines\}}.
+
+\begin{DemoCode}{listing only}
+\usepackage{tikzbrickfigurines}
+\end{DemoCode}
+
+Loaded packages are \ShowCode{tikz}, \ShowCode{simplekv}, \ShowCode{xstring}, \ShowCode{ifthen}, \ShowCode{listofitems}, \ShowCode{graphicx}, \ShowCode{etoolbox} and \ShowCode{calc}.
+
+Loaded libraries are \ShowCode{shapes.geometric,bbox,decorations,decorations.pathmorphing,calc}.
+
+\subsection{Developments}
+
+For the moment, the package uses internal macros for creating/manipulating pieces and elements, but eventually, the future plan is:
+
+\begin{itemize}
+	\item to manipulate these elements with a \ShowCode{pic} code;
+	\item to improve the code for the logo (work in progress).
+\end{itemize}
+
+
+\section{Global usage}
+
+\subsection{Version 1}
+
+An individual \tikzbrickfigurines can be drawn with:
+
+\begin{DemoCode}{listing only}
+\tikzbrickfigurine%
+  [keys]%
+  <tikz options>%
+  {height}
+\end{DemoCode}
+
+\begin{DemoCode}{}
+%default output
+\tikzbrickfigurine{1.5in}
+\end{DemoCode}
+
+\subsection{Version 2}
+
+An individual \tikzbrickfigurines can be drawn with:
+
+\begin{DemoCode}{listing only}
+\minitikzbrickfigurine%
+  [keys]%
+  <tikz options>%
+  {height}%
+  {list of styles, within M/E/Eb/H}
+\end{DemoCode}
+
+\begin{DemoCode}{}
+\minitikzbrickfigurine{1.5in}{1/1/1/0}%default style
+\minitikzbrickfigurine{1.5in}{4/7/1/2}%with choosen styles
+\minitikzbrickfigurine{1.5in}{3/*/9/*}%with choosen and random styles
+\minitikzbrickfigurine{1.5in}{*}%with full random styles
+\minitikzbrickfigurine{1.5in}{*}%with other full random styles
+\end{DemoCode}
+
+\subsection{Individual part}
+
+An individual \tikzbrickfigurines piece can be drawn with:
+
+\begin{DemoCode}{listing only}
+\tikzbrickfigurinepiece%
+  [keys]%
+  <tikz options>%
+  {piece / style}%
+  {height}
+\end{DemoCode}
+
+\begin{DemoCode}{}
+\tikzbrickfigurinepiece[head=true]{hair=3}{1in}%
+\tikzbrickfigurinepiece[head=true]{eyes=7}{1in}%
+\tikzbrickfigurinepiece[head=true]{mouth=2}{1in}%
+\tikzbrickfigurinepiece{head=2/3/*/5}{1in}%
+\end{DemoCode}
+
+\section{Keys and styles}
+
+\subsection{Keys}
+
+Available \texttt{\textbf{keys}} are:
+
+\begin{itemize}[leftmargin=*,itemsep=1pt]
+	\item \ShowCode{color lines}: eventual color for borders
+	\item \ShowCode{color skin}: global color for skin (override individual colors if given)
+	\item \ShowCode{color sweat}: global color for body and arms (override individual colors if given)
+	\item \ShowCode{color pant}: global color for pant (override individual colors if given)
+	\item \ShowCode{color belt}: color for the belt (\ShowCode[orange!15]{darkgray})
+	\item \ShowCode{color bottom belt}: color for the belt (\ShowCode[orange!15]{blue!75})
+	\item \ShowCode{color body}: simple color for the body (\ShowCode[orange!15]{red})
+	\item \ShowCode{color arm}: simple color for the arms (\ShowCode[orange!15]{red})
+	\item \ShowCode{color arm shadow}: simple color for the arms shadow (\ShowCode[orange!15]{red!85!black})
+	\item \ShowCode{color hand}: simple color for the hand (\ShowCode[orange!15]{yellow})
+	\item \ShowCode{color hand shadow}: simple color for the hand shadow (\ShowCode[orange!15]{yellow!85!black})
+	\item \ShowCode{color neck}: simple color for the neck (\ShowCode[orange!15]{yellow})
+	\item \ShowCode{color head}: simple color for the head (\ShowCode[orange!15]{yellow})
+	\item \ShowCode{color hair}: color for the hair (\ShowCode[orange!15]{brown})
+	\item \ShowCode{color top pant}: simple color for top pant (\ShowCode[orange!15]{blue!75})
+	\item \ShowCode{color middle pant}: simple color for mid pant (\ShowCode[orange!15]{blue!75})
+	\item \ShowCode{color foot}: simple color for shoes (\ShowCode[orange!15]{darkgray!50!black})
+	\item \ShowCode{adjusted logo}: the logo will be adjusted to sweat
+	\item \ShowCode{display logo}: boolean for logo (\ShowCode[orange!15]{false})
+	\item \ShowCode{custom logo}: boolean for custom logo (\ShowCode[orange!15]{false})
+	\item \ShowCode{logo}: code for the optional logo
+	\item \ShowCode{scale logo}: custom scale for \ShowCode{display logo} (\ShowCode[orange!15]{0.667})
+	\item \ShowCode{empty}: boolean for empty figurine (\ShowCode[orange!15]{false})
+	\item \ShowCode{hairstyle}: style of hair, from 0 to 10 (\ShowCode[orange!15]{0})
+	\item \ShowCode{eyestyle}: style of eyes, from 1 to 10(\ShowCode[orange!15]{1})
+	\item \ShowCode{eyebrowstyle}: style of eyebrows, from 1 to 10(\ShowCode[orange!15]{1})
+	\item \ShowCode{mouthstyle}: style of mouth, from 1 to 10(\ShowCode[orange!15]{1})
+	\item \ShowCode{seed}: random seed for some hair code (\ShowCode[orange!15]{365479})
+	\item \ShowCode{bbox} boolean for using \ShowCode{bbox} library (\ShowCode[orange!15]{false})
+	\item \ShowCode{vcenter} boolean for centering vertically, with \texttt{tikz baseline} (\ShowCode[orange!15]{false})
+	\item \ShowCode{head}: boolean for showing head with individual element (\ShowCode[orange!15]{false})
+\end{itemize}
+
+\subsection{Elements}
+
+\subsubsection{Body / legs / head / arms / hands / heads}
+
+\begin{DemoCode}{listing only}
+\tikzbrickfigurinepiece[keys]<tizk options>{piece}{height}
+\end{DemoCode}
+
+\begin{tblr}{hlines,vlines,colspec={Q[1.25cm,m,c]*{9}{Q[m,c]}},row{1}={font=\footnotesize\ttfamily}}
+	\SetCell[r=2,c=1]{c}{\rotatebox{45}{\textbf{piece}}} & body & legs & head & {left\\arm} & {right\\arm} &{left arm\\wo hand} & {right arm\\wo hand} & {left\\hand} & {righ\\hand} \\
+	&\tikzbrickfigurinepiece[vcenter]{body}{0.75in} &
+	\tikzbrickfigurinepiece[vcenter]{legs}{0.75in} &
+	\tikzbrickfigurinepiece[vcenter]{head}{0.75in} &
+	\tikzbrickfigurinepiece[vcenter]{left arm}{0.75in} &
+	\tikzbrickfigurinepiece[vcenter]{right arm}{0.75in} &
+	\tikzbrickfigurinepiece[vcenter]{left arm wo hand}{0.75in} &
+	\tikzbrickfigurinepiece[vcenter]{right arm wo hand}{0.75in} & 
+	\tikzbrickfigurinepiece[vcenter]{left hand}{0.75in} &
+	\tikzbrickfigurinepiece[vcenter]{right hand}{0.75in} \\
+\end{tblr}
+
+\subsubsection{Mouth}
+
+\begin{DemoCode}{listing only}
+\tikzbrickfigurinepiece[keys]<tizk options>{mouth=...}{height}
+\end{DemoCode}
+
+\begin{tblr}{hlines,vlines,colspec={Q[1.25cm,m,c]*{10}{Q[0.8cm,m,c]}},row{1}={font=\footnotesize\ttfamily}}
+	\SetCell[r=2,c=1]{c}{\rotatebox{45}{\textbf{mouth=}}} & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 \\
+	&\tikzbrickfigurinepiece[head=true]{mouth=1}{1in} &
+	\tikzbrickfigurinepiece[head=true]{mouth=2}{1in} &
+	\tikzbrickfigurinepiece[head=true]{mouth=3}{1in} &
+	\tikzbrickfigurinepiece[head=true]{mouth=4}{1in} &
+	\tikzbrickfigurinepiece[head=true]{mouth=5}{1in} &
+	\tikzbrickfigurinepiece[head=true]{mouth=6}{1in} &
+	\tikzbrickfigurinepiece[head=true]{mouth=7}{1in} &
+	\tikzbrickfigurinepiece[head=true]{mouth=8}{1in} &
+	\tikzbrickfigurinepiece[head=true]{mouth=9}{1in} &
+	\tikzbrickfigurinepiece[head=true]{mouth=10}{1in}
+\end{tblr}
+
+\subsubsection{Eyes}
+
+\begin{DemoCode}{listing only}
+\tikzbrickfigurinepiece[keys,head=true]<tizk options>{eyes=...}{height}
+\end{DemoCode}
+
+\begin{tblr}{hlines,vlines,colspec={Q[1.25cm,m,c]*{10}{Q[0.8cm,m,c]}},row{1}={font=\footnotesize\ttfamily}}
+	\SetCell[r=2,c=1]{c}{\rotatebox{45}{\textbf{eyes=}}} & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 \\
+	&\tikzbrickfigurinepiece[head=true]{eyes=1}{1in} &
+	\tikzbrickfigurinepiece[head=true]{eyes=2}{1in} &
+	\tikzbrickfigurinepiece[head=true]{eyes=3}{1in} &
+	\tikzbrickfigurinepiece[head=true]{eyes=4}{1in} &
+	\tikzbrickfigurinepiece[head=true]{eyes=5}{1in} &
+	\tikzbrickfigurinepiece[head=true]{eyes=6}{1in} &
+	\tikzbrickfigurinepiece[head=true]{eyes=7}{1in} &
+	\tikzbrickfigurinepiece[head=true]{eyes=8}{1in} &
+	\tikzbrickfigurinepiece[head=true]{eyes=9}{1in} &
+	\tikzbrickfigurinepiece[head=true]{eyes=10}{1in}
+\end{tblr}
+
+\subsubsection{Eyebrows}
+
+\begin{DemoCode}{listing only}
+\tikzbrickfigurinepiece[keys,head=true]<tizk options>{eyebrows=...}{height}
+\end{DemoCode}
+
+\begin{tblr}{hlines,vlines,colspec={Q[1.25cm,m,c]*{10}{Q[0.8cm,m,c]}},row{1}={font=\footnotesize\ttfamily}}
+	\SetCell[r=2,c=1]{c}{\rotatebox{45}{\textbf{eyebrows=}}} & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 \\
+	&\tikzbrickfigurinepiece[head=true]{eyebrows=1}{1in} &
+	\tikzbrickfigurinepiece[head=true]{eyebrows=2}{1in} &
+	\tikzbrickfigurinepiece[head=true]{eyebrows=3}{1in} &
+	\tikzbrickfigurinepiece[head=true]{eyebrows=4}{1in} &
+	\tikzbrickfigurinepiece[head=true]{eyebrows=5}{1in} &
+	\tikzbrickfigurinepiece[head=true]{eyebrows=6}{1in} &
+	\tikzbrickfigurinepiece[head=true]{eyebrows=7}{1in} &
+	\tikzbrickfigurinepiece[head=true]{eyebrows=8}{1in} &
+	\tikzbrickfigurinepiece[head=true]{eyebrows=9}{1in} &
+	\tikzbrickfigurinepiece[head=true]{eyebrows=10}{1in}
+\end{tblr}
+
+\subsubsection{Hair}
+
+\begin{DemoCode}{listing only}
+\tikzbrickfigurinepiece[keys,head=true]<tizk options>{hair=...}{height}
+\end{DemoCode}
+
+\begin{tblr}{hlines,vlines,colspec={Q[1.25cm,m,c]*{11}{Q[0.8cm,m,c]}},row{1}={font=\footnotesize\ttfamily}}
+	\SetCell[r=2,c=1]{c}{\rotatebox{45}{\textbf{hair=}}} & 0 & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 \\
+	&\tikzbrickfigurinepiece[head=true]{hair=0}{1in} &
+	\tikzbrickfigurinepiece[head=true]{hair=1}{1in} &
+	\tikzbrickfigurinepiece[head=true]{hair=2}{1in} &
+	\tikzbrickfigurinepiece[head=true]{hair=3}{1in} &
+	\tikzbrickfigurinepiece[head=true]{hair=4}{1in} &
+	\tikzbrickfigurinepiece[head=true]{hair=5}{1in} &
+	\tikzbrickfigurinepiece[head=true]{hair=6}{1in} &
+	\tikzbrickfigurinepiece[head=true]{hair=7}{1in} &
+	\tikzbrickfigurinepiece[head=true]{hair=8}{1in} &
+	\tikzbrickfigurinepiece[head=true]{hair=9}{1in} &
+	\tikzbrickfigurinepiece[head=true]{hair=10}{1in}
+\end{tblr}
+
+\subsubsection{Head(s)}
+
+\begin{DemoCode}{listing only}
+\tikzbrickfigurinepiece[keys]<tizk options>{head=...}{height}
+\end{DemoCode}
+
+\begin{tblr}{hlines,vlines,colspec={Q[1.25cm,m,c]*{5}{Q[1.6cm,m,c]}},row{1}={font=\footnotesize\ttfamily}}
+	\SetCell[r=2,c=1]{c}{\rotatebox{45}{\textbf{head=}}} & * & 4/8/1/6 & 2/*/*/9 & 3/3/3/3 & 10/10/10/2 \\
+	&\tikzbrickfigurinepiece{head=*}{2in} &
+	\tikzbrickfigurinepiece{head=4/8/1/6}{2in} &
+	\tikzbrickfigurinepiece{head=2/*/*/9}{2in} &
+	\tikzbrickfigurinepiece{head=3/3/3/3}{2in} &
+	\tikzbrickfigurinepiece{head=10/10/10/2}{2in}
+\end{tblr}
+
+\subsection{The optional logo}
+
+Due to scaling process, a global scale is applied to whole figure (with the \TikZ\ option \ShowCode{transform shape}). So every node is scaled too.
+
+The special key \ShowCode{scale logo=...} can adjust most precisely the logo!
+
+\smallskip
+
+There's three methods in order to place a logo:
+
+\begin{itemize}
+	\item boolean \ShowCode{custom logo} and key \ShowCode{logo=...} with the same global scale;
+	\item boolean \ShowCode{display logo} and key \ShowCode{logo=...} with a \textit{cancel} scale;
+	\item key \ShowCode{adjusted logo=...} to adjust in the sweat.
+\end{itemize}
+
+\def\mylogo{%
+	\sffamily\rotatebox{30}{%
+		\begin{tabular}{@{}c@{}}%
+			\faPython\ I'm a \\ Python \\ user \faPython
+		\end{tabular}%
+	}%
+}
+
+\begin{DemoCode}{}
+\def\mylogo{\sffamily\rotatebox{30}{%
+  \begin{tabular}{@{}c@{}}%
+    \faPython\ I'm a \\ Python \\ user \faPython
+  \end{tabular}}%
+}
+
+\mylogo
+\end{DemoCode}
+
+\begin{DemoCode}{}
+\tikzbrickfigurine[custom logo,logo=\mylogo]{4cm}%with 'global' scale
+\tikzbrickfigurine[display logo,logo=\mylogo]{4cm}%with 'cancel' scale
+\tikzbrickfigurine[adjusted logo=\mylogo]{4cm}%adjusted
+\end{DemoCode}
+
+\begin{DemoCode}{}
+\tikzbrickfigurine[custom logo,logo=\mylogo,scale logo=1]{4cm}%with 'global' scale
+\tikzbrickfigurine[display logo,logo=\mylogo,scale logo=1]{4cm}%with 'cancel' scale
+\tikzbrickfigurine[adjusted logo=\mylogo,scale logo=1]{4cm}%adjusted
+\end{DemoCode}
+
+\pagebreak
+
+\section{Samples}
+
+\subsection{Influence of options}
+
+\begin{DemoCode}{}
+\definecolor{brickskin}{HTML}{FFDFC4}
+
+\def\mylogo{\rotatebox{30}{\sffamily\begin{tabular}{@{}c@{}}\faFastForward\ I'm a\\\LaTeX\\user \faFastBackward\end{tabular}}}
+
+\tikzbrickfigurine%
+  [%
+    color lines=darkgray,
+    color belt=lightgray,
+    color bottom belt=blue!75,
+    color body=red,
+    color arm=violet,
+    color arm shadow=lime,
+    color hand=yellow,
+    color hand shadow=orange,
+    color neck=teal,
+    color head=brickskin,
+    color hair=cyan,
+    color top pant=pink,
+    color middle pant=pink!50!black,
+    color foot=white,
+    adjusted logo=\mylogo,
+    scale logo=1, 
+    hairstyle=6,%
+    eyestyle=5,%
+    eyebrowstyle=10,%
+    mouthstyle=2
+  ]%
+  <rotate=15>
+  {2.75in}%
+\end{DemoCode}
+
+\pagebreak
+
+\subsection{Random usage}
+
+\begin{DemoCode}{}
+\newcommand\randomcolor[1]{%
+  \pgfmathsetmacro{\R}{random(0,10000)/10000}%
+  \pgfmathsetmacro{\G}{random(0,10000)/10000}%
+  \pgfmathsetmacro{\B}{random(0,10000)/10000}%
+  \definecolor{#1}{rgb}{\R,\G,\B}%
+}
+
+\pgfmathdeclarerandomlist{listsksintones}%
+  {{brickskin}{yellow}{pink}{brown}{brown!50!white}}
+\pgfmathdeclarerandomlist{listhairtones}%
+  {{lightgray!15}{yellow}{orange}{brown}{gray}{black}}
+\pgfmathdeclarerandomlist{listlogos}%
+  {{unicorn}{alien}{snake}{adhesive bandage}{desert island}{videocassette}{alien monster}}
+
+%five 'random' clothes + face + skin + hair + logo brickfigurines
+\foreach \i in {1,...,5}{%
+  \randomcolor{randomsweatcolor}%
+  \randomcolor{randompantcolor}%
+  \randomcolor{randomshoecolor}%
+  \pgfmathrandomitem{\skinrandom}{listsksintones}%
+  \pgfmathrandomitem{\hairrandom}{listhairtones}%
+  \pgfmathrandomitem{\logorandom}{listlogos}%
+  \minitikzbrickfigurine%
+    [%
+      color skin=\skinrandom,%
+      color hair=\hairrandom,%
+      color sweat=randomsweatcolor,%
+      color pant=randompantcolor,%
+      color foot=randomshoecolor,%
+      display logo,scale logo=0.8,%
+      logo={\openmoji{\logorandom}},%
+      vcenter
+    ]%
+    <rotate=\fpeval{randint(-20,20)}>%
+    {1.75in}{*}
+}
+\end{DemoCode}
+
+\pagebreak
+
+\subsection{Overlay usage}
+
+Several nodes a created within internal code, and with \TikZ\ options, overlays elements can be added.
+
+\begin{DemoCode}{listing only}
+\tikzbrickfigurine%
+  [figure name=myfigurine]%
+  <remember picture>
+  {4.5in}%
+
+\end{DemoCode}
+
+\tikzbrickfigurine%
+[figure name=myfigurine]%
+<remember picture>
+{4.5in}%
+
+\begin{tikzpicture}[remember picture,overlay]
+	\draw[very thick,gray,fill=white,->,>=latex] (myfigurine-MOUTH) circle[radius=3pt] --++ (5cm,-1cm) node[right,font=\small\sffamily] {node (myfigurine-MOUTH)} ;
+	\draw[very thick,gray,fill=white,->,>=latex] (myfigurine-EYES) circle[radius=3pt] --++ (5cm,-1cm) node[right,font=\small\sffamily] {node (myfigurine-EYES)} ;
+	\draw[very thick,gray,fill=white,->,>=latex] (myfigurine-LOGO) circle[radius=3pt] --++ (5cm,-1cm) node[right,font=\small\sffamily] {node (myfigurine-LOGO)} ;
+	\draw[very thick,gray,fill=white,->,>=latex] (myfigurine-HAIR) circle[radius=3pt] --++ (5cm,-1cm) node[right,font=\small\sffamily] {node (myfigurine-HAIR)} ;
+	\draw[very thick,gray,fill=white,->,>=latex] (myfigurine-EYEBROWS) circle[radius=3pt] --++ (5cm,-1cm) node[right,font=\small\sffamily] {node (myfigurine-EYEBROWS)} ;
+	\draw[very thick,gray,fill=white,->,>=latex] (myfigurine-BELT) circle[radius=3pt] --++ (5cm,0cm) node[right,font=\small\sffamily] {node (myfigurine-BELT)} ;
+	\draw[very thick,gray,fill=white,->,>=latex] (myfigurine-LEFTHAND) circle[radius=3pt] --++ (2.5cm,-1cm) node[right,font=\small\sffamily] {node (myfigurine-LEFTHAND)} ;
+	\draw[very thick,gray,fill=white,->,>=latex] (myfigurine-RIGHTHAND) circle[radius=3pt] --++ (8.5cm,-2cm) node[right,font=\small\sffamily] {node (myfigurine-RIGHTHAND)} ;
+	%feet
+	\draw[very thick,gray,fill=white,->,>=latex] (myfigurine-LEFTFOOT) circle[radius=3pt] --++ (3cm,0cm) node[right,font=\small\sffamily] {node (myfigurine-LEFTFOOT)} ;
+	\draw[very thick,gray,fill=white,->,>=latex] (myfigurine-RIGHTFOOT) circle[radius=3pt] --++ (5cm,-1cm) node[right,font=\small\sffamily] {node (myfigurine-RIGHTFOOT)} ;
+	%shoulders
+	\draw[very thick,violet,fill=white] (myfigurine-RIGHTSHOULDER) circle[radius=3pt] (myfigurine-LEFTSHOULDER) circle[radius=3pt];
+	\draw[very thick,violet] ([shift={(135:3pt)}]myfigurine-RIGHTSHOULDER) --++ (-45:6pt) ;
+	\draw[very thick,violet] ([shift={(-135:3pt)}]myfigurine-RIGHTSHOULDER) --++ (45:6pt) ;
+	\draw[very thick,violet] ([shift={(135:3pt)}]myfigurine-LEFTSHOULDER) --++ (-45:6pt) ;
+	\draw[very thick,violet] ([shift={(-135:3pt)}]myfigurine-LEFTSHOULDER) --++ (45:6pt) ;
+	%neck
+	\draw[very thick,teal,fill=white] (myfigurine-NECK) circle[radius=3pt];
+	\draw[very thick,teal] ([shift={(-135:3pt)}]myfigurine-NECK) --++ (45:6pt) ;
+	\draw[very thick,teal] ([shift={(135:3pt)}]myfigurine-NECK) --++ (-45:6pt) ;
+\end{tikzpicture}
+
+\vspace*{1cm}
+
+Other available nodes are:
+
+\begin{itemize}
+	\item \ShowCode[violet!50]{(<mynode>-RIGHTSHOULDER)}, \ShowCode[violet!50]{(<mynode>-LEFTSHOULDER)};
+	\item \ShowCode[teal!50]{(<mynode>-NECK)}.
+\end{itemize}
+
+\end{document}

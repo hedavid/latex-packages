@@ -34,8 +34,8 @@
 \hypersetup{pdfborder=0 0 0}
 \usepackage[margin=2cm]{geometry}
 \setlength{\parindent}{0pt}
-\def\TPversion{0.2.5}
-\def\TPdate{30/05/2025}
+\def\TPversion{0.2.6}
+\def\TPdate{21/08/2025}
 \usepackage{soul}
 \usepackage{codehigh}
 \usepackage{tabularray}
@@ -1513,6 +1513,60 @@ Le second argument, obligatoire et entre \MontreCode{\{...\}} permet de précise
 
 \pagebreak
 
+\subsection{Inégalité linéaire}\label{ineglin}
+
+L'idée (en test) est d'obtenir une commande pour représenter graphiquement une inégalité linéaire.
+
+\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5,listing only}
+%dans l'environnement GraphiqueTikz
+\InegaliteLineaire[clés]<nom fct>{expression}{sens inégalité}
+\end{tcblisting}
+
+Le premier argument, \textit{optionnel} et entre \MontreCode{[...]}, contient les \MontreCode{Clés} suivantes :
+
+\begin{itemize}
+	\item \MontreCode{Opacite=...} (\MontreCode{0.25} par défaut) ;
+	\item \MontreCode{Couleur=...} (\MontreCode{black} par défaut) ;
+	\item \MontreCode{Style=...} (\MontreCode{hachures} par défaut) ;
+	\item \MontreCode{Hachures=...} (\MontreCode{north west lines} par défaut).
+\end{itemize}
+
+\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5}
+\begin{GraphiqueTikz}[x=0.4cm,y=0.4cm,Xmin=-5,Xmax=5,Ymin=-5,Ymax=5]
+	\TracerAxesGrilles[Police=\tiny]{auto}{auto}
+	\InegaliteLineaire[Couleur=blue]{-3x+2}{>0}
+\end{GraphiqueTikz}
+~~
+\begin{GraphiqueTikz}[x=0.4cm,y=0.4cm,Xmin=-5,Xmax=5,Ymin=-5,Ymax=5]
+	\TracerAxesGrilles[Police=\tiny]{auto}{auto}
+	\InegaliteLineaire[Couleur=pink]{-x+y+2}{<=0}
+\end{GraphiqueTikz}
+~~
+\begin{GraphiqueTikz}[x=0.4cm,y=0.4cm,Xmin=-5,Xmax=5,Ymin=-5,Ymax=5]
+	\TracerAxesGrilles[Police=\tiny]{auto}{auto}
+	\InegaliteLineaire[Couleur=teal]{-x+y-4}{>0}
+\end{GraphiqueTikz}
+\end{tcblisting}
+
+\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5}
+\begin{GraphiqueTikz}[x=0.4cm,y=0.4cm,Xmin=-5,Xmax=5,Ymin=-5,Ymax=5]
+	\TracerAxesGrilles[Police=\tiny]{auto}{auto}
+	\InegaliteLineaire[Couleur=blue]{-4*y+5}{<=0}
+\end{GraphiqueTikz}
+~~
+\begin{GraphiqueTikz}[x=0.4cm,y=0.4cm,Xmin=-5,Xmax=5,Ymin=-5,Ymax=5]
+	\TracerAxesGrilles[Police=\tiny]{auto}{auto}
+	\InegaliteLineaire[Couleur=pink,Hachures={north east lines}]{-x-2y+2}{<=0}
+\end{GraphiqueTikz}
+~~
+\begin{GraphiqueTikz}[x=0.4cm,y=0.4cm,Xmin=-5,Xmax=5,Ymin=-5,Ymax=5]
+	\TracerAxesGrilles[Police=\tiny]{auto}{auto}
+	\InegaliteLineaire[Style=remplissage,Couleur=teal]{-x-y-4}{>0}
+\end{GraphiqueTikz}
+\end{tcblisting}
+
+\pagebreak
+
 \section{Commandes spécifiques des fonctions de densité}
 
 \subsection{Loi normale}\label{loinormale}
@@ -2204,6 +2258,7 @@ Les commandes disponibles sont :
 	\lstcmd{Monte-Carlo~~~~}{\SimulerMonteCarlo}{montecarlo}
 	\lstcmd{tangente~~~~~~~}{\TracerTangente}{tgte}
 	\lstcmd{toile récurr~~~}{\TracerToileRecurrence}{toilerecurr}
+	\lstcmd{inég. linéaire~}{\InegaliteLineaire}{ineglin}
 	\lstcmd{loi normale~~~~}{\DefinirLoiNormale}{loinormale}
 	\lstcmd{loi normale~~~~}{\TracerLoiNormale}{loinormale}
 	\lstcmd{loi khideux~~~~}{\DefinirLoiKhiDeux}{loikhideux}
@@ -2340,6 +2395,7 @@ Les solutions de $f(x)=66$ sont d'environ \ArrondirNum*[0]{\xMonItscA} \&\ \Arro
 
 {\footnotesize \begin{quote}
 \begin{verbatim}
+0.2.6 : Inegalité linéaire (en test)
 0.2.5 : Interpolation de Lagrange + améliorations
 0.2.4 : Clé [StyleTrace] pour des pointillés par exemple
 0.2.3 : Bugfix avec une longueur

@@ -2,9 +2,10 @@
 % licence       : Released under the LaTeX Project Public License v1.3c or later, see http://www.latex-project.org/lppl.txt
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{inlinegraphicx}[2024/11/06 0.1.0 Insert inline graphicx]
+\ProvidesPackage{inlinegraphicx}[2025/08/18 0.1.1 Insert inline graphicx]
 
 %====HISTORY
+% v 0.1.1	Alt options for includegraphics
 % v 0.1.0	Initial version
 
 %====BASE
@@ -22,7 +23,7 @@
 \setKVdefault[inlinegraphics]{scale=1,strut={qH}}
 
 %====MACRO
-\NewDocumentCommand\inlinegraphics{ s O{} m }{%
+\NewDocumentCommand\inlinegraphics{ s O{} D<>{} m }{%
 	%1 = no depth/raisebox
 	%2 = keys (scale + strut)
 	%3 = file
@@ -31,7 +32,7 @@
 	\IfBooleanTF{#1}%
 		{%
 			\settoheight{\totheightinlinegraphicx}{\hbox{\inlinegraphicstrut}}%
-			\includegraphics[height=\inlinegraphicsscale\totheightinlinegraphicx]{#3}%
+			\includegraphics[height=\inlinegraphicsscale\totheightinlinegraphicx,#3]{#4}%
 		}%
 		{%
 			\settototalheight{\totheightinlinegraphicx}{\hbox{\inlinegraphicstrut}}%
@@ -40,7 +41,7 @@
 			\setlength{\inlinedepthgraphicsscale}%
 				{\dimexpr\depthinlinegraphicx-\inlinegraphicsinvscale\totheightinlinegraphicx\relax}%
 			\raisebox{-\inlinedepthgraphicsscale}{%
-				\includegraphics[height=\inlinegraphicsscale\totheightinlinegraphicx]{#3}%
+				\includegraphics[height=\inlinegraphicsscale\totheightinlinegraphicx,#3]{#4}%
 			}%
 		}%
 }

@@ -2,9 +2,11 @@
 % licence    : Released under the LaTeX Project Public License v1.3c or later, see http://www.latex-project.org/lppl.txt
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{CreationBoites}[2025/07/01 0.1.4 Macros pour creer des boites tcbox simples, avec personnalisation(s)]
+\ProvidesPackage{CreationBoites}[2025/08/04 0.1.6 Macros pour creer des boites tcbox simples, avec personnalisation(s)]
 
 %====HISTORIQUE
+% v 0.1.6	Option pour compatibilité avec fontawesome5/6/7
+% v 0.1.5	Modification des espacements
 % v 0.1.4	Ajout d'une option 'style peros rajouté' à la macro principale
 % v 0.1.3	Amélioration du code pour twemoji
 % v 0.1.2	Option pour compatibilité avec fontawesome5/6
@@ -17,11 +19,10 @@
 \newif\if@twemojis \@twemojistrue
 \newif\if@fafive \@fafivetrue
 \newif\if@fasix \@fasixfalse
-\newif\if@fafivesix \@fafivesixfalse
-\DeclareOption{nontwemojis}{\@twemojisfalse}
-\DeclareOption{nonfa}{\@fafivefalse\@fasixfalse\@fafivesixfalse}
-\DeclareOption{fa6}{\@fafivefalse\@fafivesixfalse\@fasixtrue}
-\DeclareOption{fa5fa6}{\@fafivefalse\@fasixfalse\@fafivesixtrue}
+\newif\if@faseven \@fasevenfalse
+\DeclareOption{nonfa}{\@fafivefalse\@fasixfalse\@fasevenfalse}
+\DeclareOption{fa6}{\@fafivefalse\@fasixtrue\@fasevenfalse}
+\DeclareOption{fa7}{\@fafivefalse\@fasixfalse\@faseventrue}
 \DeclareOption*{}%si option inconnue ;-)
 \ProcessOptions\relax
 
@@ -35,8 +36,8 @@
 \if@fasix
 	\RequirePackage{fontawesome6}
 \fi
-\if@fafivesix
-	\RequirePackage[fa5alias]{fontawesome6}
+\if@faseven
+	\RequirePackage{fontawesome7}
 \fi
 \if@twemojis
 	\RequirePackage{twemojis}
@@ -88,7 +89,7 @@
 	%2=icone
 	%3=noms
 	%4=compteur
-	\node[inner sep=\margeinttitreboite,rounded corners=3pt,draw=#1,line width=\eptraitboite,rectangle,fill=#1!5!white,anchor=west,xshift=\margeboite,text=black,font=\policetitreboite] at (frame.north west) {\,\CreaBoitesIfNoValueOrEmptyTF{#2}{}{{\tailleiconeboite#2}~}\vphantom{Ppé}\ifboolKV[Boites]{Pluriel}{\StrBehind{#3}{/}}{\StrBefore{#3}{/}}\IfStrEq{\BoxModifLabel}{}{}{\BoxModifLabel}\ifboolKV[Boites]{Compteur}{~#4}{}\IfStrEq{\BoxCpltTitle}{}{}{\BoxCpltTitle}\,} ;
+	\node[inner sep=\margeinttitreboite,rounded corners=3pt,draw=#1,line width=\eptraitboite,rectangle,fill=#1!5!white,anchor=west,xshift=\margeboite,text=black,font=\policetitreboite] at (frame.north west) {\,\CreaBoitesIfNoValueOrEmptyTF{#2}{}{{\tailleiconeboite#2}\space}\vphantom{Ppé}\ifboolKV[Boites]{Pluriel}{\StrBehind{#3}{/}}{\StrBefore{#3}{/}}\IfStrEq{\BoxModifLabel}{}{}{\BoxModifLabel}\ifboolKV[Boites]{Compteur}{\space#4}{}\IfStrEq{\BoxCpltTitle}{}{}{\BoxCpltTitle}\,} ;
 }
 
 \NewDocumentCommand\SousTitreBoite{ }{%

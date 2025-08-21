@@ -3,11 +3,14 @@
 % licence cliparts...: CC0 from openclipart or svgrepo
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{ProfLycee-Light}[2025/06/26 1.01d Aide pour l'utilisation de LaTeX en lycee]
+\ProvidesPackage{ProfLycee-Light}[2025/08/18 1.02a Aide pour l'utilisation de LaTeX en lycee]
+%1.02a	Correction d'un bug de couleur avec piton
+%1.01f	Compat fa567
+%1.01e	Pictosbac version 'flat'
 %1.01d	Style grille histo + améliorations de qques codes + binôme Newton + corrections de bugs (nouveaux codes 'piton')
 %1.01c	Ajout de deux cliparts (bullseye) + Ajout de cliparts 'zone bac'
 %1.01b	Bugfix
-%1.01a	Compatibiité fa5/6 + nouvelle clé pour SolutionSeuil + Styles piton (Onglet & Carbon)
+%1.01a	Compatibilité fa5/6 + nouvelle clé pour SolutionSeuil + Styles piton (Onglet & Carbon)
 %1.00f	Correction d'un bug avec des espacements non voulus
 %1.00e	Option [noncancel] pour ne pas charger cancel avec thicklines + option [compat] pour 'maximiser' les options utiles + améliorations dans le code
 %1.00d	Option [nonsiunitxfr] + bugfix avec tabularray
@@ -26,7 +29,7 @@
 \newif\if@compatmax \@compatmaxfalse
 \newif\if@fafive \@fafivetrue
 \newif\if@fasix \@fasixfalse
-\newif\if@fafivesix \@fafivesixfalse
+\newif\if@faseven \@fasevenfalse
 
 \DeclareOption{xcolor}{\@xcolortrue}%
 \DeclareOption{build}{\@buildtrue}%
@@ -36,9 +39,9 @@
 \DeclareOption{warningsoff}{\@warningsofftrue}%
 \DeclareOption{nontikzbabel}{\@loadtikzbabelfalse}%
 \DeclareOption{compat}{\@compatmaxtrue}%
-\DeclareOption{nonfa}{\@fafivefalse\@fasixfalse\@fafivesixfalse}
-\DeclareOption{fa6}{\@fafivefalse\@fafivesixfalse\@fasixtrue}
-\DeclareOption{fa5fa6}{\@fafivefalse\@fasixfalse\@fafivesixtrue}
+\DeclareOption{nonfa}{\@fafivefalse\@fasixfalse\@fasevenfalse}
+\DeclareOption{fa6}{\@fafivefalse\@fasixtrue\@fasevenfalse}
+\DeclareOption{fa7}{\@fafivefalse\@fasixfalse\@faseventrue}
 
 \DeclareOption*{}
 \ProcessOptions\relax
@@ -94,21 +97,51 @@
 		group-minimum-digits=4%
 	}%
 \fi
+\RequirePackage{tcolorbox}%
+\tcbuselibrary{breakable,fitting,skins,listings,listingsutf8,hooks}
+
+%%=====FONTAWESOME...
 \if@fafive
 	\RequirePackage{fontawesome5}
-	\def\pflfacog{\faIcon{cog}}
 \fi
 \if@fasix
 	\RequirePackage{fontawesome6}
-	\def\pflfacog{\faIcon{gear}}
 \fi
-\if@fafivesix
-	\RequirePackage[fa5alias]{fontawesome6}
-	\def\pflfacog{\faIcon{gear}}
+\if@faseven
+	\RequirePackage{fontawesome7}
 \fi
-%\RequirePackage{fontawesome5}
-\RequirePackage{tcolorbox}%
-\tcbuselibrary{breakable,fitting,skins,listings,listingsutf8,hooks}
+
+\def\pflfacog{}
+\def\pflfapseudocode{}
+\def\pflfapcode{}
+\def\pflfaclone{}
+\def\pflfapython{}
+
+\@ifpackageloaded{fontawesome5}%
+	{%
+		\def\pflfacog{\faIcon{cog}}%
+		\def\pflfapseudocode{\faFileCode}%
+		\def\pflfapcode{\faCode}%
+		\def\pflfaclone{\faClone}%
+		\def\pflfapython{\faPython}%
+	}%
+	{}
+\@ifpackageloaded{fontawesome6}
+	{%
+		\def\pflfacog{\faIcon{gear}}%
+		\def\pflfapseudocode{\faFileCode}%
+		\def\pflfapcode{\faCode}%
+		\def\pflfapython{\faPython}%
+	}%
+	{}%
+\@ifpackageloaded{fontawesome7}%
+	{%
+		\def\pflfacog{\faIcon{gear}}%
+		\def\pflfapseudocode{\faFileCode}%
+		\def\pflfapcode{\faCode}%
+		\def\pflfapython{\faPython}%
+	}%
+	{}%
 
 %%=====COULEURS PERSO
 \definecolor{CouleurVertForet}{HTML}{1F8B36} %ForestGreen
