@@ -18,6 +18,7 @@
 \usepackage{lipsum}
 \usepackage{codehigh}
 \usepackage{fontawesome5}
+\usepackage{openmoji}
 \usepackage{twemojis}
 \usepackage{fancyvrb}
 \usepackage{fancyhdr}
@@ -41,8 +42,8 @@
 \usepackage[margin=2cm]{geometry}
 \setlength{\parindent}{0pt}
 
-\def\TPversion{0.1.4}
-\def\TPdate{06/07/2025}
+\def\TPversion{0.1.5}
+\def\TPdate{04/08/2025}
 \usepackage{tcolorbox}
 
 \sethlcolor{lightgray!25}
@@ -558,9 +559,9 @@ The only loaded packages are \MontreCode{simplekv}, \MontreCode{calc}, \MontreCo
 \twdifficultylevels[hoffset=1mm,size=\Huge,opacity=0.25]{snake}{2/6}
 \end{demohigh}
 
-\section{Stamp}
+\section{Stamps}
 
-\subsection{Macros}
+\subsection{Macro (1)}
 
 \begin{codehigh}[language=latex/latex2]
 %normal positionning
@@ -576,10 +577,47 @@ The only loaded packages are \MontreCode{simplekv}, \MontreCode{calc}, \MontreCo
 %absolute positionning
 \pictostamp*%
   [radius=...,color=...,rotate=...,font=...,starsfilled=TF,strut=...,alt=TF]%
-  <tikz options>
+  <shift position>
   {text}
 
 %[strut=...] is for vphantom of text ^_^
+\end{codehigh}
+
+\subsection{Macro (2)}
+
+\begin{codehigh}[language=latex/latex2]
+%normal positionning
+\pictosmallstamp%
+  [keys]%
+  <tikz options>
+  {text}
+\end{codehigh}
+
+\begin{codehigh}[language=latex/latex2]
+%absolute positionning
+\pictosmallstamp*%
+  [keys]%
+  <shift position>
+  {top text}
+  {bottom text}
+  {logo}
+\end{codehigh}
+
+\begin{codehigh}[language=latex/latex2]
+height          = <global height>
+maincolor       = <main color>
+toptxtcolor     = <color for top text>
+bottomtxtcolor  = <color for bottom text>
+logocolor       = <color for logo text>,
+inner circle    = <boolean>
+rotate          = <rotation>
+toptxtfont      = <font for top text>
+bottomtxtfont   = <font for bottom text>
+reverse bottom  = <boolean for bottom orientation>
+image           = <boolean for using image as loo>
+logoscale       = <scale for text logo>
+fill inner      = <boolean for inner filling>
+color           = <global color, override others>
 \end{codehigh}
 
 \subsection{Examples}
@@ -621,16 +659,75 @@ The only loaded packages are \MontreCode{simplekv}, \MontreCode{calc}, \MontreCo
 
 \pagebreak
 
+\begin{demohigh}[language=latex/latex2]
+\colorlet{mygreenpython}{green!50!black}
+\pictosmallstamp%
+  [color=mygreenpython]%keys
+  {{\textbullet} Python {\textbullet}}%top
+  {inside}%bottom
+  {\faPython}%inside
+\end{demohigh}
+
+\begin{demohigh}[language=latex/latex2]
+\pictosmallstamp%
+  [image,rotate=-30]%
+  {{\textbullet}~Cédric~{\textbullet}}%
+  {Pierquet}%
+  {avatar}%
+\end{demohigh}
+
+\begin{demohigh}[language=latex/latex2]
+\pictosmallstamp%
+  [image,rotate=-30,reverse bottom=false]%
+  {{\textbullet}~Cédric~{\textbullet}}%
+  {P\,i\,e\,r\,q\,u\,e\,t}%for better spacing
+  {pfl-ok.pdf}%
+\end{demohigh}
+
+\begin{demohigh}[language=latex/latex2]
+\pictosmallstamp%
+  [rotate=0,logoscale=1.1,color=teal,fill inner]%
+  {LaTeX}%
+  {inside}%
+  {\faStar}%
+\end{demohigh}
+
+\begin{codehigh}[language=latex/latex2]
+\pictosmallstamp*%
+  [%
+    height=6cm,maincolor=brown,toptxtcolor=teal,bottomtxtcolor=gray,%
+    toptxtfont=\bfseries\sffamily,bottomtxtfont=\ttfamily
+  ]%
+  < ([xshift=-4cm,yshift=6cm]current page.south east) >%
+  {{\openmoji[height=auto]{cactus}}TOP{\openmoji[height=auto]{cactus}}}%
+  {{\openmoji[height=auto]{butterfly}}BOTTOM{\openmoji[height=auto]{butterfly}}}%
+  {\openmoji{bullseye}}%
+\end{codehigh}
+
+\pictosmallstamp*%
+[%
+height=6cm,maincolor=brown,toptxtcolor=teal,bottomtxtcolor=gray,%
+toptxtfont=\bfseries\sffamily,bottomtxtfont=\ttfamily
+]%
+< ([xshift=-4cm,yshift=6cm]current page.south east) >%
+{{\openmoji[height=auto]{cactus}}TOP{\openmoji[height=auto]{cactus}}}%
+{{\openmoji[height=auto]{butterfly}}BOTTOM{\openmoji[height=auto]{butterfly}}}%
+{\openmoji{bullseye}}%
+
+\pagebreak
+
 \section{History}
 
-\verb|v0.1.4|~:~(d)strut option for height/depth + bdall + difficulty levels + stamp
+\verb|v0.1.5| :~Inline badge (inspired by \textsf{tikz-shields}) + simple stamp
 
-\verb|v0.1.3|~:~Clippy
+\verb|v0.1.4| :~(d)strut option for height/depth + bdall + difficulty levels + stamp
 
-\verb|v0.1.2|~:~Mini calendar
+\verb|v0.1.3| :~Clippy
 
-\verb|v0.1.1|~:~Traffic Light
+\verb|v0.1.2| :~Mini calendar
 
-\verb|v0.1.0|~:~Initial version
+\verb|v0.1.1| :~Traffic Light
+
+\verb|v0.1.0| :~Initial version
 
 \end{document}

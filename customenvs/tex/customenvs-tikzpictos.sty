@@ -2,9 +2,10 @@
 % licence.........: Released under the LaTeX Project Public License v1.3c or later, see http://www.latex-project.org/lppl.txt
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{customenvs-tikzpictos}[2025/07/06 0.1.4 Small pictograms, made with tikz]
+\ProvidesPackage{customenvs-tikzpictos}[2025/08/04 0.1.5 Small pictograms, made with tikz]
 
 %====HISTORY
+% v 0.1.5	Inline badge (inspired by tikz-shields) + small stamp
 % v 0.1.4	Strut option for sample characters + difficultylevels + dballs + stamp
 % v 0.1.3	Clippy
 % v 0.1.2	Mini-calendar
@@ -20,8 +21,11 @@
 \RequirePackage{calc}
 \RequirePackage{tikz}
 \usetikzlibrary{shapes.geometric,bbox}
+\RequirePackage{tcolorbox}
+\tcbuselibrary{skins}
 
 %====strutletters
+\def\samplestrutletters{AZERTYUIOPSDFGHKLMWXCVBN}
 \def\samplestrutletters{AZERTYUIOPSDFGHKLMWXCVBN}
 \def\sampledstrutletters{azertyuiopqsdfghjklmwxcvbnAZERTYUIOPQSDFGHJKLMWXCVBN}
 
@@ -1625,5 +1629,196 @@
 			\end{tikzpicture}%
 		}%
 }
+
+%====TIKZSHIELD (inspired by tikz-shields
+\definecolor{inlinebadge-right}{HTML}{1283c4}
+\definecolor{inlinebadge-right-text}{HTML}{ffffff}
+\definecolor{inlinebadge-left}{HTML}{5e5e5e}
+\definecolor{inlinebadge-left-text}{HTML}{ffffff}
+
+\colorlet{inlinebadgeright}{inlinebadge-right}
+\colorlet{inlinebadgerighttext}{inlinebadge-right-text}
+\colorlet{inlinebadgeleft}{inlinebadge-left}
+\colorlet{inlinebadgelefttext}{inlinebadge-left-text}
+
+\def\inlinebadgefont{\small\sffamily}
+
+\tcbset{tcbinlinebadgeleft/.style={nobeforeafter,enhanced,box align=base,sharp corners=east,arc=2pt,bicolor,boxrule=0pt,boxsep=1.75pt,top=0pt,left=0pt,right=0pt, bottom=-0.05ex,fontupper=\inlinebadgefont,interior style={top color=inlinebadgeleft,bottom color=inlinebadgeleft!60!black}}}
+
+\tcbset{tcbinlinebadgeright/.style={nobeforeafter,enhanced,box align=base,sharp corners=west,arc=2pt,bicolor,boxrule=0pt,boxsep=1.75pt,top=0pt,left=0pt,right=0pt, bottom=-0.05ex,fontupper=\inlinebadgefont,interior style={top color=inlinebadgeright,bottom color=inlinebadgeright!60!black}}}
+
+\NewDocumentCommand\iconscaled{O{0.85}m}{\scalebox{#1}[#1]{#2}}
+
+\NewDocumentCommand\intdropshadowtextleft{m}{%
+	\begin{tikzpicture}[baseline=(TESTL.base),outer sep=0pt, inner sep=0pt]
+		\node[inlinebadge-left-text!40!black] at (0,-0.05ex) {#1};
+		\node[inlinebadge-left-text] (TESTL) at (0,0) {#1};
+	\end{tikzpicture}%
+}
+
+\NewDocumentCommand\intdropshadowtextright{m}{%
+	\begin{tikzpicture}[baseline=(TESTR.base),outer sep=0pt, inner sep=0pt]
+		\node[inlinebadge-right-text!40!black] at (0,-0.05ex) {#1};
+		\node[inlinebadge-right-text] (TESTR) at (0,0) {#1};
+	\end{tikzpicture}%
+}
+
+\newtcbox\intleftpart{tcbinlinebadgeleft}
+\newtcbox\intrightpart{tcbinlinebadgeright}
+
+\defKV[inlinetikzbadge]{%
+	leftcolor=\colorlet{inlinebadgeleft}{#1},%
+	rightcolor=\colorlet{inlinebadgeright}{#1},%
+	lefttextcolor=\colorlet{inlinebadgelefttext}{#1},%
+	righttextcolor=\colorlet{inlinebadgerighttext}{#1},%
+	font=\def\inlinebadgefont{#1},%
+	link=\def\inlinebadgelink{#1},%
+}
+
+\setKVdefault[inlinetikzbadge]{%
+	leftcolor=inlinebadge-left,
+	rightcolor=inlinebadge-right,
+	lefttextcolor=inlinebadge-left-text,
+	righttextcolor=inlinebadge-left-text,
+	font=\small\sffamily,%
+	link={}
+}
+
+\NewDocumentCommand\tikzinlinebadge{O{}mm}{%
+	\restoreKV[inlinetikzbadge]%
+	\setKV[inlinetikzbadge]{#1}%
+	\IfEq{\inlinebadgelink}{}%
+		{%
+			\mbox{\intleftpart{\intdropshadowtextleft{\vphantom{#3}#2}}\intrightpart{\intdropshadowtextright{\vphantom{#2}#3}}}%
+		}%
+		{%
+			{\mbox{\intleftpart{\href{\inlinebadgelink}{\intdropshadowtextleft{\vphantom{#3}#2}}}\intrightpart{\href{\inlinebadgelink}{\intdropshadowtextright{\vphantom{#2}#3}}}}}%
+		}%
+}
+
+%====SMALLSTAMP
+\usetikzlibrary{decorations,decorations.text}
+\newlength\mylensmallstamp
+\setlength\mylensmallstamp{2cm}
+\newlength\mylensmallstampxinnerseptop
+\newlength\mylensmallstampxinnersepbottom
+\newlength\mylensmallstamptxtheight
+\newlength\mylensmallstamplogoheight
+\newlength\mylensmallstampbottomtxtheight
+\newlength\mylensmallstamptoptxtheight
+\newlength\mylensmallstamptxtlogoheight
+
+\defKV[tkzsmallstamp]{%
+	height=\setlength\mylensmallstamp{#1},%
+	maincolor=\def\mycolorsmallstamp{#1},%
+	toptxtcolor=\def\mytoptxtcolorsmallstamp{#1},%
+	bottomtxtcolor=\def\mybottomtxtcolorsmallstamp{#1},%
+	logocolor=\def\mylogotcolorsmallstamp{#1},%
+	rotate=\def\myrotatesmallstamp{#1},%
+	toptxtfont=\def\myfontsmallstamptop{#1},%
+	bottomtxtfont=\def\myfontsmallstampbottom{#1},%
+	logoscale=\def\mylogoscalesmallstamp{#1},%
+	color=\def\myglobalcolorsmallstamp{#1}
+}
+
+\setKVdefault[tkzsmallstamp]{%
+	height=2cm,%
+	maincolor={black},%
+	toptxtcolor={black},%
+	bottomtxtcolor={black},%
+	logocolor={black},
+	inner circle=false,%
+	rotate=35,%
+	toptxtfont={\bfseries},%
+	bottomtxtfont={\bfseries},
+	reverse bottom=true,%
+	image=false,%
+	logoscale=1,%
+	fill inner=false,%
+	color={}
+}
+
+\tikzset{smallstamp/.style={line width=0.0125\mylensmallstamp}}
+\tikzset{smallstampinner/.style={line width=0.005\mylensmallstamp}}
+
+\NewDocumentCommand\pictosmallstamp{sO{}D<>{}mmm}{%
+	\restoreKV[tkzsmallstamp]%
+	\setKV[tkzsmallstamp]{#2}%
+	\setlength\mylensmallstamptxtheight{0.125\mylensmallstamp}%
+	\setlength\mylensmallstamplogoheight{\fpeval{\mylogoscalesmallstamp*0.4}\mylensmallstamp}%
+	\settoheight\mylensmallstamptoptxtheight{\hbox{\myfontsmallstamptop#4}}%TOP
+	\settoheight\mylensmallstampbottomtxtheight{\hbox{\myfontsmallstampbottom#5}}%BOTTOM
+	%----logo
+	\ifboolKV[tkzsmallstamp]{image}%
+		{}%
+		{%
+			\settototalheight\mylensmallstamptxtlogoheight{\hbox{#6}}%LOGO
+			\xdef\mytmpscalesmallstamplogo{\fpeval{\mylensmallstamplogoheight/\mylensmallstamptxtlogoheight}}%LOGO
+		}%
+	%----end logo
+	\xdef\mytmpscalesmallstamptoptext{\fpeval{\mylensmallstamptxtheight/\mylensmallstamptoptxtheight}}%TOP
+	\xdef\mytmpinvscalesmallstamptoptext{\fpeval{1/\mytmpscalesmallstamptoptext}}%
+	\xdef\mytmpscalesmallstampbottomtext{\fpeval{\mylensmallstamptxtheight/\mylensmallstampbottomtxtheight}}%BOTTOM
+	%----global color
+	\ifthenelse{\equal{\myglobalcolorsmallstamp}{}}%
+		{}%
+		{%
+			\def\mycolorsmallstamp{\myglobalcolorsmallstamp}%
+			\def\mytoptxtcolorsmallstamp{\myglobalcolorsmallstamp}%
+			\def\mybottomtxtcolorsmallstamp{\myglobalcolorsmallstamp}%
+			\def\mylogotcolorsmallstamp{\myglobalcolorsmallstamp}%
+		}%
+	%----global color end
+	\IfBooleanTF{#1}%
+		{%
+			\begin{tikzpicture}[overlay,remember picture,shift={#3},transform shape]
+		}%
+		{%
+			\begin{tikzpicture}[transform shape,#3]
+		}%
+		\draw[\mycolorsmallstamp,smallstamp] (0,0) circle[radius=0.5\mylensmallstamp] ;
+		\useasboundingbox (0,0) circle[radius=0.5\mylensmallstamp] ;
+		\begin{scope}[rotate=\myrotatesmallstamp]
+			\clip (0,0) circle[radius=0.5\mylensmallstamp] ;
+			\ifboolKV[tkzsmallstamp]{inner circle}%
+				{%
+					\ifboolKV[tkzsmallstamp]{fill inner}%
+						{%
+							\fill[\mycolorsmallstamp!10,smallstampinner] (0,0) circle[radius=0.3\mylensmallstamp] ;%
+						}%
+						{%
+							\draw[\mycolorsmallstamp!50,fill=\mycolorsmallstamp!10,smallstampinner] (0,0) circle[radius=0.3\mylensmallstamp] ;%
+						}%
+				}%
+				{%
+					\ifboolKV[tkzsmallstamp]{fill inner}%
+						{%
+							\fill[draw=none,\mycolorsmallstamp!10,smallstampinner] (0,0) circle[radius=0.3\mylensmallstamp] ;%
+						}%
+						{}%
+				}%
+			%top text
+			\draw [draw=none,postaction={decorate},decoration={raise=0.0375\mylensmallstamp,text effects along path,text align=center,reverse path,text={#4},text effects/.cd,characters={scale=\mytmpscalesmallstamptoptext,font=\myfontsmallstamptop,color=\mytoptxtcolorsmallstamp}},text effects={text along path},rotate=-90] (0,0) circle[radius=0.3\mylensmallstamp] ;
+			%bottom text
+			\ifboolKV[tkzsmallstamp]{reverse bottom}%
+				{%
+					\draw [draw=none,postaction={decorate},decoration={reverse path,raise=0.0375\mylensmallstamp,text effects along path,text align=center,text={#5},text effects/.cd,characters={scale=\mytmpscalesmallstamptoptext,font=\myfontsmallstampbottom,color=\mybottomtxtcolorsmallstamp}},text effects={text along path},rotate=90] (0,0) circle[radius=0.3\mylensmallstamp] ;
+				}%
+				{%
+					\draw [draw=none,postaction={decorate},decoration={raise=0.05\mylensmallstamp,text effects along path,text align=center,text={#5},text effects/.cd,characters={scale=\mytmpscalesmallstamptoptext,font=\myfontsmallstampbottom,color=\mybottomtxtcolorsmallstamp}},text effects={text along path},rotate=90] (0,0) circle[radius=0.5\mylensmallstamp] ;
+				}%
+			%middle logo
+			\ifboolKV[tkzsmallstamp]{image}%
+				{%
+					\draw (0,0) node[anchor=center] {\includegraphics[height=\mylensmallstamplogoheight]{#6}} ;
+				}%
+				{%
+					\clip (0,0) circle[radius=0.3\mylensmallstamp] ;
+					\draw[\mylogotcolorsmallstamp] (0,0) node[scale=\mytmpscalesmallstamplogo] {#6} ;
+				}%
+		\end{scope}
+	\end{tikzpicture}%
+}
+
 
 \endinput

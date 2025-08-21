@@ -3,9 +3,10 @@
 % source pencil...: CC-BY-SA 4.0 https://tex.stackexchange.com/questions/504092/replicating-a-fancy-bordered-text-style-in-latex/504145#504145
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{customenvs}[2025/07/29 0.41a Custom classic environments]
+\ProvidesPackage{customenvs}[2025/08/04 0.41b Custom classic environments]
 
 %====HISTORIQUE
+% v 0.41b	New BlocExo (workinprogress) + precompat fa(567) + new pictos
 % v 0.41a	Bugfix with inlinegraphicx and MiKTeX...
 % v 0.40f	WhatsApp like Chat
 % v 0.40e	Sous-package customenvs-icons
@@ -65,11 +66,11 @@
 \DeclareOption{noxcolor}{\@xcolorfalse}%
 \newif\if@fafive \@fafivetrue
 \newif\if@fasix \@fasixfalse
-\newif\if@fafivesix \@fafivesixfalse
-\DeclareOption{nonfa}{\@fafivefalse\@fasixfalse\@fafivesixfalse}
-\DeclareOption{nofa}{\@fafivefalse\@fasixfalse\@fafivesixfalse}
-\DeclareOption{fa6}{\@fafivefalse\@fafivesixfalse\@fasixtrue}
-\DeclareOption{fa5fa6}{\@fafivefalse\@fasixfalse\@fafivesixtrue}
+\newif\if@faseven \@fasevenfalse
+\DeclareOption{nonfa}{\@fafivefalse\@fasixfalse\@fasevenfalse}
+\DeclareOption{nofa}{\@fafivefalse\@fasixfalse\@fasevenfalse}
+\DeclareOption{fa6}{\@fafivefalse\@fasixtrue\@fasevenfalse}
+\DeclareOption{fa7}{\@fafivefalse\@fasixfalse\@faseventrue}
 \newif\if@adjustbox\@adjustboxtrue%
 \DeclareOption{nonadjustbox}{\@adjustboxfalse}%
 \DeclareOption{noadjustbox}{\@adjustboxfalse}%
@@ -85,39 +86,6 @@
 
 \if@xcolor
 	\RequirePackage{xcolor}
-\fi
-\if@fafive
-	\RequirePackage{fontawesome5}
-	%aliases fa5/fa6
-	\def\faStarHalf{\faIcon{star-half-alt}}        %semble ko avec fa5alias (à surveiller)
-	\def\faThreeDotsV{\faEllipsisV}                %semble ok avec fa5alias
-	\def\faCPlus{\faPlusCircle}                    %semble ok avec fa5alias
-	\def\faCheckCircleReg{\faCheckCircle[regular]} %semble ok avec fa5alias
-	\def\faArrDownNb{\faSortNumericDown}           %semble ok avec fa5alias
-	\def\faProjDiag{\faProjectDiagram}             %semble ok avec fa5alias
-	\def\faFlipPhone{\faPhone*}                    %semble ko avec fa5alias (à surveiller)
-\fi
-\if@fasix
-	\RequirePackage{fontawesome6}
-	%aliases fa5/fa6
-	\def\faStarhalf{\faIcon{star-half-stroke}}
-	\def\faThreeDotsV{\faEllipsisVertical}
-	\def\faCPlus{\faCirclePlus}
-	\def\faCheckCircleReg{\faCircleCheck[regular]}
-	\def\faArrDownNb{\faIcon{arrow-down-1-9}}
-	\def\faProjDiag{\faDiagramProject}
-	\def\faFlipPhone{\faPhoneFlip}
-\fi
-\if@fafivesix
-	\RequirePackage[fa5alias]{fontawesome6}
-	%aliases fa5/fa6
-	\def\faStarhalf{\faIcon{star-half-stroke}}
-	\def\faThreeDotsV{\faEllipsisVertical}
-	\def\faCPlus{\faCirclePlus}
-	\def\faCheckCircleReg{\faCircleCheck[regular]}
-	\def\faArrDownNb{\faIcon{arrow-down-1-9}}
-	\def\faProjDiag{\faDiagramProject}
-	\def\faFlipPhone{\faPhoneFlip}
 \fi
 \if@enum
 	\RequirePackage{enumitem}
@@ -151,6 +119,61 @@
 \RequirePackage{tcolorbox}
 \RequirePackage{varwidth}
 \tcbuselibrary{skins}
+
+%====FONTAWESOME (5/6/7)
+
+\if@fafive
+	\RequirePackage{fontawesome5}
+\fi
+\if@fasix
+	\RequirePackage{fontawesome6}
+\fi
+\if@faseven
+	\RequirePackage{fontawesome7}
+\fi
+
+\def\faHalfStar{}
+\def\faThreeDotsV{}
+\def\faCPlus{}
+\def\faCheckCircleReg{}
+\def\faArrDownNb{}
+\def\faProjDiag{}
+\def\faFlipPhone{}
+
+\@ifpackageloaded{fontawesome5}%
+	{%
+		\def\faHalfStar{\faIcon{star-half-alt}}
+		\def\faThreeDotsV{\faEllipsisV}
+		\def\faCPlus{\faPlusCircle}
+		\def\faCheckCircleReg{\faCheckCircle[regular]}
+		\def\faArrDownNb{\faSortNumericDown}
+		\def\faProjDiag{\faProjectDiagram}
+		\def\faFlipPhone{\faPhone*}
+	}%
+	{}
+
+\@ifpackageloaded{fontawesome6}%
+	{%
+		\def\faHalfStar{\faIcon{star-half-stroke}}
+		\def\faThreeDotsV{\faEllipsisVertical}
+		\def\faCPlus{\faCirclePlus}
+		\def\faCheckCircleReg{\faCircleCheck[regular]}
+		\def\faArrDownNb{\faIcon{arrow-down-1-9}}
+		\def\faProjDiag{\faDiagramProject}
+		\def\faFlipPhone{\faPhoneFlip}
+	}%
+	{}%
+\@ifpackageloaded{fontawesome7}%
+	{%
+		\def\faHalfStar{\faIcon{star-half-stroke}}
+		\def\faThreeDotsV{\faEllipsisVertical}
+		\def\faCPlus{\faCirclePlus}
+		\def\faCheckCircleReg{\faCircleCheck[regular]}
+		\def\faArrDownNb{\faIcon{arrow-down-1-9}}
+		\def\faProjDiag{\faDiagramProject}
+		\def\faFlipPhone{\faPhoneFlip}
+	}%
+	{}%
 
 %====MACRO TESTEMPTY expl3
 \ExplSyntaxOn
@@ -505,7 +528,7 @@
 	\def\TroisNivSmiley{\vcenterfa[regular]{face-angry} § \vcenterfa[regular]{face-frown} § \vcenterfa[regular]{face-smile}}
 	\def\QuatreNivSmiley{\vcenterfa[regular]{face-angry} § \vcenterfa[regular]{face-frown} § \vcenterfa[regular]{face-smile} § \vcenterfa[regular]{face-grin}}
 \fi
-\if@fafivesix
+\if@faseven
 	\def\DeuxNivSmiley{\vcenterfa[regular]{face-angry} § \vcenterfa[regular]{face-smile}}
 	\def\TroisNivSmiley{\vcenterfa[regular]{face-angry} § \vcenterfa[regular]{face-frown} § \vcenterfa[regular]{face-smile}}
 	\def\QuatreNivSmiley{\vcenterfa[regular]{face-angry} § \vcenterfa[regular]{face-frown} § \vcenterfa[regular]{face-smile} § \vcenterfa[regular]{face-grin}}
@@ -961,7 +984,7 @@
 \NewDocumentCommand\NiveauDiffExos{ O{3} m }{%avec des demis ??
 	%les tailles de boîtes
 	\settowidth{\largstarsempty}{{\faStar[regular]}}%
-	\settowidth{\largstarsmid}{{\faStarHalf}}%
+	\settowidth{\largstarsmid}{{\faHalfStar}}%
 	\settowidth{\largstarfull}{{\faStar}}%
 	\pgfmathsetlength{\largmaxstars}{max(\largstarsempty,\largstarsmid,\largstarfull)}%
 	%les calculs intermédiaires
@@ -982,7 +1005,7 @@
 	%affichage des full
 	\xintifboolexpr{\tmpstarsexosfull > 0}{\xintFor* ##1 in {\xintSeq{1}{\tmpstarsexosfull}}\do{\makebox[\largmaxstars][c]{\faStar}}}{}%
 	%affichage des mid
-	\xintifboolexpr{\tmpstarsexosmid > 0}{\xintFor* ##1 in {\xintSeq{1}{\tmpstarsexosmid}}\do{\makebox[\largmaxstars][c]{\faStarHalf}}}{}%
+	\xintifboolexpr{\tmpstarsexosmid > 0}{\xintFor* ##1 in {\xintSeq{1}{\tmpstarsexosmid}}\do{\makebox[\largmaxstars][c]{\faHalfStar}}}{}%
 	%affichage des vides
 	\xintifboolexpr{\tmpstarsexosempty > 0}{\xintFor* ##1 in {\xintSeq{1}{\tmpstarsexosempty}}\do{\makebox[\largmaxstars][c]{\faStar[regular]}}}{}%
 }
@@ -991,7 +1014,7 @@
 \NewDocumentCommand\DiffLevelStars{ O{3} m }{%avec des demis ??
 	%les tailles de boîtes
 	\settowidth{\largstarsempty}{{\faStar[regular]}}%
-	\settowidth{\largstarsmid}{{\faStarHalf}}%
+	\settowidth{\largstarsmid}{{\faHalfStar}}%
 	\settowidth{\largstarfull}{{\faStar}}%
 	\pgfmathsetlength{\largmaxstars}{max(\largstarsempty,\largstarsmid,\largstarfull)}%
 	%les calculs intermédiaires
@@ -1012,7 +1035,7 @@
 	%affichage des full
 	\xintifboolexpr{\tmpstarsexosfull > 0}{\xintFor* ##1 in {\xintSeq{1}{\tmpstarsexosfull}}\do{\makebox[\largmaxstars][c]{\faStar}}}{}%
 	%affichage des mid
-	\xintifboolexpr{\tmpstarsexosmid > 0}{\xintFor* ##1 in {\xintSeq{1}{\tmpstarsexosmid}}\do{\makebox[\largmaxstars][c]{\faStarHalf}}}{}%
+	\xintifboolexpr{\tmpstarsexosmid > 0}{\xintFor* ##1 in {\xintSeq{1}{\tmpstarsexosmid}}\do{\makebox[\largmaxstars][c]{\faHalfStar}}}{}%
 	%affichage des vides
 	\xintifboolexpr{\tmpstarsexosempty > 0}{\xintFor* ##1 in {\xintSeq{1}{\tmpstarsexosempty}}\do{\makebox[\largmaxstars][c]{\faStar[regular]}}}{}%
 }
@@ -1032,7 +1055,7 @@
 \colorlet{macouleurexodecofond}{blue!50!black}
 
 \newcommand\tmpstyleexo{\bfseries\LARGE\sffamily}%
-\newcommand\tmplabelexo{Exercice~}%
+\newcommand\tmplabelexo{Exercice\space}%
 
 \defKV[globalstyleexo]{%
 	Libelle=\renewcommand\tmplabelexo{#1},%
@@ -1046,7 +1069,7 @@
 }
 
 \setKVdefault[globalstyleexo]{%
-	Libelle={Exercice~},%
+	Libelle={Exercice\space},%
 	Couleur={blue!50!black},%
 	CouleurDeco={blue!50!black},%
 	CouleurFondDeco={macouleurexodeco!50},%
@@ -1175,7 +1198,7 @@
 				\ifboolKV[EnvtExerciceAlt]{Compteur}{\thenumeroexoalt}{}\EnvtExoAltCpltTitre%
 				\IfStrEq{\EnvtExoAltEtoiles}{}{}%les étoiles au début...
 					{%
-						~(%
+						\space(%
 						\IfSubStr{\EnvtExoAltEtoiles}{§}%
 							{%
 								\StrCut{\EnvtExoAltEtoiles}{§}{\EnvtExoStarNb}{\EnvtExoStarTot}%
@@ -1188,10 +1211,10 @@
 					}%
 				%trait éventuel
 				\IfStrEqCase{\EnvtExoAltTrait}{%
-					{plein}{\,\hrulefill\,}%
-					{pointilles}{\,\dotfill\,}%
-					{dashilles}{\,\hdashrule{\fill}{\eptraitexo}{\eptraitexospace}\,}%
-					{non}{\hfill\,}%
+					{plein}{\,\hrulefill\null}%
+					{pointilles}{\,\dotfill\null}%
+					{dashilles}{\,\hdashrule{\fill}{\eptraitexo}{\eptraitexospace}\null}%
+					{non}{\hfill\null}%
 					{aucun}{}%
 				}%
 				\IfSubStr{\EnvtExoAltDeco}{Icone}%icone fa
@@ -1204,6 +1227,16 @@
 						\StrBehind{\EnvtExoAltDeco}{/}[\EnvtExoEmoji]%
 						\raisebox{-\tmptitreexoprofondeur}{\twemoji[height=\tmptitreexohauteurtotale]{\EnvtExoEmoji}}%
 					}{}%
+				\IfSubStr{\EnvtExoAltDeco}{Openmoji}%emojo openoji
+					{%
+						\StrBehind{\EnvtExoAltDeco}{/}[\EnvtExoEmoji]%
+						\openmoji[height=dauto]{\EnvtExoEmoji}%
+					}{}%
+				\IfSubStr{\EnvtExoAltDeco}{Tablericon}%emojo openoji
+					{%
+						\StrBehind{\EnvtExoAltDeco}{/}[\EnvtExoEmoji]%
+						\tablericon[height=dauto]{\EnvtExoEmoji}%
+					}{}%
 				\IfSubStr{\EnvtExoAltDeco}{Ceinture}%
 					{%
 						\StrBehind{\EnvtExoAltDeco}{/}[\EnvtExoCouleur]%
@@ -1213,7 +1246,7 @@
 					{%
 						\StrBehind{\EnvtExoAltDeco}{/}[\EnvtExoPts]%
 						\xintifboolexpr{ \EnvtExoPts <= 1 }{\def\pts{point}}{\def\pts{points}}%
-						(\StrSubstitute{\EnvtExoPts}{.}{{{,}}}\ \pts)%
+						(\StrSubstitute{\EnvtExoPts}{.}{{{,}}}\space\pts)%
 					}{}%
 				\IfSubStr{\EnvtExoAltDeco}{Image}%
 					{%
@@ -1340,7 +1373,7 @@
 	%étoiles au début
 	\IfStrEq{\EnvtExoEtoiles}{}{}%
 		{%
-			\,(\IfSubStr{\EnvtExoEtoiles}{§}%
+			\space(\IfSubStr{\EnvtExoEtoiles}{§}%
 				{%
 					\StrCut{\EnvtExoEtoiles}{§}{\EnvtExoStarNb}{\EnvtExoStarTot}%
 					\tkzEtoiles[Couleur=macouleurexodeco,CouleurFond=macouleurexodecofond,NiveauMax=\EnvtExoStarTot]{\EnvtExoStarNb}%
@@ -1356,7 +1389,7 @@
 		{pointilles}{\,\dotfill}%
 		{dashilles}{\,\hdashrule{\fill}{\eptraitexo}{\eptraitexospace}}%
 		{non}{\hfill}%
-		{aucun}{~}%
+		{aucun}{\space}%
 		}%
 	%décorations éventuelles
 	\IfSubStr{\EnvtExoDeco}{Icone}%
@@ -1368,6 +1401,16 @@
 		{%
 			\StrBehind{\EnvtExoDeco}{/}[\EnvtExoEmoji]%
 			\,\texttwemoji{\EnvtExoEmoji}%
+		}{}%
+	\IfSubStr{\EnvtExoAltDeco}{Openmoji}%emojo openoji
+		{%
+			\StrBehind{\EnvtExoAltDeco}{/}[\EnvtExoEmoji]%
+			\openmoji[height=dauto]{\EnvtExoEmoji}%
+		}{}%
+	\IfSubStr{\EnvtExoAltDeco}{Tablericon}%emojo openoji
+		{%
+			\StrBehind{\EnvtExoAltDeco}{/}[\EnvtExoEmoji]%
+			\tablericon[height=dauto]{\EnvtExoEmoji}%
 		}{}%
 	\IfSubStr{\EnvtExoDeco}{Barres}%
 		{%
@@ -1436,7 +1479,7 @@
 		{%
 			\StrBehind{\EnvtExoDeco}{/}[\EnvtExoPts]%
 			\xintifboolexpr{ \EnvtExoPts <= 1 }{\def\pts{point}}{\def\pts{points}}%
-			\,\textcolor{macouleurexodeco}{(\StrSubstitute{\EnvtExoPts}{.}{{{,}}}\ \pts)}%
+			\,\textcolor{macouleurexodeco}{(\StrSubstitute{\EnvtExoPts}{.}{{{,}}}\space\pts)}%
 		}{}%
 	\IfSubStr{\EnvtExoDeco}{Image}%
 		{%
@@ -1519,7 +1562,7 @@
 		{pointilles}{\,\dotfill}%
 		{dashilles}{\,\hdashrule{\fill}{\eptraitexo}{\eptraitexospace}}%
 		{non}{\hfill}%
-		{aucun}{~}%
+		{aucun}{\space}%
 		}%
 	%décorations éventuelles
 	\IfSubStr{\EnvtExoDeco}{Icone}%
@@ -1599,7 +1642,7 @@
 		{%
 			\StrBehind{\EnvtExoDeco}{/}[\EnvtExoPts]%
 			\xintifboolexpr{ \EnvtExoPts <= 1 }{\def\pts{point}}{\def\pts{points}}%
-			\,\textcolor{macouleurexodeco}{(\StrSubstitute{\EnvtExoPts}{.}{{{,}}}\ \pts)}%
+			\,\textcolor{macouleurexodeco}{(\StrSubstitute{\EnvtExoPts}{.}{{{,}}}\space\pts)}%
 		}{}%
 	\IfSubStr{\EnvtExoDeco}{Image}%
 		{%
@@ -1678,7 +1721,7 @@
 	enhanced,arc=0pt,outer arc=0pt,colback=\ProjectSmsColback,toptitle=0.3cm,bottomtitle=0.3cm,title={\null},
 	overlay={
 		%la barre de titre
-		\node[anchor=east,smscoltitle,font=\large] at ([xshift=-1mm]title.east) {\faVideo\:\:\faFlipPhone\:\:\faThreeDotsV};
+		\node[anchor=east,smscoltitle,font=\large] at ([xshift=-1mm]title.east) {\faVideo\space\space\faFlipPhone\space\space\faThreeDotsV};
 		\node[draw=none,anchor=west,inner sep=1pt,text=smscoltitle,font=\large] at ([xshift=1mm]title.west) (picture) {\ProjectSmsAvat};
 		\node[draw=none,anchor=west,text=smscoltitle,font=\large,text depth=0pt,inner sep=1pt] at (picture.east) {\sffamily\bfseries\vphantom{pB}\NameofSMS} ;
 		%le bas
@@ -1799,7 +1842,7 @@
 	attach boxed title to top left,
 	coltitle=black,fonttitle=\scriptsize\sffamily,
 	boxed title style={size=fbox,bottom=0pt,boxsep=2pt,frame empty,interior empty},
-	title={\@ifpackageloaded{babel}{\NoAutoSpacing#2}{#2}\IfBooleanTF{#1}{$\cdot$\scalebox{0.6}[0.6]{\faCheckCircleReg\!\faCheckCircleReg}\:}{}},left=1mm,right=1mm,boxsep=0mm,SMSAffLogo]{#3}%
+	title={\@ifpackageloaded{babel}{\NoAutoSpacing#2}{#2}\IfBooleanTF{#1}{$\cdot$\scalebox{0.6}[0.6]{\faCheckCircleReg\!\faCheckCircleReg}\space}{}},left=1mm,right=1mm,boxsep=0mm,SMSAffLogo]{#3}%
 }
 \NewDocumentCommand\SMSenv{ s m m }{%
 	\tcbox[enhanced,interior code={},before skip=0.5mm,after skip=0.5mm,halign=left,left=1.5mm,right=1.5mm,
@@ -1812,7 +1855,7 @@
 	attach boxed title to top right,
 	coltitle=black,fonttitle=\scriptsize\sffamily,
 	boxed title style={size=fbox,bottom=0pt,boxsep=2pt,frame empty,interior empty},
-	title={\@ifpackageloaded{babel}{\NoAutoSpacing#2}{#2}\IfBooleanTF{#1}{}{$\cdot$\scalebox{0.6}[0.6]{\faCheckCircleReg\!\faCheckCircleReg}\:}},left=1mm,right=1mm,boxsep=0mm]{#3}%
+	title={\@ifpackageloaded{babel}{\NoAutoSpacing#2}{#2}\IfBooleanTF{#1}{}{$\cdot$\scalebox{0.6}[0.6]{\faCheckCircleReg\!\faCheckCircleReg}\space}},left=1mm,right=1mm,boxsep=0mm]{#3}%
 }
 
 %====Nutriscore
@@ -2340,7 +2383,7 @@
 	attach boxed title to top left,
 	coltitle=black,fonttitle=\scriptsize\sffamily,
 	boxed title style={size=fbox,bottom=0pt,boxsep=2pt,frame empty,interior empty},
-	title={#2\IfBooleanTF{#1}{$\cdot$\scalebox{0.6}[0.6]{\faCheckCircleReg\!\faCheckCircleReg}\:}{}},left=1mm,right=1mm,boxsep=0mm,SMSAffLogo]{#3}%
+	title={#2\IfBooleanTF{#1}{$\cdot$\scalebox{0.6}[0.6]{\faCheckCircleReg\!\faCheckCircleReg}\space}{}},left=1mm,right=1mm,boxsep=0mm,SMSAffLogo]{#3}%
 }
 \NewDocumentCommand\OutSMS{ s m m }{%
 	\tcbox[enhanced,interior code={},before skip=0.5mm,after skip=0.5mm,halign=left,left=1.5mm,right=1.5mm,
@@ -2353,7 +2396,7 @@
 	attach boxed title to top right,
 	coltitle=black,fonttitle=\scriptsize\sffamily,
 	boxed title style={size=fbox,bottom=0pt,boxsep=2pt,frame empty,interior empty},
-	title={#2\IfBooleanTF{#1}{}{$\cdot$\scalebox{0.6}[0.6]{\faCheckCircleReg\!\faCheckCircleReg}\:}},left=1mm,right=1mm,boxsep=0mm]{#3}%
+	title={#2\IfBooleanTF{#1}{}{$\cdot$\scalebox{0.6}[0.6]{\faCheckCircleReg\!\faCheckCircleReg}\space}},left=1mm,right=1mm,boxsep=0mm]{#3}%
 }
 
 %====SMALL BOXES CREATION
@@ -3441,10 +3484,10 @@
 \NewDocumentCommand\VilleDist{ s m m }{%
 	\IfBooleanTF{#1}%
 		{%
-			#2\hfill~#3
+			#2\hfill\space#3
 		}%
 		{%
-			#2\hfill~#3\\
+			#2\hfill\space#3\\
 		}%
 }
 
@@ -3459,9 +3502,9 @@
 \newlength{\tmphautlignesol}
 \newlength{\tmphautsoles}
 
-\def\labelancienprix{Ancien Prix~:~}
-\def\labelnouveauprix{Nouveau Prix~:~}
-\def\labelreduction{SOLDES~:~}
+\def\labelancienprix{Ancien Prix\space:\space}
+\def\labelnouveauprix{Nouveau Prix\space:\space}
+\def\labelreduction{SOLDES\space:\space}
 
 \defKV[PanoSoldes]{%
 	Couleur=\def\panosoldescolor{#1},%
@@ -4180,7 +4223,7 @@
 					\IfEq{\tkzBannermaintrilogotwemoji}{}%OK
 						{}%
 						{%
-							\node[inner sep=1.25pt,left=2pt,text=\tkzBannermaintricol,font={\useKV[tkzBannerpartAltKeys]{fonttxt}},rotate={atan(\tkzBannertriangle)}] at ({\useKV[tkzBannerpartAltKeys]{width}},{0.55*(\useKV[tkzBannerpartAltKeys]{height})}) {\vphantom{qÉ}\twemoji[height={0.5\tmp@tkzbanneralt@height}]{\tkzBannermaintrilogotwemoji}\:};
+							\node[inner sep=1.25pt,left=2pt,text=\tkzBannermaintricol,font={\useKV[tkzBannerpartAltKeys]{fonttxt}},rotate={atan(\tkzBannertriangle)}] at ({\useKV[tkzBannerpartAltKeys]{width}},{0.55*(\useKV[tkzBannerpartAltKeys]{height})}) {\vphantom{qÉ}\twemoji[height={0.5\tmp@tkzbanneralt@height}]{\tkzBannermaintrilogotwemoji}\space};
 						}%
 				}%
 				{%
@@ -4195,7 +4238,7 @@
 					\IfEq{\tkzBannermaintrilogotwemoji}{}%OK
 						{}%
 						{%
-							\node[inner sep=1.25pt,left=2pt,text=\tkzBannermaintricol,font={\useKV[tkzBannerpartAltKeys]{fonttxt}},rotate={atan(\tkzBannertriangle)}] at ({\useKV[tkzBannerpartAltKeys]{width}},{0.55*(\useKV[tkzBannerpartAltKeys]{height})}) {\vphantom{qÉ}\twemoji[height={0.5\tmp@tkzbanneralt@height}]{\tkzBannermaintrilogotwemoji}\:};
+							\node[inner sep=1.25pt,left=2pt,text=\tkzBannermaintricol,font={\useKV[tkzBannerpartAltKeys]{fonttxt}},rotate={atan(\tkzBannertriangle)}] at ({\useKV[tkzBannerpartAltKeys]{width}},{0.55*(\useKV[tkzBannerpartAltKeys]{height})}) {\vphantom{qÉ}\twemoji[height={0.5\tmp@tkzbanneralt@height}]{\tkzBannermaintrilogotwemoji}\space};
 						}%
 				}%
 		\end{scope}
@@ -4534,12 +4577,12 @@
 		enhanced,arc=1.25pt,colback=\ProjectWaColback,toptitle=0.3cm,bottomtitle=0.3cm,title={\null},
 		overlay={
 			%la barre de titre
-			\node[anchor=east,wacoltitle,text=wacoltitle] at ([xshift=-1mm]title.east) {\faVideo\:\faFlipPhone\:\faThreeDotsV};
+			\node[anchor=east,wacoltitle,text=wacoltitle] at ([xshift=-1mm]title.east) {\faVideo\space\space\faFlipPhone\space\space\faThreeDotsV};
 			\node[draw=none,anchor=west,inner sep=1pt,text=wacoltitle] at ([xshift=1mm]title.west) (arrowleft) {\faArrowLeft};
-			\node[draw=none,anchor=west,inner sep=1pt,text=wacoltitle] at ([xshift=1mm]title.west) (picture) {\phantom{\faArrowLeft}\:\ProjectWaAvat};
-			\node[draw=none,anchor=west,text=wacoltitle,text depth=0pt,inner sep=1pt] at (picture.east) {\:\sffamily\vphantom{pB}\NameofWa} ;
+			\node[draw=none,anchor=west,inner sep=1pt,text=wacoltitle] at ([xshift=1mm]title.west) (picture) {\phantom{\faArrowLeft}\space\ProjectWaAvat};
+			\node[draw=none,anchor=west,text=wacoltitle,text depth=0pt,inner sep=1pt] at (picture.east) {\space\sffamily\vphantom{pB}\NameofWa} ;
 			%le bas
-			\node[draw=white,fill=white,line width=1pt,rounded corners=8pt,text width={\WidthofWa-2.5mm-1cm},minimum height=0.75cm,font=\ProjectWaFonte,text=darkgray,inner xsep=3pt,anchor=west] at ([shift={(1.25mm,0.5cm)}]frame.south west) {\faIcon{smile}\:\rule[-0.1cm]{1pt}{0.5cm}\,\ProjectWaWrite\hfill\faPaperclip\:\:\faVideo\:};
+			\node[draw=white,fill=white,line width=1pt,rounded corners=8pt,text width={\WidthofWa-2.5mm-1cm},minimum height=0.75cm,font=\ProjectWaFonte,text=darkgray,inner xsep=3pt,anchor=west] at ([shift={(1.25mm,0.5cm)}]frame.south west) {\faIcon{smile}\space\rule[-0.1cm]{1pt}{0.5cm}\,\ProjectWaWrite\hfill\faPaperclip\space\space\faVideo\space};
 			\node[draw=wacolmicro,fill=wacolmicro,line width=1pt,rounded corners=8pt,text width={0.35cm},minimum height=0.75cm,font=\ProjectWaFonte,text=white,anchor=east,align=center] at ([shift={(-1.25mm,0.5cm)}]frame.south east) {\faMicrophone};
 		},
 		boxrule=0.8pt,colframe=wacolmicro!50!gray,title style={color=white},

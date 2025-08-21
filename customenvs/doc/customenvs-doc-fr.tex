@@ -39,8 +39,8 @@
 \usepackage[margin=1.5cm]{geometry}
 \setlength{\parindent}{0pt}
 
-\def\TPversion{0.41a}
-\def\TPdate{29 juillet 2025}
+\def\TPversion{0.41b}
+\def\TPdate{4 août 2025}
 \usepackage{tcolorbox}
 \tcbuselibrary{listingsutf8}
 %\usepackage{eurosym}
@@ -147,6 +147,8 @@
 \pagebreak
 
 \section{Historique}
+
+\verb|v0.41b|~:~~~Bugfix + pre-compatibilité \textsf{fa5/6/7} + nouveaux pictogrammes
 
 \verb|v0.41a|~:~~~Option \textsf{noninlinegraphicx} pour garder la compatibilité avec \textsf{MikTeX} + Bugfix
 
@@ -262,14 +264,14 @@ Les packages chargés sont :
 	\item \MontreCode{multicol} ;
 	\item \MontreCode{tabularray} ;
 	\item \MontreCode{xcolor} ;
-	\item \MontreCode{fontawesome} (en attendant une compatibilité avec la version \MontreCode{6}, via les options \MontreCode{[fa6] / [fa5fa6]} !);
+	\item \MontreCode{fontawesome5} (en attendant une compatibilité avec la version \MontreCode{6/7}, via les options \MontreCode{[fa6] / [fa7]} !);
 	\item \MontreCode{tikz} avec les librairies :
 	\begin{itemize}
 		\item \MontreCode{decorations.pathmorphing,positioning,shapes.misc,calc,arrows,arrows.meta}.
 	\end{itemize}
 \end{itemize}
 
-À noter que, pour des raisons de compatibilité (ou d'incompatibilité), les packages \MontreCode{enumitem}/\MontreCode{multicol}/\MontreCode{tabularray}/\MontreCode{xcolor}/\MontreCode{adjustbox}/\MontreCode{fontawesome5/6}/\MontreCode{inlinegraphicx} peuvent ne pas être chargés par \MontreCode{customenvs} (auxquels cas l'utilisateur devra les avoir chargés pour faire fonctionner certains environnements) via les options :
+À noter que, pour des raisons de compatibilité (ou d'incompatibilité), les packages \MontreCode{enumitem}/\MontreCode{multicol}/\MontreCode{tabularray}/\MontreCode{xcolor}/\MontreCode{adjustbox}/\MontreCode{fontawesome5/6/7}/\MontreCode{inlinegraphicx} peuvent ne pas être chargés par \MontreCode{customenvs} (auxquels cas l'utilisateur devra les avoir chargés pour faire fonctionner certains environnements) via les options :
 
 \begin{itemize}
 	\item \MontreCode{$\mathtt{\langle}$beamer$\mathtt{\rangle}$} (pour assurer une compatibilité avec \textsf{beamer});
@@ -279,7 +281,9 @@ Les packages chargés sont :
 	\item \MontreCode{$\mathtt{\langle}$nonxcolor$\mathtt{\rangle}$} ;
 	\item \MontreCode{$\mathtt{\langle}$nonadjustbox$\mathtt{\rangle}$} ;
 	\item \MontreCode{$\mathtt{\langle}$noninlinegraphicx$\mathtt{\rangle}$} ;
-	\item \MontreCode{$\mathtt{\langle}$nonfa$\mathtt{\rangle}$}.
+	\item \MontreCode{$\mathtt{\langle}$nonfa$\mathtt{\rangle}$} ;
+	\item \MontreCode{$\mathtt{\langle}$fa6$\mathtt{\rangle}$} ;
+	\item \MontreCode{$\mathtt{\langle}$fa7$\mathtt{\rangle}$}.
 \end{itemize}
 
 \begin{DemoCode}{listing only}
@@ -290,7 +294,7 @@ Les packages chargés sont :
 \usepackage[option(s)]{customenvs}
 \end{DemoCode}
 
-\subsection{Sous-package customenvs-tikzpictos (v0.1.4)}
+\subsection{Sous-package customenvs-tikzpictos (v0.1.5)}
 
 \MontreCode{customenvs} charge, pour \textit{ses} petits pictogrammes, le package \MontreCode{customenvs-tikzpictos}, qui est fourni avec.
 
@@ -326,7 +330,7 @@ L'idée est de pouvoir charger les petits pictogrammes de manière indépendante
 \end{tblr}\hfill\null
 \end{DemoCode}
 
-\subsection{Sous-package customenvs-exams (v0.1.0)}
+\subsection{Sous-package customenvs-exams (v0.1.1)}
 
 \MontreCode{customenvs} charge, pour quelques environnements ou commandes type \textit{examens}, le package \MontreCode{customenvs-exams}, qui est fourni avec.
 

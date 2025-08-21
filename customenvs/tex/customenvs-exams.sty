@@ -2,10 +2,17 @@
 % licence.........: Released under the LaTeX Project Public License v1.3c or later, see http://www.latex-project.org/lppl.txt
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{customenvs-exams}[2025/07/06 0.1.0 customenvs for exam documents]
+\ProvidesPackage{customenvs-exams}[2025/08/04 0.1.1 customenvs for exam documents]
 
 %====HISTORY
+% v 0.1.1	Bugfix + BlocExo
 % v 0.1.0	Initial version subpackage (exam) of customenvs
+
+%====OPTION
+\newif\if@pictos\@pictosfalse%
+\DeclareOption{pictos}{\@pictostrue}%
+\DeclareOption*{}
+\ProcessOptions\relax
 
 %====PACKAGES
 \RequirePackage{tcolorbox}
@@ -18,6 +25,9 @@
 \RequirePackage{xstring}
 \RequirePackage{listofitems}
 \RequirePackage{randomlist}
+\if@pictos
+	\RequirePackage{customenvs-tikzpictos}
+\fi
 \tcbuselibrary{skins,breakable}
 
 %====INT MACRO
@@ -47,7 +57,7 @@
 
 %====EXAM QCM
 \NewList{TmpListereponsesexamqcm}
-\def\ReponsesExamQCMbox{\raisebox{-0.2ex}{\faSquare[regular]}}
+\def\ReponsesExamQCMbox{\raisebox{-0.2ex}{\faSquare[regular]}} %avec fontawesome567, à charger...
 
 \defKV[reponsesexamqcm]{%
 	NbCols=\def\RepExamQCMNbCol{#1},%
@@ -312,15 +322,15 @@
 %====EXAM CONFIG
 \@ifpackageloaded{amssymb}%
 	{%
-		\newcommand\examdecoexo{\scalebox{0.66}[1]{$\blacktriangleright$}~}%
-		\newcommand\examdecoquest{\scalebox{0.66}[1]{$\blacktriangleright$}~}%
+		\newcommand\examdecoexo{\scalebox{0.66}[1]{$\blacktriangleright$}\space}%
+		\newcommand\examdecoquest{\scalebox{0.66}[1]{$\blacktriangleright$}\space}%
 	}%
 	{%
-		\newcommand\examdecoexo{\textbullet~}%
-		\newcommand\examdecoquest{\textbullet~}%
+		\newcommand\examdecoexo{\textbullet\space}%
+		\newcommand\examdecoquest{\textbullet\space}%
 	}%
 \newcommand\ExamTitreExo[2]{%
-	\textbf{\large\examdecoexo\underline{Exercice #1}~(#2 points)}%
+	\textbf{\large\examdecoexo\underline{Exercice #1}\space(#2 points)}%
 }
 \newcommand\ExamLabelAutomat[1]{%
 	\textbf{\examdecoquest\underline{Question #1}}%
@@ -444,12 +454,12 @@
 \NewDocumentCommand\SousTitreSujetEpreuve{ O{black} m }{%
 	\tcbset{StyleTitreSujetSousEpreuveCouleur/.style={colframe=#1,colupper=#1}}
 	\IfStrEqCase{#2}{%
-		{U21}{\tcbox[StyleTitreSujetSousEpreuve,StyleTitreSujetSousEpreuveCouleur,before upper=\faArrDownNb\:\:,after upper=\:\:\faProjDiag]{Épreuve E2 - Mathématiques pour l'Informatique}}%
-		{U2}{\tcbox[StyleTitreSujetSousEpreuve,StyleTitreSujetSousEpreuveCouleur,before upper=\faArrDownNb\:\:,after upper=\:\:\faProjDiag]{Épreuve E2 - Mathématiques pour l'Informatique}}%
-		{U2CG}{\tcbox[StyleTitreSujetSousEpreuve,StyleTitreSujetSousEpreuveCouleur,before upper=\faArrDownNb\:\:,after upper=\:\:\faProjDiag]{Épreuve E2 - Mathématiques appliquées}}%
-		{U3}{\tcbox[StyleTitreSujetSousEpreuve,StyleTitreSujetSousEpreuveCouleur,before upper=\faArrDownNb\:\:,after upper=\:\:\faProjDiag]{Épreuve E3 - Mathématiques pour l'Informatique}}%
-		{UF2}{\tcbox[StyleTitreSujetSousEpreuve,StyleTitreSujetSousEpreuveCouleur,before upper=\faDice\:\:,after upper=\:\:\faChartLine]{Épreuve EF2 - Mathématiques Approfondies}}%
-		{U41OL}{\tcbox[StyleTitreSujetSousEpreuve,StyleTitreSujetSousEpreuveCouleur,before upper=\faDice\:\:,after upper=\:\:\faBezierCurve]{Épreuve U41 - Mathématiques}}}%
+		{U21}{\tcbox[StyleTitreSujetSousEpreuve,StyleTitreSujetSousEpreuveCouleur,before upper=\faArrDownNb\space\space,after upper=\space\space\faProjDiag]{Épreuve E2 - Mathématiques pour l'Informatique}}%
+		{U2}{\tcbox[StyleTitreSujetSousEpreuve,StyleTitreSujetSousEpreuveCouleur,before upper=\faArrDownNb\space\space,after upper=\space\space\faProjDiag]{Épreuve E2 - Mathématiques pour l'Informatique}}%
+		{U2CG}{\tcbox[StyleTitreSujetSousEpreuve,StyleTitreSujetSousEpreuveCouleur,before upper=\faArrDownNb\space\space,after upper=\space\space\faProjDiag]{Épreuve E2 - Mathématiques appliquées}}%
+		{U3}{\tcbox[StyleTitreSujetSousEpreuve,StyleTitreSujetSousEpreuveCouleur,before upper=\faArrDownNb\space\space,after upper=\space\space\faProjDiag]{Épreuve E3 - Mathématiques pour l'Informatique}}%
+		{UF2}{\tcbox[StyleTitreSujetSousEpreuve,StyleTitreSujetSousEpreuveCouleur,before upper=\faDice\space\space,after upper=\space\space\faChartLine]{Épreuve EF2 - Mathématiques Approfondies}}%
+		{U41OL}{\tcbox[StyleTitreSujetSousEpreuve,StyleTitreSujetSousEpreuveCouleur,before upper=\faDice\space\space,after upper=\space\space\faBezierCurve]{Épreuve U41 - Mathématiques}}}%
 		[{\tcbox[StyleTitreSujetSousEpreuve,StyleTitreSujetSousEpreuveCouleur]{#2}}]%
 }
 
@@ -459,6 +469,157 @@
 	#2
 	\endtcolorbox%
 	\endgroup%
+}
+
+%====BLOC EXO NEW V3
+\newcounter{numeroblocexo}
+\setcounter{numeroblocexo}{0}
+\newlength{\eptraitblocexo}
+\setlength{\eptraitblocexo}{1.1pt}
+\newlength{\eptraitblocexospace}
+\setlength{\eptraitblocexospace}{1.5\eptraitblocexo}
+
+\colorlet{macouleurblocexo}{black}
+\colorlet{macouleurblocexodeco}{black}
+\colorlet{macouleurblocexodecofond}{black!50}
+
+\newcommand\tmpstyleblocexo{\bfseries\sffamily\large}%
+\newcommand\tmplabelblocexo{Exercice\space}%
+
+\tcbset{monstyleblocexo/.style={%
+		enhanced,%
+		opacityfill=0,%
+		size=small,%
+		boxrule=0.25mm,%
+		titlerule=0.25mm,%
+		arc=2mm,%
+		sharp corners=uphill,%
+		nobeforeafter,%
+		before skip=0.5\baselineskip,%
+		after skip=0.5\baselineskip,%
+		colback=white,%
+		colbacktitle=white,%
+		coltitle=macouleurblocexo,%
+		colframe=macouleurblocexo,%
+		left=1.5mm,%
+		right=1.5mm,%
+		top=1mm,%
+		bottom=1mm,%
+		fonttitle=\tmpstyleblocexo
+	}%
+}
+
+\tikzset{ligne bloc exo/.style={line width=0.3mm,macouleurblocexo}}
+
+\defKV[StyleBlocExo]{%
+	Libelle=\renewcommand\tmplabelblocexo{#1},%
+	Couleur=\colorlet{macouleurblocexo}{#1},%
+	CouleurDeco=\colorlet{macouleurblocexodeco}{#1},%
+	CouleurFondDeco=\colorlet{macouleurblocexodecofond}{#1},%
+	Police=\renewcommand\tmpstyleblocexo{#1},%
+	EpTrait=\setlength{\eptraitblocexo}{#1}
+}
+
+\setKVdefault[StyleBlocExo]{%
+	Libelle={Exercice\space},%
+	Couleur={black},%
+	CouleurDeco=black,
+	CouleurFondDeco={black!33},%
+	Police={\bfseries\sffamily\large},%
+	EpTrait={1.1pt}
+}
+
+\defKV[BlocExo]{%
+	Type=\def\EnvtExoAltType{#1},%
+	ComplementTitre=\def\EnvtExoAltCpltTitre{#1},%
+	CodeDebut=\def\EnvtExoAltCodeAvant{#1},%
+	Etoiles=\def\EnvtExoAltEtoiles{#1},%
+	Trait=\def\EnvtExoAltTrait{#1},%
+	Bordures=\def\EnvtExoAltBordures{#1},%
+	Strut=\def\blocexostrut{#1}
+}
+\setKVdefault[BlocExo]{
+	Type=Classique,%
+	ComplementTitre={},%
+	CodeDebut={},%
+	Compteur=true,%
+	Etoiles={},%
+	Breakable=false,%
+	Trait=non,%
+	Bordures=alt,%
+	Strut=()
+}
+
+\tcbuselibrary{breakable}%à voir...
+
+\NewDocumentEnvironment{BlocExo}{ O{} m }%
+{%
+	\useKVdefault[BlocExo]%
+	\setKV[BlocExo]{#1}%
+	\addtocounter{numeroblocexo}{1}%
+	\ifboolKV[BlocExo]{Compteur}{}{\addtocounter{numeroblocexo}{-1}}%
+	%styles
+	\tcbset{reset}%
+	\ifboolKV[BlocExo]{Breakable}%
+	{%
+		\tcbset{monstyleblocexobreakable/.style={breakable}}%
+	}%
+	{%
+		\tcbset{monstyleblocexobreakable/.style={}}%
+	}%
+	\IfStrEqCase{\EnvtExoAltBordures}{%
+		{normal}{\tcbset{monstylebloexobordures/.style={}}}%
+		{aucune}{\tcbset{monstylebloexobordures/.style={frame empty,left=0mm,right=0mm,boxsep=0mm,boxrule=0mm,top=2mm,before upper={\EnvtExoAltCodeAvant}}}}%
+		{alt}{\tcbset{monstylebloexobordures/.style={frame empty,top=0mm,finish={\draw[ligne bloc exo,|-|] ([xshift=0.5em-0.1mm]title.west) --++ (-0.5em-0.1mm,0) {[rounded corners=2mm]|- (frame.south east)} |- ([xshift=-0.5em+0.1mm]title.east) ;}}}}%
+		{fleche}{\tcbset{monstylebloexobordures/.style={frame empty,top=0mm,righttitle=0mm,finish={\draw[ligne bloc exo,->,>=latex] ([xshift=0.5em-0.1mm]title.west) --++ (-0.5em-0.1mm,0) {[rounded corners=2mm]|- (frame.south east)}  -- ($(frame.south east)!0.5!(frame.north east)$) ;}}}}%
+	}%
+	\tcbset{monstyleblocexotitre/.style={
+			title={%
+				\vphantom{\blocexostrut}%
+				\IfStrEq{\EnvtExoAltType}{Classique}%
+				{%
+					\tmplabelblocexo%
+				}%
+				{%
+					\StrBehind{\EnvtExoAltType}{/}[\EnvtExoLabel]%
+					\EnvtExoLabel%
+				}%
+				\ifboolKV[BlocExo]{Compteur}{\thenumeroblocexo}{}\EnvtExoAltCpltTitre%
+				\IfStrEq{\EnvtExoAltEtoiles}{}{}%les étoiles au début...
+				{%
+					\space(%
+					\IfSubStr{\EnvtExoAltEtoiles}{§}%
+					{%
+						\StrCut{\EnvtExoAltEtoiles}{§}{\EnvtExoStarNb}{\EnvtExoStarTot}%
+						\pictostars[colors=macouleurblocexodeco/macouleurblocexodecofond,dstrut=()]{\EnvtExoStarNb/\EnvtExoStarTot}%
+					}%
+					{%
+						\pictostars[colors=macouleurblocexodeco/macouleurblocexodecofond,dstrut=()]{\EnvtExoStarNb}%
+					}%
+					)%
+				}%
+				%trait éventuel
+				\IfStrEqCase{\EnvtExoAltTrait}{%
+					{plein}%
+						{%
+							\def\hrulefill{\leavevmode\leaders\hrule height \eptraitblocexo\hfill\kern\z@}%épaisseur
+							\,\hrulefill\null%
+							\def\hrulefill{\leavevmode\leaders\hrule height 0.4pt\hfill\kern\z@}%
+						}%
+					{pointilles}{\,\dotfill\null}%
+					{dashilles}{\,\hdashrule{\fill}{\eptraitblocexo}{\eptraitblocexospace}\null}%
+					{non}{\hfill\null}%
+					{aucun}{}%
+				}%
+				%la décoration, manuelle
+				{#2}
+			}
+		}
+	}%
+	\noindent\tcolorbox[monstyleblocexo,monstyleblocexotitre,monstyleblocexobreakable,monstylebloexobordures]
+}%
+{%
+	\endtcolorbox%
 }
 
 \endinput
