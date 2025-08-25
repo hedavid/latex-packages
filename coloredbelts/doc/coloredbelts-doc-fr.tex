@@ -36,8 +36,8 @@
 \usepackage[margin=2cm]{geometry}
 \setlength{\parindent}{0pt}
 
-\def\TPversion{0.1.4}
-\def\TPdate{25 juin 2025}
+\def\TPversion{0.1.5}
+\def\TPdate{25 août 2025}
 \def\HtRet{0.45}\def\LgRect{1.5}
 \usepackage{tcolorbox}
 
@@ -134,7 +134,7 @@ Je remercie Sascha Christmann pour sa contribution aux ceintures bicolores (les 
 
 Le package se charge dans le préambule, via \MontreCode{\textbackslash usepackage\{coloredbelts\}}.
 
-Les seuls packages chargés sont \MontreCode{graphicx}, \MontreCode{calc} et \MontreCode{simplekv} et \MontreCode{xstring}.
+Le seuls package chargés est \MontreCode{graphicx}, le reste du code est en \hologo{LaTeX3}.
 
 \begin{codehigh}[language=latex/latex2,style/main=cyan!10,style/code=cyan!10]
 \usepackage{coloredbelts}
@@ -229,6 +229,8 @@ Les couleurs diponibles sont :
 \vfill
 
 \section{Historique}
+
+\verb|v0.1.5|~:~~~~Passage à \hologo{LaTeX3}
 
 \verb|v0.1.4|~:~~~~Ajout d'une clé \textsf{Strut} pour la hauteur automatique
 
