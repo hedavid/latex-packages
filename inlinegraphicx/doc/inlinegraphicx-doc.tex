@@ -27,8 +27,8 @@
 \hypersetup{pdfborder=0 0 0}
 \usepackage[margin=2cm]{geometry}
 \setlength{\parindent}{0pt}
-\def\TPversion{0.1.1}
-\def\TPdate{18/08/2025}
+\def\TPversion{0.2.0}
+\def\TPdate{25/08/2025}
 \usepackage{tcolorbox}
 \usepackage{pgffor}
 \tcbuselibrary{breakable,skins,hooks,listingsutf8}
@@ -98,7 +98,7 @@
 		breaklines=true,%
 		breakatwhitespace=true,%
 		style=tcblatex,
-		basicstyle=\scriptsize\ttfamily,%
+		basicstyle=\tiny\ttfamily,%
 		tabsize=4,%
 		commentstyle={\itshape\color{gray}},%
 		%lastline=148
@@ -192,7 +192,7 @@ In order to load \ShowCode{inlinegraphicx}, simply use:
 \usepackage{inlinegraphicx}
 \end{DemoCode}
 
-Loaded packages are \ShowCode{graphicx}, \ShowCode{simplekv} and \ShowCode{calc}.
+The only loaded package is \ShowCode{graphicx}, the rest of the code is in \hologo{LaTeX3}.
 
 \section{Usage}
 
@@ -261,6 +261,8 @@ Inline insertion, \inlinegraphics*{example-image-16x10} with automatic adjustmen
 \pagebreak
 
 \section{History}
+
+\texttt{0.2.0: LaTeX3 version of code}
 
 \texttt{0.1.1: Pass option to includegraphics within the macro}
 
