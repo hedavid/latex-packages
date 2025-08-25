@@ -4,7 +4,8 @@
 
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{TrivialPursuit}[2025/08/04 0.1.6 Present a Trivial Pursuit Board]
+\ProvidesPackage{TrivialPursuit}[2025/08/25 0.1.7 Present a Trivial Pursuit Board]
+% 0.1.7	Cards
 % 0.1.6	Compatibility with fa5/6/7
 % 0.1.5	Bugfix
 % 0.1.4	Bugfix
@@ -1646,6 +1647,266 @@
 					\ifboolKV[TrivPursEN]{Logo}{\LogoCenterTrivialPursuit}{}
 				}%
 		\end{scope}
+	\end{tikzpicture}%
+}
+
+%====CARTES/CARDS
+\RequirePackage{ifthen}
+
+%colors
+\definecolor{trivpursblueborder}{HTML}{080271}
+\definecolor{trivpursgolddeco}{HTML}{ffa80c}
+\definecolor{trivpursbluecheese}{HTML}{38b6ff}
+\definecolor{trivpurspinkcheese}{HTML}{ea31d2}
+\definecolor{trivpursyellowcheese}{HTML}{ffe500}
+\definecolor{trivpursbrowncheese}{HTML}{74562c}
+\definecolor{trivpursgreencheese}{HTML}{03a10e}
+\definecolor{trivpursorangecheese}{HTML}{ff8a00}
+%categ / fonts
+\def\intfontqrcardtrivial{\fontsize{8pt}{10pt}\selectfont}
+\def\intfontnumbercardtrivial{\bfseries\sffamily\tiny}
+\def\intfontlabelcardtrivial{}
+\def\intcategcardtrivial{A,B,C,D,E,F}
+%styles
+\tikzset{trivial main deco/.style={trivpursblueborder}}
+\tikzset{trivial alt deco/.style={trivpursgolddeco}}
+\tikzset{trivial categ A/.style={trivpursbluecheese}}
+\tikzset{trivial categ B/.style={trivpurspinkcheese}}
+\tikzset{trivial categ C/.style={trivpursyellowcheese}}
+\tikzset{trivial categ D/.style={trivpursbrowncheese}}
+\tikzset{trivial categ E/.style={trivpursgreencheese}}
+\tikzset{trivial categ F/.style={trivpursorangecheese}}
+\tikzset{trivial fill categ A/.style={draw=black,fill=trivpursbluecheese}}
+\tikzset{trivial fill categ B/.style={draw=black,fill=trivpurspinkcheese}}
+\tikzset{trivial fill categ C/.style={draw=black,fill=trivpursyellowcheese}}
+\tikzset{trivial fill categ D/.style={draw=black,fill=trivpursbrowncheese}}
+\tikzset{trivial fill categ E/.style={draw=black,fill=trivpursgreencheese}}
+\tikzset{trivial fill categ F/.style={draw=black,fill=trivpursorangecheese}}
+\tikzset{trivial questions/.style={right,inner sep=0pt,text width=5.85cm,align=left,font=\intfontqrcardtrivial}}
+\tikzset{trivial responses/.style={right,inner sep=0pt,text width=3.5cm,align=left,font=\intfontqrcardtrivial}}
+\tikzset{trivial labels/.style={inner sep=0pt,text depth=0pt}}
+
+%customize macro
+\defKV[paramcardstrivial]{%
+	QA font=\def\intfontqrcardtrivial{#1},%
+	num font=\def\intfontnumbercardtrivial{#1},%
+	label font=\def\intfontlabelcardtrivial{#1},%
+	categ=\def\intcategcardtrivial{#1},%
+	border deco color=\tikzset{trivial main deco/.style={#1}},%
+	alt deco color=\tikzset{trivial alt deco/.style={#1}},%
+	color categ A=\tikzset{trivial categ A/.style={#1},trivial fill categ A/.style={draw=black,fill=#1}},%
+	color categ B=\tikzset{trivial categ B/.style={#1},trivial fill categ B/.style={draw=black,fill=#1}},%
+	color categ C=\tikzset{trivial categ C/.style={#1},trivial fill categ C/.style={draw=black,fill=#1}},%
+	color categ D=\tikzset{trivial categ D/.style={#1},trivial fill categ D/.style={draw=black,fill=#1}},%
+	color categ E=\tikzset{trivial categ E/.style={#1},trivial fill categ E/.style={draw=black,fill=#1}},%
+	color categ F=\tikzset{trivial categ F/.style={#1},trivial fill categ F/.style={draw=black,fill=#1}}
+}
+\setKVdefault[paramcardstrivial]{%
+	QA font=\fontsize{8pt}{10pt}\selectfont,%
+	num font=\bfseries\sffamily\tiny,%
+	label font={},%
+	categ={A,B,C,D,E,F},%
+	border deco color=trivpursblueborder,%
+	alt deco color=trivpursgolddeco,
+	color categ A=trivpursbluecheese,%
+	color categ B=trivpurspinkcheese,%
+	color categ C=trivpursyellowcheese,%
+	color categ D=trivpursbrowncheese,%
+	color categ E=trivpursgreencheese,%
+	color categ F=trivpursorangecheese,%
+	alt deco=true
+}
+
+\NewDocumentCommand\SetParamsCardTrivial{m}{%
+	\restoreKV[paramcardstrivial]%
+	\setKV[paramcardstrivial]{#1}
+}
+%internal macros for design
+\newcommand\intdecocornercardtrivial[3]{%
+	\begin{scope}[trivial alt deco,shift={#1},xscale=#2,yscale=#3]
+		\draw[line width=\fpeval{\mycardscale*0.5}mm] (-1mm,-1mm) rectangle (2mm,2mm) ;
+		\draw[line width=\fpeval{\mycardscale*0.25}mm] (0.5cm,{-1.25mm+0.125mm}) rectangle ++ (-0.15cm,0.15cm) ;
+		\draw[line width=\fpeval{\mycardscale*0.25}mm] ({-1.25mm+0.125mm},0.5cm) rectangle ++ (0.15cm,-0.15cm) ;
+		\draw[line width=\fpeval{\mycardscale*0.25}mm] ({-1.25mm+0.125mm},0.5cm) -| (0.5cm,{-\mycardscale*1.25mm+\mycardscale*0.125mm}) ;
+		\begin{scope}
+			\clip (-1.25mm,-1.25mm) -- (2.75cm,-1.25mm) -- (1.5cm,1.5cm) -- (-1.25mm,2.75cm) -- cycle ;
+			\draw[line width=\fpeval{\mycardscale*0.5}mm] (2mm,2mm) --++ (4cm,0) ;
+			\draw[line width=\fpeval{\mycardscale*0.5}mm] (2mm,2mm) --++ (0,4cm) ;
+			\draw[line width=\fpeval{\mycardscale*0.25}mm] (0.8cm,{-1.25mm+0.125mm}) --++ (4cm,0) ;
+			\draw[line width=\fpeval{\mycardscale*0.25}mm] ({-1.25mm+0.125mm},0.8cm) --++ (0,4cm) ;
+			\draw[line width=\fpeval{\mycardscale*0.4}mm] ($(86:0.8cm)+(0,4cm)$) -- (86:0.8cm) arc (86:4:0.8cm) --++ (4cm,0) ;
+		\end{scope}
+	\end{scope}
+}
+\newcommand\intdecocardtrivial{%
+	%gold corner bl
+	\intdecocornercardtrivial{(0,0)}{1}{1}
+	%gold corner tl
+	\intdecocornercardtrivial{(0,5.5cm)}{1}{-1}
+	%gold corner tr
+	\intdecocornercardtrivial{(8.6cm,5.5cm)}{-1}{-1}
+	%gold corner br
+	\intdecocornercardtrivial{(8.6cm,0cm)}{-1}{1}
+}
+
+\newlength\intxradiuscardtrivial
+\newlength\intyradiuscardtrivial
+\setlength\intxradiuscardtrivial{0.55cm}
+\setlength\intyradiuscardtrivial{0.325cm}
+
+\newlength\mytp@var@width@of
+\newlength\mytp@var@height@of
+\newlength\mtpy@fixed@width@of
+\newsavebox\tmptp@box@h
+\newsavebox\tmptp@box@stretch@h
+
+\newcommand\intscalelabelcardtrivial[1]{%
+	\setlength\mtpy@fixed@width@of{0.7cm}%
+	\savebox\tmptp@box@h{\resizebox*{!}{0.45cm}{\intfontlabelcardtrivial #1}}%initial box
+	\settowidth\mytp@var@width@of{\usebox{\tmptp@box@h}}%
+	\ifthenelse{\mtpy@fixed@width@of > \mytp@var@width@of}%
+		{\usebox{\tmptp@box@h}}%
+		{\resizebox*{\mtpy@fixed@width@of}{0.45cm}{\intfontlabelcardtrivial #1}}%
+}
+
+\newcommand\intscalenbcardtrivial[1]{%
+	\setlength\mtpy@fixed@width@of{2.25mm}%
+	\savebox\tmptp@box@h{\intfontnumbercardtrivial #1}%initial box
+	\settowidth\mytp@var@width@of{\usebox{\tmptp@box@h}}%
+	\settoheight\mytp@var@height@of{\usebox{\tmptp@box@h}}%
+	\savebox\tmptp@box@stretch@h{\resizebox*{\mtpy@fixed@width@of}{\mytp@var@height@of}{\bfseries\sffamily\tiny #1}}%stretched box
+	\ifthenelse{\mtpy@fixed@width@of > \mytp@var@width@of}%
+		{\usebox{\tmptp@box@h}}%
+		{\usebox{\tmptp@box@stretch@h}}%
+}
+
+\newcommand\intlabelcardtrivialrecto{%
+	\coordinate (ICON-Q1) at (1.35cm,{5.5cm-0.4cm-0.35cm}) ;%4.75cm
+	\coordinate (ICON-Q2) at (1.35cm,{5.5cm-0.4cm-0.35cm-1*0.8cm}) ;
+	\coordinate (ICON-Q3) at (1.35cm,{5.5cm-0.4cm-0.35cm-2*0.8cm}) ;
+	\coordinate (ICON-Q4) at (1.35cm,{5.5cm-0.4cm-0.35cm-3*0.8cm}) ;
+	\coordinate (ICON-Q5) at (1.35cm,{5.5cm-0.4cm-0.35cm-4*0.8cm}) ;
+	\coordinate (ICON-Q6) at (1.35cm,{0cm+0.4cm+0.35cm}) ;%0.75cm
+	\draw[line width=\fpeval{\mycardscale*0.25}mm,trivial fill categ A] (ICON-Q1) circle[x radius=0.55cm,y radius=0.325cm] ;
+	\draw[line width=\fpeval{\mycardscale*0.25}mm,trivial fill categ B] (ICON-Q2) circle[x radius=0.55cm,y radius=0.325cm] ;
+	\draw[line width=\fpeval{\mycardscale*0.25}mm,trivial fill categ C] (ICON-Q3) circle[x radius=0.55cm,y radius=0.325cm] ;
+	\draw[line width=\fpeval{\mycardscale*0.25}mm,trivial fill categ D] (ICON-Q4) circle[x radius=0.55cm,y radius=0.325cm] ;
+	\draw[line width=\fpeval{\mycardscale*0.25}mm,trivial fill categ E] (ICON-Q5) circle[x radius=0.55cm,y radius=0.325cm] ;
+	\draw[line width=\fpeval{\mycardscale*0.25}mm,trivial fill categ F] (ICON-Q6) circle[x radius=0.55cm,y radius=0.325cm] ;
+	%categ
+	\foreach \i [count=\ci] in \intcategcardtrivial {%
+		\begin{scope}
+			\clip (ICON-Q\ci) circle[x radius=0.55cm,y radius=0.325cm] ;
+			\draw (ICON-Q\ci) node[trivial labels] {\intscalelabelcardtrivial{\i}} ;
+		\end{scope}
+	}
+	\coordinate (QUEST-Q1) at ([xshift=0.75cm]ICON-Q1) ;
+	\coordinate (QUEST-Q2) at ([xshift=0.75cm]ICON-Q2) ;
+	\coordinate (QUEST-Q3) at ([xshift=0.75cm]ICON-Q3) ;
+	\coordinate (QUEST-Q4) at ([xshift=0.75cm]ICON-Q4) ;
+	\coordinate (QUEST-Q5) at ([xshift=0.75cm]ICON-Q5) ;
+	\coordinate (QUEST-Q6) at ([xshift=0.75cm]ICON-Q6) ;
+	\coordinate (CARD-LOGO) at (4.3cm,2.75cm) ;
+}
+
+\@ifpackageloaded{frcursive}%
+	{%
+		\def\intlogocardversotrivial{%
+			\draw[white] (CARD-LOGO) node[rotate=90,text width=3.75cm,font=\LARGE,align=left] {\textcursive{Trivial} \\ \hspace*{0.5cm}\textcursive{pour suites}} ;
+			\draw[white] (2.75cm,3.5cm) node[rotate=90] {(réelles)} ;
+		}
+	}%
+	{%
+		\def\intlogocardversotrivial{%
+			\draw[white] (CARD-LOGO) node[rotate=90,text width=3.75cm,font=\Huge\sffamily,align=left] {{\TeX} \\\hfill{\itshape Pursuit}} ;
+		}
+	}%
+
+\def\intlogocardrectotrivial{}
+
+\newcommand\intlabelcardtrivialverso{%
+	\coordinate (ICON-Q1) at (3.95cm,{5.5cm-0.4cm-0.35cm}) ;%4.75cm
+	\coordinate (ICON-Q2) at (3.95cm,{5.5cm-0.4cm-0.35cm-1*0.8cm}) ;
+	\coordinate (ICON-Q3) at (3.95cm,{5.5cm-0.4cm-0.35cm-2*0.8cm}) ;
+	\coordinate (ICON-Q4) at (3.95cm,{5.5cm-0.4cm-0.35cm-3*0.8cm}) ;
+	\coordinate (ICON-Q5) at (3.95cm,{5.5cm-0.4cm-0.35cm-4*0.8cm}) ;
+	\coordinate (ICON-Q6) at (3.95cm,{0cm+0.4cm+0.35cm}) ;%0.75cm
+	\draw[line width=\fpeval{\mycardscale*0.25}mm,trivial fill categ A] (ICON-Q1) circle[x radius=0.55cm,y radius=0.325cm] ;
+	\draw[line width=\fpeval{\mycardscale*0.25}mm,trivial fill categ B] (ICON-Q2) circle[x radius=0.55cm,y radius=0.325cm] ;
+	\draw[line width=\fpeval{\mycardscale*0.25}mm,trivial fill categ C] (ICON-Q3) circle[x radius=0.55cm,y radius=0.325cm] ;
+	\draw[line width=\fpeval{\mycardscale*0.25}mm,trivial fill categ D] (ICON-Q4) circle[x radius=0.55cm,y radius=0.325cm] ;
+	\draw[line width=\fpeval{\mycardscale*0.25}mm,trivial fill categ E] (ICON-Q5) circle[x radius=0.55cm,y radius=0.325cm] ;
+	\draw[line width=\fpeval{\mycardscale*0.25}mm,trivial fill categ F] (ICON-Q6) circle[x radius=0.55cm,y radius=0.325cm] ;
+	%categ
+	\foreach \i [count=\ci] in \intcategcardtrivial {%
+		\begin{scope}
+			\clip (ICON-Q\ci) circle[x radius=0.55cm,y radius=0.325cm] ;
+			\draw (ICON-Q\ci) node[trivial labels] {\intscalelabelcardtrivial{\i}} ;
+		\end{scope}
+	}
+	\coordinate (QUEST-Q1) at ([xshift=0.75cm]ICON-Q1) ;
+	\coordinate (QUEST-Q2) at ([xshift=0.75cm]ICON-Q2) ;
+	\coordinate (QUEST-Q3) at ([xshift=0.75cm]ICON-Q3) ;
+	\coordinate (QUEST-Q4) at ([xshift=0.75cm]ICON-Q4) ;
+	\coordinate (QUEST-Q5) at ([xshift=0.75cm]ICON-Q5) ;
+	\coordinate (QUEST-Q6) at ([xshift=0.75cm]ICON-Q6) ;
+	\coordinate (CARD-LOGO) at (1.6cm,2.75cm) ;
+}
+
+\NewDocumentCommand\CardTrivialRecto{O{}mmmmmmm}{%
+	\begin{tikzpicture}[#1,transform shape]
+		\pgfgettransformentries{\mya}{\myb}{\myc}{\myd}{\mys}{\myt}%
+		\xdef\mycardscale{\fpeval{abs(\mya)}}%
+		%blue border
+		\draw[trivial main deco,line width=\fpeval{\mycardscale*2.5}mm] (0,0) rectangle (8.6cm,5.5cm) ;
+		%decorations
+		\ifboolKV[paramcardstrivial]{alt deco}%
+			{%
+				\intdecocardtrivial
+			}%
+			{}%
+		%labels / nodes
+		\intlabelcardtrivialrecto
+		%logo
+		\intlogocardrectotrivial
+		%questions
+		\draw (QUEST-Q1) node[trivial questions] {#2} ;
+		\draw (QUEST-Q2) node[trivial questions] {#3} ;
+		\draw (QUEST-Q3) node[trivial questions] {#4} ;
+		\draw (QUEST-Q4) node[trivial questions] {#5} ;
+		\draw (QUEST-Q5) node[trivial questions] {#6} ;
+		\draw (QUEST-Q6) node[trivial questions] {#7} ;
+		%numéro
+		\draw ({8.6cm-0.35cm},{0.35cm}) node[inner sep=0pt] {\intscalenbcardtrivial{#8}} ;
+	\end{tikzpicture}%
+}
+
+\NewDocumentCommand\CardTrivialVerso{O{}mmmmmmm}{%
+	\begin{tikzpicture}[#1,transform shape]
+		\pgfgettransformentries{\mya}{\myb}{\myc}{\myd}{\mys}{\myt}%
+		\xdef\mycardscale{\fpeval{abs(\mya)}}%
+		%blue border
+		\draw[trivial main deco,line width=\fpeval{\mycardscale*2.5}mm] (0,0) rectangle (8.6cm,5.5cm) ;
+		\filldraw[trivial main deco,line width=\fpeval{\mycardscale*2.5}mm] (0,0) rectangle++ (3cm,5.5cm) ;
+		%decorations
+		\ifboolKV[paramcardstrivial]{alt deco}%
+			{%
+				\intdecocardtrivial
+			}%
+			{}%
+		%labels / nodes
+		\intlabelcardtrivialverso
+		%responses
+		\draw (QUEST-Q1) node[trivial responses] {#2} ;
+		\draw (QUEST-Q2) node[trivial responses] {#3} ;
+		\draw (QUEST-Q3) node[trivial responses] {#4} ;
+		\draw (QUEST-Q4) node[trivial responses] {#5} ;
+		\draw (QUEST-Q5) node[trivial responses] {#6} ;
+		\draw (QUEST-Q6) node[trivial responses] {#7} ;
+		%logo
+		\intlogocardversotrivial
+		%numéro
+		\draw ({8.6cm-0.35cm},{0.35cm}) node[inner sep=0pt] {\intscalenbcardtrivial{#8}} ;
 	\end{tikzpicture}%
 }
 

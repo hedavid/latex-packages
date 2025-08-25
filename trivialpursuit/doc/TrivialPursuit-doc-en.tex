@@ -21,11 +21,12 @@
 \hypersetup{pdfborder=0 0 0}
 \usepackage[margin=2cm]{geometry}
 \setlength{\parindent}{0pt}
-\def\TPversion{0.1.6}
-\def\TPdate{04/08/2025}
+\def\TPversion{0.1.7}
+\def\TPdate{25/08/2025}
 \usepackage{tcolorbox}
 \tcbuselibrary{skins,hooks,listingsutf8}
 \usepackage{soul}
+\usepackage{openmoji}
 \sethlcolor{lightgray!25}
 \NewDocumentCommand\MontreCode{ m }{%
 	\hl{\vphantom{\texttt{pf}}\texttt{#1}}%
@@ -138,6 +139,7 @@ Loaded are useful package are:
 
 \begin{quote}
 \begin{verbatim}
+0.1.7: Cards
 0.1.6: Bugfix + pre-compatibility with fa7
 0.1.5: Bugfix (compatibility with twemoji)
 0.1.4: Bugfix + pre-compatibility with fa6
@@ -149,7 +151,7 @@ Loaded are useful package are:
 
 \pagebreak
 
-\section{The macro}
+\section{The board macro}
 
 \subsection{General usage}
 
@@ -254,6 +256,106 @@ In addition (on a suggestion from \textsf{quark67}), two color styles have been 
 \begin{tcblisting}{colframe=lightgray,colback=lightgray!5}
 \BoardTrivialPursuit%
 	[ListIcons=\categtrivialpursuit,ListColors=\TPColorsB,IconJoker=\faDice]
+\end{tcblisting}
+
+\section{The card macros}
+
+\subsection{Global usage}
+
+\begin{tcblisting}{colframe=lightgray,colback=lightgray!5}
+\CardTrivialRecto{Q1}{Q2}{Q3}{Q4}{Q5}{Q6}{10}
+
+\CardTrivialVerso{A1}{A2}{A3}{A4}{A5}{A6}{256}
+
+\CardTrivialVerso[scale=-0.5,rotate=15]{A1}{A2}{A3}{A4}{A5}{A6}{256}
+\end{tcblisting}
+
+\begin{tcblisting}{colframe=lightgray,colback=lightgray!5,listing only}
+\CardTrivialRecto%
+	[tikzpicture options]%
+	{Q1}{Q2}{Q3}{Q4}{Q5}{Q6}%
+	{card number}
+	
+\CardTrivialVerso%
+	[tikzpicture options]%
+	{A1}{A2}{A3}{A4}{A5}{A6}%
+	{card number}
+\end{tcblisting}
+
+\subsection{Customization macro}
+
+
+\begin{tcblisting}{colframe=lightgray,colback=lightgray!5,listing only}
+\SetParamsCardTrivial{%
+	QA font=...,                        %font of Q/A
+	nb font=...,                        %font of number
+	label font=...,                     %font of categories
+	categ=...,                          %labels of categories
+	border deco color=...,
+	alt deco color=...,
+	color categ A=...,
+	color categ B=...,
+	color categ C=...,
+	color categ D=...,
+	color categ E=...,
+	color categ F=...,
+	alt deco=TF
+}
+\end{tcblisting}
+
+\begin{tcblisting}{colframe=lightgray,colback=lightgray!5,listing only}
+%logo verso
+\def\intlogocardversotrivial{%
+	\draw[white] (CARD-LOGO) node[rotate=90,text width=3.75cm,font=\Huge\sffamily,align=left] {{\TeX} \\\hfill{\itshape Pursuit}} ;
+}
+\end{tcblisting}
+
+\begin{tcblisting}{colframe=lightgray,colback=lightgray!5,listing only}
+%logo recto (bg)
+\def\intlogocardrectotrivial{}
+\end{tcblisting}
+
+\subsection{Example}
+
+\begin{tcblisting}{colframe=lightgray,colback=lightgray!5,listing only}
+%\usepackage{openmoji}
+
+\SetParamsCardTrivial{%
+	border deco color=teal,
+	alt deco color=orange,
+	QA font={\sffamily\fontsize{8pt}{10pt}\selectfont},%
+	label font={\bfseries},
+	categ={No,H,Ma,Oo,A,G}
+}
+\def\intlogocardversotrivial{%
+	\draw (CARD-LOGO) node[rotate=90]
+	{\openmoji[height=2.25cm]{game die}\openmoji[height=2.25cm]{glowing star}} ;
+}
+\def\intlogocardrectotrivial{%
+	\draw (CARD-LOGO) node[opacity=0.05]
+	{\openmoji[height=4.25cm]{green apple}} ;
+}
+\end{tcblisting}
+
+\SetParamsCardTrivial{%
+	border deco color=teal,
+	alt deco color=orange,
+	QA font={\sffamily\fontsize{8pt}{10pt}\selectfont},%
+	label font={\bfseries},
+	categ={No,H,Ma,Oo,A,G}
+}
+\def\intlogocardversotrivial{%
+	\draw (CARD-LOGO) node[rotate=90]
+	{\openmoji[height=2.25cm]{game die}\openmoji[height=2.25cm]{glowing star}} ;
+}
+\def\intlogocardrectotrivial{%
+	\draw (CARD-LOGO) node[opacity=0.05]
+	{\openmoji[height=4.25cm]{green apple}} ;
+}
+\begin{tcblisting}{colframe=lightgray,colback=lightgray!5}
+\CardTrivialRecto{Q1}{Q2}{Q3}{Q4}{Q5}{Q6}{12}
+
+\CardTrivialVerso[scale=-1]{A1}{A2}{A3}{A4}{A5}{A6}{12}
 \end{tcblisting}
 
 \end{document}
