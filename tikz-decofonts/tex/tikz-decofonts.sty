@@ -4,9 +4,10 @@
 %                 :              (https://tex.stackexchange.com/questions/460836/custom-line-cap-to-simulate-inked-line-in-tikz/460842#460842 from user121799)
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{tikz-decofonts}[2025/08/20 0.1.5 Custom fonts, made with TikZ, with effects]
+\ProvidesPackage{tikz-decofonts}[2025/09/12 0.1.6 Custom fonts, made with TikZ, with effects]
 
 %------History
+% 0.1.6	New key for 'freehand' circled text
 % 0.1.5	Small 'freehand' circled text
 % 0.1.4	Arrow (fixed size) with text
 % 0.1.3	Underline/surround small texts
@@ -1218,6 +1219,7 @@
 %----freehand simple circled text
 \newlength\mytmpwidthfreehandnode
 \newlength\mytmpheightfreehandnode
+\newlength\mytmpthickfreehandnode
 
 \ExplSyntaxOn
 \tl_new:N \c_tikzdecocct_alphabet_tl
@@ -1252,12 +1254,14 @@
 	width=\setlength\mytmpwidthfreehandnode{#1},%
 	fill color=\colorlet{fillcolorcustomcircletxt}{#1},%
 	rule color=\colorlet{rulecolorcustomcircletxt}{#1},%
-	thickness=\def\mytmpthicknessfreehandnode{#1}
+	thickness=\def\mytmpthicknessfreehandnode{#1},%
+	absolute thickness=\def\mytmpabsthicknessfreehandnode{#1}
 }
 
 \setKVdefault[customcircletxt]{%
 	height=2em,
 	width=2.3em,
+	absolute thickness={},%
 	thickness=0.05,
 	fill color=lightgray!30,%
 	rule color=black,%
@@ -1283,10 +1287,18 @@
 		{%
 			\def\mytmprandfreehandnode{7}%
 		}%
-	%
 	\begingroup\useKV[customcircletxt]{font}%
 	\ifnum\useKV[customcircletxt]{auto}=0\relax%
-		\begin{tikzpicture}[rotate={\useKV[customcircletxt]{rotate}},line width=\mytmpthicknessfreehandnode\mytmpheightfreehandnode,line cap=round,#2]
+		%thickness
+		\ifthenelse{\equal{\mytmpabsthicknessfreehandnode}{}}%
+			{%
+				\setlength\mytmpthickfreehandnode{\mytmpthicknessfreehandnode\mytmpheightfreehandnode}%
+			}%
+			{%
+				\setlength\mytmpthickfreehandnode{\mytmpabsthicknessfreehandnode}%
+			}%
+		%
+		\begin{tikzpicture}[rotate={\useKV[customcircletxt]{rotate}},line cap=round,#2]
 	\else%
 		\settototalheight\mytmpheightfreehandnode{\hbox{0123456789}}%
 		\tikzdecocctcomputewidest{0123456789}%
@@ -1310,7 +1322,16 @@
 			{}%
 		\setlength\mytmpheightfreehandnode{\useKV[customcircletxt]{vstretch}\mytmpheightfreehandnode}%
 		\setlength\mytmpwidthfreehandnode{\fpeval{\useKV[customcircletxt]{auto}+\useKV[customcircletxt]{hoffset}}\mytmpmaxdimfreehandnode}%
-		\begin{tikzpicture}[rotate={\useKV[customcircletxt]{rotate}},line width=\mytmpthicknessfreehandnode\mytmpheightfreehandnode,line cap=round,baseline=(ZZZ-TXT.base),#2]
+		%thickness
+		\ifthenelse{\equal{\mytmpabsthicknessfreehandnode}{}}%
+			{%
+				\setlength\mytmpthickfreehandnode{\mytmpthicknessfreehandnode\mytmpheightfreehandnode}%
+			}%
+			{%
+				\setlength\mytmpthickfreehandnode{\mytmpabsthicknessfreehandnode}%
+			}%
+		%
+		\begin{tikzpicture}[rotate={\useKV[customcircletxt]{rotate}},line cap=round,baseline=(ZZZ-TXT.base),#2]
 	\fi%
 		\ifboolKV[customcircletxt]{fill}%
 			{%
@@ -1322,7 +1343,7 @@
 			{}%
 		%border
 		\begin{scope}
-			\draw[rulecolorcustomcircletxt] ([xshift=0.0275\mytmpmaxdimfreehandnode,yshift=\fpeval{-0.75*\mytmpthicknessfreehandnode}\mytmpheightfreehandnode]0,0.5\mytmpheightfreehandnode) to[out=\fpeval{180-\mytmprandfreehandnode},in=\fpeval{90+\mytmprandfreehandnode}] ++ ({-0.5\mytmpwidthfreehandnode},{-0.5\mytmpheightfreehandnode}) to[out=\fpeval{-90+\mytmprandfreehandnode},in=\fpeval{180+\mytmprandfreehandnode}] ++  ({0.5\mytmpwidthfreehandnode},{-0.5\mytmpheightfreehandnode}) to[out=\mytmprandfreehandnode,in=\fpeval{-90-\mytmprandfreehandnode}] ++ (0.5\mytmpwidthfreehandnode,0.5\mytmpheightfreehandnode) to[out=\fpeval{90-\mytmprandfreehandnode},in=\fpeval{1.5*\mytmprandfreehandnode}] ++ ([xshift=-0.155\mytmpwidthfreehandnode,yshift=\fpeval{2*\mytmpthicknessfreehandnode}\mytmpheightfreehandnode]{-0.5\mytmpwidthfreehandnode},{0.5\mytmpheightfreehandnode}) ;
+			\draw[rulecolorcustomcircletxt,line width=\mytmpthickfreehandnode] ([xshift=0.0275\mytmpmaxdimfreehandnode,yshift=\fpeval{-0.75*\mytmpthicknessfreehandnode}\mytmpheightfreehandnode]0,0.5\mytmpheightfreehandnode) to[out=\fpeval{180-\mytmprandfreehandnode},in=\fpeval{90+\mytmprandfreehandnode}] ++ ({-0.5\mytmpwidthfreehandnode},{-0.5\mytmpheightfreehandnode}) to[out=\fpeval{-90+\mytmprandfreehandnode},in=\fpeval{180+\mytmprandfreehandnode}] ++  ({0.5\mytmpwidthfreehandnode},{-0.5\mytmpheightfreehandnode}) to[out=\mytmprandfreehandnode,in=\fpeval{-90-\mytmprandfreehandnode}] ++ (0.5\mytmpwidthfreehandnode,0.5\mytmpheightfreehandnode) to[out=\fpeval{90-\mytmprandfreehandnode},in=\fpeval{1.5*\mytmprandfreehandnode}] ++ ([xshift=-0.155\mytmpwidthfreehandnode,yshift=\fpeval{2*\mytmpthicknessfreehandnode}\mytmpheightfreehandnode]{-0.5\mytmpwidthfreehandnode},{0.5\mytmpheightfreehandnode}) ;
 		\end{scope}
 		%node
 		\begin{scope}
