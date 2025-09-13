@@ -3,9 +3,12 @@
 % source pencil...: CC-BY-SA 4.0 https://tex.stackexchange.com/questions/504092/replicating-a-fancy-bordered-text-style-in-latex/504145#504145
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{customenvs}[2025/08/04 0.41b Custom classic environments]
+\ProvidesPackage{customenvs}[2025/09/11 0.41e Custom classic environments]
 
 %====HISTORIQUE
+% v 0.41e	Bicolortitle + tcboxboard
+% v 0.41d	Subpackage 'macros'
+% v 0.41c	Enhancements with subpackages + boîte avec ornaments/postforum (l3e)
 % v 0.41b	New BlocExo (workinprogress) + precompat fa(567) + new pictos
 % v 0.41a	Bugfix with inlinegraphicx and MiKTeX...
 % v 0.40f	WhatsApp like Chat
@@ -83,6 +86,7 @@
 \RequirePackage{customenvs-tikzpictos}             %test souspackage
 \RequirePackage{customenvs-exams}                  %test souspackage
 \RequirePackage{customenvs-icons}                  %test souspackage
+\RequirePackage{customenvs-macros}                 %test souspackage
 
 \if@xcolor
 	\RequirePackage{xcolor}
@@ -2907,28 +2911,28 @@
 	\end{tikzpicture}%
 }
 
-%====vincludegraphics [fr]
-\newlength{\tmp@includegraphics@vfill@offset}
+% %====vincludegraphics [fr]
+% \newlength{\tmp@includegraphics@vfill@offset}
 
-\defKV[vfillincludegphcs]{vOffset=\setlength\tmp@includegraphics@vfill@offset{#1},vCentrer=\def\tmpincludegpvcenter{#1}}
-\setKVdefault[vfillincludegphcs]{vRemplir=false,vOffset=0pt,vCentrer=n}
+% \defKV[vfillincludegphcs]{vOffset=\setlength\tmp@includegraphics@vfill@offset{#1},vCentrer=\def\tmpincludegpvcenter{#1}}
+% \setKVdefault[vfillincludegphcs]{vRemplir=false,vOffset=0pt,vCentrer=n}
 
-\NewDocumentCommand\InsererImage{ D<>{} O{} m }{%
-	\restoreKV[vfillincludegphcs]%
-	\setKV[vfillincludegphcs]{#1}%
-	\ifboolKV[vfillincludegphcs]{vRemplir}%
-		{%
-			\IfStrEqCase{\tmpincludegpvcenter}{%
-				{m}{\vfill\includegraphics[height=\dimexpr\pagegoal-\pagetotal-\tmp@includegraphics@vfill@offset\relax,#2]{#3}\vfill}%
-				{h}{\includegraphics[height=\dimexpr\pagegoal-\pagetotal-\tmp@includegraphics@vfill@offset\relax,#2]{#3}\vfill}%
-				{b}{\vfill\includegraphics[height=\dimexpr\pagegoal-\pagetotal-\tmp@includegraphics@vfill@offset\relax,#2]{#3}}%
-				{n}{\includegraphics[height=\dimexpr\pagegoal-\pagetotal-\tmp@includegraphics@vfill@offset\relax,#2]{#3}}%
-			}[{\includegraphics[height=\dimexpr\pagegoal-\pagetotal-\tmp@includegraphics@vfill@offset\relax,#2]{#3}}]%
-		}%
-		{%
-			\includegraphics[#2]{#3}%
-		}%
-}
+% \NewDocumentCommand\InsererImage{ D<>{} O{} m }{%
+	% \restoreKV[vfillincludegphcs]%
+	% \setKV[vfillincludegphcs]{#1}%
+	% \ifboolKV[vfillincludegphcs]{vRemplir}%
+		% {%
+			% \IfStrEqCase{\tmpincludegpvcenter}{%
+				% {m}{\vfill\includegraphics[height=\dimexpr\pagegoal-\pagetotal-\tmp@includegraphics@vfill@offset\relax,#2]{#3}\vfill}%
+				% {h}{\includegraphics[height=\dimexpr\pagegoal-\pagetotal-\tmp@includegraphics@vfill@offset\relax,#2]{#3}\vfill}%
+				% {b}{\vfill\includegraphics[height=\dimexpr\pagegoal-\pagetotal-\tmp@includegraphics@vfill@offset\relax,#2]{#3}}%
+				% {n}{\includegraphics[height=\dimexpr\pagegoal-\pagetotal-\tmp@includegraphics@vfill@offset\relax,#2]{#3}}%
+			% }[{\includegraphics[height=\dimexpr\pagegoal-\pagetotal-\tmp@includegraphics@vfill@offset\relax,#2]{#3}}]%
+		% }%
+		% {%
+			% \includegraphics[#2]{#3}%
+		% }%
+% }
 
 %===tkzBanner mixte
 \defKV[tkzBannerKeys]{%
@@ -4423,120 +4427,120 @@
 		}%
 }
 
-%====LENGHTS
-\NewDocumentCommand\storewidthtolength{omm}{%
-	\ifdeflength{#3}{\settowidth#3{\hbox{#2}}}{\newlength{#3}\settowidth#3{\hbox{#2}}}%
-	\IfNoValueF{#1}{\addtolength#3{#1}}%
-}
+% %====LENGHTS
+% \NewDocumentCommand\storewidthtolength{omm}{%
+	% \ifdeflength{#3}{\settowidth#3{\hbox{#2}}}{\newlength{#3}\settowidth#3{\hbox{#2}}}%
+	% \IfNoValueF{#1}{\addtolength#3{#1}}%
+% }
 
-\NewDocumentCommand\storeheighttolength{omm}{%
-	\ifdeflength{#3}{\settoheight#3{\hbox{#2}}}{\newlength{#3}\settoheight#3{\hbox{#2}}}%
-	\IfNoValueF{#1}{\addtolength#3{#1}}%
-}
+% \NewDocumentCommand\storeheighttolength{omm}{%
+	% \ifdeflength{#3}{\settoheight#3{\hbox{#2}}}{\newlength{#3}\settoheight#3{\hbox{#2}}}%
+	% \IfNoValueF{#1}{\addtolength#3{#1}}%
+% }
 
-\NewDocumentCommand\storetotalheighttolength{omm}{%
-	\ifdeflength{#3}{\settototalheight#3{\hbox{#2}}}{\newlength{#3}\settototalheight#3{\hbox{#2}}}%
-	\IfNoValueF{#1}{\addtolength#3{#1}}%
-}
+% \NewDocumentCommand\storetotalheighttolength{omm}{%
+	% \ifdeflength{#3}{\settototalheight#3{\hbox{#2}}}{\newlength{#3}\settototalheight#3{\hbox{#2}}}%
+	% \IfNoValueF{#1}{\addtolength#3{#1}}%
+% }
 
-\NewDocumentCommand\storedepthtolength{omm}{%
-	\ifdeflength{#3}{\settodepth#3{\hbox{#2}}}{\newlength{#3}\settodepth#3{\hbox{#2}}}%
-	\IfNoValueF{#1}{\addtolength#3{#1}}%
-}
+% \NewDocumentCommand\storedepthtolength{omm}{%
+	% \ifdeflength{#3}{\settodepth#3{\hbox{#2}}}{\newlength{#3}\settodepth#3{\hbox{#2}}}%
+	% \IfNoValueF{#1}{\addtolength#3{#1}}%
+% }
 
-\newlength\tmpwideststring
-\newlength\tmpwideststringelt
-\newsavebox{\my@tmp@width@box}
+% \newlength\tmpwideststring
+% \newlength\tmpwideststringelt
+% \newsavebox{\my@tmp@width@box}
 
-\NewDocumentCommand\getwideststring{ O{\tmpwideststring} m }{%
-	\ifdeflength{#1}{}{\newlength#1}%
-	\setlength\tmpwideststring{0pt}%
-	\xintFor* ##1 in {\xintCSVtoList{#2}}\do{%
-		\savebox{\my@tmp@width@box}{##1}%
-		\settowidth{\tmpwideststringelt}{\usebox{\my@tmp@width@box}}%
-		\pgfmathsetlength{\global#1}{max(#1,\tmpwideststringelt)}%
-	}%
-}
+% \NewDocumentCommand\getwideststring{ O{\tmpwideststring} m }{%
+	% \ifdeflength{#1}{}{\newlength#1}%
+	% \setlength\tmpwideststring{0pt}%
+	% \xintFor* ##1 in {\xintCSVtoList{#2}}\do{%
+		% \savebox{\my@tmp@width@box}{##1}%
+		% \settowidth{\tmpwideststringelt}{\usebox{\my@tmp@width@box}}%
+		% \pgfmathsetlength{\global#1}{max(#1,\tmpwideststringelt)}%
+	% }%
+% }
 
-\newlength\tmpheigheststring
-\newlength\tmpheigheststringelt
-\newsavebox{\my@tmp@height@box}
+% \newlength\tmpheigheststring
+% \newlength\tmpheigheststringelt
+% \newsavebox{\my@tmp@height@box}
 
-\NewDocumentCommand\getheigheststring{ s O{\tmpheigheststring} m }{%
-	\ifdeflength{#2}{}{\newlength#2}%
-	\setlength#2{0pt}%
-	\IfBooleanTF{#1}%
-		{%
-			\xintFor* ##1 in {\xintCSVtoList{#3}}\do{%
-				\savebox{\my@tmp@height@box}{##1}%
-				\settoheight{\tmpheigheststringelt}{\usebox{\my@tmp@height@box}}%
-				\pgfmathsetlength{\global#2}{max(#2,\tmpheigheststringelt)}%
-			}%
-		}%
-		{%
-			\xintFor* ##1 in {\xintCSVtoList{#3}}\do{%
-				\savebox{\my@tmp@height@box}{##1}%
-				\settototalheight{\tmpheigheststringelt}{\usebox{\my@tmp@height@box}}%
-				\pgfmathsetlength{\global#2}{max(#2,\tmpheigheststringelt)}%
-			}%
-		}%
-}
+% \NewDocumentCommand\getheigheststring{ s O{\tmpheigheststring} m }{%
+	% \ifdeflength{#2}{}{\newlength#2}%
+	% \setlength#2{0pt}%
+	% \IfBooleanTF{#1}%
+		% {%
+			% \xintFor* ##1 in {\xintCSVtoList{#3}}\do{%
+				% \savebox{\my@tmp@height@box}{##1}%
+				% \settoheight{\tmpheigheststringelt}{\usebox{\my@tmp@height@box}}%
+				% \pgfmathsetlength{\global#2}{max(#2,\tmpheigheststringelt)}%
+			% }%
+		% }%
+		% {%
+			% \xintFor* ##1 in {\xintCSVtoList{#3}}\do{%
+				% \savebox{\my@tmp@height@box}{##1}%
+				% \settototalheight{\tmpheigheststringelt}{\usebox{\my@tmp@height@box}}%
+				% \pgfmathsetlength{\global#2}{max(#2,\tmpheigheststringelt)}%
+			% }%
+		% }%
+% }
 
-\newlength\my@var@height@of
-\newlength\my@var@width@of
-\newlength\my@fixed@height@of
-\newlength\my@fixed@width@of
-\newsavebox\tmp@box@to@fit@h
-\newsavebox\tmp@box@to@fit@v
+% \newlength\my@var@height@of
+% \newlength\my@var@width@of
+% \newlength\my@fixed@height@of
+% \newlength\my@fixed@width@of
+% \newsavebox\tmp@box@to@fit@h
+% \newsavebox\tmp@box@to@fit@v
 
-\NewDocumentCommand\fittexttobox{smmm}{%
-	%*=box with tikz
-	%#1=text
-	%#2=width
-	%#3=height
-	\setlength\my@fixed@width@of{#3}%
-	\setlength\my@fixed@height@of{#4}%
-	\savebox{\tmp@box@to@fit@v}{\resizebox*{!}{\my@fixed@height@of}{#2}}%v-stretch
-	\savebox{\tmp@box@to@fit@h}{\resizebox*{\my@fixed@width@of}{!}{#2}}%h-stretch
-	\settowidth\my@var@width@of{\usebox{\tmp@box@to@fit@v}}%
-	\IfBooleanTF{#1}%
-		{%
-			\begin{tikzpicture}
-				\draw (0,0) rectangle (\my@fixed@width@of,\my@fixed@height@of) ;
-				\ifthenelse{\my@var@width@of < \my@fixed@width@of}%
-					{%width ok
-						\node[inner sep=0pt] at (0.5\my@fixed@width@of,0.5\my@fixed@height@of) {\usebox{\tmp@box@to@fit@v}} ;
-					}%
-					{%width ko => h-stretch
-						\node[inner sep=0pt] at (0.5\my@fixed@width@of,0.5\my@fixed@height@of) {\usebox{\tmp@box@to@fit@h}} ;
-					}%
-			\end{tikzpicture}%
-		}%
-		{%
-			\ifthenelse{\my@var@width@of < \my@fixed@width@of}%
-				{%width ok
-					{\usebox{\tmp@box@to@fit@v}}%
-				}%
-				{%width ko => h-stretch
-					{\usebox{\tmp@box@to@fit@h}}%
-				}%
-		}%
-}
+% \NewDocumentCommand\fittexttobox{smmm}{%
+	% %*=box with tikz
+	% %#1=text
+	% %#2=width
+	% %#3=height
+	% \setlength\my@fixed@width@of{#3}%
+	% \setlength\my@fixed@height@of{#4}%
+	% \savebox{\tmp@box@to@fit@v}{\resizebox*{!}{\my@fixed@height@of}{#2}}%v-stretch
+	% \savebox{\tmp@box@to@fit@h}{\resizebox*{\my@fixed@width@of}{!}{#2}}%h-stretch
+	% \settowidth\my@var@width@of{\usebox{\tmp@box@to@fit@v}}%
+	% \IfBooleanTF{#1}%
+		% {%
+			% \begin{tikzpicture}
+				% \draw (0,0) rectangle (\my@fixed@width@of,\my@fixed@height@of) ;
+				% \ifthenelse{\my@var@width@of < \my@fixed@width@of}%
+					% {%width ok
+						% \node[inner sep=0pt] at (0.5\my@fixed@width@of,0.5\my@fixed@height@of) {\usebox{\tmp@box@to@fit@v}} ;
+					% }%
+					% {%width ko => h-stretch
+						% \node[inner sep=0pt] at (0.5\my@fixed@width@of,0.5\my@fixed@height@of) {\usebox{\tmp@box@to@fit@h}} ;
+					% }%
+			% \end{tikzpicture}%
+		% }%
+		% {%
+			% \ifthenelse{\my@var@width@of < \my@fixed@width@of}%
+				% {%width ok
+					% {\usebox{\tmp@box@to@fit@v}}%
+				% }%
+				% {%width ko => h-stretch
+					% {\usebox{\tmp@box@to@fit@h}}%
+				% }%
+		% }%
+% }
 
-\NewDocumentCommand\halignnb{ O{0,1,2,3,4,5,6,7,8,9} D<>{c} m }{%
-	%#1 = ref strings
-	%#2 = string
-	\getwideststring{#1}%
-	\makebox[\tmpwideststring][#2]{#3}%
-}
+% \NewDocumentCommand\halignnb{ O{0,1,2,3,4,5,6,7,8,9} D<>{c} m }{%
+	% %#1 = ref strings
+	% %#2 = string
+	% \getwideststring{#1}%
+	% \makebox[\tmpwideststring][#2]{#3}%
+% }
 
-\NewDocumentCommand\halignmakebox{ O{c} m m }{%
-	%#1 = align makebox
-	%#2 = string
-	%#3 = ref strings
-	\getwideststring{#3}%
-	\makebox[\tmpwideststring][#1]{#2}%
-}
+% \NewDocumentCommand\halignmakebox{ O{c} m m }{%
+	% %#1 = align makebox
+	% %#2 = string
+	% %#3 = ref strings
+	% \getwideststring{#3}%
+	% \makebox[\tmpwideststring][#1]{#2}%
+% }
 
 %====CHAT WHATSAPP
 \newlength{\WidthofWa}
@@ -4655,6 +4659,413 @@
 \NewDocumentCommand\WaDate{ m }{%
 	\tcbox[enhanced,before skip=1mm,after skip=1mm,leftright skip=1.5mm,halign=center,left=1mm,right=1mm,top=0.5mm,bottom=0.5mm,center,
 	fontupper=\ProjectWaFonte,boxsep=0mm,boxrule=0pt,colframe=white]{\scalebox{0.4}[0.4]{#1}}%
+}
+
+%====TCBOX ORNEMENTS
+\ExplSyntaxOn
+
+\fp_new:N \l_tikz_ornaments_hstretch_fp
+\dim_new:N \l_tikz_ornaments_linewidth_dim
+\dim_new:N \l_tikz_ornaments_vsize_dim
+\dim_new:N \l_tikz_ornaments_hsize_dim
+\dim_new:N \l_tikz_ornaments_border_dim
+\tl_new:N \l_tikz_ornaments_color_tl
+\bool_new:N \l_tikz_ornaments_altdeco_bool
+
+\cs_new_protected:Npn \inttikzorncorner:nn #1#2
+{
+	\begin{scope}[
+		line~width={\dim_use:N \l_tikz_ornaments_linewidth_dim},
+		shift={(#1)},
+		#2,
+		color={\tl_use:N \l_tikz_ornaments_color_tl},
+		transform~shape
+		]
+		% Décoration principale
+		\draw (0,{\dim_use:N \l_tikz_ornaments_vsize_dim}) -- (0, {\dim_eval:n { 0.4 \l_tikz_ornaments_border_dim }}) -- (\dim_eval:n { 0.8 \l_tikz_ornaments_border_dim}, \dim_eval:n {0.4 \l_tikz_ornaments_border_dim}) |-++ (\dim_eval:n { -0.4 \l_tikz_ornaments_border_dim }, \dim_eval:n { 0.4 \l_tikz_ornaments_border_dim }) |- (\dim_use:N \l_tikz_ornaments_hsize_dim, 0);
+		% Carré
+		\draw (\dim_eval:n { 0.2 \l_tikz_ornaments_border_dim }, \dim_eval:n { 0.2 \l_tikz_ornaments_border_dim }) rectangle (\dim_use:N \l_tikz_ornaments_border_dim, \dim_use:N \l_tikz_ornaments_border_dim);
+		% Décoration secondaire verticale
+		\draw (\dim_eval:n { 0.2 \l_tikz_ornaments_border_dim }, {\dim_use:N \l_tikz_ornaments_border_dim + 1.25mm}) -- (\dim_eval:n { 0.2 \l_tikz_ornaments_border_dim }, {\dim_use:N \l_tikz_ornaments_vsize_dim - 1.25mm});
+		% Décoration secondaire horizontale
+		\draw (\dim_use:N \l_tikz_ornaments_border_dim + 1.25mm, \dim_eval:n { 0.2 \l_tikz_ornaments_border_dim }) -- ({\dim_use:N \l_tikz_ornaments_hsize_dim - 1.25mm}, \dim_eval:n { 0.2 \l_tikz_ornaments_border_dim });
+	\end{scope}
+}
+
+\tcbset{
+	tikz~bordures~ornaments/.style={
+		enhanced,
+		frame~empty,
+		boxsep=0pt,
+		top=0.15mm+\dim_use:N \l_tikz_ornaments_border_dim,
+		left=0.15mm+\dim_use:N \l_tikz_ornaments_border_dim,
+		right=0.15mm+\dim_use:N \l_tikz_ornaments_border_dim,
+		bottom=0.15mm+\dim_use:N \l_tikz_ornaments_border_dim,
+		opacityfill=0,
+		finish~unbroken={
+			\bool_if:NT \l_tikz_ornaments_altdeco_bool
+			{
+				\draw[line~width=\dim_use:N \l_tikz_ornaments_linewidth_dim, \tl_use:N \l_tikz_ornaments_color_tl!25, opacity=0.5] ([shift={(\dim_use:N \l_tikz_ornaments_border_dim, \dim_use:N \l_tikz_ornaments_border_dim)}]frame.south~west) rectangle ([shift={(-\dim_use:N \l_tikz_ornaments_border_dim, -\dim_use:N \l_tikz_ornaments_border_dim)}]frame.north~east);
+			}
+			\begin{scope}%south west
+				\clip ([xshift={\dim_eval:n { -0.5 \l_tikz_ornaments_linewidth_dim }}, yshift={\dim_eval:n { -0.5 \l_tikz_ornaments_linewidth_dim }}]frame.south~west) -- ([xshift={\dim_eval:n { -0.5 \l_tikz_ornaments_linewidth_dim }}]frame.west) -- ([yshift={\dim_eval:n { -0.5 \l_tikz_ornaments_linewidth_dim }}]frame.south) -- cycle;
+				\inttikzorncorner:nn {frame.south~west} {}
+			\end{scope}
+			\begin{scope}%north west
+				\clip ([xshift=\dim_eval:n { -0.5 \l_tikz_ornaments_linewidth_dim }, yshift=\dim_eval:n { 0.5 \l_tikz_ornaments_linewidth_dim }]frame.north~west) -- ([xshift=\dim_eval:n { -0.5 \l_tikz_ornaments_linewidth_dim }]frame.west) -- ([yshift=\dim_eval:n { 0.5 \l_tikz_ornaments_linewidth_dim }]frame.north) -- cycle;
+				\inttikzorncorner:nn {frame.north~west} {yscale=-1}
+			\end{scope}
+			\begin{scope}%north east
+				\clip ([xshift=\dim_eval:n { 0.5 \l_tikz_ornaments_linewidth_dim }, yshift=\dim_eval:n { 0.5 \l_tikz_ornaments_linewidth_dim }]frame.north~east) -- ([xshift=\dim_eval:n { 0.5 \l_tikz_ornaments_linewidth_dim }]frame.east) -- ([yshift=\dim_eval:n { 0.5 \l_tikz_ornaments_linewidth_dim }]frame.north) -- cycle;
+				\inttikzorncorner:nn {frame.north~east} {scale=-1}
+			\end{scope}
+			\begin{scope}%south east
+				\clip ([xshift=\dim_eval:n { 0.5 \l_tikz_ornaments_linewidth_dim }, yshift=\dim_eval:n { -0.5 \l_tikz_ornaments_linewidth_dim }]frame.south~east) -- ([xshift=\dim_eval:n { 0.5 \l_tikz_ornaments_linewidth_dim }]frame.east) -- ([yshift=\dim_eval:n { -0.5 \l_tikz_ornaments_linewidth_dim }]frame.south) -- cycle;
+				\inttikzorncorner:nn {frame.south~east} {xscale=-1}
+			\end{scope}
+		}
+	}
+}
+
+\keys_define:nn { tcboxornaments }
+{
+	v~size~deco .dim_set:N      = \l_tikz_ornaments_vsize_dim,
+	h~size~deco .dim_set:N      = \l_tikz_ornaments_hsize_dim,
+	linewidth~deco .dim_set:N   = \l_tikz_ornaments_linewidth_dim,
+	color~deco .tl_set:N        = \l_tikz_ornaments_color_tl,
+	alt~deco .bool_set:N        = \l_tikz_ornaments_altdeco_bool,
+	h~stretch~deco .fp_set:N    = \l_tikz_ornaments_hstretch_fp,
+	inner~size~deco .dim_set:N  = \l_tikz_ornaments_border_dim,
+	v~size~deco .initial:n      = {1.5cm},
+	h~size~deco .initial:n      = {0pt},
+	linewidth~deco .initial:n   = {0.2mm},
+	color~deco .initial:n       = {black},
+	alt~deco .initial:n         = {false},
+	h~stretch~deco .initial:n   = {1},
+	inner~size~deco .initial:n  = {3.6mm}
+}
+
+\NewDocumentEnvironment{tcboxornaments}{ O{} m }
+{%
+	\keys_set:nn { tcboxornaments } {#1}%
+	\dim_compare:nNnT { \l_tikz_ornaments_hsize_dim } = { 0pt }
+	{%
+		% auto calc
+		\dim_set:Nn \l_tikz_ornaments_hsize_dim { \fp_eval:n {\l_tikz_ornaments_hstretch_fp * \l_tikz_ornaments_vsize_dim}pt }%
+	}%
+	\tcolorbox[tikz~bordures~ornaments, #2]%
+}%
+{%
+	\endtcolorbox%
+}%
+\ExplSyntaxOff
+
+%====tcboxforumpost
+\ExplSyntaxOn
+
+\dim_new:N \g_tcbox_forum_post_offset_dim
+\dim_new:N \g_tcbox_forum_post_heightpseudo_dim
+\dim_new:N \g_tcbox_forum_post_left_margin
+\dim_new:N \g_tcbox_forum_post_width_avatar_dim
+%\dim_new:N \g_tcbox_forum_post_width_dim
+\dim_new:N \g_tcbox_forum_post_trideco_dim
+\tl_new:N \g_tcbox_forum_post_pseudo_tl
+\tl_new:N \g_tcbox_forum_post_alt_pseudo_tl
+\tl_new:N \g_tcbox_forum_post_bg_color
+\tl_new:N \g_tcbox_forum_post_rule_color
+\tl_new:N \g_tcbox_forum_post_avatar_tl
+
+\keys_define:nn { tcforumpost }
+{
+%	width          .dim_set:N = \g_tcbox_forum_post_width_dim,
+	height-pseudo  .dim_set:N = \g_tcbox_forum_post_heightpseudo_dim,
+	deco-length    .dim_set:N = \g_tcbox_forum_post_trideco_dim,
+	left-margin    .dim_set:N = \g_tcbox_forum_post_left_margin,
+	pseudo         .tl_set:N  = \g_tcbox_forum_post_pseudo_tl,
+	alt-pseudo     .tl_set:N  = \g_tcbox_forum_post_alt_pseudo_tl,
+	fill-color     .tl_set:N  = \g_tcbox_forum_post_bg_color,
+	rule-color     .tl_set:N  = \g_tcbox_forum_post_rule_color,
+	avatar         .tl_set:N  = \g_tcbox_forum_post_avatar_tl
+}
+
+\keys_set:nn { tcforumpost }
+{
+%	width         = {\textwidth},
+	deco-length   = 3mm,
+	height-pseudo = 3mm,
+	pseudo        = \LaTeX,
+	left-margin   = 1.5cm,
+	alt-pseudo    = beginner,
+	fill-color    = teal!10,
+	rule-color    = blue!50!black,
+	avatar        = {\includegraphics[height={\fp_eval:n {0.75 * \g_tcbox_forum_post_width_avatar_dim}pt}]{vectorlogo-ctanlion}},
+}
+
+\tikzset{
+	forum~style~post~font~pseudo/.style={inner~sep=0pt,font=\sffamily\bfseries,text=white},
+	forum~style~post~font~altpseudo/.style={inner~sep=0pt,font=\sffamily,text=\g_tcbox_forum_post_rule_color},
+}
+
+\tcbset{
+	forum~style~post/.style={
+		enhanced,
+		frame~empty,
+		boxsep=0pt,
+		%width=\dim_use:N \g_tcbox_forum_post_width_dim,
+		left~skip=\dim_use:N \g_tcbox_forum_post_left_margin,
+		top=2mm,
+		left=2mm,
+		right=2mm,
+		bottom=2mm,
+		opacityfill=0,
+		underlay~unbroken={
+			\coordinate (AVATAR-SOUTH-WEST) at
+			([xshift={-\g_tcbox_forum_post_offset_dim-\g_tcbox_forum_post_width_avatar_dim},yshift=-\g_tcbox_forum_post_width_avatar_dim]frame.north~west);
+			\coordinate (PSEUDO-SOUTH-WEST) at
+			([xshift={-\g_tcbox_forum_post_offset_dim-\g_tcbox_forum_post_width_avatar_dim},yshift={-\g_tcbox_forum_post_width_avatar_dim-\g_tcbox_forum_post_heightpseudo_dim}]frame.north~west);
+			\coordinate (PSEUDO) at
+			([xshift={0.5\g_tcbox_forum_post_width_avatar_dim},yshift={-0.5\g_tcbox_forum_post_heightpseudo_dim}]AVATAR-SOUTH-WEST);
+			\coordinate (PSEUDO-ALT) at
+			([xshift={0.5\g_tcbox_forum_post_width_avatar_dim},yshift={-0.5\g_tcbox_forum_post_heightpseudo_dim}]PSEUDO-SOUTH-WEST);
+			% Boîte de gauche
+			\fill[\g_tcbox_forum_post_bg_color]
+			([xshift=-\g_tcbox_forum_post_offset_dim]frame.north~west)
+			rectangle++ (-\g_tcbox_forum_post_width_avatar_dim,-\g_tcbox_forum_post_width_avatar_dim-2\g_tcbox_forum_post_heightpseudo_dim);
+			% Avatar
+			\begin{scope}
+				\clip ([xshift=-\g_tcbox_forum_post_offset_dim]frame.north~west)
+				rectangle++ (-\g_tcbox_forum_post_width_avatar_dim,-\g_tcbox_forum_post_width_avatar_dim);
+				\node at
+				([xshift={-0.5\g_tcbox_forum_post_width_avatar_dim-\g_tcbox_forum_post_offset_dim},yshift={-0.5\g_tcbox_forum_post_width_avatar_dim}]frame.north~west)
+				{\g_tcbox_forum_post_avatar_tl};
+			\end{scope}
+			% Pseudo
+			\begin{scope}
+				\filldraw[\g_tcbox_forum_post_rule_color,line~width=0.2mm]
+				(AVATAR-SOUTH-WEST) rectangle++ (\g_tcbox_forum_post_width_avatar_dim,-\g_tcbox_forum_post_heightpseudo_dim);
+				\clip (AVATAR-SOUTH-WEST) rectangle++ (\g_tcbox_forum_post_width_avatar_dim,-\g_tcbox_forum_post_heightpseudo_dim);
+				\node at (PSEUDO)
+				[forum~style~post~font~pseudo]
+				{\resizebox*{!}{0.75\g_tcbox_forum_post_heightpseudo_dim}{\vphantom{(qM)}\g_tcbox_forum_post_pseudo_tl}};
+			\end{scope}
+			% Pseudo alternatif
+			\begin{scope}
+				\clip (PSEUDO-SOUTH-WEST) rectangle++ (\g_tcbox_forum_post_width_avatar_dim,-\g_tcbox_forum_post_heightpseudo_dim);
+				\node at (PSEUDO-ALT)
+				[forum~style~post~font~altpseudo]
+				{\resizebox*{!}{0.667\g_tcbox_forum_post_heightpseudo_dim}{\vphantom{(qM)}\g_tcbox_forum_post_alt_pseudo_tl}};
+			\end{scope}
+			% Bordure de la boîte de gauche
+			\draw[\g_tcbox_forum_post_rule_color,line~width=0.2mm]
+			([xshift=-\g_tcbox_forum_post_offset_dim]frame.north~west)
+			rectangle++ (-\g_tcbox_forum_post_width_avatar_dim,-\g_tcbox_forum_post_width_avatar_dim-2\g_tcbox_forum_post_heightpseudo_dim);
+			% Bulle
+			\draw[\g_tcbox_forum_post_rule_color,fill={\g_tcbox_forum_post_bg_color},line~width=0.2mm,line~join=round,rounded~corners=0.3mm]
+			(frame.north~west) -- (frame.north~east) -- (frame.south~east) -- (frame.south~west) -- ([yshift=\dim_eval:n { -1.75 \g_tcbox_forum_post_trideco_dim}]frame.north~west) --++ ({-\g_tcbox_forum_post_offset_dim},0.5\g_tcbox_forum_post_offset_dim) -++ ({\g_tcbox_forum_post_offset_dim},0.5\g_tcbox_forum_post_offset_dim) -- cycle;
+		},
+	}
+}
+
+\NewDocumentEnvironment{tcforumpost}{ O{} m }
+{
+	\keys_set:nn { tcforumpost } { #1 }
+	%dim
+	\dim_gset:Nn \g_tcbox_forum_post_offset_dim
+	{
+		\fp_eval:n { sqrt(3)/2 * \dim_to_fp:n { \g_tcbox_forum_post_trideco_dim } } pt
+	}
+	\dim_gset:Nn \g_tcbox_forum_post_width_avatar_dim
+	{ \g_tcbox_forum_post_left_margin - \g_tcbox_forum_post_offset_dim }
+	\tcolorbox[forum~style~post,#2]
+}
+{ 
+	\endtcolorbox 
+}
+
+\ExplSyntaxOff
+
+%====style bicolor title tikz
+\newlength\stylejrtitleheight
+\newlength\stylejrheighttextleft
+\newlength\stylejrheighttextright
+\newlength\stylejrwidthleftpart
+\newlength\stylejrmargincenter
+\newlength\stylejrwidthrightpart
+
+\setlength\stylejrtitleheight{1.15cm}
+\setlength\stylejrheighttextleft{0.3\stylejrtitleheight}
+\setlength\stylejrheighttextright{0.3\stylejrtitleheight}
+\setlength\stylejrwidthleftpart{3cm}
+\setlength\stylejrmargincenter{0.5cm}
+\setlength\stylejrwidthrightpart{\textwidth-\stylejrwidthleftpart-\stylejrmargincenter}
+
+\defKV[jrtitle]{%
+	main color=\colorlet{jrtitlemain}{#1},%
+	alt color=\colorlet{jrtitlealt}{#1},%
+	font=\def\jrtitlefont{#1},%
+	left upper=\def\jrtitleleftupper{#1},%
+	left lower=\def\jrtitleleftlower{#1},%
+	height=\setlength\stylejrtitleheight{#1},%
+	left part=\setlength\stylejrwidthleftpart{#1},%
+	inner sep=\setlength\stylejrmargincenter{#1}
+}
+
+\setKVdefault[jrtitle]{%
+	main color=blue!50!black,%
+	alt color=yellow!75!orange,%
+	font=\bfseries\sffamily,%
+	left upper={},%
+	left lower={},%
+	height=1.15cm,
+	left part=3cm,%
+	inner sep=0.5cm
+}
+
+\NewDocumentCommand\tkzbicolortitle{ O{} D<>{} m }{%
+	\restoreKV[jrtitle]%
+	\setKV[jrtitle]{#1}%
+	\noindent\begin{tikzpicture}[line width=0.3mm,jrtitlemain,every node/.style={text depth=0pt,font=\jrtitlefont,inner sep=0pt},#2]
+		\setlength\stylejrwidthrightpart{\textwidth-\stylejrwidthleftpart-\stylejrmargincenter}%
+		%right part
+		\draw ([xshift=-0.25\stylejrwidthrightpart-0.6mm,yshift=-0.6mm]{\textwidth},{\stylejrtitleheight}) -| ([xshift=-0.6mm,yshift=-0.75\stylejrtitleheight]{\textwidth},{\stylejrtitleheight}) ;
+		\draw ([xshift=-0.275\stylejrwidthrightpart-0.6mm]{\textwidth},{\stylejrtitleheight}) -| ([xshift=-0.6mm-0.6mm,yshift=-0.725\stylejrtitleheight]{\textwidth},{\stylejrtitleheight}) ;
+		\draw ([xshift=0.25\stylejrwidthrightpart,yshift=0.6mm]{\stylejrwidthleftpart+\stylejrmargincenter},0) -| ([yshift=0.75\stylejrtitleheight]{\stylejrwidthleftpart+\stylejrmargincenter},0) ;
+		\draw ([xshift=0.275\stylejrwidthrightpart]{\stylejrwidthleftpart+\stylejrmargincenter},0) -| ([xshift=0.6mm,yshift=0.725\stylejrtitleheight]{\stylejrwidthleftpart+\stylejrmargincenter},0) ;
+		\filldraw[line width=0.025mm,line join=round] ([xshift=-0.9\stylejrwidthrightpart,yshift=-0.4mm]{\textwidth},{\stylejrtitleheight}) to[bend left=0.675] ([xshift=-0.4\stylejrwidthrightpart,yshift=-0.4mm]{\textwidth},{\stylejrtitleheight}) to[bend left=0.675] cycle ;
+		\filldraw[line width=0.025mm,line join=round] ([xshift=0.9\stylejrwidthrightpart,yshift=0.4mm]{\stylejrwidthleftpart+\stylejrmargincenter},0) to[bend left=0.675] ([xshift=0.4\stylejrwidthrightpart,yshift=0.4mm]{\stylejrwidthleftpart+\stylejrmargincenter},0) to[bend left=0.675] cycle ;
+		%left part upper
+		\filldraw[jrtitlealt,line join=round] (0.2mm,{0.25\stylejrtitleheight}) -- ({0.1\stylejrwidthleftpart},{\stylejrtitleheight-0.1mm}) -- ({\stylejrwidthleftpart},{\stylejrtitleheight-0.1mm}) -- ({0.8\stylejrwidthleftpart},{0.3\stylejrtitleheight}) -- cycle ;
+		\filldraw[jrtitlemain,line join=round] ({0.04\stylejrwidthleftpart},{0.55\stylejrtitleheight}) -- ({0.95\stylejrwidthleftpart},{0.425\stylejrtitleheight}) -- ({0.85\stylejrwidthleftpart},{0.05\stylejrtitleheight}) -- ({0.2\stylejrwidthleftpart},0) -- cycle ;
+		%coordinates left part + nodes
+		\coordinate (LEFTUPPERPART) at ({0.475\stylejrwidthleftpart},{0.8\stylejrtitleheight}) ;
+		\coordinate (LEFTLOWERPART) at ({0.525\stylejrwidthleftpart},{0.275\stylejrtitleheight}) ;
+		\ifthenelse{\equal{\jrtitleleftupper}{}}{}%
+			{%
+				\node[jrtitlemain] at (LEFTUPPERPART) {\fittexttobox{\vphantom{(qM)}\jrtitleleftupper}{0.7\stylejrwidthleftpart}{0.35\stylejrtitleheight}};
+			}%
+		\ifthenelse{\equal{\jrtitleleftlower}{}}{}%
+			{%
+				\node[white] at (LEFTLOWERPART) {\fittexttobox{\vphantom{(qM)}\jrtitleleftlower}{0.6\stylejrwidthleftpart}{0.35\stylejrtitleheight}};%
+			}%
+		%title part
+		\coordinate (RIGHTPART) at ({\textwidth-0.5\stylejrwidthrightpart},{0.5\stylejrtitleheight}) ;
+		\coordinate (RIGHTPARTUPPER) at ({\textwidth-0.5\stylejrwidthrightpart},{0.675\stylejrtitleheight}) ;
+		\coordinate (RIGHTPARTLOWER) at ({\textwidth-0.5\stylejrwidthrightpart},{0.325\stylejrtitleheight}) ;
+		\IfSubStr{#3}{§}%two lines
+			{%
+				\StrCut{#3}{§}{\jrtitleupper}{\jrtitlelower}%
+				\node at (RIGHTPARTUPPER) {\fittexttobox{\vphantom{(qM)}\jrtitleupper}{0.9\stylejrwidthrightpart}{0.5\stylejrtitleheight-0.9mm}};%
+				\node at (RIGHTPARTLOWER) {\fittexttobox{\vphantom{(qM)}\jrtitlelower}{0.9\stylejrwidthrightpart}{0.5\stylejrtitleheight-0.9mm}};%
+			}%
+			{%
+				\node at (RIGHTPART) {\fittexttobox{\vphantom{(qM)}#3}{0.9\stylejrwidthrightpart}{\stylejrtitleheight-2.4mm}};%
+			}%
+	\end{tikzpicture}%
+}
+
+%====tcboxboard
+\newlength\tcboardwidth
+\newlength\tcboardbottomwidth
+\newlength\tcboardpenwidth
+\newlength\tcboardpenheight
+\newlength\tcboardthick
+
+\defKV[tcboxboard]{%
+	width=\setlength\tcboardwidth{#1},%
+	border=\setlength\tcboardthick{#1},%
+	border color=\colorlet{tcboxboardcolor}{#1},%
+	alt color=\colorlet{tcboxboardaltcolor}{#1}
+}
+
+\setKVdefault[tcboxboard]{%
+	width=10cm,
+	border=3.5mm,%
+	border color=lightgray!50,%
+	alt color=darkgray,%
+	pens=true,%
+	bottom=true,%
+	left align=true
+}
+
+\NewDocumentEnvironment{tcboxwhiteboard}{O{}m}%
+{
+	\restoreKV[tcboxboard]%
+	\setKV[tcboxboard]{#1}%
+	\setlength\tcboardbottomwidth{\tcboardwidth-3cm}%\the\tcboardbottomwidth
+	\setlength\tcboardpenwidth{0.2\tcboardbottomwidth}%\the\tcboardpenwidth
+	\setlength\tcboardpenheight{0.1\tcboardpenwidth}%\the\tcboardpenheight
+	%ifborder
+	\ifboolKV[tcboxboard]{bottom}%
+		{%
+			\tcbset{tcboxboardbeforeafter/.style={before skip=\tcboardthick,after skip=0.5\tcboardthick+0.7\tcboardthick+0.25\tcboardthick}}%
+		}%
+		{%
+			\tcbset{tcboxboardbeforeafter/.style={before skip=\tcboardthick,after skip=\tcboardthick}}%
+			\setKV[tcboxboard]{pens=false}%
+		}%
+	\ifboolKV[tcboxboard]{left align}%
+		{%
+			\tcbset{tcboxboardleftalign/.style={left skip=0.5\tcboardthick}}%
+		}%
+		{%
+			\tcbset{tcboxboardleftalign/.style={}}%
+		}%
+	%tcolorbox
+	\tcolorbox[%
+		enhanced,width=\tcboardwidth-0.5\tcboardthick,boxsep=0.5\tcboardthick+1.5mm,left=0mm,top=0mm,right=0mm,bottom=0mm,frame empty,interior empty,tcboxboardbeforeafter,tcboxboardleftalign,%
+		finish={%
+			\ifboolKV[tcboxboard]{bottom}%
+			{%
+				%reglette
+				\draw[line width=0.025\tcboardthick,black,fill=tcboxboardaltcolor!85] ([xshift=1.5cm,yshift=-0.5\tcboardthick]frame.south west) rectangle ([xshift=-1.5cm,yshift=-0.5\tcboardthick-0.2\tcboardthick]frame.south east) ;
+			}%
+			{}%
+			%----borders
+			\draw[line width=\tcboardthick,tcboxboardcolor,rounded corners=0.025\tcboardthick] (frame.south west) rectangle (frame.north east) ;
+			\draw[line width=\tcboardthick,tcboxboardaltcolor!85,rounded corners=0.025\tcboardthick] ([yshift=1.25\tcboardthick]frame.south west) |- ([xshift=1.25\tcboardthick]frame.south west) ;
+			\draw[line width=\tcboardthick,tcboxboardaltcolor!85,rounded corners=0.025\tcboardthick] ([yshift=-1.25\tcboardthick]frame.north west) |- ([xshift=1.25\tcboardthick]frame.north west) ;
+			\draw[line width=\tcboardthick,tcboxboardaltcolor!85,rounded corners=0.025\tcboardthick] ([xshift=-1.25\tcboardthick]frame.north east) -| ([yshift=-1.25\tcboardthick]frame.north east) ;
+			\draw[line width=\tcboardthick,tcboxboardaltcolor!85,rounded corners=0.025\tcboardthick] ([xshift=-1.25\tcboardthick]frame.south east) -| ([yshift=1.25\tcboardthick]frame.south east) ;
+			\draw[line width=0.025\tcboardthick,black] ([xshift=0.5\tcboardthick,yshift=0.5\tcboardthick]frame.south west) rectangle ([xshift=-0.5\tcboardthick,yshift=-0.5\tcboardthick]frame.north east) ;
+			\draw[line width=0.025\tcboardthick,black,rounded corners=0.5\tcboardthick] ([xshift=-0.5\tcboardthick,yshift=-0.5\tcboardthick]frame.south west) rectangle  ([xshift=0.5\tcboardthick,yshift=0.5\tcboardthick]frame.north east) ;
+			\draw[line width=0.025\tcboardthick,black!85,rounded corners=0.375\tcboardthick] ([xshift=-0.167\tcboardthick,yshift=-0.167\tcboardthick]frame.south west) rectangle ([xshift=0.167\tcboardthick,yshift=0.167\tcboardthick]frame.north east) ;
+			\draw[black] ([xshift=-0.5\tcboardthick,yshift=1.25\tcboardthick]frame.south west)--++(\tcboardthick,0) ;
+			\draw[black] ([xshift=0.5\tcboardthick,yshift=1.25\tcboardthick]frame.south east)--++(-\tcboardthick,0) ;
+			\draw[black] ([xshift=-0.5\tcboardthick,yshift=-1.25\tcboardthick]frame.north west)--++(\tcboardthick,0) ;
+			\draw[black] ([xshift=0.5\tcboardthick,yshift=-1.25\tcboardthick]frame.north east)--++(-\tcboardthick,0) ;
+			\draw[black] ([xshift=1.25\tcboardthick,yshift=0.5\tcboardthick]frame.north west)--++(0,-\tcboardthick) ;
+			\draw[black] ([xshift=-1.25\tcboardthick,yshift=0.5\tcboardthick]frame.north east)--++(0,-\tcboardthick) ;
+			\draw[black] ([xshift=1.25\tcboardthick,yshift=-0.5\tcboardthick]frame.south west)--++(0,\tcboardthick) ;
+			\draw[black] ([xshift=-1.25\tcboardthick,yshift=-0.5\tcboardthick]frame.south east)--++(0,\tcboardthick) ;
+			\ifboolKV[tcboxboard]{bottom}%
+				{%
+					%reglette
+					\draw[line width=0.025\tcboardthick,black,fill=tcboxboardaltcolor!85] ([xshift=1.4cm,yshift=-0.7\tcboardthick]frame.south west) rectangle ([xshift=-1.4cm,yshift=-0.7\tcboardthick-0.25\tcboardthick]frame.south east) ;
+					\draw[line width=0.025\tcboardthick,black,fill=tcboxboardcolor] ([xshift=1.5cm,yshift=-0.7\tcboardthick]frame.south west) rectangle ([xshift=-1.5cm,yshift=-0.7\tcboardthick-0.25\tcboardthick]frame.south east) ;
+					\draw[line width=0.025\tcboardthick,black] ([xshift=1.5cm,yshift=-0.7\tcboardthick-0.125\tcboardthick]frame.south west) -- ([xshift=-1.5cm,yshift=-0.7\tcboardthick-0.125\tcboardthick]frame.south east) ;
+				}%
+				{}%
+			\ifboolKV[tcboxboard]{pens}%
+				{%
+					%stylo bleu
+					\draw[line width=0.025\tcboardthick,black,fill=blue,rounded corners=0.1\tcboardthick] ([xshift=-0.15\tcboardbottomwidth,yshift=-0.7\tcboardthick+0.0375\tcboardthick]frame.south) rectangle ++ (\tcboardpenwidth,\tcboardpenheight) ;
+					\draw[line width=0.0375\tcboardthick,black] ([xshift=-0.15\tcboardbottomwidth+0.15\tcboardpenwidth,yshift=-0.7\tcboardthick+0.0375\tcboardthick]frame.south) --++ (0,\tcboardpenheight) ;
+					%stylo rouge
+					\draw[line width=0.025\tcboardthick,black,fill=red,rounded corners=0.1\tcboardthick] ([xshift=-0.45\tcboardbottomwidth,yshift=-0.7\tcboardthick+0.0375\tcboardthick]frame.south) rectangle ++ (\tcboardpenwidth,\tcboardpenheight) ;
+					\draw[line width=0.0375\tcboardthick,black] ([xshift=-0.45\tcboardbottomwidth+0.85\tcboardpenwidth,yshift=-0.7\tcboardthick+0.0375\tcboardthick]frame.south) --++ (0,\tcboardpenheight) ;
+					%stylo vert
+					\draw[line width=0.025\tcboardthick,black,fill=green!50!black] ([xshift=0.385\tcboardbottomwidth,yshift=-0.7\tcboardthick+0.0375\tcboardthick]frame.south) {[rounded corners=0.1\tcboardthick] -|++ (-\tcboardpenwidth,\tcboardpenheight)} --++ (\tcboardpenwidth,0) -- cycle ;
+					\draw[line width=0.025\tcboardthick,black,fill=green!50!black] ([xshift=0.425\tcboardbottomwidth,yshift=-0.7\tcboardthick+0.0375\tcboardthick]frame.south) {[rounded corners=0.1\tcboardthick] -|++ (0.15\tcboardpenwidth,\tcboardpenheight)} --++ (-0.15\tcboardpenwidth,0) -- cycle ;
+					\fill[draw=black,fill=green!50!black,line width=0.025\tcboardthick] ([xshift=0.385\tcboardbottomwidth,yshift=-0.7\tcboardthick+0.0375\tcboardthick+0.9\tcboardpenheight]frame.south) {[rounded corners=0.1\tcboardthick]--++ (0.1\tcboardpenwidth,-0.4\tcboardpenheight)} --++ (-0.1\tcboardpenwidth,-0.4\tcboardpenheight) -- cycle ;
+					\filldraw[black,line width=0.025\tcboardthick] ([xshift=0.385\tcboardbottomwidth,yshift=-0.7\tcboardthick+0.0375\tcboardthick+0.9\tcboardpenheight]frame.south) --++ (0.05\tcboardpenwidth,-0.2\tcboardpenheight) --++ (0,-0.4\tcboardpenheight) --++ (-0.05\tcboardpenwidth,-0.2\tcboardpenheight) -- cycle ;
+				}%
+				{}%
+		},%
+		#2
+	]%
+}%
+{%
+	\endtcolorbox%
 }
 
 \endinput

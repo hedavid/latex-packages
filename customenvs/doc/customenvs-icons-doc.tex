@@ -34,9 +34,17 @@
 	\LARGE\ceicon[design]{#2} & \itshape #2 & \ttfamily \textbackslash ceicon[design]\{#2\} & \sffamily #1 \\
 }
 
+\NewDocumentCommand{\showcasemathsymb}{mm}{%name + macro + page
+	\LARGE\ceicon[mathsymb]{#2} & \itshape #2 & \ttfamily \textbackslash ceicon[mathsymb]\{#2\} & \sffamily #1 \\
+}
+
+\NewDocumentCommand{\showcasegame}{mm}{%name + macro + page
+	\LARGE\ceicon[game]{#2} & \itshape #2 & \ttfamily \textbackslash ceicon[game]\{#2\} & \sffamily #1 \\
+}
+
 \begin{document}
 
-\title{The \textsf{customenvs-icons} package (0.1.0) -- \today}
+\title{The \textsf{customenvs-icons} package (0.1.2) -- September 11, 2025}
 \author{%
 	Cédric Pierquet\\%
 	\url{https://github.com/cpierquet/latex-packages/tree/main/customenvs} (LATEX package)
@@ -46,7 +54,9 @@
 This package provides \LaTeX{} support for various icons:
 \begin{itemize}
 	\item \url{https://www.svgrepo.com/collection/education-vectors/};
-	\item \url{https://www.svgrepo.com/collection/design-8/}).
+	\item \url{https://www.svgrepo.com/collection/design-8/};
+	\item \url{https://www.svgrepo.com/collection/math-symbols-4};
+	\item \url{https://www.svgrepo.com/collection/games-7}.
 \end{itemize}
 
 \medskip
@@ -77,7 +87,10 @@ Result: Inline \ceicon{brush} version
 \subsection{Generic macro}
 
 \begin{Verbatim}[frame=single]
-\ceicon[educ=TF,design=TF,height=...,(d)strut=...]<includegraphics options>{name}
+\ceicon%
+  [educ=TF,design=TF,mathdesign=TF,height=...,(d)strut=...]%
+  <includegraphics options>%
+  {name}
 \end{Verbatim}
 
 The boolean \texttt{[educ]} (\texttt{true} by default) activate \textsf{educ} version of icon, and the boolean \texttt{[design]} (\texttt{false} by default) activate \textsf{educ} version of icon. And key \texttt{[height=...]} can be:
@@ -260,6 +273,120 @@ The \textsf{PDF} file is \texttt{ce-designvectors-all.pdf}
 	\showcaseceicondesign{58}{vector-tablet}
 	\showcaseceicondesign{59}{vector-tablet-b}
 	\showcaseceicondesign{60}{web-design}
+\end{ceiconscase}
+
+\subsection{MathSymbol version (50 icons)}
+
+The \textsf{PDF} file is \texttt{ce-mathsymbols-all.pdf}
+
+\begin{ceiconscase}
+	\showcasemathsymb{1}{abacus}
+	\showcasemathsymb{2}{angle}
+	\showcasemathsymb{3}{axis}
+	\showcasemathsymb{4}{braces}
+	\showcasemathsymb{5}{brackets}
+	\showcasemathsymb{6}{calculator-keys}
+	\showcasemathsymb{7}{calculator}
+	\showcasemathsymb{8}{compass-draw}
+	\showcasemathsymb{9}{cone}
+	\showcasemathsymb{10}{cube}
+	\showcasemathsymb{11}{cylinder}
+	\showcasemathsymb{12}{division}
+	\showcasemathsymb{13}{emptyset}
+	\showcasemathsymb{14}{equal}
+	\showcasemathsymb{15}{equation}
+	\showcasemathsymb{16}{function}
+	\showcasemathsymb{17}{gravity}
+	\showcasemathsymb{18}{infinity}
+	\showcasemathsymb{19}{is-an-element-of}
+	\showcasemathsymb{20}{is-approximately-equal-to}
+	\showcasemathsymb{21}{is-greater-than}
+	\showcasemathsymb{22}{is-greater-than-or-equal-to}
+	\showcasemathsymb{23}{is-identical-with}
+	\showcasemathsymb{24}{is-less-than}
+	\showcasemathsymb{25}{is-less-than-or-equal-to}
+	\showcasemathsymb{26}{is-not-an-element-of}
+	\showcasemathsymb{27}{is-not-equal-to-not-equal}
+	\showcasemathsymb{28}{maths-add}
+	\showcasemathsymb{29}{minus}
+	\showcasemathsymb{30}{monitor}
+	\showcasemathsymb{31}{multiply-cancel}
+	\showcasemathsymb{32}{notebook}
+	\showcasemathsymb{33}{notepad}
+	\showcasemathsymb{34}{panel}
+	\showcasemathsymb{35}{parabolic}
+	\showcasemathsymb{36}{parenthesis}
+	\showcasemathsymb{37}{pencil}
+	\showcasemathsymb{38}{percentage}
+	\showcasemathsymb{39}{pi-pi}
+	\showcasemathsymb{40}{pie-chart}
+	\showcasemathsymb{41}{plus}
+	\showcasemathsymb{42}{presentation}
+	\showcasemathsymb{43}{protractor-rule}
+	\showcasemathsymb{44}{pyramid}
+	\showcasemathsymb{45}{set-square}
+	\showcasemathsymb{46}{smartphone}
+	\showcasemathsymb{47}{sphere}
+	\showcasemathsymb{48}{square-root}
+	\showcasemathsymb{49}{the-sum-of-sum}
+	\showcasemathsymb{50}{triangle}
+\end{ceiconscase}
+
+\subsection{Game version (50 icons)}
+
+The \textsf{PDF} file is \texttt{ce-gamevectors-all.pdf}
+
+\begin{ceiconscase}
+	\showcasegame{1}{backgammon}
+	\showcasegame{2}{blasterlaser}
+	\showcasegame{3}{checkers}
+	\showcasegame{4}{computergamepad}
+	\showcasegame{5}{croupier}
+	\showcasegame{6}{dicesdice}
+	\showcasegame{7}{domino}
+	\showcasegame{8}{eggpoke}
+	\showcasegame{9}{gamblerpoker}
+	\showcasegame{10}{gamecartridge}
+	\showcasegame{11}{gameconsolegamera}
+	\showcasegame{12}{gameconsolegamerb}
+	\showcasegame{13}{gameconsolepacman}
+	\showcasegame{14}{gameconsolea}
+	\showcasegame{15}{gameconsoleb}
+	\showcasegame{16}{gameconsolec}
+	\showcasegame{17}{gameconsoled}
+	\showcasegame{18}{gamestore}
+	\showcasegame{19}{gamepadgamecontroller}
+	\showcasegame{20}{gamepadjoysticka}
+	\showcasegame{21}{gamepadjoystickb}
+	\showcasegame{22}{gamepada}
+	\showcasegame{23}{gamepadb}
+	\showcasegame{24}{gamer}
+	\showcasegame{25}{locationpokea}
+	\showcasegame{26}{locationpokeb}
+	\showcasegame{27}{lotterybingo}
+	\showcasegame{28}{lotterya}
+	\showcasegame{29}{lotteryb}
+	\showcasegame{30}{magazine}
+	\showcasegame{31}{mobilegame}
+	\showcasegame{32}{moneyexchangecasino}
+	\showcasegame{33}{onlinegame}
+	\showcasegame{34}{pacman}
+	\showcasegame{35}{pokeballpoke}
+	\showcasegame{36}{pokegopoke}
+	\showcasegame{37}{poketrainerpoke}
+	\showcasegame{38}{pokerchipbet}
+	\showcasegame{39}{pokerchipspoker}
+	\showcasegame{40}{poker}
+	\showcasegame{41}{racinggamesteeringwheel}
+	\showcasegame{42}{roulettebet}
+	\showcasegame{43}{roulettecasino}
+	\showcasegame{44}{roulette}
+	\showcasegame{45}{slotmachinecasino}
+	\showcasegame{46}{supermariomushroom}
+	\showcasegame{47}{televisionarcade}
+	\showcasegame{48}{televisiongamer}
+	\showcasegame{49}{videogamegamer}
+	\showcasegame{50}{virtualreality}
 \end{ceiconscase}
 
 \end{document}

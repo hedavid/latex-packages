@@ -2,12 +2,15 @@
 % licence       : Released under the LaTeX Project Public License v1.3c or later, see http://www.latex-project.org/lppl.txtf
 % licence icons : https://www.svgrepo.com/collection/education-vectors/ CC-BY
 %               : https://www.svgrepo.com/collection/design-8/ CC0
+%               : https://www.svgrepo.com/collection/math-symbols-4 CC0
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{customenvs-icons}[2025/07/13 v0.1.0 Subpackage customenvs-icons]
+\ProvidesPackage{customenvs-icons}[2025/09/11 v0.1.2 Subpackage customenvs-icons]
 
 %====history
-% 0.1.0: initial version
+% 0.1.2: game 7
+% 0.1.1: Math-symbols-4
+% 0.1.0: Initial version
 
 %====packages
 \RequirePackage{ifthen}
@@ -45,6 +48,18 @@
 		\includegraphics[page=#1, ##1]{ce-designvectors-all.pdf}}%
 }%
 
+%====macro for generating mathsymbol
+\newcommand{\defineceiconsmathsymb}[2]{%
+	\expandafter\newcommand\csname ceiconmathsymb #2\endcsname[1]{%
+		\includegraphics[page=#1, ##1]{ce-mathsymbols-all.pdf}}%
+}%
+
+%====macro for generating game7
+\newcommand{\defineceiconsgame}[2]{%
+	\expandafter\newcommand\csname ceicongame #2\endcsname[1]{%
+		\includegraphics[page=#1, ##1]{ce-gamevectors-all.pdf}}%
+}%
+
 %====int macros
 \newcommand{\ceiconeduc}[2][height=\customenvsIconsDefaultHeight]{%
 	\csname ceiconeduc #2\endcsname{#1}%
@@ -52,21 +67,31 @@
 \newcommand{\ceicondesign}[2][height=\customenvsIconsDefaultHeight]{%
 	\csname ceicondesign #2\endcsname{#1}%
 }%
+\newcommand{\ceiconmathsymb}[2][height=\customenvsIconsDefaultHeight]{%
+	\csname ceiconmathsymb #2\endcsname{#1}%
+}%
+\newcommand{\ceicongame}[2][height=\customenvsIconsDefaultHeight]{%
+	\csname ceicongame #2\endcsname{#1}%
+}%
 
 %====main macro
 \defKV[customenvsicons]{height=\def\customenvsiconsheigth{#1},style=\def\customenvsiconsstyle{#1},strut=\def\customenvsiconsstrut{#1},dstrut=\def\customenvsiconsdstrut{#1}}
-\setKVdefault[customenvsicons]{height=dauto,educ=true,design=false,strut={X},dstrut={qX}}
+\setKVdefault[customenvsicons]{height=dauto,educ=true,design=false,mathsymb=false,game=false,strut={X},dstrut={qX}}
 
 \NewDocumentCommand\ceicon{O{}D<>{}m}{%
 	\restoreKV[customenvsicons]%
 	\setKV[customenvsicons]{#1}%
 	\ifboolKV[customenvsicons]{design}{\setKV[customenvsicons]{educ=false}}{}%
+	\ifboolKV[customenvsicons]{mathsymb}{\setKV[customenvsicons]{educ=false}}{}%
+	\ifboolKV[customenvsicons]{game}{\setKV[customenvsicons]{educ=false}}{}%
 	%lengths
 	\ifthenelse{\equal{\customenvsiconsheigth}{auto}}%
 	{%
 		\settoheight\customenvsIconsDefaultHeight{\hbox{\customenvsiconsstrut}}%height of \customenvsiconsstrut
 		\ifboolKV[customenvsicons]{educ}{\ceiconeduc[height=\customenvsIconsDefaultHeight,#2]{#3}}{}%
 		\ifboolKV[customenvsicons]{design}{\ceicondesign[height=\customenvsIconsDefaultHeight,#2]{#3}}{}%
+		\ifboolKV[customenvsicons]{mathsymb}{\ceiconmathsymb[height=\customenvsIconsDefaultHeight,#2]{#3}}{}%
+		\ifboolKV[customenvsicons]{game}{\ceicongame[height=\customenvsIconsDefaultHeight,#2]{#3}}{}%
 	}%
 	{%
 		\ifthenelse{\equal{\customenvsiconsheigth}{dauto}}%
@@ -75,6 +100,8 @@
 				\settodepth\customenvsIconsDefaultDepth{\hbox{\customenvsiconsdstrut}}%depth of \customenvsiconsdstrut
 				\ifboolKV[customenvsicons]{educ}{\raisebox{-\customenvsIconsDefaultDepth}{\ceiconeduc[height=\customenvsIconsDefaultTotalHeight,#2]{#3}}}{}%
 				\ifboolKV[customenvsicons]{design}{\raisebox{-\customenvsIconsDefaultDepth}{\ceicondesign[height=\customenvsIconsDefaultTotalHeight,#2]{#3}}}{}%
+				\ifboolKV[customenvsicons]{mathsymb}{\raisebox{-\customenvsIconsDefaultDepth}{\ceiconmathsymb[height=\customenvsIconsDefaultTotalHeight,#2]{#3}}}{}%
+				\ifboolKV[customenvsicons]{game}{\raisebox{-\customenvsIconsDefaultDepth}{\ceicongame[height=\customenvsIconsDefaultTotalHeight,#2]{#3}}}{}%
 			}%
 			{%
 				\IfSubStr{\customenvsiconsheigth}{/}%
@@ -84,11 +111,15 @@
 						\setlength\customenvsIconsDefaultDepth{\ceiconsmanualdepth}%
 						\ifboolKV[customenvsicons]{educ}{\raisebox{\customenvsIconsDefaultDepth}{\ceiconeduc[height=\customenvsIconsNormalHeight,#2]{#3}}}{}%
 						\ifboolKV[customenvsicons]{design}{\raisebox{\customenvsIconsDefaultDepth}{\ceicondesign[height=\customenvsIconsNormalHeight,#2]{#3}}}{}%
+						\ifboolKV[customenvsicons]{mathsymb}{\raisebox{\customenvsIconsDefaultDepth}{\ceiconmathsymb[height=\customenvsIconsNormalHeight,#2]{#3}}}{}%
+						\ifboolKV[customenvsicons]{game}{\raisebox{\customenvsIconsDefaultDepth}{\ceicongame[height=\customenvsIconsNormalHeight,#2]{#3}}}{}%
 					}%
 					{%
 						\setlength\customenvsIconsNormalHeight{\customenvsiconsheigth}%
 						\ifboolKV[customenvsicons]{educ}{\ceiconeduc[height=\customenvsIconsNormalHeight,#2]{#3}}{}%
 						\ifboolKV[customenvsicons]{design}{\ceicondesign[height=\customenvsIconsNormalHeight,#2]{#3}}{}%
+						\ifboolKV[customenvsicons]{mathsymb}{\ceiconmathsymb[height=\customenvsIconsNormalHeight,#2]{#3}}{}%
+						\ifboolKV[customenvsicons]{game}{\ceicongame[height=\customenvsIconsNormalHeight,#2]{#3}}{}%
 					}%
 			}%
 	}%
@@ -197,5 +228,109 @@
 \defineceiconsdesign{58}{vector-tablet}
 \defineceiconsdesign{59}{vector-tablet-b}
 \defineceiconsdesign{60}{web-design}
+
+%====MATHSYMBOL GEN
+\defineceiconsmathsymb{1}{abacus}
+\defineceiconsmathsymb{2}{angle}
+\defineceiconsmathsymb{3}{axis}
+\defineceiconsmathsymb{4}{braces}
+\defineceiconsmathsymb{5}{brackets}
+\defineceiconsmathsymb{6}{calculator-keys}
+\defineceiconsmathsymb{7}{calculator}
+\defineceiconsmathsymb{8}{compass-draw}
+\defineceiconsmathsymb{9}{cone}
+\defineceiconsmathsymb{10}{cube}
+\defineceiconsmathsymb{11}{cylinder}
+\defineceiconsmathsymb{12}{division}
+\defineceiconsmathsymb{13}{emptyset}
+\defineceiconsmathsymb{14}{equal}
+\defineceiconsmathsymb{15}{equation}
+\defineceiconsmathsymb{16}{function}
+\defineceiconsmathsymb{17}{gravity}
+\defineceiconsmathsymb{18}{infinity}
+\defineceiconsmathsymb{19}{is-an-element-of}
+\defineceiconsmathsymb{20}{is-approximately-equal-to}
+\defineceiconsmathsymb{21}{is-greater-than}
+\defineceiconsmathsymb{22}{is-greater-than-or-equal-to}
+\defineceiconsmathsymb{23}{is-identical-with}
+\defineceiconsmathsymb{24}{is-less-than}
+\defineceiconsmathsymb{25}{is-less-than-or-equal-to}
+\defineceiconsmathsymb{26}{is-not-an-element-of}
+\defineceiconsmathsymb{27}{is-not-equal-to-not-equal}
+\defineceiconsmathsymb{28}{maths-add}
+\defineceiconsmathsymb{29}{minus}
+\defineceiconsmathsymb{30}{monitor}
+\defineceiconsmathsymb{31}{multiply-cancel}
+\defineceiconsmathsymb{32}{notebook}
+\defineceiconsmathsymb{33}{notepad}
+\defineceiconsmathsymb{34}{panel}
+\defineceiconsmathsymb{35}{parabolic}
+\defineceiconsmathsymb{36}{parenthesis}
+\defineceiconsmathsymb{37}{pencil}
+\defineceiconsmathsymb{38}{percentage}
+\defineceiconsmathsymb{39}{pi-pi}
+\defineceiconsmathsymb{40}{pie-chart}
+\defineceiconsmathsymb{41}{plus}
+\defineceiconsmathsymb{42}{presentation}
+\defineceiconsmathsymb{43}{protractor-rule}
+\defineceiconsmathsymb{44}{pyramid}
+\defineceiconsmathsymb{45}{set-square}
+\defineceiconsmathsymb{46}{smartphone}
+\defineceiconsmathsymb{47}{sphere}
+\defineceiconsmathsymb{48}{square-root}
+\defineceiconsmathsymb{49}{the-sum-of-sum}
+\defineceiconsmathsymb{50}{triangle}
+
+%====GAME GEN
+\defineceiconsgame{1}{backgammon}
+\defineceiconsgame{2}{blasterlaser}
+\defineceiconsgame{3}{checkers}
+\defineceiconsgame{4}{computergamepad}
+\defineceiconsgame{5}{croupier}
+\defineceiconsgame{6}{dicesdice}
+\defineceiconsgame{7}{domino}
+\defineceiconsgame{8}{eggpoke}
+\defineceiconsgame{9}{gamblerpoker}
+\defineceiconsgame{10}{gamecartridge}
+\defineceiconsgame{11}{gameconsolegamera}
+\defineceiconsgame{12}{gameconsolegamerb}
+\defineceiconsgame{13}{gameconsolepacman}
+\defineceiconsgame{14}{gameconsolea}
+\defineceiconsgame{15}{gameconsoleb}
+\defineceiconsgame{16}{gameconsolec}
+\defineceiconsgame{17}{gameconsoled}
+\defineceiconsgame{18}{gamestore}
+\defineceiconsgame{19}{gamepadgamecontroller}
+\defineceiconsgame{20}{gamepadjoysticka}
+\defineceiconsgame{21}{gamepadjoystickb}
+\defineceiconsgame{22}{gamepada}
+\defineceiconsgame{23}{gamepadb}
+\defineceiconsgame{24}{gamer}
+\defineceiconsgame{25}{locationpokea}
+\defineceiconsgame{26}{locationpokeb}
+\defineceiconsgame{27}{lotterybingo}
+\defineceiconsgame{28}{lotterya}
+\defineceiconsgame{29}{lotteryb}
+\defineceiconsgame{30}{magazine}
+\defineceiconsgame{31}{mobilegame}
+\defineceiconsgame{32}{moneyexchangecasino}
+\defineceiconsgame{33}{onlinegame}
+\defineceiconsgame{34}{pacman}
+\defineceiconsgame{35}{pokeballpoke}
+\defineceiconsgame{36}{pokegopoke}
+\defineceiconsgame{37}{poketrainerpoke}
+\defineceiconsgame{38}{pokerchipbet}
+\defineceiconsgame{39}{pokerchipspoker}
+\defineceiconsgame{40}{poker}
+\defineceiconsgame{41}{racinggamesteeringwheel}
+\defineceiconsgame{42}{roulettebet}
+\defineceiconsgame{43}{roulettecasino}
+\defineceiconsgame{44}{roulette}
+\defineceiconsgame{45}{slotmachinecasino}
+\defineceiconsgame{46}{supermariomushroom}
+\defineceiconsgame{47}{televisionarcade}
+\defineceiconsgame{48}{televisiongamer}
+\defineceiconsgame{49}{videogamegamer}
+\defineceiconsgame{50}{virtualreality}
 
 \endinput

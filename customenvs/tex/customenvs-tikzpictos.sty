@@ -2,9 +2,13 @@
 % licence.........: Released under the LaTeX Project Public License v1.3c or later, see http://www.latex-project.org/lppl.txt
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{customenvs-tikzpictos}[2025/08/04 0.1.5 Small pictograms, made with tikz]
+\ProvidesPackage{customenvs-tikzpictos}[2025/09/11 0.1.9 Small pictograms, made with tikz]
 
 %====HISTORY
+% v 0.1.9	Hair gk
+% v 0.1.8	Simple ProgressBar
+% v 0.1.7	Rings + Rubik's Cube
+% v 0.1.6	Bugfix with pictostars (raisebox...)
 % v 0.1.5	Inline badge (inspired by tikz-shields) + small stamp
 % v 0.1.4	Strut option for sample characters + difficultylevels + dballs + stamp
 % v 0.1.3	Clippy
@@ -20,7 +24,7 @@
 \RequirePackage{ifthen}
 \RequirePackage{calc}
 \RequirePackage{tikz}
-\usetikzlibrary{shapes.geometric,bbox}
+\usetikzlibrary{shapes.geometric,bbox,calc}
 \RequirePackage{tcolorbox}
 \tcbuselibrary{skins}
 
@@ -49,6 +53,13 @@
 	height=dauto,%
 	strut={\samplestrutletters},%
 	dstrut={\sampledstrutletters}
+}
+
+\newcommand\intpictostars{%
+	\foreach \X in {1,...,\tkzLevelStarsMaxLevel}{%
+		\xdef\tmpxfill{\xintfloateval{min(1,max(1+(\pictotmpnbetoiles)-\X,0))}}%
+		\path ({\X*(\pictotmphauteuretoiles+\pictotmpoffsetetoiles)},0) node[star,draw,star point height={0.25\pictotmphauteuretoiles},minimum size={\pictotmphauteuretoiles},inner sep=0pt,path picture={\fill (path picture bounding box.south west) rectangle  ([xshift=\tmpxfill*0.9515*\pictotmphauteuretoiles]path picture bounding box.north west);}]{};
+	}%
 }
 
 \NewDocumentCommand{\pictostars}{O{}D<>{}m}{%(OK) modif avec hauteur
@@ -84,6 +95,8 @@
 					\setlength{\pictotmphauteuretoiles}{0.975\pictotmphauteuretoiles}%
 					%classic tikzpicture
 					\begin{tikzpicture}[bezier bounding box,fill=\tkzLevelStarsColorBg,draw=\tkzLevelStarsColor,rounded corners={0.05\pictotmphauteuretoiles},line width={0.05\pictotmphauteuretoiles},#2]
+						\intpictostars
+					\end{tikzpicture}%
 				}{}%
 			\IfStrEq{\pictotmpheightetetoiles}{dauto}%
 				{%
@@ -91,19 +104,22 @@
 					\setlength{\pictotmphauteuretoiles}{0.975\pictotmphauteuretoiles}%
 					\settodepth{\pictotmpprofondeuretoiles}{\hbox{\pictotmpdstrutetetoiles}}%
 					%raised tikzpicture
-					\begin{tikzpicture}[bezier bounding box,baseline={-\pictotmpprofondeuretoiles},fill=\tkzLevelStarsColorBg,draw=\tkzLevelStarsColor,rounded corners={0.05\pictotmphauteuretoiles},line width={0.05\pictotmphauteuretoiles},#2]
-				}{}%
+					%\begin{tikzpicture}[bezier bounding box,baseline={-1.25\pictotmpprofondeuretoiles},fill=\tkzLevelStarsColorBg,draw=\tkzLevelStarsColor,rounded corners={0.05\pictotmphauteuretoiles},line width={0.05\pictotmphauteuretoiles},#2]
+					\raisebox{\dimexpr-\pictotmpprofondeuretoiles+0.025\pictotmphauteuretoiles\relax}{%
+						\begin{tikzpicture}[bezier bounding box,fill=\tkzLevelStarsColorBg,draw=\tkzLevelStarsColor,rounded corners={0.05\pictotmphauteuretoiles},line width={0.05\pictotmphauteuretoiles},#2]
+							\intpictostars
+						\end{tikzpicture}%
+					}%
+				}%
+				{}%
 		}%
 		{%
 			\setlength\pictotmphauteuretoiles{\pictotmpheightetetoiles}%
 			%classic tikzpicture
 			\begin{tikzpicture}[bezier bounding box,fill=\tkzLevelStarsColorBg,draw=\tkzLevelStarsColor,rounded corners={0.05\pictotmphauteuretoiles},line width={0.05\pictotmphauteuretoiles},#2]
+				\intpictostars
+			\end{tikzpicture}%
 		}%
-		\foreach \X in {1,...,\tkzLevelStarsMaxLevel}{%
-			\xdef\tmpxfill{\xintfloateval{min(1,max(1+(\pictotmpnbetoiles)-\X,0))}}%
-			\path ({\X*(\pictotmphauteuretoiles+\pictotmpoffsetetoiles)},0) node[star,draw,star point height={0.25\pictotmphauteuretoiles},minimum size={\pictotmphauteuretoiles},inner sep=0pt,path picture={\fill (path picture bounding box.south west) rectangle  ([xshift=\tmpxfill*0.9515*\pictotmphauteuretoiles]path picture bounding box.north west);}]{};
-		}
-	\end{tikzpicture}%
 }
 
 %====PICTO SPEEDO
@@ -1820,5 +1836,366 @@
 	\end{tikzpicture}%
 }
 
+%====RINGS inspiration https://tex.stackexchange.com/posts/323693/timeline (3.0)
+
+\newlength\tkzRingsHeight
+\newlength\tkzRingsDepth
+\newlength\tkzRingsFullHeight
+
+\defKV[tkzRings]{height=\def\tkzRingsTypeHeight{#1},strut=\def\tkzRingsTypeStrut{#1},dstrut=\def\tkzRingsTypeDstrut{#1},clip bb=\def\tkzRingsClipBB{#1}}
+\setKVdefault[tkzRings]{height=dauto,strut=H,dstrut=qH,clip bb=0pt,color=true}
+
+\definecolor{tkzRings@color@blue}{RGB}{0,120,208}        % A blue
+\definecolor{tkzRings@color@yellow}{RGB}{255,177,20}     % B yellow
+\definecolor{tkzRings@color@black}{RGB}{0,0,0}           % C black
+\definecolor{tkzRings@color@green}{RGB}{0,166,81}        % D green
+\definecolor{tkzRings@color@red}{RGB}{240,40,45}         % E red
+
+\def\tkzRingsGap(#1,#2)(#3:#4){%
+	($(#1,#2) + (#3:\tkzRingsOuterWhiteRadius)$)
+	arc(#3:#4:\tkzRingsOuterWhiteRadius) --
+	($(#1,#2) + (#4:\tkzRingsInnerWhiteRadius)$)
+	arc(#4:#3:\tkzRingsInnerWhiteRadius) --
+	cycle
+}
+
+%constants
+\def\tkzRingsxShift{169.5538bp}%
+\def\tkzRingsyShift{-71.7013bp}%
+\def\tkzRingsRadius{71.6821bp}%
+\def\tkzRingsWhiteLineWidth{3.762bp}%
+\def\tkzRingsColorLineWidth{12.9041bp}%
+%radius
+\pgfmathsetlengthmacro{\tkzRingsInnerColorRadius}{\tkzRingsRadius - \tkzRingsColorLineWidth/2}%
+\pgfmathsetlengthmacro{\tkzRingsOuterColorRadius}{\tkzRingsRadius + \tkzRingsColorLineWidth/2}%
+\pgfmathsetlengthmacro{\tkzRingsInnerWhiteRadius}{\tkzRingsInnerColorRadius - \tkzRingsWhiteLineWidth}%
+\pgfmathsetlengthmacro{\tkzRingsOuterWhiteRadius}{\tkzRingsOuterColorRadius + \tkzRingsWhiteLineWidth}%
+%centers
+\def\tkzRingsxA{0pt}%
+\def\tkzRingsyA{0pt}%
+\pgfmathsetlengthmacro{\tkzRingsxC}{\tkzRingsxA + \tkzRingsxShift}%
+\let\tkzRingsyC\tkzRingsyA%
+\pgfmathsetlengthmacro{\tkzRingsxE}{\tkzRingsxC + \tkzRingsxShift}%
+\let\tkzRingsyE\tkzRingsyC%
+\pgfmathsetlengthmacro{\tkzRingsxB}{(\tkzRingsxA + \tkzRingsxC)/2}%
+\pgfmathsetlengthmacro{\tkzRingsyB}{\tkzRingsxA + \tkzRingsyShift}%
+\pgfmathsetlengthmacro{\tkzRingsxD}{(\tkzRingsxC + \tkzRingsxE)/2}%
+\let\tkzRingsyD\tkzRingsyB%
+%bbox
+\pgfmathsetlengthmacro\tkzRingsllxBB{\tkzRingsxA - \tkzRingsOuterColorRadius}%
+\pgfmathsetlengthmacro\tkzRingsllyBB{\tkzRingsyB - \tkzRingsOuterColorRadius}%
+\pgfmathsetlengthmacro\tkzRingsurxBB{\tkzRingsxE + \tkzRingsOuterColorRadius}%
+\pgfmathsetlengthmacro\tkzRingsuryBB{\tkzRingsyE + \tkzRingsOuterColorRadius}%
+%cliiping bbox
+\pgfmathsetlengthmacro\tkzRingsllxClip{\tkzRingsllxBB - \tkzRingsClipBB}%
+\pgfmathsetlengthmacro\tkzRingsllyClip{\tkzRingsllyBB - \tkzRingsClipBB}%
+\pgfmathsetlengthmacro\tkzRingsurxClip{\tkzRingsurxBB + \tkzRingsClipBB}%
+\pgfmathsetlengthmacro\tkzRingsuryClip{\tkzRingsuryBB + \tkzRingsClipBB}%
+\def\tkzRingsClipBoxArea{(\tkzRingsllxClip, \tkzRingsllyClip) rectangle (\tkzRingsurxClip, \tkzRingsuryClip)}
+
+\newcommand\intTkzRings{%
+	% upper
+	\begin{scope}[even odd rule]
+		\clip \tkzRingsClipBoxArea
+		% yellow ring in blue ring
+		\tkzRingsGap(\tkzRingsxB,\tkzRingsyB)(225:135)
+		% yellow ring in black ring
+		\tkzRingsGap(\tkzRingsxB, \tkzRingsyB)(90:45)
+		% green ring in black ring
+		\tkzRingsGap(\tkzRingsxD, \tkzRingsyD)(225:135)
+		% green ring in red ring
+		\tkzRingsGap(\tkzRingsxD, \tkzRingsyD)(90:45) ;
+		\ifboolKV[tkzRings]{color}%
+			{%
+				\draw[tkzRings@color@blue] (\tkzRingsxA, \tkzRingsyA) circle;
+				\draw[tkzRings@color@black] (\tkzRingsxC, \tkzRingsyC) circle;
+				\draw[tkzRings@color@red] (\tkzRingsxE, \tkzRingsyE) circle;
+			}%
+			{%
+				\draw (\tkzRingsxA, \tkzRingsyA) circle;
+				\draw (\tkzRingsxC, \tkzRingsyC) circle;
+				\draw (\tkzRingsxE, \tkzRingsyE) circle;
+			}%
+	\end{scope}
+	% lower
+	\begin{scope}[even odd rule]
+		\clip \tkzRingsClipBoxArea
+		% blue ring in yellow ring
+		\tkzRingsGap(\tkzRingsxA, \tkzRingsyA)(45:-45)
+		% black ring in yellow ring
+		\tkzRingsGap(\tkzRingsxC, \tkzRingsyC)(225:270)
+		% black ring in green ring
+		\tkzRingsGap(\tkzRingsxC, \tkzRingsyC)(45:-45)
+		% red ring in green ring
+		\tkzRingsGap(\tkzRingsxE, \tkzRingsyE)(225:270) ;
+		\ifboolKV[tkzRings]{color}%
+			{%
+				\draw[tkzRings@color@yellow] (\tkzRingsxB, \tkzRingsyB) circle;
+				\draw[tkzRings@color@green] (\tkzRingsxD, \tkzRingsyD) circle;
+			}%
+			{%
+				\draw (\tkzRingsxB, \tkzRingsyB) circle;
+				\draw (\tkzRingsxD, \tkzRingsyD) circle;
+			}%
+	\end{scope}
+	\useasboundingbox (\tkzRingsllxBB, \tkzRingsllyBB) rectangle (\tkzRingsurxBB, \tkzRingsuryBB);
+}
+\NewDocumentCommand\tkzRings{O{}m}{%
+	\restoreKV[tkzRings]%
+	\setKV[tkzRings]{#1}%
+	%scale
+	\IfSubStr{\tkzRingsTypeHeight}{auto}%
+		{%
+			\IfSubStr{\tkzRingsTypeHeight}{d}%
+				{%
+					\settototalheight\tkzRingsHeight{\hbox{\tkzRingsTypeDstrut}}%
+					\settodepth\tkzRingsDepth{\hbox{\tkzRingsTypeDstrut}}%
+					\pgfmathsetlengthmacro{\tkzRingsFullHeight}{(\tkzRingsyA+\tkzRingsRadius)-(\tkzRingsyB-\tkzRingsRadius)}%
+					\xdef\tkzRingsScale{\fpeval{\tkzRingsHeight/(\tkzRingsFullHeight+\tkzRingsColorLineWidth)}}%
+					\settodepth\tkzRingsDepth{\hbox{\tkzRingsTypeDstrut}}%
+					\raisebox{-\tkzRingsDepth}{%
+						\begin{tikzpicture}[scale=\tkzRingsScale,line width=\fpeval{\tkzRingsScale*\tkzRingsColorLineWidth},radius=\tkzRingsRadius,#2]
+							\intTkzRings
+						\end{tikzpicture}%
+					}%
+				}%
+				{%
+					\settototalheight\tkzRingsHeight{\hbox{\tkzRingsTypeStrut}}%
+					\pgfmathsetlengthmacro{\tkzRingsFullHeight}{(\tkzRingsyA+\tkzRingsRadius)-(\tkzRingsyB-\tkzRingsRadius)}%
+					\xdef\tkzRingsScale{\fpeval{\tkzRingsHeight/(\tkzRingsFullHeight+\tkzRingsColorLineWidth)}}%
+					\begin{tikzpicture}[scale=\tkzRingsScale,line width=\fpeval{\tkzRingsScale*\tkzRingsColorLineWidth},radius=\tkzRingsRadius,#2]
+						\intTkzRings
+					\end{tikzpicture}%
+				}%
+		}%
+		{%
+			%scale
+			\setlength\tkzRingsHeight{\tkzRingsTypeHeight}%
+			\pgfmathsetlengthmacro{\tkzRingsFullHeight}{(\tkzRingsyA+\tkzRingsRadius)-(\tkzRingsyB-\tkzRingsRadius)}%
+			\xdef\tkzRingsScale{\fpeval{\tkzRingsHeight/(\tkzRingsFullHeight+\tkzRingsColorLineWidth)}}%
+			%tikzpicture
+			\begin{tikzpicture}[scale=\tkzRingsScale,line width=\fpeval{\tkzRingsScale*\tkzRingsColorLineWidth},radius=\tkzRingsRadius,#2]
+				\intTkzRings
+			\end{tikzpicture}%
+		}%
+}
+
+\NewCommandCopy\pictorings\tkzRings
+
+%====RUBIK's CUBE
+\RequirePackage{tikz-3dplot}
+\usetikzlibrary{3d}
+
+\setKVdefault[tikzrubik]{height=auto,width=auto,radius=0.1,strut={qM},empty color={},rescale=1}
+\defKV[tikzrubik]{height=\def\tikzrubikmyheight{#1},width=\def\tikzrubikmywidth{#1},radius=\pgfmathsetmacro\tikzrubikradius{#1},strut=\def\tikzrubikstrut{#1},empty color=\def\tikzrubikfillempty{#1},rescale=\def\tikzrubikmycustomscale{#1}}
+
+%====colors
+\definecolor{rcB}{HTML}{0000FF}
+\definecolor{rcW}{HTML}{FFFFFF}
+\definecolor{rcY}{HTML}{FFFF00}
+\definecolor{rcG}{HTML}{008000}
+\definecolor{rcO}{HTML}{FFA500}
+\definecolor{rcR}{HTML}{FF0000}
+%list of colors (array)
+\def\myrubcolors{{"rcW","rcY","rcY","rcR","rcW","rcB","rcW","rcO","rcB","rcG","rcR","rcG","rcR","rcO","rcG","rcY","rcG","rcW","rcB","rcO","rcB","rcG","rcG","rcW","rcO","rcW","rcR"}}
+%====dim
+\newlength\tikrcfixedheight
+\newlength\tikrcfixedwidth
+\setlength\tikrcfixedheight{4.46cm}
+\setlength\tikrcfixedwidth{4.15cm}
+\newlength\tikrcusedheight
+\newlength\tikrcusedwidth
+\newlength\tikrcuseddepth
+
+\newcommand\inttkzrubic{%
+	\begin{tikzpicture}[scale=\tikrcscale,line width=\fpeval{\tikrcscale*0.4}mm,transform shape]
+%		\draw[lightgray,xstep=0.1,ystep=0.1] (-2.2,-2.3) grid (2.2,2.3) ;
+%		\draw[gray] (-2.2,-2.3) grid (2.2,2.3) ;
+		%\tdplotsetmaincoords{55}{150}%
+		\tdplotsetmaincoords{65}{120}%
+		\begin{scope}[tdplot_main_coords,line join=round,fill=\tikzrubikfillempty]
+			\foreach \X in {-1.5,-0.5,0.5}{
+				\foreach \Y in {-1.5,-0.5,0.5}{
+					%faces1/2/3 (hidden)
+					\draw [canvas is yz plane at x=-1.5,shift={(\X,\Y)}] (0.5,0) -- ({1-\tikzrubikradius},0) arc (-90:0:\tikzrubikradius) -- (1,{1-\tikzrubikradius}) arc (0:90:\tikzrubikradius) -- (\tikzrubikradius,1) arc (90:180:\tikzrubikradius) -- (0,\tikzrubikradius) arc (180:270:\tikzrubikradius) -- cycle;
+					\draw [canvas is xz plane at y=-1.5,shift={(\X,\Y)}] (0.5,0) -- ({1-\tikzrubikradius},0) arc (-90:0:\tikzrubikradius) -- (1,{1-\tikzrubikradius}) arc (0:90:\tikzrubikradius) -- (\tikzrubikradius,1) arc (90:180:\tikzrubikradius) -- (0,\tikzrubikradius) arc (180:270:\tikzrubikradius) -- cycle;
+					\draw [canvas is yx plane at z=-1.5,shift={(\X,\Y)}] (0.5,0) -- ({1-\tikzrubikradius},0) arc (-90:0:\tikzrubikradius) -- (1,{1-\tikzrubikradius}) arc (0:90:\tikzrubikradius) -- (\tikzrubikradius,1) arc (90:180:\tikzrubikradius) -- (0,\tikzrubikradius) arc (180:270:\tikzrubikradius) -- cycle;
+				}
+			}
+		\end{scope}
+		\begin{scope}[tdplot_main_coords,line join=round]
+			\foreach \X [count=\nX starting from 0] in {-1.5,-0.5,0.5}{
+				\foreach \Y [count=\nY starting from 0] in {-1.5,-0.5,0.5}{
+					%faces4/5/6 (view)
+					\pgfmathtruncatemacro{\numposcol}{\nX+3*(2-\nY)}
+					\pgfmathsetmacro{\myrccolor}{\myrubcolors[\numposcol]}
+					\draw [canvas is yz plane at x=1.5,shift={(\X,\Y)},fill=\myrccolor] (0.5,0) -- ({1-\tikzrubikradius},0) arc (-90:0:\tikzrubikradius) -- (1,{1-\tikzrubikradius}) arc (0:90:\tikzrubikradius) -- (\tikzrubikradius,1) arc (90:180:\tikzrubikradius) -- (0,\tikzrubikradius) arc (180:270:\tikzrubikradius) -- cycle;
+					\pgfmathtruncatemacro{\numposcol}{2-\nX+3*(2-\nY)+9}
+					\pgfmathsetmacro{\myrccolor}{\myrubcolors[\numposcol]}
+					\draw [canvas is xz plane at y=1.5,shift={(\X,\Y)},fill=\myrccolor] (0.5,0) -- ({1-\tikzrubikradius},0) arc (-90:0:\tikzrubikradius) -- (1,{1-\tikzrubikradius}) arc (0:90:\tikzrubikradius) -- (\tikzrubikradius,1) arc (90:180:\tikzrubikradius) -- (0,\tikzrubikradius) arc (180:270:\tikzrubikradius) -- cycle;
+					\pgfmathtruncatemacro{\numposcol}{2-\nY+3*\nX+18}
+					\pgfmathsetmacro{\myrccolor}{\myrubcolors[\numposcol]}
+					\draw [canvas is yx plane at z=1.5,shift={(\X,\Y)},fill=\myrccolor] (0.5,0) -- ({1-\tikzrubikradius},0) arc (-90:0:\tikzrubikradius) -- (1,{1-\tikzrubikradius}) arc (0:90:\tikzrubikradius) -- (\tikzrubikradius,1) arc (90:180:\tikzrubikradius) -- (0,\tikzrubikradius) arc (180:270:\tikzrubikradius) -- cycle;
+				}
+			}
+		\end{scope}
+	\end{tikzpicture}%
+}
+
+\NewDocumentCommand\tkzPuzzleCube{ !O{} }{%
+	\restoreKV[tikzrubik]%
+	\setKV[tikzrubik]{#1}%
+	\ifthenelse{\equal{\tikzrubikmyheight}{auto}}%
+		{%
+			\ifthenelse{\equal{\tikzrubikmywidth}{auto}}%
+				{%full auto (inline ?)
+					\settototalheight\tikrcusedheight{\hbox{\tikzrubikstrut}}%
+					\settodepth\tikrcuseddepth{\hbox{\tikzrubikstrut}}%
+					\xdef\tikrcscale{\fpeval{\tikzrubikmycustomscale*\tikrcusedheight/\tikrcfixedheight}}%
+					\raisebox{\dimexpr-\tikrcuseddepth+0.5\tikrcusedheight-\fpeval{0.5*\tikzrubikmycustomscale}\tikrcusedheight\relax}{\inttkzrubic}%
+				}%
+				{%width given
+					\setlength\tikrcusedwidth{\tikzrubikmywidth}%
+					\xdef\tikrcscale{\fpeval{\tikrcusedwidth/\tikrcfixedwidth}}%
+					\inttkzrubic
+				}%
+		}%
+		{%
+			\ifthenelse{\equal{\tikzrubikmywidth}{auto}}%
+				{%height given
+					\setlength\tikrcusedheight{\tikzrubikmyheight}%
+					\xdef\tikrcscale{\fpeval{\tikrcusedheight/\tikrcfixedheight}}%
+					\inttkzrubic
+				}%
+				{}%
+		}%
+}
+
+\NewCommandCopy\pictorubcube\tkzPuzzleCube
+
+%====SIMPLE PROGRESS BAR
+\newlength\widthprogressbartikz
+\newlength\depthprogressbartikz
+\newlength\heightprogressbartikz
+
+\colorlet{colorprogressbartikz}{gray}
+\colorlet{colorprogressbarbordertikz}{black}
+
+\tikzset{progressbartikzshade/.style={shading=axis,right color=colorprogressbartikz,left color=colorprogressbartikz!50!white}}
+
+\newcommand\intprogressbartikz[1]{%
+	\begin{tikzpicture}[x={\widthprogressbartikz},y={\heightprogressbartikz},line width={\fpeval{0.0375*\heightprogressbartikz}pt},scale=\fpeval{1/(1+0.0375)}]
+		\ifboolKV[progressbartikz]{shade}
+			{%
+				\fill[progressbartikzshade] (0,0) rectangle ({#1},1);
+			}%
+			{%
+				\fill[colorprogressbartikz] (0,0) rectangle ({#1},1);
+			}%
+		\draw[colorprogressbarbordertikz] (0,0) rectangle (1,1);
+	\end{tikzpicture}%
+}
+
+\defKV[progressbartikz]{%
+	width=\setlength\widthprogressbartikz{#1},%
+	height=\def\typeheightprogressbartikz{#1},%
+	fill color=\colorlet{colorprogressbartikz}{#1},%
+	border color=\colorlet{colorprogressbarbordertikz}{#1},%
+	strut=\def\strutprogressbartikz{#1},%
+	dstrut=\def\dstrutprogressbartikz{#1}
+}
+
+\setKVdefault[progressbartikz]{%
+	width=1.25in,%
+	height=dauto,%
+	fill color=gray,%
+	border color=black,%
+	shade=true,%
+	strut={M},%
+	dstrut={qM}
+}
+
+\NewDocumentCommand{\tkzProgressbar}{ O{} m }{%
+	\restoreKV[progressbartikz]%
+	\setKV[progressbartikz]{#1}%
+	\xdef\tmpargpbtikz{\fpeval{min(max(#2,0),1)}}%
+	\ifthenelse{\equal{\typeheightprogressbartikz}{dauto}}%
+		{%
+			\settototalheight\heightprogressbartikz{\hbox{\dstrutprogressbartikz}}%
+			\settodepth\depthprogressbartikz{\hbox{\dstrutprogressbartikz}}%
+			\raisebox{-\depthprogressbartikz}%
+				{%
+					\intprogressbartikz{\tmpargpbtikz}%
+				}%
+		}%
+		{%
+			\ifthenelse{\equal{\typeheightprogressbartikz}{auto}}%
+				{%height given
+					\settoheight\heightprogressbartikz{\hbox{\strutprogressbartikz}}%
+				}%
+				{%
+					\setlength\heightprogressbartikz{\typeheightprogressbartikz}%
+				}%
+			\intprogressbartikz{\tmpargpbtikz}%
+		}%
+}
+
+\NewCommandCopy\pictoprogressbar\tkzProgressbar
+
+%====kakarot Hair
+\newlength\tkzhairgkheight
+\newlength\tkzhairgkfullheight
+\newlength\tkzhairgkdepth
+\setlength\tkzhairgkfullheight{8cm}
+
+\newcommand\inttkzhairgk[2][]{%
+	\begin{tikzpicture}[scale=#2,#1,transform shape,]
+		\path[draw=none,fill] (10.0, -7.9).. controls (10.0, -7.9) 
+		and (10.9, -7.1) .. (11.7, -7.0).. controls (11.7, -7.0) and (10.8, -6.5) .. 
+		(9.0, -6.9).. controls (9.0, -6.9) and (8.6, -5.5) .. (7.2, -5.5).. controls 
+		(7.2, -5.5) and (6.7, -3.4) .. (5.7, -2.6).. controls (5.7, -2.6) and (6.2, 
+		-3.9) .. (6.1, -4.9).. controls (6.1, -4.9) and (5.3, -3.4) .. (2.9, -3.4).. 
+		controls (2.9, -3.4) and (3.7, -4.1) .. (3.9, -4.7).. controls (3.9, -4.7) and
+		(3.3, -4.7) .. (2.9, -4.9).. controls (2.9, -4.9) and (4.1, -5.4) .. (4.1, 
+		-6.1).. controls (4.1, -6.1) and (2.6, -5.2) .. (0.8, -6.3).. controls (0.8, 
+		-6.3) and (2.6, -6.9) .. (3.5, -8.3).. controls (3.5, -8.3) and (2.2, -8.0) ..
+		(1.0, -8.8).. controls (1.0, -8.8) and (3.3, -8.9) .. (4.0, -9.7).. controls 
+		(4.0, -9.7) and (3.3, -10.1) .. (3.0, -10.3).. controls (3.0, -10.3) and (4.4,
+		-10.2) .. (4.6, -10.5).. controls (4.6, -10.5) and (4.3, -9.6) .. (4.2, 
+		-8.7).. controls (4.2, -8.7) and (4.5, -8.7) .. (4.9, -9.7).. controls (4.9, 
+		-9.7) and (5.0, -8.5) .. (5.5, -8.4).. controls (5.5, -8.4) and (5.4, -9.5) ..
+		(5.5, -9.7).. controls (5.5, -9.7) and (6.0, -8.5) .. (6.9, -8.0).. controls 
+		(6.9, -8.0) and (7.2, -8.9) .. (7.0, -10.0).. controls (7.0, -10.0) and (7.9, 
+		-9.0) .. (7.9, -8.1).. controls (7.9, -8.1) and (8.3, -8.6) .. (8.3, -9.3).. 
+		controls (8.3, -9.3) and (8.8, -8.6) .. (9.2, -8.7).. controls (9.2, -8.7) and
+		(9.3, -9.6) .. (8.3, -10.6).. controls (8.3, -10.6) and (9.5, -9.9) .. (10.3,
+		-9.7).. controls (10.3, -9.7) and (10.1, -9.5) .. (9.7, -9.6).. controls 
+		(9.7, -9.6) and (11.5, -8.5) .. (12.4, -8.2).. controls (12.4, -8.2) and 
+		(11.7, -7.8) .. (10.0, -7.9) -- cycle;
+	\end{tikzpicture}%
+}
+
+\NewDocumentCommand\pictogkhair{ O{} m }{%
+	\ifthenelse{\equal{#2}{dauto}}%
+		{%
+			\settototalheight\tkzhairgkheight{\hbox{qM}}%
+			\settodepth\tkzhairgkdepth{\hbox{qM}}%
+			\xdef\tkzhairgkglobalscale{\fpeval{\tkzhairgkheight/\tkzhairgkfullheight}}%
+			\raisebox{-\tkzhairgkdepth}{%
+				\inttkzhairgk[#1]{\tkzhairgkglobalscale}%
+			}%
+		}%
+		{%
+			\ifthenelse{\equal{#2}{auto}}%
+				{%
+					\settoheight\tkzhairgkheight{\hbox{M}}%
+					\xdef\tkzhairgkglobalscale{\fpeval{\tkzhairgkheight/\tkzhairgkfullheight}}%
+				}%
+				{%
+					\xdef\tkzhairgkglobalscale{\fpeval{#2/\tkzhairgkfullheight}}%
+				}%
+			\inttkzhairgk[#1]{\tkzhairgkglobalscale}%
+		}%
+}
 
 \endinput

@@ -1,3 +1,4 @@
+% !TeX document-id = {eabafbe3-3736-4a31-8c7b-909e7171acc5}
 % !TeX TXS-program:compile = txs:///arara
 % arara: lualatex: {shell: no, synctex: no, interaction: batchmode}
 % arara: lualatex: {shell: no, synctex: no, interaction: batchmode} if found('log', '(undefined references|Please rerun|Rerun to get)')
@@ -42,8 +43,8 @@
 \usepackage[margin=2cm]{geometry}
 \setlength{\parindent}{0pt}
 
-\def\TPversion{0.1.5}
-\def\TPdate{04/08/2025}
+\def\TPversion{0.1.9}
+\def\TPdate{11/09/2025}
 \usepackage{tcolorbox}
 
 \sethlcolor{lightgray!25}
@@ -167,7 +168,7 @@ The package loads within the preamble, with \MontreCode{\textbackslash usepackag
 
 If \MontreCode{customenvs} is loaded, it load itself \MontreCode{customenvs-tikzpictos}
 
-The only loaded packages are \MontreCode{simplekv}, \MontreCode{calc}, \MontreCode{simplekv}, \MontreCode{listofitems}, \MontreCode{xstring}, \MontreCode{xintexpr} and \MontreCode{tikz} (with \MontreCode{shapes.geometric / bbox} libraries).
+The only loaded packages are \MontreCode{simplekv}, \MontreCode{calc}, \MontreCode{simplekv}, \MontreCode{listofitems}, \MontreCode{xstring}, \MontreCode{xintexpr} and \MontreCode{tikz} (with \MontreCode{shapes.geometric / bbox / 3d} libraries).
 
 \begin{codehigh}[language=latex/latex2,style/main=cyan!10,style/code=cyan!10]
 \usepackage{customenvs-tikzpictos}
@@ -716,18 +717,102 @@ toptxtfont=\bfseries\sffamily,bottomtxtfont=\ttfamily
 
 \pagebreak
 
+\section{Alt pictos}
+
+\subsection{Rings}
+
+\begin{codehigh}[language=latex/latex2]
+\pictorings%
+  [keys]
+  {tikz options}
+
+%available keys:
+%height=...
+%strut=...
+%dstrut=...
+%clip bb=...
+%color=boolean
+\end{codehigh}
+
+\begin{demohigh}[language=latex/latex2]
+{\LARGE q\pictorings{}B}
+\end{demohigh}
+
+\subsection{Colored cube}
+
+\begin{codehigh}[language=latex/latex2]
+\pictorubcube%
+  [keys]
+
+%available keys:
+%height=...
+%width=...
+%strut=...
+%empty color=...,
+%rescale=...
+\end{codehigh}
+
+\begin{demohigh}[language=latex/latex2]
+{\LARGE q\pictorubcube{}B}
+\end{demohigh}
+
+\subsection{Simple progress bar}
+
+\begin{codehigh}[language=latex/latex2]
+\pictoprogressbar%
+  [keys]%
+  {level, between 0 and 1}
+
+%available keys:
+%height=...       (auto or dauto or unit)
+%width=...        (unit)
+%strut=...        (samples characters for height=auto)
+%dstrut=...       (samples characters for height=dauto)
+%shade=...        (boolean for fill shading)
+%fill color=...
+%border color=...
+\end{codehigh}
+
+\begin{demohigh}[language=latex/latex2]
+{\LARGE q\pictoprogressbar{40/100}B}
+\end{demohigh}
+
+\subsection{Saiyan haircut}
+
+\begin{codehigh}[language=latex/latex2]
+\pictogkhair[tikz options]{height/auto/dauto}
+\end{codehigh}
+
+\begin{demohigh}[language=latex/latex2]
+\scalebox{4}[4]{q\pictogkhair{dauto}M}\\
+\scalebox{5}[5]{\textcolor{orange}{q\pictogkhair{auto}M}}\\
+\textcolor{cyan}{\pictogkhair[rotate=30]{3cm}}
+\end{demohigh}
+
+\pagebreak
+
 \section{History}
 
-\verb|v0.1.5| :~Inline badge (inspired by \textsf{tikz-shields}) + simple stamp
+\verb|v0.1.9|:~Saiyan haircut
 
-\verb|v0.1.4| :~(d)strut option for height/depth + bdall + difficulty levels + stamp
+\verb|v0.1.8|:~Alt picto (simple progress bar)
 
-\verb|v0.1.3| :~Clippy
+\verb|v0.1.7|:~Alt pictos (rings + cube)
 
-\verb|v0.1.2| :~Mini calendar
+\verb|v0.1.6|:~Bugfix with pictostars (raisebox...)
 
-\verb|v0.1.1| :~Traffic Light
+\verb|v0.1.5|:~Inline badge (inspired by \textsf{tikz-shields}) + simple stamp
 
-\verb|v0.1.0| :~Initial version
+\verb|v0.1.4|:~(d)strut option for height/depth + bdall + difficulty levels + stamp
+
+\verb|v0.1.3|:~Clippy
+
+\verb|v0.1.2|:~Mini calendar
+
+\verb|v0.1.1|:~Traffic Light
+
+\verb|v0.1.0|:~Initial version
+
+\vspace*{1cm}\null
 
 \end{document}
