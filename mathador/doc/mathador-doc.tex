@@ -1,0 +1,366 @@
+% !TeX TXS-program:compile = txs:///arara
+% arara: pdflatex: {shell: no, synctex: no, interaction: batchmode}
+% arara: pdflatex: {shell: no, synctex: no, interaction: batchmode}
+
+\documentclass[11pt,a4paper]{ltxdoc}
+\usepackage{bera}
+\usepackage{inconsolata}
+\usepackage[T1]{fontenc}
+\usepackage[scale=0.875]{cabin}
+\usepackage[bm]{mathador}
+\usepackage{fancyvrb}
+\usepackage{fancyhdr}
+\usepackage{tabularray}
+\usepackage{fontawesome5}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0pt}
+\lfoot{\sffamily\small [mathador]}
+\cfoot{\sffamily\small - \thepage{} -}
+\rfoot{\hyperlink{matoc}{\small\faArrowAltCircleUp[regular]}}
+\usepackage{hologo}
+\providecommand\tikzlogo{Ti\textit{k}Z}
+\providecommand\TeXLive{\TeX{}Live\xspace}
+\let\TikZ\tikzlogo
+
+\usepackage{hyperref}
+\urlstyle{same}
+\hypersetup{pdfborder=0 0 0}
+\usepackage[margin=2cm]{geometry}
+\setlength{\parindent}{0pt}
+\def\TPversion{0.1.0}
+\def\TPdate{22/09/2025}
+\usepackage{tcolorbox}
+\tcbuselibrary{breakable,skins,hooks,listingsutf8}
+%\usepackage{soul}
+%\sethlcolor{lightgray!25}
+
+\lstset{
+	language=[LaTeX]TeX,%
+	basicstyle=\ttfamily,%
+	keywordstyle={\color{blue}},%
+	classoffset=0,%
+	keywords={},%
+	alsoletter={-},%
+	keywordstyle={\color{blue}},%
+	classoffset=1,%
+	alsoletter={-},%
+	morekeywords={mathador},%
+	keywordstyle={\color{violet}},%
+	classoffset=2,%
+	alsoletter={-},%
+	morekeywords={\PlateauMathador,\DeMathador,\CibleMathador,\TirageDesMathador},%
+	keywordstyle={\color{green!50!black}},%
+	classoffset=3,%
+	morekeywords={},%
+	keywordstyle={\color{orange}}
+}
+
+\newtcblisting{DemoCode}[1]{%
+	enhanced,width=\linewidth,%
+	bicolor,size=title,%
+	colback=cyan!10!white,%
+	colbacklower=cyan!5!white,%
+	colframe=cyan!75!black,%
+	listing options={%
+		breaklines=true,%
+		breakatwhitespace=true,%
+		style=tcblatex,basicstyle=\small\ttfamily,%
+		tabsize=4,%
+		commentstyle={\itshape\color{gray}},
+		keywordstyle={\color{blue}},%
+		classoffset=0,%
+		keywords={\tikzset,\usepackage,\definecolor,\includegraphics,xstring,listofitems,\readlist,\showitems,\xintFor,\xintSeq},%
+		alsoletter={-},%
+		keywordstyle={\color{blue}},%
+		classoffset=1,%
+		alsoletter={-},%
+		morekeywords={mathador},%
+		keywordstyle={\color{violet}},%
+		classoffset=2,%
+		alsoletter={-},%
+		morekeywords={\PlateauMathador,\DeMathador,\CibleMathador,\TirageDesMathador},%
+		keywordstyle={\color{green!50!black}},%
+		classoffset=3,%
+		morekeywords={},%
+		keywordstyle={\color{orange}}
+	},%
+	#1
+}
+
+\newtcbinputlisting\DemoCodeFile[1]{%
+	enhanced,width=\linewidth,%
+	bicolor,size=title,%
+	colback=lightgray!10!white,%
+	colbacklower=lightgray!5!white,%
+	colframe=lightgray!75!black,%
+	listing options={%
+		breaklines=true,%
+		breakatwhitespace=true,%
+		style=tcblatex,
+		basicstyle=\scriptsize\ttfamily,%
+		tabsize=4,%
+		commentstyle={\itshape\color{gray}},%
+		%lastline=148
+	},%
+	breakable,
+	listing only,%
+	listing file={#1}
+}
+
+\NewDocumentCommand\ShowCode{ m }{%
+	\lstinline{#1}%
+}
+
+\usepackage[french]{babel}
+
+\begin{document}
+
+\thispagestyle{empty}
+
+\begin{center}
+	\begin{minipage}{0.88\linewidth}
+		\begin{tcolorbox}[colframe=yellow,colback=yellow!15]
+			\begin{center}
+				\renewcommand{\arraystretch}{1.25}%
+				\begin{tabular}{c}
+					{\Huge \texttt{mathador}}\\
+					\\
+					{\LARGE De commandes pour travailler avec le} \\
+					{\LARGE jeu Mathador : plateau / dés / tirage.} \\
+					\\
+					{\small \texttt{Version \TPversion{} -- \TPdate}}
+				\end{tabular}
+			\end{center}
+		\end{tcolorbox}
+	\end{minipage}
+\end{center}
+
+\begin{center}
+	\begin{tabular}{c}
+		\texttt{Cédric Pierquet} : {\ttfamily c pierquet -- at -- outlook . fr}\\
+		\texttt{\url{https://github.com/cpierquet/latex-packages/tree/main//mathador}} \\
+	\end{tabular}
+\end{center}
+
+\hrule
+
+\begin{center}
+	\begin{tabular}{c}
+		{\ttfamily Auteur du jeu :  Éric Trouillot}\\
+		{\ttfamily Éditeur du jeu :  Réseau Canopé (\url{https://www.mathador.fr})}
+	\end{tabular}
+\end{center}
+
+\hrule
+
+\vfill
+
+\begin{tcblisting}{colframe=lightgray,colback=lightgray!5,listing only}
+\PlateauMathador{1,6,19,7,12}{39}
+\end{tcblisting}
+
+\begin{tcolorbox}[colframe=lightgray,colback=lightgray!5]
+\hfill\PlateauMathador{1,6,19,7,12}{39}\hfill\null
+\end{tcolorbox}
+
+\begin{tcblisting}{colframe=lightgray,colback=lightgray!5,listing only}
+\TirageDesMathador{39}{1}{6}{7}{12}{19}
+\end{tcblisting}
+
+\begin{tcolorbox}[colframe=lightgray,colback=lightgray!5]
+\hfill\TirageDesMathador{39}{1}{6}{7}{12}{19}\hfill\null
+\end{tcolorbox}
+
+\vfill\null
+
+\pagebreak
+
+\phantomsection
+
+\hypertarget{matoc}{}
+
+\tableofcontents
+
+\vspace*{5mm}
+
+%\hrule
+
+\pagebreak
+
+\section{Introduction}
+
+\subsection{Le jeu du Mathador}
+
+Présentation issue du site \url{https://www.mathador.fr}:
+
+\begin{tcolorbox}[enhanced,colback=orange!15,colframe=orange!75!black,fontupper=\small\itshape\sffamily,width=0.75\linewidth,center,watermark opacity=0.1,watermark zoom=0.95,watermark graphics={mathadorlogo.pdf}]
+\textbf{Le principe : lancez les dés !}
+
+Ils vous donnent 1 nombre-cible (entre 0 et 99) et 5 nombres à utiliser pour l'atteindre.
+
+Vous avez les 4 opérations pour y arriver, mais attention : le temps est limité et les opérations rapportent des points\ldots
+
+Ces 6 dés donnent des milliers de \textit{compte-est-bon}. Pour chacun, jusqu'à des centaines de réponses différentes : de quoi se remuer les méninges et chercher la stratégie qui vous fera gagner !
+\end{tcolorbox}
+
+Les éléments graphiques ont été repris du site officiel, et adaptés/transcrits en langage \TikZ.
+
+\subsection{Crédits, mentions légales}
+
+\og \textsf{Mathador} est une marque protégée de Monsieur Eric Trouillot et de Réseau Canopé.
+
+Eric Trouillot est le concepteur du jeu \textsf{Mathador} dont vous pouvez retrouver toute l’actualité sur le site \url{www.mathador.fr}.
+
+Ce package \LaTeX\ est une ressource indépendante non affiliée à \url{www.mathador.fr}. \fg
+
+\subsection{Chargement, packages utiles}
+
+Pour charger le package \texttt{mathador}, il suffit de placer, dans le préambule :
+
+\begin{DemoCode}{listing only}
+%version 'normale'
+\usepackage{mathador}
+%version avec le package bm pour les opérateurs en gras
+\usepackage[bm]{mathador}
+%version sans la librairie tikz.babel
+\usepackage[nonbabel]{mathador}
+\end{DemoCode}
+
+Les packages utilisés sont \ShowCode{tikz}, \ShowCode{ifthen}, \ShowCode{listofitems}, \ShowCode{simplekv} et éventuellement \ShowCode{bm}.
+
+\subsection{Idées globales}
+
+Les éléments textuels sont automatiquement adaptés aux dimensions du plateau et des cases.
+
+Les styles sont fixés, mais peuvent être redéfinis
+
+\begin{DemoCode}{listing only}
+%====COULEURS PRINCIPALES
+\definecolor{mathadorppal}{HTML}{392b58}
+\definecolor{mathadorsecond}{HTML}{4b3971}
+\definecolor{mathadorjaune}{HTML}{dfc447}
+\definecolor{mathadorcible}{HTML}{e1c444}
+\definecolor{mathadorrose}{HTML}{c25a75}
+\definecolor{mathadorvert}{HTML}{aaa640}
+\definecolor{mathadorbleu}{HTML}{69acbd}
+%====COULEURS PASTELS
+\definecolor{mathadorppalpastel}{HTML}{D9E8FF}
+\definecolor{mathadorsecondpastel}{HTML}{EDF4FF}
+%====STYLES TIKZ
+\tikzset{mathadorpolice/.style={font=\sffamily}}
+\tikzset{mathadorpolicegras/.style={font=\bfseries\sffamily}}
+\end{DemoCode}
+
+\pagebreak
+
+\section{Les commandes}
+
+\subsection{Le plateau}
+
+La commande pour créer le plateau de jeu est :
+
+\begin{DemoCode}{listing only}
+\PlateauMathador[clés]<options tikz>{valeurs (5)}{valeur cible}
+\end{DemoCode}
+
+Les \textsf{clés} disponibles sont :
+
+\begin{itemize}
+	\item \ShowCode{rayon} : rayon du plateau\hfill(\ShowCode{5cm} par défaut)
+	\item \ShowCode{logo} : booléen pour afficher le logo\hfill(\ShowCode{true} par défaut)
+	\item \ShowCode{epaisseur} : épaisseur (\texttt{auto} ou \texttt{longueur})\hfill(\ShowCode{auto} par défaut)
+	\item \ShowCode{ombre} : booléen pour afficher une ombre\hfill(\ShowCode{true} par défaut)
+	\item \ShowCode{impression} : booléen pour un mode NB\hfill(\ShowCode{false} par défaut)
+	\item \ShowCode{pastels} : booléen pour un mode pastel \textit{bleu} si \ShowCode{impression=true} \hfill(\ShowCode{false} par défaut)
+\end{itemize}
+
+\begin{DemoCode}{}
+\PlateauMathador{1,6,19,7,12}{39}
+\end{DemoCode}
+
+\begin{DemoCode}{}
+\PlateauMathador[rayon=2.5cm,logo=false,epaisseur=0.2mm]{1,6,19,7,12}{39}
+\end{DemoCode}
+
+\pagebreak
+
+\begin{DemoCode}{}
+\PlateauMathador[impression,rayon=2.5cm]{1,6,19,7,12}{39}
+\end{DemoCode}
+
+\begin{DemoCode}{}
+\PlateauMathador[impression,pastels,rayon=2.5cm]{1,6,19,7,12}{39}
+\end{DemoCode}
+
+\begin{DemoCode}{}
+\PlateauMathador[rayon=1.75cm,logo=false]{,,,,}{}
+\end{DemoCode}
+
+\subsection{La cible, les dés}
+
+Il est également possible de présenter les valeurs via les 6 \textit{dés} :
+
+\begin{DemoCode}{listing only}
+%la cible
+\CibleMathador[couleur]<options tikz>{hauteur}{valeur}
+\end{DemoCode}
+
+\begin{DemoCode}{listing only}
+%les dés
+\DeMathador<options tikz>{couleur}{type}{hauteur}{numéro}
+\end{DemoCode}
+
+La hauteur des dés n'est pas forcément uniforme, l'idée est de pouvoir présenter les dés \textit{cote à cote}, avec un rendu satisfaisant.
+
+\begin{DemoCode}{}
+\DeMathador{red}{Q}{2cm}{4}             %dé Quatre
+\DeMathador{olive!50!lime}{S}{2cm}{4}   %dé Six
+\DeMathador{orange}{H}{2cm}{4}          %dé Huit
+\DeMathador{blue}{D}{2cm}{4}            %dé Douze
+\DeMathador{purple}{V}{2cm}{4}          %dé Vingt
+\end{DemoCode}
+
+\begin{DemoCode}{}
+\CibleMathador{2cm}{61}
+\end{DemoCode}
+
+\begin{DemoCode}{}
+\CibleMathador[teal!50!black]{1.5cm}{61}
+\end{DemoCode}
+
+\subsection{Tirage complet}
+
+L'idée est de proposer une commande pour présenter un tirage \textit{complet}, avec les 7 valeurs.
+
+\begin{DemoCode}{listing only}
+\TirageDesMathador[clés]{cible}{dé1}{dé2}{dé3}{dé4}{dé5}
+\end{DemoCode}
+
+Les \textsf{clés} disponibles sont :
+
+\begin{itemize}
+	\item \ShowCode{hauteur} : hauteur des dés \hfill(\ShowCode{1.5cm} par défaut)
+	\item \ShowCode{couleurs} : couleurs des dés\hfill(\ShowCode{purple!50!black,red,olive!50!lime,orange,blue,purple} par défaut)
+	\item \ShowCode{superpos} : booléen pour \textit{superposer} les dés\hfill(\ShowCode{true} par défaut)
+	\item \ShowCode{impression} : booléen pour un mode NB\hfill(\ShowCode{false} par défaut)
+\end{itemize}
+
+\begin{DemoCode}{}
+\TirageDesMathador{2}{4}{6}{7}{9}{61}
+\end{DemoCode}
+
+\begin{DemoCode}{}
+\TirageDesMathador[impression]{2}{4}{6}{7}{9}{61}
+\end{DemoCode}
+
+\pagebreak
+
+\section{Historique}
+
+\texttt{0.1.0 : Version initiale}
+%
+%\section{The code}
+%
+%\DemoCodeFile{commalists-tools-l3.sty}
+
+\end{document}
