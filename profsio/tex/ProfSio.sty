@@ -3,7 +3,10 @@
 %            : Luatruthtable from Chetan Shirore and Dr. Ajit Kumar https://ctan.org/pkg/luatruthtable
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{ProfSio}[2025/05/05 0.3.2 Pour les enseignants de Maths en BTS SIO]
+\ProvidesPackage{ProfSio}[2025/09/24 0.3.5 Pour les enseignants de Maths en BTS SIO]
+%0.3.5	Ajout de clés pour la résolution de systèmes 3*3
+%0.3.4	Correction d'un bug avec les tables de Karnaug (b*)
+%0.3.3	Mis en conformité avec le package systeme
 %0.3.2	Bugfix
 %0.3.1	Ajout d'une option pour tikz.babel + option pour siunitx.fr
 %0.3.0	Mise en conformité des grilles d'évaluation CCF
@@ -692,7 +695,7 @@
 							{(BB)}{\KarnaughBlocRegroup[Type=Centre,Couleur=\tmpblockknghcol,Decalage=\tmpblockknghdecal]{00}{22}}%
 							{(CC)}{\KarnaughBlocRegroup[Type=Centre,Couleur=\tmpblockknghcol,Decalage=\tmpblockknghdecal]{10}{32}}
 							{(AA*)}{\KarnaughBlocRegroup[Type=Centre,Couleur=\tmpblockknghcol,Decalage=\tmpblockknghdecal]{00}{41}}%
-							{(BB*)}{\KarnaughBlocRegroup[Type=Centre,Couleur=\tmpblockknghcol,Decalage=\tmpblockknghdecal]{20}{44}}%
+							{(BB*)}{\KarnaughBlocRegroup[Type=Centre,Couleur=\tmpblockknghcol,Decalage=\tmpblockknghdecal]{20}{42}}%
 							{(CC*)}{\KarnaughBlocRegroup[Type=Gauche,Couleur=\tmpblockknghcol,Decalage=\tmpblockknghdecal]{00}{12}\KarnaughBlocRegroup[Type=Droite,Couleur=\tmpblockknghcol,Decalage=\tmpblockknghdecal]{40}{32}}%%
 							%calculs pour 2 lettres
 							{(AABB)}{\KarnaughBlocRegroup[Type=Centre,Couleur=\tmpblockknghcol,Decalage=\tmpblockknghdecal]{01}{22}}%
@@ -725,7 +728,7 @@
 							{(BB)}{\KarnaughBlocRegroup[Type=Centre,Couleur=\tmpblockknghcol,Decalage=\tmpblockknghdecal]{00}{22}}%
 							{(CC)}{\KarnaughBlocRegroup[Type=Gauche,Couleur=\tmpblockknghcol,Decalage=\tmpblockknghdecal]{00}{12}\KarnaughBlocRegroup[Type=Droite,Couleur=\tmpblockknghcol,Decalage=\tmpblockknghdecal]{40}{32}}%
 							{(AA*)}{\KarnaughBlocRegroup[Type=Centre,Couleur=\tmpblockknghcol,Decalage=\tmpblockknghdecal]{00}{41}}%
-							{(BB*)}{\KarnaughBlocRegroup[Type=Centre,Couleur=\tmpblockknghcol,Decalage=\tmpblockknghdecal]{20}{44}}%
+							{(BB*)}{\KarnaughBlocRegroup[Type=Centre,Couleur=\tmpblockknghcol,Decalage=\tmpblockknghdecal]{20}{42}}%
 							{(CC*)}{\KarnaughBlocRegroup[Type=Centre,Couleur=\tmpblockknghcol,Decalage=\tmpblockknghdecal]{10}{32}}%
 							%calculs pour 2 lettres
 							{(AABB)}{\KarnaughBlocRegroup[Type=Centre,Couleur=\tmpblockknghcol,Decalage=\tmpblockknghdecal]{01}{22}}%
@@ -2321,15 +2324,17 @@ end
 	Brut=false,%
 	OptionNiceMatrix={1pt},%
 	Enonce=true,%
-	Dense=false
+	Dense=false,%
+	Equiv=true,%
+	AffInverse=false
 }
 
-\NewDocumentCommand\ResolSystemeMatrices{ O{} D<>{} m O{#3} O{xyz} }{%
+\NewDocumentCommand\ResolSystemeMatrices{ O{} D<>{} m O{#3} O{} }{%
 	%1=clés
 	%2=option formatage conversion
 	%3=système {eq1,eq2,eq3} en langage xint
 	%4=sytème pour la macro \systeme
-	%5=inconnues pour \systeme
+	%5=clés spécifiques pour la macro \systeme (suite màj 0.4 du 14 mai 2025)
 	\useKVdefault[resolsysmatrix]%
 	\setKV[resolsysmatrix]{#1}%
 	%lectures des inconnues
@@ -2474,12 +2479,18 @@ end
 					La matrice $\tmpnamematA$ est inversible, et :%
 					\ifboolKV[resolsysmatrix]{Dense}%
 						{%
-							~$\tmpnamematA\times \tmpnamematX = \tmpnamematB \implies \underbrace{\ResolSysMatInv \times \tmpnamematA}_{{=}I_3} \times \tmpnamematX = \ResolSysMatInv \times \tmpnamematB \implies \tmpnamematX=\ResolSysMatInv\times \tmpnamematB$.\\%
+							~$\tmpnamematA\times \tmpnamematX = \tmpnamematB \ifboolKV[resolsysmatrix]{Equiv}{\Longleftrightarrow}{\implies} \underbrace{\ResolSysMatInv \times \tmpnamematA}_{{=}I_3} \times \tmpnamematX = \ResolSysMatInv \times \tmpnamematB \ifboolKV[resolsysmatrix]{Equiv}{\Longleftrightarrow}{\implies} \tmpnamematX=\ResolSysMatInv\times \tmpnamematB$.\\%
 						}%
 						{%
-							\[\tmpnamematA\times \tmpnamematX = \tmpnamematB \implies \underbrace{\ResolSysMatInv \times \tmpnamematA}_{{=}I_3} \times \tmpnamematX = \ResolSysMatInv \times \tmpnamematB \implies I_3 \times \tmpnamematX = \ResolSysMatInv\times \tmpnamematB \implies \tmpnamematX=\ResolSysMatInv\times \tmpnamematB.\]%
+							\[\tmpnamematA\times \tmpnamematX = \tmpnamematB \ifboolKV[resolsysmatrix]{Equiv}{\Longleftrightarrow}{\implies} \underbrace{\ResolSysMatInv \times \tmpnamematA}_{{=}I_3} \times \tmpnamematX = \ResolSysMatInv \times \tmpnamematB \ifboolKV[resolsysmatrix]{Equiv}{\Longleftrightarrow}{\implies} I_3 \times \tmpnamematX = \ResolSysMatInv\times \tmpnamematB \ifboolKV[resolsysmatrix]{Equiv}{\Longleftrightarrow}{\implies} \tmpnamematX=\ResolSysMatInv\times \tmpnamematB.\]%
 						}%
-					La calculatrice nous donne $\tmpnamematX = \begin{pNiceMatrix}[cell-space-limits=\ResolSysMatOpt] {\MatResA} \\ {\MatResB} \\ {\MatResC} \end{pNiceMatrix}$. Ainsi on obtient $\tmpinconnuex=\MatResA$ et $\tmpinconnuey=\MatResB$ et $\tmpinconnuez=\MatResC$.%
+					\ifboolKV[resolsysmatrix]{AffInverse}%
+						{%
+							La calculatrice permet d'obtenir $\tmpnamematA^{-1}=\begin{pNiceMatrix}[cell-space-limits=\ResolSysMatOpt] {\MatAffInvA}&{\MatAffInvB}&{\MatAffInvC} \\ {\MatAffInvD}&{\MatAffInvE}&{\MatAffInvF} \\ {\MatAffInvG}&{\MatAffInvH}&{\MatAffInvI} \end{pNiceMatrix}$ et $\tmpnamematX = \begin{pNiceMatrix}[cell-space-limits=\ResolSysMatOpt] {\MatResA} \\ {\MatResB} \\ {\MatResC} \end{pNiceMatrix}$. Ainsi on a $\tmpinconnuex=\MatResA$ et $\tmpinconnuey=\MatResB$ et $\tmpinconnuez=\MatResC$.%
+						}%
+						{%
+							La calculatrice nous donne $\tmpnamematX = \begin{pNiceMatrix}[cell-space-limits=\ResolSysMatOpt] {\MatResA} \\ {\MatResB} \\ {\MatResC} \end{pNiceMatrix}$. Ainsi on obtient $\tmpinconnuex=\MatResA$ et $\tmpinconnuey=\MatResB$ et $\tmpinconnuez=\MatResC$.%
+						}%
 				}%
 		}%
 }
