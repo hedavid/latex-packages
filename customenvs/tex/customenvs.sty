@@ -3,9 +3,10 @@
 % source pencil...: CC-BY-SA 4.0 https://tex.stackexchange.com/questions/504092/replicating-a-fancy-bordered-text-style-in-latex/504145#504145
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{customenvs}[2025/09/11 0.41e Custom classic environments]
+\ProvidesPackage{customenvs}[2025/09/24 0.41f Custom classic environments]
 
 %====HISTORIQUE
+% v 0.41f	New keys
 % v 0.41e	Bicolortitle + tcboxboard
 % v 0.41d	Subpackage 'macros'
 % v 0.41c	Enhancements with subpackages + boîte avec ornaments/postforum (l3e)
@@ -4774,18 +4775,22 @@
 \tl_new:N \g_tcbox_forum_post_bg_color
 \tl_new:N \g_tcbox_forum_post_rule_color
 \tl_new:N \g_tcbox_forum_post_avatar_tl
+\bool_new:N \g_tcbox_forum_post_avatar_right_bool
+\bool_new:N \g_tcbox_forum_post_avatar_swaptitle_bool
 
 \keys_define:nn { tcforumpost }
 {
-%	width          .dim_set:N = \g_tcbox_forum_post_width_dim,
-	height-pseudo  .dim_set:N = \g_tcbox_forum_post_heightpseudo_dim,
-	deco-length    .dim_set:N = \g_tcbox_forum_post_trideco_dim,
-	left-margin    .dim_set:N = \g_tcbox_forum_post_left_margin,
-	pseudo         .tl_set:N  = \g_tcbox_forum_post_pseudo_tl,
-	alt-pseudo     .tl_set:N  = \g_tcbox_forum_post_alt_pseudo_tl,
-	fill-color     .tl_set:N  = \g_tcbox_forum_post_bg_color,
-	rule-color     .tl_set:N  = \g_tcbox_forum_post_rule_color,
-	avatar         .tl_set:N  = \g_tcbox_forum_post_avatar_tl
+%	width         .dim_set:N  = \g_tcbox_forum_post_width_dim,
+	height-pseudo .dim_set:N  = \g_tcbox_forum_post_heightpseudo_dim,
+	deco-length   .dim_set:N  = \g_tcbox_forum_post_trideco_dim,
+	left-margin   .dim_set:N  = \g_tcbox_forum_post_left_margin,
+	pseudo        .tl_set:N   = \g_tcbox_forum_post_pseudo_tl,
+	alt-pseudo    .tl_set:N   = \g_tcbox_forum_post_alt_pseudo_tl,
+	fill-color    .tl_set:N   = \g_tcbox_forum_post_bg_color,
+	rule-color    .tl_set:N   = \g_tcbox_forum_post_rule_color,
+	avatar        .tl_set:N   = \g_tcbox_forum_post_avatar_tl,
+	right         .bool_set:N = \g_tcbox_forum_post_avatar_right_bool,
+	swap-title    .bool_set:N = \g_tcbox_forum_post_avatar_swaptitle_bool
 }
 
 \keys_set:nn { tcforumpost }
@@ -4798,6 +4803,8 @@
 	alt-pseudo    = beginner,
 	fill-color    = teal!10,
 	rule-color    = blue!50!black,
+	right         = {false},
+	swap-title    = {false},
 	avatar        = {\includegraphics[height={\fp_eval:n {0.75 * \g_tcbox_forum_post_width_avatar_dim}pt}]{vectorlogo-ctanlion}},
 }
 
@@ -4819,49 +4826,188 @@
 		bottom=2mm,
 		opacityfill=0,
 		underlay~unbroken={
-			\coordinate (AVATAR-SOUTH-WEST) at
-			([xshift={-\g_tcbox_forum_post_offset_dim-\g_tcbox_forum_post_width_avatar_dim},yshift=-\g_tcbox_forum_post_width_avatar_dim]frame.north~west);
-			\coordinate (PSEUDO-SOUTH-WEST) at
-			([xshift={-\g_tcbox_forum_post_offset_dim-\g_tcbox_forum_post_width_avatar_dim},yshift={-\g_tcbox_forum_post_width_avatar_dim-\g_tcbox_forum_post_heightpseudo_dim}]frame.north~west);
-			\coordinate (PSEUDO) at
-			([xshift={0.5\g_tcbox_forum_post_width_avatar_dim},yshift={-0.5\g_tcbox_forum_post_heightpseudo_dim}]AVATAR-SOUTH-WEST);
-			\coordinate (PSEUDO-ALT) at
-			([xshift={0.5\g_tcbox_forum_post_width_avatar_dim},yshift={-0.5\g_tcbox_forum_post_heightpseudo_dim}]PSEUDO-SOUTH-WEST);
-			% Boîte de gauche
-			\fill[\g_tcbox_forum_post_bg_color]
-			([xshift=-\g_tcbox_forum_post_offset_dim]frame.north~west)
-			rectangle++ (-\g_tcbox_forum_post_width_avatar_dim,-\g_tcbox_forum_post_width_avatar_dim-2\g_tcbox_forum_post_heightpseudo_dim);
-			% Avatar
-			\begin{scope}
-				\clip ([xshift=-\g_tcbox_forum_post_offset_dim]frame.north~west)
-				rectangle++ (-\g_tcbox_forum_post_width_avatar_dim,-\g_tcbox_forum_post_width_avatar_dim);
-				\node at
-				([xshift={-0.5\g_tcbox_forum_post_width_avatar_dim-\g_tcbox_forum_post_offset_dim},yshift={-0.5\g_tcbox_forum_post_width_avatar_dim}]frame.north~west)
-				{\g_tcbox_forum_post_avatar_tl};
-			\end{scope}
-			% Pseudo
-			\begin{scope}
-				\filldraw[\g_tcbox_forum_post_rule_color,line~width=0.2mm]
-				(AVATAR-SOUTH-WEST) rectangle++ (\g_tcbox_forum_post_width_avatar_dim,-\g_tcbox_forum_post_heightpseudo_dim);
-				\clip (AVATAR-SOUTH-WEST) rectangle++ (\g_tcbox_forum_post_width_avatar_dim,-\g_tcbox_forum_post_heightpseudo_dim);
-				\node at (PSEUDO)
-				[forum~style~post~font~pseudo]
-				{\resizebox*{!}{0.75\g_tcbox_forum_post_heightpseudo_dim}{\vphantom{(qM)}\g_tcbox_forum_post_pseudo_tl}};
-			\end{scope}
-			% Pseudo alternatif
-			\begin{scope}
-				\clip (PSEUDO-SOUTH-WEST) rectangle++ (\g_tcbox_forum_post_width_avatar_dim,-\g_tcbox_forum_post_heightpseudo_dim);
-				\node at (PSEUDO-ALT)
-				[forum~style~post~font~altpseudo]
-				{\resizebox*{!}{0.667\g_tcbox_forum_post_heightpseudo_dim}{\vphantom{(qM)}\g_tcbox_forum_post_alt_pseudo_tl}};
-			\end{scope}
+			\bool_if:NTF \g_tcbox_forum_post_avatar_swaptitle_bool
+				{
+					\coordinate (PSEUDO-SOUTH-WEST) at
+					([xshift={-\g_tcbox_forum_post_offset_dim-\g_tcbox_forum_post_width_avatar_dim},yshift=-\g_tcbox_forum_post_heightpseudo_dim]frame.north~west);
+					\coordinate (AVATAR-SOUTH-WEST) at
+					([xshift={-\g_tcbox_forum_post_offset_dim-\g_tcbox_forum_post_width_avatar_dim},yshift={-\g_tcbox_forum_post_heightpseudo_dim-\g_tcbox_forum_post_width_avatar_dim}]frame.north~west);
+					\coordinate (PSEUDO) at
+					([xshift={0.5\g_tcbox_forum_post_width_avatar_dim},yshift=0.5\g_tcbox_forum_post_heightpseudo_dim]PSEUDO-SOUTH-WEST);
+					\coordinate (PSEUDO-ALT) at
+					([xshift={0.5\g_tcbox_forum_post_width_avatar_dim},yshift={-0.5\g_tcbox_forum_post_heightpseudo_dim}]AVATAR-SOUTH-WEST);
+					% Boîte de gauche
+					\fill[\g_tcbox_forum_post_bg_color]
+					([xshift=-\g_tcbox_forum_post_offset_dim]frame.north~west)
+					rectangle++ (-\g_tcbox_forum_post_width_avatar_dim,-\g_tcbox_forum_post_width_avatar_dim-2\g_tcbox_forum_post_heightpseudo_dim);
+					% Avatar
+					\begin{scope}
+						\clip (AVATAR-SOUTH-WEST) rectangle++ (\g_tcbox_forum_post_width_avatar_dim,\g_tcbox_forum_post_width_avatar_dim);
+						\node at
+						([xshift=0.5\g_tcbox_forum_post_width_avatar_dim,yshift=0.5\g_tcbox_forum_post_width_avatar_dim]AVATAR-SOUTH-WEST) {\g_tcbox_forum_post_avatar_tl};
+					\end{scope}
+					% Pseudo
+					\begin{scope}
+						\filldraw[\g_tcbox_forum_post_rule_color,line~width=0.2mm]
+						(PSEUDO-SOUTH-WEST) rectangle++ (\g_tcbox_forum_post_width_avatar_dim,\g_tcbox_forum_post_heightpseudo_dim);
+						\clip (PSEUDO-SOUTH-WEST) rectangle++ (\g_tcbox_forum_post_width_avatar_dim,\g_tcbox_forum_post_heightpseudo_dim);
+						\node at (PSEUDO)
+						[forum~style~post~font~pseudo]
+						{\resizebox*{!}{0.75\g_tcbox_forum_post_heightpseudo_dim}{\vphantom{(qM)}\g_tcbox_forum_post_pseudo_tl}};
+					\end{scope}
+					% Pseudo alternatif
+					\begin{scope}
+						\clip (AVATAR-SOUTH-WEST) rectangle++ (\g_tcbox_forum_post_width_avatar_dim,-\g_tcbox_forum_post_heightpseudo_dim);
+						\node at (PSEUDO-ALT)
+						[forum~style~post~font~altpseudo]
+						{\resizebox*{!}{0.667\g_tcbox_forum_post_heightpseudo_dim}{\vphantom{(qM)}\g_tcbox_forum_post_alt_pseudo_tl}};
+					\end{scope}
+				}
+				{
+					\coordinate (AVATAR-SOUTH-WEST) at
+					([xshift={-\g_tcbox_forum_post_offset_dim-\g_tcbox_forum_post_width_avatar_dim},yshift=-\g_tcbox_forum_post_width_avatar_dim]frame.north~west);
+					\coordinate (PSEUDO-SOUTH-WEST) at
+					([xshift={-\g_tcbox_forum_post_offset_dim-\g_tcbox_forum_post_width_avatar_dim},yshift={-\g_tcbox_forum_post_width_avatar_dim-\g_tcbox_forum_post_heightpseudo_dim}]frame.north~west);
+					\coordinate (PSEUDO) at
+					([xshift={0.5\g_tcbox_forum_post_width_avatar_dim},yshift={-0.5\g_tcbox_forum_post_heightpseudo_dim}]AVATAR-SOUTH-WEST);
+					\coordinate (PSEUDO-ALT) at
+					([xshift={0.5\g_tcbox_forum_post_width_avatar_dim},yshift={-0.5\g_tcbox_forum_post_heightpseudo_dim}]PSEUDO-SOUTH-WEST);
+					% Boîte de gauche
+					\fill[\g_tcbox_forum_post_bg_color]
+					([xshift=-\g_tcbox_forum_post_offset_dim]frame.north~west)
+					rectangle++ (-\g_tcbox_forum_post_width_avatar_dim,-\g_tcbox_forum_post_width_avatar_dim-2\g_tcbox_forum_post_heightpseudo_dim);
+					% Avatar
+					\begin{scope}
+						\clip ([xshift=-\g_tcbox_forum_post_offset_dim]frame.north~west)
+						rectangle++ (-\g_tcbox_forum_post_width_avatar_dim,-\g_tcbox_forum_post_width_avatar_dim);
+						\node at
+						([xshift={-0.5\g_tcbox_forum_post_width_avatar_dim-\g_tcbox_forum_post_offset_dim},yshift={-0.5\g_tcbox_forum_post_width_avatar_dim}]frame.north~west)
+						{\g_tcbox_forum_post_avatar_tl};
+					\end{scope}
+					% Pseudo
+					\begin{scope}
+						\filldraw[\g_tcbox_forum_post_rule_color,line~width=0.2mm]
+						(AVATAR-SOUTH-WEST) rectangle++ (\g_tcbox_forum_post_width_avatar_dim,-\g_tcbox_forum_post_heightpseudo_dim);
+						\clip (AVATAR-SOUTH-WEST) rectangle++ (\g_tcbox_forum_post_width_avatar_dim,-\g_tcbox_forum_post_heightpseudo_dim);
+						\node at (PSEUDO)
+						[forum~style~post~font~pseudo]
+						{\resizebox*{!}{0.75\g_tcbox_forum_post_heightpseudo_dim}{\vphantom{(qM)}\g_tcbox_forum_post_pseudo_tl}};
+					\end{scope}
+					% Pseudo alternatif
+					\begin{scope}
+						\clip (PSEUDO-SOUTH-WEST) rectangle++ (\g_tcbox_forum_post_width_avatar_dim,-\g_tcbox_forum_post_heightpseudo_dim);
+						\node at (PSEUDO-ALT)
+						[forum~style~post~font~altpseudo]
+						{\resizebox*{!}{0.667\g_tcbox_forum_post_heightpseudo_dim}{\vphantom{(qM)}\g_tcbox_forum_post_alt_pseudo_tl}};
+					\end{scope}
+				}
 			% Bordure de la boîte de gauche
 			\draw[\g_tcbox_forum_post_rule_color,line~width=0.2mm]
 			([xshift=-\g_tcbox_forum_post_offset_dim]frame.north~west)
 			rectangle++ (-\g_tcbox_forum_post_width_avatar_dim,-\g_tcbox_forum_post_width_avatar_dim-2\g_tcbox_forum_post_heightpseudo_dim);
 			% Bulle
 			\draw[\g_tcbox_forum_post_rule_color,fill={\g_tcbox_forum_post_bg_color},line~width=0.2mm,line~join=round,rounded~corners=0.3mm]
-			(frame.north~west) -- (frame.north~east) -- (frame.south~east) -- (frame.south~west) -- ([yshift=\dim_eval:n { -1.75 \g_tcbox_forum_post_trideco_dim}]frame.north~west) --++ ({-\g_tcbox_forum_post_offset_dim},0.5\g_tcbox_forum_post_offset_dim) -++ ({\g_tcbox_forum_post_offset_dim},0.5\g_tcbox_forum_post_offset_dim) -- cycle;
+			(frame.north~west) -- (frame.north~east) -- (frame.south~east) -- (frame.south~west) -- ([yshift=\dim_eval:n { -1.75 \g_tcbox_forum_post_trideco_dim}]frame.north~west) --++ ({-\g_tcbox_forum_post_offset_dim},0.5\g_tcbox_forum_post_offset_dim) --++ ({\g_tcbox_forum_post_offset_dim},0.5\g_tcbox_forum_post_offset_dim) -- cycle;
+		},
+	}
+}
+
+\tcbset{
+	forum~style~post~right/.style={
+		enhanced,
+		frame~empty,
+		boxsep=0pt,
+		%width=\dim_use:N \g_tcbox_forum_post_width_dim,
+		right~skip=\dim_use:N \g_tcbox_forum_post_left_margin,
+		top=2mm,
+		left=2mm,
+		right=2mm,
+		bottom=2mm,
+		opacityfill=0,
+		underlay~unbroken={
+			\bool_if:NTF \g_tcbox_forum_post_avatar_swaptitle_bool
+				{
+					\coordinate (AVATAR-SOUTH-WEST) at
+					([xshift=\g_tcbox_forum_post_offset_dim,yshift={-\g_tcbox_forum_post_width_avatar_dim-\g_tcbox_forum_post_heightpseudo_dim}]frame.north~east);
+					\coordinate (PSEUDO-SOUTH-WEST) at
+					([xshift=\g_tcbox_forum_post_offset_dim,yshift={-\g_tcbox_forum_post_heightpseudo_dim}]frame.north~east);
+					\coordinate (PSEUDO) at
+					([xshift={0.5\g_tcbox_forum_post_width_avatar_dim},yshift={0.5\g_tcbox_forum_post_heightpseudo_dim}]PSEUDO-SOUTH-WEST);
+					\coordinate (PSEUDO-ALT) at
+					([xshift={0.5\g_tcbox_forum_post_width_avatar_dim},yshift={-0.5\g_tcbox_forum_post_heightpseudo_dim}]AVATAR-SOUTH-WEST);
+					%Boîte de gauche
+					\fill[\g_tcbox_forum_post_bg_color]
+					([xshift=\g_tcbox_forum_post_offset_dim]frame.north~east)
+					rectangle++ (\g_tcbox_forum_post_width_avatar_dim,-\g_tcbox_forum_post_width_avatar_dim-2\g_tcbox_forum_post_heightpseudo_dim);
+					% Avatar
+					\begin{scope}
+						\clip (AVATAR-SOUTH-WEST) rectangle++ (\g_tcbox_forum_post_width_avatar_dim,\g_tcbox_forum_post_width_avatar_dim);
+						\node at
+						([xshift=0.5\g_tcbox_forum_post_width_avatar_dim,yshift=0.5\g_tcbox_forum_post_width_avatar_dim]AVATAR-SOUTH-WEST)
+						{\g_tcbox_forum_post_avatar_tl};
+					\end{scope}
+					% Pseudo
+					\begin{scope}
+						\filldraw[\g_tcbox_forum_post_rule_color,line~width=0.2mm]
+						(PSEUDO-SOUTH-WEST) rectangle++ (\g_tcbox_forum_post_width_avatar_dim,\g_tcbox_forum_post_heightpseudo_dim);
+						\clip (PSEUDO-SOUTH-WEST) rectangle++ (\g_tcbox_forum_post_width_avatar_dim,\g_tcbox_forum_post_heightpseudo_dim);
+						\node at (PSEUDO)
+						[forum~style~post~font~pseudo]
+						{\resizebox*{!}{0.75\g_tcbox_forum_post_heightpseudo_dim}{\vphantom{(qM)}\g_tcbox_forum_post_pseudo_tl}};
+					\end{scope}
+					% Pseudo alternatif
+					\begin{scope}
+						\clip (AVATAR-SOUTH-WEST) rectangle++ (\g_tcbox_forum_post_width_avatar_dim,-\g_tcbox_forum_post_heightpseudo_dim);
+						\node at (PSEUDO-ALT)
+						[forum~style~post~font~altpseudo]
+						{\resizebox*{!}{0.667\g_tcbox_forum_post_heightpseudo_dim}{\vphantom{(qM)}\g_tcbox_forum_post_alt_pseudo_tl}};
+					\end{scope}
+				}
+				{
+					\coordinate (AVATAR-SOUTH-WEST) at
+					([xshift=\g_tcbox_forum_post_offset_dim,yshift=-\g_tcbox_forum_post_width_avatar_dim]frame.north~east);
+					\coordinate (PSEUDO-SOUTH-WEST) at
+					([xshift=\g_tcbox_forum_post_offset_dim,yshift={-\g_tcbox_forum_post_width_avatar_dim-\g_tcbox_forum_post_heightpseudo_dim}]frame.north~east);
+					\coordinate (PSEUDO) at
+					([xshift={0.5\g_tcbox_forum_post_width_avatar_dim},yshift={-0.5\g_tcbox_forum_post_heightpseudo_dim}]AVATAR-SOUTH-WEST);
+					\coordinate (PSEUDO-ALT) at
+					([xshift={0.5\g_tcbox_forum_post_width_avatar_dim},yshift={-0.5\g_tcbox_forum_post_heightpseudo_dim}]PSEUDO-SOUTH-WEST);
+					%Boîte de gauche
+					\fill[\g_tcbox_forum_post_bg_color]
+					([xshift=\g_tcbox_forum_post_offset_dim]frame.north~east)
+					rectangle++ (\g_tcbox_forum_post_width_avatar_dim,-\g_tcbox_forum_post_width_avatar_dim-2\g_tcbox_forum_post_heightpseudo_dim);
+					% Avatar
+					\begin{scope}
+						\clip ([xshift=\g_tcbox_forum_post_offset_dim]frame.north~east)
+						rectangle++ (\g_tcbox_forum_post_width_avatar_dim,-\g_tcbox_forum_post_width_avatar_dim);
+						\node at
+						([xshift={0.5\g_tcbox_forum_post_width_avatar_dim+\g_tcbox_forum_post_offset_dim},yshift={-0.5\g_tcbox_forum_post_width_avatar_dim}]frame.north~east)
+						{\g_tcbox_forum_post_avatar_tl};
+					\end{scope}
+					% Pseudo
+					\begin{scope}
+						\filldraw[\g_tcbox_forum_post_rule_color,line~width=0.2mm]
+						(AVATAR-SOUTH-WEST) rectangle++ (\g_tcbox_forum_post_width_avatar_dim,-\g_tcbox_forum_post_heightpseudo_dim);
+						\clip (AVATAR-SOUTH-WEST) rectangle++ (\g_tcbox_forum_post_width_avatar_dim,-\g_tcbox_forum_post_heightpseudo_dim);
+						\node at (PSEUDO)
+						[forum~style~post~font~pseudo]
+						{\resizebox*{!}{0.75\g_tcbox_forum_post_heightpseudo_dim}{\vphantom{(qM)}\g_tcbox_forum_post_pseudo_tl}};
+					\end{scope}
+					% Pseudo alternatif
+					\begin{scope}
+						\clip (PSEUDO-SOUTH-WEST) rectangle++ (\g_tcbox_forum_post_width_avatar_dim,-\g_tcbox_forum_post_heightpseudo_dim);
+						\node at (PSEUDO-ALT)
+						[forum~style~post~font~altpseudo]
+						{\resizebox*{!}{0.667\g_tcbox_forum_post_heightpseudo_dim}{\vphantom{(qM)}\g_tcbox_forum_post_alt_pseudo_tl}};
+					\end{scope}
+				}
+			% Bordure de la boîte de gauche
+			\draw[\g_tcbox_forum_post_rule_color,line~width=0.2mm]
+			([xshift=\g_tcbox_forum_post_offset_dim]frame.north~east)
+			rectangle++ (\g_tcbox_forum_post_width_avatar_dim,-\g_tcbox_forum_post_width_avatar_dim-2\g_tcbox_forum_post_heightpseudo_dim);
+			% Bulle
+			\draw[\g_tcbox_forum_post_rule_color,fill={\g_tcbox_forum_post_bg_color},line~width=0.2mm,line~join=round,rounded~corners=0.3mm]
+			(frame.north~east) -- (frame.north~west) -- (frame.south~west) -- (frame.south~east) -- ([yshift=\dim_eval:n { -1.75 \g_tcbox_forum_post_trideco_dim}]frame.north~east) --++ ({\g_tcbox_forum_post_offset_dim},0.5\g_tcbox_forum_post_offset_dim) --++ ({-\g_tcbox_forum_post_offset_dim},0.5\g_tcbox_forum_post_offset_dim) -- cycle;
 		},
 	}
 }
@@ -4875,8 +5021,14 @@
 		\fp_eval:n { sqrt(3)/2 * \dim_to_fp:n { \g_tcbox_forum_post_trideco_dim } } pt
 	}
 	\dim_gset:Nn \g_tcbox_forum_post_width_avatar_dim
-	{ \g_tcbox_forum_post_left_margin - \g_tcbox_forum_post_offset_dim }
-	\tcolorbox[forum~style~post,#2]
+		{ \g_tcbox_forum_post_left_margin - \g_tcbox_forum_post_offset_dim }
+	\bool_if:NTF \g_tcbox_forum_post_avatar_right_bool
+		{
+			\tcolorbox[forum~style~post~right,#2]
+		}
+		{
+			\tcolorbox[forum~style~post,#2]
+		}
 }
 { 
 	\endtcolorbox 

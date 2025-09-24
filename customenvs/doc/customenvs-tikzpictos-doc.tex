@@ -43,8 +43,8 @@
 \usepackage[margin=2cm]{geometry}
 \setlength{\parindent}{0pt}
 
-\def\TPversion{0.1.9}
-\def\TPdate{11/09/2025}
+\def\TPversion{0.20a}
+\def\TPdate{24/09/2025}
 \usepackage{tcolorbox}
 
 \sethlcolor{lightgray!25}
@@ -789,9 +789,91 @@ toptxtfont=\bfseries\sffamily,bottomtxtfont=\ttfamily
 \textcolor{cyan}{\pictogkhair[rotate=30]{3cm}}
 \end{demohigh}
 
+\subsection{TriDim picto}
+
+\begin{codehigh}[language=latex/latex2]
+\tkzthreedimdeco[keys]<tikz options>{height/auto/dauto}
+
+%keys :
+%ext color         = white
+%main color        = red
+%shadow color      = gray
+%shadow alt color  = lightgray
+%rescale           = 1
+%couleurs          = {violet,cyan,brown,yellow,red,green,teal,purple,pink}
+%strut             = {M}
+%dstrut            = {(qM)}
+%style             = A
+\end{codehigh}
+
+\begin{demohigh}[language=latex/latex2]
+\tkzthreedimdeco[main color=orange]{3cm}\:%
+\tkzthreedimdeco[style=B]{3cm}\:%
+\tkzthreedimdeco[style=C]{3cm}\:%
+\tkzthreedimdeco[style=D,main color=cyan!25]{3cm}
+\end{demohigh}
+
+\subsection{Blocks}
+
+\begin{codehigh}[language=latex/latex2]
+\tkzquestionblock[keys]<tikz options>{height/auto/dauto}
+\tkzbrickblock[keys]<tikz options>{height/auto/dauto}
+\tkzsimpleblock[keys]<tikz options>{height/auto/dauto}
+\end{codehigh}
+
+\begin{demohigh}[language=latex/latex2]
+\tkzquestionblock{3cm}\:%
+\tkzbrickblock{3cm}\:%
+\tkzsimpleblock{3cm}\:%
+\end{demohigh}
+
+\subsection{Kawaii Hamster}
+
+\begin{codehigh}[language=latex/latex2]
+\tkzhamsterkawaii[keys]<tikz options>{height/auto/dauto}
+
+%keys:
+%rescale       = 1
+%strut         = {M}
+%dstrut        = {(qM)}
+%bw            = false
+%ear color     = tkzchibihamsterA
+%body color    = tkzchibihamsterB
+%border color  = tkzchibihamsterC
+\end{codehigh}
+
+\begin{demohigh}[language=latex/latex2]
+\tkzhamsterkawaii{3cm}\:%
+\tkzhamsterkawaii[bw]{3cm}
+
+{\Huge M\tkzhamsterkawaii{auto}M}
+\end{demohigh}
+
+\subsection{Spider cabweb}
+
+\begin{codehigh}[language=latex/latex2]
+\tkzspidercabweb[keys]<tikz options>{height/auto/dauto}
+
+%keys:
+%levels        = 5
+%rescale       = 1
+%strut         = {M}
+%dstrut        = {(qM)}
+%inner margin  = 0.85
+\end{codehigh}
+
+\begin{demohigh}[language=latex/latex2]
+\tkzspidercabweb{3cm}\:\tkzspidercabweb[levels=6]{3cm}\:%
+\tkzspidercabweb[inner margin=0.25]{3cm}
+
+{\Huge (q\tkzspidercabweb{dauto}M)}
+\end{demohigh}
+
 \pagebreak
 
 \section{History}
+
+\verb|v0.20a|:~TriDim picto + KawaiiHamster + SpiderCabWeb
 
 \verb|v0.1.9|:~Saiyan haircut
 

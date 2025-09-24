@@ -34,8 +34,8 @@
 \usepackage[margin=1.5cm]{geometry}
 \setlength{\parindent}{0pt}
 
-\def\TPversion{0.41e}
-\def\TPdate{11/09/2025}
+\def\TPversion{0.41f}
+\def\TPdate{24/09/2025}
 \usepackage{tcolorbox}
 \sethlcolor{lightgray!25}
 \NewDocumentCommand\MontreCode{ m }{%
@@ -113,6 +113,8 @@
 \vfill
 
 \section{History}
+
+\verb|v0.41f|:~~~Enhancements + new pictos
 
 \verb|v0.41e|:~~~Enhancements with subpackages + new environements (see \textsf{[fr]} doc)
 
@@ -246,7 +248,7 @@ Due to limitations, \MontreCode{enumitem}/\MontreCode{multicol}/\MontreCode{tabu
 
 \pagebreak
 
-\subsection{Subpackage customenvs-tikzpictos (v0.1.8)}
+\subsection{Subpackage customenvs-tikzpictos (v0.20a)}
 
 The package \MontreCode{customenvs-tikzpictos}, loaded within \MontreCode{customenvs} (but can be loaded independently), proposes small pictograms.
 
@@ -1203,6 +1205,8 @@ CHAPTER 01: Logic
 %deco-length    = width of triangular deco
 %left-margin
 %pseudo
+%right          = boolean for right position
+%swap-title     = boolean for switching lines in avatar box
 %alt-pseudo
 %fill-color
 %rule-color
@@ -1237,7 +1241,12 @@ forum~style~post~font~altpseudo/.style={%
 \ExplSyntaxOff
 
 \begin{demohigh}[language=latex/latex2,style/main=teal!25,style/code=teal!25]
-\begin{tcforumpost}[fill-color=pink!10,rule-color=magenta]{width=12cm}
+\begin{tcforumpost}%
+  [%
+    fill-color=pink!10,rule-color=magenta,%
+    right,swap-title
+  ]%
+  {width=12cm}
 \lipsum[1][1-5]
 \end{tcforumpost}
 \end{demohigh}

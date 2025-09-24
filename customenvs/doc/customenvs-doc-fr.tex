@@ -39,8 +39,8 @@
 \usepackage[margin=1.5cm]{geometry}
 \setlength{\parindent}{0pt}
 
-\def\TPversion{0.41e}
-\def\TPdate{11 septembre 2025}
+\def\TPversion{0.41f}
+\def\TPdate{24 septembre 2025}
 \usepackage{tcolorbox}
 \tcbuselibrary{listingsutf8}
 %\usepackage{eurosym}
@@ -147,6 +147,8 @@
 \pagebreak
 
 \section{Historique}
+
+\verb|v0.41f|~:~~~Améliorations + nouveaux pictogrammes
 
 \verb|v0.41e|~:~~~Bicolortitle + tcboxboard
 
@@ -300,7 +302,7 @@ Les packages chargés sont :
 \usepackage[option(s)]{customenvs}
 \end{DemoCode}
 
-\subsection{Sous-package customenvs-tikzpictos (v0.1.9)}
+\subsection{Sous-package customenvs-tikzpictos (v0.20a)}
 
 \MontreCode{customenvs} charge, pour \textit{ses} petits pictogrammes, le package \MontreCode{customenvs-tikzpictos}, qui est fourni avec.
 
@@ -2163,6 +2165,8 @@ CHAPITRE 01 : Éléments de logique
 %alt-pseudo     = pseudo alternatif affiché
 %fill-color     = couleur de fond
 %rule-color     = couleur du bord
+%left           = booléen pour passer en mode avatar à droite
+%swap-title    = booléen pour échanger les lignes du bloc avatar
 %avatar         = code avatar (emoji, graphics, texte...)
 \end{DemoCode}
 
@@ -2183,7 +2187,12 @@ CHAPITRE 01 : Éléments de logique
 }
 \ExplSyntaxOff
 
-\begin{tcforumpost}[fill-color=pink!10,rule-color=magenta]{width=12cm}
+\begin{tcforumpost}%
+  [%
+    fill-color=pink!10,rule-color=magenta,%
+    right,swap-title
+  ]%
+  {width=12cm}
 \lipsum[1][1-5]
 \end{tcforumpost}
 \end{DemoCode}
