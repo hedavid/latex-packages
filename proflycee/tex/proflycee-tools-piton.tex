@@ -2,6 +2,7 @@
 % Copyright 2023-2025  Cédric Pierquet
 % Released under the LaTeX Project Public License v1.3c or later, see http://www.latex-project.org/lppl.txt
 
+%3.12f	Légères modif piton [bottom + bg-color]
 %3.12e	Oubli d'une clé pitonconsole...
 %3.12b	Modifs pour piton (semblent ok)...
 %3.11e	Ajout de styles pour piton (carbon & onglet)
@@ -20,6 +21,12 @@
 
 \RequirePackage{iftex}
 \RequirePackage{varwidth}
+
+%%=============LENGTH BOTTOM
+\newlength\pflpitontcboxbottom
+\setlength\pflpitontcboxbottom{0.7mm}
+\newlength\pflpitonconsoletcboxbottom
+\setlength\pflpitonconsoletcboxbottom{2.25mm}
 
 %%=============PYTHONPITON
 
@@ -59,7 +66,7 @@
 	enhanced,boxrule=1.25pt,%
 	sharp corners=downhill,arc=12pt,
 	before skip=\CODPITespV,after skip=\CODPITespV,%
-	top=\baselineskip,bottom=-0.5mm,left=0.6em,right=5mm,%
+	top=\baselineskip,bottom=\pflpitontcboxbottom,left=0.6em,right=5mm,%
 	attach boxed title to top right={yshift=-\tcboxedtitleheight},
 	boxed title style={
 		size=small,colback=CouleurVertForet!25,boxrule=1.25pt,
@@ -76,7 +83,7 @@
 %==Style Classique
 \tcbset{thonnystyle/.style={%
 	enhanced,boxrule=0.75pt,colframe=darkgray!50!black,%
-	sharp corners,top=0mm,bottom=-0.5mm,left=0.4em,right=5mm,%
+	sharp corners,top=0mm,bottom=\pflpitontcboxbottom,left=0.4em,right=5mm,%
 	before skip=\CODPITespV,after skip=\CODPITespV,%
 	colback=white
 	}
@@ -97,7 +104,7 @@
 	before skip=\CODPITespV,after skip=\CODPITespV,%
 	colback=\CODPITcolor!2.5,colframe=\CODPITcolor!50!black,boxrule=1.25pt,
 	attach boxed title to top left={xshift=1.2em+1mm,yshift*=1mm-\tcboxedtitleheight},
-	top=0.5mm,bottom=-0.5mm,left=0.6em,right=5mm,%
+	top=0.5mm,bottom=\pflpitontcboxbottom,left=0.6em,right=5mm,%
 	varwidth boxed title*=-3cm,
 	boxed title style={left=0mm,bottom=0mm,right=0mm,top=0mm,frame code={
 			\path[fill=tcbcolframe]
@@ -119,7 +126,7 @@
 
 \tcbset{stylepitonsilicon/.style={%
 	enhanced,rounded corners,arc=4pt,
-	top=0mm,bottom=-0.5mm,left=0.4em,right=5mm,%
+	top=0mm,bottom=\pflpitontcboxbottom,left=0.4em,right=5mm,%
 	lefttitle=0.4em,bottomtitle=0mm,righttitle=0.4em,
 	title={\CODPITicocarbon\hfill{\CODPITtitre}},
 	before skip=\CODPITespV,after skip=\CODPITespV,%
@@ -130,7 +137,7 @@
 
 \tcbset{stylepitonsiliconlight/.style={%
 		enhanced,rounded corners,arc=4pt,
-		top=0mm,bottom=-0.5mm,left=0.4em,right=5mm,%
+		top=0mm,bottom=\pflpitontcboxbottom,left=0.4em,right=5mm,%
 		lefttitle=0.4em,bottomtitle=0mm,righttitle=0.4em,
 		title={\CODPITicocarbon\hfill{\CODPITtitre}},
 		before skip=\CODPITespV,after skip=\CODPITespV,%
@@ -179,7 +186,7 @@
 	enhanced,boxrule=1.25pt,%
 	sharp corners=downhill,arc=12pt,
 	before skip=\CODPITPCespV,after skip=\CODPITPCespV,%
-	top=\baselineskip,bottom=-0.5mm,left=0.6em,right=5mm,%
+	top=\baselineskip,bottom=\pflpitontcboxbottom,left=0.6em,right=5mm,%
 	attach boxed title to top right={yshift=-\tcboxedtitleheight},
 	boxed title style={
 		size=small,colback=CouleurVertForet!25,boxrule=1.25pt,
@@ -195,7 +202,7 @@
 %==Style Classique
 \tcbset{thonnypcstyle/.style={%
 	enhanced,boxrule=0.75pt,colframe=darkgray!50!black,%
-	sharp corners,top=0mm,bottom=-0.5mm,left=0.4em,right=5mm,%
+	sharp corners,top=0mm,bottom=\pflpitontcboxbottom,left=0.4em,right=5mm,%
 	before skip=\CODPITPCespV,after skip=\CODPITPCespV,%
 	colback=white
 	}
@@ -245,6 +252,7 @@
 	\IfInteger{\CODPITgobble}{\PitonOptions{gobble=\CODPITgobble}}{}%
 	%--fin gestion du gobble
 	\PitonOptions{break-lines,indent-broken-lines,continuation-symbol={\;}}%,numbers-sep=0.65em}%language=Python}
+	\PitonOptions{background-color=none,prompt-background-color=none}%
 	%------les styles tcbox
 	\IfEq{\CODPITstyle}{Moderne}%style Moderne (défaut)
 		{%
@@ -362,6 +370,7 @@
 		{\PitonOptions{left-margin=0.75em,line-numbers,line-numbers={skip-empty-lines=false,label-empty-lines=true,#3}}}%left-margin=auto,
 		{\PitonOptions{}}%
 	\PitonOptions{break-lines,indent-broken-lines,continuation-symbol={\;}}%,numbers-sep=0.65em}%language=Python}
+	\PitonOptions{background-color=none,prompt-background-color=none}%
 	%------les styles tcbox
 	\IfEq{\CODPITstyle}{Moderne}%style Moderne (défaut)
 		{%
@@ -519,6 +528,7 @@
 		{all}{\PitonOptions{auto-gobble,tabs-auto-gobble,env-gobble}}%
 	}%
 	\IfInteger{\CODPITPCgobble}{\PitonOptions{gobble=\CODPITPCgobble}}{}%
+	\PitonOptions{background-color=none,prompt-background-color=none}%
 	%--fin gestion du gobble
 	%------les styles tcbox
 	\IfEq{\CODPITPCstyle}{Moderne}%style Moderne (défaut)
@@ -584,6 +594,7 @@
 		{\PitonOptions{left-margin=0.75em,all-line-numbers}}%left-margin=auto,
 		{\PitonOptions{}}%
 	\PitonOptions{break-lines,indent-broken-lines,language=minimal,continuation-symbol={\;}}%,numbers-sep=0.65em}%
+	\PitonOptions{background-color=none,prompt-background-color=none}%
 	\SetPitonStyle{ Number = }
 	\ifboolKV[envpcpiton]{Couleurs}%
 		{%
@@ -669,7 +680,7 @@
 %======CONSOLE PYLUATEX (package à charger manuellement !!)
 \tcbset{consolepylua/.style={%base de la boîte
 	enhanced,colback=white,colframe=CouleurVertForet,sharp corners,boxrule=1pt,%
-	top=1.5mm,bottom=0mm,left=0.5mm,right=3mm,fontupper=\footnotesize,%test 3.12e
+	top=1mm,bottom=\pflpitonconsoletcboxbottom,left=0.5mm,right=3mm,fontupper=\footnotesize,%test 3.12e
 	before skip=0.5\baselineskip,after skip=0.5\baselineskip,%
 	}
 }
@@ -716,7 +727,7 @@
 	\SetPitonStyle[Python]{Number=\color{\CODPITcolnb} }%
 	\PitonOptions{width=\ConsPyluaLarg-5mm,break-lines,end-of-broken-line={\,},continuation-symbol={\;},#1}%
 	%\PitonOptions{line-numbers=false,left-margin=0mm}%
-	\PitonOptions{background-color=,prompt-background-color=white}%cf 3.12e
+	\PitonOptions{background-color=none,prompt-background-color=none}%
 	\PyLTVerbatimEnv
 	\ifboolKV[consolepyluatex]{Logo}%
 	{%
@@ -809,6 +820,7 @@
 	\settowidth{\LargeurNumbersThonny}{\footnotesize\texttt{00}}%
 	\SetPitonStyle[Python]{Number=\color{\CODPITcolnb}}%
 	\PitonOptions{width=\LargeurThonny-5mm,left-margin=\LargeurNumbersThonny+1mm,line-numbers={skip-empty-lines=false,label-empty-lines=true},break-lines,indent-broken-lines,continuation-symbol={},#3}%
+	\PitonOptions{background-color=none,prompt-background-color=none}%
 	%--gestion du gobble
 	\IfStrEqCase{\thonnypitongobble}{%
 		{auto}{\PitonOptions{auto-gobble}}%
@@ -823,7 +835,7 @@
 	\tcbset{reset}%
 	\tcbset{tcbthonnypiton/.style={title=\vphantom{pf}{\thonnypitonfilename}\:\textcolor{gray}{×}},before skip=0.33\baselineskip,after skip=0.33\baselineskip}%
 	%\noindent%
-	\tcolorbox[enhanced,sharp corners=all,size=small,width=\LargeurThonny,colframe=gray,colback=lightgray!5,tcbthonnypiton,fonttitle=\scriptsize\sffamily,coltitle=black,attach boxed title to top left={yshift*=-0.4pt},fontupper=\footnotesize,bottom=-0.25mm,boxed title style={size=tight,colback=lightgray!15,sharp corners=all,boxrule=0.4pt,boxsep=2pt},boxrule=0.4pt,overlay={\begin{tcbclipinterior}\fill[draw=none,gray!25] ([shift={(0.4pt,0.4pt)}]frame.south west) rectangle ([shift={({\LargeurNumbersThonny+1mm+0.8pt},-0.4pt)}]frame.north west) ;\end{tcbclipinterior}},#2]%
+	\tcolorbox[enhanced,sharp corners=all,size=small,width=\LargeurThonny,colframe=gray,colback=lightgray!5,tcbthonnypiton,fonttitle=\scriptsize\sffamily,coltitle=black,attach boxed title to top left={yshift*=-0.4pt},fontupper=\footnotesize,bottom=\pflpitontcboxbottom,boxed title style={size=tight,colback=lightgray!15,sharp corners=all,boxrule=0.4pt,boxsep=2pt},boxrule=0.4pt,overlay={\begin{tcbclipinterior}\fill[draw=none,gray!25] ([shift={(0.4pt,0.4pt)}]frame.south west) rectangle ([shift={({\LargeurNumbersThonny+1mm+0.8pt},-0.4pt)}]frame.north west) ;\end{tcbclipinterior}},#2]%
 }%
 {%
 	\endtcolorbox%
@@ -866,8 +878,9 @@
 	\settowidth{\LargeurNumbersThonny}{\footnotesize\texttt{00}}%
 	\SetPitonStyle[Python]{Number=\color{\CODPITcolnb}}%
 	\PitonOptions{width=\LargeurThonny-5mm,left-margin=\LargeurNumbersThonny+1mm,line-numbers,line-numbers={skip-empty-lines=false,label-empty-lines=true},break-lines,indent-broken-lines,continuation-symbol={}}%
+	\PitonOptions{background-color=none,prompt-background-color=none}%
 	\tcbset{tcbthonnypiton/.style={title=\vphantom{pf}\thonnypitonfilename\:\textcolor{gray}{×}},before skip=0.33\baselineskip,after skip=0.33\baselineskip}%
-	\tcolorbox[sharp corners=all,enhanced,size=small,width=\LargeurThonny,colframe=gray,colback=lightgray!5,tcbthonnypiton,fonttitle=\scriptsize\sffamily,coltitle=black,attach boxed title to top left={yshift*=-0.4pt},fontupper=\footnotesize,bottom=-0.25mm,boxed title style={size=tight,colback=lightgray!15,sharp corners=all,boxrule=0.4pt,boxsep=2pt},boxrule=0.4pt,overlay={\begin{tcbclipinterior}\fill[draw=none,gray!25] ([shift={(0.4pt,0.4pt)}]frame.south west) rectangle ([shift={(\LargeurNumbersThonny+1mm+0.8pt,-0.4pt)}]frame.north west) ;\end{tcbclipinterior}},#3]%
+	\tcolorbox[sharp corners=all,enhanced,size=small,width=\LargeurThonny,colframe=gray,colback=lightgray!5,tcbthonnypiton,fonttitle=\scriptsize\sffamily,coltitle=black,attach boxed title to top left={yshift*=-0.4pt},fontupper=\footnotesize,bottom=\pflpitontcboxbottom,boxed title style={size=tight,colback=lightgray!15,sharp corners=all,boxrule=0.4pt,boxsep=2pt},boxrule=0.4pt,overlay={\begin{tcbclipinterior}\fill[draw=none,gray!25] ([shift={(0.4pt,0.4pt)}]frame.south west) rectangle ([shift={(\LargeurNumbersThonny+1mm+0.8pt,-0.4pt)}]frame.north west) ;\end{tcbclipinterior}},#3]%
 	\PitonInputFile{#2}
 	\endtcolorbox}%
 
@@ -881,7 +894,7 @@
 	\noindent%
 	\PitonOptions{#3}%
 	%\PitonOptions{line-numbers=false,left-margin=0mm}%
-	\PitonOptions{background-color=,prompt-background-color=white}%cf 3.12e
+	\PitonOptions{background-color=none,prompt-background-color=none}%
 	\SetPitonStyle[Python]{Number=\color{\CODPITcolnb}}%
 	%--gestion du gobble
 	\IfStrEqCase{\thonnypitongobble}{%
@@ -896,8 +909,8 @@
 	%--fin gestion du gobble
 	\PitonOptions{width={\LargeurThonny-5mm},break-lines,end-of-broken-line={\,},continuation-symbol={\;}}%
 	\tcolorbox[sharp corners=all,enhanced,size=small,width=\LargeurThonny,colframe=gray,colback=white,tcbthonnypitonconsole,fonttitle=\scriptsize\sffamily,coltitle=black,
-	attach boxed title to top left={yshift*=-0.4pt},fontupper=\footnotesize,bottom=0mm,#2,boxed title style={size=tight,colback=lightgray!15,sharp corners=all,boxrule=0.4pt,boxsep=2pt},boxrule=0.4pt,top=1mm,left=0.5mm,#2]%
-	\textcolor{gray}{\texttt{\space\thonnypitonintroconsole}}
+	attach boxed title to top left={yshift*=-0.4pt},fontupper=\footnotesize,bottom=\pflpitonconsoletcboxbottom,#2,boxed title style={size=tight,colback=lightgray!15,sharp corners=all,boxrule=0.4pt,boxsep=2pt},boxrule=0.4pt,top=1mm,left=0.5mm,#2]%
+	\textcolor{gray}{\texttt{\thonnypitonintroconsole}}
 	\begin{pythonrepl}
 }
 {

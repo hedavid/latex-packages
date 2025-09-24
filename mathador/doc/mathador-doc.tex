@@ -28,7 +28,7 @@
 \usepackage[margin=2cm]{geometry}
 \setlength{\parindent}{0pt}
 \def\TPversion{0.1.1}
-\def\TPdate{25/09/2025}
+\def\TPdate{24/09/2025}
 \usepackage{tcolorbox}
 \tcbuselibrary{breakable,skins,hooks,listingsutf8}
 %\usepackage{soul}
@@ -328,11 +328,11 @@ Il est également possible de présenter les valeurs via les 6 \textit{dés} :
 La hauteur des dés n'est pas forcément uniforme, l'idée est de pouvoir présenter les dés \textit{cote à cote}, avec un rendu satisfaisant.
 
 \begin{DemoCode}{}
-\DeMathador{red}{Q}{2cm}{4}             %dé Quatre
-\DeMathador{olive!50!lime}{S}{2cm}{4}   %dé Six
-\DeMathador{orange}{H}{2cm}{4}          %dé Huit
-\DeMathador{blue}{D}{2cm}{4}            %dé Douze
-\DeMathador{purple}{V}{2cm}{4}          %dé Vingt
+\DeMathador{red}{Q}{2cm}{6}             %dé Quatre
+\DeMathador{olive!50!lime}{S}{2cm}{2}   %dé Six
+\DeMathador{orange}{H}{2cm}{}           %dé Huit
+\DeMathador{blue}{D}{2cm}{12}           %dé Douze
+\DeMathador{purple}{V}{2cm}{1}          %dé Vingt
 \end{DemoCode}
 
 \begin{DemoCode}{}
@@ -361,18 +361,18 @@ Les \textsf{clés} disponibles sont :
 \end{itemize}
 
 \begin{DemoCode}{}
-\TirageDesMathador{2}{4}{6}{7}{9}{61}
+\TirageDesMathador{61}{2}{4}{6}{7}{9}
 \end{DemoCode}
 
 \begin{DemoCode}{}
-\TirageDesMathador[impression]{2}{4}{6}{7}{9}{61}
+\TirageDesMathador[impression]{61}{2}{4}{6}{7}{9}
 \end{DemoCode}
 
 \pagebreak
 
 \section{Historique}
 
-\texttt{0.1.0 : Meilleure gestion des opérateurs}
+\texttt{0.1.1 : Meilleure gestion des \textit{opérateurs}}
 
 \texttt{0.1.0 : Version initiale}
 %

@@ -1,6 +1,6 @@
-mathador is a package with commands for french game MATHADOR (from CANOPÉ).
+mathador is a package with commands foir french game MATHADOR (from CANOPÉ).
 
----------------------------------------------------------------------------
+----------------------------------------------------------------------------
 
 Author..: Cédric Pierquet
 
