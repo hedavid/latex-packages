@@ -5,13 +5,15 @@
 % Poker v3 cards Image's Licence.: Public Domain https://www.me.uk/cards/
 % Poker v4 cards Image's Licence.: CC BY-SA 4.0 https://commons.wikimedia.org/wiki/File:Computer_screen_playing_cards_deck.svg
 % Poker v5 cards Image's Licence.: Public Domain https://www.me.uk/cards/
+% Poker v6 cards Image's Licence.: Public Domain https://code.google.com/archive/p/vector-playing-cards
 % Poker fr cards Image's Licence.: LGPL-2.1 license https://svg-cards.sourceforge.net/
 % Poker bi cards Image's Licence.: LGPL-3 license https://github.com/tfbkny/blackjack
 % Tarot v1 cards Image's Licence.: Public Domain https://freesvg.org/deck-of-french-tarot-playing-cards
 % Uno   v1 cards Image's Licence.: MIT License https://eperezcosano.github.io/uno-part1/
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{JeuxCartes}[2025/08/21 v0.3.3 Jeux de cartes]
+\ProvidesPackage{JeuxCartes}[2025/10/04 v0.3.4 Jeux de cartes]
+% 0.3.4	Nouveau design v6
 % 0.3.3	Correction d'une carte (VP.fr, merci à quark67)
 % 0.3.2	Ajout d'un mode 'null' pour ne pas afficher une carte
 % 0.3.1	Ajout d'une clé EspH pour les cartes côte à côte + macros jeux complets avec Jokers
@@ -100,6 +102,9 @@
 			%cas pokerv5
 			\IfStrEq{\AffCarteJeuStyle}{v5}%pokerv5
 				{\def\CartePrefixe{CaJ-PokeRv5-}}{}%
+			%cas pokerv6
+			\IfStrEq{\AffCarteJeuStyle}{v6}%pokerv5
+				{\def\CartePrefixe{CaJ-PokeRv6-}}{}%
 			%cas pokerfr
 			\IfStrEq{\AffCarteJeuStyle}{fr}%pokerfr
 				{\def\CartePrefixe{CaJ-PokeRfr-}}{}%
@@ -240,6 +245,8 @@
 				{\def\CarteMainPrefixe{CaJ-PokeRv4-}}{}%
 			\IfStrEq{\MainJeuStyle}{v5}%poker5
 				{\def\CarteMainPrefixe{CaJ-PokeRv5-}}{}%
+			\IfStrEq{\MainJeuStyle}{v6}%poker6
+				{\def\CarteMainPrefixe{CaJ-PokeRv6-}}{}%
 			\IfStrEq{\MainJeuStyle}{fr}%pokerfr
 				{\def\CarteMainPrefixe{CaJ-PokeRfr-}}{}%
 			\IfStrEq{\MainJeuStyle}{bicycl}%pokerbic
