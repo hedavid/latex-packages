@@ -2,9 +2,10 @@
 % licence.........: Released under the LaTeX Project Public License v1.3c or later, see http://www.latex-project.org/lppl.txt
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{customenvs-tikzpictos}[2025/09/24 0.20a Small pictograms, made with tikz]
+\ProvidesPackage{customenvs-tikzpictos}[2025/10/04 0.20b Small pictograms, made with tikz]
 
 %====HISTORY
+% v 0.20b	Donut + PoolBall
 % v 0.20a	3dim deco + kawaiihamster + spidercab
 % v 0.1.9	Hair gk
 % v 0.1.8	Simple ProgressBar
@@ -41,6 +42,7 @@
 \setlength{\pictotmpoffsetetoiles}{0.25pt}
 
 \defKV[pictostars]{%
+	rescale=\def\tkzLevelStarsRecale{#1},%
 	colors=\def\tkzLevelStarsColors{#1},%
 	offset=\setlength{\pictotmpoffsetetoiles}{#1},%
 	height=\def\pictotmpheightetetoiles{#1},%
@@ -49,6 +51,7 @@
 }
 
 \setKVdefault[pictostars]{%
+	rescale=0.975,%
 	colors={black/lightgray},%
 	offset={0.01em},%
 	height=dauto,%
@@ -93,7 +96,7 @@
 			\IfStrEq{\pictotmpheightetetoiles}{auto}%
 				{%
 					\settototalheight{\pictotmphauteuretoiles}{\hbox{\pictotmpstrutetetoiles}}%
-					\setlength{\pictotmphauteuretoiles}{0.975\pictotmphauteuretoiles}%
+					\setlength{\pictotmphauteuretoiles}{\tkzLevelStarsRecale\pictotmphauteuretoiles}%
 					%classic tikzpicture
 					\begin{tikzpicture}[bezier bounding box,fill=\tkzLevelStarsColorBg,draw=\tkzLevelStarsColor,rounded corners={0.05\pictotmphauteuretoiles},line width={0.05\pictotmphauteuretoiles},#2]
 						\intpictostars
@@ -102,7 +105,7 @@
 			\IfStrEq{\pictotmpheightetetoiles}{dauto}%
 				{%
 					\settototalheight{\pictotmphauteuretoiles}{\hbox{\pictotmpdstrutetetoiles}}%
-					\setlength{\pictotmphauteuretoiles}{0.975\pictotmphauteuretoiles}%
+					\setlength{\pictotmphauteuretoiles}{\tkzLevelStarsRecale\pictotmphauteuretoiles}%
 					\settodepth{\pictotmpprofondeuretoiles}{\hbox{\pictotmpdstrutetetoiles}}%
 					%raised tikzpicture
 					%\begin{tikzpicture}[bezier bounding box,baseline={-1.25\pictotmpprofondeuretoiles},fill=\tkzLevelStarsColorBg,draw=\tkzLevelStarsColor,rounded corners={0.05\pictotmphauteuretoiles},line width={0.05\pictotmphauteuretoiles},#2]
@@ -2748,6 +2751,175 @@
 				\inttkzspidercab
 			\end{tikzpicture}%
 		}%
+}
+
+%====DONUT
+\newlength\tkzdonutheight
+\newlength\tkzdonutdepth
+
+\definecolor{tkzdonutpastry}{HTML}{dcc6aa}
+\definecolor{tkzdonutjelly}{HTML}{e89dd5}
+
+\defKV[tkzdonut]{%
+	rescale=\def\tkzdonutrescale{#1},%
+	strut=\def\tkzdonutstrut{#1},%
+	dstrut=\def\tkzdonutdstrut{#1},%
+	main color=\def\tkzdonutmaincolor{#1},%
+	deco color=\def\tkzdonutdecocolor{#1}
+}
+\setKVdefault[tkzdonut]{%
+	rescale=1,%
+	strut={M},%
+	dstrut={(qM)},%
+	main color=tkzdonutpastry,%
+	deco color=tkzdonutjelly,%
+	decorations=true,%
+	bw=false
+}
+
+\newcommand\inttkzdonutdeco[1]{%
+	\begin{scope}[line width=\fpeval{\tkzdonutscale*0.0875}cm]
+		\foreach \ptpos/\ptcolor in {#1} {%
+			\draw[fill={\ptcolor}] \ptpos circle[radius=0.15cm] ;
+		}
+	\end{scope}
+}
+
+\newcommand\inttkzdonut{%
+	\path (6.5cm,0) arc [start angle=0,end angle=180,x radius=6.5cm,y radius=4cm] node [pos=0.075] (YYY-1) {} node [pos=0.925] (YYY-2) {} ;
+	\ifboolKV[tkzdonut]{bw}%
+		{%
+			\draw[fill=white] (0,0) circle[x radius=6.5cm,y radius=4cm] ;
+			\draw[fill=lightgray!25] plot[smooth,tension=1] coordinates {(YYY-2)(-5.75,-0.75)(-4.75,-0.25)(-4.35,-1.75)(-3,-1.25)(-2,-3)(-0.25,-2.15)(1,-3.1)(2.25,-2)(3.25,-2.5)(4,-1.5)(5.15,-1.5)(5.5,-0.5)(6.125,-0.5)(YYY-1)} arc [start angle=13.5,end angle=166.5,x radius=6.5cm,y radius=4cm] ;
+			\draw[line cap=round] (3,1.5) to[bend left=40] node [pos=0.2] (ZZZ-1) {} node [pos=0.8] (ZZZ-2) {}  (-3,1.5) ;
+			\draw[fill=white] (ZZZ-1.center) to[bend right=35] (ZZZ-2.center) to[bend right=25] cycle ;
+		}%
+		{%
+			\draw[fill={\tkzdonutmaincolor}] (0,0) circle[x radius=6.5cm,y radius=4cm] ;
+			\draw[fill={\tkzdonutdecocolor}] plot[smooth,tension=1] coordinates {(YYY-2)(-5.75,-0.75)(-4.75,-0.25)(-4.35,-1.75)(-3,-1.25)(-2,-3)(-0.25,-2.15)(1,-3.1)(2.25,-2)(3.25,-2.5)(4,-1.5)(5.15,-1.5)(5.5,-0.5)(6.125,-0.5)(YYY-1)} arc [start angle=13.5,end angle=166.5,x radius=6.5cm,y radius=4cm] ;
+			\draw[line cap=round] (3,1.5) to[bend left=40] node [pos=0.2] (ZZZ-1) {} node [pos=0.8] (ZZZ-2) {}  (-3,1.5) ;
+			\draw[fill={\tkzdonutmaincolor}] (ZZZ-1.center) to[bend right=35] (ZZZ-2.center) to[bend right=25] cycle ;
+		}%
+	\ifboolKV[tkzdonut]{decorations}%
+		{%
+			%decorations
+			\inttkzdonutdeco{(-5.75,0.75)/white,(-4.5,0.5)/white,(-4,2)/white,(-3.5,1.15)/white,(-2.5,0)/white,(-2.5,2.5)/white,(-1,-1.25)/white,(-0.1,-0.5)/white,(-1,3.25)/white,(-1.25,2.25)/white,(0,3.15)/white,(1,2.25)/white,(1.75,-1.5)/white,(2.5,2)/white,(3,0)/white,(3,3)/white,(4,-0.5)/white,(4,2.25)/white,(5,1)/white}
+		}%
+		{}%
+}
+
+\NewDocumentCommand\tkzdonut{ O{} D<>{} m }{%
+	\restoreKV[tkzdonut]%
+	\setKV[tkzdonut]{#1}%
+	\intpictotestautodautolen{#3}%
+		{%
+			\settoheight\tkzdonutheight{\hbox{\tkzdonutstrut}}%
+		}%
+		{%
+			\settototalheight\tkzdonutheight{\hbox{\tkzdonutdstrut}}%
+			\settodepth\tkzdonutdepth{\hbox{\tkzdonutdstrut}}%
+		}%
+		{%
+			\setlength\tkzdonutheight{#3}%
+		}%
+	\xdef\tkzdonutscale{\fpeval{\tkzdonutheight/82.5mm}}%
+	%picture
+	\intpictotestdautolen{#3}%
+		{%
+			\setlength\tkzdonutdepth{\dimexpr-\tkzdonutdepth+\fpeval{(1-\tkzdonutrescale)/2}\tkzdonutheight\relax}%
+			\raisebox{\tkzdonutdepth}{%
+				\begin{tikzpicture}[scale=\tkzdonutscale,line width=\fpeval{\tkzdonutscale*0.25}cm,transform shape]
+					\inttkzdonut
+				\end{tikzpicture}%
+			}%
+		}%
+		{%
+			\begin{tikzpicture}[scale=\tkzdonutscale,line width=\fpeval{\tkzdonutscale*0.25}cm,transform shape]
+				\inttkzdonut
+			\end{tikzpicture}%
+		}%
+}
+
+%====POOLBALL
+\usetikzlibrary{shadings}
+
+\newlength\tkzpoolballheight
+\newlength\tkzpoolballdepth
+
+\defKV[tkzpoolball]{%
+	font=\tikzset{poolball font/.style={font=#1}},%
+	rescale=\def\tkzpoolballrescale{#1},%
+	strut=\def\tkzpoolballstrut{#1},%
+	dstrut=\def\tkzpoolballdstrut{#1},%
+	color=\colorlet{tkzpoolballmaincolor}{#1},%
+	number=\def\tkzpoolballnb{#1},%
+	xscale=\def\tkzpoolballxscale{#1},%
+	rotate=\def\tkzpoolballrotate{#1}
+}
+\setKVdefault[tkzpoolball]{%
+	font=\sffamily,%
+	rescale=1,%
+	strut={M},%
+	dstrut={(qM)},%
+	color=red,%
+	number={},%
+	xscale=1,%
+	rotate=0
+}
+
+\newcommand\inttkzpoolball[1]{%
+	%clip pour la Rotation
+	\useasboundingbox (0,0) circle[radius=1cm] ;
+	\fill[upper left=tkzpoolballmaincolor!50,upper right=tkzpoolballmaincolor!80,lower left=tkzpoolballmaincolor!80,lower right=tkzpoolballmaincolor] (0,0) circle[radius=1cm] ;
+	\begin{scope}[rotate=\tkzpoolballrotate]
+		\clip (0,0) circle[radius=1cm] ;
+		\fill[white!95!tkzpoolballmaincolor] (1.5cm,0) circle[radius=0.675cm] ;
+		\fill[white!95!tkzpoolballmaincolor] (-1.5cm,0) circle[radius=0.675cm] ;
+		\fill[white!95!tkzpoolballmaincolor] (0,1.5cm) circle[radius=0.675cm] ;
+		\fill[white!95!tkzpoolballmaincolor] (0,-1.5cm) circle[radius=0.675cm] ;
+		\fill[white] (0,0) circle[radius=0.5cm] ;
+	\end{scope}
+	\begin{scope}[rotate=\tkzpoolballrotate]
+		\clip (0,0) circle[radius=0.5cm] ;
+		\ifthenelse{\equal{\tkzpoolballnb}{}}%
+			{}%
+			{%
+				\draw (0,0) node[inner sep=0pt,poolball font,xscale=\tkzpoolballxscale] {\resizebox*{!}{0.6cm}{\tkzpoolballnb}} ;
+			}%
+	\end{scope}
+	\draw[tkzpoolballmaincolor!25!black,line width=\fpeval{\tkzpoolballscale*0.2}mm] (0,0) circle[radius=1cm] ;
+}
+
+\NewDocumentCommand\tkzpoolball{ O{} D<>{} m }{%
+	\restoreKV[tkzpoolball]%
+	\setKV[tkzpoolball]{#1}%
+	\intpictotestautodautolen{#3}%
+	{%
+		\settoheight\tkzpoolballheight{\hbox{\tkzpoolballstrut}}%
+	}%
+	{%
+		\settototalheight\tkzpoolballheight{\hbox{\tkzpoolballdstrut}}%
+		\settodepth\tkzpoolballdepth{\hbox{\tkzpoolballdstrut}}%
+	}%
+	{%
+		\setlength\tkzpoolballheight{#3}%
+	}%
+	\xdef\tkzpoolballscale{\fpeval{\tkzpoolballheight/20.2mm}}%
+	%picture
+	\intpictotestdautolen{#3}%
+	{%
+		\setlength\tkzpoolballdepth{\dimexpr-\tkzpoolballdepth+\fpeval{(1-\tkzpoolballrescale)/2}\tkzpoolballheight\relax}%
+		\raisebox{\tkzpoolballdepth}{%
+			\begin{tikzpicture}[scale=\tkzpoolballscale,transform shape]
+				\inttkzpoolball{\tkzpoolballnb}
+			\end{tikzpicture}%
+		}%
+	}%
+	{%
+		\begin{tikzpicture}[scale=\tkzpoolballscale,transform shape]
+			\inttkzpoolball{\tkzpoolballnb}
+		\end{tikzpicture}%
+	}%
 }
 
 \endinput

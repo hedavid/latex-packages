@@ -2,9 +2,10 @@
 % licence.........: Released under the LaTeX Project Public License v1.3c or later, see http://www.latex-project.org/lppl.txt
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{customenvs-exams}[2025/08/20 0.1.4 customenvs for exam documents]
+\ProvidesPackage{customenvs-exams}[2025/10/04 0.1.5 customenvs for exam documents]
 
 %====HISTORY
+% v 0.1.5	Enhancements with BlocExo (bulle 'bordures')
 % v 0.1.4	Enhancements with pictostars
 % v 0.1.3	Global color for BlocExo
 % v 0.1.2	Enhancements with breakable and BlocExo :-)
@@ -564,6 +565,11 @@
 \tcbuselibrary{breakable}%à voir...
 \usetikzlibrary{calc}
 
+\newlength\tcboxcalloutbarleftmargin
+\newlength\tcboxcalloutbarbarwidth
+\setlength\tcboxcalloutbarleftmargin{0.5cm}
+\setlength\tcboxcalloutbarbarwidth{0.3mm}
+
 \NewDocumentEnvironment{BlocExo}{ O{} m }%
 {%
 	\useKVdefault[StyleLocalBlocExo]%
@@ -596,6 +602,15 @@
 		{}%
 	\IfStrEqCase{\EnvtExoAltBordures}{%
 		{normal}{\tcbset{monstylebloexobordures/.style={sharp corners,rounded corners=northwest,opacityfill=1,righttitle=0mm}}}%
+		{bulle}{\tcbset{monstylebloexobordures/.style={enhanced,size=small,frame empty,interior empty,sharp corners,top=2mm+2mm,left skip=\tcboxcalloutbarleftmargin,%
+			underlay boxed title={%
+				%\filldraw[draw=none,tcboxcalloutbarcolorbg,line width=\tcboxcalloutbarbarwidth] (frame.north west) rectangle (frame.south east);%
+				\draw[macouleurborduresblocexo,line width=\tcboxcalloutbarbarwidth] (frame.north west) -- (frame.south west) --++ (1.5\tcboxcalloutbarleftmargin,0) ;
+				\draw[macouleurborduresblocexo,line width=\tcboxcalloutbarbarwidth,densely dashed] ([xshift=1.5\tcboxcalloutbarleftmargin]frame.south west) --++ (1.5\tcboxcalloutbarleftmargin,0) ;
+			},%
+			attach boxed title to top left={xshift=-\tcboxcalloutbarleftmargin,yshift=-\tcboxedtitleheight+2mm},%
+			boxed title style={interior empty,size=small,boxsep=0.3mm,left=0.5mm,right=0.5mm,frame code={\draw[macouleurborduresblocexo,rounded corners=0.5mm,fill=white,line width=\tcboxcalloutbarbarwidth] (frame.north west) |- ([xshift=\tcboxcalloutbarleftmargin+0.5\tcboxcalloutbarbarwidth]frame.south west) --++ (0.2cm,-0.175cm) --++ (-0.075cm,0.175cm) -- (frame.south east) -- (frame.north east) -- cycle ;}},fonttitle=\tmpstyleblocexo}}%
+		}%
 		{simple}{\tcbset{monstylebloexobordures/.style={frame empty,left=\dimexpr1.5\hauteurnumerocercle+1mm\relax,right=0mm,top=0mm,bottom=2mm,boxsep=0mm,%
 			finish unbroken={%
 				\filldraw[macouleurborduresblocexo] ([xshift={0.75\hauteurnumerocercle},yshift={-0.75\hauteurnumerocercle}]frame.north west) circle[radius={0.75\hauteurnumerocercle}];%
@@ -608,6 +623,11 @@
 				\draw[ligne bloc exo,macouleurborduresblocexo] ([xshift={0.75\hauteurnumerocercle},yshift={-0.75\hauteurnumerocercle}]frame.north west) -- ([xshift={0.75\hauteurnumerocercle},yshift={5mm}]frame.south west) ;%
 				\draw[ligne bloc exo,macouleurborduresblocexo,densely dashed] ([xshift={0.75\hauteurnumerocercle},yshift={5mm}]frame.south west) --++ (0,-5mm) ;%
 				\draw ([xshift={0.75\hauteurnumerocercle},yshift={-0.75\hauteurnumerocercle}]frame.north west) node[text=white,font=\tmpstyleblocexo,scale=0.95] {\ifnum\thenumeroblocexo<10\relax\thenumeroblocexo\else\scalebox{0.667}[1]{\thenumeroblocexo}\fi} ;%
+				},%
+			finish middle={%
+				\draw[ligne bloc exo] ([yshift=-5mm]frame.north west) -- ([yshift=5mm]frame.south west) ;%
+				\draw[ligne bloc exo,densely dashed] ([yshift=-5mm]frame.north west) -- (frame.north west) ;%
+				\draw[ligne bloc exo,densely dashed] ([yshift=5mm]frame.south west) -- (frame.south west) ;%
 				},%
 			finish last={%
 				\draw[ligne bloc exo,macouleurborduresblocexo,densely dashed] ([xshift={0.75\hauteurnumerocercle},yshift=-5mm]frame.north west) --++ (0,5mm) ;%
@@ -625,6 +645,14 @@
 				\draw[ligne bloc exo,-|] ([yshift=5mm]frame.south east) |- ([xshift=-0.5em+0.1mm]title.east) ;%
 				\draw[ligne bloc exo,densely dashed] ([yshift=5mm]frame.south east) -- (frame.south east) ;%
 				},%
+			finish middle={%
+				\draw[ligne bloc exo] ([yshift=-5mm]frame.north west) -- ([yshift=5mm]frame.south west) ;%
+				\draw[ligne bloc exo,densely dashed] ([yshift=-5mm]frame.north west) -- (frame.north west) ;%
+				\draw[ligne bloc exo,densely dashed] ([yshift=-5mm]frame.north east) -- (frame.north east) ;%
+				\draw[ligne bloc exo] ([yshift=-5mm]frame.north east) -- ([yshift=5mm]frame.south east) ;%
+				\draw[ligne bloc exo,densely dashed] ([yshift=5mm]frame.south east) -- (frame.south east) ;%
+				\draw[ligne bloc exo,densely dashed] ([yshift=5mm]frame.south west) -- (frame.south west) ;%
+				},%
 			finish last={%
 				\draw[ligne bloc exo] ([yshift=-5mm]frame.north west) {[rounded corners=2mm]|- (frame.south east)} -- ([yshift=-5mm]frame.north east) ;%
 				\draw[ligne bloc exo,densely dashed] ([yshift=-5mm]frame.north west) -- (frame.north west) ;%
@@ -640,6 +668,14 @@
 				\draw[ligne bloc exo,densely dashed] ([yshift=5mm]frame.south west) -- (frame.south west) ;%
 				\draw[ligne bloc exo,->,>=latex] ([yshift=5mm]frame.south east) -- ($(frame.south east)!0.5!(frame.north east)$) ;%
 				\draw[ligne bloc exo,densely dashed] ([yshift=5mm]frame.south east) -- (frame.south east) ;%
+				},%
+			finish middle={%
+				\draw[ligne bloc exo] ([yshift=-5mm]frame.north west) -- ([yshift=5mm]frame.south west) ;%
+				\draw[ligne bloc exo,densely dashed] ([yshift=-5mm]frame.north west) -- (frame.north west) ;%
+				\draw[ligne bloc exo,densely dashed] ([yshift=-5mm]frame.north east) -- (frame.north east) ;%
+				\draw[ligne bloc exo] ([yshift=-5mm]frame.north east) -- ([yshift=5mm]frame.south east) ;%
+				\draw[ligne bloc exo,densely dashed] ([yshift=5mm]frame.south east) -- (frame.south east) ;%
+				\draw[ligne bloc exo,densely dashed] ([yshift=5mm]frame.south west) -- (frame.south west) ;%
 				},%
 			finish last={%
 				\draw[ligne bloc exo] ([yshift=-5mm]frame.north west) {[rounded corners=2mm]|- (frame.south east)} -- ([yshift=-5mm]frame.north east) ;%
@@ -671,7 +707,7 @@
 						{\pictostars[colors=macouleurblocexodeco/macouleurblocexodecofond,dstrut=()]{\EnvtExoStarNb/\EnvtExoStarTot}}%
 					}%
 					{%
-						{\pictostars[colors=macouleurblocexodeco/macouleurblocexodecofond,dstrut=()]{\EnvtExoStarNb}}%
+						{\pictostars[colors=macouleurblocexodeco/macouleurblocexodecofond,dstrut=()]{\EnvtExoAltEtoiles}}%
 					}%
 					)%
 				}%
@@ -708,7 +744,7 @@
 						{\pictostars[colors=macouleurblocexodeco/macouleurblocexodecofond]{\EnvtExoStarNb/\EnvtExoStarTot}}%
 					}%
 					{%
-						{\pictostars[colors=macouleurblocexodeco/macouleurblocexodecofond]{\EnvtExoStarNb}}%
+						{\pictostars[colors=macouleurblocexodeco/macouleurblocexodecofond]{\EnvtExoAltEtoiles}}%
 					}%
 					)%
 				}%

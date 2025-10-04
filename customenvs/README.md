@@ -17,3 +17,5 @@ Sources...: CC-BY-SA 4.0 https://tex.stackexchange.com/questions/504092/replicat
 ..........: CC-BY https://www.svgrepo.com/collection/education-vectors/
 
 ..........: CC-0 https://www.svgrepo.com/collection/design-8/
+
+..........: MIT https://getbootstrap.com

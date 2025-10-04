@@ -3,9 +3,10 @@
 % source pencil...: CC-BY-SA 4.0 https://tex.stackexchange.com/questions/504092/replicating-a-fancy-bordered-text-style-in-latex/504145#504145
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{customenvs}[2025/09/24 0.41f Custom classic environments]
+\ProvidesPackage{customenvs}[2025/10/04 0.42a Custom classic environments]
 
 %====HISTORIQUE
+% v 0.42a	Box Number Style + option nonbabel
 % v 0.41f	New keys
 % v 0.41e	Bicolortitle + tcboxboard
 % v 0.41d	Subpackage 'macros'
@@ -80,6 +81,9 @@
 \DeclareOption{noadjustbox}{\@adjustboxfalse}%
 \newif\if@pastableur\@pastableurfalse%
 \DeclareOption{pastableur}{\@pastableurtrue}%
+\newif\if@tikzbabel\@tikzbabeltrue%
+\DeclareOption{nontikzbabel}{\@tikzbabelfalse}%
+\DeclareOption{notikzbabel}{\@tikzbabelfalse}%
 \DeclareOption*{}
 \ProcessOptions\relax
 
@@ -88,6 +92,7 @@
 \RequirePackage{customenvs-exams}                  %test souspackage
 \RequirePackage{customenvs-icons}                  %test souspackage
 \RequirePackage{customenvs-macros}                 %test souspackage
+\RequirePackage{customenvs-mathpictos}             %test souspackage
 
 \if@xcolor
 	\RequirePackage{xcolor}
@@ -120,7 +125,9 @@
 \RequirePackage{calc}
 \RequirePackage{tikz}
 \usetikzlibrary{decorations.pathmorphing,positioning,shapes.misc,calc}
-\usetikzlibrary{babel}
+\if@tikzbabel
+	\usetikzlibrary{babel}
+\fi
 \RequirePackage{tcolorbox}
 \RequirePackage{varwidth}
 \tcbuselibrary{skins}
@@ -5218,6 +5225,61 @@
 }%
 {%
 	\endtcolorbox%
+}
+
+%====BOX NUMBER
+\newlength\tmpheightboxnumber
+\newlength\tmpshadowoffsetboxnumber
+\newlength\tmpwidthboxnumber
+
+\defKV[TikzBoxNumber]{%
+	bg color=\colorlet{bgboxnumber}{#1},%
+	shadow color=\colorlet{shadowboxnumber}{#1},%
+	font=\def\fontboxnumber{#1},%
+	shadow offset=\setlength\tmpshadowoffsetboxnumber{#1},%
+	num color=\colorlet{numboxnumber}{#1},%
+}
+
+\setKVdefault[TikzBoxNumber]{%
+	bg color=darkgray,%
+	shadow color=gray,%
+	font=\bfseries,%
+	shadow=true,%
+	shadow offset=0.25pt,%
+	num color=white,%
+	width auto=true
+}
+
+\NewDocumentCommand\tkzboxnumber{ O{} m }{%
+	\restoreKV[TikzBoxNumber]%
+	\setKV[TikzBoxNumber]{#1}%
+	\begingroup%
+	\fontboxnumber%
+	\getwideststring{0,1,2,3,4,5,6,7,8,9}%
+	\xdef\tmplennumberbox{\xintfloateval{trunc(log10(#2),0)+1}}%
+	\setlength\tmpwidthboxnumber{\tmplennumberbox\tmpwideststring}%
+	\settoheight\tmpheightboxnumber{\hbox{0123456789}}%
+	\begin{tikzpicture}[baseline=(char.base)]
+		\ifboolKV[TikzBoxNumber]{width auto}%
+			{\node[inner sep=0pt] (char) {\vphantom{0123456789}\makebox[\tmpwidthboxnumber][c]{#2}} ;}%
+			{\node[inner sep=0pt] (char) {\vphantom{0123456789}#2} ;}%
+		\useasboundingbox ([xshift=-0.5mm]char.west)--([xshift=-0.5mm,yshift=-0.15mm]char.south west)--([xshift=0.5mm,yshift=-0.5mm]char.south east)--([xshift=0.5mm,yshift=0.5mm]char.north east)--([xshift=-0.5mm,yshift=0.15mm]char.north west)--cycle;
+		\ifboolKV[TikzBoxNumber]{shadow}%
+			{%
+				\filldraw[rounded corners=0.15\tmpheightboxnumber,shadowboxnumber,opacity=0.75] ([xshift=-0.5mm+\tmpshadowoffsetboxnumber,yshift=-\tmpshadowoffsetboxnumber]char.west)--([xshift=-0.5mm+\tmpshadowoffsetboxnumber,yshift=-0.15mm-\tmpshadowoffsetboxnumber]char.south west)--([xshift=0.5mm+\tmpshadowoffsetboxnumber,yshift=-0.5mm-\tmpshadowoffsetboxnumber]char.south east)--([xshift=0.5mm+\tmpshadowoffsetboxnumber,yshift=0.5mm-\tmpshadowoffsetboxnumber]char.north east)--([xshift=-0.5mm+\tmpshadowoffsetboxnumber,yshift=0.15mm-\tmpshadowoffsetboxnumber]char.north west)--cycle;
+			}%
+			{}%
+		\filldraw[rounded corners=0.15\tmpheightboxnumber,bgboxnumber] ([xshift=-0.5mm]char.west)--([xshift=-0.5mm,yshift=-0.15mm]char.south west)--([xshift=0.5mm,yshift=-0.5mm]char.south east)--([xshift=0.5mm,yshift=0.5mm]char.north east)--([xshift=-0.5mm,yshift=0.15mm]char.north west)--cycle;
+		\ifboolKV[TikzBoxNumber]{shadow}%
+			{%
+				\ifboolKV[TikzBoxNumber]{width auto}%
+					{\draw[shadowboxnumber,opacity=0.75] ([xshift=\tmpshadowoffsetboxnumber,yshift=-\tmpshadowoffsetboxnumber]char) node[inner sep=0pt] {\vphantom{0123456789}\makebox[\tmpwidthboxnumber][c]{#2}} ;}
+					{\draw[shadowboxnumber,opacity=0.75] ([xshift=\tmpshadowoffsetboxnumber,yshift=-\tmpshadowoffsetboxnumber]char) node[inner sep=0pt] {\vphantom{0123456789}#2} ;}
+			}%
+			{}%
+		\draw[numboxnumber] (char) node[inner sep=0pt] {\vphantom{0123456789}\makebox[\tmpwidthboxnumber][c]{#2}} ;
+	\end{tikzpicture}%
+	\endgroup%
 }
 
 \endinput
