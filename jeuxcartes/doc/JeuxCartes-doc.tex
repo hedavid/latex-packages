@@ -69,8 +69,8 @@
 \setlength{\parindent}{0pt}
 \definecolor{LightGray}{gray}{0.9}
 
-\def\TPversion{0.3.3}
-\def\TPdate{21 août 2025}
+\def\TPversion{0.3.4}
+\def\TPdate{4 octobre 2025}
 
 \usepackage[most]{tcolorbox}
 \usepackage{minted2}
@@ -213,6 +213,8 @@ Une commande pour des cartes en version \og miniatures \fg{} (individuelle, main
 
 \part{Historique}
 
+{\small \bverb|v0.3.4|~:~~~~Ajout d'un style [Poker.v6]}
+
 {\small \bverb|v0.3.3|~:~~~~Correction de la typo d'une carte [fr.VP]}
 
 {\small \bverb|v0.3.2|~:~~~~Ajout d'un mode 'null' pour ne pas afficher une carte}
@@ -268,6 +270,7 @@ Les cartes disponibles sont : :
 	\item les cartes type \textsf{Poker v3} (Public Domain) \url{https://www.me.uk/cards/}
 	\item les cartes type \textsf{Poker v4} (CC BY-SA 4.0) \url{https://commons.wikimedia.org/wiki/File:Computer_screen_playing_cards_deck.svg}
 	\item les cartes type \textsf{Poker v5} (Public Domain) \url{https://www.me.uk/cards/}
+	\item \cmaj{0.3.4} les cartes type \textsf{Poker v6} (Public Domain) \url{https://code.google.com/archive/p/vector-playing-cards}
 	\item \cmaj{0.2.4} les cartes type \textsf{Poker fr} (LGPL-2.1 license) \url{https://svg-cards.sourceforge.net/}
 	\item \cmaj{0.2.4} les cartes type \textsf{bicycle} (LGPL-3.0 license) \url{https://github.com/tfbkny/blackjack}
 	\item les cartes type \textsf{Tarot} (Public Domain) \url{https://freesvg.org/deck-of-french-tarot-playing-cards}
@@ -522,6 +525,7 @@ Il existe 7 versions de design des cartes \textit{classiques}, accessibles via l
 	\item \Cle{v3} ;
 	\item \Cle{v4} ;
 	\item \Cle{v5} ;
+	\item \Cle{v6} \cmaj{0.3.4} ;
 	\item \Cle{fr} \cmaj{0.2.4} ;
 	\item \Cle{bicycl} \cmaj{0.2.4}.
 \end{itemize}
@@ -534,6 +538,7 @@ Il existe 7 versions de design des cartes \textit{classiques}, accessibles via l
 \textbf{Design v3} :\\ \AffCartesJeu[Hauteur=2,StyleJeu=v3]{DK § AP § 10T § VP § 8T § RT § 9C} \\ \\
 \textbf{Design v4} :\\ \AffCartesJeu[Hauteur=2,StyleJeu=v4]{DK § AP § 10T § VP § 8T § RT § 9C} \\ \\
 \textbf{Design v5} :\\ \AffCartesJeu[Hauteur=2,StyleJeu=v5]{DK § AP § 10T § VP § 8T § RT § 9C} \\ \\
+\textbf{Design v6} :\\ \AffCartesJeu[Hauteur=2,StyleJeu=v5]{DK § AP § 10T § VP § 8T § RT § 9C} \hfill\cmaj{0.3.4}\\ \\
 \textbf{Design fr} :\\ \AffCartesJeu[Hauteur=2,StyleJeu=fr]{DK § AP § 10T § VP § 8T § RT § 9C} \hfill\cmaj{0.2.4}\\ \\
 \textbf{Design bi} :\\ \AffCartesJeu[Hauteur=2,StyleJeu=bicycl]{DK § AP § 10T § VP § 8T § RT § 9C}\hfill\cmaj{0.2.4} \\
 \end{codetex}
@@ -936,6 +941,22 @@ Dos disponibles : \texttt{DosNoir} ou \texttt{DosRouge}
 \xintFor #1 in {2,3,4,5,6,7,8,9,10,V,D,R,A}\do{\AffCarteJeu[StyleJeu=v5,Hauteur=1.85]{#1T}}
 
 \AffCarteJeu[StyleJeu=v5,Hauteur=1.85]{JN}\AffCarteJeu[StyleJeu=v5,Hauteur=1.85]{JR}\AffCarteJeu[StyleJeu=v5,Hauteur=1.85]{DosRouge}\AffCarteJeu[StyleJeu=v5,Hauteur=1.85]{DosNoir}%
+
+\subsection{Poker/Bataille/Belote/Rami (v6)}
+
+Pas de dos disponible.
+
+\medskip
+
+\xintFor #1 in {2,3,4,5,6,7,8,9,10,V,D,R,A}\do{\AffCarteJeu[StyleJeu=v6,Hauteur=1.85]{#1P}}
+
+\xintFor #1 in {2,3,4,5,6,7,8,9,10,V,D,R,A}\do{\AffCarteJeu[StyleJeu=v6,Hauteur=1.85]{#1C}}
+
+\xintFor #1 in {2,3,4,5,6,7,8,9,10,V,D,R,A}\do{\AffCarteJeu[StyleJeu=v6,Hauteur=1.85]{#1K}}
+
+\xintFor #1 in {2,3,4,5,6,7,8,9,10,V,D,R,A}\do{\AffCarteJeu[StyleJeu=v6,Hauteur=1.85]{#1T}}
+
+\AffCarteJeu[StyleJeu=v6,Hauteur=1.85]{JN}\AffCarteJeu[StyleJeu=v6,Hauteur=1.85]{JR}%
 
 \subsection{Poker/Bataille/Belote/Rami (fr)}
 
