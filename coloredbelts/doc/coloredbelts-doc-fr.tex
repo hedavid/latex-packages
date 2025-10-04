@@ -36,8 +36,8 @@
 \usepackage[margin=2cm]{geometry}
 \setlength{\parindent}{0pt}
 
-\def\TPversion{0.1.5}
-\def\TPdate{25 août 2025}
+\def\TPversion{0.1.6}
+\def\TPdate{3 octobre 2025}
 \def\HtRet{0.45}\def\LgRect{1.5}
 \usepackage{tcolorbox}
 
@@ -63,7 +63,9 @@
 			\begin{tabular}{c}
 				{\Huge \texttt{coloredbelts}}\\
 				\\
-				{\LARGE Des ceintures colorées, au format vectoriel,} \\
+				{\LARGE Des ceintures colorées,}\\
+				\\
+				{\LARGE au format vectoriel, ou via \TikZ,} \\
 				\\
 				{\LARGE pour présenter des compétences, par exemple.} \\
 				\\
@@ -226,9 +228,44 @@ Les couleurs diponibles sont :
 \CeintureCouleur*[scale=0.3]{vert-bleu}
 \end{demohigh}
 
+\subsection{Version Tikz}
+
+Il est également possible d'utiliser une macro \textit{simplifiée}, utilisant \TikZ, pour insérer les ceintures de couleur, avec couleurs \textbf{personnalisées}.
+
+Il est -- pour le moment -- possible d'insérer uniquement une ceinture \textit{monochrome}.
+
+\begin{codehigh}[language=latex/latex2,style/main=cyan!10,style/code=cyan!10]
+\tkzcoloredbelt(*)[clés]<options tikzpicture>{couleur}
+
+%les clés sont :
+%height  = hauteur si version étoilée
+%strut   = caractères de base pour le calcul en mode non étoilé
+%border  = couleur de la bordure
+\end{codehigh}
+
+\begin{demohigh}[language=latex/latex3,style/main=cyan!10,style/code=cyan!10,style/demo=cyan!10]
+%version en ligne
+Version en ligne d'une \tkzcoloredbelt{pink} ceinture rose
+\end{demohigh}
+
+\begin{demohigh}[language=latex/latex3,style/main=cyan!10,style/code=cyan!10,style/demo=cyan!10]
+%version en ligne
+\LARGE\sffamily\bfseries
+Version en ligne d'une (\tkzcoloredbelt[border=blue,strut=()]{pink}) ceinture rose à bord bleue
+\end{demohigh}
+
+\begin{demohigh}[language=latex/latex3,style/main=cyan!10,style/code=cyan!10,style/demo=cyan!10]
+%version 'classique'
+\tkzcoloredbelt*[height=2cm]<rotate=10>{orange!50!red!50!yellow}
+\end{demohigh}
+
+\pagebreak
+
 \vfill
 
 \section{Historique}
+
+\verb|v0.1.6|~:~~~~Améliorations + version \TikZ
 
 \verb|v0.1.5|~:~~~~Passage à \hologo{LaTeX3}
 

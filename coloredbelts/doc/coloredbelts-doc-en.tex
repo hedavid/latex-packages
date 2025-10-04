@@ -37,8 +37,8 @@
 \usepackage[margin=2cm]{geometry}
 \setlength{\parindent}{0pt}
 
-\def\TPversion{0.1.5}
-\def\TPdate{25/08/2025}
+\def\TPversion{0.1.6}
+\def\TPdate{03/10/2025}
 \def\HtRet{0.45}\def\LgRect{1.5}
 \usepackage{tcolorbox}
 
@@ -227,9 +227,42 @@ Available colors are:
 \ColorBelt*[scale=0.3]{green-blue}
 \end{demohigh}
 
+\subsection{Version Tikz}
+
+It is also possible to use a simplified macro, using \TikZ, to insert colored belts with custom colors.
+
+At present, it is only possible to insert a monochrome belt.
+
+\begin{codehigh}[language=latex/latex2,style/main=cyan!10,style/code=cyan!10]
+\tkzcoloredbelt(*)[keys]<tikzpicture options>{color}
+
+%keys are:
+%height  = height of belt, if starred version
+%strut   = characters for dim calc, if nonstarred version
+%border  = color of the border
+\end{codehigh}
+
+\begin{demohigh}[language=latex/latex3,style/main=cyan!10,style/code=cyan!10,style/demo=cyan!10]
+%inline version
+Inline version of \tkzcoloredbelt{pink} pink belt
+\end{demohigh}
+
+\begin{demohigh}[language=latex/latex3,style/main=cyan!10,style/code=cyan!10,style/demo=cyan!10]
+%inline version
+\LARGE\sffamily\bfseries
+Inline version of (\tkzcoloredbelt[strut=(),border=blue]{pink}) blue and pink belt
+\end{demohigh}
+
+\begin{demohigh}[language=latex/latex3,style/main=cyan!10,style/code=cyan!10,style/demo=cyan!10]
+%'classic' version
+\tkzcoloredbelt*[height=2cm]<rotate=10>{orange!50!red!50!yellow}
+\end{demohigh}
+
 \vfill
 
 \section{History}
+
+\verb|v0.1.6|:~~~~Enhancements + {\TikZ} version
 
 \verb|v0.1.5|:~~~~Code rewritten in \hologo{LaTeX3}
 
