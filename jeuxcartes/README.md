@@ -22,6 +22,8 @@ Poker v4 cards Image's Licence : CC BY-SA 4.0     https://commons.wikimedia.org/
 
 Poker v5 cards Image's Licence : Public Domain    https://www.me.uk/cards/
 
+Poker v6 cards Image's Licence : Public Domain    https://code.google.com/archive/p/vector-playing-cards
+
 Poker fr cards Image's Licence.: LGPL-2.1 license https://svg-cards.sourceforge.net/
 
 Poker bi cards Image's Licence.: LGPL-3 license   https://github.com/tfbkny/blackjack
