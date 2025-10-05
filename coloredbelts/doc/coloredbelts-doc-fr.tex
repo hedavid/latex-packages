@@ -80,7 +80,7 @@
 	\begin{tabular}{c}
 	\texttt{Cédric Pierquet}\\
 	{\ttfamily c pierquet -- at -- outlook . fr}\\
-	\texttt{\url{https://forge.apps.education.fr/pierquetcedric/packages-latex}}
+	\texttt{\url{https://github.com/cpierquet/latex-packages/tree/main/coloredbelts}}
 \end{tabular}
 \end{center}
 
@@ -136,7 +136,7 @@ Je remercie Sascha Christmann pour sa contribution aux ceintures bicolores (les 
 
 Le package se charge dans le préambule, via \MontreCode{\textbackslash usepackage\{coloredbelts\}}.
 
-Le seuls package chargés est \MontreCode{graphicx}, le reste du code est en \hologo{LaTeX3}.
+Les seuls packages chargés sont \MontreCode{graphicx}, le reste du code est en \hologo{LaTeX3}.
 
 \begin{codehigh}[language=latex/latex2,style/main=cyan!10,style/code=cyan!10]
 \usepackage{coloredbelts}
@@ -206,15 +206,15 @@ Les couleurs diponibles sont :
 \begin{tblr}{hlines,width=\linewidth,colspec={Q[l,m]X[l,m]},row{1}={magenta!10},row{2-Z}={cyan!10}}
 	\SetCell[r=1,c=2]{c,m} \fakeverb{\CeintureCouleur} & \\
 	{\tiny\fakeverb{\tiny}} & {\tiny Essai de logo \CeintureCouleur{red} en ligne} \\
-	{\scriptsize\fakeverb{\scriptsize}} & {\scriptsize Essai de \CeintureCouleur{red} en ligne} \\
-	{\footnotesize\fakeverb{\footnotesize}} & {\footnotesize Essai de \CeintureCouleur{red} en ligne} \\
-	{\small\fakeverb{\small}} & {\small Essai de \CeintureCouleur{red} en ligne} \\
-	{\normalsize\fakeverb{\normalsize}} & {\normalsize Essai de \CeintureCouleur{red} en ligne} \\
-	{\large\fakeverb{\large}} & {\large Essai de \CeintureCouleur{red} en ligne} \\
-	{\Large\fakeverb{\Large}} & {\Large Essai de \CeintureCouleur{red} en ligne} \\
-	{\LARGE\fakeverb{\LARGE}} & {\LARGE Essai de \CeintureCouleur{red} en ligne} \\
-	{\huge\fakeverb{\huge}} & {\huge Essai de \CeintureCouleur{red} en ligne} \\
-	{\Huge\fakeverb{\Huge}} & {\Huge Essai de \CeintureCouleur{red} en ligne} \\
+	{\scriptsize\fakeverb{\scriptsize}} & {\scriptsize Essai de logo \CeintureCouleur{red} en ligne} \\
+	{\footnotesize\fakeverb{\footnotesize}} & {\footnotesize Essai de logo \CeintureCouleur{red} en ligne} \\
+	{\small\fakeverb{\small}} & {\small Essai de logo \CeintureCouleur{red} en ligne} \\
+	{\normalsize\fakeverb{\normalsize}} & {\normalsize Essai de logo \CeintureCouleur{red} en ligne} \\
+	{\large\fakeverb{\large}} & {\large Essai de logo \CeintureCouleur{red} en ligne} \\
+	{\Large\fakeverb{\Large}} & {\Large Essai de logo \CeintureCouleur{red} en ligne} \\
+	{\LARGE\fakeverb{\LARGE}} & {\LARGE Essai de logo \CeintureCouleur{red} en ligne} \\
+	{\huge\fakeverb{\huge}} & {\huge Essai de logo \CeintureCouleur{red} en ligne} \\
+	{\Huge\fakeverb{\Huge}} & {\Huge Essai de logo \CeintureCouleur{red} en ligne} \\
 \end{tblr}
 
 \begin{demohigh}[language=latex/latex2,style/main=cyan!10,style/code=cyan!10]
@@ -228,7 +228,7 @@ Les couleurs diponibles sont :
 \CeintureCouleur*[scale=0.3]{vert-bleu}
 \end{demohigh}
 
-\subsection{Version Tikz}
+\subsection{Version \TikZ}
 
 Il est également possible d'utiliser une macro \textit{simplifiée}, utilisant \TikZ, pour insérer les ceintures de couleur, avec couleurs \textbf{personnalisées}.
 
