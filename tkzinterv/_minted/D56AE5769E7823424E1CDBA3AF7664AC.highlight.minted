@@ -1,0 +1,4 @@
+\begin{MintedVerbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
+\PYG{k}{\PYGZbs{}tkzinterval}\PYG{n+na}{[type,clés]}\PYG{n+nb}{\PYGZob{}}borne inf ; borne sup\PYG{n+nb}{\PYGZcb{}}
+\PYG{c}{\PYGZpc{}le type peut\PYGZhy{}être FF (défaut) / OO / OF / FO}
+\end{MintedVerbatim}

@@ -1,0 +1,4 @@
+\begin{MintedVerbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
+\PYG{k}{\PYGZbs{}setlength\PYGZbs{}tkzintervhoriz}\PYG{n+nb}{\PYGZob{}}longueur\PYG{n+nb}{\PYGZcb{}}  \PYG{c}{\PYGZpc{}largeurs des crochets    (5pt)}
+\PYG{k}{\PYGZbs{}setlength\PYGZbs{}tkzintervwidth}\PYG{n+nb}{\PYGZob{}}longueur\PYG{n+nb}{\PYGZcb{}}  \PYG{c}{\PYGZpc{}épaisseur des crochets   (0.9pt)}
+\end{MintedVerbatim}

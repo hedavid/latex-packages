@@ -1,0 +1,6 @@
+\begin{MintedVerbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
+.\PYG{k}{\PYGZbs{}fbox}\PYG{n+nb}{\PYGZob{}}\PYG{k}{\PYGZbs{}tkzinterval}\PYG{n+na}{[OO,overlap=lr]}  \PYG{n+nb}{\PYGZob{}}\PYG{k}{\PYGZbs{}dfrac}\PYG{n+nb}{\PYGZob{}}1\PYG{n+nb}{\PYGZcb{}\PYGZob{}}2\PYG{n+nb}{\PYGZcb{}};\PYG{k}{\PYGZbs{}sqrt}\PYG{n+nb}{\PYGZob{}}7\PYG{n+nb}{\PYGZcb{}\PYGZcb{}\PYGZcb{}}.
+.\PYG{k}{\PYGZbs{}fbox}\PYG{n+nb}{\PYGZob{}}\PYG{k}{\PYGZbs{}tkzinterval}\PYG{n+na}{[OO,overlap=l]}   \PYG{n+nb}{\PYGZob{}}\PYG{k}{\PYGZbs{}dfrac}\PYG{n+nb}{\PYGZob{}}1\PYG{n+nb}{\PYGZcb{}\PYGZob{}}2\PYG{n+nb}{\PYGZcb{}};\PYG{k}{\PYGZbs{}sqrt}\PYG{n+nb}{\PYGZob{}}7\PYG{n+nb}{\PYGZcb{}\PYGZcb{}\PYGZcb{}}.
+.\PYG{k}{\PYGZbs{}fbox}\PYG{n+nb}{\PYGZob{}}\PYG{k}{\PYGZbs{}tkzinterval}\PYG{n+na}{[OO,overlap=r]}   \PYG{n+nb}{\PYGZob{}}\PYG{k}{\PYGZbs{}dfrac}\PYG{n+nb}{\PYGZob{}}1\PYG{n+nb}{\PYGZcb{}\PYGZob{}}2\PYG{n+nb}{\PYGZcb{}};\PYG{k}{\PYGZbs{}sqrt}\PYG{n+nb}{\PYGZob{}}7\PYG{n+nb}{\PYGZcb{}\PYGZcb{}\PYGZcb{}}.
+.\PYG{k}{\PYGZbs{}fbox}\PYG{n+nb}{\PYGZob{}}\PYG{k}{\PYGZbs{}tkzinterval}\PYG{n+na}{[OO,overlap=none]}\PYG{n+nb}{\PYGZob{}}\PYG{k}{\PYGZbs{}dfrac}\PYG{n+nb}{\PYGZob{}}1\PYG{n+nb}{\PYGZcb{}\PYGZob{}}2\PYG{n+nb}{\PYGZcb{}};\PYG{k}{\PYGZbs{}sqrt}\PYG{n+nb}{\PYGZob{}}7\PYG{n+nb}{\PYGZcb{}\PYGZcb{}\PYGZcb{}}.
+\end{MintedVerbatim}

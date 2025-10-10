@@ -1,0 +1,3 @@
+\begin{MintedVerbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
+\PYG{n+nb}{\PYGZob{}}\PYG{k}{\PYGZbs{}huge} On considère l\PYGZsq{}intervalle \PYG{l+s}{\PYGZdl{}}\PYG{n+nv}{\PYGZbs{}mathcolor}\PYG{n+nb}{\PYGZob{}red\PYGZcb{}\PYGZob{}}\PYG{n+nv}{\PYGZbs{}tkzinterval}\PYG{o}{[}\PYG{n+nb}{FF}\PYG{o}{]}\PYG{n+nb}{\PYGZob{}}\PYG{n+nv}{\PYGZbs{}dfrac}\PYG{n+nb}{\PYGZob{}}\PYG{l+m}{1}\PYG{n+nb}{\PYGZcb{}\PYGZob{}}\PYG{l+m}{2}\PYG{n+nb}{\PYGZcb{};}\PYG{n+nv}{\PYGZbs{}sqrt}\PYG{n+nb}{\PYGZob{}}\PYG{l+m}{7}\PYG{n+nb}{\PYGZcb{}\PYGZcb{}\PYGZcb{}}\PYG{l+s}{\PYGZdl{}} noté I.\PYG{n+nb}{\PYGZcb{}}
+\end{MintedVerbatim}
