@@ -1,0 +1,314 @@
+\documentclass[english,parskip=half-,paper=a4]{scrartcl}
+\usepackage[margin=1.5cm,includeheadfoot]{geometry}
+\RequirePackage[default]{lato}
+\RequirePackage[math-style=french,bold-style=ISO]{lete-sans-math}
+\setsansfont{Fira Sans}[Scale=MatchLowercase]
+\setmonofont{CascadiaMono}[Scale=MatchLowercase]
+
+\usepackage{tkz-interval}
+
+\usepackage{babel}
+\usepackage{enumitem}
+
+\usepackage{minted-code}
+\usepackage{fancyvrb}
+\usepackage{xcolor,url}
+\usepackage[colorlinks]{hyperref}
+\setlength\parindent{0pt}
+
+\def\Lcs#1{\texttt{\textbackslash#1}\index{#1@\texttt{\textbackslash#1}}}
+\def\Largb#1{\texttt{\{}\textit{#1}\texttt{\}}}
+\def\Lpack#1{\texttt{#1}\index{#1@\texttt{#1}}\index{Package!#1@\texttt{#1}}}
+\def\Loption#1{\texttt{#1}\index{#1@\texttt{#1}}\index{Option!#1@\texttt{#1}}}
+
+\title{Interval brackets, with Ti\textit{k}Z (1.0a)}
+\date{October 12, 2025}
+\author{Cédric Pierquet\thanks{\protect\url{cpierquet@outlook.fr}}}
+\raggedbottom
+
+\def\IntervtestA{-4 ; \dfrac{1}{7}}
+\def\IntervtestB{\dfrac{1}{2} ; \sqrt{7}}
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+
+\section{Introduction}
+
+\subsection{Loading}
+
+To use \Lpack{tkz-interval}, simply use:
+
+\begin{codeblockA}[title=Loading]
+\usepackage{tkz-interval}
+\end{codeblockA}
+
+Used packages are \Lpack{tikz} and \Lpack{simplekv}.
+
+\subsection{Idea(s)}
+
+The idea behind this package is to provide a command for representing an interval with brackets created using Ti\textit{k}Z, with automatic size management and customization of thickness and depth, for examples.
+
+\smallskip
+
+It's also possible to specify around spaces and optional \textit{overlap} for open bracket.
+
+\smallskip
+
+This documentation was created using the \Lpack{minted-code} package.
+
+\subsection{Limitations}
+
+Spaces around and inside seems to be fine, but not perfect and not exactly like \textit{normal} version\ldots
+
+\subsection{First example(s)}
+
+\begin{codeblockA}[title=Samples intervals]
+\def\IntervtestA{ -4 ; \dfrac{1}{7}       }
+\def\IntervtestB{ \dfrac{1}{2} ; \sqrt{7} }
+\end{codeblockA}
+
+\begin{exampleM}{}
+%'normal' version
+$x \in \left[ \IntervtestA \right] \cup \left[ \IntervtestB \right[$.\\
+$x \in \left] \IntervtestA \right[ \cup \left[ \IntervtestB \right[$.\\
+$x \in \left[ \IntervtestA \right[ \cup \left[ \IntervtestB \right[$.\\
+$x \in \left] \IntervtestA \right] \cup \left[ \IntervtestB \right[$.\\
+\end{exampleM}
+
+\begin{exampleM}{}
+%with tkz-interval package
+\setKVdefault[tkzinterv]{left color=teal,right color=red}
+$x \in \tkzinterval{\IntervtestA} \cup \tkzinterval[open]{\IntervtestB}$.\\
+$x \in \tkzinterval[open]{\IntervtestA} \cup \tkzinterval[open]{\IntervtestB}$.\\
+$x \in \tkzinterval[open right]{\IntervtestA} \cup \tkzinterval[open]{\IntervtestB}$.\\
+$x \in \tkzinterval[open left]{\IntervtestA} \cup \tkzinterval[open]{\IntervtestB}$.
+\end{exampleM}
+
+\subsection{History}
+
+\texttt{1.0a}: Initial version
+
+\pagebreak
+
+\section{Usage}
+
+\subsection{Global lengths, local keys}
+
+\begin{codeblockA}[title=Global lengths]
+\setlength\tkzintervhoriz{length}   %brackets width        (5pt)
+\setlength\tkzintervwidth{length}   %brackets thickness  (0.7pt)
+\end{codeblockA}
+
+\begin{codeblockA}[title=Local keys]
+\setKVdefault[tkzinterv]{key1 = new default value,...}
+\end{codeblockA}
+
+\subsection{Main macro}
+
+\begin{codeblockA}[title=Macro (english usage)]
+\tkzinterval[type,keys]{lower limit ; upper limit}
+%type can be open / open left / open right (closed by default)
+\end{codeblockA}
+
+\begin{codeblockA}[title=Macro (french usage)]
+\tkzintervalle[type,clés]{borne inf ; borne sup}
+%le type peut-être FF (défaut) / OO / OF / FO
+\end{codeblockA}
+
+\subsection{Keys}
+
+\begin{itemize}[noitemsep]
+	\item \texttt{vsep}: vertical space (in \textit{unit}) between box and brackets \hfill(\texttt{0.1em})
+	\item \texttt{overlap}: 'overlap 'effect' (\texttt{lr-l-r-none}) for open bracket \hfill(\texttt{lr})
+	\item \texttt{overlap factor}: overlap factor(s) (\texttt{lr-l/r}) for open brackets \hfill(\texttt{0.5})
+	\item \texttt{hsep}: horizontal margin, as a percentage of the width of the brackets\hfill(\texttt{0.75})
+	\item \texttt{space before}: space before interval \hfill(\texttt{\textbackslash,})
+	\item \texttt{space after}: space after interval \hfill(\texttt{\textbackslash,})
+	\item \texttt{nobeforeafter}: suppress space around interval \hfill(\texttt{false})
+\end{itemize}
+
+\section{Influence of some parameters}
+
+\subsection{Default values}
+
+\begin{codeblockA}[title=Default values]
+\setlength\tkzintervhoriz{5pt}
+\setlength\tkzintervwidth{0.7pt}
+\setKVdefault[tkzinterv]{hsep=0.75}
+\end{codeblockA}
+
+\setlength\tkzintervhoriz{5pt}
+\setlength\tkzintervwidth{0.7pt}
+\setKVdefault[tkzinterv]{hsep=0.75}
+
+\begin{exampleM}{}
+Let's consider the interval $I=\tkzinterval[open,overlap=lr]{\IntervtestA}$.\par
+Let's consider the interval $I=\tkzinterval[open,overlap=l]{\IntervtestA}$.\par
+Let's consider the interval $I=\tkzinterval[open,overlap=r]{\IntervtestA}$.\par
+Let's consider the interval $I=\tkzinterval[open,overlap=none]{\IntervtestA}$.
+\end{exampleM}
+
+\begin{exampleM}{}
+Let's consider the interval $I=\tkzinterval{ \IntervtestA }$.\\
+Let's consider the interval $I=\left[ \IntervtestA \right]$.
+\end{exampleM}
+
+\begin{exampleM}{}
+{\huge Let's consider the interval $\mathcolor{red}{I=\tkzinterval{\IntervtestA}}$.}
+\end{exampleM}
+
+\begin{exampleM}{}
+Let's consider the interval $I=\tkzinterval[open left,overlap=l]{\IntervtestA}$.\par
+Let's consider the interval $I=\tkzinterval[open left,overlap=none]{\IntervtestA}$.
+\end{exampleM}
+
+\begin{exampleM}{}
+Let's consider the interval $I=\tkzinterval[open right,overlap=r]{\IntervtestA}$.\par
+Let's consider the interval $I=\tkzinterval[open right,overlap=none]{\IntervtestA}$.
+\end{exampleM}
+
+\subsection{Custom values (v1)}
+
+\begin{codeblockA}[title=Custom values]
+\setlength\tkzintervhoriz{6pt}
+\setlength\tkzintervwidth{0.95pt}
+\setKVdefault[tkzinterv]{hsep=0.5,vsep=1mm}
+\end{codeblockA}
+
+\setlength\tkzintervhoriz{6pt}
+\setlength\tkzintervwidth{0.95pt}
+\setKVdefault[tkzinterv]{hsep=0.5,vsep=1mm}
+
+\begin{exampleM}{}
+Let's consider the interval $I=\tkzinterval[open,overlap=lr]{\IntervtestA}$.\par
+Let's consider the interval $I=\tkzinterval[open,overlap=l]{\IntervtestA}$.\par
+Let's consider the interval $I=\tkzinterval[open,overlap=r]{\IntervtestA}$.\par
+Let's consider the interval $I=\tkzinterval[open,overlap=none]{\IntervtestA}$.
+\end{exampleM}
+
+\begin{exampleM}{}
+Let's consider the interval $I=\tkzinterval{ \IntervtestA }$.\\
+Let's consider the interval $I=\left[ \IntervtestA \right]$.
+\end{exampleM}
+
+\begin{exampleM}{}
+{\huge Let's consider the interval $\mathcolor{red}{I=\tkzinterval{\IntervtestA}}$.}
+\end{exampleM}
+
+\begin{exampleM}{}
+Let's consider the interval $I=\tkzinterval[open left,overlap=l]{\IntervtestA}$.\par
+Let's consider the interval $I=\tkzinterval[open left,overlap=none]{\IntervtestA}$.
+\end{exampleM}
+
+\begin{exampleM}{}
+Let's consider the interval $I=\tkzinterval[open right,overlap=r]{\IntervtestA}$.\par
+Let's consider the interval $I=\tkzinterval[open right,overlap=none]{\IntervtestA}$.
+\end{exampleM}
+
+\subsection{Custom values (v2)}
+
+\begin{codeblockA}[title=Custom values]
+\setlength\tkzintervhoriz{1.75mm}
+\setlength\tkzintervwidth{0.65mm}
+\setKVdefault[tkzinterv]{hsep=1,vsep=0.125em}
+\end{codeblockA}
+
+\setlength\tkzintervhoriz{1.75mm}
+\setlength\tkzintervwidth{0.65mm}
+\setKVdefault[tkzinterv]{hsep=1,vsep=0.125em}
+
+\begin{exampleM}{}
+Let's consider the interval $I=\tkzinterval[open,overlap=lr]{\IntervtestA}$.\par
+Let's consider the interval $I=\tkzinterval[open,overlap=l]{\IntervtestA}$.\par
+Let's consider the interval $I=\tkzinterval[open,overlap=r]{\IntervtestA}$.\par
+Let's consider the interval $I=\tkzinterval[open,overlap=none]{\IntervtestA}$.
+\end{exampleM}
+
+\begin{exampleM}{}
+Let's consider the interval $I=\tkzinterval{ \IntervtestA }$.\\
+Let's consider the interval $I=\left[ \IntervtestA \right]$.
+\end{exampleM}
+
+\begin{exampleM}{}
+{\huge Let's consider the interval $\mathcolor{red}{I=\tkzinterval{\IntervtestA}}$.}
+\end{exampleM}
+
+\begin{exampleM}{}
+Let's consider the interval $I=\tkzinterval[open left,overlap=l]{\IntervtestA}$.\par
+Let's consider the interval $I=\tkzinterval[open left,overlap=none]{\IntervtestA}$.
+\end{exampleM}
+
+\begin{exampleM}{}
+Let's consider the interval $I=\tkzinterval[open right,overlap=r]{\IntervtestA}$.\par
+Let's consider the interval $I=\tkzinterval[open right,overlap=none]{\IntervtestA}$.
+\end{exampleM}
+
+\subsection{Overlap factor}
+
+\begin{codeblockA}[title=Custom values]
+\setlength\tkzintervhoriz{5pt}
+\setlength\tkzintervwidth{0.9pt}
+\end{codeblockA}
+
+\setlength\tkzintervhoriz{5pt}
+\setlength\tkzintervwidth{0.9pt}
+
+\begin{exampleM}{}
+\setlength\fboxsep{0.5pt}
+.\fbox{$\tkzinterval[open,overlap factor=0.25] {\dfrac{1}{2};\sqrt{7}}$}.\\
+.\fbox{$\tkzinterval[open,overlap factor=0.5]  {\dfrac{1}{2};\sqrt{7}}$}.\\
+.\fbox{$\tkzinterval[open,overlap factor=0.75] {\dfrac{1}{2};\sqrt{7}}$}.\\
+.\fbox{$\tkzinterval[open,overlap factor=1]    {\dfrac{1}{2};\sqrt{7}}$}.\\
+.\fbox{$\tkzinterval[open,overlap factor=0/1]  {\dfrac{1}{2};\sqrt{7}}$}.
+\end{exampleM}
+
+\subsection{Samples (v2)}
+
+\begin{codeblockA}[title=Custom values]
+\setlength\tkzintervhoriz{5pt}
+\setlength\tkzintervwidth{0.9pt}
+\setKVdefault[tkzinterv]{hsep=0.75,left color=teal,right color=red}
+\end{codeblockA}
+
+\setlength\tkzintervhoriz{5pt}
+\setlength\tkzintervwidth{0.9pt}
+\setKVdefault[tkzinterv]{hsep=0.75,left color=teal,right color=red}
+
+\begin{exampleM}{}
+\setKVdefault[tkzinterv]{hsep=0.75,left color=teal,right color=red}
+$x \in \tkzinterval[]{4;\dfrac{100}{7}} \cup \tkzinterval[open]{\dfrac{1}{2};\sqrt{7}}$.\hfill
+$x \in \tkzinterval[open]{4;\dfrac{100}{7}} \cup \tkzinterval[open]{\dfrac{1}{2};\sqrt{7}}$.\hfill\null
+
+\hfill$x \in \tkzinterval[open right]{4;\dfrac{100}{7}} \cup \tkzinterval[open]{\dfrac{1}{2};\sqrt{7}}$.\hfill
+$x \in \tkzinterval[open left]{4;\dfrac{100}{7}} \cup \tkzinterval[open]{\dfrac{1}{2};\sqrt{7}}$.
+\end{exampleM}
+
+\begin{exampleM}{}
+$x \in \tkzinterval[]{4;\dfrac{100}{7}} \cup \tkzinterval[]{\dfrac{1}{2};\sqrt{7}}$.\hfill
+$x \in \tkzinterval[open]{4;\dfrac{100}{7}} \cup \tkzinterval[]{\dfrac{1}{2};\sqrt{7}}$.\hfill\null
+
+\hfill$x \in \tkzinterval[open right]{4;\dfrac{100}{7}} \cup \tkzinterval[]{\dfrac{1}{2};\sqrt{7}}$.\hfill
+$x \in \tkzinterval[open left]{4;\dfrac{100}{7}} \cup \tkzinterval[]{\dfrac{1}{2};\sqrt{7}}$.
+\end{exampleM}
+
+\begin{exampleM}{}
+$x \in \tkzinterval[]{4;\dfrac{100}{7}} \cup \tkzinterval[open left]{\dfrac{1}{2};\sqrt{7}}$.\hfill
+$x \in \tkzinterval[open]{4;\dfrac{100}{7}} \cup \tkzinterval[open left]{\dfrac{1}{2};\sqrt{7}}$.\hfill\null
+
+\hfill$x \in \tkzinterval[open right]{4;\dfrac{100}{7}} \cup \tkzinterval[open left]{\dfrac{1}{2};\sqrt{7}}$.\hfill
+$x \in \tkzinterval[open left]{4;\dfrac{100}{7}} \cup \tkzinterval[open left]{\dfrac{1}{2};\sqrt{7}}$.
+\end{exampleM}
+
+\begin{exampleM}{}
+$x \in \tkzinterval[]{4;\dfrac{100}{7}} \cup \tkzinterval[open right]{\dfrac{1}{2};\sqrt{7}}$.\hfill
+$x \in \tkzinterval[open]{4;\dfrac{100}{7}} \cup \tkzinterval[open right]{\dfrac{1}{2};\sqrt{7}}$.\hfill\null
+
+\hfill$x \in \tkzinterval[open right]{4;\dfrac{100}{7}} \cup \tkzinterval[open right]{\dfrac{1}{2};\sqrt{7}}$.\hfill
+$x \in \tkzinterval[open left]{4;\dfrac{100}{7}} \cup \tkzinterval[open right]{\dfrac{1}{2};\sqrt{7}}$.
+\end{exampleM}
+
+\end{document}
+
