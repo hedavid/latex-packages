@@ -7,14 +7,15 @@
 \usepackage{inconsolata}
 \usepackage[T1]{fontenc}
 \usepackage[scale=0.875]{cabin}
-\usepackage{commalists-tools}
+\usepackage{commalists-tools-l3}
+\usepackage{listofitems}
 \usepackage{fancyvrb}
 \usepackage{fancyhdr}
 \usepackage{tabularray}
 \usepackage{fontawesome5}
 \fancyhf{}
 \renewcommand{\headrulewidth}{0pt}
-\lfoot{\sffamily\small [commalists-tools]}
+\lfoot{\sffamily\small [commalists-tools-l3]}
 \cfoot{\sffamily\small - \thepage{} -}
 \rfoot{\hyperlink{matoc}{\small\faArrowAltCircleUp[regular]}}
 \usepackage{hologo}
@@ -45,11 +46,11 @@
 	keywordstyle={\color{blue}},%
 	classoffset=1,%
 	alsoletter={-},%
-	morekeywords={commalists-tools},%
+	morekeywords={commalists-tools-l3},%
 	keywordstyle={\color{violet}},%
 	classoffset=2,%
 	alsoletter={-},%
-	morekeywords={\sortasclist,\sortdeslist,\addvalinlist,\removevalinlist,\boolvalinlist,\testifvalinlist,\countvalinlist,\minoflist,\maxoflist,\meanoflist,\sumoflist,\prodoflist,\reverselist,\getvaluefromlist,\lenoflist,\getvaluefromlist,\definemylist,\countvalindeflist,\lenofdeflist,\meanofdeflist,\sumofdeflist,\prodofdeflist,\getvaluefromdeflist},%
+	morekeywords={\ctshowlist,\ctsortasclist,\ctsortdeslist,\ctaddvalinlist,\ctremovevalinlist,\ctboolvalinlist,\cttestifvalinlist,\ctcountvalinlist,\ctminoflist,\ctmaxoflist,\ctmeanoflist,\ctsumoflist,\ctprodoflist,\ctreverselist,\ctgetvaluefromlist,\ctlenoflist},%
 	keywordstyle={\color{green!50!black}},%
 	classoffset=3,%
 	morekeywords={},%
@@ -75,11 +76,11 @@
 		keywordstyle={\color{blue}},%
 		classoffset=1,%
 		alsoletter={-},%
-		morekeywords={euromoney},%
+		morekeywords={commalists-tools-l3},%
 		keywordstyle={\color{violet}},%
 		classoffset=2,%
 		alsoletter={-},%
-		morekeywords={\sortasclist,\sortdeslist,\addvalinlist,\removevalinlist,\boolvalinlist,\testifvalinlist,\countvalinlist,\minoflist,\maxoflist,\meanoflist,\sumoflist,\prodoflist,\reverselist,\getvaluefromlist,\lenoflist,\getvaluefromlist,\definemylist,\countvalindeflist,\lenofdeflist,\meanofdeflist,\sumofdeflist,\prodofdeflist,\getvaluefromdeflist},%
+		morekeywords={\ctshowlist,\ctsortasclist,\ctsortdeslist,\ctaddvalinlist,\ctremovevalinlist,\ctboolvalinlist,\cttestifvalinlist,\ctcountvalinlist,\ctminoflist,\ctmaxoflist,\ctmeanoflist,\ctsumoflist,\ctprodoflist,\ctreverselist,\ctgetvaluefromlist,\ctlenoflist},%
 		keywordstyle={\color{green!50!black}},%
 		classoffset=3,%
 		morekeywords={},%
@@ -122,7 +123,9 @@
 			\begin{center}
 				\renewcommand{\arraystretch}{1.25}%
 				\begin{tabular}{c}
-					{\Huge \texttt{commalists-tools}}\\
+					{\Huge \texttt{commalists-tools-l3}}\\
+					\\
+					{\large\hologo{LaTeX3}}\\
 					\\
 					{\LARGE Macros for manipulating numeral} \\
 					{\LARGE comma separated lists:} \\
@@ -139,7 +142,7 @@
 	\begin{tabular}{c}
 		\texttt{Cédric Pierquet}\\
 		{\ttfamily c pierquet -- at -- outlook . fr}\\
-		\texttt{\url{https://forge.apps.education.fr/pierquetcedric/packages-latex}} \\
+		\texttt{\url{https://github.com/cpierquet/latex-packages/tree/main//commalists-tools}} \\
 	\end{tabular}
 \end{center}
 
@@ -149,27 +152,26 @@
 
 \begin{tcblisting}{colframe=lightgray,colback=lightgray!5,listing only}
 \def\mytestlist{14,10,15,11,9,10}
-\lenoflist*{\mytestlist}
-\minoflist*{\mytestlist}
-\maxoflist*{14,10,15,11,9,10}
-\sortasclist*{\mytestlist}
-\meanoflist*{\mytestlist}
-\removevalinlist*{10}{\mytestlist}
-\testifvalinlist{15}{\mytestlist}{true}{false}
-\getvaluefromlist*{\mytestlist}{3}
+\ctlenoflist*{\mytestlist}
+\ctminoflist*{\mytestlist}
+\ctmaxoflist*{14,10,15,11,9,10}
+\ctsortasclist*{\mytestlist}
+\ctmeanoflist*{\mytestlist}
+\ctremovevalinlist*{10}{\mytestlist}
+\cttestifvalinlist{15}{\mytestlist}{true}{false}
+\ctgetvaluefromlist*{\mytestlist}{3}
 \end{tcblisting}
 
 \begin{tcolorbox}[colframe=lightgray,colback=lightgray!5]
 \def\mytestlist{14,10,15,11,9,10}
 We consider the list: \mytestlist\par\smallskip
-There's \lenoflist*{\mytestlist} values in the list\par\smallskip
-The minimum value is \minoflist*{\mytestlist} and the maximum is \maxoflist*{14,10,15,11,9,10}\par\smallskip
-Ascending sorted list is \sortasclist*{\mytestlist}\par\smallskip
-Meaning value of the list is \meanoflist*{\mytestlist}\par\smallskip
-If we remove the value 10, then the list is \removevalinlist*{10}{\mytestlist}\par\smallskip
-We test if 15 is in the list: \testifvalinlist{15}{\mytestlist}{true}{false}\par\smallskip
-The third value of the list is \getvaluefromlist*{\mytestlist}{3}
-
+There's \ctlenoflist*{\mytestlist} values in the list\par\smallskip
+The minimum value is \ctminoflist*{\mytestlist} and the maximum is \ctmaxoflist*{14,10,15,11,9,10}\par\smallskip
+Ascending sorted list is \ctsortasclist*{\mytestlist}\par\smallskip
+Mean value of the list is \ctmeanoflist*{\mytestlist}\par\smallskip
+If we remove the value 10, then the list is \ctremovevalinlist*{10}{\mytestlist}\par\smallskip
+We test if 15 is in the list: \cttestifvalinlist{15}{\mytestlist}{true}{false}\par\smallskip
+The third value of the list is \ctgetvaluefromlist*{\mytestlist}{3}
 \end{tcolorbox}
 
 \vfill~
@@ -207,20 +209,16 @@ The third value of the list is \getvaluefromlist*{\mytestlist}{3}
 In order to load \texttt{randintlist}, simply use:
 
 \begin{DemoCode}{listing only}
-\usepackage{commalists-tools}
+\usepackage{commalists-tools-l3}
 \end{DemoCode}
 
-Loaded packages are \texttt{listofitems}, \texttt{xintexpr} and \texttt{xstring}.
-
-\smallskip
-
-The idea is to propose "reusage" of lists with \texttt{listofitems} or other commands, for example.
+All code is written in \hologo{LaTeX3}, so no extra packages are needed.
 
 \section{The individual macros}
 
 \subsection{Global usage}
 
-Package \texttt{commalists-tools} supports (basic) manipulations on numeral comma separated lists:
+Package \texttt{commalists-tools-l3} supports (basic) manipulations on numeral comma separated lists:
 
 \begin{itemize}
 	\item sorting;
@@ -236,64 +234,80 @@ Starred versions only print the result, whereas non starred versions store the r
 
 \medskip
 
-\hfill\textbf{All engines \TeX\ are compatible with this package.}\hfill~
+{\small\faLightbulb} Macros are prefixed with \ShowCode{\\ct...} (for \textsf{\textbf{\underline{c}}ommalists-\textbf{\underline{t}}ools}).
+
+\subsection{The macro for printing}
+
+\begin{DemoCode}{listing only}
+%just printing, with optional separator
+\ctshowlist[sep]{list}
+\end{DemoCode}
+
+\begin{DemoCode}{}
+\ctshowlist{1,   2,3, 4, 6}
+\end{DemoCode}
+
+\begin{DemoCode}{}
+\def\mytmplist{12, -4,   5,7 ,8, 9, 0}
+\ctshowlist[\,/\,]{\mytmplist}
+\end{DemoCode}
 
 \subsection{The macros for calculating}
 
 \begin{DemoCode}{listing only}
 %getting length of list, only printing
-\lenoflist*{list}
+\ctlenoflist*{list}
 %storing length of list into macro (\resmylen by default)
-\lenoflist{list}
+\ctlenoflist{list}
 %getting min of list, only printing
-\minoflist*{list}
+\ctminoflist*{list}
 %storing min of list into \macro (\resmin by default)
-\minoflist{list}[\macro]
+\ctminoflist{list}[\macro]
 %getting max of list, only printing
-\maxoflist*{list}
+\ctmaxoflist*{list}
 %storing max of list into \macro (\resmax by default)
-\maxoflist{list}[\macro]
+\ctmaxoflist{list}[\macro]
 \end{DemoCode}
 
 \begin{DemoCode}{}
 %only printing
-\lenoflist*{14,10,15,11,9,10}\\
+\ctlenoflist*{14,10,15,11,9,10}\\
 %only printing
-\minoflist*{14,10,15,11,9,10} and \maxoflist*{14,10,15,11,9,10}
+\ctminoflist*{14,10,15,11,9,10} and \ctmaxoflist*{14,10,15,11,9,10}
 \end{DemoCode}
 
 \begin{DemoCode}{}
 %storing len/min/max of list
 \def\mytestlist{10,14.5,20,12,8.5}
-\lenoflist{\mytestlist}[\mylen]Length of list is \mylen\ \&
-\minoflist{\mytestlist}[\mymin]Min of list is \mymin\ \&
-\maxoflist{\mytestlist}[\mymax]Max of list is \mymax
+\ctlenoflist{\mytestlist}[\mylen]Length of list is \mylen\ \&
+\ctminoflist{\mytestlist}[\mymin]Min of list is \mymin\ \&
+\ctmaxoflist{\mytestlist}[\mymax]Max of list is \mymax
 \end{DemoCode}
 
 \begin{DemoCode}{listing only}
 %getting mean of list, only printing
-\meanoflist*{list}
+\ctmeanoflist*{list}
 %storing mean of list into \macro (\resmean by default)
-\meanoflist{list}[\macro]
+\ctmeanoflist{list}[\macro]
 %getting sum of list, only printing
-\sumoflist*{list}
+\ctsumoflist*{list}
 %storing max of list into \macro (\ressum by default)
-\sumoflist{list}[\macro]
+\ctsumoflist{list}[\macro]
 %getting prod of list, only printing
-\prodoflist*{list}
+\ctprodoflist*{list}
 %storing max of list into \macro (\resprod by default)
-\prodoflist{list}[\macro]
+\ctprodoflist{list}[\macro]
 \end{DemoCode}
 
 \begin{DemoCode}{}
 %only printing
-\meanoflist*{14,10,15,11,9,10} \\
+\ctmeanoflist*{14,10,15,11,9,10} \\
 %storing
-\meanoflist{14,10,15,11,9,10}[\mymean]\mymean \\
+\ctmeanoflist{14,10,15,11,9,10}[\mymean]\mymean \\
 %only printing
-\sumoflist*{14,10,15,11,9,10} and \prodoflist*{14,10,15,11,9,10} \\
+\ctsumoflist*{14,10,15,11,9,10} and \ctprodoflist*{14,10,15,11,9,10} \\
 %storing
-\sumoflist{14,10,15,11,9,10}[\mysum]\prodoflist{14,10,15,11,9,10}[\myprod]
+\ctsumoflist{14,10,15,11,9,10}[\mysum]\ctprodoflist{14,10,15,11,9,10}[\myprod]
 The sum is \mysum\ and the prod is \myprod
 \end{DemoCode}
 
@@ -301,21 +315,21 @@ The sum is \mysum\ and the prod is \myprod
 
 \begin{DemoCode}{listing only}
 %sorting (asc), only printing
-\sortasclist*{list}
+\ctsortasclist*{list}
 %sorting (asc) and storing (overwrite)
-\sortasclist{list}
+\ctsortasclist{list}
 %sorting (des), only printing
-\sortdeslist*{list}
+\ctsortdeslist*{list}
 %sorting (des) and storing (overwrite)
-\sortdeslist{list}
+\ctsortdeslist{list}
 \end{DemoCode}
 
 \begin{DemoCode}{}
 %sorting (asc), only printing
-\sortasclist*{14,10,15,11.5,9,10}\\
+\ctsortasclist*{14,10,15,11.5,9,10}\\
 %sorting (asc) and storing (overwrite)
 \def\tmpsortlist{14,10,15,11.5,9,10}
-\sortasclist{\tmpsortlist}\tmpsortlist\\
+\ctsortasclist{\tmpsortlist}\tmpsortlist\\
 %analysing
 \readlist*\tmpSORTlist{\tmpsortlist}
 \showitems{\tmpSORTlist}
@@ -323,25 +337,25 @@ The sum is \mysum\ and the prod is \myprod
 
 \begin{DemoCode}{listing only}
 %extract value, only printing
-\getvaluefromlist*{list}{index}
+\ctgetvaluefromlist*{list}{index}
 %extract value and storing into macro (\myelt by default)
-\getvaluefromlist{list}{index}[\macro]
+\ctgetvaluefromlist{list}{index}[\macro]
 \end{DemoCode}
 
 \begin{DemoCode}{}
 %extract value, only printing
 \def\listtmp{1,2,3,6,3,1,5,7,3}%
-\getvaluefromlist*{\listtmp}{4}\par\smallskip
+\ctgetvaluefromlist*{\listtmp}{4}\par\smallskip
 %storing
-\getvaluefromlist{\listtmp}{-1}[\mylastelt]The last element is \mylastelt
+\ctgetvaluefromlist{\listtmp}{-1}[\mylastelt]The last element is \mylastelt
 \end{DemoCode}
 
 \begin{DemoCode}{}
 %sorting (des), only printing
-\sortdeslist*{14,10,15,11.5,9,10}\\
+\ctsortdeslist*{14,10,15,11.5,9,10}\\
 %sorting (asc) and storing (overwrite)
 \def\tmpsortlist{14,10,15,11.5,9,10}
-\sortdeslist{\tmpsortlist}\tmpsortlist\\
+\ctsortdeslist{\tmpsortlist}\tmpsortlist\\
 %analysing
 \readlist*\tmpSORTlist{\tmpsortlist}
 \showitems{\tmpSORTlist}
@@ -349,21 +363,21 @@ The sum is \mysum\ and the prod is \myprod
 
 \begin{DemoCode}{listing only}
 %adding, only printing
-\addvalinlist*{values}{list}
+\ctaddvalinlist*{values}{list}
 %adding and storing (overwrite)
-\addvalinlist{values}{list}
+\ctaddvalinlist{values}{list}
 %removing, only printing
-\removevalinlist*{value}{list}
+\ctremovevalinlist*{value}{list}
 %removing and storing (overwrite)
-\removevalinlist{value}{list}
+\ctremovevalinlist{value}{list}
 \end{DemoCode}
 
 \begin{DemoCode}{}
 %only printing
-\addvalinlist*{3}{1,2,5,6}\\
+\ctaddvalinlist*{3}{1,2,5,6}\\
 %defining and adding
 \def\tmpaddlist{1,2,4,5,6}
-\addvalinlist{3}{\tmpaddlist}\tmpaddlist\\
+\ctaddvalinlist{3}{\tmpaddlist}\tmpaddlist\\
 %analysing
 \readlist*\tmpADDlist{\tmpaddlist}
 \showitems{\tmpADDlist}
@@ -371,10 +385,10 @@ The sum is \mysum\ and the prod is \myprod
 
 \begin{DemoCode}{}
 %only printing
-\removevalinlist*{3}{1,2,3,6,3,1,5,7,3}\\
+\ctremovevalinlist*{3}{1,2,3,6,3,1,5,7,3}\\
 %defining and removing
 \def\tmpremlist{1,2,3,6,3,1,5,7,3}
-\removevalinlist{3}{\tmpremlist}\tmpremlist\\
+\ctremovevalinlist{3}{\tmpremlist}\tmpremlist\\
 %analysing
 \readlist*\tmpREMlist{\tmpremlist}
 \showitems{\tmpREMlist}
@@ -382,17 +396,17 @@ The sum is \mysum\ and the prod is \myprod
 
 \begin{DemoCode}{listing only}
 %reversing, only printing
-\reverselist*{list}
+\ctreverselist*{list}
 %reversing and storing (overwrite)
-\reverselist{list}
+\ctreverselist{list}
 \end{DemoCode}
 
 \begin{DemoCode}{}
 %only printing
-\reverselist*{14,10,15,11,9,10}\\
+\ctreverselist*{14,10,15,11,9,10}\\
 %reversing and storing
 %storing
-\reverselist{14,10,15,11,9,10}[\myreverse]\myreverse\\
+\ctreverselist{14,10,15,11,9,10}[\myreverse]\myreverse\\
 %analysing
 \readlist*\tmpREVERSElist{\myreverse}
 \showitems{\tmpREVERSElist}
@@ -402,93 +416,47 @@ The sum is \mysum\ and the prod is \myprod
 
 \begin{DemoCode}{listing only}
 %testing if value is in list, with boolean result in \macro (\resisinlist by default)
-\boolvalinlist{value}{list}[\macro]
+\ctboolvalinlist{value}{list}[\macro]
 %conditionnal test if value is in list, according to xint syntax
-\testifvalinlist{3}{0,1,2,3}{true}{false}
+\cttestifvalinlist{3}{0,1,2,3}{true}{false}
 \end{DemoCode}
 
 \begin{DemoCode}{}
 %test with xint syntax
-\testifvalinlist{-1}{0,1,2,3}{true}{false}\\
+\cttestifvalinlist{-1}{0,1,2,3}{true}{false}\\
 %test with xint syntax
-\testifvalinlist{3}{0,1,2,3}{true}{false}\\
+\cttestifvalinlist{3}{0,1,2,3}{true}{false}\\
 %boolean macro
 \def\myteslist{0,5,10,5,6,9,7,8}
-\boolvalinlist{5}{\myteslist}[\resisinlist]\resisinlist
+\ctboolvalinlist{5}{\myteslist}[\resisinlist]\resisinlist
 \end{DemoCode}
 
 \begin{DemoCode}{listing only}
 %counting value, only printing
-\countvalinlist*{value}{list}
+\ctcountvalinlist*{value}{list}
 %counting value, with result in \macro (\rescount by default)
-\countvalinlist{value}{list}[\macro]
+\ctcountvalinlist{value}{list}[\macro]
 \end{DemoCode}
 
 \begin{DemoCode}{}
 %only printing
-\countvalinlist*{8}{1,2,3,4,5,6,6,7,8,8,8,9}\\
+\ctcountvalinlist*{8}{1,2,3,4,5,6,6,7,8,8,8,9}\\
 %storing
 \def\tmpcountlist{1,2,3,4,5,6,6,7,8,8,8,9}
-\countvalinlist{6}{\tmpcountlist}[\rescountsix]\rescountsix\\
-\countvalinlist{10}{\tmpcountlist}[\rescountten]\rescountten
+\ctcountvalinlist{6}{\tmpcountlist}[\rescountsix]\rescountsix\\
+\ctcountvalinlist{10}{\tmpcountlist}[\rescountten]\rescountten
 \end{DemoCode}
-
-\pagebreak
-
-\section{Macros for already processed lists}
-
-In order to speed up the process, it's possible to "define" a list (processed with \texttt{listofitems}) and the to call specific macros.
-
-\begin{DemoCode}{listing only}
-%define a list, to be processed by listofitems
-\definemylist{rawlist}{processed list}
-
-%Specific macros (same specs as above)
-\lenofdeflist(*){processed list, without \ !}[\macro]
-\countvalindeflist(*){val}{processed list, without \ !}[\macro]
-\meanofdeflist(*){processed list, without \ !}[\macro]
-\sumofdeflist(*){processed list, without \ !}[\macro]
-\prodofdeflist(*){processed list, without \ !}[\macro]
-\getvaluefromdeflist(*){processed list, without \ !}{index}[\macro]
-\end{DemoCode}
-
-\begin{DemoCode}{}
-%define a list, to be processed by listofitems
-\definemylist{1,4,5,6,7,8,9,19,9,9,10}{\mydeflist}\showitems{\mydeflist}
-
-%Specific macros
-\lenofdeflist*{mydeflist}\\
-\getvaluefromdeflist*{mydeflist}{5}\\
-\countvalindeflist*{9}{mydeflist}\\
-\meanofdeflist*{mydeflist}\\
-\sumofdeflist*{mydeflist}\\
-\prodofdeflist*{mydeflist}
-\end{DemoCode}
-
-If the list needs to be "modified" (add, remove, reverse) the best is to use individual macros, and after use \textit{define} and specific macros :-)
 
 \pagebreak
 
 \section{History}
 
-\texttt{0.1.7: Improvements in L3 version of package}
+\texttt{0.1.7: Improvements with \hologo{LaTeX3}}
 
-\texttt{0.1.6: L3 version of package}
-
-\texttt{0.1.5: Bugfix}
-
-\texttt{0.1.4: Changing name of macro}
-
-\texttt{0.1.3: Duplicate macro with ProfMaquette (so new name)}
-
-\texttt{0.1.2: Alternative macros for already treated lists}
-
-\texttt{0.1.1: Compatibility with decimals, len of list, get value}
-
-\texttt{0.1.0: Initial version}
+\texttt{0.1.6: Initial version,code written in \hologo{LaTeX3}}
 
 \section{The code}
 
-\DemoCodeFile{commalists-tools.sty}
+\DemoCodeFile{commalists-tools-l3.sty}
 
 \end{document}

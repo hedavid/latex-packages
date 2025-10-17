@@ -7,14 +7,15 @@
 \usepackage{inconsolata}
 \usepackage[T1]{fontenc}
 \usepackage[scale=0.875]{cabin}
-\usepackage{randintlist}
+\usepackage{randintlist-l3}
+\usepackage{listofitems,xintexpr}
 \usepackage{fancyvrb}
 \usepackage{fancyhdr}
 \usepackage{tabularray}
 \usepackage{fontawesome5}
 \fancyhf{}
 \renewcommand{\headrulewidth}{0pt}
-\lfoot{\sffamily\small [randintlist]}
+\lfoot{\sffamily\small [randintlist-l3]}
 \cfoot{\sffamily\small - \thepage{} -}
 \rfoot{\hyperlink{matoc}{\small\faArrowAltCircleUp[regular]}}
 \usepackage{hologo}
@@ -45,14 +46,14 @@
 	keywordstyle={\color{blue}},%
 	classoffset=1,%
 	alsoletter={-},%
-	morekeywords={randintlist},%
+	morekeywords={randintlist-l3},%
 	keywordstyle={\color{violet}},%
 	classoffset=2,%
 	alsoletter={-},%
-	morekeywords={\randintlist,\getitemfromrandintlist},%
+	morekeywords={\rdlgenlist,\rdlgetitem},%
 	keywordstyle={\color{green!50!black}},%
 	classoffset=3,%
-	morekeywords={min,max,nb,seed,sort,sep,repeat,exclude},%
+	morekeywords={min,max,nb,seed,sort,sep,repeat,excluded},%
 	keywordstyle={\color{orange}}
 }
 
@@ -75,14 +76,14 @@
 		keywordstyle={\color{blue}},%
 		classoffset=1,%
 		alsoletter={-},%
-		morekeywords={randintlist},%
+		morekeywords={randintlist-l3},%
 		keywordstyle={\color{violet}},%
 		classoffset=2,%
 		alsoletter={-},%
-		morekeywords={\randintlist,\getitemfromrandintlist,\ListeRandint,\ExtraireEltListeRandint},%
+		morekeywords={\rdlgenlist,\rdlgetitem},%
 		keywordstyle={\color{green!50!black}},%
 		classoffset=3,%
-		morekeywords={min,max,nb,seed,sort,sep,repeat,Min,Max,Nb,Graine,Sep,Tri,Repet,exclude,Exclure},%
+		morekeywords={min,max,nb,seed,sort,sep,repeat,excluded},%
 		keywordstyle={\color{orange}}
 	},%
 	#1
@@ -122,7 +123,9 @@
 			\begin{center}
 				\renewcommand{\arraystretch}{1.25}%
 				\begin{tabular}{c}
-					{\Huge \texttt{randintlist}}\\
+					{\Huge \texttt{randintlist-l3}}\\
+					\\
+					{\Large\hologo{LaTeX3}}\\
 					\\
 					{\LARGE Creating random integer number lists,} \\
 					{\LARGE with multiple numbers or not,} \\
@@ -150,39 +153,39 @@
 \begin{tcolorbox}[colframe=lightgray,colback=lightgray!5]
 10 numbers, between 1 and 100, without repetition:
 
-\hfill\randintlist[min=1,max=100,nb=10]{\mylist}\textcolor{red}{\mylist}\hfill~
+\hfill\rdlgenlist[min=1,max=100,nb=10]{\mylist}\textcolor{red}{\mylist}\hfill~
 
 The 5th value is:
 
-\hfill\textcolor{blue}{\getitemfromrandintlist{\mylist}{5}}\hfill~
+\hfill\textcolor{blue}{\rdlgetitem*{\mylist}{5}}\hfill~
 \end{tcolorbox}
 
 \begin{tcolorbox}[colframe=lightgray,colback=lightgray!5]
 10 numbers, between 1 and 100, without multiples of 5:
 
-\hfill\randintlist[min=1,max=100,nb=10,exclude={5,10,15,20,25,30,35,40,45,50,55,60,65,70,75,80,85,90,95,100}]{\mylist}\textcolor{olive}{\mylist}\hfill~
+\hfill\rdlgenlist[min=1,max=100,nb=10,excluded={5,10,15,20,25,30,35,40,45,50,55,60,65,70,75,80,85,90,95,100}]{\mylist}\textcolor{olive}{\mylist}\hfill~
 
 The 9th value is:
 
-\hfill\textcolor{purple}{\getitemfromrandintlist{\mylist}{9}}\hfill~
+\hfill\textcolor{purple}{\rdlgetitem*{\mylist}{9}}\hfill~
 \end{tcolorbox}
 
 \begin{tcolorbox}[colframe=lightgray,colback=lightgray!5]
 15 numbers, between 1 and 20, with repetition:
 
-\hfill\randintlist[min=1,max=20,nb=15,repeat]{\mylist}\textcolor{red}{\mylist}\hfill~
+\hfill\rdlgenlist[min=1,max=20,nb=15,repeat]{\mylist}\textcolor{red}{\mylist}\hfill~
 
 The last value is:
 
-\hfill\textcolor{blue}{\getitemfromrandintlist{\mylist}{-1}}\hfill~
+\hfill\textcolor{blue}{\rdlgetitem*{\mylist}{-1}}\hfill~
 \end{tcolorbox}
 
 \begin{tcolorbox}[colframe=lightgray,colback=lightgray!5]
 6 sorted numbers, between 1 and 51, without repetition:
 
-\hfill\randintlist[min=1,max=51,nb=6,sort=asc]{\mylist}ascending : \textcolor{red}{\mylist}\hfill~
+\hfill\rdlgenlist[min=1,max=51,nb=6,sort=asc]{\mylist}ascending: \textcolor{red}{\mylist}\hfill~
 
-\hfill\randintlist[min=1,max=51,nb=6,sort=des,sep=>]{\mylist}descending : \textcolor{red}{\mylist}\hfill~
+\hfill\rdlgenlist[min=1,max=51,nb=6,sort=des]< {>} >{\mylist}descending: \textcolor{red}{\mylist}\hfill~
 \end{tcolorbox}
 
 \vfill~
@@ -196,7 +199,7 @@ The last value is:
 }
 
 \emph{%
-	2. The \textsf{tuple} package is so much better\ldots\ but I keep \texttt{randintlist}, without new features\ldots
+	2. The \textsf{tuple} package is so much better\ldots take a look\ldots
 }
 
 \medskip
@@ -221,69 +224,78 @@ The last value is:
 
 \section{Loading, useful packages}
 
-In order to load \texttt{randintlist}, simply use:
+In order to load \texttt{randintlist-l3}, simply use:
 
 \begin{DemoCode}{listing only}
-\usepackage{randintlist}
+\usepackage{randintlist-l3}
 \end{DemoCode}
 
-Loaded packages are \texttt{ifthen}, \texttt{simplekv}, \texttt{listofitems}, \texttt{randomlist},  \texttt{xintexpr} and \texttt{xstring}.
+All code is written in \hologo{LaTeX3}, so no extra packages are needed.
 
 \section{The Macros}
 
 \subsection{Global usage}
 
-Package \texttt{randintlist} supports the creation of random integer number lists where a number will appear only once or multiple times. Generated lists can te used with \texttt{listofitems}.
+Package \texttt{randintlist-l3} supports the creation of random integer number lists where a number will appear only once or multiple times. Generated lists can be used with \texttt{listofitems}.
 
-\hfill\textbf{All engines \TeX\ are compatible with this package.}\hfill~
+\medskip
+
+{\small\faLightbulb} Macros are prefixed with \ShowCode{\\rdl...} (for \textsf{\textbf{\underline{r}}an\textbf{\underline{d}}int\textbf{\underline{l}}ist}).
 
 \subsection{Generate the list}
 
 \begin{DemoCode}{listing only}
 %generate list
-\randintlist[keys]{\macro}
+\rdlgenlist[keys]{\macro}
 \end{DemoCode}
 
 Available keys are:
 
 \begin{itemize}
 	\item \ShowCode{min}: minimum value (default \ShowCode{1});
-	\item \ShowCode{max}: maximum value (default \ShowCode{50});
+	\item \ShowCode{max}: maximum value (default \ShowCode{100});
 	\item \ShowCode{nb}: number of values (default \ShowCode{6});
-	\item \ShowCode{sep}: separator for the list (default \ShowCode{,});
+%	\item \ShowCode{sep}: separator for the list (default \ShowCode{,});
 	\item \ShowCode{sort}: sorting options, within \ShowCode{no/asc/dec} (default \ShowCode{no});
 	\item \ShowCode{repeat}: boolean to authorize repeating values (default \ShowCode{false});
-	\item \ShowCode{exclude}: list of excluded values (default \ShowCode{empty});
+	\item \ShowCode{excluded}: list of excluded values (default \ShowCode{empty});
 	\item \ShowCode{seed}: random seed value according to used packages (default \ShowCode{-}).
 \end{itemize}
 
 \begin{DemoCode}{}
 %default values
-\randintlist{\mylistA}\mylistA
+\rdlgenlist{\mylistA}\mylistA
 \end{DemoCode}
 
 \begin{DemoCode}{}
 %10 between 1 and 50, with ascending
-\randintlist[sort=asc,min=1,max=50,nb=10]{\mylistB}\mylistB
+\rdlgenlist[sort=asc,min=1,max=50,nb=10]{\mylistB}\mylistB
 \end{DemoCode}
 
 \begin{DemoCode}{}
 %15 between 1 and 50, with ascending and repetitions allowed
-\randintlist[sort=asc,min=1,max=50,nb=15,repeat]{\mylistC}\mylistC
+\rdlgenlist[sort=asc,min=1,max=50,nb=15,repeat]{\mylistC}\mylistC
 \end{DemoCode}
 
 \begin{DemoCode}{}
 %15 between 1 and 50, without multiples of 5
-\randintlist[%
+\rdlgenlist[%
 	sort=asc,min=1,max=50,nb=15,repeat,%
-	exclude={5,10,15,20,25,30,35,40,45,50}]%
+	excluded={5,10,15,20,25,30,35,40,45,50}]%
 	{\mylistC}\mylistC
 \end{DemoCode}
 
 \begin{DemoCode}{}
 %list used with listofitems
-\randintlist{\mylistD}\mylistD\par
+\rdlgenlist{\mylistD}\mylistD\par
 \readlist*\mylistused{\mylistD}\showitems{\mylistused}\par
+\mylistused[1]; \mylistused[-1]
+\end{DemoCode}
+
+\begin{DemoCode}{}
+%list, with alt sep, used with listofitems
+\rdlgenlist<+>{\mylistZ}\mylistZ\par
+\setsepchar{+}\readlist*\mylistused{\mylistZ}\showitems{\mylistused}\par
 \mylistused[1]; \mylistused[-1]
 \end{DemoCode}
 
@@ -291,90 +303,32 @@ Available keys are:
 
 \begin{DemoCode}{listing only}
 %accessing item
-\getitemfromrandintlist[separator]{\macro}{index}[\macrores]
+\rdlgetitem(*){\macro}{index}[\macrores]
 \end{DemoCode}
 
 \begin{DemoCode}{}
 %with default keys
-\randintlist{\mylistE}raw list: \mylistE\par
+\rdlgenlist{\mylistE}raw list: \mylistE\par
 items list:\par
-\xintFor* #1 in {\xintSeq{1}{6}}\do{\getitemfromrandintlist{\mylistE}{#1}\par}
-first element: \getitemfromrandintlist{\mylistE}{1}\par
+\xintFor* #1 in {\xintSeq{1}{6}}\do{\rdlgetitem*{\mylistE}{#1}\par}
+first element: \rdlgetitem*{\mylistE}{1}\par
 \end{DemoCode}
 
 \begin{DemoCode}{}
-\getitemfromrandintlist{\mylistE}{3}[\myres]%
+\rdlgetitem{\mylistE}{3}[\myres]%
 third element: \myres
-\end{DemoCode}
-
-\pagebreak
-
-\subsection{Version française}
-
-Voilà les commandes en version française, la syntaxe et les clés ne seront pas explicitées.
-
-\begin{DemoCode}{listing only}
-%obtenir la liste
-\ListeRandint[Min=..,Max=..,Nb=..,Repet=..,Graine=..,Tri=..,Sep=..,Exclure=..]{\macro}
-
-%extraire un élément
-\ExtraireEltListeRandint[sep]{\macro}{position}[\macrores]
-\end{DemoCode}
-
-\begin{DemoCode}{}
-%liste
-\ListeRandint[Min=5,Max=15,Nb=7,Repet,Tri=croiss,Sep={/}]{\maliste}\maliste\\
-%élément
-\ExtraireEltListeRandint[/]{\maliste}{4}
-\end{DemoCode}
-
-\begin{DemoCode}{}
-%liste
-\ListeRandint[Min=50,Max=100,Nb=10,Repet,Tri=croiss]{\malisteB}\malisteB\\
-%troisième élément
-\ExtraireEltListeRandint{\malisteB}{3}[\montroisieme]%
-troisième élément : \montroisieme
-\end{DemoCode}
-
-\pagebreak
-
-\section{Example}
-
-The following example uses \TikZ, and comes from \texttt{luarandom}'s documentation.
-
-\begin{DemoCode}{}
-\begin{tikzpicture}[scale=0.75]
-	\randintlist[min=1,max=100,nb=100]{\mylistsquare}
-	\draw[thin,gray] (0,0) grid (10,10) ;
-	\foreach \i in {1,...,100}{%
-		\xdef\tmpnumber{\getitemfromrandintlist{\mylistsquare}{\i}}%
-		\xdef\tmpnumberrow{\xinteval{\xintiiRem{\i-1}{10}}}%
-		\xdef\tmpnumbercol{\xinteval{\xintiiQuo{\i-1}{10}}}%
-		\draw ({0.5+\tmpnumbercol},{0.5+\tmpnumberrow}) node {\tmpnumber} ;
-	}%
-\end{tikzpicture}
 \end{DemoCode}
 
 \pagebreak
 
 \section{History}
 
-\texttt{0.1.6: Improvements in \hologo{LaTeX3} version of the package}
+\texttt{0.1.6: Improvements with \hologo{LaTeX3}}
 
-\texttt{0.1.5: \hologo{LaTeX3} version of the package}
-
-\texttt{0.1.4: Bugfix}
-
-\texttt{0.1.3: Bugfix}
-
-\texttt{0.1.2: Changing name of internal macro}
-
-\texttt{0.1.1: Possibility to exclude values}
-
-\texttt{0.1.0: Initial version}
+\texttt{0.1.5: Initial version}
 
 \section{The code}
 
-\DemoCodeFile{randintlist.sty}
+\DemoCodeFile{randintlist-l3.sty}
 
 \end{document}
