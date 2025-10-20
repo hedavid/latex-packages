@@ -1,0 +1,281 @@
+\documentclass[english,parskip=half-,paper=a4]{scrartcl}
+\usepackage[margin=1.5cm,includeheadfoot]{geometry}
+\RequirePackage[default]{lato}
+\RequirePackage[math-style=french,bold-style=ISO]{lete-sans-math}
+\setsansfont{Fira Sans}[Scale=MatchLowercase]
+\setmonofont{CascadiaMono-Light}[Scale=MatchLowercase]
+
+\usepackage{pixelarttikz-l3}
+
+\usepackage{babel}
+\usepackage{enumitem}
+\usepackage{couleurs-fr}
+
+\usepackage{minted-code}
+\usepackage{hologo}
+\usepackage{fancyvrb}
+\usepackage{xcolor,url}
+\usepackage[colorlinks]{hyperref}
+\setlength\parindent{0pt}
+
+\def\Lcs#1{\texttt{\textbackslash#1}\index{#1@\texttt{\textbackslash#1}}}
+\def\Largb#1{\texttt{\{}\textit{#1}\texttt{\}}}
+\def\Lpack#1{\texttt{#1}\index{#1@\texttt{#1}}\index{Package!#1@\texttt{#1}}}
+\def\Loption#1{\texttt{#1}\index{#1@\texttt{#1}}\index{Option!#1@\texttt{#1}}}
+
+\def\pixlartcolorskoala{%french version :-p
+	A=VertForet,
+	B=Noir,
+	C=GrisClair,
+	D=GrisFonce,
+	E=Beige,
+	F=Blanc,
+	G=BleuClair,
+	H=VertClair,
+	I=Marron
+}
+
+\subtitle{pixelart, with Ti\textit{k}Z and \hologo{LaTeX3}}
+\title{pixelarttikz-l3 (0.1.9)}
+\date{October 20, 2025}
+\author{Cédric Pierquet\thanks{\protect\url{cpierquet@outlook.fr}}}
+\raggedbottom
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+
+\vfill
+
+\hfill%
+\pixlarttikz[unit=0.2,text size=0.875]{\pixlartcolorskoala}{PAkoala.csv}~~
+\pixlarttikz[unit=0.2,correction]{\pixlartcolorskoala}{PAkoala.csv}%
+\hfill\null
+
+\vspace*{5mm}
+
+\pagebreak
+
+\section{Introduction}
+
+\subsection{Loading}
+
+To use \Lpack{pixelarttikz-l3}, simply use:
+
+\begin{codeblock}[title=Loading (only l3)]
+\usepackage{pixelarttikz-l3}
+\end{codeblock}
+
+\begin{codeblock}[title=Loading (l3 and l2)]
+\usepackage[legacy]{pixelarttikz-l3}   %with latex2e version of package and macros
+\end{codeblock}
+
+\subsection{Idea(s)}
+
+The idea behind this package is to provide a command for manipulating pixelarts, with a simplified syntax.
+
+\smallskip
+
+The basis of the macro is a \texttt{csv} file, which can be external file, or with internal generated version.
+
+\smallskip
+
+For \textit{huge} pixelarts, \hologo{LuaLaTeX} is necessary for compiling !
+
+\subsection{First example(s)}
+
+\begin{codeblock}[title=File csv sample]
+\begin{filecontents*}[overwrite]{base.csv}
+A,B,C,D
+A,B,D,C
+B,A,D,C
+C,A,B,D
+\end{filecontents*}
+\end{codeblock}
+
+\begin{exampleM}{}
+\pixlarttikz%with letters
+  {A,B,C,D}
+  {base.csv}
+\pixlarttikz[correction]%with colors
+  {A=green,B=blue,C=orange,D=pink}%
+  {base.csv}
+\pixlarttikz[correction,borders=false]%with colors w/o borders
+  {A=green,B=blue,C=orange,D=pink}%
+  {base.csv}
+
+\pixlarttikz[symbols]%with symbols
+  {A=12,B=-5,C=4,D=0}
+  {base.csv}
+\pixlarttikz[symbols,text size=0.875]%with symbols and custom scale
+  {A=12,B=-5,C=4,D=0}
+  {base.csv}
+\pixlarttikz[symbols]%with random symbols
+  {A=1§2§3§4,B=5§6§7§8,C=9§10§11§12,D=13§14§15§16}
+  {base.csv}
+\end{exampleM}
+
+\pagebreak
+
+\section{Global usage}
+
+\subsection{Main macro}
+
+The main macro is:
+
+\begin{codeblock}[title=Main macro]
+\pixlarttikz%
+  [keys]%
+  <tikzpicture options>%
+  {letters association}%
+  {file.csv}
+\end{codeblock}
+
+Available keys are:
+
+\begin{itemize}[noitemsep]
+	\item the key \Loption{unit} to specify unit, in cm;\hfill{}default \Loption{1}
+	\item the boolean \Loption{codes} to display codes;\hfill{}default \Loption{true}
+	\item the boolean \Loption{correction} to color the pixlart;\hfill{}default \Loption{false}
+	\item the boolean \Loption{symbols} to print the symbols (one or shuffle within list);\hfill{}default \Loption{false}
+	\item the boolean \Loption{borders} to print borders of the cells;\hfill{}default \Loption{true}
+	\item the key \Loption{font} for the font of codes/symbols;\hfill{}default \Loption{\textbackslash sffamily}
+	\item the key \Loption{cut} for cutting usage;\hfill{}default \Loption{empty}
+	\item the key \Loption{text size} for adapting height automatically.\hfill{}default \Loption{0.55}
+\end{itemize}
+
+The \Loption{cut} key can be given within the form:
+%
+\begin{itemize}
+	\item \Loption{<number of block length>x<number of block col>} to specify the size of the blocks;
+	\item \Loption{<number of V blocks>+<number of H blocks>} to specify the number of blocks.
+\end{itemize}
+
+\subsection{Macro for individual block}
+
+The macro for individual block is (keys are identical of main macro):
+
+\begin{codeblock}[title=Individual block]
+\pixlarttikzblock%
+  [keys]%
+  <tikzpicture options>%
+  {letters association}%
+  {block number r/c}%
+  {file.csv}
+\end{codeblock}
+
+\pagebreak
+
+\subsection{Sample}
+
+\begin{codeblock}[title=Useful data]
+\begin{filecontents*}[overwrite]{PAkoala.csv}
+A,A,A,A,A,A,A,H,H,H,A,A,A,A,A,H,H,H,A,A,A,A,A,A,A,A,A,H,H,H,H,A,A,H,A,A,A,A,A,A
+A,A,A,A,A,A,A,A,H,A,A,A,A,A,A,H,H,A,A,A,A,A,A,A,A,A,A,H,A,A,A,A,A,H,A,A,A,A,A,A
+A,A,A,H,A,A,A,A,A,A,A,A,A,A,A,H,H,A,A,A,A,A,A,A,A,H,H,H,A,A,A,A,A,A,A,A,A,A,A,A
+A,A,A,A,A,A,A,B,E,E,E,E,A,A,A,A,A,A,A,A,A,A,A,H,H,H,A,B,B,E,E,E,E,B,A,A,A,A,A,H
+A,A,H,A,A,A,A,B,E,E,E,E,E,A,A,A,A,A,A,A,A,A,A,H,H,H,B,E,E,E,E,E,E,B,B,A,A,A,A,H
+A,A,H,A,A,B,B,E,C,C,C,C,C,E,B,B,B,E,E,E,E,E,E,B,B,B,E,C,C,C,C,C,C,E,B,B,H,H,A,A
+A,A,H,A,B,E,D,D,D,D,B,D,C,C,E,E,E,E,C,C,C,C,E,E,E,E,E,C,D,B,B,D,D,D,E,B,H,A,A,A
+A,A,A,A,B,E,D,D,F,F,D,B,D,C,C,E,C,C,C,C,C,C,C,C,E,C,C,D,B,D,D,F,F,D,E,B,A,A,A,H
+A,A,A,B,C,D,D,F,F,F,D,D,B,B,C,C,C,C,C,C,C,C,C,C,C,C,C,B,D,D,D,F,F,D,D,C,B,A,H,H
+A,A,A,B,C,D,F,F,F,F,F,D,D,D,C,C,C,C,C,C,C,C,C,C,C,C,C,D,D,F,F,F,F,F,D,C,B,A,H,H
+A,A,A,B,D,D,F,F,F,F,F,D,C,C,C,C,C,C,C,C,C,C,C,C,C,C,C,C,D,F,F,F,F,F,D,D,B,A,A,H
+A,A,A,B,D,D,G,F,F,F,F,D,C,C,B,B,B,C,C,B,B,C,C,B,B,B,C,C,D,F,F,F,F,G,D,D,B,A,A,A
+A,A,A,A,B,G,G,F,F,F,F,D,C,C,B,F,B,C,B,D,D,B,C,B,F,B,C,C,D,G,F,F,F,G,G,B,H,A,A,A
+A,A,A,A,A,B,G,G,G,F,G,D,C,C,C,B,B,C,B,D,D,B,C,B,B,C,C,C,D,G,G,F,G,G,B,H,H,H,A,A
+A,A,A,A,A,A,B,G,G,G,G,B,C,C,C,C,C,C,B,B,B,B,C,C,C,C,C,C,D,B,G,G,G,G,B,H,H,H,A,A
+A,A,A,A,A,A,A,B,B,B,B,B,C,C,C,C,C,C,B,B,B,B,C,C,C,C,C,C,D,B,B,B,B,B,A,A,H,H,A,A
+A,A,A,A,A,A,A,A,A,A,A,D,D,C,C,C,C,F,B,B,B,B,F,C,C,C,C,D,D,A,A,A,A,A,A,A,A,A,A,A
+A,A,A,A,A,A,A,A,A,A,A,B,D,D,C,C,C,F,F,B,B,F,F,C,C,C,D,D,B,A,A,A,A,A,A,A,A,A,A,A
+A,A,A,A,A,H,H,H,A,A,A,A,B,B,D,C,C,F,F,F,F,F,F,C,C,D,B,B,A,A,A,A,A,A,H,H,H,A,A,A
+A,A,A,A,H,H,H,H,A,A,A,A,B,B,D,D,D,G,G,G,G,G,G,D,D,D,D,B,A,A,A,A,A,A,A,H,H,H,A,A
+A,A,A,A,H,H,H,A,A,A,A,B,D,D,D,D,D,G,G,G,G,G,G,D,D,D,D,D,B,A,A,A,A,A,A,A,H,H,A,A
+A,A,A,H,A,A,A,A,A,A,B,C,D,D,D,G,G,G,D,D,D,D,G,G,G,D,D,D,C,B,A,H,H,A,A,A,A,H,A,A
+A,A,A,H,H,A,A,A,A,A,D,C,C,C,D,G,G,F,G,D,D,G,F,G,G,D,D,C,C,C,B,A,H,H,A,A,A,A,A,A
+A,A,A,A,A,H,H,H,H,B,D,D,C,C,D,G,G,F,F,F,F,F,F,G,G,D,D,C,C,D,B,A,A,H,H,A,A,A,A,A
+A,A,A,A,A,A,A,A,A,B,D,D,C,C,C,C,C,B,F,F,F,F,F,B,C,C,C,C,D,D,B,A,A,H,H,H,H,A,A,A
+A,A,A,H,H,A,A,A,A,B,D,D,C,C,C,C,C,C,B,F,F,F,B,C,C,C,C,C,D,D,B,A,A,A,A,H,H,A,A,A
+A,A,A,A,A,A,A,A,A,A,B,B,D,D,C,C,C,C,C,B,F,B,C,C,C,C,D,D,B,B,A,A,A,H,H,A,A,A,A,A
+A,A,A,A,A,A,A,A,A,A,B,B,B,D,D,C,C,C,C,B,F,B,C,C,C,C,D,B,B,B,A,A,A,H,H,A,A,A,A,A
+A,A,A,A,A,A,A,A,A,B,C,C,C,B,B,D,D,D,D,B,F,B,D,D,D,B,B,D,C,C,B,A,A,A,H,A,A,A,A,A
+A,A,A,A,A,A,A,A,B,C,C,C,C,C,D,B,B,B,F,F,F,F,B,B,B,D,D,C,C,C,C,B,A,A,A,A,A,A,H,H
+A,A,A,A,A,A,A,A,B,C,C,C,C,C,D,D,D,G,G,F,F,G,G,D,D,D,D,C,C,C,C,B,A,A,A,A,A,A,H,H
+A,A,A,A,A,A,A,I,B,D,C,C,C,C,C,C,C,G,G,F,F,G,G,C,C,C,C,C,C,C,D,B,I,A,A,A,A,A,A,A
+A,A,A,A,A,A,A,I,B,D,D,D,C,C,C,B,B,B,G,G,G,G,B,B,B,C,C,C,D,D,D,B,I,A,A,A,A,A,A,A
+A,A,A,A,A,H,A,I,I,B,D,D,D,D,D,C,C,C,B,D,D,B,C,C,C,C,D,D,D,B,B,I,I,A,A,A,A,A,A,A
+A,A,A,A,A,H,H,H,I,B,B,D,D,D,D,D,C,C,B,D,D,B,C,C,C,D,D,D,D,B,I,I,A,A,A,A,A,A,A,A
+A,A,H,H,H,A,A,A,I,I,I,B,B,B,D,B,B,B,B,B,B,B,B,B,B,D,B,B,B,I,I,I,A,A,A,A,A,A,H,A
+A,A,H,H,H,A,A,A,A,I,I,I,B,B,B,B,B,B,B,B,B,B,B,B,B,B,B,B,I,I,I,A,A,A,A,A,A,A,H,A
+H,H,A,H,H,A,A,A,A,A,A,I,I,I,I,I,I,I,I,I,I,I,I,I,I,I,I,I,I,I,A,A,A,A,A,A,A,A,A,A
+A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,I,I,I,I,I,I,I,I,I,A,A,A,A,A,A,A,A,A,A,A,H,A,A,A,A
+A,A,A,A,A,A,A,A,A,A,A,A,H,H,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,H,H,A,A,A,A
+\end{filecontents*}
+
+\def\pixlartcolorskoala{%french version :-p
+	A=VertForet,
+	B=Noir,
+	C=GrisClair,
+	D=GrisFonce,
+	E=Beige,
+	F=Blanc,
+	G=BleuClair,
+	H=VertClair,
+	I=Marron
+}
+\end{codeblock}
+
+\pagebreak
+
+\begin{exampleM}{}
+\tikzset{pixlartcut/.style={semithick,blue}}
+\pixlarttikz%
+  [unit=0.2,cut=8x8,text size=0.875]%
+  {A,B,C,D,E,F,G,H,I,J}%
+  {PAkoala.csv}
+
+\pixlarttikz%
+  [unit=0.2,cut=8x8,correction]%
+  {\pixlartcolorskoala}%
+  {PAkoala.csv}
+\end{exampleM}
+
+\pagebreak
+
+\begin{exampleM}{}
+\tikzset{pixlartborder/.style={thin}}
+
+\pixlarttikzblock%
+  [unit=0.75,cut=5+5,text size=0.9,font=\ttfamily]%
+  {A,B,C,D,E,F,G,H,I,J}%
+  {1/1}%first block
+  {PAkoala.csv}
+\pixlarttikzblock%
+  [unit=0.75,cut=5+5,correction]%
+  {\pixlartcolorskoala}%
+  {1/1}%first block, correction
+  {PAkoala.csv}
+
+\pixlarttikzblock%
+  [unit=0.75,cut=5+5,text size=0.9,font=\ttfamily]%
+  {A,B,C,D,E,F,G,H,I,J}%
+  {2/3}%intermediate block R2&C3
+  {PAkoala.csv}
+\pixlarttikzblock%
+  [unit=0.75,cut=8x8,correction]%
+  {\pixlartcolorskoala}%
+  {2/3}%intermediate block R2&C3, correction
+  {PAkoala.csv}
+\end{exampleM}
+
+\pagebreak
+
+\section{History}
+
+\texttt{0.1.9: first version of l3 package}
+
+
+\end{document}
+

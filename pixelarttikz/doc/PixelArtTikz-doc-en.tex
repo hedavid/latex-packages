@@ -45,8 +45,8 @@
 \usepackage[margin=1.5cm]{geometry}
 \setlength{\parindent}{0pt}
 
-\def\TPversion{0.1.8}
-\def\TPdate{05/05/2025}
+\def\TPversion{0.1.9}
+\def\TPdate{20/10/2025}
 \usepackage{minted2}
 \usepackage[most]{tcolorbox}
 \tcbuselibrary{minted}
@@ -100,7 +100,7 @@
 	\begin{tabular}{c}
 	\texttt{Cédric Pierquet}\\
 	{\ttfamily c pierquet -- at -- outlook . fr}\\
-	\texttt{\url{https://forge.apps.education.fr/pierquetcedric/packages-latex}}
+	\texttt{\url{https://github.com/cpierquet/latex-packages/tree/main/pixelarttikz}}
 \end{tabular}
 \end{center}
 
@@ -191,7 +191,7 @@ The data is \textit{read} from a \textsf{csv} file, already existing in the fold
 
 \medskip
 
-Some advices about the \textsf{cvs} file :
+Some advices about the \textsf{cvs} file:
 
 \begin{itemize}
 	\item the \textsf{csv} file must use "," as separator;
@@ -307,7 +307,7 @@ Without extra packages, the available colors are:
 
 \subsection{Example}
 
-The macro \texttt{\textbackslash PixlArtTikz} needs :
+The macro \texttt{\textbackslash PixlArtTikz} needs:
 
 \begin{itemize}
 	\item the file \textsf{csv};
@@ -465,7 +465,7 @@ B,A,C,B
 C,A,B,C
 \end{filecontents*}
 
-\textbf{Notice : }
+\textbf{Notice:}
 
 Multiples of 5 : red\\
 Multiples of 3 : green\\
@@ -579,7 +579,7 @@ The idea is tu propose a macro to insert, without \textsf{csv} file, a small Pix
 	\MiniPixlArt[keys]{list of colors}
 \end{PresentationCode}
 
-The first argument, \textit{optional} and between \texttt{[...]} proposes the \textsf{keys }:
+The first argument, \textit{optional} and between \texttt{[...]} proposes the \textsf{keys}:
 
 \begin{itemize}
 	\item the key \Cle{Unit} for dimension of the cells ;\hfill{}default \textsf{0.25em},
@@ -589,22 +589,22 @@ The first argument, \textit{optional} and between \texttt{[...]} proposes the \t
 The second argument, \textit{mandatory} and between \texttt{\{...\}}, is the colors of the cells :
 
 \begin{itemize}
-	\item each color is \textit{coded} by a letter :
+	\item each color is \textit{coded} by a letter:
 	\begin{multicols}{5}
 		\begin{itemize}
-			\item \texttt{R : \textcolor{red}{red}}
-			\item \texttt{G : \textcolor{green}{green}}
-			\item \texttt{C : \textcolor{cyan}{blue}}
-			\item \texttt{Y : \textcolor{yellow}{yellow}}
-			\item \texttt{B : \textcolor{black}{black}}
-			\item \texttt{L : \textcolor{lightgray}{gray}}
-			\item \texttt{. : \colorbox{lightgray}{\textcolor{white}{white}}}
-			\item \texttt{M : \textcolor{brown}{maroon}}
-			\item \texttt{O : \textcolor{orange}{orange}}
-			\item \texttt{P : \textcolor{violet}{purple}}
+			\item \texttt{R: \textcolor{red}{red}}
+			\item \texttt{G: \textcolor{green}{green}}
+			\item \texttt{C: \textcolor{cyan}{blue}}
+			\item \texttt{Y: \textcolor{yellow}{yellow}}
+			\item \texttt{B: \textcolor{black}{black}}
+			\item \texttt{L: \textcolor{lightgray}{gray}}
+			\item \texttt{.: \colorbox{lightgray}{\textcolor{white}{white}}}
+			\item \texttt{M: \textcolor{brown}{maroon}}
+			\item \texttt{O: \textcolor{orange}{orange}}
+			\item \texttt{P: \textcolor{violet}{purple}}
 		\end{itemize}
 	\end{multicols}
-	\item each linebreak is done by \texttt{,} ;
+	\item each linebreak is done by \texttt{,};
 	\item the thickness of the borders are 10\,\% of the unit.
 \end{itemize}
 
@@ -649,7 +649,7 @@ The available \Cle{keys} are exactly the same as those in classic displays.
 
 \subsection{Global usage}
 
-The argument \texttt{cutting} can be given in the form :
+The argument \texttt{cutting} can be given in the form:
 %
 \begin{itemize}
 	\item \Cle{<number of block length>x<number of block col>} to specify the size of the blocks;
@@ -937,22 +937,24 @@ In this paragraph, we use the data \texttt{PAsorciere}, which corresponds to the
 
 \part{History}
 
-\verb|v0.1.8|~:~~~~Bugfix
+\verb|v0.1.9|:~~~~\hologo{LaTeX3} version of the package (\textsf{pixelarttikz-l3})
 
-\verb|v0.1.7|~:~~~~Bugfix with 'cut'
+\verb|v0.1.8|:~~~~Bugfix
 
-\verb|v0.1.6|~:~~~~Styles for lines + \textsf{datatool} for alternative version
+\verb|v0.1.7|:~~~~Bugfix with 'cut'
 
-\verb|v0.1.5|~:~~~~Symbols can be given with list(s) + Enhancements of internal code
+\verb|v0.1.6|:~~~~Styles for lines + \textsf{datatool} for alternative version
 
-\verb|v0.1.4|~:~~~~Anamorphic cylinder PixelArts
+\verb|v0.1.5|:~~~~Symbols can be given with list(s) + Enhancements of internal code
 
-\verb|v0.1.3|~:~~~~Cut PixelArts within several PixelArts
+\verb|v0.1.4|:~~~~Anamorphic cylinder PixelArts
 
-\verb|v0.1.2|~:~~~~\textit{mini-}PixelArts
+\verb|v0.1.3|:~~~~Cut PixelArts within several PixelArts
 
-\verb|v0.1.1|~:~~~~Bugfix with color
+\verb|v0.1.2|:~~~~\textit{mini-}PixelArts
 
-\verb|v0.1.0|~:~~~~Initial version
+\verb|v0.1.1|:~~~~Bugfix with color
+
+\verb|v0.1.0|:~~~~Initial version
 
 \end{document}

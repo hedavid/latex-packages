@@ -2,7 +2,8 @@
 % licence........: Released under the LaTeX Project Public License v1.3c or later, see http://www.latex-project.org/lppl.txt
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{PixelArtTikz}[2025/05/05 v0.1.8 PixelArts with csv and TikZ]
+\ProvidesPackage{PixelArtTikz}[2025/10/20 v0.1.9 PixelArts with csv and TikZ]
+% 0.1.9		l3 version (simple usage)
 % 0.1.8		Bugfix
 % 0.1.7		Correction d'un bug avec les découpages
 % 0.1.6		Ajout d'un style pour les traits + utilisation de datatool (plus rapide ?)
@@ -16,6 +17,8 @@
 %------Option(s)
 \newif\if@csvii \@csviifalse
 \DeclareOption{csvii}{\@csviitrue}
+\newif\if@lthree \@lthreefalse
+\DeclareOption{l3}{\@lthreetrue}
 \DeclareOption*{}
 \ProcessOptions\relax
 
@@ -1263,5 +1266,10 @@
 			}%
 	\end{tikzpicture}%
 }
+
+%====l3 version, if needed
+\if@lthree
+	\RequirePackage{pixelarttikz-l3}
+\fi
 
 \endinput
