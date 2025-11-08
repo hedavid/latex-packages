@@ -2,9 +2,10 @@
 % licence.........: Released under the LaTeX Project Public License v1.3c or later, see http://www.latex-project.org/lppl.txt
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{customenvs-macros}[2025/09/06 0.1.0 Small macros, for several usages]
+\ProvidesPackage{customenvs-macros}[2025/10/26 0.1.1 Small macros, for several usages]
 
 %====HISTORY
+% v 0.1.1	Improvements with latex3
 % v 0.1.0	Initial version subpackage of customenvs
 
 %====PACKAGES
@@ -194,12 +195,12 @@
 
 \NewDocumentCommand\testdimandsplit{ m m m m }
 {
-	\tl_set:Nx \l_tmpa_tl { #2 }
+	\tl_set:Ne \l_tmpa_tl { #2 }
 	\tl_if_in:NnTF \l_tmpa_tl { #1 }
 	{
 		\seq_set_split:Nne \l_tmpa_seq { #1 } { #2 }
-		\tl_gset:Nx \l_tmpb_tl { \seq_item:Nn \l_tmpa_seq {1} }
-		\tl_gset:Nx \l_tmpc_tl { \seq_item:Nn \l_tmpa_seq {2} }
+		\tl_gset:Ne \l_tmpb_tl { \seq_item:Nn \l_tmpa_seq {1} }
+		\tl_gset:Ne \l_tmpc_tl { \seq_item:Nn \l_tmpa_seq {2} }
 		\setlength{#3}{\l_tmpb_tl}
 		\setlength{#4}{\l_tmpc_tl}
 	}
@@ -215,16 +216,16 @@
 	%#2 = str to test
 	%#3 = left macro (or #2 if not found)
 	%#4 = right macro (or #2 if not found)
-	\tl_set:Nx \l_tmpa_tl { #2 }
+	\tl_set:Ne \l_tmpa_tl { #2 }
 	\tl_if_in:NnTF \l_tmpa_tl { #1 }
 	{
 		\seq_set_split:Nne \l_tmpa_seq { #1 } { #2 }
-		\tl_set:Nx #3 { \seq_item:Nn \l_tmpa_seq {1} }
-		\tl_set:Nx #4 { \seq_item:Nn \l_tmpa_seq {2} }
+		\tl_set:Ne #3 { \seq_item:Nn \l_tmpa_seq {1} }
+		\tl_set:Ne #4 { \seq_item:Nn \l_tmpa_seq {2} }
 	}
 	{
-		\tl_gset:Nx #3 {#2}
-		\tl_gset:Nx #4 {#2}
+		\tl_gset:Ne #3 {#2}
+		\tl_gset:Ne #4 {#2}
 	}
 }
 
@@ -234,12 +235,12 @@
 	%#2 = str to test
 	%#3 = left macro (or #2 if not found)
 	%#4 = right macro (or #2 if not found)
-	\tl_set:Nx \l_tmpa_tl { #2 }
+	\tl_set:Ne \l_tmpa_tl { #2 }
 	\tl_if_in:NnTF \l_tmpa_tl { #1 }
 	{
 		\seq_set_split:Nne \l_tmpa_seq { #1 } { #2 }
-		\tl_set:Nx \l_tmpb_tl { \seq_item:Nn \l_tmpa_seq {1} }
-		\tl_set:Nx \l_tmpc_tl { \seq_item:Nn \l_tmpa_seq {2} }
+		\tl_set:Ne \l_tmpb_tl { \seq_item:Nn \l_tmpa_seq {1} }
+		\tl_set:Ne \l_tmpc_tl { \seq_item:Nn \l_tmpa_seq {2} }
 		\colorlet{#3}{\l_tmpb_tl}
 		\colorlet{#4}{\l_tmpc_tl}
 	}

@@ -2,7 +2,7 @@
 % licence.........: Released under the LaTeX Project Public License v1.3c or later, see http://www.latex-project.org/lppl.txt
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{customenvs-exams}[2025/10/04 0.1.5 customenvs for exam documents]
+\ProvidesPackage{customenvs-exams}[2025/11/08 0.1.5 customenvs for exam documents]
 
 %====HISTORY
 % v 0.1.5	Enhancements with BlocExo (bulle 'bordures')
@@ -85,23 +85,66 @@
 	HtAuto=false
 }
 
-\NewDocumentCommand\QCMExamFormatteLabel{ m m }{%1=typelabel,%3=caractère
-	\IfSubStr{#1}{a}%
-		{%
-			{\RepExamQCMFonte\StrSubstitute{#1}{a}{#2}}%
-		}%
-		{}%
-	\IfSubStr{#1}{A}%
-		{%
-			{\RepExamQCMFonte\StrSubstitute{#1}{A}{#2}}%
-		}%
-		{}%
-	\IfSubStr{#1}{1}%
-		{%
-			{\RepExamQCMFonte\StrSubstitute{#1}{1}{#2}}%
-		}%
-		{}%
-}
+\ExplSyntaxOn
+
+\NewDocumentCommand\QCMExamFormatteLabel{ m m }
+  {
+    \__qcm_formatte_label:nn { #1 } { #2 }
+  }
+
+\cs_new_protected:Nn \__qcm_formatte_label:nn
+  {
+    \tl_set:Ne \l_tmpb_tl { #1 }
+    % Teste si 'a' est présent dans #1
+    \tl_if_in:NnT { \l_tmpb_tl } { a }
+      {
+        \group_begin:
+          \RepExamQCMFonte
+          \tl_replace_all:Nnn \l_tmpb_tl { a } { #2 }
+          \tl_use:N \l_tmpb_tl
+        \group_end:
+      }
+    
+    % Teste si 'A' est présent dans #1
+    \tl_if_in:NnT { \l_tmpb_tl } { A }
+      {
+        \group_begin:
+          \RepExamQCMFonte
+          \tl_replace_all:Nnn \l_tmpb_tl { A } { #2 }
+          \tl_use:N \l_tmpb_tl
+        \group_end:
+      }
+    
+    % Teste si '1' est présent dans #1
+    \tl_if_in:NnT { \l_tmpb_tl } { 1 }
+      {
+        \group_begin:
+          \RepExamQCMFonte
+          \tl_replace_all:Nnn \l_tmpb_tl { 1 } { #2 }
+          \tl_use:N \l_tmpb_tl
+        \group_end:
+      }
+  }
+
+\ExplSyntaxOff
+
+% \NewDocumentCommand\QCMExamFormatteLabel{ m m }{%1=typelabel,%3=caractère
+	% \IfSubStr{#1}{a}%
+		% {%
+			% {\RepExamQCMFonte\StrSubstitute{#1}{a}{#2}}%
+		% }%
+		% {}%
+	% \IfSubStr{#1}{A}%
+		% {%
+			% {\RepExamQCMFonte\StrSubstitute{#1}{A}{#2}}%
+		% }%
+		% {}%
+	% \IfSubStr{#1}{1}%
+		% {%
+			% {\RepExamQCMFonte\StrSubstitute{#1}{1}{#2}}%
+		% }%
+		% {}%
+% }
 
 \NewDocumentCommand\ExamReponsesQCM{ O{} m D<>{} }{%1=nbcol,2=listeréponses,3=options tblr
 	\restoreKV[reponsesexamqcm]%

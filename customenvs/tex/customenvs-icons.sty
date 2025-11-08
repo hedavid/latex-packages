@@ -4,11 +4,14 @@
 %               : https://www.svgrepo.com/collection/design-8/ CC0
 %               : https://www.svgrepo.com/collection/math-symbols-4 CC0
 %               : https://getbootstrap.com MIT
+%               : https://github.com/itstor/solar-icon-react MIT
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{customenvs-icons}[2025/10/04 v0.1.3 Subpackage customenvs-icons]
+\ProvidesPackage{customenvs-icons}[2025/11/08 v0.1.5 Subpackage customenvs-icons]
 
 %====history
+% 0.1.5: solarbroken
+% 0.1.4: fix for bootstrap + ia badges
 % 0.1.3: bootstrap (perversion)
 % 0.1.2: game 7
 % 0.1.1: Math-symbols-4
@@ -68,10 +71,10 @@
 		\includegraphics[page=#1, ##1]{ce-bootstrapicons-all.pdf}}%
 }%
 
-%====macro for generating maththemes
-\newcommand{\defineceiconsthemes}[2]{%
-	\expandafter\newcommand\csname ceiconthemes #2\endcsname[1]{%
-		\includegraphics[page=#1, ##1]{ce-maththemes-all.pdf}}%
+%====macro for generating bootstrap
+\newcommand{\defineceiconssolarbroken}[2]{%
+	\expandafter\newcommand\csname ceiconssolarbroken #2\endcsname[1]{%
+		\includegraphics[page=#1, ##1]{ce-solariconbroken-all.pdf}}%
 }%
 
 %====int macros
@@ -92,9 +95,13 @@
 	\csname ceiconbootstrap #2\endcsname{#1}%
 }%
 
+\newcommand{\ceiconssolarbroken}[2][height=\customenvsIconsDefaultHeight]{%
+	\csname ceiconssolarbroken #2\endcsname{#1}%
+}%
+
 %====main macro
 \defKV[customenvsicons]{height=\def\customenvsiconsheigth{#1},style=\def\customenvsiconsstyle{#1},strut=\def\customenvsiconsstrut{#1},dstrut=\def\customenvsiconsdstrut{#1}}
-\setKVdefault[customenvsicons]{height=dauto,educ=true,design=false,mathsymb=false,game=false,bootstrap=false,themes=false,strut={X},dstrut={qX}}
+\setKVdefault[customenvsicons]{height=dauto,educ=true,design=false,mathsymb=false,game=false,bootstrap=false,solar=false,themes=false,strut={X},dstrut={qX}}
 
 \NewDocumentCommand\ceicon{O{}D<>{}m}{%
 	\restoreKV[customenvsicons]%
@@ -103,6 +110,7 @@
 	\ifboolKV[customenvsicons]{mathsymb}{\setKV[customenvsicons]{educ=false}}{}%
 	\ifboolKV[customenvsicons]{game}{\setKV[customenvsicons]{educ=false}}{}%
 	\ifboolKV[customenvsicons]{bootstrap}{\setKV[customenvsicons]{educ=false}}{}%
+	\ifboolKV[customenvsicons]{solar}{\setKV[customenvsicons]{educ=false}}{}%
 	%lengths
 	\ifthenelse{\equal{\customenvsiconsheigth}{auto}}%
 	{%
@@ -112,6 +120,7 @@
 		\ifboolKV[customenvsicons]{mathsymb}{\ceiconmathsymb[height=\customenvsIconsDefaultHeight,#2]{#3}}{}%
 		\ifboolKV[customenvsicons]{game}{\ceicongame[height=\customenvsIconsDefaultHeight,#2]{#3}}{}%
 		\ifboolKV[customenvsicons]{bootstrap}{\ceiconbootstrap[height=\customenvsIconsDefaultHeight,#2]{#3}}{}%
+		\ifboolKV[customenvsicons]{solar}{\ceiconssolarbroken[height=\customenvsIconsDefaultHeight,#2]{#3}}{}%
 	}%
 	{%
 		\ifthenelse{\equal{\customenvsiconsheigth}{dauto}}%
@@ -123,6 +132,7 @@
 				\ifboolKV[customenvsicons]{mathsymb}{\raisebox{-\customenvsIconsDefaultDepth}{\ceiconmathsymb[height=\customenvsIconsDefaultTotalHeight,#2]{#3}}}{}%
 				\ifboolKV[customenvsicons]{game}{\raisebox{-\customenvsIconsDefaultDepth}{\ceicongame[height=\customenvsIconsDefaultTotalHeight,#2]{#3}}}{}%
 				\ifboolKV[customenvsicons]{bootstrap}{\raisebox{-\customenvsIconsDefaultDepth}{\ceiconbootstrap[height=\customenvsIconsDefaultTotalHeight,#2]{#3}}}{}%
+				\ifboolKV[customenvsicons]{solar}{\raisebox{-\customenvsIconsDefaultDepth}{\ceiconssolarbroken[height=\customenvsIconsDefaultTotalHeight,#2]{#3}}}{}%
 			}%
 			{%
 				\IfSubStr{\customenvsiconsheigth}{/}%
@@ -135,6 +145,7 @@
 						\ifboolKV[customenvsicons]{mathsymb}{\raisebox{\customenvsIconsDefaultDepth}{\ceiconmathsymb[height=\customenvsIconsNormalHeight,#2]{#3}}}{}%
 						\ifboolKV[customenvsicons]{game}{\raisebox{\customenvsIconsDefaultDepth}{\ceicongame[height=\customenvsIconsNormalHeight,#2]{#3}}}{}%
 						\ifboolKV[customenvsicons]{bootstrap}{\raisebox{-\customenvsIconsDefaultDepth}{\ceiconbootstrap[height=\customenvsIconsDefaultTotalHeight,#2]{#3}}}{}%
+						\ifboolKV[customenvsicons]{solar}{\raisebox{-\customenvsIconsDefaultDepth}{\ceiconssolarbroken[height=\customenvsIconsDefaultTotalHeight,#2]{#3}}}{}%
 					}%
 					{%
 						\setlength\customenvsIconsNormalHeight{\customenvsiconsheigth}%
@@ -143,6 +154,113 @@
 						\ifboolKV[customenvsicons]{mathsymb}{\ceiconmathsymb[height=\customenvsIconsNormalHeight,#2]{#3}}{}%
 						\ifboolKV[customenvsicons]{game}{\ceicongame[height=\customenvsIconsNormalHeight,#2]{#3}}{}%
 						\ifboolKV[customenvsicons]{bootstrap}{\ceiconbootstrap[height=\customenvsIconsNormalHeight,#2]{#3}}{}%
+						\ifboolKV[customenvsicons]{solar}{\ceiconssolarbroken[height=\customenvsIconsNormalHeight,#2]{#3}}{}%
+					}%
+			}%
+	}%
+}
+
+%====AI BADGE [FR]
+\defKV[customenvsiconsia]{haut=\def\customenvsiconsheigth{#1},style=\def\customenvsiconsstyle{#1},strut=\def\customenvsiconsstrut{#1},dstrut=\def\customenvsiconsdstrut{#1}}
+\setKVdefault[customenvsiconsia]{haut=dauto,style=rect,strut={X},dstrut={qX}}
+
+\NewDocumentCommand\ceiconbadgeia{O{}D<>{}m}{%
+	\restoreKV[customenvsiconsia]%
+	\setKV[customenvsiconsia]{#1}%
+	%offset page
+	\IfStrEqCase{#3}{%
+		{0}{\def\customenvsiconspageoffset{0}}%
+		{20}{\def\customenvsiconspageoffset{1}}%
+		{40}{\def\customenvsiconspageoffset{2}}%
+		{60}{\def\customenvsiconspageoffset{3}}%
+		{80}{\def\customenvsiconspageoffset{4}}%
+		{100}{\def\customenvsiconspageoffset{5}}%
+	}%
+	%lengths
+	\ifthenelse{\equal{\customenvsiconsheigth}{auto}}%
+	{%
+		\settoheight\customenvsIconsDefaultHeight{\hbox{\customenvsiconsstrut}}%height of \customenvsiconsstrut
+		\ifthenelse{\equal{\customenvsiconsstyle}{rect}}{\includegraphics[height=\customenvsIconsDefaultHeight,#2,page=\numexpr1+\customenvsiconspageoffset\relax]{ce-badgeai-all.pdf}}{}%
+		\ifthenelse{\equal{\customenvsiconsstyle}{carre}}{\includegraphics[height=\customenvsIconsDefaultHeight,#2,page=\numexpr7+\customenvsiconspageoffset\relax]{ce-badgeai-all.pdf}}{}%
+		\ifthenelse{\equal{\customenvsiconsstyle}{ligne}}{\includegraphics[height=\customenvsIconsDefaultHeight,#2,page=\numexpr13+\customenvsiconspageoffset\relax]{ce-badgeai-all.pdf}}{}%
+	}%
+	{%
+		\ifthenelse{\equal{\customenvsiconsheigth}{dauto}}%
+			{%
+				\settototalheight\customenvsIconsDefaultTotalHeight{\hbox{\customenvsiconsdstrut}}%height of \customenvsiconsdstrut
+				\settodepth\customenvsIconsDefaultDepth{\hbox{\customenvsiconsdstrut}}%depth of \customenvsiconsdstrut
+				\ifthenelse{\equal{\customenvsiconsstyle}{rect}}{\raisebox{-\customenvsIconsDefaultDepth}{\includegraphics[height=\customenvsIconsDefaultTotalHeight,#2,page=\numexpr1+\customenvsiconspageoffset\relax]{ce-badgeai-all.pdf}}}{}%
+				\ifthenelse{\equal{\customenvsiconsstyle}{carre}}{\raisebox{-\customenvsIconsDefaultDepth}{\includegraphics[height=\customenvsIconsDefaultTotalHeight,#2,page=\numexpr7+\customenvsiconspageoffset\relax]{ce-badgeai-all.pdf}}}{}%
+				\ifthenelse{\equal{\customenvsiconsstyle}{ligne}}{\raisebox{-\customenvsIconsDefaultDepth}{\includegraphics[height=\customenvsIconsDefaultTotalHeight,#2,page=\numexpr13+\customenvsiconspageoffset\relax]{ce-badgeai-all.pdf}}}{}%
+			}%
+			{%
+				\IfSubStr{\customenvsiconsheigth}{/}%
+					{%
+						\StrCut{\customenvsiconsheigth}{/}{\ceiconsmanualheight}{\ceiconsmanualdepth}%
+						\setlength\customenvsIconsNormalHeight{\ceiconsmanualheight}%
+						\setlength\customenvsIconsDefaultDepth{\ceiconsmanualdepth}%
+						\ifthenelse{\equal{\customenvsiconsstyle}{rect}}{\raisebox{\customenvsIconsDefaultDepth}{\includegraphics[height=\customenvsIconsNormalHeight,#2,page=\numexpr1+\customenvsiconspageoffset\relax]{ce-badgeai-all.pdf}}}{}%
+						\ifthenelse{\equal{\customenvsiconsstyle}{carre}}{\raisebox{\customenvsIconsDefaultDepth}{\includegraphics[height=\customenvsIconsNormalHeight,#2,page=\numexpr7+\customenvsiconspageoffset\relax]{ce-badgeai-all.pdf}}}{}%
+						\ifthenelse{\equal{\customenvsiconsstyle}{ligne}}{\raisebox{\customenvsIconsDefaultDepth}{\includegraphics[height=\customenvsIconsNormalHeight,#2,page=\numexpr13+\customenvsiconspageoffset\relax]{ce-badgeai-all.pdf}}}{}%
+					}%
+					{%
+						\setlength\customenvsIconsNormalHeight{\customenvsiconsheigth}%
+						\ifthenelse{\equal{\customenvsiconsstyle}{rect}}{\includegraphics[height=\customenvsIconsNormalHeight,#2,page=\numexpr1+\customenvsiconspageoffset\relax]{ce-badgeai-all.pdf}}{}%
+						\ifthenelse{\equal{\customenvsiconsstyle}{carre}}{\includegraphics[height=\customenvsIconsNormalHeight,#2,page=\numexpr7+\customenvsiconspageoffset\relax]{ce-badgeai-all.pdf}}{}%
+						\ifthenelse{\equal{\customenvsiconsstyle}{ligne}}{\includegraphics[height=\customenvsIconsNormalHeight,#2,page=\numexpr13+\customenvsiconspageoffset\relax]{ce-badgeai-all.pdf}}{}%
+					}%
+			}%
+	}%
+}
+
+%====AI BADGE [EN]
+\defKV[customenvsiconsai]{height=\def\customenvsiconsheigth{#1},style=\def\customenvsiconsstyle{#1},strut=\def\customenvsiconsstrut{#1},dstrut=\def\customenvsiconsdstrut{#1}}
+\setKVdefault[customenvsiconsai]{height=dauto,style=rect,strut={X},dstrut={qX}}
+
+\NewDocumentCommand\ceiconbadgeai{O{}D<>{}m}{%
+	\restoreKV[customenvsiconsai]%
+	\setKV[customenvsiconsai]{#1}%
+	%offset page
+	\IfStrEqCase{#3}{%
+		{0}{\def\customenvsiconspageoffset{0}}%
+		{20}{\def\customenvsiconspageoffset{1}}%
+		{40}{\def\customenvsiconspageoffset{2}}%
+		{60}{\def\customenvsiconspageoffset{3}}%
+		{80}{\def\customenvsiconspageoffset{4}}%
+		{100}{\def\customenvsiconspageoffset{5}}%
+	}%
+	%lengths
+	\ifthenelse{\equal{\customenvsiconsheigth}{auto}}%
+	{%
+		\settoheight\customenvsIconsDefaultHeight{\hbox{\customenvsiconsstrut}}%height of \customenvsiconsstrut
+		\ifthenelse{\equal{\customenvsiconsstyle}{rect}}{\includegraphics[height=\customenvsIconsDefaultHeight,#2,page=\numexpr19+\customenvsiconspageoffset\relax]{ce-badgeai-all.pdf}}{}%
+		\ifthenelse{\equal{\customenvsiconsstyle}{square}}{\includegraphics[height=\customenvsIconsDefaultHeight,#2,page=\numexpr25+\customenvsiconspageoffset\relax]{ce-badgeai-all.pdf}}{}%
+		\ifthenelse{\equal{\customenvsiconsstyle}{line}}{\includegraphics[height=\customenvsIconsDefaultHeight,#2,page=\numexpr31+\customenvsiconspageoffset\relax]{ce-badgeai-all.pdf}}{}%
+	}%
+	{%
+		\ifthenelse{\equal{\customenvsiconsheigth}{dauto}}%
+			{%
+				\settototalheight\customenvsIconsDefaultTotalHeight{\hbox{\customenvsiconsdstrut}}%height of \customenvsiconsdstrut
+				\settodepth\customenvsIconsDefaultDepth{\hbox{\customenvsiconsdstrut}}%depth of \customenvsiconsdstrut
+				\ifthenelse{\equal{\customenvsiconsstyle}{rect}}{\raisebox{-\customenvsIconsDefaultDepth}{\includegraphics[height=\customenvsIconsDefaultTotalHeight,#2,page=\numexpr19+\customenvsiconspageoffset\relax]{ce-badgeai-all.pdf}}}{}%
+				\ifthenelse{\equal{\customenvsiconsstyle}{square}}{\raisebox{-\customenvsIconsDefaultDepth}{\includegraphics[height=\customenvsIconsDefaultTotalHeight,#2,page=\numexpr25+\customenvsiconspageoffset\relax]{ce-badgeai-all.pdf}}}{}%
+				\ifthenelse{\equal{\customenvsiconsstyle}{line}}{\raisebox{-\customenvsIconsDefaultDepth}{\includegraphics[height=\customenvsIconsDefaultTotalHeight,#2,page=\numexpr31+\customenvsiconspageoffset\relax]{ce-badgeai-all.pdf}}}{}%
+			}%
+			{%
+				\IfSubStr{\customenvsiconsheigth}{/}%
+					{%
+						\StrCut{\customenvsiconsheigth}{/}{\ceiconsmanualheight}{\ceiconsmanualdepth}%
+						\setlength\customenvsIconsNormalHeight{\ceiconsmanualheight}%
+						\setlength\customenvsIconsDefaultDepth{\ceiconsmanualdepth}%
+						\ifthenelse{\equal{\customenvsiconsstyle}{rect}}{\raisebox{\customenvsIconsDefaultDepth}{\includegraphics[height=\customenvsIconsNormalHeight,#2,page=\numexpr19+\customenvsiconspageoffset\relax]{ce-badgeai-all.pdf}}}{}%
+						\ifthenelse{\equal{\customenvsiconsstyle}{square}}{\raisebox{\customenvsIconsDefaultDepth}{\includegraphics[height=\customenvsIconsNormalHeight,#2,page=\numexpr25+\customenvsiconspageoffset\relax]{ce-badgeai-all.pdf}}}{}%
+						\ifthenelse{\equal{\customenvsiconsstyle}{line}}{\raisebox{\customenvsIconsDefaultDepth}{\includegraphics[height=\customenvsIconsNormalHeight,#2,page=\numexpr31+\customenvsiconspageoffset\relax]{ce-badgeai-all.pdf}}}{}%
+					}%
+					{%
+						\setlength\customenvsIconsNormalHeight{\customenvsiconsheigth}%
+						\ifthenelse{\equal{\customenvsiconsstyle}{rect}}{\includegraphics[height=\customenvsIconsNormalHeight,#2,page=\numexpr19+\customenvsiconspageoffset\relax]{ce-badgeai-all.pdf}}{}%
+						\ifthenelse{\equal{\customenvsiconsstyle}{square}}{\includegraphics[height=\customenvsIconsNormalHeight,#2,page=\numexpr25+\customenvsiconspageoffset\relax]{ce-badgeai-all.pdf}}{}%
+						\ifthenelse{\equal{\customenvsiconsstyle}{line}}{\includegraphics[height=\customenvsIconsNormalHeight,#2,page=\numexpr31+\customenvsiconspageoffset\relax]{ce-badgeai-all.pdf}}{}%
 					}%
 			}%
 	}%
@@ -2435,5 +2553,1191 @@
 \defineceiconsbootstrap{2076}{youtube}
 \defineceiconsbootstrap{2077}{zoom-in}
 \defineceiconsbootstrap{2078}{zoom-out}
+
+%====SOLARBROKEN GEN
+\defineceiconssolarbroken{1}{4K}
+\defineceiconssolarbroken{2}{Accessibility}
+\defineceiconssolarbroken{3}{Add-Circle}
+\defineceiconssolarbroken{4}{Add-Folder}
+\defineceiconssolarbroken{5}{Add-Square}
+\defineceiconssolarbroken{6}{Adhesive-Plaster-2}
+\defineceiconssolarbroken{7}{Adhesive-Plaster}
+\defineceiconssolarbroken{8}{Airbuds-Case-Charge}
+\defineceiconssolarbroken{9}{Airbuds-Case-Minimalistic}
+\defineceiconssolarbroken{10}{Airbuds-Case-Open}
+\defineceiconssolarbroken{11}{Airbuds-Case}
+\defineceiconssolarbroken{12}{Airbuds-Charge}
+\defineceiconssolarbroken{13}{Airbuds-Check}
+\defineceiconssolarbroken{14}{Airbuds-Left}
+\defineceiconssolarbroken{15}{Airbuds-Remove}
+\defineceiconssolarbroken{16}{Airbuds-Right}
+\defineceiconssolarbroken{17}{Airbuds}
+\defineceiconssolarbroken{18}{Alarm-Add}
+\defineceiconssolarbroken{19}{Alarm-Pause}
+\defineceiconssolarbroken{20}{Alarm-Play}
+\defineceiconssolarbroken{21}{Alarm-Remove}
+\defineceiconssolarbroken{22}{Alarm-Sleep}
+\defineceiconssolarbroken{23}{Alarm-Turn-Off}
+\defineceiconssolarbroken{24}{Alarm}
+\defineceiconssolarbroken{25}{Album}
+\defineceiconssolarbroken{26}{Align-Bottom}
+\defineceiconssolarbroken{27}{Align-Horizonta-Spacing}
+\defineceiconssolarbroken{28}{Align-Horizontal-Center}
+\defineceiconssolarbroken{29}{Align-Left}
+\defineceiconssolarbroken{30}{Align-Right}
+\defineceiconssolarbroken{31}{Align-Top}
+\defineceiconssolarbroken{32}{Align-Vertical-Center}
+\defineceiconssolarbroken{33}{Align-Vertical-Spacing}
+\defineceiconssolarbroken{34}{Alt-Arrow-Down}
+\defineceiconssolarbroken{35}{Alt-Arrow-Left}
+\defineceiconssolarbroken{36}{Alt-Arrow-Right}
+\defineceiconssolarbroken{37}{Alt-Arrow-Up}
+\defineceiconssolarbroken{38}{Archive-Check}
+\defineceiconssolarbroken{39}{Archive-Down-Minimlistic}
+\defineceiconssolarbroken{40}{Archive-Down}
+\defineceiconssolarbroken{41}{Archive-Minimalistic}
+\defineceiconssolarbroken{42}{Archive-Up-Minimlistic}
+\defineceiconssolarbroken{43}{Archive-Up}
+\defineceiconssolarbroken{44}{Archive}
+\defineceiconssolarbroken{45}{Armchair-2}
+\defineceiconssolarbroken{46}{Armchair}
+\defineceiconssolarbroken{47}{Arrow-Down}
+\defineceiconssolarbroken{48}{Arrow-Left-Down}
+\defineceiconssolarbroken{49}{Arrow-Left-Up}
+\defineceiconssolarbroken{50}{Arrow-Left}
+\defineceiconssolarbroken{51}{Arrow-Right-Down}
+\defineceiconssolarbroken{52}{Arrow-Right-Up}
+\defineceiconssolarbroken{53}{Arrow-Right}
+\defineceiconssolarbroken{54}{Arrow-To-Down-Left}
+\defineceiconssolarbroken{55}{Arrow-To-Down-Right}
+\defineceiconssolarbroken{56}{Arrow-To-Top-Left}
+\defineceiconssolarbroken{57}{Arrow-To-Top-Right}
+\defineceiconssolarbroken{58}{Arrow-Up}
+\defineceiconssolarbroken{59}{Asteroid}
+\defineceiconssolarbroken{60}{Atom}
+\defineceiconssolarbroken{61}{Augmented-Reality}
+\defineceiconssolarbroken{62}{Backpack}
+\defineceiconssolarbroken{63}{Backspace}
+\defineceiconssolarbroken{64}{Bacteria}
+\defineceiconssolarbroken{65}{Bag-2}
+\defineceiconssolarbroken{66}{Bag-3}
+\defineceiconssolarbroken{67}{Bag-4}
+\defineceiconssolarbroken{68}{Bag-5}
+\defineceiconssolarbroken{69}{Bag-Check}
+\defineceiconssolarbroken{70}{Bag-Cross}
+\defineceiconssolarbroken{71}{Bag-Heart}
+\defineceiconssolarbroken{72}{Bag-Music-2}
+\defineceiconssolarbroken{73}{Bag-Music}
+\defineceiconssolarbroken{74}{Bag-Smile}
+\defineceiconssolarbroken{75}{Bag}
+\defineceiconssolarbroken{76}{Balloon}
+\defineceiconssolarbroken{77}{Balls}
+\defineceiconssolarbroken{78}{Banknote-2}
+\defineceiconssolarbroken{79}{Banknote}
+\defineceiconssolarbroken{80}{Bar-Chair}
+\defineceiconssolarbroken{81}{Basketball}
+\defineceiconssolarbroken{82}{Bath}
+\defineceiconssolarbroken{83}{Battery-Charge-Minimalistic}
+\defineceiconssolarbroken{84}{Battery-Charge}
+\defineceiconssolarbroken{85}{Battery-Full-Minimalistic}
+\defineceiconssolarbroken{86}{Battery-Full}
+\defineceiconssolarbroken{87}{Battery-Half-Minimalistic}
+\defineceiconssolarbroken{88}{Battery-Half}
+\defineceiconssolarbroken{89}{Battery-Low-Minimalistic}
+\defineceiconssolarbroken{90}{Battery-Low}
+\defineceiconssolarbroken{91}{Bed}
+\defineceiconssolarbroken{92}{Bedside-Table-2}
+\defineceiconssolarbroken{93}{Bedside-Table-3}
+\defineceiconssolarbroken{94}{Bedside-Table-4}
+\defineceiconssolarbroken{95}{Bedside-Table}
+\defineceiconssolarbroken{96}{Bell-Bing}
+\defineceiconssolarbroken{97}{Bell-Off}
+\defineceiconssolarbroken{98}{Bell}
+\defineceiconssolarbroken{99}{Benzene-Ring}
+\defineceiconssolarbroken{100}{Bicycling-Round}
+\defineceiconssolarbroken{101}{Bicycling}
+\defineceiconssolarbroken{102}{Bill-Check}
+\defineceiconssolarbroken{103}{Bill-Cross}
+\defineceiconssolarbroken{104}{Bill-List}
+\defineceiconssolarbroken{105}{Bill}
+\defineceiconssolarbroken{106}{Black-Hole-2}
+\defineceiconssolarbroken{107}{Black-Hole-3}
+\defineceiconssolarbroken{108}{Black-Hole}
+\defineceiconssolarbroken{109}{Bluetooth-Circle}
+\defineceiconssolarbroken{110}{Bluetooth-Square}
+\defineceiconssolarbroken{111}{Bluetooth-Wave}
+\defineceiconssolarbroken{112}{Bluetooth}
+\defineceiconssolarbroken{113}{Body-Shape-Minimalistic}
+\defineceiconssolarbroken{114}{Body-Shape}
+\defineceiconssolarbroken{115}{Body}
+\defineceiconssolarbroken{116}{Bolt-Circle}
+\defineceiconssolarbroken{117}{Bolt}
+\defineceiconssolarbroken{118}{Bomb-Emoji}
+\defineceiconssolarbroken{119}{Bomb-Minimalistic}
+\defineceiconssolarbroken{120}{Bomb}
+\defineceiconssolarbroken{121}{Bone-Broken}
+\defineceiconssolarbroken{122}{Bone-Crack}
+\defineceiconssolarbroken{123}{Bone}
+\defineceiconssolarbroken{124}{Bones}
+\defineceiconssolarbroken{125}{Bonfire}
+\defineceiconssolarbroken{126}{Book-2}
+\defineceiconssolarbroken{127}{Book-Bookmark-Minimalistic}
+\defineceiconssolarbroken{128}{Book-Bookmark}
+\defineceiconssolarbroken{129}{Book-Minimalistic}
+\defineceiconssolarbroken{130}{Book}
+\defineceiconssolarbroken{131}{Bookmark-Circle}
+\defineceiconssolarbroken{132}{Bookmark-Opened}
+\defineceiconssolarbroken{133}{Bookmark-Square-Minimalistic}
+\defineceiconssolarbroken{134}{Bookmark-Square}
+\defineceiconssolarbroken{135}{Bookmark}
+\defineceiconssolarbroken{136}{Boombox}
+\defineceiconssolarbroken{137}{Bottle}
+\defineceiconssolarbroken{138}{Bowling}
+\defineceiconssolarbroken{139}{Box-Minimalistic}
+\defineceiconssolarbroken{140}{Box}
+\defineceiconssolarbroken{141}{Branching-Paths-Down}
+\defineceiconssolarbroken{142}{Branching-Paths-Up}
+\defineceiconssolarbroken{143}{Broom}
+\defineceiconssolarbroken{144}{Bug-Minimalistic}
+\defineceiconssolarbroken{145}{Bug}
+\defineceiconssolarbroken{146}{Calculator-Minimalistic}
+\defineceiconssolarbroken{147}{Calculator}
+\defineceiconssolarbroken{148}{Calendar-Add}
+\defineceiconssolarbroken{149}{Calendar-Date}
+\defineceiconssolarbroken{150}{Calendar-Mark}
+\defineceiconssolarbroken{151}{Calendar-Minimalistic}
+\defineceiconssolarbroken{152}{Calendar-Search}
+\defineceiconssolarbroken{153}{Calendar}
+\defineceiconssolarbroken{154}{Call-Cancel-Rounded}
+\defineceiconssolarbroken{155}{Call-Cancel}
+\defineceiconssolarbroken{156}{Call-Chat-Rounded}
+\defineceiconssolarbroken{157}{Call-Chat}
+\defineceiconssolarbroken{158}{Call-Dropped-Rounded}
+\defineceiconssolarbroken{159}{Call-Dropped}
+\defineceiconssolarbroken{160}{Call-Medicine-Rounded}
+\defineceiconssolarbroken{161}{Call-Medicine}
+\defineceiconssolarbroken{162}{Camera-Add}
+\defineceiconssolarbroken{163}{Camera-Minimalistic}
+\defineceiconssolarbroken{164}{Camera-Rotate}
+\defineceiconssolarbroken{165}{Camera-Square}
+\defineceiconssolarbroken{166}{Camera}
+\defineceiconssolarbroken{167}{Card-2}
+\defineceiconssolarbroken{168}{Card-Recive}
+\defineceiconssolarbroken{169}{Card-Search}
+\defineceiconssolarbroken{170}{Card-Send}
+\defineceiconssolarbroken{171}{Card-Transfer}
+\defineceiconssolarbroken{172}{Card}
+\defineceiconssolarbroken{173}{Cardholder}
+\defineceiconssolarbroken{174}{Cart-2}
+\defineceiconssolarbroken{175}{Cart-3}
+\defineceiconssolarbroken{176}{Cart-4}
+\defineceiconssolarbroken{177}{Cart-5}
+\defineceiconssolarbroken{178}{Cart-Check}
+\defineceiconssolarbroken{179}{Cart-Cross}
+\defineceiconssolarbroken{180}{Cart-Large-2}
+\defineceiconssolarbroken{181}{Cart-Large-3}
+\defineceiconssolarbroken{182}{Cart-Large-4}
+\defineceiconssolarbroken{183}{Cart-Large-Minimalistic}
+\defineceiconssolarbroken{184}{Cart-Large}
+\defineceiconssolarbroken{185}{Cart-Plus}
+\defineceiconssolarbroken{186}{Cart}
+\defineceiconssolarbroken{187}{Case-Minimalistic}
+\defineceiconssolarbroken{188}{Case-Round-Minimalistic}
+\defineceiconssolarbroken{189}{Case-Round}
+\defineceiconssolarbroken{190}{Case}
+\defineceiconssolarbroken{191}{Cash-Out}
+\defineceiconssolarbroken{192}{Cassette-2}
+\defineceiconssolarbroken{193}{Cassette}
+\defineceiconssolarbroken{194}{Cat}
+\defineceiconssolarbroken{195}{Chair-2}
+\defineceiconssolarbroken{196}{Chair}
+\defineceiconssolarbroken{197}{Chandelier}
+\defineceiconssolarbroken{198}{Chart-2}
+\defineceiconssolarbroken{199}{Chart-Square}
+\defineceiconssolarbroken{200}{Chart}
+\defineceiconssolarbroken{201}{Chat--Square-Arrow}
+\defineceiconssolarbroken{202}{Chat--Square-Call}
+\defineceiconssolarbroken{203}{Chat--Square-Check}
+\defineceiconssolarbroken{204}{Chat--Square-Code}
+\defineceiconssolarbroken{205}{Chat--Square-Like}
+\defineceiconssolarbroken{206}{Chat--Square}
+\defineceiconssolarbroken{207}{Chat-Dots}
+\defineceiconssolarbroken{208}{Chat-Line}
+\defineceiconssolarbroken{209}{Chat-Round-Call}
+\defineceiconssolarbroken{210}{Chat-Round-Check}
+\defineceiconssolarbroken{211}{Chat-Round-Dots}
+\defineceiconssolarbroken{212}{Chat-Round-Like}
+\defineceiconssolarbroken{213}{Chat-Round-Line}
+\defineceiconssolarbroken{214}{Chat-Round-Money}
+\defineceiconssolarbroken{215}{Chat-Round-Unread}
+\defineceiconssolarbroken{216}{Chat-Round-Video}
+\defineceiconssolarbroken{217}{Chat-Round}
+\defineceiconssolarbroken{218}{Chat-Square-2}
+\defineceiconssolarbroken{219}{Chat-Unread}
+\defineceiconssolarbroken{220}{Check-Circle}
+\defineceiconssolarbroken{221}{Check-Read}
+\defineceiconssolarbroken{222}{Check-Square}
+\defineceiconssolarbroken{223}{Checklist-Minimalistic}
+\defineceiconssolarbroken{224}{Checklist}
+\defineceiconssolarbroken{225}{Chef-Hat-Heart}
+\defineceiconssolarbroken{226}{Chef-Hat-Minimalistic}
+\defineceiconssolarbroken{227}{Chef-Hat}
+\defineceiconssolarbroken{228}{Circle-Bottom-Down}
+\defineceiconssolarbroken{229}{Circle-Bottom-Up}
+\defineceiconssolarbroken{230}{Circle-Top-Down}
+\defineceiconssolarbroken{231}{Circle-Top-Up}
+\defineceiconssolarbroken{232}{Clapperboard-Edit}
+\defineceiconssolarbroken{233}{Clapperboard-Open-Play}
+\defineceiconssolarbroken{234}{Clapperboard-Open}
+\defineceiconssolarbroken{235}{Clapperboard-Play}
+\defineceiconssolarbroken{236}{Clapperboard-Text}
+\defineceiconssolarbroken{237}{Clapperboard}
+\defineceiconssolarbroken{238}{Clipboard-Add}
+\defineceiconssolarbroken{239}{Clipboard-Check}
+\defineceiconssolarbroken{240}{Clipboard-Heart}
+\defineceiconssolarbroken{241}{Clipboard-List}
+\defineceiconssolarbroken{242}{Clipboard-Remove}
+\defineceiconssolarbroken{243}{Clipboard-Text}
+\defineceiconssolarbroken{244}{Clipboard}
+\defineceiconssolarbroken{245}{Clock-Circle}
+\defineceiconssolarbroken{246}{Clock-Square}
+\defineceiconssolarbroken{247}{Close-Circle}
+\defineceiconssolarbroken{248}{Close-Square}
+\defineceiconssolarbroken{249}{Closet-2}
+\defineceiconssolarbroken{250}{Closet}
+\defineceiconssolarbroken{251}{Cloud-Bolt-Minimalistic}
+\defineceiconssolarbroken{252}{Cloud-Bolt}
+\defineceiconssolarbroken{253}{Cloud-Check}
+\defineceiconssolarbroken{254}{Cloud-Download}
+\defineceiconssolarbroken{255}{Cloud-File}
+\defineceiconssolarbroken{256}{Cloud-Minus}
+\defineceiconssolarbroken{257}{Cloud-Plus}
+\defineceiconssolarbroken{258}{Cloud-Rain}
+\defineceiconssolarbroken{259}{Cloud-Snowfall-Minimalistic}
+\defineceiconssolarbroken{260}{Cloud-Snowfall}
+\defineceiconssolarbroken{261}{Cloud-Storage}
+\defineceiconssolarbroken{262}{Cloud-Storm}
+\defineceiconssolarbroken{263}{Cloud-Sun-2}
+\defineceiconssolarbroken{264}{Cloud-Sun}
+\defineceiconssolarbroken{265}{Cloud-Upload}
+\defineceiconssolarbroken{266}{Cloud-Waterdrop}
+\defineceiconssolarbroken{267}{Cloud-Waterdrops}
+\defineceiconssolarbroken{268}{Cloud}
+\defineceiconssolarbroken{269}{Clouds}
+\defineceiconssolarbroken{270}{Cloudy-Moon}
+\defineceiconssolarbroken{271}{Clound-Cross}
+\defineceiconssolarbroken{272}{Code-2}
+\defineceiconssolarbroken{273}{Code-Circle}
+\defineceiconssolarbroken{274}{Code-File}
+\defineceiconssolarbroken{275}{Code-Scan}
+\defineceiconssolarbroken{276}{Code-Square}
+\defineceiconssolarbroken{277}{Code}
+\defineceiconssolarbroken{278}{Colour-Tuneing}
+\defineceiconssolarbroken{279}{Command}
+\defineceiconssolarbroken{280}{Compass-Big}
+\defineceiconssolarbroken{281}{Compass-Square}
+\defineceiconssolarbroken{282}{Compass}
+\defineceiconssolarbroken{283}{Condicioner-2}
+\defineceiconssolarbroken{284}{Condicioner}
+\defineceiconssolarbroken{285}{Confetti-Minimalistic}
+\defineceiconssolarbroken{286}{Confetti}
+\defineceiconssolarbroken{287}{Confounded-Circle}
+\defineceiconssolarbroken{288}{Confounded-Square}
+\defineceiconssolarbroken{289}{Copy}
+\defineceiconssolarbroken{290}{Copyright}
+\defineceiconssolarbroken{291}{Corkscrew}
+\defineceiconssolarbroken{292}{Cosmetic}
+\defineceiconssolarbroken{293}{Course-Down}
+\defineceiconssolarbroken{294}{Course-Up}
+\defineceiconssolarbroken{295}{CPU-Bolt}
+\defineceiconssolarbroken{296}{CPU}
+\defineceiconssolarbroken{297}{Creative-Commons}
+\defineceiconssolarbroken{298}{Crop-Minimalistic}
+\defineceiconssolarbroken{299}{Crop}
+\defineceiconssolarbroken{300}{Crown-Line}
+\defineceiconssolarbroken{301}{Crown-Minimalistic}
+\defineceiconssolarbroken{302}{Crown-Star}
+\defineceiconssolarbroken{303}{Crown}
+\defineceiconssolarbroken{304}{Cup-First}
+\defineceiconssolarbroken{305}{Cup-Hot}
+\defineceiconssolarbroken{306}{Cup-Music}
+\defineceiconssolarbroken{307}{Cup-Paper}
+\defineceiconssolarbroken{308}{Cup-Star}
+\defineceiconssolarbroken{309}{Cup}
+\defineceiconssolarbroken{310}{Cursor-Square}
+\defineceiconssolarbroken{311}{Cursor}
+\defineceiconssolarbroken{312}{Danger-Circle}
+\defineceiconssolarbroken{313}{Danger-Square}
+\defineceiconssolarbroken{314}{Danger-Triangle}
+\defineceiconssolarbroken{315}{Danger}
+\defineceiconssolarbroken{316}{Database}
+\defineceiconssolarbroken{317}{Delivery}
+\defineceiconssolarbroken{318}{Devices}
+\defineceiconssolarbroken{319}{Diagram-Down}
+\defineceiconssolarbroken{320}{Diagram-Up}
+\defineceiconssolarbroken{321}{Dialog-2}
+\defineceiconssolarbroken{322}{Dialog}
+\defineceiconssolarbroken{323}{Diploma-Verified}
+\defineceiconssolarbroken{324}{Diploma}
+\defineceiconssolarbroken{325}{Diskette}
+\defineceiconssolarbroken{326}{Dislike}
+\defineceiconssolarbroken{327}{Display}
+\defineceiconssolarbroken{328}{DNA}
+\defineceiconssolarbroken{329}{Document-Add}
+\defineceiconssolarbroken{330}{Document-Medicine}
+\defineceiconssolarbroken{331}{Document-Text}
+\defineceiconssolarbroken{332}{Document}
+\defineceiconssolarbroken{333}{Documents-Minimalistic}
+\defineceiconssolarbroken{334}{Documents}
+\defineceiconssolarbroken{335}{Dollar-Minimalistic}
+\defineceiconssolarbroken{336}{Dollar}
+\defineceiconssolarbroken{337}{Donut-Bitten}
+\defineceiconssolarbroken{338}{Donut}
+\defineceiconssolarbroken{339}{Double-Alt-Arrow-Down}
+\defineceiconssolarbroken{340}{Double-Alt-Arrow-Left}
+\defineceiconssolarbroken{341}{Double-Alt-Arrow-Right}
+\defineceiconssolarbroken{342}{Double-Alt-Arrow-Up}
+\defineceiconssolarbroken{343}{Download-Minimalistic}
+\defineceiconssolarbroken{344}{Download-Square}
+\defineceiconssolarbroken{345}{Download-Twice-Square}
+\defineceiconssolarbroken{346}{Download}
+\defineceiconssolarbroken{347}{Dropper-2}
+\defineceiconssolarbroken{348}{Dropper-3}
+\defineceiconssolarbroken{349}{Dropper-Minimalistic-2}
+\defineceiconssolarbroken{350}{Dropper-Minimalistic}
+\defineceiconssolarbroken{351}{Dropper}
+\defineceiconssolarbroken{352}{Dumbbell-Large-Minimalistic}
+\defineceiconssolarbroken{353}{Dumbbell-Large}
+\defineceiconssolarbroken{354}{Dumbbell-Small}
+\defineceiconssolarbroken{355}{Dumbbell}
+\defineceiconssolarbroken{356}{Dumbbells-2}
+\defineceiconssolarbroken{357}{Dumbbells}
+\defineceiconssolarbroken{358}{Earth}
+\defineceiconssolarbroken{359}{Emoji-Funny-Circle}
+\defineceiconssolarbroken{360}{Emoji-Funny-Square}
+\defineceiconssolarbroken{361}{End-Call-Rounded}
+\defineceiconssolarbroken{362}{End-Call}
+\defineceiconssolarbroken{363}{Eraser-Circle}
+\defineceiconssolarbroken{364}{Eraser-Square}
+\defineceiconssolarbroken{365}{Eraser}
+\defineceiconssolarbroken{366}{Euro}
+\defineceiconssolarbroken{367}{Exit}
+\defineceiconssolarbroken{368}{Explicit}
+\defineceiconssolarbroken{369}{Export}
+\defineceiconssolarbroken{370}{Expressionless-Circle}
+\defineceiconssolarbroken{371}{Expressionless-Square}
+\defineceiconssolarbroken{372}{Eye-Closed}
+\defineceiconssolarbroken{373}{Eye-Scan}
+\defineceiconssolarbroken{374}{Eye}
+\defineceiconssolarbroken{375}{Face-Scan-Circle}
+\defineceiconssolarbroken{376}{Face-Scan-Square}
+\defineceiconssolarbroken{377}{Facemask-Circle}
+\defineceiconssolarbroken{378}{Facemask-Square}
+\defineceiconssolarbroken{379}{Feed}
+\defineceiconssolarbroken{380}{Ferris-Wheel}
+\defineceiconssolarbroken{381}{Figma-File}
+\defineceiconssolarbroken{382}{Figma}
+\defineceiconssolarbroken{383}{File-Check}
+\defineceiconssolarbroken{384}{File-Corrupted}
+\defineceiconssolarbroken{385}{File-Download}
+\defineceiconssolarbroken{386}{File-Favourite}
+\defineceiconssolarbroken{387}{File-Left}
+\defineceiconssolarbroken{388}{File-Remove}
+\defineceiconssolarbroken{389}{File-Right}
+\defineceiconssolarbroken{390}{File-Send}
+\defineceiconssolarbroken{391}{File-Smile}
+\defineceiconssolarbroken{392}{File-Text}
+\defineceiconssolarbroken{393}{File}
+\defineceiconssolarbroken{394}{Filter}
+\defineceiconssolarbroken{395}{Filters}
+\defineceiconssolarbroken{396}{Fire-Minimalistic}
+\defineceiconssolarbroken{397}{Fire-Square}
+\defineceiconssolarbroken{398}{Fire}
+\defineceiconssolarbroken{399}{Flag-2}
+\defineceiconssolarbroken{400}{Flag}
+\defineceiconssolarbroken{401}{Flame}
+\defineceiconssolarbroken{402}{Flash-Drive}
+\defineceiconssolarbroken{403}{Flashlight-On}
+\defineceiconssolarbroken{404}{Flashlight}
+\defineceiconssolarbroken{405}{Flip-Horizontal}
+\defineceiconssolarbroken{406}{Flip-Vertical}
+\defineceiconssolarbroken{407}{Floor-Lamp-Minimalistic}
+\defineceiconssolarbroken{408}{Floor-Lamp}
+\defineceiconssolarbroken{409}{Fog}
+\defineceiconssolarbroken{410}{Folder-2}
+\defineceiconssolarbroken{411}{Folder-Check}
+\defineceiconssolarbroken{412}{Folder-Cloud}
+\defineceiconssolarbroken{413}{Folder-Error}
+\defineceiconssolarbroken{414}{Folder-Favourite-(Bookmark)}
+\defineceiconssolarbroken{415}{Folder-Favourite-(Star)}
+\defineceiconssolarbroken{416}{Folder-Open}
+\defineceiconssolarbroken{417}{Folder-Path-Connect}
+\defineceiconssolarbroken{418}{Folder-Security}
+\defineceiconssolarbroken{419}{Folder-With-Files}
+\defineceiconssolarbroken{420}{Folder}
+\defineceiconssolarbroken{421}{Football}
+\defineceiconssolarbroken{422}{Forbidden-Circle}
+\defineceiconssolarbroken{423}{Forbidden}
+\defineceiconssolarbroken{424}{Forward-2}
+\defineceiconssolarbroken{425}{Forward}
+\defineceiconssolarbroken{426}{Fridge}
+\defineceiconssolarbroken{427}{Fuel}
+\defineceiconssolarbroken{428}{Full-Screen-Circle}
+\defineceiconssolarbroken{429}{Full-Screen-Square}
+\defineceiconssolarbroken{430}{Full-Screen}
+\defineceiconssolarbroken{431}{Gallery-Add}
+\defineceiconssolarbroken{432}{Gallery-Check}
+\defineceiconssolarbroken{433}{Gallery-Circle}
+\defineceiconssolarbroken{434}{Gallery-Download}
+\defineceiconssolarbroken{435}{Gallery-Edit}
+\defineceiconssolarbroken{436}{Gallery-Favourite}
+\defineceiconssolarbroken{437}{Gallery-Minimalistic}
+\defineceiconssolarbroken{438}{Gallery-Remove}
+\defineceiconssolarbroken{439}{Gallery-Round}
+\defineceiconssolarbroken{440}{Gallery-Send}
+\defineceiconssolarbroken{441}{Gallery-Wide}
+\defineceiconssolarbroken{442}{Gallery}
+\defineceiconssolarbroken{443}{Gameboy}
+\defineceiconssolarbroken{444}{Gamepad-Charge}
+\defineceiconssolarbroken{445}{Gamepad-Minimalistic}
+\defineceiconssolarbroken{446}{Gamepad-No-Charge}
+\defineceiconssolarbroken{447}{Gamepad-Old}
+\defineceiconssolarbroken{448}{Gamepad}
+\defineceiconssolarbroken{449}{Ghost-Smile}
+\defineceiconssolarbroken{450}{Ghost}
+\defineceiconssolarbroken{451}{Gift}
+\defineceiconssolarbroken{452}{Glasses}
+\defineceiconssolarbroken{453}{Global}
+\defineceiconssolarbroken{454}{Globus}
+\defineceiconssolarbroken{455}{Golf}
+\defineceiconssolarbroken{456}{GPS}
+\defineceiconssolarbroken{457}{Graph-Down-New}
+\defineceiconssolarbroken{458}{Graph-Down}
+\defineceiconssolarbroken{459}{Graph-New-Up}
+\defineceiconssolarbroken{460}{Graph-New}
+\defineceiconssolarbroken{461}{Graph-Up}
+\defineceiconssolarbroken{462}{Graph}
+\defineceiconssolarbroken{463}{Hamburger-Menu}
+\defineceiconssolarbroken{464}{Hanger-2}
+\defineceiconssolarbroken{465}{Hanger}
+\defineceiconssolarbroken{466}{Hashtag-Chat}
+\defineceiconssolarbroken{467}{Hashtag-Circle}
+\defineceiconssolarbroken{468}{Hashtag-Square}
+\defineceiconssolarbroken{469}{Hashtag}
+\defineceiconssolarbroken{470}{Headphones-Round-Sound}
+\defineceiconssolarbroken{471}{Headphones-Round}
+\defineceiconssolarbroken{472}{Headphones-Square-Sound}
+\defineceiconssolarbroken{473}{Headphones-Square}
+\defineceiconssolarbroken{474}{Health}
+\defineceiconssolarbroken{475}{Heart-Angle}
+\defineceiconssolarbroken{476}{Heart-Broken}
+\defineceiconssolarbroken{477}{Heart-Lock}
+\defineceiconssolarbroken{478}{Heart-Pulse-2}
+\defineceiconssolarbroken{479}{Heart-Pulse}
+\defineceiconssolarbroken{480}{Heart-Shine}
+\defineceiconssolarbroken{481}{Heart-Unlock}
+\defineceiconssolarbroken{482}{Heart}
+\defineceiconssolarbroken{483}{Hearts}
+\defineceiconssolarbroken{484}{Help}
+\defineceiconssolarbroken{485}{High-Definition}
+\defineceiconssolarbroken{486}{High-Quality}
+\defineceiconssolarbroken{487}{Hiking-Minimalistic}
+\defineceiconssolarbroken{488}{Hiking-Round}
+\defineceiconssolarbroken{489}{Hiking}
+\defineceiconssolarbroken{490}{History-2}
+\defineceiconssolarbroken{491}{History-3}
+\defineceiconssolarbroken{492}{History}
+\defineceiconssolarbroken{493}{Home-2}
+\defineceiconssolarbroken{494}{Home-Add-Angle}
+\defineceiconssolarbroken{495}{Home-Add}
+\defineceiconssolarbroken{496}{Home-Angle-2}
+\defineceiconssolarbroken{497}{Home-Angle}
+\defineceiconssolarbroken{498}{Home-Smile-Angle}
+\defineceiconssolarbroken{499}{Home-Smile}
+\defineceiconssolarbroken{500}{Home-WiFi-Angle}
+\defineceiconssolarbroken{501}{Home-WiFi}
+\defineceiconssolarbroken{502}{Home}
+\defineceiconssolarbroken{503}{Hourglass-Line}
+\defineceiconssolarbroken{504}{Hourglass}
+\defineceiconssolarbroken{505}{Import}
+\defineceiconssolarbroken{506}{Inbox-Archive}
+\defineceiconssolarbroken{507}{Inbox-In}
+\defineceiconssolarbroken{508}{Inbox-Line}
+\defineceiconssolarbroken{509}{Inbox-Out}
+\defineceiconssolarbroken{510}{Inbox-Unread}
+\defineceiconssolarbroken{511}{Inbox}
+\defineceiconssolarbroken{512}{Incognito}
+\defineceiconssolarbroken{513}{Incoming-Call-Rounded}
+\defineceiconssolarbroken{514}{Incoming-Call}
+\defineceiconssolarbroken{515}{Infinity}
+\defineceiconssolarbroken{516}{Info-Circle}
+\defineceiconssolarbroken{517}{Info-Square}
+\defineceiconssolarbroken{518}{iPhone}
+\defineceiconssolarbroken{519}{Jar-Of-Pills-2}
+\defineceiconssolarbroken{520}{Jar-Of-Pills}
+\defineceiconssolarbroken{521}{Key-Minimalistic-2}
+\defineceiconssolarbroken{522}{Key-Minimalistic-Square-2}
+\defineceiconssolarbroken{523}{Key-Minimalistic-Square-3}
+\defineceiconssolarbroken{524}{Key-Minimalistic-Square}
+\defineceiconssolarbroken{525}{Key-Minimalistic}
+\defineceiconssolarbroken{526}{Key-Square-2}
+\defineceiconssolarbroken{527}{Key-Square}
+\defineceiconssolarbroken{528}{Key}
+\defineceiconssolarbroken{529}{Keyboard}
+\defineceiconssolarbroken{530}{Ladle}
+\defineceiconssolarbroken{531}{Lamp}
+\defineceiconssolarbroken{532}{Laptop-2}
+\defineceiconssolarbroken{533}{Laptop-3}
+\defineceiconssolarbroken{534}{Laptop-Minimalistic}
+\defineceiconssolarbroken{535}{Laptop}
+\defineceiconssolarbroken{536}{Layers-Minimalistic}
+\defineceiconssolarbroken{537}{Layers}
+\defineceiconssolarbroken{538}{Leaf}
+\defineceiconssolarbroken{539}{Letter-Opened}
+\defineceiconssolarbroken{540}{Letter-Unread}
+\defineceiconssolarbroken{541}{Letter}
+\defineceiconssolarbroken{542}{Library}
+\defineceiconssolarbroken{543}{Lightbulb-Bolt}
+\defineceiconssolarbroken{544}{Lightbulb-Minimalistic}
+\defineceiconssolarbroken{545}{Lightbulb}
+\defineceiconssolarbroken{546}{Lightning}
+\defineceiconssolarbroken{547}{Like}
+\defineceiconssolarbroken{548}{Link-Broken-Minimalistic}
+\defineceiconssolarbroken{549}{Link-Broken}
+\defineceiconssolarbroken{550}{Link-Circle}
+\defineceiconssolarbroken{551}{Link-Minimalistic-2}
+\defineceiconssolarbroken{552}{Link-Minimalistic}
+\defineceiconssolarbroken{553}{Link-Round-Angle}
+\defineceiconssolarbroken{554}{Link-Round}
+\defineceiconssolarbroken{555}{Link-Square}
+\defineceiconssolarbroken{556}{Link}
+\defineceiconssolarbroken{557}{List-1}
+\defineceiconssolarbroken{558}{List-Arrow-Down-Minimalistic}
+\defineceiconssolarbroken{559}{List-Arrow-Down}
+\defineceiconssolarbroken{560}{List-Arrow-Up-Minimalistic}
+\defineceiconssolarbroken{561}{List-Arrow-Up}
+\defineceiconssolarbroken{562}{List-Check-Minimalistic}
+\defineceiconssolarbroken{563}{List-Check}
+\defineceiconssolarbroken{564}{List-Cross-Minimalistic}
+\defineceiconssolarbroken{565}{List-Cross}
+\defineceiconssolarbroken{566}{List-Down-Minimalistic}
+\defineceiconssolarbroken{567}{List-Down}
+\defineceiconssolarbroken{568}{List-Heart-Minimalistic}
+\defineceiconssolarbroken{569}{List-Heart}
+\defineceiconssolarbroken{570}{List-Up-Minimalistic}
+\defineceiconssolarbroken{571}{List-Up}
+\defineceiconssolarbroken{572}{List}
+\defineceiconssolarbroken{573}{Lock-Keyhole-Minimalistic-Unlocked}
+\defineceiconssolarbroken{574}{Lock-Keyhole-Minimalistic}
+\defineceiconssolarbroken{575}{Lock-Keyhole-Unlocked}
+\defineceiconssolarbroken{576}{Lock-Keyhole}
+\defineceiconssolarbroken{577}{Lock-Password-Unlocked}
+\defineceiconssolarbroken{578}{Lock-Password}
+\defineceiconssolarbroken{579}{Lock-Unlocked}
+\defineceiconssolarbroken{580}{Lock}
+\defineceiconssolarbroken{581}{Login-2}
+\defineceiconssolarbroken{582}{Login-3}
+\defineceiconssolarbroken{583}{Login}
+\defineceiconssolarbroken{584}{Logout-2}
+\defineceiconssolarbroken{585}{Logout-3}
+\defineceiconssolarbroken{586}{Logout}
+\defineceiconssolarbroken{587}{Magic-Stick-2}
+\defineceiconssolarbroken{588}{Magic-Stick-3}
+\defineceiconssolarbroken{589}{Magic-Stick}
+\defineceiconssolarbroken{590}{Magnet-Wave}
+\defineceiconssolarbroken{591}{Magnet}
+\defineceiconssolarbroken{592}{Magnifer-Bug}
+\defineceiconssolarbroken{593}{Magnifer-Zoom-In}
+\defineceiconssolarbroken{594}{Magnifer-Zoom-Out}
+\defineceiconssolarbroken{595}{Magnifer}
+\defineceiconssolarbroken{596}{Mailbox}
+\defineceiconssolarbroken{597}{Map-Arrow-Down}
+\defineceiconssolarbroken{598}{Map-Arrow-Left}
+\defineceiconssolarbroken{599}{Map-Arrow-Right}
+\defineceiconssolarbroken{600}{Map-Arrow-Square}
+\defineceiconssolarbroken{601}{Map-Arrow-Up}
+\defineceiconssolarbroken{602}{Map-Point-Add}
+\defineceiconssolarbroken{603}{Map-Point-Favourite}
+\defineceiconssolarbroken{604}{Map-Point-Hospital}
+\defineceiconssolarbroken{605}{Map-Point-Remove}
+\defineceiconssolarbroken{606}{Map-Point-Rotate}
+\defineceiconssolarbroken{607}{Map-Point-School}
+\defineceiconssolarbroken{608}{Map-Point-Search}
+\defineceiconssolarbroken{609}{Map-Point-Wave}
+\defineceiconssolarbroken{610}{Map-Point}
+\defineceiconssolarbroken{611}{Map}
+\defineceiconssolarbroken{612}{Mask-Happly}
+\defineceiconssolarbroken{613}{Mask-Sad}
+\defineceiconssolarbroken{614}{Masks}
+\defineceiconssolarbroken{615}{Maximize-Square-2}
+\defineceiconssolarbroken{616}{Maximize-Square-3}
+\defineceiconssolarbroken{617}{Maximize-Square-Minimalistic}
+\defineceiconssolarbroken{618}{Maximize-Square}
+\defineceiconssolarbroken{619}{Maximize}
+\defineceiconssolarbroken{620}{Medal-Ribbon-Star}
+\defineceiconssolarbroken{621}{Medal-Ribbon}
+\defineceiconssolarbroken{622}{Medal-Ribbons-Star}
+\defineceiconssolarbroken{623}{Medal-Star-Circle}
+\defineceiconssolarbroken{624}{Medal-Star-Square}
+\defineceiconssolarbroken{625}{Medal-Star}
+\defineceiconssolarbroken{626}{Medical-Kit}
+\defineceiconssolarbroken{627}{Meditation-Round}
+\defineceiconssolarbroken{628}{Meditation}
+\defineceiconssolarbroken{629}{Men}
+\defineceiconssolarbroken{630}{Mention-Circle}
+\defineceiconssolarbroken{631}{Mention-Square}
+\defineceiconssolarbroken{632}{Menu-Dots-Circle}
+\defineceiconssolarbroken{633}{Menu-Dots-Square}
+\defineceiconssolarbroken{634}{Menu-Dots}
+\defineceiconssolarbroken{635}{Microphone-2}
+\defineceiconssolarbroken{636}{Microphone-3}
+\defineceiconssolarbroken{637}{Microphone-Large}
+\defineceiconssolarbroken{638}{Microphone}
+\defineceiconssolarbroken{639}{Minimalistic-Magnifer-Bug}
+\defineceiconssolarbroken{640}{Minimalistic-Magnifer-Zoom-In}
+\defineceiconssolarbroken{641}{Minimalistic-Magnifer-Zoom-Out}
+\defineceiconssolarbroken{642}{Minimalistic-Magnifer}
+\defineceiconssolarbroken{643}{Minimize-Square-2}
+\defineceiconssolarbroken{644}{Minimize-Square-3}
+\defineceiconssolarbroken{645}{Minimize-Square-Minimalistic}
+\defineceiconssolarbroken{646}{Minimize-Square}
+\defineceiconssolarbroken{647}{Minimize}
+\defineceiconssolarbroken{648}{Minus-Circle}
+\defineceiconssolarbroken{649}{Minus-Square}
+\defineceiconssolarbroken{650}{Mirror-Left}
+\defineceiconssolarbroken{651}{Mirror-Right}
+\defineceiconssolarbroken{652}{Mirror}
+\defineceiconssolarbroken{653}{Money-Bag}
+\defineceiconssolarbroken{654}{Monitor-Camera}
+\defineceiconssolarbroken{655}{Monitor-Smartphone}
+\defineceiconssolarbroken{656}{Monitor}
+\defineceiconssolarbroken{657}{Moon-Fog}
+\defineceiconssolarbroken{658}{Moon-Sleep}
+\defineceiconssolarbroken{659}{Moon-Stars}
+\defineceiconssolarbroken{660}{Moon}
+\defineceiconssolarbroken{661}{Mouse-Circle}
+\defineceiconssolarbroken{662}{Mouse-Minimalistic}
+\defineceiconssolarbroken{663}{Mouse}
+\defineceiconssolarbroken{664}{Move-To-Folder}
+\defineceiconssolarbroken{665}{Multiple-Forward-Left}
+\defineceiconssolarbroken{666}{Multiple-Forward-Right}
+\defineceiconssolarbroken{667}{Music-Library-2}
+\defineceiconssolarbroken{668}{Music-Library}
+\defineceiconssolarbroken{669}{Music-Note-2}
+\defineceiconssolarbroken{670}{Music-Note-3}
+\defineceiconssolarbroken{671}{Music-Note-4}
+\defineceiconssolarbroken{672}{Music-Note-Slider-2}
+\defineceiconssolarbroken{673}{Music-Note-Slider}
+\defineceiconssolarbroken{674}{Music-Note}
+\defineceiconssolarbroken{675}{Music-Notes}
+\defineceiconssolarbroken{676}{Muted}
+\defineceiconssolarbroken{677}{Notebook-Bookmark}
+\defineceiconssolarbroken{678}{Notebook-Minimalistic}
+\defineceiconssolarbroken{679}{Notebook-Square}
+\defineceiconssolarbroken{680}{Notebook}
+\defineceiconssolarbroken{681}{Notes-Minimalistic}
+\defineceiconssolarbroken{682}{Notes}
+\defineceiconssolarbroken{683}{Notification-Lines-Remove}
+\defineceiconssolarbroken{684}{Notification-Remove}
+\defineceiconssolarbroken{685}{Notification-Unread-Lines}
+\defineceiconssolarbroken{686}{Notification-Unread}
+\defineceiconssolarbroken{687}{Object-Scan}
+\defineceiconssolarbroken{688}{Outgoing-Call-Rounded}
+\defineceiconssolarbroken{689}{Outgoing-Call}
+\defineceiconssolarbroken{690}{Oven-Mitts-Minimalistic}
+\defineceiconssolarbroken{691}{Oven-Mitts}
+\defineceiconssolarbroken{692}{Paint-Roller}
+\defineceiconssolarbroken{693}{Palette-Round}
+\defineceiconssolarbroken{694}{Palette}
+\defineceiconssolarbroken{695}{Pallete-2}
+\defineceiconssolarbroken{696}{Panorama}
+\defineceiconssolarbroken{697}{Paper-Bin}
+\defineceiconssolarbroken{698}{Paperclip-2}
+\defineceiconssolarbroken{699}{Paperclip-Rounded-2}
+\defineceiconssolarbroken{700}{Paperclip-Rounded}
+\defineceiconssolarbroken{701}{Paperclip}
+\defineceiconssolarbroken{702}{Paragraph-Spacing}
+\defineceiconssolarbroken{703}{Passport-Minimalistic}
+\defineceiconssolarbroken{704}{Passport}
+\defineceiconssolarbroken{705}{Password-Minimalistic-Input}
+\defineceiconssolarbroken{706}{Password-Minimalistic}
+\defineceiconssolarbroken{707}{Password}
+\defineceiconssolarbroken{708}{Pause-Circle}
+\defineceiconssolarbroken{709}{Pause}
+\defineceiconssolarbroken{710}{Paw}
+\defineceiconssolarbroken{711}{Pen-2}
+\defineceiconssolarbroken{712}{Pen-New-Round}
+\defineceiconssolarbroken{713}{Pen-New-Square}
+\defineceiconssolarbroken{714}{Pen}
+\defineceiconssolarbroken{715}{People-Nearby}
+\defineceiconssolarbroken{716}{Perfume}
+\defineceiconssolarbroken{717}{Phone-Calling-Rounded}
+\defineceiconssolarbroken{718}{Phone-Calling}
+\defineceiconssolarbroken{719}{Phone-Rounded}
+\defineceiconssolarbroken{720}{Phone}
+\defineceiconssolarbroken{721}{Pie-Chart-2}
+\defineceiconssolarbroken{722}{Pie-Chart-3}
+\defineceiconssolarbroken{723}{Pie-Chart}
+\defineceiconssolarbroken{724}{Pill}
+\defineceiconssolarbroken{725}{Pills-2}
+\defineceiconssolarbroken{726}{Pills-3}
+\defineceiconssolarbroken{727}{Pills}
+\defineceiconssolarbroken{728}{Pin-Circle}
+\defineceiconssolarbroken{729}{Pin-List}
+\defineceiconssolarbroken{730}{Pin}
+\defineceiconssolarbroken{731}{PIP-2}
+\defineceiconssolarbroken{732}{PIP}
+\defineceiconssolarbroken{733}{Pipette}
+\defineceiconssolarbroken{734}{Plaaylist-Minimalistic}
+\defineceiconssolarbroken{735}{Plain-2}
+\defineceiconssolarbroken{736}{Plain-3}
+\defineceiconssolarbroken{737}{Plain}
+\defineceiconssolarbroken{738}{Planet-2}
+\defineceiconssolarbroken{739}{Planet-3}
+\defineceiconssolarbroken{740}{Planet-4}
+\defineceiconssolarbroken{741}{Planet}
+\defineceiconssolarbroken{742}{Plate}
+\defineceiconssolarbroken{743}{Play-Circle}
+\defineceiconssolarbroken{744}{Play-Stream}
+\defineceiconssolarbroken{745}{Play}
+\defineceiconssolarbroken{746}{Playback-Speed}
+\defineceiconssolarbroken{747}{Playlist-2}
+\defineceiconssolarbroken{748}{Playlist-Minimalistic-2}
+\defineceiconssolarbroken{749}{Playlist-Minimalistic-3}
+\defineceiconssolarbroken{750}{Playlist}
+\defineceiconssolarbroken{751}{Plug-Circle}
+\defineceiconssolarbroken{752}{Plus,-Minus}
+\defineceiconssolarbroken{753}{Podcast}
+\defineceiconssolarbroken{754}{Point-On-Map-Perspective}
+\defineceiconssolarbroken{755}{Point-On-Map}
+\defineceiconssolarbroken{756}{Posts-Carousel-Horizontal}
+\defineceiconssolarbroken{757}{Posts-Carousel-Vertical}
+\defineceiconssolarbroken{758}{Power}
+\defineceiconssolarbroken{759}{Presentation-Graph}
+\defineceiconssolarbroken{760}{Printer-2}
+\defineceiconssolarbroken{761}{Printer-Minimalistic}
+\defineceiconssolarbroken{762}{Printer}
+\defineceiconssolarbroken{763}{Programming}
+\defineceiconssolarbroken{764}{Projector}
+\defineceiconssolarbroken{765}{Pulse-2}
+\defineceiconssolarbroken{766}{Pulse}
+\defineceiconssolarbroken{767}{QR-Code}
+\defineceiconssolarbroken{768}{Question-Circle}
+\defineceiconssolarbroken{769}{Question-Square}
+\defineceiconssolarbroken{770}{Quit-Full-Screen-Circle}
+\defineceiconssolarbroken{771}{Quit-Full-Screen-Square}
+\defineceiconssolarbroken{772}{Quit-Full-Screen}
+\defineceiconssolarbroken{773}{Quit-PIP}
+\defineceiconssolarbroken{774}{Radar-2}
+\defineceiconssolarbroken{775}{Radar}
+\defineceiconssolarbroken{776}{Radial-Blur}
+\defineceiconssolarbroken{777}{Radio-Minimalistic}
+\defineceiconssolarbroken{778}{Radio}
+\defineceiconssolarbroken{779}{Ranking}
+\defineceiconssolarbroken{780}{Recive-Square}
+\defineceiconssolarbroken{781}{Recive-Twice-Square}
+\defineceiconssolarbroken{782}{Record-Circle}
+\defineceiconssolarbroken{783}{Record-Minimalistic}
+\defineceiconssolarbroken{784}{Record-Square}
+\defineceiconssolarbroken{785}{Record}
+\defineceiconssolarbroken{786}{Reel-2}
+\defineceiconssolarbroken{787}{Reel}
+\defineceiconssolarbroken{788}{Refresh-Circle}
+\defineceiconssolarbroken{789}{Refresh-Square}
+\defineceiconssolarbroken{790}{Refresh}
+\defineceiconssolarbroken{791}{Remote-Controller-2}
+\defineceiconssolarbroken{792}{Remote-Controller-Minimalistic}
+\defineceiconssolarbroken{793}{Remote-Controller}
+\defineceiconssolarbroken{794}{Remove-Folder}
+\defineceiconssolarbroken{795}{Reorder}
+\defineceiconssolarbroken{796}{Repeat-One-Minimalistic}
+\defineceiconssolarbroken{797}{Repeat-One}
+\defineceiconssolarbroken{798}{Repeat}
+\defineceiconssolarbroken{799}{Reply-2}
+\defineceiconssolarbroken{800}{Reply}
+\defineceiconssolarbroken{801}{Restart-Circle}
+\defineceiconssolarbroken{802}{Restart-Square}
+\defineceiconssolarbroken{803}{Restart}
+\defineceiconssolarbroken{804}{Revote}
+\defineceiconssolarbroken{805}{Rewind-5-Seconds-Back}
+\defineceiconssolarbroken{806}{Rewind-5-Seconds-Forward}
+\defineceiconssolarbroken{807}{Rewind-10-Seconds-Back}
+\defineceiconssolarbroken{808}{Rewind-10-Seconds-Forward}
+\defineceiconssolarbroken{809}{Rewind-15-Seconds-Back}
+\defineceiconssolarbroken{810}{Rewind-15-Seconds-Forward}
+\defineceiconssolarbroken{811}{Rewind-Back-Circle}
+\defineceiconssolarbroken{812}{Rewind-Back}
+\defineceiconssolarbroken{813}{Rewind-Forward-Circle}
+\defineceiconssolarbroken{814}{Rewind-Forward}
+\defineceiconssolarbroken{815}{Rocket-2}
+\defineceiconssolarbroken{816}{Rocket}
+\defineceiconssolarbroken{817}{Rolling-Pin}
+\defineceiconssolarbroken{818}{Round-Alt-Arrow-Down}
+\defineceiconssolarbroken{819}{Round-Alt-Arrow-Left}
+\defineceiconssolarbroken{820}{Round-Alt-Arrow-Right}
+\defineceiconssolarbroken{821}{Round-Alt-Arrow-Up}
+\defineceiconssolarbroken{822}{Round-Arrow-Down}
+\defineceiconssolarbroken{823}{Round-Arrow-Left-Down}
+\defineceiconssolarbroken{824}{Round-Arrow-Left-Up}
+\defineceiconssolarbroken{825}{Round-Arrow-Left}
+\defineceiconssolarbroken{826}{Round-Arrow-Right-Down}
+\defineceiconssolarbroken{827}{Round-Arrow-Right-Up}
+\defineceiconssolarbroken{828}{Round-Arrow-Right}
+\defineceiconssolarbroken{829}{Round-Arrow-Up}
+\defineceiconssolarbroken{830}{Round-Double-Alt-Arrow-Down}
+\defineceiconssolarbroken{831}{Round-Double-Alt-Arrow-Left}
+\defineceiconssolarbroken{832}{Round-Double-Alt-Arrow-Right}
+\defineceiconssolarbroken{833}{Round-Double-Alt-Arrow-Up}
+\defineceiconssolarbroken{834}{Round-Graph}
+\defineceiconssolarbroken{835}{Round-Sort-Horizontal}
+\defineceiconssolarbroken{836}{Round-Sort-Vertical}
+\defineceiconssolarbroken{837}{Round-Transfer-Diagonal}
+\defineceiconssolarbroken{838}{Round-Transfer-Horizontal}
+\defineceiconssolarbroken{839}{Round-Transfer-Vertical}
+\defineceiconssolarbroken{840}{Rounded-Magnifer-Bug}
+\defineceiconssolarbroken{841}{Rounded-Magnifer-Zoom-In}
+\defineceiconssolarbroken{842}{Rounded-Magnifer-Zoom-Out}
+\defineceiconssolarbroken{843}{Rounded-Magnifer}
+\defineceiconssolarbroken{844}{Route}
+\defineceiconssolarbroken{845}{Routing-2}
+\defineceiconssolarbroken{846}{Routing-3}
+\defineceiconssolarbroken{847}{Routing}
+\defineceiconssolarbroken{848}{Ruble}
+\defineceiconssolarbroken{849}{Rugby}
+\defineceiconssolarbroken{850}{Ruler-Angular}
+\defineceiconssolarbroken{851}{Ruler-Cross-Pen}
+\defineceiconssolarbroken{852}{Ruler-Pen}
+\defineceiconssolarbroken{853}{Ruler}
+\defineceiconssolarbroken{854}{Running-2}
+\defineceiconssolarbroken{855}{Running-Round}
+\defineceiconssolarbroken{856}{Running}
+\defineceiconssolarbroken{857}{Sad-Circle}
+\defineceiconssolarbroken{858}{Sad-Square}
+\defineceiconssolarbroken{859}{Safe-2}
+\defineceiconssolarbroken{860}{Safe-Circle}
+\defineceiconssolarbroken{861}{Safe-Square}
+\defineceiconssolarbroken{862}{Sale-Square}
+\defineceiconssolarbroken{863}{Sale}
+\defineceiconssolarbroken{864}{Satellite}
+\defineceiconssolarbroken{865}{Scale}
+\defineceiconssolarbroken{866}{Scanner-2}
+\defineceiconssolarbroken{867}{Scanner}
+\defineceiconssolarbroken{868}{Scissors-Square}
+\defineceiconssolarbroken{869}{Scissors}
+\defineceiconssolarbroken{870}{Screen-Share}
+\defineceiconssolarbroken{871}{Screencast-2}
+\defineceiconssolarbroken{872}{Screencast}
+\defineceiconssolarbroken{873}{SD-Card}
+\defineceiconssolarbroken{874}{Send-Square}
+\defineceiconssolarbroken{875}{Send-Twice-Square}
+\defineceiconssolarbroken{876}{Server-2}
+\defineceiconssolarbroken{877}{Server-Minimalistic}
+\defineceiconssolarbroken{878}{Server-Path}
+\defineceiconssolarbroken{879}{Server-Square-Cloud}
+\defineceiconssolarbroken{880}{Server-Square-Update}
+\defineceiconssolarbroken{881}{Server-Square}
+\defineceiconssolarbroken{882}{Server}
+\defineceiconssolarbroken{883}{Settings-Minimalistic}
+\defineceiconssolarbroken{884}{Settings}
+\defineceiconssolarbroken{885}{Share-Circle}
+\defineceiconssolarbroken{886}{Share}
+\defineceiconssolarbroken{887}{Shield-Check}
+\defineceiconssolarbroken{888}{Shield-Cross}
+\defineceiconssolarbroken{889}{Shield-Keyhole-Minimalistic}
+\defineceiconssolarbroken{890}{Shield-Keyhole}
+\defineceiconssolarbroken{891}{Shield-Minimalistic}
+\defineceiconssolarbroken{892}{Shield-Minus}
+\defineceiconssolarbroken{893}{Shield-Network}
+\defineceiconssolarbroken{894}{Shield-Plus}
+\defineceiconssolarbroken{895}{Shield-Star}
+\defineceiconssolarbroken{896}{Shield-Up}
+\defineceiconssolarbroken{897}{Shield-User}
+\defineceiconssolarbroken{898}{Shield-Warning}
+\defineceiconssolarbroken{899}{Shield}
+\defineceiconssolarbroken{900}{Shop-2}
+\defineceiconssolarbroken{901}{Shop-Minimalistic}
+\defineceiconssolarbroken{902}{Shop}
+\defineceiconssolarbroken{903}{Shuffle}
+\defineceiconssolarbroken{904}{Sidebar-Code}
+\defineceiconssolarbroken{905}{Sidebar-Minimalistic}
+\defineceiconssolarbroken{906}{Siderbar}
+\defineceiconssolarbroken{907}{Signpost-2}
+\defineceiconssolarbroken{908}{Signpost}
+\defineceiconssolarbroken{909}{SIM-Card-Minimalistic}
+\defineceiconssolarbroken{910}{SIM-Card}
+\defineceiconssolarbroken{911}{SIM-Cards}
+\defineceiconssolarbroken{912}{Siren-Rounded}
+\defineceiconssolarbroken{913}{Siren}
+\defineceiconssolarbroken{914}{Skateboard}
+\defineceiconssolarbroken{915}{Skateboarding-Round}
+\defineceiconssolarbroken{916}{Skateboarding}
+\defineceiconssolarbroken{917}{Skip-Next}
+\defineceiconssolarbroken{918}{Skip-Previous}
+\defineceiconssolarbroken{919}{Skirt}
+\defineceiconssolarbroken{920}{Slash-Circle}
+\defineceiconssolarbroken{921}{Slash-Square}
+\defineceiconssolarbroken{922}{Sledgehammer}
+\defineceiconssolarbroken{923}{Sleeping-Circle}
+\defineceiconssolarbroken{924}{Sleeping-Square}
+\defineceiconssolarbroken{925}{Sleeping}
+\defineceiconssolarbroken{926}{Slider-Horizontal}
+\defineceiconssolarbroken{927}{Slider-Minimalistic-Horizontal}
+\defineceiconssolarbroken{928}{Slider-Vertical-Minimalistic}
+\defineceiconssolarbroken{929}{Slider-Vertical}
+\defineceiconssolarbroken{930}{Smart-Home-Angle}
+\defineceiconssolarbroken{931}{Smart-Home}
+\defineceiconssolarbroken{932}{Smart-Speaker-2}
+\defineceiconssolarbroken{933}{Smart-Speaker-Minimalistic}
+\defineceiconssolarbroken{934}{Smart-Speaker}
+\defineceiconssolarbroken{935}{Smart-Vacuum-Cleaner-2}
+\defineceiconssolarbroken{936}{Smart-Vacuum-Cleaner}
+\defineceiconssolarbroken{937}{Smartphone-2}
+\defineceiconssolarbroken{938}{Smartphone-Rotate-2}
+\defineceiconssolarbroken{939}{Smartphone-Rotate-Angle}
+\defineceiconssolarbroken{940}{Smartphone-Rotate-Orientation}
+\defineceiconssolarbroken{941}{Smartphone-Update}
+\defineceiconssolarbroken{942}{Smartphone-Vibration}
+\defineceiconssolarbroken{943}{Smartphone}
+\defineceiconssolarbroken{944}{Smile-Circle}
+\defineceiconssolarbroken{945}{Smile-Square}
+\defineceiconssolarbroken{946}{Snowflake}
+\defineceiconssolarbroken{947}{Socket}
+\defineceiconssolarbroken{948}{Sofa-2}
+\defineceiconssolarbroken{949}{Sofa-3}
+\defineceiconssolarbroken{950}{Sofa}
+\defineceiconssolarbroken{951}{Sort-By-Alphabet}
+\defineceiconssolarbroken{952}{Sort-By-Time}
+\defineceiconssolarbroken{953}{Sort-From-Bottom-To-Top}
+\defineceiconssolarbroken{954}{Sort-From-Top-To-Bottom}
+\defineceiconssolarbroken{955}{Sort-Horizontal}
+\defineceiconssolarbroken{956}{Sort-Vertical}
+\defineceiconssolarbroken{957}{Sort}
+\defineceiconssolarbroken{958}{Soundwave-Circle}
+\defineceiconssolarbroken{959}{Soundwave-Square}
+\defineceiconssolarbroken{960}{Soundwave}
+\defineceiconssolarbroken{961}{Speaker-Minimalistic}
+\defineceiconssolarbroken{962}{Speaker}
+\defineceiconssolarbroken{963}{Special-Effects}
+\defineceiconssolarbroken{964}{Square-Academic-Cap-2}
+\defineceiconssolarbroken{965}{Square-Academic-Cap}
+\defineceiconssolarbroken{966}{Square-Alt--Arrow-Down}
+\defineceiconssolarbroken{967}{Square-Alt-Arrow-Left}
+\defineceiconssolarbroken{968}{Square-Alt-Arrow-Right}
+\defineceiconssolarbroken{969}{Square-Alt-Arrow-Up}
+\defineceiconssolarbroken{970}{Square-Arrow-Down}
+\defineceiconssolarbroken{971}{Square-Arrow-Left-Down}
+\defineceiconssolarbroken{972}{Square-Arrow-Left-Up}
+\defineceiconssolarbroken{973}{Square-Arrow-Left}
+\defineceiconssolarbroken{974}{Square-Arrow-Right-Down}
+\defineceiconssolarbroken{975}{Square-Arrow-Right-Up}
+\defineceiconssolarbroken{976}{Square-Arrow-Right}
+\defineceiconssolarbroken{977}{Square-Arrow-Up}
+\defineceiconssolarbroken{978}{Square-Bottom-Down}
+\defineceiconssolarbroken{979}{Square-Bottom-Up}
+\defineceiconssolarbroken{980}{Square-Double-Alt--Arrow-Right}
+\defineceiconssolarbroken{981}{Square-Double-Alt-Arrow-Down}
+\defineceiconssolarbroken{982}{Square-Double-Alt-Arrow-Left}
+\defineceiconssolarbroken{983}{Square-Double-Alt-Arrow-Up}
+\defineceiconssolarbroken{984}{Square-Forward}
+\defineceiconssolarbroken{985}{Square-Share-Line}
+\defineceiconssolarbroken{986}{Square-Sort-Horizontal}
+\defineceiconssolarbroken{987}{Square-Sort-Vertical}
+\defineceiconssolarbroken{988}{Square-Top-Down}
+\defineceiconssolarbroken{989}{Square-Top-Up}
+\defineceiconssolarbroken{990}{Square-Transfer-Horizontal}
+\defineceiconssolarbroken{991}{Square-Transfer-Vertical}
+\defineceiconssolarbroken{992}{SSD-Round}
+\defineceiconssolarbroken{993}{SSD-Square}
+\defineceiconssolarbroken{994}{Star-Angle}
+\defineceiconssolarbroken{995}{Star-Circle}
+\defineceiconssolarbroken{996}{Star-Fall-2}
+\defineceiconssolarbroken{997}{Star-Fall-Minimalistic-2}
+\defineceiconssolarbroken{998}{Star-Fall-Minimalistic}
+\defineceiconssolarbroken{999}{Star-Fall}
+\defineceiconssolarbroken{1000}{Star-Rainbow}
+\defineceiconssolarbroken{1001}{Star-Ring}
+\defineceiconssolarbroken{1002}{Star-Rings}
+\defineceiconssolarbroken{1003}{Star-Shine}
+\defineceiconssolarbroken{1004}{Star}
+\defineceiconssolarbroken{1005}{Stars-Line}
+\defineceiconssolarbroken{1006}{Stars-Minimalistic}
+\defineceiconssolarbroken{1007}{Stars}
+\defineceiconssolarbroken{1008}{Station-Minimalistic}
+\defineceiconssolarbroken{1009}{Station}
+\defineceiconssolarbroken{1010}{Stethoscope}
+\defineceiconssolarbroken{1011}{Sticker-Circle}
+\defineceiconssolarbroken{1012}{Sticker-Smile-Circle-2}
+\defineceiconssolarbroken{1013}{Sticker-Smile-Circle}
+\defineceiconssolarbroken{1014}{Sticker-Smile-Square}
+\defineceiconssolarbroken{1015}{Sticker-Square}
+\defineceiconssolarbroken{1016}{Stop-Circle}
+\defineceiconssolarbroken{1017}{Stop}
+\defineceiconssolarbroken{1018}{Stopwatch-Pause}
+\defineceiconssolarbroken{1019}{Stopwatch-Play}
+\defineceiconssolarbroken{1020}{Stopwatch}
+\defineceiconssolarbroken{1021}{Stream}
+\defineceiconssolarbroken{1022}{Streets-Map-Point}
+\defineceiconssolarbroken{1023}{Streets-Navigation}
+\defineceiconssolarbroken{1024}{Streets}
+\defineceiconssolarbroken{1025}{Stretching-Round}
+\defineceiconssolarbroken{1026}{Stretching}
+\defineceiconssolarbroken{1027}{Structure}
+\defineceiconssolarbroken{1028}{Subtitles}
+\defineceiconssolarbroken{1029}{Suitcase-Lines}
+\defineceiconssolarbroken{1030}{Suitcase-Tag}
+\defineceiconssolarbroken{1031}{Suitcase}
+\defineceiconssolarbroken{1032}{Sun-2}
+\defineceiconssolarbroken{1033}{Sun-Fog}
+\defineceiconssolarbroken{1034}{Sun}
+\defineceiconssolarbroken{1035}{Sunrise}
+\defineceiconssolarbroken{1036}{Sunset}
+\defineceiconssolarbroken{1037}{Swimming}
+\defineceiconssolarbroken{1038}{Syringe}
+\defineceiconssolarbroken{1039}{T-shirt}
+\defineceiconssolarbroken{1040}{Tablet}
+\defineceiconssolarbroken{1041}{Tag-Horizontal}
+\defineceiconssolarbroken{1042}{Tag-Price}
+\defineceiconssolarbroken{1043}{Tag}
+\defineceiconssolarbroken{1044}{Target}
+\defineceiconssolarbroken{1045}{Tea-Cup}
+\defineceiconssolarbroken{1046}{Telescope}
+\defineceiconssolarbroken{1047}{Temperature}
+\defineceiconssolarbroken{1048}{Tennis-2}
+\defineceiconssolarbroken{1049}{Tennis}
+\defineceiconssolarbroken{1050}{Test-Tube-Minimalistic}
+\defineceiconssolarbroken{1051}{Test-Tube}
+\defineceiconssolarbroken{1052}{Text-Bold-Circle}
+\defineceiconssolarbroken{1053}{Text-Bold-Square}
+\defineceiconssolarbroken{1054}{Text-Bold}
+\defineceiconssolarbroken{1055}{Text-Circle}
+\defineceiconssolarbroken{1056}{Text-Cross-Circle}
+\defineceiconssolarbroken{1057}{Text-Cross-Square}
+\defineceiconssolarbroken{1058}{Text-Cross}
+\defineceiconssolarbroken{1059}{Text-Field-Focus}
+\defineceiconssolarbroken{1060}{Text-Field}
+\defineceiconssolarbroken{1061}{Text-Italic-Circle}
+\defineceiconssolarbroken{1062}{Text-Italic-Square}
+\defineceiconssolarbroken{1063}{Text-Italic}
+\defineceiconssolarbroken{1064}{Text-Selection}
+\defineceiconssolarbroken{1065}{Text-Square-2}
+\defineceiconssolarbroken{1066}{Text-Square}
+\defineceiconssolarbroken{1067}{Text-Underline-Circle}
+\defineceiconssolarbroken{1068}{Text-Underline-Cross}
+\defineceiconssolarbroken{1069}{Text-Underline}
+\defineceiconssolarbroken{1070}{Text}
+\defineceiconssolarbroken{1071}{Thermometer}
+\defineceiconssolarbroken{1072}{Three-Squares}
+\defineceiconssolarbroken{1073}{Ticker-Star}
+\defineceiconssolarbroken{1074}{Ticket-Sale}
+\defineceiconssolarbroken{1075}{Ticket}
+\defineceiconssolarbroken{1076}{To-PIP}
+\defineceiconssolarbroken{1077}{Tornado-Small}
+\defineceiconssolarbroken{1078}{Tornado}
+\defineceiconssolarbroken{1079}{Traffic-Economy}
+\defineceiconssolarbroken{1080}{Traffic}
+\defineceiconssolarbroken{1081}{Transfer-Horizontal}
+\defineceiconssolarbroken{1082}{Transfer-Vertical}
+\defineceiconssolarbroken{1083}{Translation-2}
+\defineceiconssolarbroken{1084}{Translation}
+\defineceiconssolarbroken{1085}{Trash-Bin-2}
+\defineceiconssolarbroken{1086}{Trash-Bin-Minimalistic-2}
+\defineceiconssolarbroken{1087}{Trash-Bin-Minimalistic}
+\defineceiconssolarbroken{1088}{Trash-Bin-Trash}
+\defineceiconssolarbroken{1089}{Treadmill-Round}
+\defineceiconssolarbroken{1090}{Treadmill}
+\defineceiconssolarbroken{1091}{Trellis}
+\defineceiconssolarbroken{1092}{Tuning-2}
+\defineceiconssolarbroken{1093}{Tuning-3}
+\defineceiconssolarbroken{1094}{Tuning-4}
+\defineceiconssolarbroken{1095}{Tuning-Square-2}
+\defineceiconssolarbroken{1096}{Tuning-Square}
+\defineceiconssolarbroken{1097}{Tuning}
+\defineceiconssolarbroken{1098}{Turntable-Minimalistic}
+\defineceiconssolarbroken{1099}{Turntable-Music-Note}
+\defineceiconssolarbroken{1100}{Turntable}
+\defineceiconssolarbroken{1101}{TV}
+\defineceiconssolarbroken{1102}{UFO-2}
+\defineceiconssolarbroken{1103}{UFO-3}
+\defineceiconssolarbroken{1104}{UFO}
+\defineceiconssolarbroken{1105}{Umbrella}
+\defineceiconssolarbroken{1106}{Undo-Left-Round-Square}
+\defineceiconssolarbroken{1107}{Undo-Left-Round}
+\defineceiconssolarbroken{1108}{Undo-Left-Square}
+\defineceiconssolarbroken{1109}{Undo-Left}
+\defineceiconssolarbroken{1110}{Undo-Right-Round-Square}
+\defineceiconssolarbroken{1111}{Undo-Right-Round}
+\defineceiconssolarbroken{1112}{Undo-Right-Square}
+\defineceiconssolarbroken{1113}{Undo-Right}
+\defineceiconssolarbroken{1114}{Unread}
+\defineceiconssolarbroken{1115}{Upload-Minimalistic}
+\defineceiconssolarbroken{1116}{Upload-Square}
+\defineceiconssolarbroken{1117}{Upload-Track-2}
+\defineceiconssolarbroken{1118}{Upload-Track}
+\defineceiconssolarbroken{1119}{Upload-Twice-Square}
+\defineceiconssolarbroken{1120}{Upload}
+\defineceiconssolarbroken{1121}{USB-Circle}
+\defineceiconssolarbroken{1122}{USB-Square}
+\defineceiconssolarbroken{1123}{USB}
+\defineceiconssolarbroken{1124}{Verified-Check}
+\defineceiconssolarbroken{1125}{Video-Frame-2}
+\defineceiconssolarbroken{1126}{Video-Frame-Cut-2}
+\defineceiconssolarbroken{1127}{Video-Frame-Cut}
+\defineceiconssolarbroken{1128}{Video-Frame-Play-Horizontal}
+\defineceiconssolarbroken{1129}{Video-Frame-Play-Vertical}
+\defineceiconssolarbroken{1130}{Video-Frame-Replace}
+\defineceiconssolarbroken{1131}{Video-Frame}
+\defineceiconssolarbroken{1132}{Video-Library}
+\defineceiconssolarbroken{1133}{Videocamera-Add}
+\defineceiconssolarbroken{1134}{Videocamera-Record}
+\defineceiconssolarbroken{1135}{Videocamera}
+\defineceiconssolarbroken{1136}{Vinyl-Record}
+\defineceiconssolarbroken{1137}{Vinyl}
+\defineceiconssolarbroken{1138}{Virus}
+\defineceiconssolarbroken{1139}{Volleyball-2}
+\defineceiconssolarbroken{1140}{Volleyball}
+\defineceiconssolarbroken{1141}{Volume-Cross}
+\defineceiconssolarbroken{1142}{Volume-Knob}
+\defineceiconssolarbroken{1143}{Volume-Loud}
+\defineceiconssolarbroken{1144}{Volume-Small}
+\defineceiconssolarbroken{1145}{Volume}
+\defineceiconssolarbroken{1146}{Wad-Of-Money}
+\defineceiconssolarbroken{1147}{Walking-Round}
+\defineceiconssolarbroken{1148}{Walking}
+\defineceiconssolarbroken{1149}{Wallet-2}
+\defineceiconssolarbroken{1150}{Wallet-Money}
+\defineceiconssolarbroken{1151}{Wallet}
+\defineceiconssolarbroken{1152}{Wallpaper}
+\defineceiconssolarbroken{1153}{Washing-Machine-Minimalistic}
+\defineceiconssolarbroken{1154}{Washing-Machine}
+\defineceiconssolarbroken{1155}{Watch-Round}
+\defineceiconssolarbroken{1156}{Watch-Square-Minimalistic-Charge}
+\defineceiconssolarbroken{1157}{Watch-Square-Minimalistic}
+\defineceiconssolarbroken{1158}{Watch-Square}
+\defineceiconssolarbroken{1159}{Water-Sun}
+\defineceiconssolarbroken{1160}{Water}
+\defineceiconssolarbroken{1161}{Waterdrop}
+\defineceiconssolarbroken{1162}{Waterdrops}
+\defineceiconssolarbroken{1163}{Weigher}
+\defineceiconssolarbroken{1164}{Whisk}
+\defineceiconssolarbroken{1165}{Wi-Fi-Router-Minimalistic}
+\defineceiconssolarbroken{1166}{Wi-Fi-Router-Round}
+\defineceiconssolarbroken{1167}{Wi-Fi-Router}
+\defineceiconssolarbroken{1168}{Widget-2}
+\defineceiconssolarbroken{1169}{Widget-3}
+\defineceiconssolarbroken{1170}{Widget-4}
+\defineceiconssolarbroken{1171}{Widget-5}
+\defineceiconssolarbroken{1172}{Widget-6}
+\defineceiconssolarbroken{1173}{Widget-Add}
+\defineceiconssolarbroken{1174}{Widget}
+\defineceiconssolarbroken{1175}{Wind}
+\defineceiconssolarbroken{1176}{Window-Frame}
+\defineceiconssolarbroken{1177}{Wineglass-Triangle}
+\defineceiconssolarbroken{1178}{Wineglass}
+\defineceiconssolarbroken{1179}{WinRar}
+\defineceiconssolarbroken{1180}{Wireless-Charge}
+\defineceiconssolarbroken{1181}{Women}
+\defineceiconssolarbroken{1182}{XXX}
+\defineceiconssolarbroken{1183}{ZIP-File}
+
 
 \endinput

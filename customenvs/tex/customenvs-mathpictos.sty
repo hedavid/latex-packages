@@ -2,18 +2,21 @@
 % licence............: Released under the LaTeX Project Public License v1.3c or later, see http://www.latex-project.org/lppl.txt
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesExplPackage{customenvs-mathpictos}{2025/10/04}{0.1a}{Pictogrammes Domaines Maths}
-%0.1a  Version initiale (LaTeX3)
+\ProvidesExplPackage{customenvs-mathpictos}{2025/11/08}{0.1c}{Pictograms math}
+%0.1c  New pictos
+%0.1b  New pictos
+%0.1a  Initial version (LaTeX3)
 
 %%=====Packages utiles et indispensables
 \RequirePackage{graphicx}
 
 %%=====Variables LaTeX3
-\tl_new:N \l__cemaththeme_bordures_tl
-\tl_new:N \l__cemaththeme_fondcouleur_tl
-\int_new:N \l__cemaththeme_pageoffset_int
-\int_new:N \l__cemaththeme_mainpage_int
+\tl_new:N   \l__cemaththeme_bordures_tl
+\tl_new:N   \l__cemaththeme_fondcouleur_tl
+\int_new:N  \l__cemaththeme_pageoffset_int
+\int_new:N  \l__cemaththeme_mainpage_int
 \bool_new:N \l__cemaththeme_bg_bool
+\bool_new:N \l__cemaththeme_rounded_bool
 
 %%=====Clés avec l3keys
 \keys_define:nn { cemaththeme }
@@ -29,7 +32,11 @@
   couleur~fond     .tl_set:N    = \l__cemaththeme_fondcouleur_tl,
   colback          .tl_set:N    = \l__cemaththeme_fondcouleur_tl,
   couleur~fond     .initial:n   = white,
-  colback          .initial:n   = white
+  colback          .initial:n   = white,
+  arrondi          .bool_set:N  = \l__cemaththeme_rounded_bool,
+  round            .bool_set:N  = \l__cemaththeme_rounded_bool,
+  arrondi          .initial:n   = false,
+  round            .initial:n   = false
 }
 
 %%=====Fonction auxiliaire pour calculer l'offset
@@ -56,7 +63,7 @@
   % #3 = nom du pictogramme
   
   % Réinitialisation et traitement des clés
-  \keys_set:nn { cemaththeme } { bordures = aucune , borders = none , fond = false , bg = false , couleur~fond = white , colback = white }
+  \keys_set:nn { cemaththeme } { bordures = aucune , borders = none , fond = false , bg = false , couleur~fond = white , colback = white , round = false , arrondi = false}
   \keys_set:nn { cemaththeme } { #2 }
   
   % Calcul de l'offset
@@ -117,6 +124,24 @@
     { pdtscal }       { \int_set:Nn \l__cemaththeme_mainpage_int { 241 } }
     { solide }        { \int_set:Nn \l__cemaththeme_mainpage_int { 246 } }
     { algo }          { \int_set:Nn \l__cemaththeme_mainpage_int { 251 } }
+    { nwks }          { \int_set:Nn \l__cemaththeme_mainpage_int { 256 } }
+    { gendarmes }     { \int_set:Nn \l__cemaththeme_mainpage_int { 261 } }
+    { pixelart }      { \int_set:Nn \l__cemaththeme_mainpage_int { 266 } }
+    { venn }          { \int_set:Nn \l__cemaththeme_mainpage_int { 271 } }
+    { arbrebin }      { \int_set:Nn \l__cemaththeme_mainpage_int { 276 } }
+    { matrices }      { \int_set:Nn \l__cemaththeme_mainpage_int { 281 } }
+    { thmvalmoy }     { \int_set:Nn \l__cemaththeme_mainpage_int { 286 } }
+    { pascal }        { \int_set:Nn \l__cemaththeme_mainpage_int { 291 } }
+    { addposee }      { \int_set:Nn \l__cemaththeme_mainpage_int { 296 } }
+    { arbrecalc }     { \int_set:Nn \l__cemaththeme_mainpage_int { 301 } }
+    { sohcahtoa }     { \int_set:Nn \l__cemaththeme_mainpage_int { 306 } }
+    { fibonnaci }     { \int_set:Nn \l__cemaththeme_mainpage_int { 311 } }
+    { quatreops }     { \int_set:Nn \l__cemaththeme_mainpage_int { 316 } }
+    { reglin }        { \int_set:Nn \l__cemaththeme_mainpage_int { 321 } }
+    { moustaches }    { \int_set:Nn \l__cemaththeme_mainpage_int { 326 } }
+    { fractale }      { \int_set:Nn \l__cemaththeme_mainpage_int { 331 } }
+    { binaire }       { \int_set:Nn \l__cemaththeme_mainpage_int { 336 } }
+    { patterns }      { \int_set:Nn \l__cemaththeme_mainpage_int { 341 } }
     %[en]
     { binom }         { \int_set:Nn \l__cemaththeme_mainpage_int { 1 } }
     { convexity }     { \int_set:Nn \l__cemaththeme_mainpage_int { 6 } }
@@ -169,6 +194,24 @@
     { dotproduct }    { \int_set:Nn \l__cemaththeme_mainpage_int { 241 } }
     { solid }         { \int_set:Nn \l__cemaththeme_mainpage_int { 246 } }
     { algorithm }     { \int_set:Nn \l__cemaththeme_mainpage_int { 251 } }
+    %{ nwks }          { \int_set:Nn \l__cemaththeme_mainpage_int { 256 } }
+    { squeezethm }    { \int_set:Nn \l__cemaththeme_mainpage_int { 261 } }
+    { pixlart }       { \int_set:Nn \l__cemaththeme_mainpage_int { 266 } }
+    %{ venn }          { \int_set:Nn \l__cemaththeme_mainpage_int { 271 } }
+    { bintree }       { \int_set:Nn \l__cemaththeme_mainpage_int { 276 } }
+    { matrix }        { \int_set:Nn \l__cemaththeme_mainpage_int { 281 } }
+    { meanvaluethm }  { \int_set:Nn \l__cemaththeme_mainpage_int { 286 } }
+    %{ pascal }        { \int_set:Nn \l__cemaththeme_mainpage_int { 291 } }
+    { arithmop }      { \int_set:Nn \l__cemaththeme_mainpage_int { 296 } }
+    { bincalctree }   { \int_set:Nn \l__cemaththeme_mainpage_int { 301 } }
+    %{ sohcahtoa }   { \int_set:Nn \l__cemaththeme_mainpage_int { 306 } }
+    %{ fibonnaci }     { \int_set:Nn \l__cemaththeme_mainpage_int { 311 } }
+    { fourops }       { \int_set:Nn \l__cemaththeme_mainpage_int { 316 } }
+    { linreg }        { \int_set:Nn \l__cemaththeme_mainpage_int { 321 } }
+    { boxplot }       { \int_set:Nn \l__cemaththeme_mainpage_int { 326 } }
+    { fractal }       { \int_set:Nn \l__cemaththeme_mainpage_int { 331 } }
+    { binary }        { \int_set:Nn \l__cemaththeme_mainpage_int { 336 } }
+    %{ patterns }      { \int_set:Nn \l__cemaththeme_mainpage_int { 341 } }
   }
   { \int_set:Nn \l__cemaththeme_mainpage_int { 1 } }
   
@@ -178,7 +221,13 @@
       {\setlength\fboxsep{0pt}\colorbox{\tl_use:N \l__cemaththeme_fondcouleur_tl}{\includegraphics[page = \int_eval:n { \l__cemaththeme_mainpage_int + \l__cemaththeme_pageoffset_int },#1]{ce-mathpictos-all.pdf}}}
     }
     {
-      \includegraphics[page = \int_eval:n { \l__cemaththeme_mainpage_int + \l__cemaththeme_pageoffset_int },#1]{ce-mathpictos-all.pdf}
+      \bool_if:NTF \l__cemaththeme_rounded_bool
+        {
+          {\setlength\fboxsep{0pt}\cornersize{0.2}\ovalbox{\includegraphics[page = \int_eval:n { \l__cemaththeme_mainpage_int + \l__cemaththeme_pageoffset_int },#1]{ce-mathpictos-all.pdf}}}
+        }
+        {
+          \includegraphics[page = \int_eval:n { \l__cemaththeme_mainpage_int + \l__cemaththeme_pageoffset_int },#1]{ce-mathpictos-all.pdf}
+        }
     }
 }
 

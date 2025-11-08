@@ -3,9 +3,11 @@
 % source pencil...: CC-BY-SA 4.0 https://tex.stackexchange.com/questions/504092/replicating-a-fancy-bordered-text-style-in-latex/504145#504145
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{customenvs}[2025/10/04 0.42a Custom classic environments]
+\ProvidesPackage{customenvs}[2025/11/08 0.42c Custom classic environments]
 
 %====HISTORIQUE
+% v 0.42c	New icons + new mathpictos
+% v 0.42b	New icons + mathpictos
 % v 0.42a	Box Number Style + option nonbabel
 % v 0.41f	New keys
 % v 0.41e	Bicolortitle + tcboxboard
@@ -5050,6 +5052,7 @@
 \newlength\stylejrwidthleftpart
 \newlength\stylejrmargincenter
 \newlength\stylejrwidthrightpart
+\newlength\stylejrvoffsetrightpart
 
 \setlength\stylejrtitleheight{1.15cm}
 \setlength\stylejrheighttextleft{0.3\stylejrtitleheight}
@@ -5057,6 +5060,7 @@
 \setlength\stylejrwidthleftpart{3cm}
 \setlength\stylejrmargincenter{0.5cm}
 \setlength\stylejrwidthrightpart{\textwidth-\stylejrwidthleftpart-\stylejrmargincenter}
+\setlength\stylejrvoffsetrightpart{3.2mm}
 
 \defKV[jrtitle]{%
 	main color=\colorlet{jrtitlemain}{#1},%
@@ -5117,7 +5121,7 @@
 				\node at (RIGHTPARTLOWER) {\fittexttobox{\vphantom{(qM)}\jrtitlelower}{0.9\stylejrwidthrightpart}{0.5\stylejrtitleheight-0.9mm}};%
 			}%
 			{%
-				\node at (RIGHTPART) {\fittexttobox{\vphantom{(qM)}#3}{0.9\stylejrwidthrightpart}{\stylejrtitleheight-2.4mm}};%
+				\node at (RIGHTPART) {\fittexttobox{\vphantom{(qM)}#3}{0.9\stylejrwidthrightpart}{\stylejrtitleheight-\stylejrvoffsetrightpart}};%
 			}%
 	\end{tikzpicture}%
 }
