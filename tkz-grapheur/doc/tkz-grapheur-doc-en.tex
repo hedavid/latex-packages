@@ -31,8 +31,8 @@
 \hypersetup{pdfborder=0 0 0}
 \usepackage[margin=2cm]{geometry}
 \setlength{\parindent}{0pt}
-\def\TPversion{0.2.6}
-\def\TPdate{21/08/2025}
+\def\TPversion{0.2.7}
+\def\TPdate{09/11/2025}
 \usepackage{soul}
 \usepackage{codehigh}
 \usepackage{tabularray}
@@ -368,6 +368,8 @@ The idea is therefore to be able to redefine styles globally or locally, and pos
 
 \subsection{Creating the environment}\label{creaenvt}
 
+\subsubsection{Manual values}
+
 The proposed environment is based on \TikZ, so that any \textit{classic} command linked to \TikZ\ can be used alongside the package commands!
 
 \begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5,listing only}
@@ -406,6 +408,22 @@ The specific (and optional) \MontreCode{<keys>} are:
 \end{tcblisting}
 
 It will obviously be more meaningful with the added graphic elements!
+
+\subsubsection{With choice of dimensions}
+
+It is also possible (currently being tested) to specify the dimensions of the graph, letting the code determine the correct units.
+
+In this case, the keys and arguments differ slightly, notably via the key \MontreCode{<Size=width/height>}:
+
+\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5}
+%fixed dimensions (excluding graduations)
+\begin{GraphTikz}%
+	[Xgrid=10,Xgrids=5,Ygrid=50,Ygrids=25]
+	%Xgrid(s) and/or Ygrid(s) in this case
+	<Xmin=0,Xmax=100,Ymin=0,Ymax=250,Size={10cm/5cm}>
+	\DrawAxisGrids[]{auto}{auto}
+\end{GraphTikz}
+\end{tcblisting}
 
 \pagebreak
 
@@ -1846,6 +1864,7 @@ Solutions of  $f(x)=66$ are \RoundNb[0]{\xMonItscA} \&\ \RoundNb[0]{\xMonItscB} 
 
 \begin{quote}
 \begin{verbatim}
+0.2.7: Ability to specify dimensions for environment (test)
 0.2.6: Linear inequality (work in progress)
 0.2.5: Lagrange interpolation ([french] for the moment) + enhancements
 0.2.4: Bugfiw with [fr] version

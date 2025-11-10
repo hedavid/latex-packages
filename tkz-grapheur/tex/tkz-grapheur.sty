@@ -2,9 +2,10 @@
 % licence    : Released under the LaTeX Project Public License v1.3c or later, see http://www.latex-project.org/lppl.txt
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{tkz-grapheur}[2025/08/21 0.2.6 Des outils en TikZ pour travailler comme avec un grapheur]
+\ProvidesPackage{tkz-grapheur}[2025/11/09 0.2.7 Des outils en TikZ pour travailler comme avec un grapheur]
 
 %====HISTORIQUE
+% v 0.2.7	Gestion de la taille du graphique
 % v 0.2.6	Inégalité linéraire (test)
 % v 0.2.5	Interpolation de Lagrange + améliorations 
 % v 0.2.4	Clé [StyleTrace] pour dotted/dashed par exemple
@@ -62,7 +63,6 @@
 \usetikzlibrary{calc,intersections,patterns,patterns.meta,bbox}
 \RequirePackage{simplekv}
 \RequirePackage{xintexpr}
-%\RequirePackage{polexpr} %plus utile
 \RequirePackage{xstring}
 \RequirePackage{listofitems}
 \if@loadxintreg
@@ -75,7 +75,7 @@
 	\if@lngenglish
 		\sisetup{mode=match,propagate-math-font=true,reset-math-version=false,reset-text-family=false,reset-text-series=false,reset-text-shape=false,text-family-to-math=true,text-series-to-math=true}
 	\else
-		\sisetup{locale=FR,output-decimal-marker={,},mode=match,propagate-math-font=true,reset-math-version=false,reset-text-family=false,reset-text-series=false,reset-text-shape=false,text-family-to-math=true,text-series-to-math=true}%,group-minimum-digits=4}
+		\sisetup{locale=FR,output-decimal-marker={,},mode=match,propagate-math-font=true,reset-math-version=false,reset-text-family=false,reset-text-series=false,reset-text-shape=false,text-family-to-math=true,text-series-to-math=true}%
 	\fi
 \fi
 
@@ -90,8 +90,8 @@
 
 %====COMMANDE POUR NB DECIMAL ALEA ENTRE BORNES 
 \NewDocumentCommand\ChoisirNbAlea{ s O{0} m m O{\monbnalea} }{%
-	\def\tmpborneinf{\xinteval{floor(#3)}}%inf=\tmpborneinf\par%
-	\def\tmpbornesup{\xinteval{ceil(#4)}}%sup=\tmpbornesup\par%
+	\def\tmpborneinf{\xinteval{floor(#3)}}%
+	\def\tmpbornesup{\xinteval{ceil(#4)}}%
 	\xintifboolexpr{#2 == 0}%
 		{%
 			\xdef#5{\fpeval{randint(\tmpborneinf,\tmpbornesup)}}%
@@ -106,7 +106,6 @@
 					{%
 						\xdef\tmpresalea{\fpeval{round(randint(\tmpborneinf,\tmpbornesup)+rand(),#2)}}%
 					}%
-				%essai=\tmpresalea\par
 				\IfBooleanTF{#1}%
 					{%
 						\xintifboolexpr{\tmpresalea < #4 'and' \tmpresalea > #3 }{\def\tmptest{1}}{\def\tmptest{0}}%
@@ -116,7 +115,6 @@
 					}%
 			}%
 			\xdef#5{\tmpresalea}%
-			%res=%
 		}%
 }
 
@@ -370,15 +368,28 @@
 }
 
 %====ENVIRONNEMENT
+\newlength\pflglobalwidth
+\newlength\pflglobalheight
+
 \newlength\pflthickgrad
 \setlength\pflthickgrad{3pt}
 
 \defKV[GraphiqueTikz]{%
-	TailleGrad=\setlength\pflthickgrad{#1}
+	TailleGrad=\setlength\pflthickgrad{#1},%
+	Xmin=\def\pflxmintmp{#1},%
+	Xmax=\def\pflxmaxtmp{#1},%
+	Ymin=\def\pflymintmp{#1},%
+	Ymax=\def\pflymaxtmp{#1},%
+	Taille=\def\pflgraphdims{#1}
 }
 \setKVdefault[GraphiqueTikz]{%
 	AffCadre=false,%
-	TailleGrad=3pt
+	TailleGrad=3pt,%
+	Xmin=-3,%
+	Xmax=3,%
+	Ymin=-3,%
+	Ymax=3,%
+	Taille={}
 }
 
 \NewDocumentEnvironment{GraphiqueTikz}{ O{} D<>{} }%
@@ -388,7 +399,16 @@
 	\restoreKV[GraphiqueTikz]%
 	\setKV[GraphiqueTikz]{#2}%
 	%l'environnement
-	\begin{tikzpicture}[#1]%
+	\IfStrEq{\pflgraphdims}{}%
+		{%
+			\begin{tikzpicture}[#1]%
+		}%
+		{%
+			\StrCut{\pflgraphdims}{/}{\pfltmpwidth}{\pfltmpheight}%
+			\setlength\pflglobalwidth{\fpeval{(\pfltmpwidth)/(\pflxmaxtmp-\pflxmintmp)}pt}%\the\pflglobalwidth+%
+			\setlength\pflglobalheight{\fpeval{(\pfltmpheight)/(\pflymaxtmp-\pflymintmp)}pt}%\the\pflglobalheight%
+			\begin{tikzpicture}[x=\pflglobalwidth,y=\pflglobalheight,Xmin=\pflxmintmp,Xmax=\pflxmaxtmp,Ymin=\pflymintmp,Ymax=\pflymaxtmp,#1]%
+		}%
 		%unités x/y pour des calculs de coordonnées
 		\TikZUnites
 		%noeuds
@@ -510,7 +530,6 @@
 			\ifboolKV[GraphiqueTikzAxes]{Origine}%
 				{%
 					\draw ({\pflOx},{\pflOy}) node[pflnoeud,below left,font={\useKV[GraphiqueTikzAxes]{Police}}] {\FormatterValeurAxex{\pflformataxex}{\pflOx}} ;
-					%\draw (\pflOx,\pflOy) node[below left,font={\useKV[GraphiqueTikzAxes]{Police}}] {\ifboolKV[GraphiqueTikzAxes]{Num}{\num{\pflOx}}{\pflOx}} ;
 				}%
 				{}%
 			%graduations x, sauf si auto...
@@ -518,22 +537,18 @@
 				\IfBooleanTF{#1}%
 					{%
 						\xintifboolexpr{\x == \pflOx}{}{\draw ([yshift={-\pflthickgrad}]{\x},{\pflOy}) node[pflnoeud,below,font={\useKV[GraphiqueTikzAxes]{Police}}] {\FormatterValeurAxex{\pflformataxex}{\x}} ;}
-						%\xintifboolexpr{\x == \pflOx}{}{\draw ([yshift=-\pflthickgrad]\x,\pflOy) node[below,font={\useKV[GraphiqueTikzAxes]{Police}}] {\ifboolKV[GraphiqueTikzAxes]{Num}{\num{\x}}{\x}} ;}
 					}%
 					{%
 						\draw ([yshift={-\pflthickgrad}]{\x},{\pflOy}) node[pflnoeud,below,font={\useKV[GraphiqueTikzAxes]{Police}}] {\FormatterValeurAxex{\pflformataxex}{\x}} ;
-						%\draw ([yshift=-\pflthickgrad]\x,\pflOy) node[below,font={\useKV[GraphiqueTikzAxes]{Police}}] {\ifboolKV[GraphiqueTikzAxes]{Num}{\num{\x}}{\x}} ;
 					}%
 				}%
 			\foreach \y in \tmprangeyvalues {%
 				\IfBooleanTF{#1}%
 					{%
 						\xintifboolexpr{\y == \pflOy}{}{\draw ([xshift={-\pflthickgrad}]{\pflOx},{\y}) node[pflnoeud,left,font={\useKV[GraphiqueTikzAxes]{Police}}] {\FormatterValeurAxey{\pflformataxey}{\y}} ;}
-						%\xintifboolexpr{\y == \pflOy}{}{\draw ([xshift=-\pflthickgrad]\pflOx,\y) node[left,font={\useKV[GraphiqueTikzAxes]{Police}}] {\ifboolKV[GraphiqueTikzAxes]{Num}{\num{\y}}{\y}} ;}
 					}%
 					{%
 						\draw ([xshift={-\pflthickgrad}]{\pflOx},{\y}) node[pflnoeud,left,font={\useKV[GraphiqueTikzAxes]{Police}}] {\FormatterValeurAxey{\pflformataxey}{\y}} ;
-						%\draw ([xshift=-\pflthickgrad]\pflOx,\y) node[left,font={\useKV[GraphiqueTikzAxes]{Police}}] {\ifboolKV[GraphiqueTikzAxes]{Num}{\num{\y}}{\y}} ;
 					}%
 				}%
 		}%
@@ -551,7 +566,6 @@
 		\ifboolKV[GraphiqueTikzDefPoints]{Aff}%
 			{%
 				\MarquerPts*[Style={\useKV[GraphiqueTikzDefPoints]{Style}},Couleur={\useKV[GraphiqueTikzDefPoints]{Couleur}}]{(\tmpnamept)}
-				%\filldraw[{\useKV[GraphiqueTikzDefPoints]{Couleur}}] (\tmpnamept) circle[pflpointc] ;
 			}%
 			{}%
 	}
@@ -758,31 +772,6 @@
 		\draw ([xshift={-\pflthickgrad}]{\pflOx},{\mavaly}) node[pflnoeud,left,font={\useKV[GraphiqueTikzAxes]{Police}}] {\mavalfmty} ;
 	}%
 }
-
-%====POLYNÔMES DE LAGRANGE (merci jfb pour son aide !!!!!!!!!!)
-% \NewDocumentCommand\GenererPolynomeLagrange{ O{polylagrange} m m }{%
-	  % % Input:
-	% % #1 = argument optionnel, nom du polynôme complet
-	% % #2 = liste séparée par virgules x_1, ..., x_N
-	% % #3 = liste séparée par virgules y_1, ..., y_N
-	% \xintdefvar tmp_List_X = [#2];%
-	% \xintdefvar tmp_List_Y = [#3];%
-	% % récupérer la longueur
-	% \edef\tmpN{\xinteval{len(*tmp_List_X)}}%
-	% % assigner les entrées à des variables
-	% \xintdefvar \xintiloop [1+1] LLLLx_\xintiloopindex \ifnum\xintiloopindex<\tmpN\space,\repeat=*tmp_List_X;%
-	% \xintdefvar \xintiloop [1+1] LLLLy_\xintiloopindex \ifnum\xintiloopindex<\tmpN\space,\repeat=*tmp_List_Y;%
-	% % Définition de polynômes
-	% \xintFor* ##1 in {\xintSeq{1}{\tmpN}}\do{%
-		% \PolDef{tmp_L_##1}{%
-			% iter(1; (i==##1)?{omit}{@*(x - LLLLx_\xintiieval{i})}, i=1..\tmpN)%
-		% }%
-		% \PolDef{LLLL_##1}{tmp_L_##1(x)/tmp_L_##1(LLLLx_##1)}%
-		% \PolReduceCoeffs{LLLL_##1}% En général c'est mieux.
-	% }%
-	% % Définition du polynôme  somme des y_i * L_i(x)
-	% \xintdeffloatfunc #1(x) = float_dgt(\xintexpr add(LLLL_\xintieval{i}(x)*(LLLLy_\xintieval{i}), i=1..\tmpN)\relax);%
-% }
 
 \NewDocumentCommand\GenererPolynomeLagrange{ O{polylagrange} m m }{% (merci jfb pour son aide !!!!!!!!!!) syntaxe particulière
 	% #1 = argument optionnel, nom du polynôme complet polylagrange
@@ -2698,11 +2687,21 @@
 
 %====ENVIRONNEMENT
 \defKV[GraphicTikz]{%
-	GradThick=\setlength\pflthickgrad{#1}
+	GradThick=\setlength\pflthickgrad{#1},%
+	Xmin=\def\pflxmintmp{#1},%
+	Xmax=\def\pflxmaxtmp{#1},%
+	Ymin=\def\pflymintmp{#1},%
+	Ymax=\def\pflymaxtmp{#1},%
+	Size=\def\pflgraphdims{#1}
 }
 \setKVdefault[GraphicTikz]{%
 	Frame=false,%
-	GradThick=3pt
+	GradThick=3pt,%
+	Xmin=-3,%
+	Xmax=3,%
+	Ymin=-3,%
+	Ymax=3,%
+	Size={}
 }
 
 \NewDocumentEnvironment{GraphTikz}{ O{} D<>{} }%
@@ -2712,7 +2711,16 @@
 	\restoreKV[GraphicTikz]%
 	\setKV[GraphicTikz]{#2}%
 	%l'environnement
-	\begin{tikzpicture}[#1]%
+	\IfStrEq{\pflgraphdims}{}%
+		{%
+			\begin{tikzpicture}[#1]%
+		}%
+		{%
+			\StrCut{\pflgraphdims}{/}{\pfltmpwidth}{\pfltmpheight}%
+			\setlength\pflglobalwidth{\fpeval{(\pfltmpwidth)/(\pflxmaxtmp-\pflxmintmp)}pt}%\the\pflglobalwidth+%
+			\setlength\pflglobalheight{\fpeval{(\pfltmpheight)/(\pflymaxtmp-\pflymintmp)}pt}%\the\pflglobalheight%
+			\begin{tikzpicture}[x=\pflglobalwidth,y=\pflglobalheight,Xmin=\pflxmintmp,Xmax=\pflxmaxtmp,Ymin=\pflymintmp,Ymax=\pflymaxtmp,#1]%
+		}%
 		%unités x/y pour des calculs de coordonnées
 		\TikZUnits
 		%noeuds
