@@ -1,0 +1,179 @@
+% !TeX TXS-program:compile = txs:///arara
+% arara: pdflatex: {shell: no, synctex: no, interaction: batchmode}
+% arara: pdflatex: {shell: no, synctex: no, interaction: batchmode}
+
+\documentclass{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{vscodeicons}
+\usepackage{longtable}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{fancyvrb}
+\usepackage{shortvrb}
+\MakeShortVerb{\|}
+\setlength{\parindent}{0pt}
+
+\newenvironment{vscodeiconscase}
+{%
+	\begin{longtable}{cllr}%icon + name + macro + page
+		\cmidrule[\heavyrulewidth]{1-4}% \toprule
+		\bfseries Icon & \bfseries Name & \bfseries Direct command & \bfseries PDF page \\
+		\cmidrule{1-4}
+		\endhead
+}%
+{%
+		\cmidrule[\heavyrulewidth]{1-4}
+	\end{longtable}%
+}
+
+\NewDocumentCommand{\showcasevscodeicondefault}{mm}{%name + macro + page
+	\Large\vscodeicon{#1} & \itshape #1 & \ttfamily \textbackslash vscodeicon\{#1\} & \sffamily #2 \\
+}
+
+\NewDocumentCommand{\showcasevscodeiconfiletype}{mm}{%name + macro + page
+	\Large\vscodeicon[filetype]{#1} & \itshape #1 & \ttfamily \textbackslash vscodeicon[filetype]\{#1\} & \sffamily #2 \\
+}
+
+\NewDocumentCommand{\showcasevscodeiconfoldertype}{mm}{%name + macro + page
+	\Large\vscodeicon[foldertype]{#1} & \itshape #1 & \ttfamily \textbackslash vscodeicon[foldertype]\{#1\} & \sffamily #2 \\
+}
+
+\begin{document}
+
+\title{The \textsf{vscodeicons} package (0.1.0) -- \today}
+\author{%
+	Cédric Pierquet\\%
+	\url{https://github.com/vscode-icons/vscode-icons} (Source version v12.15.0)\\%
+	\url{https://github.com/cpierquet/latex-packages/tree/main/vscodeicons} (\LaTeX{} package)
+}
+\date{cpierquet -- at -- outlook . fr}\maketitle
+
+This package provides \LaTeX{} support for the vscode icons project (\url{https://github.com/vscode-icons/vscode-icons}).
+
+%\medskip
+%
+%\hspace*{5mm}\fbox{\begin{minipage}{0.75\linewidth}{\emph{A set of 5944 free MIT-licensed high-quality SVG/PDF icons for you to use in your web projects. Each icon is designed on a 24x24 grid and a 2px stroke.}}\end{minipage}}
+
+\medskip
+
+To use \textsf{vscodeicons} in your document, include the package with |\usepackage{vscodeicons}|.
+
+An icon can be accessed using the icon name. A list of all included icons with their respective \textit{page} can be found at the end of this document.
+
+\section{Example}
+
+\begin{Verbatim}[frame=single]
+...
+\usepackage{vscodeicons}
+...
+\begin{document}
+...
+Inline\vscodeicon{folder}version
+...
+\end{document}
+\end{Verbatim}
+
+Result: Inline\vscodeicon{folder}version
+
+\section{Usage}
+
+\subsection{Generic macro}
+
+\begin{Verbatim}[frame=single]
+\vscodeicon%
+  [filetype=TF,foldertype=TF,height=...,(d)strut=...]%
+  <includegraphics options>%
+  {name}
+\end{Verbatim}
+
+The boolean \texttt{[filetype]} activate \textsf{filetype} version of icon (if available) and the boolean \texttt{[foldertype]} activate \textsf{foldertype} version of icon (if available).
+
+And key \texttt{[height=...]} can be:
+
+\begin{itemize}
+	\item \texttt{dauto} (by default): inline insertion with height/depth;
+	\item \texttt{auto}: inline insertion with height/nodepth;
+	\item \texttt{a length}: normal insertion with fixed height;
+	\item \texttt{manuel height/depth}: normal insertion with fixed height/depth.
+\end{itemize}
+
+The keys \texttt{[(d)strut=...]} can be used to set the \textit{reference} box for dimension calculations.
+
+\medskip
+
+By default, icons are given with a small border, so the given height is the height of the \textit{full} box, not the hight of the icons.
+
+\medskip
+
+Example: Inline{\setlength\fboxsep{0pt}\fbox{\vscodeicon{root-folder}}}version or inline {\setlength\fboxsep{0pt}\fbox{\vscodeicon{root-folder}}} version.
+
+\pagebreak
+
+\subsection{Examples}
+
+\begin{Verbatim}[frame=single]
+%normal version: inline with automatic height/depth (from qX characters)
+\vscodeicon[filetype,height=dauto]{arduino} %or \vscodeicon[filetype]{arduino}
+\end{Verbatim}
+
+{\Huge q\vscodeicon[filetype]{arduino}X}
+
+\begin{Verbatim}[frame=single]
+%normal version: inline with automatic height/depth (from specified characters)
+(q\vscodeicon[foldertype,height=dauto,dstrut=(qB)]{story}B)
+\end{Verbatim}
+
+{\Huge (q\vscodeicon[foldertype,height=dauto,dstrut=(qB)]{story}B)}
+
+\begin{Verbatim}[frame=single]
+%normal version: inline with automatic height (from X character) default version
+\vscodeicon[foldertype,height=auto]{story}
+\end{Verbatim}
+
+{\Huge X\vscodeicon[foldertype,height=auto]{story}X}
+
+\begin{Verbatim}[frame=single]
+%normal version: inline with manual height/depth
+\vscodeicon[foldertype,height={0.8em/-0.4em}]{story}
+\end{Verbatim}
+
+{\Huge qb\vscodeicon[foldertype,height={0.8em/-0.4em}]{story}Xz}
+
+\begin{Verbatim}[frame=single]
+%fixed height
+\vscodeicon[height=2in]{folder-opened}
+\end{Verbatim}
+
+\vscodeicon[height=2in]{folder-opened}
+
+\subsection{Used packages}
+
+\texttt{ifthen}, \texttt{calc}, \texttt{graphicx}, \texttt{xstring} and \texttt{simplekv} are loaded and used by the package.
+
+\subsection{Bugs}
+
+For bug reports and feature requests, report on the GitHub repository \url{https://github.com/cpierquet/latex-packages/issues}.
+
+\newpage
+
+\section{List of icons}
+
+\subsection{Default version (5 icons)}
+
+The \textsf{PDF} file is \texttt{vscodeicons-default-all.pdf}
+
+\input{vscodeiconsdefaultbindings}
+
+\subsection{FileType version (1061 icons)}
+
+The \textsf{PDF} file is \texttt{vscodeicons-filetype-all.pdf}
+
+\input{vscodeiconsfiletypebindings}
+
+\subsection{FolderType version (362 icons)}
+
+The \textsf{PDF} file is \texttt{vscodeicons-foldertype-all.pdf}
+
+\input{vscodeiconsfoldertypebindings}
+
+\end{document}
