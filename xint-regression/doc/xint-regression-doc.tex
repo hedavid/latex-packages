@@ -5,6 +5,7 @@
 \documentclass[11pt,a4paper]{ltxdoc}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
+\usepackage{amssymb}
 \usepackage{xint-regression}
 \usepackage{fancyvrb}
 \usepackage{fancyhdr}
@@ -28,8 +29,8 @@
 \hypersetup{pdfborder=0 0 0}
 \usepackage[margin=2cm]{geometry}
 \setlength{\parindent}{0pt}
-\def\TPversion{0.1.1}
-\def\TPdate{05/05/2025}
+\def\TPversion{0.1.2}
+\def\TPdate{25/11/2025}
 \usepackage{soul}
 \usepackage{tabularray}
 \sethlcolor{lightgray!25}
@@ -78,13 +79,13 @@
 \def\LISTEX{1,2,3,4,5,6}
 \def\LISTEY{8.74,8.80,9.52,10.42,11.83,14.62}
 
-\xintexpreg[Alt]{\LISTEX}{\LISTEY}             %raw results
+\xintEXPreg[Alt]{\LISTEX}{\LISTEY}             %raw results
 $a \approx \exprega$ and $b \approx \expregb$
 
-\xintexpreg[Alt,round=2]{\LISTEX}{\LISTEY}     %rounded results
+\xintEXPreg[Alt,round=2]{\LISTEX}{\LISTEY}     %rounded results
 $a \approx \exprega$ and $b \approx \expregb$\\
 
-So $y \approx \exprega x+\expregb$.
+So $y \approx \mathrm{e}^{\exprega x+\expregb}$.
 \end{tcblisting}
 
 \vspace*{5mm}
@@ -93,10 +94,10 @@ So $y \approx \exprega x+\expregb$.
 \def\LISTEXX{0,50,100,140}
 \def\LISTEYY{275,290,315,350}
 
-\xintexpoffreg[offset=250]{\LISTEXX}{\LISTEYY}             %raw results
+\xintEXPOFFreg[offset=250]{\LISTEXX}{\LISTEYY}             %raw results
 $a \approx \expregoffa$ and $b \approx \expregoffb$
 
-\xintexpoffreg[offset=250,round=2/1]{\LISTEXX}{\LISTEYY}   %rounded results
+\xintEXPOFFreg[offset=250,round=2/1]{\LISTEXX}{\LISTEYY}   %rounded results
 $a \approx \expregoffa$ and $b \approx \expregoffb$\\
 
 So $y \approx 250+\expregoffb e^{\expregoffa x}$
@@ -134,11 +135,19 @@ This package offers \textsf{xint}-based commands for working with classical regr
 	\item cubic regression $ax^3+bx^2+cx+d$ ;
 	\item power regression $ax^b$ ;
 	\item exponential regression $ab^x$ or $e^{ax+b}$ or $be^{ax}$ or $C + be^{ax}$ ;
-	\item logarithmic regression $a+b\log(x)$ ;
+	\item logarithmic regression $a+b\ln(x)$ ;
 	\item hyperbolic regression $a+\displaystyle\frac{b}{x}$.
 \end{itemize}
 
 For each type of regression, results can be stored in macros, either raw or with rounding (with individuals \MontreCode{[optional keys]}).
+
+\smallskip
+
+For example, if \MontreCode{[coeffa=xxA]}, the macro that will contain the value of coefficient \texttt{a} will be  \MontreCode{\textbackslash xxA}.
+
+\medskip
+
+$\blacktriangleright$ If the lists differ in size, operations are applied only to the elements within the range of the shorter list.
 
 \subsection{Packages used}
 
@@ -159,17 +168,19 @@ Nevertheless, it is advisable to be cautious about the results obtained and thos
 
 \section{The commands}
 
-\subsection{Linear regression}
+\subsection{Linear regression (xintLINreg or xintlinreg)}
 
 The equation is \fbox{$ax+b$}.
 
 \begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5,listing only}
-\xintlinreg[coeffa=...,coeffa=...,round=...]{xlist}{ylist}
+\xintLINreg[coeffa=...,coeffa=...,coeffr=...,coeffrr=...,round=...]{xlist}{ylist}
 \end{tcblisting}
 
 By default, \MontreCode{coeffa=linrega} ; \MontreCode{coeffb=linregb} and \MontreCode{round} is empty.
 
-\MontreCode{round=...} can be given within \MontreCode{round=global} or \MontreCode{round=a/b/...}.
+By default, \MontreCode{coeffr=linregr} ; \MontreCode{coeffrr=linregrr} and \MontreCode{round} is empty.
+
+\MontreCode{round=...} can be given within \MontreCode{round=global} or \MontreCode{round=a/b}.
 
 \def\LLX{83,71,64,69,69,64,68,59,81,91,57,65,58,62}%
 \def\LLY{183,168,171,178,176,172,165,158,183,182,163,175,164,175}%
@@ -181,28 +192,29 @@ By default, \MontreCode{coeffa=linrega} ; \MontreCode{coeffb=linregb} and \Montr
 
 \begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5}
 %default output
-\xintlinreg{\LLX}{\LLY}%
-$a \approx \linrega$ and $b \approx \linregb$
+\xintLINreg{\LLX}{\LLY}%
+$a \approx \linrega$ and $b \approx \linregb$ \\
+$r \approx \linregr$ and $r^2 \approx \linregrr$
 \end{tcblisting}
 
 \begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5}
 %personal macros + global rounding
-\xintlinreg[coeffa=LINa,coeffb=LINb,round=2]{\LLX}{\LLY}%
+\xintLINreg[coeffa=LINa,coeffb=LINb,round=2]{\LLX}{\LLY}%
 $a \approx \LINa$ and $b \approx \LINb$
 \end{tcblisting}
 
 \begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5}
 %personal macros + individual rounding
-\xintlinreg[coeffa=LINEARa,coeffb=LINEARb,round=2/0]{\LLX}{\LLY}%
+\xintLINreg[coeffa=LINEARa,coeffb=LINEARb,round=2/0]{\LLX}{\LLY}%
 $a \approx \LINEARa$ and $b \approx \LINEARb$
 \end{tcblisting}
 
-\subsection{Quadratic regression}
+\subsection{Quadratic regression (xintQUADreg or xintquadreg)}
 
 The equation is \fbox{$ax^2+bx+c$}.
 
 \begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5,listing only}
-\xintquadreg[coeffa=...,coeffb=...,coeffc=...,round=...]{xlist}{ylist}
+\xintQUADreg[coeffa=...,coeffb=...,coeffc=...,round=...]{xlist}{ylist}
 \end{tcblisting}
 
 By default, \MontreCode{coeffa=quadrega} ; \MontreCode{coeffb=quadregb}, \MontreCode{coeffc=quadrega} and \MontreCode{round} is empty.
@@ -219,28 +231,28 @@ By default, \MontreCode{coeffa=quadrega} ; \MontreCode{coeffb=quadregb}, \Montre
 
 \begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5}
 %default output
-\xintquadreg{\LLX}{\LLY}%
+\xintQUADreg{\LLX}{\LLY}%
 $a \approx \quadrega$ ; $b \approx \quadregb$ and $c \approx \quadregc$
 \end{tcblisting}
 
 \begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5}
 %personal macros + global rounding
-\xintquadreg[coeffa=QUADa,coeffb=QUADb,coeffc=QUADc,round=2]{\LLX}{\LLY}%
+\xintQUADreg[coeffa=QUADa,coeffb=QUADb,coeffc=QUADc,round=2]{\LLX}{\LLY}%
 $a \approx \QUADa$ ; $b \approx \QUADb$ and $c \approx \QUADc$
 \end{tcblisting}
 
 \begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5}
 %personal macros + individual rounding
-\xintquadreg[coeffa=QUADRAa,coeffb=QUADRAb,coeffc=QUADRAc,round=4/3/2]{\LLX}{\LLY}%
+\xintQUADreg[coeffa=QUADRAa,coeffb=QUADRAb,coeffc=QUADRAc,round=4/3/2]{\LLX}{\LLY}%
 $a \approx \QUADRAa$ ; $b \approx \QUADRAb$ and $c \approx \QUADRAc$
 \end{tcblisting}
 
-\subsection{Cubic regression}%, hyperbolic and logarithmic regression}
+\subsection{Cubic regression (xintCUBreg or xintcubreg)}%, hyperbolic and logarithmic regression}
 
 The equation for cubic is \fbox{$ax^3+bx^2+cx+d$}.
 
 \begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5,listing only}
-\xintcubreg[coeffa=...,coeffb=...,coeffc=...,coeffd=...,round=...]{xlist}{ylist}
+\xintCUBreg[coeffa=...,coeffb=...,coeffc=...,coeffd=...,round=...]{xlist}{ylist}
 \end{tcblisting}
 
 By default, \MontreCode{coeffa=cubrega} ; \MontreCode{coeffb=cubregb} ; \MontreCode{coeffc=cubregc} and \MontreCode{coeffd=cubregd}.
@@ -252,16 +264,16 @@ By default, \MontreCode{coeffa=cubrega} ; \MontreCode{coeffb=cubregb} ; \MontreC
 
 \begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5}
 %individual roudings
-\xintcubreg[round=5/3/2/1]{\LLX}{\LLY}%
+\xintCUBreg[round=5/3/2/1]{\LLX}{\LLY}%
 $a \approx \cubrega$ ; $b \approx \cubregb$ ; $c \approx \cubregc$ and $d \approx \cubregd$
 \end{tcblisting}
 
-\subsection{Hyperbolic regression}
+\subsection{Hyperbolic regression (xintHYPreg or xinthypreg)}
 
 The equation for hyperbolic is \fbox{$a+\displaystyle\frac{b}{x}$}.
 
 \begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5,listing only}
-\xinthypreg[coeffa=...,coeffb=...,round=...]{xlist}{ylist}
+\xintHYPreg[coeffa=...,coeffb=...,round=...]{xlist}{ylist}
 \end{tcblisting}
 
 By default, \MontreCode{coeffa=hyprega} and \MontreCode{coeffb=hypregb}.
@@ -273,16 +285,16 @@ By default, \MontreCode{coeffa=hyprega} and \MontreCode{coeffb=hypregb}.
 
 \begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5}
 %global roudings
-\xinthypreg[round=2]{\LLX}{\LLY}%
+\xintHYPreg[round=2]{\LLX}{\LLY}%
 $a \approx \hyprega$ and $b \approx \hypregb$
 \end{tcblisting}
 
-\subsection{Logarithmic regression}
+\subsection{Logarithmic regression (xintLOGreg or xintlogreg)}
 
 The equation for logarithmic is \fbox{$a+b\,\log(x)$}.
 
 \begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5,listing only}
-\xintlogreg[coeffa=...,coeffb=...,round=...]{xlist}{ylist}
+\xintLOGreg[coeffa=...,coeffb=...,round=...]{xlist}{ylist}
 \end{tcblisting}
 
 By default, \MontreCode{coeffa=logrega} and \MontreCode{coeffb=logregb}.
@@ -294,16 +306,16 @@ By default, \MontreCode{coeffa=logrega} and \MontreCode{coeffb=logregb}.
 
 \begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5}
 %individual roudings
-\xintlogreg[round=1/4]{\LLX}{\LLY}%
+\xintLOGreg[round=1/4]{\LLX}{\LLY}%
 $a \approx \logrega$ and $b \approx \logregb$
 \end{tcblisting}
 
-\subsection{Power regression}
+\subsection{Power regression (xintPOWreg or xintpowreg)}
 
 The equation for power is \fbox{$a \times x^{b}$}.
 
 \begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5,listing only}
-\xintpowreg[coeffa=...,coeffb=...,round=...]{xlist}{ylist}
+\xintPOWreg[coeffa=...,coeffb=...,round=...]{xlist}{ylist}
 \end{tcblisting}
 
 By default, \MontreCode{coeffa=powrega} and \MontreCode{coeffb=powregb}.
@@ -315,7 +327,7 @@ By default, \MontreCode{coeffa=powrega} and \MontreCode{coeffb=powregb}.
 
 \begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5}
 %default output
-\xintpowreg{\LLX}{\LLY}%
+\xintPOWreg{\LLX}{\LLY}%
 $a \approx \powrega$ and $b \approx \powregb$
 \end{tcblisting}
 
@@ -324,15 +336,15 @@ $a \approx \powrega$ and $b \approx \powregb$
 Available regressions are :
 
 \begin{itemize}
-	\item \fbox{$a \times b^{x}$} ;
-	\item \fbox{$e^{ax+b}$} ;
-	\item \fbox{$b\,e^{ax}$} ;
-	\item \fbox{$C+b\,e^{ax}$}.
+	\item \fbox{$a \times b^{x}$} (\texttt{xintEXPABreg} or \texttt{xintexpabreg});
+	\item \fbox{$e^{ax+b}$} (\texttt{xintEXPreg} or \texttt{xintexpreg});
+	\item \fbox{$b\,e^{ax}$} (\texttt{xintEXPreg} or \texttt{xintexpreg} with \MontreCode{[Alt]} key);
+	\item \fbox{$C+b\,e^{ax}$} (\texttt{xintEXPOFFreg} or \texttt{xintexpoffreg}).
 \end{itemize}
 
 \begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5,listing only}
 %a*b^x
-\xintexpabreg[coeffa=...,coeffb=...,round=...]{xlist}{ylist}
+\xintEXPABreg[coeffa=...,coeffb=...,round=...]{xlist}{ylist}
 \end{tcblisting}
 
 By default, \MontreCode{coeffa=expabrega} and \MontreCode{coeffb=expabregb}.
@@ -341,7 +353,7 @@ By default, \MontreCode{coeffa=expabrega} and \MontreCode{coeffb=expabregb}.
 
 \begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5,listing only}
 %e^(ax+b)
-\xintexpreg[coeffa=...,coeffb=...,round=...]{xlist}{ylist}
+\xintEXPreg[coeffa=...,coeffb=...,round=...]{xlist}{ylist}
 \end{tcblisting}
 
 By default, \MontreCode{coeffa=exprega} and \MontreCode{coeffb=expregb}.
@@ -350,7 +362,7 @@ By default, \MontreCode{coeffa=exprega} and \MontreCode{coeffb=expregb}.
 
 \begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5,listing only}
 %b*e^(ax)
-\xintexpreg[Alt,coeffa=...,coeffb=...,round=...]{xlist}{ylist}
+\xintEXPreg[Alt,coeffa=...,coeffb=...,round=...]{xlist}{ylist}
 \end{tcblisting}
 
 By default, \MontreCode{coeffa=exprega} and \MontreCode{coeffb=expregb}.
@@ -359,7 +371,7 @@ By default, \MontreCode{coeffa=exprega} and \MontreCode{coeffb=expregb}.
 
 \begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5,listing only}
 %C+b*e^(ax)
-\xintexpoffreg[offset=C,coeffa=...,coeffb=...,round=...]{xlist}{ylist}
+\xintEXPOFFreg[offset=C,coeffa=...,coeffb=...,round=...]{xlist}{ylist}
 \end{tcblisting}
 
 By default, \MontreCode{coeffa=expregoffa} and \MontreCode{coeffb=expregoffb}.
@@ -371,19 +383,19 @@ By default, \MontreCode{coeffa=expregoffa} and \MontreCode{coeffb=expregoffb}.
 
 \begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5}
 %a*b^x
-\xintexpabreg{\LLX}{\LLY}
+\xintEXPABreg{\LLX}{\LLY}
 $a \approx \expabrega$ and $b \approx \expabregb$
 
 %e^(ax+b)
-\xintexpreg{\LLX}{\LLY}
+\xintEXPreg{\LLX}{\LLY}
 $a \approx \exprega$ and $b \approx \expregb$
 
 %b*e^(ax)
-\xintexpreg[Alt]{\LLX}{\LLY}
+\xintEXPreg[Alt]{\LLX}{\LLY}
 $a \approx \exprega$ and $b \approx \expregb$
 
 %C+b*e^(ax)
-\xintexpoffreg[offset=50]{\LLX}{\LLY}
+\xintEXPOFFreg[offset=50]{\LLX}{\LLY}
 $a \approx \expregoffa$ and $b \approx \expregoffb$
 \end{tcblisting}
 
@@ -401,7 +413,7 @@ With \MontreCode{[locale=FR]} :
 
 \begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5}
 %a*b^x
-\xintexpabreg[round=1/3]{\LLX}{\LLY}%
+\xintEXPABreg[round=1/3]{\LLX}{\LLY}%
 So we obtain $y \approx \num{\expabrega} \times e^{\num{\expabregb}\times x}$
 \end{tcblisting}
 
@@ -425,7 +437,7 @@ For example, with \textsf{tkz-grapheur} package :
 	%points
 	\TracerNuage[Style=o,CouleurNuage=red]{\LISTEXX}{\LISTEYY}
 	%regression expoffset C+b*epx(ax)
-	\xintexpoffreg[offset=250]{\LISTEXX}{\LISTEYY}
+	\xintEXPOFFreg[offset=250]{\LISTEXX}{\LISTEYY}
 	\DefinirCourbe[Nom=ajust,Couleur=blue,Trace]
 		<ajust>
 		{250+\expregoffb*exp(\expregoffa*x)}
@@ -441,6 +453,7 @@ For example, with \textsf{tkz-grapheur} package :
 
 \begin{quote}
 \begin{verbatim}
+0.1.2: r and r² for linreg + new names (tks to quark67 for suggestion)
 0.1.1: Bugfix
 0.1.0: Initial version
 \end{verbatim}

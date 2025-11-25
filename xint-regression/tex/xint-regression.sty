@@ -3,7 +3,8 @@
 % or later, see http://www.latex-project.org/lppl.txt
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{xint-regression}[2025/05/05 0.1.1 Some classic regressions, with xint]
+\ProvidesPackage{xint-regression}[2025/11/25 0.1.2 Some classic regressions, with xint]
+%0.1.2	r and r²& new names (tks to quark67 for suggestion)
 %0.1.1	Bugfix
 %0.1.0	Initial version
 
@@ -17,12 +18,16 @@
 \defKV[CoefRegLin]{%
 	coeffa=\def\RegLinCoefa{#1},%
 	coeffb=\def\RegLinCoefb{#1},%
+	coeffr=\def\RegLinCoeffr{#1},%
+	coeffrr=\def\RegLinCoeffrr{#1},%
 	round=\def\RegLinRound{#1}
 }
 
 \setKVdefault[CoefRegLin]{%
 	coeffa=linrega,%
 	coeffb=linregb,%
+	coeffr=linregr,%
+	coeffrr=linregrr,%
 	round={}
 }
 
@@ -84,8 +89,11 @@
 			\expandafter\def\csname\RegLinCoefa\endcsname{\xintfloateval{round(\tmp@reg@lin@a,\xintarrondisreglina)}}%
 			\expandafter\def\csname\RegLinCoefb\endcsname{\xintfloateval{round(\tmp@reg@lin@b,\xintarrondisreglinb)}}%
 		}%
+	%R/R2
+	\expandafter\def\csname\RegLinCoeffr\endcsname{\xintfloateval{\LXYvar/sqrt(\LXvar*\LYvar)}}%
+	\expandafter\def\csname\RegLinCoeffrr\endcsname{\xintfloateval{(\csname\RegLinCoeffr\endcsname)*(\csname\RegLinCoeffr\endcsname)}}%
 }
-
+\NewCommandCopy\xintLINreg\xintlinreg
 
 
 %régression quadratique
@@ -171,6 +179,7 @@
 			\expandafter\def\csname\RegQuadCoefc\endcsname{\xintfloateval{round(\tmp@reg@quad@c,\xintarrondisregquadc)}}%
 		}%
 }
+\NewCommandCopy\xintQUADreg\xintquadreg
 
 %régression puissance a*x^b
 \defKV[CoeffRegPuiss]{%
@@ -195,7 +204,8 @@
 	\readlist*\LX{\xliste}%
 	\readlist*\LY{\yliste}%
 	%taille des listes
-	\def\LNB{\inteval{\LXlen}}%
+	\xdef\LNB{\fpeval{min(\LXlen,\LYlen)}}%
+	%\def\LNB{\inteval{\LXlen}}%
 	%somme importantes
 	\xdef\LlnXSomme{0}%
 	\xdef\LlnYSomme{0}%
@@ -229,6 +239,7 @@
 			\expandafter\def\csname\RegPuissCoefa\endcsname{\xintfloateval{round(\tmp@reg@pow@a,\xintarrondisregpowa)}}%
 		}%
 }
+\NewCommandCopy\xintPOWreg\xintpowreg
 
 %régression a*b^x
 \defKV[CoeffRegExpoAB]{%
@@ -253,7 +264,8 @@
 	\readlist*\LX{\xliste}%
 	\readlist*\LY{\yliste}%
 	%taille des listes
-	\def\LNB{\inteval{\LXlen}}%
+	\xdef\LNB{\fpeval{min(\LXlen,\LYlen)}}%
+	%\def\LNB{\inteval{\LXlen}}%
 	%somme importantes
 	\xdef\LXlnYSomme{0}%
 	\xdef\LXSomme{0}%
@@ -287,6 +299,7 @@
 			\expandafter\def\csname\RegExpoCoefa\endcsname{\xintfloateval{round(\tmp@reg@expab@a,\xintarrondisregexpoaba)}}%
 		}%
 }
+\NewCommandCopy\xintEXPABreg\xintexpabreg
 
 %régression a+b/x
 \defKV[CoeffRegHyperb]{%
@@ -311,7 +324,8 @@
 	\readlist*\LX{\xliste}%
 	\readlist*\LY{\yliste}%
 	%taille des listes
-	\def\LNB{\inteval{\LXlen}}%
+	\xdef\LNB{\fpeval{min(\LXlen,\LYlen)}}%
+	%\def\LNB{\inteval{\LXlen}}%
 	%somme importantes
 	\xdef\LinvXSomme{0}%
 	\xdef\LYdivXSomme{0}%
@@ -345,6 +359,7 @@
 			\expandafter\def\csname\RegHyperbCoefa\endcsname{\xintfloateval{round(\tmp@reg@hyp@a,\xintarrondisreghypa)}}%
 		}%
 }
+\NewCommandCopy\xintHYPreg\xinthypreg
 
 %régression a+b*ln(x)
 \defKV[CoeffRegLog]{%
@@ -369,7 +384,8 @@
 	\readlist*\LX{\xliste}%
 	\readlist*\LY{\yliste}%
 	%taille des listes
-	\def\LNB{\inteval{\LXlen}}%
+	\xdef\LNB{\fpeval{min(\LXlen,\LYlen)}}%
+	%\def\LNB{\inteval{\LXlen}}%
 	%somme importantes
 	\xdef\LYlnXSomme{0}%
 	\xdef\LlnXSomme{0}%
@@ -403,6 +419,7 @@
 			\expandafter\def\csname\RegLogCoefa\endcsname{\xintfloateval{round(\tmp@reg@log@a,\xintarrondisregloga)}}%
 		}%
 }
+\NewCommandCopy\xintLOGreg\xintlogreg
 
 %régression e^(ax+b)
 \defKV[CoeffRegExpo]{%
@@ -428,7 +445,8 @@
 	\readlist*\LX{\xliste}%
 	\readlist*\LY{\yliste}%
 	%taille des listes
-	\def\LNB{\inteval{\LXlen}}%
+	\xdef\LNB{\fpeval{min(\LXlen,\LYlen)}}%
+	%\def\LNB{\inteval{\LXlen}}%
 	%somme importantes
 	\xdef\LXlnYSomme{0}%
 	\xdef\LXSomme{0}%
@@ -484,6 +502,7 @@
 				}%
 		}%
 }
+\NewCommandCopy\xintEXPreg\xintexpreg
 
 %régression C + b*e^(ax)
 \defKV[CoeffRegExpoOff]{%
@@ -510,7 +529,8 @@
 	\readlist*\LX{\xliste}%
 	\readlist*\LY{\yliste}%
 	%taille des listes
-	\def\LNB{\inteval{\LXlen}}%
+	\xdef\LNB{\fpeval{min(\LXlen,\LYlen)}}%
+	%\def\LNB{\inteval{\LXlen}}%
 	%somme importantes
 	\xdef\LXlnYSomme{0}%
 	\xdef\LXSomme{0}%
@@ -544,6 +564,7 @@
 			\expandafter\def\csname\RegExpoOffCoefa\endcsname{\xintfloateval{round(\TmpCoeffExpoA,\xintarrondisregexpoffa)}}%
 		}%
 }
+\NewCommandCopy\xintEXPOFFreg\xintexpoffreg
 
 %régression cubique
 \defKV[CoeffRegCubic]{%
@@ -572,7 +593,8 @@
 	\readlist*\LX{\xliste}%
 	\readlist*\LY{\yliste}%
 	%taille des listes
-	\def\LNB{\inteval{\LXlen}}%
+	\xdef\LNB{\fpeval{min(\LXlen,\LYlen)}}%
+	%\def\LNB{\inteval{\LXlen}}%
 	%somme importantes
 	\xdef\LXSomme{0}%
 	\xdef\LXdSomme{0}%
@@ -668,5 +690,6 @@
 			\expandafter\def\csname\RegCubicCoefd\endcsname{\xintfloateval{round(\tmp@reg@cub@d,\xintarrondisregcubd)}}%
 		}%
 }
+\NewCommandCopy\xintCUBreg\xintcubreg
 
 \endinput
