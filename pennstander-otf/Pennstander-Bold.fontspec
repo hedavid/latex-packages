@@ -1,0 +1,7 @@
+\defaultfontfeatures[Pennstander-Bold]
+{
+  UprightFont=Pennstander-Bold.otf,
+  ItalicFont=Pennstander-ItalicBold.otf,
+  BoldFont=Pennstander-Black.otf,
+  BoldItalicFont=Pennstander-ItalicBlack.otf
+}

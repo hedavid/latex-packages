@@ -1,0 +1,8 @@
+\defaultfontfeatures[Pennstander-SemiBold]
+{
+  UprightFont=Pennstander-SemiBold.otf,
+  ItalicFont=Pennstander-ItalicSemiBold.otf,
+  BoldFont=Pennstander-ExtraBold.otf,
+  BoldItalicFont=Pennstander-ItalicExtraBold.otf,
+  Contextuals=Alternate
+}

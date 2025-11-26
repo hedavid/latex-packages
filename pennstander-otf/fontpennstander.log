@@ -1,0 +1,1586 @@
+This is LuaHBTeX, Version 1.22.0 (TeX Live 2025)  (format=lualatex 2025.11.26)  26 NOV 2025 21:32
+**fontpennstander.tex
+(./fontpennstander.tex
+LaTeX2e <2025-11-01>
+L3 programming layer <2025-11-14>
+Lua module: luaotfload 2024-12-03 v3.29 Lua based OpenType font support
+Lua module: lualibs 2023-07-13 v2.76 ConTeXt Lua standard libraries.
+Lua module: lualibs-extended 2023-07-13 v2.76 ConTeXt Lua libraries -- extended 
+collection.
+luaotfload | conf : Root cache directory is "C:/texlive/2025/texmf-var/luatex-ca
+che/generic/names".
+luaotfload | init : Loading fontloader "fontloader-2023-12-28.lua" from kpse-res
+olved path "c:/texlive/2025/texmf-dist/tex/luatex/luaotfload/fontloader-2023-12-
+28.lua".
+Lua-only attribute luaotfload@noligature = 1
+luaotfload | init : Context OpenType loader version 3.134
+Inserting `luaotfload.node_processor' in `pre_linebreak_filter'.
+Inserting `luaotfload.node_processor' in `hpack_filter'.
+Inserting `luaotfload.glyph_stream' in `glyph_stream_provider'.
+Inserting `luaotfload.define_font' in `define_font'.
+Lua-only attribute luaotfload_color_attribute = 2
+luaotfload | conf : Root cache directory is "C:/texlive/2025/texmf-var/luatex-ca
+che/generic/names".
+Inserting `luaotfload.harf.strip_prefix' in `find_opentype_file'.
+Inserting `luaotfload.harf.strip_prefix' in `find_truetype_file'.
+Removing  `luaotfload.glyph_stream' from `glyph_stream_provider'.
+Inserting `luaotfload.harf.glyphstream' in `glyph_stream_provider'.
+Inserting `luaotfload.harf.finalize_vlist' in `post_linebreak_filter'.
+Inserting `luaotfload.harf.finalize_hlist' in `hpack_filter'.
+Inserting `luaotfload.cleanup_files' in `wrapup_run'.
+Inserting `luaotfload.harf.finalize_unicode' in `finish_pdffile'.
+Inserting `luaotfload.glyphinfo' in `glyph_info'.
+Lua-only attribute luaotfload.letterspace_done = 3
+Inserting `luaotfload.aux.set_sscale_dimens' in `luaotfload.patch_font'.
+Inserting `luaotfload.aux.set_font_index' in `luaotfload.patch_font'.
+Inserting `luaotfload.aux.patch_cambria_domh' in `luaotfload.patch_font'.
+Inserting `luaotfload.aux.fixup_fontdata' in `luaotfload.patch_font_unsafe'.
+Inserting `luaotfload.aux.set_capheight' in `luaotfload.patch_font'.
+Inserting `luaotfload.aux.set_xheight' in `luaotfload.patch_font'.
+Inserting `luaotfload.rewrite_fontname' in `luaotfload.patch_font'.
+Inserting `tracingstacklevels' in `input_level_string'. (c:/texlive/2025/texmf-
+dist/tex/latex/base/article.cls
+Document Class: article 2025/01/22 v1.4n Standard LaTeX document class
+(c:/texlive/2025/texmf-dist/tex/latex/base/size12.clo
+File: size12.clo 2025/01/22 v1.4n Standard LaTeX file (size option)
+luaotfload | db : Font names database loaded from C:/texlive/2025/texmf-var/luat
+ex-cache/generic/names/luaotfload-names.luc.gz)
+\c@part=\count273
+\c@section=\count274
+\c@subsection=\count275
+\c@subsubsection=\count276
+\c@paragraph=\count277
+\c@subparagraph=\count278
+\c@figure=\count279
+\c@table=\count280
+\abovecaptionskip=\skip49
+\belowcaptionskip=\skip50
+\bibindent=\dimen147
+) (./pennstander-otf.sty
+Package: pennstander-otf 2025/11/26 v0.1 Supports pennstander fonts for lualate
+x and xelatex.
+(c:/texlive/2025/texmf-dist/tex/generic/iftex/iftex.sty
+Package: iftex 2024/12/12 v1.0g TeX engine tests
+) (c:/texlive/2025/texmf-dist/tex/latex/unicode-math/unicode-math.sty (c:/texli
+ve/2025/texmf-dist/tex/latex/l3kernel/expl3.sty
+Package: expl3 2025-11-14 L3 programming layer (loader) 
+(c:/texlive/2025/texmf-dist/tex/latex/l3backend/l3backend-luatex.def
+File: l3backend-luatex.def 2025-10-09 L3 backend support: PDF output (LuaTeX)
+\l__color_backend_stack_int=\count281
+Inserting `l3color' in `luaotfload.parse_color'.))
+Package: unicode-math 2023/08/13 v0.8r Unicode maths in XeLaTeX and LuaLaTeX
+(c:/texlive/2025/texmf-dist/tex/latex/unicode-math/unicode-math-luatex.sty
+Package: unicode-math-luatex 2023/08/13 v0.8r Unicode maths in XeLaTeX and LuaL
+aTeX
+(c:/texlive/2025/texmf-dist/tex/latex/l3packages/xparse/xparse.sty
+Package: xparse 2025-10-09 L3 Experimental document command parser
+) (c:/texlive/2025/texmf-dist/tex/latex/l3packages/l3keys2e/l3keys2e.sty
+Package: l3keys2e 2025-10-09 LaTeX2e option processing using LaTeX3 keys
+) (c:/texlive/2025/texmf-dist/tex/latex/fontspec/fontspec.sty
+Package: fontspec 2025/09/29 v2.9g Font selection for XeLaTeX and LuaLaTeX
+Lua module: fontspec 2025/09/29 v2.9g Font selection for XeLaTeX and LuaLaTeX (c:/texlive/2025/texmf-dist/tex/latex/fontspec/fontspec-luatex.sty
+Package: fontspec-luatex 2025/09/29 v2.9g Font selection for XeLaTeX and LuaLaT
+eX
+\l__fontspec_script_int=\count282
+\l__fontspec_language_int=\count283
+\l__fontspec_strnum_int=\count284
+\l__fontspec_tmp_int=\count285
+\l__fontspec_tmpa_int=\count286
+\l__fontspec_tmpb_int=\count287
+\l__fontspec_tmpc_int=\count288
+\l__fontspec_em_int=\count289
+\l__fontspec_emdef_int=\count290
+\l__fontspec_strong_int=\count291
+\l__fontspec_strongdef_int=\count292
+\l__fontspec_tmpa_dim=\dimen148
+\l__fontspec_tmpb_dim=\dimen149
+\l__fontspec_tmpc_dim=\dimen150
+(c:/texlive/2025/texmf-dist/tex/latex/base/fontenc.sty
+Package: fontenc 2025/07/18 v2.1d Standard LaTeX package
+) (c:/texlive/2025/texmf-dist/tex/latex/fontspec/fontspec.cfg))) (c:/texlive/20
+25/texmf-dist/tex/latex/base/fix-cm.sty
+Package: fix-cm 2020/11/24 v1.1t fixes to LaTeX
+(c:/texlive/2025/texmf-dist/tex/latex/base/ts1enc.def
+File: ts1enc.def 2001/06/05 v3.0e (jk/car/fm) Standard LaTeX file
+LaTeX Font Info:    Redeclaring font encoding TS1 on input line 47.
+LaTeX Encoding Info:    Redeclaring text command \capitalcedilla (encoding TS1)
+ on input line 49.
+LaTeX Encoding Info:    Redeclaring text command \capitalogonek (encoding TS1) 
+on input line 52.
+LaTeX Encoding Info:    Redeclaring text command \capitalgrave (encoding TS1) o
+n input line 55.
+LaTeX Encoding Info:    Redeclaring text command \capitalacute (encoding TS1) o
+n input line 56.
+LaTeX Encoding Info:    Redeclaring text command \capitalcircumflex (encoding T
+S1) on input line 57.
+LaTeX Encoding Info:    Redeclaring text command \capitaltilde (encoding TS1) o
+n input line 58.
+LaTeX Encoding Info:    Redeclaring text command \capitaldieresis (encoding TS1
+) on input line 59.
+LaTeX Encoding Info:    Redeclaring text command \capitalhungarumlaut (encoding
+ TS1) on input line 60.
+LaTeX Encoding Info:    Redeclaring text command \capitalring (encoding TS1) on
+ input line 61.
+LaTeX Encoding Info:    Redeclaring text command \capitalcaron (encoding TS1) o
+n input line 62.
+LaTeX Encoding Info:    Redeclaring text command \capitalbreve (encoding TS1) o
+n input line 63.
+LaTeX Encoding Info:    Redeclaring text command \capitalmacron (encoding TS1) 
+on input line 64.
+LaTeX Encoding Info:    Redeclaring text command \capitaldotaccent (encoding TS
+1) on input line 65.
+LaTeX Encoding Info:    Redeclaring text command \t (encoding TS1) on input lin
+e 66.
+LaTeX Encoding Info:    Redeclaring text command \capitaltie (encoding TS1) on 
+input line 67.
+LaTeX Encoding Info:    Redeclaring text command \newtie (encoding TS1) on inpu
+t line 68.
+LaTeX Encoding Info:    Redeclaring text command \capitalnewtie (encoding TS1) 
+on input line 69.
+LaTeX Encoding Info:    Redeclaring text symbol \textcapitalcompwordmark (encod
+ing TS1) on input line 70.
+LaTeX Encoding Info:    Redeclaring text symbol \textascendercompwordmark (enco
+ding TS1) on input line 71.
+LaTeX Encoding Info:    Redeclaring text symbol \textquotestraightbase (encodin
+g TS1) on input line 72.
+LaTeX Encoding Info:    Redeclaring text symbol \textquotestraightdblbase (enco
+ding TS1) on input line 73.
+LaTeX Encoding Info:    Redeclaring text symbol \texttwelveudash (encoding TS1)
+ on input line 74.
+LaTeX Encoding Info:    Redeclaring text symbol \textthreequartersemdash (encod
+ing TS1) on input line 75.
+LaTeX Encoding Info:    Redeclaring text symbol \textleftarrow (encoding TS1) o
+n input line 76.
+LaTeX Encoding Info:    Redeclaring text symbol \textrightarrow (encoding TS1) 
+on input line 77.
+LaTeX Encoding Info:    Redeclaring text symbol \textblank (encoding TS1) on in
+put line 78.
+LaTeX Encoding Info:    Redeclaring text symbol \textdollar (encoding TS1) on i
+nput line 79.
+LaTeX Encoding Info:    Redeclaring text symbol \textquotesingle (encoding TS1)
+ on input line 80.
+LaTeX Encoding Info:    Redeclaring text command \textasteriskcentered (encodin
+g TS1) on input line 81.
+LaTeX Encoding Info:    Redeclaring text symbol \textdblhyphen (encoding TS1) o
+n input line 92.
+LaTeX Encoding Info:    Redeclaring text symbol \textfractionsolidus (encoding 
+TS1) on input line 93.
+LaTeX Encoding Info:    Redeclaring text symbol \textzerooldstyle (encoding TS1
+) on input line 94.
+LaTeX Encoding Info:    Redeclaring text symbol \textoneoldstyle (encoding TS1)
+ on input line 95.
+LaTeX Encoding Info:    Redeclaring text symbol \texttwooldstyle (encoding TS1)
+ on input line 96.
+LaTeX Encoding Info:    Redeclaring text symbol \textthreeoldstyle (encoding TS
+1) on input line 97.
+LaTeX Encoding Info:    Redeclaring text symbol \textfouroldstyle (encoding TS1
+) on input line 98.
+LaTeX Encoding Info:    Redeclaring text symbol \textfiveoldstyle (encoding TS1
+) on input line 99.
+LaTeX Encoding Info:    Redeclaring text symbol \textsixoldstyle (encoding TS1)
+ on input line 100.
+LaTeX Encoding Info:    Redeclaring text symbol \textsevenoldstyle (encoding TS
+1) on input line 101.
+LaTeX Encoding Info:    Redeclaring text symbol \texteightoldstyle (encoding TS
+1) on input line 102.
+LaTeX Encoding Info:    Redeclaring text symbol \textnineoldstyle (encoding TS1
+) on input line 103.
+LaTeX Encoding Info:    Redeclaring text symbol \textlangle (encoding TS1) on i
+nput line 104.
+LaTeX Encoding Info:    Redeclaring text symbol \textminus (encoding TS1) on in
+put line 105.
+LaTeX Encoding Info:    Redeclaring text symbol \textrangle (encoding TS1) on i
+nput line 106.
+LaTeX Encoding Info:    Redeclaring text symbol \textmho (encoding TS1) on inpu
+t line 107.
+LaTeX Encoding Info:    Redeclaring text symbol \textbigcircle (encoding TS1) o
+n input line 108.
+LaTeX Encoding Info:    Redeclaring text command \textcircled (encoding TS1) on
+ input line 109.
+LaTeX Encoding Info:    Redeclaring text symbol \textohm (encoding TS1) on inpu
+t line 115.
+LaTeX Encoding Info:    Redeclaring text symbol \textlbrackdbl (encoding TS1) o
+n input line 116.
+LaTeX Encoding Info:    Redeclaring text symbol \textrbrackdbl (encoding TS1) o
+n input line 117.
+LaTeX Encoding Info:    Redeclaring text symbol \textuparrow (encoding TS1) on 
+input line 118.
+LaTeX Encoding Info:    Redeclaring text symbol \textdownarrow (encoding TS1) o
+n input line 119.
+LaTeX Encoding Info:    Redeclaring text symbol \textasciigrave (encoding TS1) 
+on input line 120.
+LaTeX Encoding Info:    Redeclaring text symbol \textborn (encoding TS1) on inp
+ut line 121.
+LaTeX Encoding Info:    Redeclaring text symbol \textdivorced (encoding TS1) on
+ input line 122.
+LaTeX Encoding Info:    Redeclaring text symbol \textdied (encoding TS1) on inp
+ut line 123.
+LaTeX Encoding Info:    Redeclaring text symbol \textleaf (encoding TS1) on inp
+ut line 124.
+LaTeX Encoding Info:    Redeclaring text symbol \textmarried (encoding TS1) on 
+input line 125.
+LaTeX Encoding Info:    Redeclaring text symbol \textmusicalnote (encoding TS1)
+ on input line 126.
+LaTeX Encoding Info:    Redeclaring text symbol \texttildelow (encoding TS1) on
+ input line 127.
+LaTeX Encoding Info:    Redeclaring text symbol \textdblhyphenchar (encoding TS
+1) on input line 128.
+LaTeX Encoding Info:    Redeclaring text symbol \textasciibreve (encoding TS1) 
+on input line 129.
+LaTeX Encoding Info:    Redeclaring text symbol \textasciicaron (encoding TS1) 
+on input line 130.
+LaTeX Encoding Info:    Redeclaring text symbol \textacutedbl (encoding TS1) on
+ input line 131.
+LaTeX Encoding Info:    Redeclaring text symbol \textgravedbl (encoding TS1) on
+ input line 132.
+LaTeX Encoding Info:    Redeclaring text symbol \textdagger (encoding TS1) on i
+nput line 133.
+LaTeX Encoding Info:    Redeclaring text symbol \textdaggerdbl (encoding TS1) o
+n input line 134.
+LaTeX Encoding Info:    Redeclaring text symbol \textbardbl (encoding TS1) on i
+nput line 135.
+LaTeX Encoding Info:    Redeclaring text symbol \textperthousand (encoding TS1)
+ on input line 136.
+LaTeX Encoding Info:    Redeclaring text symbol \textbullet (encoding TS1) on i
+nput line 137.
+LaTeX Encoding Info:    Redeclaring text symbol \textcelsius (encoding TS1) on 
+input line 138.
+LaTeX Encoding Info:    Redeclaring text symbol \textdollaroldstyle (encoding T
+S1) on input line 139.
+LaTeX Encoding Info:    Redeclaring text symbol \textcentoldstyle (encoding TS1
+) on input line 140.
+LaTeX Encoding Info:    Redeclaring text symbol \textflorin (encoding TS1) on i
+nput line 141.
+LaTeX Encoding Info:    Redeclaring text symbol \textcolonmonetary (encoding TS
+1) on input line 142.
+LaTeX Encoding Info:    Redeclaring text symbol \textwon (encoding TS1) on inpu
+t line 143.
+LaTeX Encoding Info:    Redeclaring text symbol \textnaira (encoding TS1) on in
+put line 144.
+LaTeX Encoding Info:    Redeclaring text symbol \textguarani (encoding TS1) on 
+input line 145.
+LaTeX Encoding Info:    Redeclaring text symbol \textpeso (encoding TS1) on inp
+ut line 146.
+LaTeX Encoding Info:    Redeclaring text symbol \textlira (encoding TS1) on inp
+ut line 147.
+LaTeX Encoding Info:    Redeclaring text symbol \textrecipe (encoding TS1) on i
+nput line 148.
+LaTeX Encoding Info:    Redeclaring text symbol \textinterrobang (encoding TS1)
+ on input line 149.
+LaTeX Encoding Info:    Redeclaring text symbol \textinterrobangdown (encoding 
+TS1) on input line 150.
+LaTeX Encoding Info:    Redeclaring text symbol \textdong (encoding TS1) on inp
+ut line 151.
+LaTeX Encoding Info:    Redeclaring text symbol \texttrademark (encoding TS1) o
+n input line 152.
+LaTeX Encoding Info:    Redeclaring text symbol \textpertenthousand (encoding T
+S1) on input line 153.
+LaTeX Encoding Info:    Redeclaring text symbol \textpilcrow (encoding TS1) on 
+input line 154.
+LaTeX Encoding Info:    Redeclaring text symbol \textbaht (encoding TS1) on inp
+ut line 155.
+LaTeX Encoding Info:    Redeclaring text symbol \textnumero (encoding TS1) on i
+nput line 156.
+LaTeX Encoding Info:    Redeclaring text symbol \textdiscount (encoding TS1) on
+ input line 157.
+LaTeX Encoding Info:    Redeclaring text symbol \textestimated (encoding TS1) o
+n input line 158.
+LaTeX Encoding Info:    Redeclaring text symbol \textopenbullet (encoding TS1) 
+on input line 159.
+LaTeX Encoding Info:    Redeclaring text symbol \textservicemark (encoding TS1)
+ on input line 160.
+LaTeX Encoding Info:    Redeclaring text symbol \textlquill (encoding TS1) on i
+nput line 161.
+LaTeX Encoding Info:    Redeclaring text symbol \textrquill (encoding TS1) on i
+nput line 162.
+LaTeX Encoding Info:    Redeclaring text symbol \textcent (encoding TS1) on inp
+ut line 163.
+LaTeX Encoding Info:    Redeclaring text symbol \textsterling (encoding TS1) on
+ input line 164.
+LaTeX Encoding Info:    Redeclaring text symbol \textcurrency (encoding TS1) on
+ input line 165.
+LaTeX Encoding Info:    Redeclaring text symbol \textyen (encoding TS1) on inpu
+t line 166.
+LaTeX Encoding Info:    Redeclaring text symbol \textbrokenbar (encoding TS1) o
+n input line 167.
+LaTeX Encoding Info:    Redeclaring text symbol \textsection (encoding TS1) on 
+input line 168.
+LaTeX Encoding Info:    Redeclaring text symbol \textasciidieresis (encoding TS
+1) on input line 169.
+LaTeX Encoding Info:    Redeclaring text symbol \textcopyright (encoding TS1) o
+n input line 170.
+LaTeX Encoding Info:    Redeclaring text symbol \textordfeminine (encoding TS1)
+ on input line 171.
+LaTeX Encoding Info:    Redeclaring text symbol \textcopyleft (encoding TS1) on
+ input line 172.
+LaTeX Encoding Info:    Redeclaring text symbol \textlnot (encoding TS1) on inp
+ut line 173.
+LaTeX Encoding Info:    Redeclaring text symbol \textcircledP (encoding TS1) on
+ input line 174.
+LaTeX Encoding Info:    Redeclaring text symbol \textregistered (encoding TS1) 
+on input line 175.
+LaTeX Encoding Info:    Redeclaring text symbol \textasciimacron (encoding TS1)
+ on input line 176.
+LaTeX Encoding Info:    Redeclaring text symbol \textdegree (encoding TS1) on i
+nput line 177.
+LaTeX Encoding Info:    Redeclaring text symbol \textpm (encoding TS1) on input
+ line 178.
+LaTeX Encoding Info:    Redeclaring text symbol \texttwosuperior (encoding TS1)
+ on input line 179.
+LaTeX Encoding Info:    Redeclaring text symbol \textthreesuperior (encoding TS
+1) on input line 180.
+LaTeX Encoding Info:    Redeclaring text symbol \textasciiacute (encoding TS1) 
+on input line 181.
+LaTeX Encoding Info:    Redeclaring text symbol \textmu (encoding TS1) on input
+ line 182.
+LaTeX Encoding Info:    Redeclaring text symbol \textparagraph (encoding TS1) o
+n input line 183.
+LaTeX Encoding Info:    Redeclaring text symbol \textperiodcentered (encoding T
+S1) on input line 184.
+LaTeX Encoding Info:    Redeclaring text symbol \textreferencemark (encoding TS
+1) on input line 185.
+LaTeX Encoding Info:    Redeclaring text symbol \textonesuperior (encoding TS1)
+ on input line 186.
+LaTeX Encoding Info:    Redeclaring text symbol \textordmasculine (encoding TS1
+) on input line 187.
+LaTeX Encoding Info:    Redeclaring text symbol \textsurd (encoding TS1) on inp
+ut line 188.
+LaTeX Encoding Info:    Redeclaring text symbol \textonequarter (encoding TS1) 
+on input line 189.
+LaTeX Encoding Info:    Redeclaring text symbol \textonehalf (encoding TS1) on 
+input line 190.
+LaTeX Encoding Info:    Redeclaring text symbol \textthreequarters (encoding TS
+1) on input line 191.
+LaTeX Encoding Info:    Redeclaring text symbol \texteuro (encoding TS1) on inp
+ut line 192.
+LaTeX Encoding Info:    Redeclaring text symbol \texttimes (encoding TS1) on in
+put line 193.
+LaTeX Encoding Info:    Redeclaring text symbol \textdiv (encoding TS1) on inpu
+t line 194.
+)) (c:/texlive/2025/texmf-dist/tex/latex/amsmath/amsmath.sty
+Package: amsmath 2025/07/09 v2.17z AMS math features
+\@mathmargin=\skip51
+For additional information on amsmath, use the `?' option.
+(c:/texlive/2025/texmf-dist/tex/latex/amsmath/amstext.sty
+Package: amstext 2024/11/17 v2.01 AMS text
+(c:/texlive/2025/texmf-dist/tex/latex/amsmath/amsgen.sty
+File: amsgen.sty 1999/11/30 v2.0 generic functions
+\@emptytoks=\toks17
+\ex@=\dimen151
+)) (c:/texlive/2025/texmf-dist/tex/latex/amsmath/amsbsy.sty
+Package: amsbsy 1999/11/29 v1.2d Bold Symbols
+\pmbraise@=\dimen152
+) (c:/texlive/2025/texmf-dist/tex/latex/amsmath/amsopn.sty
+Package: amsopn 2022/04/08 v2.04 operator names
+)
+\inf@bad=\count293
+LaTeX Info: Redefining \frac on input line 235.
+\uproot@=\count294
+\leftroot@=\count295
+LaTeX Info: Redefining \overline on input line 398.
+LaTeX Info: Redefining \colon on input line 409.
+\classnum@=\count296
+\DOTSCASE@=\count297
+LaTeX Info: Redefining \ldots on input line 495.
+LaTeX Info: Redefining \dots on input line 498.
+LaTeX Info: Redefining \cdots on input line 619.
+\Mathstrutbox@=\box53
+\strutbox@=\box54
+LaTeX Info: Redefining \big on input line 721.
+LaTeX Info: Redefining \Big on input line 722.
+LaTeX Info: Redefining \bigg on input line 723.
+LaTeX Info: Redefining \Bigg on input line 724.
+\big@size=\dimen153
+LaTeX Font Info:    Redeclaring font encoding OML on input line 742.
+LaTeX Font Info:    Redeclaring font encoding OMS on input line 743.
+\macc@depth=\count298
+LaTeX Info: Redefining \bmod on input line 904.
+LaTeX Info: Redefining \pmod on input line 909.
+LaTeX Info: Redefining \smash on input line 939.
+LaTeX Info: Redefining \relbar on input line 969.
+LaTeX Info: Redefining \Relbar on input line 970.
+\c@MaxMatrixCols=\count299
+\dotsspace@=\muskip17
+\c@parentequation=\count300
+\dspbrk@lvl=\count301
+\tag@help=\toks18
+\row@=\count302
+\column@=\count303
+\maxfields@=\count304
+\andhelp@=\toks19
+\eqnshift@=\dimen154
+\alignsep@=\dimen155
+\tagshift@=\dimen156
+\tagwidth@=\dimen157
+\totwidth@=\dimen158
+\lineht@=\dimen159
+\@envbody=\toks20
+\multlinegap=\skip52
+\multlinetaggap=\skip53
+\mathdisplay@stack=\toks21
+LaTeX Info: Redefining \[ on input line 2950.
+LaTeX Info: Redefining \] on input line 2951.
+) (c:/texlive/2025/texmf-dist/tex/lualatex/lualatex-math/lualatex-math.sty
+Package: lualatex-math 2022/01/01 v1.12 Patches for mathematics typesetting wit
+h LuaLaTeX
+(c:/texlive/2025/texmf-dist/tex/latex/etoolbox/etoolbox.sty
+Package: etoolbox 2025/10/02 v2.5m e-TeX tools for LaTeX (JAW)
+\etb@tempcnta=\count305
+)
+Lua module: lualatex-math 2013/08/03 v1.3 Patches for mathematics typesetting wi
+th LuaLaTeX)
+\g__um_fam_int=\count306
+\g__um_fonts_used_int=\count307
+\l__um_primecount_int=\count308
+\g__um_primekern_muskip=\muskip18
+(c:/texlive/2025/texmf-dist/tex/latex/unicode-math/unicode-math-table.tex)))
+\PSOTtoksT=\toks22
+\PSOTtoksM=\toks23
+luaotfload | cache : Lookup cache loaded from C:/texlive/2025/texmf-var/luatex-c
+ache/generic/names/luaotfload-lookup-cache.luc. (./Pennstander-Light.fontspec) 
+(./Pennstander-Medium.fontspec)
+
+Package fontspec Info: 
+(fontspec)             Font family 'Pennstander-Light(0)' created for font
+(fontspec)             'Pennstander-Light' with options
+(fontspec)             [Ligatures=TeX,UprightFont=Pennstander-Light.otf,ItalicF
+ont=Pennstander-ItalicLight.otf,BoldFont=Pennstander-Medium.otf,BoldItalicFont=
+Pennstander-ItalicMedium.otf,StylisticSet={},RawFeature={+dlig;+ordn;+zero}].
+(fontspec)              
+(fontspec)              This font family consists of the following NFSS
+(fontspec)             series/shapes:
+(fontspec)              
+(fontspec)             - 'normal' (m/n) with NFSS spec.:
+(fontspec)             <->"[Pennstander-Light.otf]:mode=node;script=latn;langua
+ge=dflt;+tlig;+dlig;+ordn;+zero;"
+(fontspec)             - 'bold' (b/n) with NFSS spec.:
+(fontspec)             <->"[Pennstander-Medium.otf]:mode=node;script=latn;langu
+age=dflt;+tlig;+dlig;+ordn;+zero;"
+(fontspec)             - 'italic' (m/it) with NFSS spec.:
+(fontspec)             <->"[Pennstander-ItalicLight.otf]:mode=node;script=latn;
+language=dflt;+tlig;+dlig;+ordn;+zero;"
+(fontspec)             - 'bold italic' (b/it) with NFSS spec.:
+(fontspec)             <->"[Pennstander-ItalicMedium.otf]:mode=node;script=latn
+;language=dflt;+tlig;+dlig;+ordn;+zero;"
+
+
+Package fontspec Info: 
+(fontspec)             Font family 'Pennstander-Light(1)' created for font
+(fontspec)             'Pennstander-Light' with options
+(fontspec)             [UprightFont=Pennstander-Light.otf,ItalicFont=Pennstande
+r-ItalicLight.otf,BoldFont=Pennstander-Medium.otf,BoldItalicFont=Pennstander-It
+alicMedium.otf,Renderer=Basic,StylisticSet={},RawFeature={+dlig;+ordn;+zero}].
+(fontspec)              
+(fontspec)              This font family consists of the following NFSS
+(fontspec)             series/shapes:
+(fontspec)              
+(fontspec)             - 'normal' (m/n) with NFSS spec.:
+(fontspec)             <->"[Pennstander-Light.otf]:mode=base;script=latn;langua
+ge=dflt;+dlig;+ordn;+zero;"
+(fontspec)             - 'bold' (b/n) with NFSS spec.:
+(fontspec)             <->"[Pennstander-Medium.otf]:mode=base;script=latn;langu
+age=dflt;+dlig;+ordn;+zero;"
+(fontspec)             - 'italic' (m/it) with NFSS spec.:
+(fontspec)             <->"[Pennstander-ItalicLight.otf]:mode=base;script=latn;
+language=dflt;+dlig;+ordn;+zero;"
+(fontspec)             - 'bold italic' (b/it) with NFSS spec.:
+(fontspec)             <->"[Pennstander-ItalicMedium.otf]:mode=base;script=latn
+;language=dflt;+dlig;+ordn;+zero;"
+
+LaTeX Font Info:    Overwriting math alphabet `\mathrm' in version `normal'
+(Font)                  OT1/cmr/m/n --> TU/Pennstander-Light(1)/m/n on input li
+ne 63.
+LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `normal'
+(Font)                  OT1/cmr/m/it --> TU/Pennstander-Light(1)/m/it on input 
+line 63.
+LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `normal'
+(Font)                  OT1/cmr/bx/n --> TU/Pennstander-Light(1)/b/n on input l
+ine 63.
+(./PennstanderMath-Light.fontspec) (./PennstanderMath-Medium.fontspec)
+
+Package fontspec Info: 
+(fontspec)             Font family 'PennstanderMath-Light(0)' created for font
+(fontspec)             'PennstanderMath-Light' with options [UprightFont =
+(fontspec)             PennstanderMath-Light.otf,BoldFont =
+(fontspec)             PennstanderMath-Medium.otf,Renderer=Basic,BoldItalicFont
+={},ItalicFont={},SmallCapsFont={},Script=Math,RawFeature={mathfontdimen=xetex}
+,StylisticSet={},StylisticSet={},RawFeature={+dlig;+ordn;+zero},RawFeature={+dl
+ig;+ordn;+zero}].
+(fontspec)              
+(fontspec)              This font family consists of the following NFSS
+(fontspec)             series/shapes:
+(fontspec)              
+(fontspec)             - 'normal' (m/n) with NFSS spec.:
+(fontspec)             <->"[PennstanderMath-Light.otf]:mode=base;script=math;la
+nguage=dflt;mathfontdimen=xetex;+dlig;+ordn;+zero;+dlig;+ordn;+zero;"
+(fontspec)             - 'bold' (b/n) with NFSS spec.:
+(fontspec)             <->"[PennstanderMath-Medium.otf]:mode=base;script=math;l
+anguage=dflt;mathfontdimen=xetex;+dlig;+ordn;+zero;+dlig;+ordn;+zero;"
+
+
+Package fontspec Info: 
+(fontspec)             Font family 'PennstanderMath-Light(1)' created for font
+(fontspec)             'PennstanderMath-Light' with options [UprightFont =
+(fontspec)             PennstanderMath-Light.otf,BoldFont =
+(fontspec)             PennstanderMath-Medium.otf,Renderer=Basic,BoldItalicFont
+={},ItalicFont={},SmallCapsFont={},Script=Math,SizeFeatures={{Size=10.8-},{Size
+=8.4-10.8,Font=PennstanderMath-Light,Style=MathScript},{Size=-8.4,Font=Pennstan
+derMath-Light,Style=MathScriptScript}},RawFeature={mathfontdimen=xetex},Stylist
+icSet={},StylisticSet={},RawFeature={+dlig;+ordn;+zero},RawFeature={+dlig;+ordn
+;+zero}].
+(fontspec)              
+(fontspec)              This font family consists of the following NFSS
+(fontspec)             series/shapes:
+(fontspec)              
+(fontspec)             - 'normal' (m/n) with NFSS spec.:
+(fontspec)             <10.8->"[PennstanderMath-Light.otf]:mode=base;script=mat
+h;language=dflt;mathfontdimen=xetex;+dlig;+ordn;+zero;+dlig;+ordn;+zero;"<8.4-1
+0.8>"[PennstanderMath-Light.otf]:mode=base;script=math;language=dflt;mathfontdi
+men=xetex;+dlig;+ordn;+zero;+dlig;+ordn;+zero;+ssty=0;"<-8.4>"[PennstanderMath-
+Light.otf]:mode=base;script=math;language=dflt;mathfontdimen=xetex;+dlig;+ordn;
++zero;+dlig;+ordn;+zero;+ssty=1;"
+(fontspec)             - 'bold' (b/n) with NFSS spec.:
+(fontspec)             <->"[PennstanderMath-Medium.otf]:mode=base;script=math;l
+anguage=dflt;mathfontdimen=xetex;+dlig;+ordn;+zero;+dlig;+ordn;+zero;"
+
+LaTeX Font Info:    Encoding `OT1' has changed to `TU' for symbol font
+(Font)              `operators' in the math version `normal' on input line 77.
+LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
+(Font)                  OT1/cmr/m/n --> TU/PennstanderMath-Light(1)/m/n on inpu
+t line 77.
+LaTeX Font Info:    Encoding `OT1' has changed to `TU' for symbol font
+(Font)              `operators' in the math version `bold' on input line 77.
+LaTeX Font Info:    Overwriting symbol font `operators' in version `bold'
+(Font)                  OT1/cmr/bx/n --> TU/PennstanderMath-Light(1)/b/n on inp
+ut line 77.
+
+Package fontspec Info: 
+(fontspec)             Font family 'PennstanderMath-Light(2)' created for font
+(fontspec)             'PennstanderMath-Light' with options [UprightFont =
+(fontspec)             PennstanderMath-Light.otf,BoldFont =
+(fontspec)             PennstanderMath-Medium.otf,Renderer=Basic,BoldItalicFont
+={},ItalicFont={},SmallCapsFont={},Script=Math,SizeFeatures={{Size=10.8-},{Size
+=8.4-10.8,Font=PennstanderMath-Light,Style=MathScript},{Size=-8.4,Font=Pennstan
+derMath-Light,Style=MathScriptScript}},RawFeature={mathfontdimen=xetex},Stylist
+icSet={},StylisticSet={},RawFeature={+dlig;+ordn;+zero},RawFeature={+dlig;+ordn
+;+zero},RawFeature={mathfontdimen=tex2}].
+(fontspec)              
+(fontspec)              This font family consists of the following NFSS
+(fontspec)             series/shapes:
+(fontspec)              
+(fontspec)             - 'normal' (m/n) with NFSS spec.:
+(fontspec)             <10.8->"[PennstanderMath-Light.otf]:mode=base;script=mat
+h;language=dflt;mathfontdimen=xetex;+dlig;+ordn;+zero;+dlig;+ordn;+zero;mathfon
+tdimen=tex2;"<8.4-10.8>"[PennstanderMath-Light.otf]:mode=base;script=math;langu
+age=dflt;mathfontdimen=xetex;+dlig;+ordn;+zero;+dlig;+ordn;+zero;mathfontdimen=
+tex2;+ssty=0;"<-8.4>"[PennstanderMath-Light.otf]:mode=base;script=math;language
+=dflt;mathfontdimen=xetex;+dlig;+ordn;+zero;+dlig;+ordn;+zero;mathfontdimen=tex
+2;+ssty=1;"
+(fontspec)             - 'bold' (b/n) with NFSS spec.:
+(fontspec)             <->"[PennstanderMath-Medium.otf]:mode=base;script=math;l
+anguage=dflt;mathfontdimen=xetex;+dlig;+ordn;+zero;+dlig;+ordn;+zero;mathfontdi
+men=tex2;"
+
+LaTeX Font Info:    Encoding `OMS' has changed to `TU' for symbol font
+(Font)              `symbols' in the math version `normal' on input line 77.
+LaTeX Font Info:    Overwriting symbol font `symbols' in version `normal'
+(Font)                  OMS/cmsy/m/n --> TU/PennstanderMath-Light(2)/m/n on inp
+ut line 77.
+LaTeX Font Info:    Encoding `OMS' has changed to `TU' for symbol font
+(Font)              `symbols' in the math version `bold' on input line 77.
+LaTeX Font Info:    Overwriting symbol font `symbols' in version `bold'
+(Font)                  OMS/cmsy/b/n --> TU/PennstanderMath-Light(2)/b/n on inp
+ut line 77.
+
+Package fontspec Info: 
+(fontspec)             Font family 'PennstanderMath-Light(3)' created for font
+(fontspec)             'PennstanderMath-Light' with options [UprightFont =
+(fontspec)             PennstanderMath-Light.otf,BoldFont =
+(fontspec)             PennstanderMath-Medium.otf,Renderer=Basic,BoldItalicFont
+={},ItalicFont={},SmallCapsFont={},Script=Math,SizeFeatures={{Size=10.8-},{Size
+=8.4-10.8,Font=PennstanderMath-Light,Style=MathScript},{Size=-8.4,Font=Pennstan
+derMath-Light,Style=MathScriptScript}},RawFeature={mathfontdimen=xetex},Stylist
+icSet={},StylisticSet={},RawFeature={+dlig;+ordn;+zero},RawFeature={+dlig;+ordn
+;+zero},RawFeature={mathfontdimen=tex3}].
+(fontspec)              
+(fontspec)              This font family consists of the following NFSS
+(fontspec)             series/shapes:
+(fontspec)              
+(fontspec)             - 'normal' (m/n) with NFSS spec.:
+(fontspec)             <10.8->"[PennstanderMath-Light.otf]:mode=base;script=mat
+h;language=dflt;mathfontdimen=xetex;+dlig;+ordn;+zero;+dlig;+ordn;+zero;mathfon
+tdimen=tex3;"<8.4-10.8>"[PennstanderMath-Light.otf]:mode=base;script=math;langu
+age=dflt;mathfontdimen=xetex;+dlig;+ordn;+zero;+dlig;+ordn;+zero;mathfontdimen=
+tex3;+ssty=0;"<-8.4>"[PennstanderMath-Light.otf]:mode=base;script=math;language
+=dflt;mathfontdimen=xetex;+dlig;+ordn;+zero;+dlig;+ordn;+zero;mathfontdimen=tex
+3;+ssty=1;"
+(fontspec)             - 'bold' (b/n) with NFSS spec.:
+(fontspec)             <->"[PennstanderMath-Medium.otf]:mode=base;script=math;l
+anguage=dflt;mathfontdimen=xetex;+dlig;+ordn;+zero;+dlig;+ordn;+zero;mathfontdi
+men=tex3;"
+
+LaTeX Font Info:    Encoding `OMX' has changed to `TU' for symbol font
+(Font)              `largesymbols' in the math version `normal' on input line 7
+7.
+LaTeX Font Info:    Overwriting symbol font `largesymbols' in version `normal'
+(Font)                  OMX/cmex/m/n --> TU/PennstanderMath-Light(3)/m/n on inp
+ut line 77.
+LaTeX Font Info:    Encoding `OMX' has changed to `TU' for symbol font
+(Font)              `largesymbols' in the math version `bold' on input line 77.
+
+LaTeX Font Info:    Overwriting symbol font `largesymbols' in version `bold'
+(Font)                  OMX/cmex/m/n --> TU/PennstanderMath-Light(3)/b/n on inp
+ut line 77.
+(./Pennstander-Thin.fontspec)
+
+Package fontspec Info: 
+(fontspec)             Pennstander-Thin.otf scale = 0.9999976075982678.
+
+
+Package fontspec Info: 
+(fontspec)             Pennstander-Thin scale = 0.9999976075982678.
+
+
+Package fontspec Info: 
+(fontspec)             Pennstander-Light scale = 0.9999976075982678.
+
+
+Package fontspec Info: 
+(fontspec)             Pennstander-ItalicThin scale = 0.9999976075982678.
+
+
+Package fontspec Info: 
+(fontspec)             Pennstander-ItalicLight scale = 0.9999976075982678.
+
+
+Package fontspec Info: 
+(fontspec)             Font family 'Pennstander-Thin(0)' created for font
+(fontspec)             'Pennstander-Thin' with options
+(fontspec)             [UprightFont=Pennstander-Thin.otf,ItalicFont=Pennstander
+-ItalicThin.otf,BoldFont=Pennstander-Light.otf,BoldItalicFont=Pennstander-Itali
+cLight.otf,Scale=MatchLowercase].
+(fontspec)              
+(fontspec)              This font family consists of the following NFSS
+(fontspec)             series/shapes:
+(fontspec)              
+(fontspec)             - 'normal' (m/n) with NFSS spec.:
+(fontspec)             <->s*[0.9999976075982678]"[Pennstander-Thin.otf]:mode=no
+de;script=latn;language=dflt;"
+(fontspec)             - 'bold' (b/n) with NFSS spec.:
+(fontspec)             <->s*[0.9999976075982678]"[Pennstander-Light.otf]:mode=n
+ode;script=latn;language=dflt;"
+(fontspec)             - 'italic' (m/it) with NFSS spec.:
+(fontspec)             <->s*[0.9999976075982678]"[Pennstander-ItalicThin.otf]:m
+ode=node;script=latn;language=dflt;"
+(fontspec)             - 'bold italic' (b/it) with NFSS spec.:
+(fontspec)             <->s*[0.9999976075982678]"[Pennstander-ItalicLight.otf]:
+mode=node;script=latn;language=dflt;"
+
+(./Pennstander-ExtraLight.fontspec)
+
+Package fontspec Info: 
+(fontspec)             Pennstander-ExtraLight.otf scale = 0.9999976075982678.
+
+
+Package fontspec Info: 
+(fontspec)             Pennstander-ExtraLight scale = 0.9999976075982678.
+
+(./Pennstander-Regular.fontspec)
+
+Package fontspec Info: 
+(fontspec)             Pennstander-Regular scale = 0.9999976075982678.
+
+
+Package fontspec Info: 
+(fontspec)             Pennstander-ItalicExtraLight scale =
+(fontspec)             0.9999976075982678.
+
+
+Package fontspec Info: 
+(fontspec)             Pennstander-ItalicRegular scale = 0.9999976075982678.
+
+
+Package fontspec Info: 
+(fontspec)             Font family 'Pennstander-ExtraLight(0)' created for
+(fontspec)             font 'Pennstander-ExtraLight' with options
+(fontspec)             [UprightFont=Pennstander-ExtraLight.otf,ItalicFont=Penns
+tander-ItalicExtraLight.otf,BoldFont=Pennstander-Regular.otf,BoldItalicFont=Pen
+nstander-ItalicRegular.otf,Scale=MatchLowercase].
+(fontspec)              
+(fontspec)              This font family consists of the following NFSS
+(fontspec)             series/shapes:
+(fontspec)              
+(fontspec)             - 'normal' (m/n) with NFSS spec.:
+(fontspec)             <->s*[0.9999976075982678]"[Pennstander-ExtraLight.otf]:m
+ode=node;script=latn;language=dflt;"
+(fontspec)             - 'bold' (b/n) with NFSS spec.:
+(fontspec)             <->s*[0.9999976075982678]"[Pennstander-Regular.otf]:mode
+=node;script=latn;language=dflt;"
+(fontspec)             - 'italic' (m/it) with NFSS spec.:
+(fontspec)             <->s*[0.9999976075982678]"[Pennstander-ItalicExtraLight.
+otf]:mode=node;script=latn;language=dflt;"
+(fontspec)             - 'bold italic' (b/it) with NFSS spec.:
+(fontspec)             <->s*[0.9999976075982678]"[Pennstander-ItalicRegular.otf
+]:mode=node;script=latn;language=dflt;"
+
+
+Package fontspec Info: 
+(fontspec)             Pennstander-Light.otf scale = 0.9999976075982678.
+
+
+Package fontspec Info: 
+(fontspec)             Pennstander-Light scale = 0.9999976075982678.
+
+
+Package fontspec Info: 
+(fontspec)             Pennstander-Medium scale = 0.9999976075982678.
+
+
+Package fontspec Info: 
+(fontspec)             Pennstander-ItalicLight scale = 0.9999976075982678.
+
+
+Package fontspec Info: 
+(fontspec)             Pennstander-ItalicMedium scale = 0.9999976075982678.
+
+
+Package fontspec Info: 
+(fontspec)             Font family 'Pennstander-Light(2)' created for font
+(fontspec)             'Pennstander-Light' with options
+(fontspec)             [UprightFont=Pennstander-Light.otf,ItalicFont=Pennstande
+r-ItalicLight.otf,BoldFont=Pennstander-Medium.otf,BoldItalicFont=Pennstander-It
+alicMedium.otf,Scale=MatchLowercase].
+(fontspec)              
+(fontspec)              This font family consists of the following NFSS
+(fontspec)             series/shapes:
+(fontspec)              
+(fontspec)             - 'normal' (m/n) with NFSS spec.:
+(fontspec)             <->s*[0.9999976075982678]"[Pennstander-Light.otf]:mode=n
+ode;script=latn;language=dflt;"
+(fontspec)             - 'bold' (b/n) with NFSS spec.:
+(fontspec)             <->s*[0.9999976075982678]"[Pennstander-Medium.otf]:mode=
+node;script=latn;language=dflt;"
+(fontspec)             - 'italic' (m/it) with NFSS spec.:
+(fontspec)             <->s*[0.9999976075982678]"[Pennstander-ItalicLight.otf]:
+mode=node;script=latn;language=dflt;"
+(fontspec)             - 'bold italic' (b/it) with NFSS spec.:
+(fontspec)             <->s*[0.9999976075982678]"[Pennstander-ItalicMedium.otf]
+:mode=node;script=latn;language=dflt;"
+
+
+Package fontspec Info: 
+(fontspec)             Pennstander-Regular.otf scale = 0.9999976075982678.
+
+
+Package fontspec Info: 
+(fontspec)             Pennstander-Regular scale = 0.9999976075982678.
+
+(./Pennstander-SemiBold.fontspec)
+
+Package fontspec Info: 
+(fontspec)             Pennstander-SemiBold scale = 0.9999976075982678.
+
+
+Package fontspec Info: 
+(fontspec)             Pennstander-ItalicRegular scale = 0.9999976075982678.
+
+
+Package fontspec Info: 
+(fontspec)             Pennstander-ItalicSemiBold scale = 0.9999976075982678.
+
+
+Package fontspec Info: 
+(fontspec)             Font family 'Pennstander-Regular(0)' created for font
+(fontspec)             'Pennstander-Regular' with options [UprightFont =
+(fontspec)             Pennstander-Regular.otf,ItalicFont =
+(fontspec)             Pennstander-ItalicRegular.otf,BoldFont =
+(fontspec)             Pennstander-SemiBold.otf,BoldItalicFont =
+(fontspec)             Pennstander-ItalicSemiBold.otf,Scale=MatchLowercase].
+(fontspec)              
+(fontspec)              This font family consists of the following NFSS
+(fontspec)             series/shapes:
+(fontspec)              
+(fontspec)             - 'normal' (m/n) with NFSS spec.:
+(fontspec)             <->s*[0.9999976075982678]"[Pennstander-Regular.otf]:mode
+=node;script=latn;language=dflt;"
+(fontspec)             - 'bold' (b/n) with NFSS spec.:
+(fontspec)             <->s*[0.9999976075982678]"[Pennstander-SemiBold.otf]:mod
+e=node;script=latn;language=dflt;+calt;"
+(fontspec)             - 'italic' (m/it) with NFSS spec.:
+(fontspec)             <->s*[0.9999976075982678]"[Pennstander-ItalicRegular.otf
+]:mode=node;script=latn;language=dflt;"
+(fontspec)             - 'bold italic' (b/it) with NFSS spec.:
+(fontspec)             <->s*[0.9999976075982678]"[Pennstander-ItalicSemiBold.ot
+f]:mode=node;script=latn;language=dflt;"
+
+
+Package fontspec Info: 
+(fontspec)             Pennstander-Medium.otf scale = 0.9999976075982678.
+
+
+Package fontspec Info: 
+(fontspec)             Pennstander-Medium scale = 0.9999976075982678.
+
+(./Pennstander-Bold.fontspec)
+
+Package fontspec Info: 
+(fontspec)             Pennstander-Bold scale = 0.9999976075982678.
+
+
+Package fontspec Info: 
+(fontspec)             Pennstander-ItalicMedium scale = 0.9999976075982678.
+
+
+Package fontspec Info: 
+(fontspec)             Pennstander-ItalicBold scale = 0.9999976075982678.
+
+
+Package fontspec Info: 
+(fontspec)             Font family 'Pennstander-Medium(0)' created for font
+(fontspec)             'Pennstander-Medium' with options
+(fontspec)             [UprightFont=Pennstander-Medium.otf,ItalicFont=Pennstand
+er-ItalicMedium.otf,BoldFont=Pennstander-Bold.otf,BoldItalicFont=Pennstander-It
+alicBold.otf,Scale=MatchLowercase].
+(fontspec)              
+(fontspec)              This font family consists of the following NFSS
+(fontspec)             series/shapes:
+(fontspec)              
+(fontspec)             - 'normal' (m/n) with NFSS spec.:
+(fontspec)             <->s*[0.9999976075982678]"[Pennstander-Medium.otf]:mode=
+node;script=latn;language=dflt;"
+(fontspec)             - 'bold' (b/n) with NFSS spec.:
+(fontspec)             <->s*[0.9999976075982678]"[Pennstander-Bold.otf]:mode=no
+de;script=latn;language=dflt;"
+(fontspec)             - 'italic' (m/it) with NFSS spec.:
+(fontspec)             <->s*[0.9999976075982678]"[Pennstander-ItalicMedium.otf]
+:mode=node;script=latn;language=dflt;"
+(fontspec)             - 'bold italic' (b/it) with NFSS spec.:
+(fontspec)             <->s*[0.9999976075982678]"[Pennstander-ItalicBold.otf]:m
+ode=node;script=latn;language=dflt;"
+
+
+Package fontspec Info: 
+(fontspec)             Pennstander-SemiBold.otf scale = 0.9999976075982678.
+
+
+Package fontspec Info: 
+(fontspec)             Pennstander-SemiBold scale = 0.9999976075982678.
+
+
+Package fontspec Info: 
+(fontspec)             Pennstander-ExtraBold scale = 0.9999976075982678.
+
+
+Package fontspec Info: 
+(fontspec)             Pennstander-ItalicSemiBold scale = 0.9999976075982678.
+
+
+Package fontspec Info: 
+(fontspec)             Pennstander-ItalicExtraBold scale = 0.9999976075982678.
+
+
+Package fontspec Info: 
+(fontspec)             Font family 'Pennstander-SemiBold(0)' created for font
+(fontspec)             'Pennstander-SemiBold' with options
+(fontspec)             [UprightFont=Pennstander-SemiBold.otf,ItalicFont=Pennsta
+nder-ItalicSemiBold.otf,BoldFont=Pennstander-ExtraBold.otf,BoldItalicFont=Penns
+tander-ItalicExtraBold.otf,Contextuals=Alternate,Scale=MatchLowercase].
+(fontspec)              
+(fontspec)              This font family consists of the following NFSS
+(fontspec)             series/shapes:
+(fontspec)              
+(fontspec)             - 'normal' (m/n) with NFSS spec.:
+(fontspec)             <->s*[0.9999976075982678]"[Pennstander-SemiBold.otf]:mod
+e=node;script=latn;language=dflt;+calt;"
+(fontspec)             - 'bold' (b/n) with NFSS spec.:
+(fontspec)             <->s*[0.9999976075982678]"[Pennstander-ExtraBold.otf]:mo
+de=node;script=latn;language=dflt;+calt;"
+(fontspec)             - 'italic' (m/it) with NFSS spec.:
+(fontspec)             <->s*[0.9999976075982678]"[Pennstander-ItalicSemiBold.ot
+f]:mode=node;script=latn;language=dflt;+calt;"
+(fontspec)             - 'bold italic' (b/it) with NFSS spec.:
+(fontspec)             <->s*[0.9999976075982678]"[Pennstander-ItalicExtraBold.o
+tf]:mode=node;script=latn;language=dflt;+calt;"
+
+
+Package fontspec Info: 
+(fontspec)             Pennstander-Bold.otf scale = 0.9999976075982678.
+
+
+Package fontspec Info: 
+(fontspec)             Pennstander-Bold scale = 0.9999976075982678.
+
+
+Package fontspec Info: 
+(fontspec)             Pennstander-Black scale = 0.9999976075982678.
+
+
+Package fontspec Info: 
+(fontspec)             Pennstander-ItalicBold scale = 0.9999976075982678.
+
+
+Package fontspec Info: 
+(fontspec)             Pennstander-ItalicBlack scale = 0.9999976075982678.
+
+
+Package fontspec Info: 
+(fontspec)             Font family 'Pennstander-Bold(0)' created for font
+(fontspec)             'Pennstander-Bold' with options
+(fontspec)             [UprightFont=Pennstander-Bold.otf,ItalicFont=Pennstander
+-ItalicBold.otf,BoldFont=Pennstander-Black.otf,BoldItalicFont=Pennstander-Itali
+cBlack.otf,Scale=MatchLowercase].
+(fontspec)              
+(fontspec)              This font family consists of the following NFSS
+(fontspec)             series/shapes:
+(fontspec)              
+(fontspec)             - 'normal' (m/n) with NFSS spec.:
+(fontspec)             <->s*[0.9999976075982678]"[Pennstander-Bold.otf]:mode=no
+de;script=latn;language=dflt;"
+(fontspec)             - 'bold' (b/n) with NFSS spec.:
+(fontspec)             <->s*[0.9999976075982678]"[Pennstander-Black.otf]:mode=n
+ode;script=latn;language=dflt;"
+(fontspec)             - 'italic' (m/it) with NFSS spec.:
+(fontspec)             <->s*[0.9999976075982678]"[Pennstander-ItalicBold.otf]:m
+ode=node;script=latn;language=dflt;"
+(fontspec)             - 'bold italic' (b/it) with NFSS spec.:
+(fontspec)             <->s*[0.9999976075982678]"[Pennstander-ItalicBlack.otf]:
+mode=node;script=latn;language=dflt;"
+
+(./PennstanderMath-Thin.fontspec)
+
+Package fontspec Info: 
+(fontspec)             PennstanderMath-Thin.otf scale = 0.9999976075982678.
+
+
+Package fontspec Info: 
+(fontspec)             PennstanderMath-Thin scale = 0.9999976075982678.
+
+
+Package fontspec Info: 
+(fontspec)             PennstanderMath-Light scale = 0.9999976075982678.
+
+
+Package fontspec Info: 
+(fontspec)             Font family 'PennstanderMath-Thin(0)' created for font
+(fontspec)             'PennstanderMath-Thin' with options [UprightFont =
+(fontspec)             PennstanderMath-Thin.otf,BoldFont =
+(fontspec)             PennstanderMath-Light.otf,ItalicFont={},BoldFont={},Smal
+lCapsFont={},Scale={MatchLowercase}].
+(fontspec)              
+(fontspec)              This font family consists of the following NFSS
+(fontspec)             series/shapes:
+(fontspec)              
+(fontspec)             - 'normal' (m/n) with NFSS spec.:
+(fontspec)             <->s*[0.9999976075982678]"[PennstanderMath-Thin.otf]:mod
+e=node;script=latn;language=dflt;"
+(fontspec)             - 'bold' (b/n) with NFSS spec.:
+(fontspec)             <->s*[0.9999976075982678]"[PennstanderMath-Light.otf]:mo
+de=node;script=latn;language=dflt;"
+
+LaTeX Font Info:    Overwriting math alphabet `\pennstandermaththin' in version
+ `normal'
+(Font)                  TU/PennstanderMath-Thin(0)/m/n --> TU/PennstanderMath-T
+hin(0)/m/n on input line 90.
+(./PennstanderMath-ExtraLight.fontspec)
+
+Package fontspec Info: 
+(fontspec)             PennstanderMath-ExtraLight.otf scale =
+(fontspec)             0.9999976075982678.
+
+
+Package fontspec Info: 
+(fontspec)             PennstanderMath-ExtraLight scale = 0.9999976075982678.
+
+
+Package fontspec Info: 
+(fontspec)             PennstanderMath-Light scale = 0.9999976075982678.
+
+
+Package fontspec Info: 
+(fontspec)             Font family 'PennstanderMath-ExtraLight(0)' created for
+(fontspec)             font 'PennstanderMath-ExtraLight' with options
+(fontspec)             [UprightFont = PennstanderMath-ExtraLight.otf,BoldFont
+(fontspec)             =
+(fontspec)             PennstanderMath-Light.otf,ItalicFont={},BoldFont={},Smal
+lCapsFont={},Scale={MatchLowercase}].
+(fontspec)              
+(fontspec)              This font family consists of the following NFSS
+(fontspec)             series/shapes:
+(fontspec)              
+(fontspec)             - 'normal' (m/n) with NFSS spec.:
+(fontspec)             <->s*[0.9999976075982678]"[PennstanderMath-ExtraLight.ot
+f]:mode=node;script=latn;language=dflt;"
+(fontspec)             - 'bold' (b/n) with NFSS spec.:
+(fontspec)             <->s*[0.9999976075982678]"[PennstanderMath-Light.otf]:mo
+de=node;script=latn;language=dflt;"
+
+LaTeX Font Info:    Overwriting math alphabet `\pennstandermathextralight' in v
+ersion `normal'
+(Font)                  TU/PennstanderMath-ExtraLight(0)/m/n --> TU/Pennstander
+Math-ExtraLight(0)/m/n on input line 91.
+
+Package fontspec Info: 
+(fontspec)             PennstanderMath-Light.otf scale = 0.9999976075982678.
+
+
+Package fontspec Info: 
+(fontspec)             PennstanderMath-Light scale = 0.9999976075982678.
+
+
+Package fontspec Info: 
+(fontspec)             PennstanderMath-Medium scale = 0.9999976075982678.
+
+
+Package fontspec Info: 
+(fontspec)             Font family 'PennstanderMath-Light(4)' created for font
+(fontspec)             'PennstanderMath-Light' with options [UprightFont =
+(fontspec)             PennstanderMath-Light.otf,BoldFont =
+(fontspec)             PennstanderMath-Medium.otf,ItalicFont={},BoldFont={},Sma
+llCapsFont={},Scale={MatchLowercase}].
+(fontspec)              
+(fontspec)              This font family consists of the following NFSS
+(fontspec)             series/shapes:
+(fontspec)              
+(fontspec)             - 'normal' (m/n) with NFSS spec.:
+(fontspec)             <->s*[0.9999976075982678]"[PennstanderMath-Light.otf]:mo
+de=node;script=latn;language=dflt;"
+(fontspec)             - 'bold' (b/n) with NFSS spec.:
+(fontspec)             <->s*[0.9999976075982678]"[PennstanderMath-Medium.otf]:m
+ode=node;script=latn;language=dflt;"
+
+LaTeX Font Info:    Overwriting math alphabet `\pennstandermathlight' in versio
+n `normal'
+(Font)                  TU/PennstanderMath-Light(4)/m/n --> TU/PennstanderMath-
+Light(4)/m/n on input line 92.
+(./PennstanderMath-Regular.fontspec)
+
+Package fontspec Info: 
+(fontspec)             PennstanderMath-Regular.otf scale = 0.9999976075982678.
+
+
+Package fontspec Info: 
+(fontspec)             PennstanderMath-Regular scale = 0.9999976075982678.
+
+(./PennstanderMath-SemiBold.fontspec)
+
+Package fontspec Info: 
+(fontspec)             PennstanderMath-SemiBold scale = 0.9999976075982678.
+
+
+Package fontspec Info: 
+(fontspec)             Font family 'PennstanderMath-Regular(0)' created for
+(fontspec)             font 'PennstanderMath-Regular' with options
+(fontspec)             [UprightFont = PennstanderMath-Regular.otf,BoldFont =
+(fontspec)             PennstanderMath-SemiBold.otf,ItalicFont={},BoldFont={},S
+mallCapsFont={},Scale={MatchLowercase}].
+(fontspec)              
+(fontspec)              This font family consists of the following NFSS
+(fontspec)             series/shapes:
+(fontspec)              
+(fontspec)             - 'normal' (m/n) with NFSS spec.:
+(fontspec)             <->s*[0.9999976075982678]"[PennstanderMath-Regular.otf]:
+mode=node;script=latn;language=dflt;"
+(fontspec)             - 'bold' (b/n) with NFSS spec.:
+(fontspec)             <->s*[0.9999976075982678]"[PennstanderMath-SemiBold.otf]
+:mode=node;script=latn;language=dflt;"
+
+LaTeX Font Info:    Overwriting math alphabet `\pennstandermath' in version `no
+rmal'
+(Font)                  TU/PennstanderMath-Regular(0)/m/n --> TU/PennstanderMat
+h-Regular(0)/m/n on input line 93.
+
+Package fontspec Info: 
+(fontspec)             PennstanderMath-Medium.otf scale = 0.9999976075982678.
+
+
+Package fontspec Info: 
+(fontspec)             PennstanderMath-Medium scale = 0.9999976075982678.
+
+(./PennstanderMath-Bold.fontspec)
+
+Package fontspec Info: 
+(fontspec)             PennstanderMath-Bold scale = 0.9999976075982678.
+
+
+Package fontspec Info: 
+(fontspec)             Font family 'PennstanderMath-Medium(0)' created for
+(fontspec)             font 'PennstanderMath-Medium' with options [UprightFont
+(fontspec)             = PennstanderMath-Medium.otf,BoldFont =
+(fontspec)             PennstanderMath-Bold.otf,ItalicFont={},BoldFont={},Small
+CapsFont={},Scale={MatchLowercase}].
+(fontspec)              
+(fontspec)              This font family consists of the following NFSS
+(fontspec)             series/shapes:
+(fontspec)              
+(fontspec)             - 'normal' (m/n) with NFSS spec.:
+(fontspec)             <->s*[0.9999976075982678]"[PennstanderMath-Medium.otf]:m
+ode=node;script=latn;language=dflt;"
+(fontspec)             - 'bold' (b/n) with NFSS spec.:
+(fontspec)             <->s*[0.9999976075982678]"[PennstanderMath-Bold.otf]:mod
+e=node;script=latn;language=dflt;"
+
+LaTeX Font Info:    Overwriting math alphabet `\pennstandermathmedium' in versi
+on `normal'
+(Font)                  TU/PennstanderMath-Medium(0)/m/n --> TU/PennstanderMath
+-Medium(0)/m/n on input line 94.
+
+Package fontspec Info: 
+(fontspec)             PennstanderMath-SemiBold.otf scale =
+(fontspec)             0.9999976075982678.
+
+
+Package fontspec Info: 
+(fontspec)             PennstanderMath-SemiBold scale = 0.9999976075982678.
+
+
+Package fontspec Info: 
+(fontspec)             PennstanderMath-ExtraBold scale = 0.9999976075982678.
+
+
+Package fontspec Info: 
+(fontspec)             Font family 'PennstanderMath-SemiBold(0)' created for
+(fontspec)             font 'PennstanderMath-SemiBold' with options
+(fontspec)             [UprightFont = PennstanderMath-SemiBold.otf,BoldFont =
+(fontspec)             PennstanderMath-ExtraBold.otf,ItalicFont={},BoldFont={},
+SmallCapsFont={},Scale={MatchLowercase}].
+(fontspec)              
+(fontspec)              This font family consists of the following NFSS
+(fontspec)             series/shapes:
+(fontspec)              
+(fontspec)             - 'normal' (m/n) with NFSS spec.:
+(fontspec)             <->s*[0.9999976075982678]"[PennstanderMath-SemiBold.otf]
+:mode=node;script=latn;language=dflt;"
+(fontspec)             - 'bold' (b/n) with NFSS spec.:
+(fontspec)             <->s*[0.9999976075982678]"[PennstanderMath-ExtraBold.otf
+]:mode=node;script=latn;language=dflt;"
+
+LaTeX Font Info:    Overwriting math alphabet `\pennstandermathsemibold' in ver
+sion `normal'
+(Font)                  TU/PennstanderMath-SemiBold(0)/m/n --> TU/PennstanderMa
+th-SemiBold(0)/m/n on input line 95.
+
+Package fontspec Info: 
+(fontspec)             PennstanderMath-Bold.otf scale = 0.9999976075982678.
+
+
+Package fontspec Info: 
+(fontspec)             PennstanderMath-Bold scale = 0.9999976075982678.
+
+
+Package fontspec Info: 
+(fontspec)             PennstanderMath-Black scale = 0.9999976075982678.
+
+
+Package fontspec Info: 
+(fontspec)             Font family 'PennstanderMath-Bold(0)' created for font
+(fontspec)             'PennstanderMath-Bold' with options [UprightFont =
+(fontspec)             PennstanderMath-Bold.otf,BoldFont =
+(fontspec)             PennstanderMath-Black.otf,ItalicFont={},BoldFont={},Smal
+lCapsFont={},Scale={MatchLowercase}].
+(fontspec)              
+(fontspec)              This font family consists of the following NFSS
+(fontspec)             series/shapes:
+(fontspec)              
+(fontspec)             - 'normal' (m/n) with NFSS spec.:
+(fontspec)             <->s*[0.9999976075982678]"[PennstanderMath-Bold.otf]:mod
+e=node;script=latn;language=dflt;"
+(fontspec)             - 'bold' (b/n) with NFSS spec.:
+(fontspec)             <->s*[0.9999976075982678]"[PennstanderMath-Black.otf]:mo
+de=node;script=latn;language=dflt;"
+
+LaTeX Font Info:    Overwriting math alphabet `\pennstandermathbold' in version
+ `normal'
+(Font)                  TU/PennstanderMath-Bold(0)/m/n --> TU/PennstanderMath-B
+old(0)/m/n on input line 96.
+) (c:/texlive/2025/texmf-dist/tex/latex/tkz-tab/tkz-tab.sty
+Package: tkz-tab 2020/04/29 v2.12c variations (ctan version)
+(c:/texlive/2025/texmf-dist/tex/latex/base/ifthen.sty
+Package: ifthen 2024/03/16 v1.1e Standard LaTeX ifthen package (DPC)
+) (c:/texlive/2025/texmf-dist/tex/latex/xkeyval/xkeyval.sty
+Package: xkeyval 2025/11/04 v2.10 package option processing (HA)
+(c:/texlive/2025/texmf-dist/tex/generic/xkeyval/xkeyval.tex (c:/texlive/2025/te
+xmf-dist/tex/generic/xkeyval/xkvutils.tex
+\XKV@toks=\toks24
+\XKV@tempa@toks=\toks25
+\XKV@tempb@toks=\toks26
+(c:/texlive/2025/texmf-dist/tex/generic/xkeyval/keyval.tex))
+\XKV@depth=\count309
+File: xkeyval.tex 2014/12/03 v2.7a key=value parser (HA)
+)) (c:/texlive/2025/texmf-dist/tex/latex/pgf/frontendlayer/tikz.sty (c:/texlive
+/2025/texmf-dist/tex/latex/pgf/basiclayer/pgf.sty (c:/texlive/2025/texmf-dist/t
+ex/latex/pgf/utilities/pgfrcs.sty (c:/texlive/2025/texmf-dist/tex/generic/pgf/u
+tilities/pgfutil-common.tex
+\pgfutil@everybye=\toks27
+\pgfutil@tempdima=\dimen160
+\pgfutil@tempdimb=\dimen161
+) (c:/texlive/2025/texmf-dist/tex/generic/pgf/utilities/pgfutil-latex.def
+\pgfutil@abb=\box55
+) (c:/texlive/2025/texmf-dist/tex/generic/pgf/utilities/pgfrcs.code.tex (c:/tex
+live/2025/texmf-dist/tex/generic/pgf/pgf.revision.tex)
+Package: pgfrcs 2025-08-29 v3.1.11a (3.1.11a)
+))
+Package: pgf 2025-08-29 v3.1.11a (3.1.11a)
+(c:/texlive/2025/texmf-dist/tex/latex/pgf/basiclayer/pgfcore.sty (c:/texlive/20
+25/texmf-dist/tex/latex/graphics/graphicx.sty
+Package: graphicx 2024/12/31 v1.2e Enhanced LaTeX Graphics (DPC,SPQR)
+(c:/texlive/2025/texmf-dist/tex/latex/graphics/graphics.sty
+Package: graphics 2024/08/06 v1.4g Standard LaTeX Graphics (DPC,SPQR)
+(c:/texlive/2025/texmf-dist/tex/latex/graphics/trig.sty
+Package: trig 2023/12/02 v1.11 sin cos tan (DPC)
+) (c:/texlive/2025/texmf-dist/tex/latex/graphics-cfg/graphics.cfg
+File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
+)
+Package graphics Info: Driver file: luatex.def on input line 106.
+(c:/texlive/2025/texmf-dist/tex/latex/graphics-def/luatex.def
+File: luatex.def 2025/09/29 v1.2f Graphics/color driver for luatex
+))
+\Gin@req@height=\dimen162
+\Gin@req@width=\dimen163
+) (c:/texlive/2025/texmf-dist/tex/latex/pgf/systemlayer/pgfsys.sty (c:/texlive/
+2025/texmf-dist/tex/generic/pgf/systemlayer/pgfsys.code.tex
+Package: pgfsys 2025-08-29 v3.1.11a (3.1.11a)
+(c:/texlive/2025/texmf-dist/tex/generic/pgf/utilities/pgfkeys.code.tex
+\pgfkeys@pathtoks=\toks28
+\pgfkeys@temptoks=\toks29
+
+(c:/texlive/2025/texmf-dist/tex/generic/pgf/utilities/pgfkeyslibraryfiltered.co
+de.tex
+\pgfkeys@tmptoks=\toks30
+))
+\pgf@x=\dimen164
+\pgf@y=\dimen165
+\pgf@xa=\dimen166
+\pgf@ya=\dimen167
+\pgf@xb=\dimen168
+\pgf@yb=\dimen169
+\pgf@xc=\dimen170
+\pgf@yc=\dimen171
+\pgf@xd=\dimen172
+\pgf@yd=\dimen173
+\w@pgf@writea=\write3
+\r@pgf@reada=\read2
+\c@pgf@counta=\count310
+\c@pgf@countb=\count311
+\c@pgf@countc=\count312
+\c@pgf@countd=\count313
+\t@pgf@toka=\toks31
+\t@pgf@tokb=\toks32
+\t@pgf@tokc=\toks33
+\pgf@sys@id@count=\count314
+(c:/texlive/2025/texmf-dist/tex/generic/pgf/systemlayer/pgf.cfg
+File: pgf.cfg 2025-08-29 v3.1.11a (3.1.11a)
+)
+Driver file for pgf: pgfsys-luatex.def
+(c:/texlive/2025/texmf-dist/tex/generic/pgf/systemlayer/pgfsys-luatex.def
+File: pgfsys-luatex.def 2025-08-29 v3.1.11a (3.1.11a)
+(c:/texlive/2025/texmf-dist/tex/generic/pgf/systemlayer/pgfsys-common-pdf.def
+File: pgfsys-common-pdf.def 2025-08-29 v3.1.11a (3.1.11a)
+)))
+(c:/texlive/2025/texmf-dist/tex/generic/pgf/systemlayer/pgfsyssoftpath.code.tex
+File: pgfsyssoftpath.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\pgfsyssoftpath@smallbuffer@items=\count315
+\pgfsyssoftpath@bigbuffer@items=\count316
+)
+(c:/texlive/2025/texmf-dist/tex/generic/pgf/systemlayer/pgfsysprotocol.code.tex
+File: pgfsysprotocol.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+)) (c:/texlive/2025/texmf-dist/tex/latex/xcolor/xcolor.sty
+Package: xcolor 2024/09/29 v3.02 LaTeX color extensions (UK)
+(c:/texlive/2025/texmf-dist/tex/latex/graphics-cfg/color.cfg
+File: color.cfg 2016/01/02 v1.6 sample color configuration
+)
+Package xcolor Info: Driver file: luatex.def on input line 274.
+(c:/texlive/2025/texmf-dist/tex/latex/graphics/mathcolor.ltx)
+Package xcolor Info: Model `cmy' substituted by `cmy0' on input line 1349.
+Package xcolor Info: Model `hsb' substituted by `rgb' on input line 1353.
+Package xcolor Info: Model `RGB' extended on input line 1365.
+Package xcolor Info: Model `HTML' substituted by `rgb' on input line 1367.
+Package xcolor Info: Model `Hsb' substituted by `hsb' on input line 1368.
+Package xcolor Info: Model `tHsb' substituted by `hsb' on input line 1369.
+Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1370.
+Package xcolor Info: Model `Gray' substituted by `gray' on input line 1371.
+Package xcolor Info: Model `wave' substituted by `hsb' on input line 1372.
+) (c:/texlive/2025/texmf-dist/tex/generic/pgf/basiclayer/pgfcore.code.tex
+Package: pgfcore 2025-08-29 v3.1.11a (3.1.11a)
+(c:/texlive/2025/texmf-dist/tex/generic/pgf/math/pgfmath.code.tex (c:/texlive/2
+025/texmf-dist/tex/generic/pgf/math/pgfmathutil.code.tex) (c:/texlive/2025/texm
+f-dist/tex/generic/pgf/math/pgfmathparser.code.tex
+\pgfmath@dimen=\dimen174
+\pgfmath@count=\count317
+\pgfmath@box=\box56
+\pgfmath@toks=\toks34
+\pgfmath@stack@operand=\toks35
+\pgfmath@stack@operation=\toks36
+) (c:/texlive/2025/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.code.tex)
+(c:/texlive/2025/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.basic.code.te
+x)
+(c:/texlive/2025/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.trigonometric
+.code.tex)
+(c:/texlive/2025/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.random.code.t
+ex)
+(c:/texlive/2025/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.comparison.co
+de.tex)
+(c:/texlive/2025/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.base.code.tex
+)
+(c:/texlive/2025/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.round.code.te
+x)
+(c:/texlive/2025/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.misc.code.tex
+)
+(c:/texlive/2025/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.integerarithm
+etics.code.tex) (c:/texlive/2025/texmf-dist/tex/generic/pgf/math/pgfmathcalc.co
+de.tex) (c:/texlive/2025/texmf-dist/tex/generic/pgf/math/pgfmathfloat.code.tex
+\c@pgfmathroundto@lastzeros=\count318
+)) (c:/texlive/2025/texmf-dist/tex/generic/pgf/math/pgfint.code.tex) (c:/texliv
+e/2025/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepoints.code.tex
+File: pgfcorepoints.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\pgf@picminx=\dimen175
+\pgf@picmaxx=\dimen176
+\pgf@picminy=\dimen177
+\pgf@picmaxy=\dimen178
+\pgf@pathminx=\dimen179
+\pgf@pathmaxx=\dimen180
+\pgf@pathminy=\dimen181
+\pgf@pathmaxy=\dimen182
+\pgf@xx=\dimen183
+\pgf@xy=\dimen184
+\pgf@yx=\dimen185
+\pgf@yy=\dimen186
+\pgf@zx=\dimen187
+\pgf@zy=\dimen188
+)
+(c:/texlive/2025/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepathconstruct.cod
+e.tex
+File: pgfcorepathconstruct.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\pgf@path@lastx=\dimen189
+\pgf@path@lasty=\dimen190
+)
+(c:/texlive/2025/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepathusage.code.te
+x
+File: pgfcorepathusage.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\pgf@shorten@end@additional=\dimen191
+\pgf@shorten@start@additional=\dimen192
+) (c:/texlive/2025/texmf-dist/tex/generic/pgf/basiclayer/pgfcorescopes.code.tex
+File: pgfcorescopes.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\pgfpic=\box57
+\pgf@hbox=\box58
+\pgf@layerbox@main=\box59
+\pgf@picture@serial@count=\count319
+)
+(c:/texlive/2025/texmf-dist/tex/generic/pgf/basiclayer/pgfcoregraphicstate.code
+.tex
+File: pgfcoregraphicstate.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\pgflinewidth=\dimen193
+)
+(c:/texlive/2025/texmf-dist/tex/generic/pgf/basiclayer/pgfcoretransformations.c
+ode.tex
+File: pgfcoretransformations.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\pgf@pt@x=\dimen194
+\pgf@pt@y=\dimen195
+\pgf@pt@temp=\dimen196
+) (c:/texlive/2025/texmf-dist/tex/generic/pgf/basiclayer/pgfcorequick.code.tex
+File: pgfcorequick.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+) (c:/texlive/2025/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreobjects.code.te
+x
+File: pgfcoreobjects.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+)
+(c:/texlive/2025/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepathprocessing.co
+de.tex
+File: pgfcorepathprocessing.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+) (c:/texlive/2025/texmf-dist/tex/generic/pgf/basiclayer/pgfcorearrows.code.tex
+File: pgfcorearrows.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\pgfarrowsep=\dimen197
+) (c:/texlive/2025/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreshade.code.tex
+File: pgfcoreshade.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\pgf@max=\dimen198
+\pgf@sys@shading@range@num=\count320
+\pgf@shadingcount=\count321
+) (c:/texlive/2025/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreimage.code.tex
+File: pgfcoreimage.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+)
+(c:/texlive/2025/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreexternal.code.tex
+File: pgfcoreexternal.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\pgfexternal@startupbox=\box60
+) (c:/texlive/2025/texmf-dist/tex/generic/pgf/basiclayer/pgfcorelayers.code.tex
+File: pgfcorelayers.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+)
+(c:/texlive/2025/texmf-dist/tex/generic/pgf/basiclayer/pgfcoretransparency.code
+.tex
+File: pgfcoretransparency.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+)
+(c:/texlive/2025/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepatterns.code.tex
+File: pgfcorepatterns.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+) (c:/texlive/2025/texmf-dist/tex/generic/pgf/basiclayer/pgfcorerdf.code.tex
+File: pgfcorerdf.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+))) (c:/texlive/2025/texmf-dist/tex/generic/pgf/modules/pgfmoduleshapes.code.te
+x
+File: pgfmoduleshapes.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\pgfnodeparttextbox=\box61
+) (c:/texlive/2025/texmf-dist/tex/generic/pgf/modules/pgfmoduleplot.code.tex
+File: pgfmoduleplot.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+)
+(c:/texlive/2025/texmf-dist/tex/latex/pgf/compatibility/pgfcomp-version-0-65.st
+y
+Package: pgfcomp-version-0-65 2025-08-29 v3.1.11a (3.1.11a)
+\pgf@nodesepstart=\dimen199
+\pgf@nodesepend=\dimen256
+)
+(c:/texlive/2025/texmf-dist/tex/latex/pgf/compatibility/pgfcomp-version-1-18.st
+y
+Package: pgfcomp-version-1-18 2025-08-29 v3.1.11a (3.1.11a)
+)) (c:/texlive/2025/texmf-dist/tex/latex/pgf/utilities/pgffor.sty (c:/texlive/2
+025/texmf-dist/tex/latex/pgf/utilities/pgfkeys.sty (c:/texlive/2025/texmf-dist/
+tex/generic/pgf/utilities/pgfkeys.code.tex)) (c:/texlive/2025/texmf-dist/tex/la
+tex/pgf/math/pgfmath.sty (c:/texlive/2025/texmf-dist/tex/generic/pgf/math/pgfma
+th.code.tex)) (c:/texlive/2025/texmf-dist/tex/generic/pgf/utilities/pgffor.code
+.tex
+Package: pgffor 2025-08-29 v3.1.11a (3.1.11a)
+\pgffor@iter=\dimen257
+\pgffor@skip=\dimen258
+\pgffor@stack=\toks37
+\pgffor@toks=\toks38
+)) (c:/texlive/2025/texmf-dist/tex/generic/pgf/frontendlayer/tikz/tikz.code.tex
+Package: tikz 2025-08-29 v3.1.11a (3.1.11a)
+
+(c:/texlive/2025/texmf-dist/tex/generic/pgf/libraries/pgflibraryplothandlers.co
+de.tex
+File: pgflibraryplothandlers.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\pgf@plot@mark@count=\count322
+\pgfplotmarksize=\dimen259
+)
+\tikz@lastx=\dimen260
+\tikz@lasty=\dimen261
+\tikz@lastxsaved=\dimen262
+\tikz@lastysaved=\dimen263
+\tikz@lastmovetox=\dimen264
+\tikz@lastmovetoy=\dimen265
+\tikzleveldistance=\dimen266
+\tikzsiblingdistance=\dimen267
+\tikz@figbox=\box62
+\tikz@figbox@bg=\box63
+\tikz@tempbox=\box64
+\tikz@tempbox@bg=\box65
+\tikztreelevel=\count323
+\tikznumberofchildren=\count324
+\tikznumberofcurrentchild=\count325
+\tikz@fig@count=\count326
+(c:/texlive/2025/texmf-dist/tex/generic/pgf/modules/pgfmodulematrix.code.tex
+File: pgfmodulematrix.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\pgfmatrixcurrentrow=\count327
+\pgfmatrixcurrentcolumn=\count328
+\pgf@matrix@numberofcolumns=\count329
+)
+\tikz@expandcount=\count330
+
+(c:/texlive/2025/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzli
+brarytopaths.code.tex
+File: tikzlibrarytopaths.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+)))
+(c:/texlive/2025/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzli
+braryarrows.code.tex
+File: tikzlibraryarrows.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+
+(c:/texlive/2025/texmf-dist/tex/generic/pgf/libraries/pgflibraryarrows.code.tex
+File: pgflibraryarrows.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\arrowsize=\dimen268
+))
+(c:/texlive/2025/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzli
+brarypatterns.code.tex
+File: tikzlibrarypatterns.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+
+(c:/texlive/2025/texmf-dist/tex/generic/pgf/libraries/pgflibrarypatterns.code.t
+ex
+File: pgflibrarypatterns.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+))
+\tkz@XF=\dimen269
+\tkz@YF=\dimen270
+\c@tkz@cnt@line=\count331
+\c@tkz@cnt@lg=\count332
+\c@tkz@cnt@cl=\count333
+\c@tkz@cnt@pred=\count334
+\c@tkz@cnt@temp=\count335
+\c@tkz@cnt@arrow=\count336
+\c@tkz@cnt@zone=\count337
+\c@tkz@cnt@lgnext=\count338
+\c@tkz@cnt@clnext=\count339
+\c@tkz@cnt@pair=\count340
+\c@tkz@cnt@impair=\count341
+\c@tkz@cnt@aw=\count342
+) (./fontpennstander.aux)
+\openout1 = fontpennstander.aux
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 9.
+LaTeX Font Info:    ... okay on input line 9.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 9.
+LaTeX Font Info:    ... okay on input line 9.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 9.
+LaTeX Font Info:    ... okay on input line 9.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 9.
+LaTeX Font Info:    ... okay on input line 9.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 9.
+LaTeX Font Info:    ... okay on input line 9.
+LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 9.
+LaTeX Font Info:    ... okay on input line 9.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 9.
+LaTeX Font Info:    ... okay on input line 9.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 9.
+LaTeX Font Info:    ... okay on input line 9.
+LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `normal'
+(Font)                  OT1/cmss/m/n --> TU/lmss/m/n on input line 9.
+LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `bold'
+(Font)                  OT1/cmss/bx/n --> TU/lmss/b/n on input line 9.
+LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `normal'
+(Font)                  OT1/cmtt/m/n --> TU/lmtt/m/n on input line 9.
+LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
+(Font)                  OT1/cmtt/m/n --> TU/lmtt/b/n on input line 9.
+(c:/texlive/2025/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+\scratchcounter=\count343
+\scratchdimen=\dimen271
+\scratchbox=\box66
+\nofMPsegments=\count344
+\nofMParguments=\count345
+\everyMPshowfont=\toks39
+\MPscratchCnt=\count346
+\MPscratchDim=\dimen272
+\MPnumerator=\count347
+\makeMPintoPDFobject=\count348
+\everyMPtoPDFconversion=\toks40
+) (c:/texlive/2025/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
+Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
+Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
+85.
+(c:/texlive/2025/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
+File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
+e
+)) [1
+
+{c:/texlive/2025/texmf-var/fonts/map/pdftex/updmap/pdftex.map}] (./fontpennstan
+der.aux)
+ ***********
+LaTeX2e <2025-11-01>
+L3 programming layer <2025-11-14>
+ ***********
+)
+
+Here is how much of LuaTeX's memory you used:
+ 21578 strings out of 476081
+ 100000,1144653 words of node,token memory allocated
+ 495 words of node memory still in use:
+   6 hlist, 2 vlist, 2 rule, 2 glue, 4 kern, 1 glyph, 8 attribute, 52 glue_spec,
+ 8 attribute_list, 2 write nodes
+   avail lists: 2:1238,3:559,4:18,5:248,6:36,7:1848,8:26,9:540,10:1,11:12
+ 43490 multiletter control sequences out of 65536+600000
+ 101 fonts using 24542659 bytes
+ 117i,8n,128p,428b,908s stack positions out of 10000i,1000n,20000p,200000b,200000s
+<c:/Users/cpier/OneDrive/latex/fonts/opentype/pennstander/Pennstander-ItalicMedi
+um.otf><c:/Users/cpier/OneDrive/latex/fonts/opentype/pennstander/Pennstander-Ita
+licLight.otf><c:/Users/cpier/OneDrive/latex/fonts/opentype/pennstander/Pennstand
+er-Medium.otf><c:/Users/cpier/OneDrive/latex/fonts/opentype/pennstander/Pennstan
+derMath-Light.otf><c:/Users/cpier/OneDrive/latex/fonts/opentype/pennstander/Penn
+stander-Light.otf>
+Output written on fontpennstander.pdf (1 page, 44978 bytes).
+
+PDF statistics: 46 PDF objects out of 1000 (max. 8388607)
+ 27 compressed objects within 1 object stream
+ 0 named destinations out of 1000 (max. 131072)
+ 16 words of extra memory for PDF output out of 10000 (max. 100000000)
+

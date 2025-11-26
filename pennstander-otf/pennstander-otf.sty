@@ -1,0 +1,101 @@
+% pennstander-otf.sty
+% C. Pierquet 2025
+% https://github.com/juliusross1/Pennstander SIL OPEN FONT LICENSE Version 1.1
+% Code inspired by fourier-otf.sty from D. Flipo
+% This file is distributed under the terms of the LaTeX Project Public
+% License from CTAN archives in directory  macros/latex/base/lppl.txt.
+% Either version 1.3 or, at your option, any later version.
+
+\ProvidesPackage{pennstander-otf}[2025/11/26 v0.1 Supports pennstander fonts for lualatex and xelatex.] 
+
+\RequirePackage{iftex}
+\RequireTUTeX
+\RequirePackage{unicode-math}
+
+\newtoks\PSOTtoksT
+\newtoks\PSOTtoksM
+\newcommand*{\StorePS@KV@Option}[2]{%
+  \PSOTtoksM=\expandafter{\the\PSOTtoksM #1={#2},}
+  \def\PSOT@opt{#1}%
+  \def\PSOT@scale{Scale}%
+  \def\PSOT@stylset{StylisticSet}%
+  \def\PSOT@rawfeat{RawFeature}%
+  \ifx\PSOT@opt\PSOT@scale%
+    \PSOTtoksT=\expandafter{\the\PSOTtoksT Scale={#2},}%
+    \PSOTtoksM=\expandafter{\the\PSOTtoksM Scale={#2},}%
+  \fi
+  \ifx\PSOT@opt\PSOT@stylset%
+    \PSOTtoksT=\expandafter{\the\PSOTtoksT StylisticSet={#2},}%
+    \PSOTtoksM=\expandafter{\the\PSOTtoksM StylisticSet={#2},}%
+  \fi
+  \ifx\PSOT@opt\PSOT@rawfeat
+    \PSOTtoksT=\expandafter{\the\PSOTtoksT RawFeature={#2},}%
+    \PSOTtoksM=\expandafter{\the\PSOTtoksM RawFeature={#2},}%
+  \fi
+  }
+
+\def\PSOT@weight{Regular}
+
+\DeclareKeys
+{
+  Weight.code           = \def\PSOT@weight{#1}                    ,% weight: Thin, ExtraLight, Light, Regular, Medium, SemiBold, Bold
+  no-text.if            = PSOT@notext                             ,
+  no-math.if            = PSOT@nomath                             ,
+  math-style.code       = \StorePS@KV@Option{math-style}{#1}      ,
+  bold-style.code       = \StorePS@KV@Option{bold-style}{#1}      ,
+  StylisticSet.code     = \StorePS@KV@Option{StylisticSet}{#1}    ,
+  RawFeature.code       = \StorePS@KV@Option{RawFeature}{#1}      ,
+  Scale.code            = \StorePS@KV@Option{Scale}{#1}
+}
+\ProcessKeyOptions
+
+\ifPSOT@notext
+\else
+	\IfFontExistsTF{Pennstander-\PSOT@weight}{%
+		\begingroup
+			\edef\temp{%
+				\endgroup
+				\noexpand\setmainfont{Pennstander-\PSOT@weight}[\unexpanded\expandafter{\the\PSOTtoksT}]%
+			}%
+		\temp
+	}{%
+		\PackageWarning{pennstander-otf}{Font 'Pennstander-\PSOT@weight' not found}%
+	}%
+\fi
+
+\ifPSOT@nomath
+\else
+	\IfFontExistsTF{PennstanderMath-\PSOT@weight}{%
+		\begingroup
+			\edef\temp{%
+				\endgroup
+				\noexpand\setmathfont{PennstanderMath-\PSOT@weight}[\unexpanded\expandafter{\the\PSOTtoksM}]%
+			}%
+		\temp
+	}{%
+		\PackageWarning{pennstander-otf}{Font 'PennstanderMath-\PSOT@weight' not found}%
+	}%
+\fi
+
+%====fontfamily
+\newfontfamily\pennstanderthin{Pennstander-Thin}[Scale=MatchLowercase]%
+\newfontfamily\pennstanderextralight{Pennstander-ExtraLight}[Scale=MatchLowercase]%
+\newfontfamily\pennstanderlight{Pennstander-Light}[Scale=MatchLowercase]%
+\newfontfamily\pennstander{Pennstander-Regular}[Scale=MatchLowercase]%
+\newfontfamily\pennstandermedium{Pennstander-Medium}[Scale=MatchLowercase]%
+\newfontfamily\pennstandersemibold{Pennstander-SemiBold}[Scale=MatchLowercase]%
+\newfontfamily\pennstanderbold{Pennstander-Bold}[Scale=MatchLowercase]%
+
+%====mathfontface
+\setmathfontface\pennstandermaththin{PennstanderMath-Thin}[Scale=MatchLowercase]%
+\setmathfontface\pennstandermathextralight{PennstanderMath-ExtraLight}[Scale=MatchLowercase]%
+\setmathfontface\pennstandermathlight{PennstanderMath-Light}[Scale=MatchLowercase]%
+\setmathfontface\pennstandermath{PennstanderMath-Regular}[Scale=MatchLowercase]%
+\setmathfontface\pennstandermathmedium{PennstanderMath-Medium}[Scale=MatchLowercase]%
+\setmathfontface\pennstandermathsemibold{PennstanderMath-SemiBold}[Scale=MatchLowercase]%
+\setmathfontface\pennstandermathbold{PennstanderMath-Bold}[Scale=MatchLowercase]%
+
+%====default
+\defaultfontfeatures{}
+
+\endinput
