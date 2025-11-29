@@ -69,8 +69,8 @@
 \setlength{\parindent}{0pt}
 \definecolor{LightGray}{gray}{0.9}
 
-\def\TPversion{0.3.4}
-\def\TPdate{4 octobre 2025}
+\def\TPversion{0.3.5}
+\def\TPdate{27 novembre 2025}
 
 \usepackage[most]{tcolorbox}
 \usepackage{minted2}
@@ -213,6 +213,8 @@ Une commande pour des cartes en version \og miniatures \fg{} (individuelle, main
 
 \part{Historique}
 
+{\small \bverb|v0.3.5|~:~~~~Ajout d'un style [Poker.v7]}
+
 {\small \bverb|v0.3.4|~:~~~~Ajout d'un style [Poker.v6]}
 
 {\small \bverb|v0.3.3|~:~~~~Correction de la typo d'une carte [fr.VP]}
@@ -271,6 +273,7 @@ Les cartes disponibles sont : :
 	\item les cartes type \textsf{Poker v4} (CC BY-SA 4.0) \url{https://commons.wikimedia.org/wiki/File:Computer_screen_playing_cards_deck.svg}
 	\item les cartes type \textsf{Poker v5} (Public Domain) \url{https://www.me.uk/cards/}
 	\item \cmaj{0.3.4} les cartes type \textsf{Poker v6} (Public Domain) \url{https://code.google.com/archive/p/vector-playing-cards}
+	\item \cmaj{0.3.5} les cartes type \textsf{Poker v7} (Public Domain) \url{https://www.me.uk/cards/}
 	\item \cmaj{0.2.4} les cartes type \textsf{Poker fr} (LGPL-2.1 license) \url{https://svg-cards.sourceforge.net/}
 	\item \cmaj{0.2.4} les cartes type \textsf{bicycle} (LGPL-3.0 license) \url{https://github.com/tfbkny/blackjack}
 	\item les cartes type \textsf{Tarot} (Public Domain) \url{https://freesvg.org/deck-of-french-tarot-playing-cards}
@@ -474,7 +477,7 @@ Concernant les \Cle{options} :
 	\item la clé \Cle{Hauteur} correspond à la hauteur voulue, en cm, de la carte ; \hfill{}défaut \Cle{4.25}
 	\item \cmaj{0.3.1} la clé \Cle{EspH} pour un éventuel espacement horizontal entre les cartes ; \hfill{}défaut \Cle{0pt}
 	\item la clé \Cle{TypeJeu} (parmi \Cle{Poker} ou \Cle{Tarot} ou \Cle{Uno}) pour spécifier les cartes à utiliser ; \hfill{}défaut \Cle{Poker}
-	\item \cmaj{0.2.4} la clé \Cle{Stylejeu} (parmi \Cle{v1}, \ldots, \Cle{v5}, \Cle{fr} ou \Cle{bicycl}) pour spécifier le style des cartes \textsf{Poker} ; \hfill{}défaut \Cle{v1}
+	\item \cmaj{0.3.5} la clé \Cle{Stylejeu} (parmi \Cle{v1}, \ldots, \Cle{v7}, \Cle{fr} ou \Cle{bicycl}) pour spécifier le style des cartes \textsf{Poker} ; \hfill{}défaut \Cle{v1}
 	\item la clé \Cle{Rotation} pour une éventuelle rotation de la carte ; \hfill{}défaut \Cle{0}
 	\item la clé \Cle{AlignementV} pour l'alignement vertical (lié à \ctex{raisebox} ou à \TikZ) ; \hfill{}défaut \Cle{0.5}
 	\item le booléen \Cle{Tikz} pour préciser que la carte est \textit{autonome}, dans un environnement \ctex{tikzpicture} ; \hfill{}défaut \Cle{false}
@@ -526,6 +529,7 @@ Il existe 7 versions de design des cartes \textit{classiques}, accessibles via l
 	\item \Cle{v4} ;
 	\item \Cle{v5} ;
 	\item \Cle{v6} \cmaj{0.3.4} ;
+	\item \Cle{v7} \cmaj{0.3.5} ;
 	\item \Cle{fr} \cmaj{0.2.4} ;
 	\item \Cle{bicycl} \cmaj{0.2.4}.
 \end{itemize}
@@ -538,7 +542,8 @@ Il existe 7 versions de design des cartes \textit{classiques}, accessibles via l
 \textbf{Design v3} :\\ \AffCartesJeu[Hauteur=2,StyleJeu=v3]{DK § AP § 10T § VP § 8T § RT § 9C} \\ \\
 \textbf{Design v4} :\\ \AffCartesJeu[Hauteur=2,StyleJeu=v4]{DK § AP § 10T § VP § 8T § RT § 9C} \\ \\
 \textbf{Design v5} :\\ \AffCartesJeu[Hauteur=2,StyleJeu=v5]{DK § AP § 10T § VP § 8T § RT § 9C} \\ \\
-\textbf{Design v6} :\\ \AffCartesJeu[Hauteur=2,StyleJeu=v5]{DK § AP § 10T § VP § 8T § RT § 9C} \hfill\cmaj{0.3.4}\\ \\
+\textbf{Design v6} :\\ \AffCartesJeu[Hauteur=2,StyleJeu=v6]{DK § AP § 10T § VP § 8T § RT § 9C} \hfill\cmaj{0.3.4}\\ \\
+\textbf{Design v7} :\\ \AffCartesJeu[Hauteur=2,StyleJeu=v7]{DK § AP § 10T § VP § 8T § RT § 9C} \hfill\cmaj{0.3.5}\\ \\
 \textbf{Design fr} :\\ \AffCartesJeu[Hauteur=2,StyleJeu=fr]{DK § AP § 10T § VP § 8T § RT § 9C} \hfill\cmaj{0.2.4}\\ \\
 \textbf{Design bi} :\\ \AffCartesJeu[Hauteur=2,StyleJeu=bicycl]{DK § AP § 10T § VP § 8T § RT § 9C}\hfill\cmaj{0.2.4} \\
 \end{codetex}
@@ -602,7 +607,7 @@ Les \Cle{options} sont les suivantes :
 \begin{itemize}
 	\item la clé \Cle{Hauteur} correspond à la hauteur voulue, en cm, des cartes ; \hfill{}défaut \Cle{4.25}
 	\item la clé \Cle{TypeJeu} (parmi \Cle{Poker} ou \Cle{Tarot} ou \Cle{Uno}) pour spécifier les cartes à utiliser ; \hfill{}défaut \Cle{Poker}
-	\item \cmaj{0.2.4} la clé \Cle{Stylejeu} (parmi \Cle{v1}, \ldots, \Cle{v5}, \Cle{fr} ou \Cle{bicycl}) pour spécifier le style des cartes \textsf{Poker} ; \hfill{}défaut \Cle{v1}
+	\item \cmaj{0.3.5} la clé \Cle{Stylejeu} (parmi \Cle{v1}, \ldots, \Cle{v7}, \Cle{fr} ou \Cle{bicycl}) pour spécifier le style des cartes \textsf{Poker} ; \hfill{}défaut \Cle{v1}
 	\item la clé \Cle{EspH} correspond à coefficient d'espacement horizontal (\textit{proche} du cm en taille réelle) entre les cartes ; \hfill{}défaut \Cle{1}
 	\item la clé \Cle{EspV} correspond à coefficient d'espacement vertical (\textit{proche} du cm en taille réelle) entre les cartes ; \hfill{}défaut \Cle{0}
 	\item le booléen \Cle{Eventail} pour une présentation en éventail ; \hfill{}défaut \Cle{false}
@@ -692,7 +697,7 @@ Les \Cle{options} sont les suivantes :
 \begin{itemize}
 	\item la clé \Cle{Hauteur} correspond à la hauteur voulue, en cm, des cartes ; \hfill{}défaut \Cle{4.25}
 	\item la clé \Cle{TypeJeu} (parmi \Cle{Poker} ou \Cle{Belote} ou \Cle{Bataille} ou \Cle{Rami} ou \Cle{Uno} ou \Cle{Tarot}) ; \hfill{}défaut \Cle{Poker}
-	\item \cmaj{0.2.4} la clé \Cle{Stylejeu} (parmi \Cle{v1}, \ldots, \Cle{v5}, \Cle{fr} ou \Cle{bicycl}) pour spécifier le style des cartes type \textsf{Poker/Belote/Rami/Bataille} ; \hfill{}défaut \Cle{v1}
+	\item \cmaj{0.3.5} la clé \Cle{Stylejeu} (parmi \Cle{v1}, \ldots, \Cle{v7}, \Cle{fr} ou \Cle{bicycl}) pour spécifier le style des cartes type \textsf{Poker/Belote/Rami/Bataille} ; \hfill{}défaut \Cle{v1}
 	\item la clé \Cle{EspH} correspond à coefficient d'espacement horizontal (\textit{proche} du cm en taille réelle) entre les cartes ; \hfill{}défaut \Cle{1}
 	\item la clé \Cle{EspH} correspond à coefficient d'espacement vertical (\textit{proche} du cm en taille réelle) entre les cartes ; \hfill{}défaut \Cle{0}
 	\item le booléen \Cle{Eventail} pour une présentation en éventail ; \hfill{}défaut \Cle{false}
@@ -720,8 +725,8 @@ En ce qui concerne les \textit{jeux} disponibles (non modifiables) :
 \begin{codetex}[]
 \textbf{\large Belote v1 \& Belote v4 \& Belote v5 :} \\ \\
 \MainCartesJeuAleatoire[Hauteur=2.5,TypeJeu=Belote]{8} ou \MainCartesJeuAleatoire[Hauteur=2.5,TypeJeu=Belote,StyleJeu=v4]{8} ou \MainCartesJeuAleatoire[Hauteur=2.5,TypeJeu=Belote,StyleJeu=v5]{8}.\\ \\
-\textbf{\large Poker fr \& Poker v3 :} \\ \\
-\MainCartesJeuAleatoire[Hauteur=2.5,Eventail,EspH=0,EspV=0.1]{5} ou  \MainCartesJeuAleatoire[Hauteur=2.5,Eventail,EspH=0,EspV=0.1,StyleJeu=v3]{5}.\\ \\
+\textbf{\large Poker fr \& Poker v3 \& Poker v7:} \\ \\
+\MainCartesJeuAleatoire[Hauteur=2.5,Eventail,EspH=0,EspV=0.1]{5} ou  \MainCartesJeuAleatoire[Hauteur=2.5,Eventail,EspH=0,EspV=0.1,StyleJeu=v3]{5} ou  \MainCartesJeuAleatoire[Hauteur=2.5,Eventail,EspH=0,EspV=0.1,StyleJeu=v7]{5}\\ \\
 \textbf{\large Bataille v2 :} \\ \\
 \MainCartesJeuAleatoire[Hauteur=2.5,TypeJeu=Bataille,StyleJeu=v2]{27}\\ \\
 \textbf{\large Tarot :} \\
@@ -957,6 +962,22 @@ Pas de dos disponible.
 \xintFor #1 in {2,3,4,5,6,7,8,9,10,V,D,R,A}\do{\AffCarteJeu[StyleJeu=v6,Hauteur=1.85]{#1T}}
 
 \AffCarteJeu[StyleJeu=v6,Hauteur=1.85]{JN}\AffCarteJeu[StyleJeu=v6,Hauteur=1.85]{JR}%
+
+\subsection{Poker/Bataille/Belote/Rami (v7)}
+
+Dos disponibles : \texttt{Dos}
+
+\medskip
+
+\xintFor #1 in {2,3,4,5,6,7,8,9,10,V,D,R,A}\do{\AffCarteJeu[StyleJeu=v7,Hauteur=1.85]{#1P}}
+
+\xintFor #1 in {2,3,4,5,6,7,8,9,10,V,D,R,A}\do{\AffCarteJeu[StyleJeu=v7,Hauteur=1.85]{#1C}}
+
+\xintFor #1 in {2,3,4,5,6,7,8,9,10,V,D,R,A}\do{\AffCarteJeu[StyleJeu=v7,Hauteur=1.85]{#1K}}
+
+\xintFor #1 in {2,3,4,5,6,7,8,9,10,V,D,R,A}\do{\AffCarteJeu[StyleJeu=v7,Hauteur=1.85]{#1T}}
+
+\AffCarteJeu[StyleJeu=v7,Hauteur=1.85]{JN}\AffCarteJeu[StyleJeu=v7,Hauteur=1.85]{JR}\AffCarteJeu[StyleJeu=v7,Hauteur=1.85]{Dos}%
 
 \subsection{Poker/Bataille/Belote/Rami (fr)}
 
