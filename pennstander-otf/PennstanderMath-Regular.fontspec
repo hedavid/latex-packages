@@ -1,7 +1,5 @@
 \defaultfontfeatures[PennstanderMath-Regular]
 {
   UprightFont  = PennstanderMath-Regular.otf,
-  BoldFont     = PennstanderMath-SemiBold.otf,
-  %script-font  = PennstanderMath-Regular-script.otf,
-  %sscript-font = PennstanderMath-Regular-sscript.otf
+  BoldFont     = PennstanderMath-SemiBold.otf
 }

@@ -1,7 +1,13 @@
 \defaultfontfeatures[Pennstander-Regular]
 {
-  UprightFont      = Pennstander-Regular.otf,
-  ItalicFont       = Pennstander-ItalicRegular.otf,
-  BoldFont         = Pennstander-SemiBold.otf,
-  BoldItalicFont   = Pennstander-ItalicSemiBold.otf
+  Extension           = .otf,
+  UprightFont         = Pennstander-Regular,
+  ItalicFont          = Pennstander-ItalicRegular,
+  BoldFont            = Pennstander-SemiBold,
+  BoldItalicFont      = Pennstander-ItalicSemiBold,
+  SlantedFont         = Pennstander-Regular,
+  SlantedFeatures     = {FakeSlant=0.19},
+  BoldSlantedFont     = Pennstander-SemiBold,
+  BoldSlantedFeatures = {FakeSlant=0.19},
+  Ligatures           = {Common,TeX}
 }
