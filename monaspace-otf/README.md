@@ -28,8 +28,8 @@ Otherwise, `monaspace-otf` can be installed under TEXMFHOME or TEXMFLOCAL, f.i.
 
 + sty file (`tex/*.sty`) in directory `texmf-local/tex/latex/monaspace-otf/`
 + fontspec files (`tex/*.fontspec`) in directory `texmf-local/tex/latex/monaspace-otf/`
-+ documentation (from doc/ directory) in `texmf-local/doc/fonts/public/monaspace-otf/`
-+ font files in `texmf-local/fonts/opentype/SIL/monaspace-otf/`
++ documentation (from doc/ directory) in `texmf-local/doc/fonts/.../monaspace-otf/`
++ font files in `texmf-local/fonts/.../monaspace-otf/`
 
 Don't forget to rebuild the file database (mktexlsr or so) if you install under TEXMFLOCAL.  
 Finally, you may want to make the system font database aware of the `monaspace-otf` fonts (fontconfig under Linux).
