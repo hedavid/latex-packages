@@ -1,0 +1,10 @@
+def Fibonacci(n: int) -> int :
+    # Check if input is 0 then it will print incorrect input
+    if n < 0 :
+        print("Incorrect input")
+    elif n == 0 :
+        return 0
+    elif 1 <= n <= 2 :
+        return 1
+    else :
+        return Fibonacci(n-1) + Fibonacci(n-2)
