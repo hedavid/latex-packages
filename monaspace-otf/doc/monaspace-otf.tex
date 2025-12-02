@@ -1,0 +1,493 @@
+% !TeX TXS-program:compile = txs:///arara
+% arara: lualatex: {shell: no, synctex: yes, interaction: batchmode}
+% arara: lualatex: {shell: no, synctex: yes, interaction: batchmode} if found('log', '(undefined references|Please rerun|Rerun to get)')
+
+\documentclass[a4paper]{scrartcl}
+\usepackage{mathtools, array, varioref}
+\usepackage[british]{babel}
+\usepackage{libertinus-otf}
+\usepackage[Scale=MatchLowercase]{monaspace-otf}
+\usepackage{framed}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{realscripts}
+\usepackage{graphicx}
+\usepackage{microtype}
+
+\newcommand*{\pkg}[1]{\texttt{#1}}
+\newcommand*{\file}[1]{\texttt{#1}}
+\newcommand*{\ttbold}[1]{\texttt{\textbf{#1}}}
+\newcommand*{\opt}[1]{\texttt{#1}}
+\newcommand*{\cmd}[1]{\texttt{\textbackslash #1}}\newcommand*{\showtchar}[1]{\cmd{#1}~\csname #1\endcsname}
+\newcommand*{\showmchar}[1]{\cmd{#1}~$(\csname #1\endcsname)$}
+\newcommand*{\showmchardollar}[1]{\texttt{\$\cmd{#1}\$}~$(\csname #1\endcsname)$}
+
+\newcommand{\abc}{abcdefghijklmnopqrstuvwxyz}
+\newcommand{\ABC}{ABCDEFGHIJKLMNOPQRSTUVWXYZ}
+\newcommand{\samplenumbers}{0123456789}
+
+\newcommand\samplettxt{oO08 iIlL1 g9qCGQ <=>}
+\newcommand\samplett[1][]{\cmd{#1} & \fbox{\csname#1\endcsname\samplettxt} \\}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 2pt}
+
+\usepackage{hyperref}
+\hypersetup{pdftitle={Monaspace User’s Guide for LaTeX},
+	pdfauthor={Cédric PIERQUET},
+	bookmarksopen,
+	colorlinks
+}
+\newcommand*{\hlabel}[1]{\phantomsection\label{#1}}
+
+\title{Monaspace family fonts (\textit{experimental}) \\User’s Guide for LaTeX (v0.1)}
+\author{Cédric Pierquet \\ \texttt{cpierquet@outlook.fr}}
+
+\date{\today}
+\newcommand*{\version}{0.1}
+%\newif\ifCTAN   \CTANtrue  %%% décommenter pour CTAN
+
+\begin{document}
+
+\maketitle
+
+\section{What is Monaspace ?}
+
+\subsection{Presentation (actual version is v1.300)}
+
+\textbf{One superfamily / Five fonts / Texture healing}
+
+Since the earliest days of the teletype machine, code has been set in monospaced type — letters, on a grid. Monaspace is a new type system that advances the state of the art for the display of code on screen.
+
+Texture healing preserves the monospace grid, and works in most editors without needing new software or editor plugins.
+
+\medskip
+
+For further information, \url{https://monaspace.githubnext.com} is the best source!
+
+\subsection{License}
+
+Fonts are licensed under the SIL Open Font License, Version 1.1.
+
+They require LuaTeX or XeTeX as engine and the \pkg{fontspec} package\footnote{Please read the documentation \file{fontspec.pdf}.}.
+
+\pagebreak
+
+\section{Usage}
+
+\subsection{Loading mono font}
+
+Several weights are available:
+
+\hfill{\monaspaceargonextralight ExtraLight} / {\monaspaceargonlight Light} / {\monaspaceargon Regular} / {\monaspaceargonmedium Medium} / {\monaspaceargonsemibold SemiBold}\hfill\null
+
+Several styles are available:
+
+\hfill{\monaspaceargon Argon} / {\monaspacekrypton Krypton} / {\monaspaceneon Neon} / {\monaspaceradon Radon} / {\monaspacexenon Xenon}\hfill\null
+
+\smallskip
+
+Files \file{Monaspace<style>-<weight>.fontspec} are provided to ensure that Italic, Bold, BoldItalic are properly loaded.
+
+\smallskip
+
+A basic call for Monaspace mono font could be:
+
+\begin{verbatim}
+\usepackage{monaspace-otf}
+\end{verbatim}
+
+It loads \opt{MonaspaceArgon-Regular} as mono font.
+
+\medskip
+
+\begin{lstlisting}[language=python,basicstyle=\footnotesize\ttfamily,commentstyle=\itshape\color{gray},keywordstyle=\bfseries\color{magenta},tabsize=4,frame=single]
+def Fibonacci(n) :
+  # Check if input is 0 then it will print incorrect input
+  if n < 0 :
+    print("Incorrect input")
+  elif n == 0 :
+    return 0
+  elif n == 1 or n == 2 :
+    return 1
+  else :
+    return Fibonacci(n-1) + Fibonacci(n-2)
+\end{lstlisting}
+
+\subsection{Options}
+
+Options can be given within the package:
+
+\begin{itemize}
+	\item \opt{Weight=...}, within {\footnotesize \opt{ExtraLight/Light/Regular/Medium/SemiBold}};
+	\item \opt{Style=...}, within {\footnotesize \opt{Argon/Krypton/Neon/Radon/Xenon}};
+	\item the boolean \opt{nott} for not loading monospace as mono font;
+	\item \opt{StylisticSet=...}
+	\item \opt{RawFeature=...}
+	\item \opt{CharacterVariant=...}
+	\item \opt{Scale=...}
+\end{itemize}
+
+\subsection{Manual loading}
+
+It's also possible to load mono font with \cmd{setmonofont}, thanks to \opt{fontspec} files for example.
+
+\begin{verbatim}
+%w/o package loaded
+\usepackage{fontspec}
+\usepackage{unicode-math}
+\setmonofont{Monaspace<style>-<weight>}[options]
+\end{verbatim}
+
+\subsection{Fontfamily}
+
+Combination of \textit{style/weight} \opt{fontfamily} are provided:
+
+\begin{tabular}{ll}
+	\samplett[monaspaceargonextralight]
+	\samplett[monaspaceargonextralightcode]
+	\samplett[monaspaceargonlight]
+	\samplett[monaspaceargonlightcode]
+	\samplett[monaspaceargon]
+	\samplett[monaspaceargoncode]
+	\samplett[monaspaceargonmedium]
+	\samplett[monaspaceargonmediumcode]
+	\samplett[monaspaceargonsemibold]
+	\samplett[monaspaceargonsemiboldcode]
+\end{tabular}
+
+\begin{tabular}{ll}
+	\samplett[monaspacekryptonextralight]
+	\samplett[monaspacekryptonextralightcode]
+	\samplett[monaspacekryptonlight]
+	\samplett[monaspacekryptonlightcode]
+	\samplett[monaspacekrypton]
+	\samplett[monaspacekryptoncode]
+	\samplett[monaspacekryptonmedium]
+	\samplett[monaspacekryptonmediumcode]
+	\samplett[monaspacekryptonsemibold]
+	\samplett[monaspacekryptonsemiboldcode]
+\end{tabular}
+
+\begin{tabular}{ll}
+	\samplett[monaspaceneonextralight]
+	\samplett[monaspaceneonextralightcode]
+	\samplett[monaspaceneonlight]
+	\samplett[monaspaceneonlightcode]
+	\samplett[monaspaceneon]
+	\samplett[monaspaceneoncode]
+	\samplett[monaspaceneonmedium]
+	\samplett[monaspaceneonmediumcode]
+	\samplett[monaspaceneonsemibold]
+	\samplett[monaspaceneonsemiboldcode]
+\end{tabular}
+
+\begin{tabular}{ll}
+	\samplett[monaspaceradonextralight]
+	\samplett[monaspaceradonextralightcode]
+	\samplett[monaspaceradonlight]
+	\samplett[monaspaceradonlightcode]
+	\samplett[monaspaceradon]
+	\samplett[monaspaceradoncode]
+	\samplett[monaspaceradonmedium]
+	\samplett[monaspaceradonmediumcode]
+	\samplett[monaspaceradonsemibold]
+	\samplett[monaspaceradonsemiboldcode]
+\end{tabular}
+
+\begin{tabular}{ll}
+	\samplett[monaspacexenonextralight]
+	\samplett[monaspacexenonextralightcode]
+	\samplett[monaspacexenonlight]
+	\samplett[monaspacexenonlightcode]
+	\samplett[monaspacexenon]
+	\samplett[monaspacexenoncode]
+	\samplett[monaspacexenonmedium]
+	\samplett[monaspacexenonmediumcode]
+	\samplett[monaspacexenonsemibold]
+	\samplett[monaspacexenonsemiboldcode]
+\end{tabular}
+
+\opt{code} version are declared with ligatures and all \textit{ssXX}.
+
+\pagebreak
+
+\section{Openfeatures}
+
+See \url{https://monaspace.githubnext.com/\#code-ligatures}.
+
+\subsection{Ligatures}
+
+The \opt{liga} font feature enables customized spacing of repeating characters, like /// or ||. It is designed to avoid activating inside longer sequences like ////.
+
+There are ten groups of coding ligatures, separated into stylistic sets. You may be able to enable or disable individual sets selectively:
+
+\begin{itemize}
+	\item \opt{ss01}: ligatures related to the equals glyph
+	\item \opt{ss02}: ligatures for greater/less or equal
+	\item \opt{ss03}: ligatures related to arrows
+	\item \opt{ss04}: ligatures related to markup
+	\item \opt{ss05}: ligatures related to the F\# programming language
+	\item \opt{ss06}: ligatures related to repeated uses of \#, +, and \&.
+	\item \opt{ss07}: ligatures related to colons
+	\item \opt{ss08}: ligatures related to combinations of periods with other glyphs
+	\item \opt{ss09}: ligatures related to combinations of the greater/less than and equals signs
+	\item \opt{ss10}: other tags
+\end{itemize}
+
+\textit{You can see an interactive display of all the ligatures on the Monaspace website}
+
+\subsection{Character Variants}
+
+Specific characters have variants that you can optionally enable using the \opt{cvNN} opentype feature:
+
+\begin{itemize}
+	\item \opt{cv01-cv09}: figure variants
+	\item \opt{cv01}: 0 alternates (\opt{1/2/3/4} for plain/slash/reverse slash/cut-out slash)
+	\item \opt{cv02}: 1 alternate (no serif)
+	\item \opt{cv10-cv29}: letter variants
+	\item \opt{cv10}: l i alternates (Neon, Argon, Xenon, Radon)
+	\item \opt{cv11}: j f r t alternates (Neon, Argon)
+	\item \opt{cv30-cv59}: symbol variants
+	\item \opt{cv30}: * vertically aligned closer to the top of the space, similar to how the asterisk was in Monaspace 1.0
+	\item \opt{cv31}: * 6-pointed asterisk
+	\item \opt{cv32}: leq/geq angled lower line
+	\item \opt{cv60-cv79}: optional ligatures
+	\item \opt{cv60}: forces the <= pair to render in a fashion that matches => instead of swapping for leq.
+	\item \opt{cv61}: enables the optional closed square ligature for [].
+	\item \opt{cv62}: @\_ ligature
+\end{itemize}
+
+\pagebreak
+
+\section{Samples (mono)}
+
+\subsection{Argo(Mono)}
+
+\begin{lstlisting}[language=TeX,basicstyle=\footnotesize\monaspaceargon,commentstyle=\itshape\color{gray},keywordstyle=\bfseries\color{blue},tabsize=4,frame=single,columns=flexible,showstringspaces=false]
+\lstset{
+  language=python,
+  basicstyle=\footnotesize\monaspaceargon,
+  commentstyle=\itshape\color{gray},
+  keywordstyle=\bfseries\color{magenta},
+  tabsize=4,
+  frame=single,
+  columns=flexible,
+  showstringspaces=false
+}
+\end{lstlisting}
+
+\lstinputlisting[language=python,basicstyle=\footnotesize\monaspaceargon,commentstyle=\itshape\color{gray},keywordstyle=\bfseries\color{magenta},tabsize=4,frame=single,columns=flexible,showstringspaces=false]{samplemonaspacejava.js}
+
+\lstinputlisting[language=python,basicstyle=\footnotesize\monaspaceargon,commentstyle=\itshape\color{gray},keywordstyle=\bfseries\color{magenta},tabsize=4,frame=single,columns=flexible,showstringspaces=false]{samplemonaspacepython.py}
+
+\pagebreak
+
+\subsection{Krypton(Mono)}
+
+\begin{lstlisting}[language=python,basicstyle=\footnotesize\monaspacekrypton,commentstyle=\itshape\color{gray},keywordstyle=\bfseries\color{magenta},tabsize=4,frame=single,columns=flexible,showstringspaces=false]
+\lstset{
+  language=python,
+  basicstyle=\footnotesize\monaspacekrypton,
+  commentstyle=\itshape\color{gray},
+  keywordstyle=\bfseries\color{magenta},
+  tabsize=4,
+  frame=single,
+  columns=flexible,
+  showstringspaces=false
+}
+\end{lstlisting}
+
+\lstinputlisting[language=python,basicstyle=\footnotesize\monaspacekrypton,commentstyle=\itshape\color{gray},keywordstyle=\bfseries\color{magenta},tabsize=4,frame=single,columns=flexible,showstringspaces=false]{samplemonaspacejava.js}
+
+\lstinputlisting[language=python,basicstyle=\footnotesize\monaspacekrypton,commentstyle=\itshape\color{gray},keywordstyle=\bfseries\color{magenta},tabsize=4,frame=single,columns=flexible,showstringspaces=false]{samplemonaspacepython.py}
+
+\pagebreak
+
+\subsection{Neon(Mono)}
+
+\begin{lstlisting}[language=python,basicstyle=\footnotesize\monaspaceneon,commentstyle=\itshape\color{gray},keywordstyle=\bfseries\color{magenta},tabsize=4,frame=single,columns=flexible,showstringspaces=false]
+\lstset{
+  language=python,
+  basicstyle=\footnotesize\monaspaceneon,
+  commentstyle=\itshape\color{gray},
+  keywordstyle=\bfseries\color{magenta},
+  tabsize=4,
+  frame=single,
+  columns=flexible,
+  showstringspaces=false
+}
+\end{lstlisting}
+
+\lstinputlisting[language=python,basicstyle=\footnotesize\monaspaceneon,commentstyle=\itshape\color{gray},keywordstyle=\bfseries\color{magenta},tabsize=4,frame=single,columns=flexible,showstringspaces=false]{samplemonaspacejava.js}
+
+\lstinputlisting[language=python,basicstyle=\footnotesize\monaspaceneon,commentstyle=\itshape\color{gray},keywordstyle=\bfseries\color{magenta},tabsize=4,frame=single,columns=flexible,showstringspaces=false]{samplemonaspacepython.py}
+
+\pagebreak
+
+\subsection{Radon(Mono)}
+
+\begin{lstlisting}[language=python,basicstyle=\footnotesize\monaspaceradon,commentstyle=\itshape\color{gray},keywordstyle=\bfseries\color{magenta},tabsize=4,frame=single,columns=flexible,showstringspaces=false]
+\lstset{
+language=python,
+basicstyle=\footnotesize\monaspaceradon,
+commentstyle=\itshape\color{gray},
+keywordstyle=\bfseries\color{magenta},
+tabsize=4,
+frame=single,
+columns=flexible,
+showstringspaces=false
+}
+\end{lstlisting}
+
+\lstinputlisting[language=python,basicstyle=\footnotesize\monaspaceradon,commentstyle=\itshape\color{gray},keywordstyle=\bfseries\color{magenta},tabsize=4,frame=single,columns=flexible,showstringspaces=false]{samplemonaspacejava.js}
+
+\lstinputlisting[language=python,basicstyle=\footnotesize\monaspaceradon,commentstyle=\itshape\color{gray},keywordstyle=\bfseries\color{magenta},tabsize=4,frame=single,columns=flexible,showstringspaces=false]{samplemonaspacepython.py}
+
+\pagebreak
+
+\subsection{Xenon(Mono)}
+
+\begin{lstlisting}[language=python,basicstyle=\footnotesize\monaspacexenon,commentstyle=\itshape\color{gray},keywordstyle=\bfseries\color{magenta},tabsize=4,frame=single,columns=flexible,showstringspaces=false]
+\lstset{
+  language=python,
+  basicstyle=\footnotesize\monaspacexenon,
+  commentstyle=\itshape\color{gray},
+  keywordstyle=\bfseries\color{magenta},
+  tabsize=4,
+  frame=single,
+  columns=flexible,
+  showstringspaces=false
+}
+\end{lstlisting}
+
+\lstinputlisting[language=python,basicstyle=\footnotesize\monaspacexenon,commentstyle=\itshape\color{gray},keywordstyle=\bfseries\color{magenta},tabsize=4,frame=single,columns=flexible,showstringspaces=false]{samplemonaspacejava.js}
+
+\lstinputlisting[language=python,basicstyle=\footnotesize\monaspacexenon,commentstyle=\itshape\color{gray},keywordstyle=\bfseries\color{magenta},tabsize=4,frame=single,columns=flexible,showstringspaces=false]{samplemonaspacepython.py}
+
+\pagebreak
+
+\section{Samples (code)}
+
+\makeatletter
+\renewcommand*\verbatim@nolig@list{}
+\makeatother
+
+\subsection{Argo(Code)}
+
+\begin{lstlisting}[language=python,basicstyle=\footnotesize\monaspaceargoncode,commentstyle=\itshape\color{gray},keywordstyle=\bfseries\color{magenta},tabsize=4,frame=single,columns=flexible,showstringspaces=false]
+\lstset{
+  language=python,
+  basicstyle=\footnotesize\monaspaceargoncode,
+  commentstyle=\itshape\color{gray},
+  keywordstyle=\bfseries\color{magenta},
+  tabsize=4,
+  frame=single,
+  columns=flexible,
+  showstringspaces=false
+}
+\end{lstlisting}
+
+\lstinputlisting[language=python,basicstyle=\footnotesize\monaspaceargoncode,commentstyle=\itshape\color{gray},keywordstyle=\bfseries\color{magenta},tabsize=4,frame=single,columns=flexible,showstringspaces=false]{samplemonaspacejava.js}
+
+\lstinputlisting[language=python,basicstyle=\footnotesize\monaspaceargoncode,commentstyle=\itshape\color{gray},keywordstyle=\bfseries\color{magenta},tabsize=4,frame=single,columns=flexible,showstringspaces=false]{samplemonaspacepython.py}
+
+\pagebreak
+
+\subsection{Krypton(Code)}
+
+\begin{lstlisting}[language=python,basicstyle=\footnotesize\monaspacekryptoncode,commentstyle=\itshape\color{gray},keywordstyle=\bfseries\color{magenta},tabsize=4,frame=single,columns=flexible,showstringspaces=false]
+\lstset{
+  language=python,
+  basicstyle=\footnotesize\monaspacekryptoncode,
+  commentstyle=\itshape\color{gray},
+  keywordstyle=\bfseries\color{magenta},
+  tabsize=4,
+  frame=single,
+  columns=flexible,
+  showstringspaces=false
+}
+\end{lstlisting}
+
+\lstinputlisting[language=python,basicstyle=\footnotesize\monaspacekryptoncode,commentstyle=\itshape\color{gray},keywordstyle=\bfseries\color{magenta},tabsize=4,frame=single,columns=flexible,showstringspaces=false]{samplemonaspacejava.js}
+
+\lstinputlisting[language=python,basicstyle=\footnotesize\monaspacekryptoncode,commentstyle=\itshape\color{gray},keywordstyle=\bfseries\color{magenta},tabsize=4,frame=single,columns=flexible,showstringspaces=false]{samplemonaspacepython.py}
+
+\pagebreak
+
+\subsection{Neon(Code)}
+
+\begin{lstlisting}[language=python,basicstyle=\footnotesize\monaspaceneoncode,commentstyle=\itshape\color{gray},keywordstyle=\bfseries\color{magenta},tabsize=4,frame=single,columns=flexible,showstringspaces=false]
+\lstset{
+language=python,
+basicstyle=\footnotesize\monaspaceneoncode,
+commentstyle=\itshape\color{gray},
+keywordstyle=\bfseries\color{magenta},
+tabsize=4,
+frame=single,
+columns=flexible,
+showstringspaces=false
+}
+\end{lstlisting}
+
+\lstinputlisting[language=python,basicstyle=\footnotesize\monaspaceneoncode,commentstyle=\itshape\color{gray},keywordstyle=\bfseries\color{magenta},tabsize=4,frame=single,columns=flexible,showstringspaces=false]{samplemonaspacejava.js}
+
+\lstinputlisting[language=python,basicstyle=\footnotesize\monaspaceneoncode,commentstyle=\itshape\color{gray},keywordstyle=\bfseries\color{magenta},tabsize=4,frame=single,columns=flexible,showstringspaces=false]{samplemonaspacepython.py}
+
+\pagebreak
+
+\subsection{Radon(Code)}
+
+\begin{lstlisting}[language=python,basicstyle=\footnotesize\monaspaceradoncode,commentstyle=\itshape\color{gray},keywordstyle=\bfseries\color{magenta},tabsize=4,frame=single,columns=flexible,showstringspaces=false]
+\lstset{
+language=python,
+basicstyle=\footnotesize\monaspaceradoncode,
+commentstyle=\itshape\color{gray},
+keywordstyle=\bfseries\color{magenta},
+tabsize=4,
+frame=single,
+columns=flexible,
+showstringspaces=false
+}
+\end{lstlisting}
+
+\lstinputlisting[language=python,basicstyle=\footnotesize\monaspaceradoncode,commentstyle=\itshape\color{gray},keywordstyle=\bfseries\color{magenta},tabsize=4,frame=single,columns=flexible,showstringspaces=false]{samplemonaspacejava.js}
+
+\lstinputlisting[language=python,basicstyle=\footnotesize\monaspaceradoncode,commentstyle=\itshape\color{gray},keywordstyle=\bfseries\color{magenta},tabsize=4,frame=single,columns=flexible,showstringspaces=false]{samplemonaspacepython.py}
+
+\pagebreak
+
+\subsection{Xenon(Code)}
+
+\begin{lstlisting}[language=python,basicstyle=\footnotesize\monaspacexenoncode,commentstyle=\itshape\color{gray},keywordstyle=\bfseries\color{magenta},tabsize=4,frame=single,columns=flexible,showstringspaces=false]
+\lstset{
+language=python,
+basicstyle=\footnotesize\monaspacexenoncode,
+commentstyle=\itshape\color{gray},
+keywordstyle=\bfseries\color{magenta},
+tabsize=4,
+frame=single,
+columns=flexible,
+showstringspaces=false
+}
+\end{lstlisting}
+
+\lstinputlisting[language=python,basicstyle=\footnotesize\monaspacexenoncode,commentstyle=\itshape\color{gray},keywordstyle=\bfseries\color{magenta},tabsize=4,frame=single,columns=flexible,showstringspaces=false]{samplemonaspacejava.js}
+
+\lstinputlisting[language=python,basicstyle=\footnotesize\monaspacexenoncode,commentstyle=\itshape\color{gray},keywordstyle=\bfseries\color{magenta},tabsize=4,frame=single,columns=flexible,showstringspaces=false]{samplemonaspacepython.py}
+
+%\lstinputlisting[language=python,basicstyle=\footnotesize\monaspaceargon,commentstyle=\itshape\color{gray},keywordstyle=\bfseries\color{magenta},tabsize=4,frame=single]{samplemonaspacepython.py}
+%
+%\makeatletter
+%\renewcommand*\verbatim@nolig@list{}
+%\makeatother
+%
+%\lstinputlisting[language=python,basicstyle=\footnotesize\monaspaceargoncode,commentstyle=\itshape\color{gray},keywordstyle=\bfseries\color{magenta},tabsize=4,frame=single]{samplemonaspacepython.py}
+%
+%\subsection{Krpyton (mono and code)}
+%
+%\lstinputlisting[language=python,basicstyle=\footnotesize\monaspacekrypton,commentstyle=\itshape\color{gray},keywordstyle=\bfseries\color{magenta},tabsize=4,frame=single]{samplemonaspacepython.py}
+%
+%\lstinputlisting[language=python,basicstyle=\footnotesize\monaspacekryptoncode,commentstyle=\itshape\color{gray},keywordstyle=\bfseries\color{magenta},tabsize=4,frame=single]{samplemonaspacepython.py}
+
+\end{document}

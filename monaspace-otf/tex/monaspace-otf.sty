@@ -1,0 +1,138 @@
+% monaspace-otf.sty
+% C. Pierquet 2025
+% monaspace-otf Mono typeface is available under the SIL Open Font License 1.1 license
+% Code inspired by fourier-otf.sty from D. Flipo
+% This file is distributed under the terms of the LaTeX Project Public
+% License from CTAN archives in directory  macros/latex/base/lppl.txt.
+% Either version 1.3 or, at your option, any later version.
+
+\ProvidesPackage{monaspace-otf}[2025/12/02 v0.1 Supports MonaSpace family fonts for lualatex and xelatex (v1.301)] 
+
+\RequirePackage{iftex}
+\RequireTUTeX
+\RequirePackage{xkeyval}
+\RequirePackage{fontspec}
+
+\newtoks\MONAOTtoks
+\newcommand*{\StoreMONA@KV@Option}[2]{%
+  \MONAOTtoks=\expandafter{\the\MONAOTtoks #1={#2},}
+  \def\MONAOT@opt{#1}%
+  \def\MONAOT@scale{Scale}%
+  \def\MONAOT@stylset{StylisticSet}%
+  \def\MONAOT@charvar{CharacterVariant}%
+  \def\MONAOT@rawfeat{RawFeature}%
+  \ifx\MONAOT@opt\MONAOT@scale%
+    \MONAOTtoks=\expandafter{\the\MONAOTtoks Scale={#2},}%
+  \fi
+  \ifx\MONAOT@opt\MONAOT@charvar%
+    \MONAOTtoks=\expandafter{\the\MONAOTtoks CharacterVariant={#2},}%
+  \fi
+  \ifx\MONAOT@opt\MONAOT@stylset%
+    \MONAOTtoks=\expandafter{\the\MONAOTtoks StylisticSet={#2},}%
+  \fi
+  \ifx\MONAOT@opt\MONAOT@rawfeat%
+    \MONAOTtoks=\expandafter{\the\MONAOTtoks RawFeature={#2},}%
+  \fi
+  }
+
+\def\MONAOT@style{Argon}
+\def\MONAOT@weight{Regular}
+
+\DeclareKeys
+{
+  Style.code            = \def\MONAOT@style{#1}                        ,% Style: Argon,Krypto,Neon,Radon,Xenon
+  Weight.code           = \def\MONAOT@weight{#1}                       ,% Weight: ExtraLight, Light, Regular, Medium, SemiBold
+  no-tt.if              = MONAOT@nott                                  ,%
+  code.if               = MONAOT@code                                  ,%
+  healing.if            = MONAOT@healing                               ,%
+  StylisticSet.code     = \StoreMONA@KV@Option{StylisticSet}{#1}       ,%
+  RawFeature.code       = \StoreMONA@KV@Option{RawFeature}{#1}         ,%
+  CharacterVariant.code = \StoreMONA@KV@Option{CharacterVariant}{#1}   ,%
+  Scale.code            = \StoreMONA@KV@Option{Scale}{#1}
+}
+\ProcessKeyOptions
+
+\ifMONAOT@nott
+\else
+	\IfFontExistsTF{Monaspace\MONAOT@style-\MONAOT@weight}{%
+		\ifMONAOT@code
+			\MONAOTtoks=\expandafter{\the\MONAOTtoks StylisticSet={0,1,2,3,4,5,6,7,8,9,10},Ligatures=Common,}%
+		\fi
+		\ifMONAOT@healing
+			\MONAOTtoks=\expandafter{\the\MONAOTtoks RawFeature={+calt},}%
+		\fi
+		\begingroup
+			\edef\temp{%
+				\endgroup
+				\noexpand\setmonofont{Monaspace\MONAOT@style-\MONAOT@weight}[\unexpanded\expandafter{\the\MONAOTtoks}]%
+			}%
+		\temp
+	}{%
+		\PackageWarning{monaspace-otf}{Font 'Monaspace\MONAOT@style-\MONAOT@weight' not found}%
+	}%
+\fi
+
+%====fontfamily argon
+\newfontfamily\monaspaceargonmedium{MonaspaceArgon-Medium}[Scale=MatchLowercase]
+\newfontfamily\monaspaceargonmediumcode{MonaspaceArgon-Medium}[StylisticSet={0,1,2,3,4,5,6,7,8,9,10},Ligatures=Common,Scale=MatchLowercase]
+\newfontfamily\monaspaceargonextralight{MonaspaceArgon-ExtraLight}[Scale=MatchLowercase]
+\newfontfamily\monaspaceargonextralightcode{MonaspaceArgon-ExtraLight}[StylisticSet={0,1,2,3,4,5,6,7,8,9,10},Ligatures=Common,Scale=MatchLowercase]
+\newfontfamily\monaspaceargonlight{MonaspaceArgon-Light}[Scale=MatchLowercase]
+\newfontfamily\monaspaceargonlightcode{MonaspaceArgon-Light}[StylisticSet={0,1,2,3,4,5,6,7,8,9,10},Ligatures=Common,Scale=MatchLowercase]
+\newfontfamily\monaspaceargon{MonaspaceArgon-Regular}[Scale=MatchLowercase]
+\newfontfamily\monaspaceargoncode{MonaspaceArgon-Regular}[StylisticSet={0,1,2,3,4,5,6,7,8,9,10},Ligatures=Common,Scale=MatchLowercase]
+\newfontfamily\monaspaceargonsemibold{MonaspaceArgon-SemiBold}[Scale=MatchLowercase]
+\newfontfamily\monaspaceargonsemiboldcode{MonaspaceArgon-SemiBold}[StylisticSet={0,1,2,3,4,5,6,7,8,9,10},Ligatures=Common,Scale=MatchLowercase]
+%====fontfamily krypton
+\newfontfamily\monaspacekryptonmedium{MonaspaceKrypton-Medium}[Scale=MatchLowercase]
+\newfontfamily\monaspacekryptonmediumcode{MonaspaceKrypton-Medium}[StylisticSet={0,1,2,3,4,5,6,7,8,9,10},Ligatures=Common,Scale=MatchLowercase]
+\newfontfamily\monaspacekryptonextralight{MonaspaceKrypton-ExtraLight}[Scale=MatchLowercase]
+\newfontfamily\monaspacekryptonextralightcode{MonaspaceKrypton-ExtraLight}[StylisticSet={0,1,2,3,4,5,6,7,8,9,10},Ligatures=Common,Scale=MatchLowercase]
+\newfontfamily\monaspacekryptonlight{MonaspaceKrypton-Light}[Scale=MatchLowercase]
+\newfontfamily\monaspacekryptonlightcode{MonaspaceKrypton-Light}[StylisticSet={0,1,2,3,4,5,6,7,8,9,10},Ligatures=Common,Scale=MatchLowercase]
+\newfontfamily\monaspacekrypton{MonaspaceKrypton-Regular}[Scale=MatchLowercase]
+\newfontfamily\monaspacekryptoncode{MonaspaceKrypton-Regular}[StylisticSet={0,1,2,3,4,5,6,7,8,9,10},Ligatures=Common,Scale=MatchLowercase]
+\newfontfamily\monaspacekryptonsemibold{MonaspaceKrypton-SemiBold}[Scale=MatchLowercase]
+\newfontfamily\monaspacekryptonsemiboldcode{MonaspaceKrypton-SemiBold}[StylisticSet={0,1,2,3,4,5,6,7,8,9,10},Ligatures=Common,Scale=MatchLowercase]
+%====fontfamily neon
+\newfontfamily\monaspaceneonmedium{MonaspaceNeon-Medium}[Scale=MatchLowercase]
+\newfontfamily\monaspaceneonmediumcode{MonaspaceNeon-Medium}[StylisticSet={0,1,2,3,4,5,6,7,8,9,10},Ligatures=Common,Scale=MatchLowercase]
+\newfontfamily\monaspaceneonextralight{MonaspaceNeon-ExtraLight}[Scale=MatchLowercase]
+\newfontfamily\monaspaceneonextralightcode{MonaspaceNeon-ExtraLight}[StylisticSet={0,1,2,3,4,5,6,7,8,9,10},Ligatures=Common,Scale=MatchLowercase]
+\newfontfamily\monaspaceneonlight{MonaspaceNeon-Light}[Scale=MatchLowercase]
+\newfontfamily\monaspaceneonlightcode{MonaspaceNeon-Light}[StylisticSet={0,1,2,3,4,5,6,7,8,9,10},Ligatures=Common,Scale=MatchLowercase]
+\newfontfamily\monaspaceneon{MonaspaceNeon-Regular}[Scale=MatchLowercase]
+\newfontfamily\monaspaceneoncode{MonaspaceNeon-Regular}[StylisticSet={0,1,2,3,4,5,6,7,8,9,10},Ligatures=Common,Scale=MatchLowercase]
+\newfontfamily\monaspaceneonsemibold{MonaspaceNeon-SemiBold}[Scale=MatchLowercase]
+\newfontfamily\monaspaceneonsemiboldcode{MonaspaceNeon-SemiBold}[StylisticSet={0,1,2,3,4,5,6,7,8,9,10},Ligatures=Common,Scale=MatchLowercase]
+%====fontfamily radon
+\newfontfamily\monaspaceradonmedium{MonaspaceRadon-Medium}[Scale=MatchLowercase]
+\newfontfamily\monaspaceradonmediumcode{MonaspaceRadon-Medium}[StylisticSet={0,1,2,3,4,5,6,7,8,9,10},Ligatures=Common,Scale=MatchLowercase]
+\newfontfamily\monaspaceradonextralight{MonaspaceRadon-ExtraLight}[Scale=MatchLowercase]
+\newfontfamily\monaspaceradonextralightcode{MonaspaceRadon-ExtraLight}[StylisticSet={0,1,2,3,4,5,6,7,8,9,10},Ligatures=Common,Scale=MatchLowercase]
+\newfontfamily\monaspaceradonlight{MonaspaceRadon-Light}[Scale=MatchLowercase]
+\newfontfamily\monaspaceradonlightcode{MonaspaceRadon-Light}[StylisticSet={0,1,2,3,4,5,6,7,8,9,10},Ligatures=Common,Scale=MatchLowercase]
+\newfontfamily\monaspaceradon{MonaspaceRadon-Regular}[Scale=MatchLowercase]
+\newfontfamily\monaspaceradoncode{MonaspaceRadon-Regular}[StylisticSet={0,1,2,3,4,5,6,7,8,9,10},Ligatures=Common,Scale=MatchLowercase]
+\newfontfamily\monaspaceradonsemibold{MonaspaceRadon-SemiBold}[Scale=MatchLowercase]
+\newfontfamily\monaspaceradonsemiboldcode{MonaspaceRadon-SemiBold}[StylisticSet={0,1,2,3,4,5,6,7,8,9,10},Ligatures=Common,Scale=MatchLowercase]
+%====fontfamily xenon
+\newfontfamily\monaspacexenonmedium{MonaspaceXenon-Medium}[Scale=MatchLowercase]
+\newfontfamily\monaspacexenonmediumcode{MonaspaceXenon-Medium}[StylisticSet={0,1,2,3,4,5,6,7,8,9,10},Ligatures=Common,Scale=MatchLowercase]
+\newfontfamily\monaspacexenonextralight{MonaspaceXenon-ExtraLight}[Scale=MatchLowercase]
+\newfontfamily\monaspacexenonextralightcode{MonaspaceXenon-ExtraLight}[StylisticSet={0,1,2,3,4,5,6,7,8,9,10},Ligatures=Common,Scale=MatchLowercase]
+\newfontfamily\monaspacexenonlight{MonaspaceXenon-Light}[Scale=MatchLowercase]
+\newfontfamily\monaspacexenonlightcode{MonaspaceXenon-Light}[StylisticSet={0,1,2,3,4,5,6,7,8,9,10},Ligatures=Common,Scale=MatchLowercase]
+\newfontfamily\monaspacexenon{MonaspaceXenon-Regular}[Scale=MatchLowercase]
+\newfontfamily\monaspacexenoncode{MonaspaceXenon-Regular}[StylisticSet={0,1,2,3,4,5,6,7,8,9,10},Ligatures=Common,Scale=MatchLowercase]
+\newfontfamily\monaspacexenonsemibold{MonaspaceXenon-SemiBold}[Scale=MatchLowercase]
+\newfontfamily\monaspacexenonsemiboldcode{MonaspaceXenon-SemiBold}[StylisticSet={0,1,2,3,4,5,6,7,8,9,10},Ligatures=Common,Scale=MatchLowercase]
+
+\endinput
+
+% \defaultfontfeatures
+% {
+  % HyphenChar=None,
+  % Scale     =\MonaSpace@scale
+% }
+% \defaultfontfeatures{}

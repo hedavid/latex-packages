@@ -1,0 +1,8 @@
+\defaultfontfeatures[MonaspaceXenon-ExtraLight]
+{
+  Extension=.otf,
+  UprightFont=MonaspaceXenon-ExtraLight,
+  ItalicFont=MonaspaceXenon-ExtraLightItalic,
+  BoldFont=MonaspaceXenon-Regular,
+  BoldItalicFont=MonaspaceXenon-Italic
+}

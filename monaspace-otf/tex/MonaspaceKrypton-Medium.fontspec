@@ -1,0 +1,8 @@
+\defaultfontfeatures[MonaspaceKrypton-Medium]
+{
+  Extension=.otf,
+  UprightFont=MonaspaceKrypton-Medium,
+  ItalicFont=MonaspaceKrypton-MediumItalic,
+  BoldFont=MonaspaceKrypton-Bold,
+  BoldItalicFont=MonaspaceKrypton-BoldItalic
+}

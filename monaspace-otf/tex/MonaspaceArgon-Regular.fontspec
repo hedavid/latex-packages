@@ -1,0 +1,8 @@
+\defaultfontfeatures[MonaspaceArgon-Regular]
+{
+  Extension=.otf,
+  UprightFont=MonaspaceArgon-Regular,
+  ItalicFont=MonaspaceArgon-Italic,
+  BoldFont=MonaspaceArgon-SemiBold,
+  BoldItalicFont=MonaspaceArgon-SemiBoldItalic
+}

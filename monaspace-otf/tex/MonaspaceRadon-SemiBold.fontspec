@@ -1,0 +1,8 @@
+\defaultfontfeatures[MonaspaceRadon-SemiBold]
+{
+  Extension=.otf,
+  UprightFont=MonaspaceRadon-SemiBold,
+  ItalicFont=MonaspaceRadon-SemiBoldItalic,
+  BoldFont=MonaspaceRadon-ExtraBold,
+  BoldItalicFont=MonaspaceRadon-ExtraBoldItalic
+}
