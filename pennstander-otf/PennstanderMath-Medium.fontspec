@@ -1,7 +1,0 @@
-\defaultfontfeatures[PennstanderMath-Medium]
-{
-  UprightFont  = PennstanderMath-Medium.otf,
-  BoldFont     = PennstanderMath-Bold.otf,
-  %script-font  = PennstanderMath-Medium-script.otf,
-  %sscript-font = PennstanderMath-Medium-sscript.otf
-}
