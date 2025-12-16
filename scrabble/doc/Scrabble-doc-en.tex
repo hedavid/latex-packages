@@ -46,8 +46,8 @@
 \setlength{\parindent}{0pt}
 \definecolor{LightGray}{gray}{0.9}
 
-\def\TPversion{0.1.9}
-\def\TPdate{17/07/2025}
+\def\TPversion{0.20a}
+\def\TPdate{16/12/2025}
 
 \usepackage[most]{tcolorbox}
 \usepackage{minted2}
@@ -340,7 +340,11 @@ The first argument, \textit{optional}, between \texttt{[...]} allows you to conf
 \textbf{Note 2:} the \textit{blank} (or \textit{wildcard}) is obtained by the character \texttt{*}.
 
 \begin{PresentationCode}{}
-Online Scrabble word test positioning \ScrabbleWord{TE*ST} to see!
+Inline Scrabble letter test positioning \ScrabbleWord{K} to see!
+\end{PresentationCode}
+
+\begin{PresentationCode}{}
+Inline Scrabble word test positioning \ScrabbleWord{TE*ST} to see!
 \end{PresentationCode}
 
 \begin{PresentationCode}{}
@@ -394,22 +398,24 @@ The colors used can be redefined using the aliases given below.
 
 \part*{History}
 
-\verb|v0.1.9|~:~~~~Bugfix (forgotten 'cells') + colors
+\verb|v0.20a|:~~~~Bugfix with single letters
 
-\verb|v0.1.8|~:~~~~Bugfix
+\verb|v0.1.9|:~~~~Bugfix (forgotten 'cells') + colors
 
-\verb|v0.1.7|~:~~~~Key \textsf{[Shuffle]} for inline words
+\verb|v0.1.8|:~~~~Bugfix
 
-\verb|v0.1.6|~:~~~~Bugfix with \textit{joker} ; enhancements for \textsf{<DE>} board
+\verb|v0.1.7|:~~~~Key \textsf{[Shuffle]} for inline words
 
-\verb|v0.1.5|~:~~~~Special letters for \textsf{<DE>} and \textsf{<ES>}
+\verb|v0.1.6|:~~~~Bugfix with \textit{joker} ; enhancements for \textsf{<DE>} board
 
-\verb|v0.1.4|~:~~~~Command to insert \textit{inline} words
+\verb|v0.1.5|:~~~~Special letters for \textsf{<DE>} and \textsf{<ES>}
 
-\verb|v0.1.3|~:~~~~Words in uppercase or lowercase, adjusted codes for language (ISO 639-1)
+\verb|v0.1.4|:~~~~Command to insert \textit{inline} words
 
-\verb|v0.1.2|~:~~~~Key \textsf{<ScaleLabels>} to modify scale of the cell's names
+\verb|v0.1.3|:~~~~Words in uppercase or lowercase, adjusted codes for language (ISO 639-1)
 
-\verb|v0.1  |~:~~~~Initial version
+\verb|v0.1.2|:~~~~Key \textsf{<ScaleLabels>} to modify scale of the cell's names
+
+\verb|v0.1  |:~~~~Initial version
 
 \end{document}

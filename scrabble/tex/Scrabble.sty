@@ -4,7 +4,8 @@
 % Inspiration                    : Mark Wibrow in https://tex.stackexchange.com/questions/194780/tikz-drawing-a-rectangle-with-spikes-on-borders
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{Scrabble}[2025/07/17 0.1.9 Scrabble]
+\ProvidesPackage{Scrabble}[2025/16/12 0.20a Scrabble]
+% 0.20a		Correction d'un bug avec les 'simple lettres'
 % 0.1.9		Oubli de cases (merci Patrick Jenty) :-) + couleurs
 % 0.1.8		Bugfix
 % 0.1.7		Clé pour mélanger les mots en ligne
@@ -173,13 +174,13 @@
 	placemotH/.style={
 		code={
 			\StrLen{#1}[\lgmot]%
-			\foreach \l in {1,2,...,\lgmot} {\StrChar{#1}{\l}[\ll] \path ({\l-2},-1) pic {jeton={\ll}};}
+			\foreach \l in {1,...,\lgmot} {\StrChar{#1}{\l}[\ll] \path ({\l-2},-1) pic {jeton={\ll}};}
 		}
 	},
 	placemotV/.style={
 		code={
 			\StrLen{#1}[\lgmot]%
-			\foreach \l in {1,2,...,\lgmot} {\StrChar{#1}{\l}[\ll] \path (-1,-{\l}) pic {jeton={\ll}};}
+			\foreach \l in {1,...,\lgmot} {\StrChar{#1}{\l}[\ll] \path (-1,-{\l}) pic {jeton={\ll}};}
 		}
 	},
 	motcomptetriplefr/.style={
@@ -293,7 +294,7 @@
 			\foreach \x/\y in {1/5,5/1,5/5}{\path \scrcase pic {lettrecomptetriplefr};}
 			\foreach \x/\y in {3/0,0/3,2/6,6/2,6/6}{\path \scrcase pic {lettrecomptedoublefr};}
 		}%
-		%oubli de certaines MCD !
+		%oubli de certaines LCD !
 		\path (7,3) pic {lettrecomptedoublefr};
 		\path (7,11) pic {lettrecomptedoublefr};
 		\path (3,7) pic {lettrecomptedoublefr};
@@ -316,7 +317,7 @@
 			\foreach \x/\y in {1/5,5/1,5/5}{\path \scrcase pic {lettrecomptetripleen};}
 			\foreach \x/\y in {3/0,0/3,2/6,6/2,6/6}{\path \scrcase pic {lettrecomptedoubleen};}
 		}%
-		%oubli de certaines MCD !
+		%oubli de certaines LCD !
 		\path (7,3) pic {lettrecomptedoubleen};
 		\path (7,11) pic {lettrecomptedoubleen};
 		\path (3,7) pic {lettrecomptedoubleen};
@@ -342,7 +343,7 @@
 			\foreach \x/\y in {1/5,5/1,5/5} {\path \scrcase pic {lettrecomptetriplefr};}
 			\foreach \x/\y in {3/0,0/3,2/6,6/2,6/6} {\path \scrcase pic {lettrecomptedoublefr};}
 		}%
-		%oubli de certaines MCD !
+		%oubli de certaines LCD !
 		\path (7,3) pic {lettrecomptedoublefr};
 		\path (7,11) pic {lettrecomptedoublefr};
 		\path (3,7) pic {lettrecomptedoublefr};
@@ -378,7 +379,7 @@
 			\foreach \x/\y in {1/5,5/1,5/5} {\path \scrcase pic {lettrecomptetripleen};}
 			\foreach \x/\y in {3/0,0/3,2/6,6/2,6/6} {\path \scrcase pic {lettrecomptedoubleen};}
 		}%
-		%oubli de certaines MCD !
+		%oubli de certaines LCD !
 		\path (7,3) pic {lettrecomptedoubleen};
 		\path (7,11) pic {lettrecomptedoubleen};
 		\path (3,7) pic {lettrecomptedoubleen};
@@ -443,7 +444,7 @@
 			\xdef\tmpmotscrabble{#2}%
 		}%
 	\raisebox{-\tmp@scrabword@depth+0.025\tmp@scrabword@total@height}{%
-		\foreach \l in {1,2,...,\lgmot}%
+		\foreach \l in {1,...,\lgmot}%
 			{%
 				\StrChar{\tmpmotscrabble}{\l}[\ll]%
 				\IfStrEq{\ll}{*}%
