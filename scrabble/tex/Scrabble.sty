@@ -587,7 +587,7 @@
 			\xdef\tmpmotscrabble{#2}%
 		}%
 	\raisebox{-\tmp@scrabword@depth+0.025\tmp@scrabword@total@height}{%
-		\foreach \l in {1,2,...,\lgmot}%
+		\foreach \l in {1,...,\lgmot}%
 			{%
 				\StrChar{\tmpmotscrabble}{\l}[\ll]%
 				\IfStrEq{\ll}{*}%
