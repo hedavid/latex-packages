@@ -6,10 +6,13 @@
 %\usepackage[utf8]{inputenc}
 %\usepackage[T1]{fontenc}
 %\usepackage{amssymb}
+\usepackage{amssymb}
 \usepackage{fontspec}
 \setmonofont[Scale=MatchLowercase]{Inconsolatazi4}
-\usepackage{CreationBoites}
+\usepackage[normalulem]{CreationBoites}
+\usepackage{xstring}
 \usepackage{enumitem}
+%\RequirePackage[normalem]{ulem}
 \usepackage{soul}
 \usepackage{codehigh}
 \usepackage{multicol}
@@ -36,8 +39,8 @@
 \usepackage[margin=1.5cm]{geometry}
 \setlength{\parindent}{0pt}
 
-\def\TPversion{0.1.6}
-\def\TPdate{04/08/2025}
+\def\TPversion{0.1.8}
+\def\TPdate{26/12/2025}
 \sethlcolor{lightgray!25}
 \NewDocumentCommand\MontreCode{ m }{%
 	\hl{\vphantom{\texttt{pf}}\texttt{#1}}%
@@ -45,6 +48,7 @@
 
 \CreationBoite[blue]{BoiteDeDemo}{CompteurBoiteDemo}{\faIcons}{Boîte Démo/Boîtes Démos}
 \CreationBoite[red]{BoiteDanger}{CompteurBoiteDanger}{\twemoji{warning}}{Danger/Dangers}[colback=red!10]
+\CreationBoiteAlt[orange]{montestcadre}{cpttestcadre}{Boîte Démo Alt}{Boîtes Démo Alt}{$\blacktriangleright$\,}
 
 \usepackage{babel}
 
@@ -76,7 +80,7 @@
 	\begin{tabular}{c}
 	\texttt{Cédric Pierquet}\\
 	{\ttfamily c pierquet -- at -- outlook . fr}\\
-	\texttt{\url{https://forge.apps.education.fr/pierquetcedric/packages-latex}}\\
+	%\texttt{\url{https://forge.apps.education.fr/pierquetcedric/packages-latex}}\\
 	\texttt{\url{https://github.com/cpierquet/latex-packages/tree/main/creationboites}}
 \end{tabular}
 \end{center}
@@ -123,6 +127,12 @@
 \end{BoiteDanger}
 \end{tcolorbox}
 
+\begin{tcolorbox}[colframe=lightgray,colback=white]
+\begin{montestcadre}[SouligneLabel]
+\lipsum[1][1]
+\end{montestcadre}
+\end{tcolorbox}
+
 \vfill~
 
 \pagebreak
@@ -137,7 +147,7 @@
 
 \hrule
 
-\vspace*{5mm}
+\pagebreak
 
 \section{Le package CreationBoites}
 
@@ -169,8 +179,9 @@ Les seuls packages chargés sont :
 
 \begin{itemize}
 	\item \MontreCode{tcolorbox} (avec les libraires \MontreCode{fitting,skins}) ;
-	\item \MontreCode{fontawesome}, \MontreCode{simplekv}, \MontreCode{twemojis} et \MontreCode{xstring} ;
-	\item la librairie \MontreCode{breakable} avec l'option \MontreCode{[breakable]} de chargement du package.
+	\item \MontreCode{fontawesome}, \MontreCode{simplekv}, \MontreCode{twemojis} ;% et \MontreCode{xstring} ;
+	\item la librairie \MontreCode{breakable} avec l'option \MontreCode{[breakable]} de chargement du package ;
+	\item le package \MontreCode{ulem} avec les options \MontreCode{[ulem]} ou \MontreCode{[normalulem]} de chargement du package.
 \end{itemize}
 
 \begin{codehigh}[language=latex/latex2,style/main=cyan!10,style/code=cyan!10]
@@ -182,6 +193,11 @@ Les seuls packages chargés sont :
 
 \begin{codehigh}[language=latex/latex2,style/main=cyan!10,style/code=cyan!10]
 \usepackage[breakable]{CreationBoites}         %version avec breakable
+\end{codehigh}
+
+\begin{codehigh}[language=latex/latex2,style/main=cyan!10,style/code=cyan!10]
+\usepackage[ulem]{CreationBoites}              %version avec ulem
+\usepackage[normalulem]{CreationBoites}        %version avec [normalem]ulem
 \end{codehigh}
 
 \pagebreak
@@ -423,6 +439,7 @@ On peut revenir aux paramètres par défaut grâce à la commande \MontreCode{\t
 Il est possible quand même de modifier \textit{en profondeur} les boîtes créées, en redéfinissant les commandes suivantes via \verb*|\RenewDocumentCommand| :
 
 \begin{codehigh}[language=latex/latex2,style/main=cyan!10,style/code=cyan!10]
+%\usepackage{xstring}
 \NewDocumentCommand\TitreBoite{ m m m m }{%
     %1=couleur
     %2=icone
@@ -486,6 +503,7 @@ Il est possible quand même de modifier \textit{en profondeur} les boîtes cré�
 Par exemple, on peut modifier globalement le comportement de la boîte :
 
 \begin{codehigh}[language=latex/latex2,style/main=cyan!10,style/code=cyan!10]
+%\usepackage{xstring}
 \tcbset{baseboite/.style={
     enhanced,boxrule=0.75pt,%
     center,width=0.75\linewidth,%
@@ -633,7 +651,106 @@ Toute couleur (\MontreCode{xcolor} n'est pas chargé avec des options spécifiqu
 
 \pagebreak
 
+\section{Style alternatif}
+
+\subsection{Idées}
+
+L'idée est de proposer un style alternatif, avec moins de \textit{fioritures}.
+
+Le style global est :
+
+\begin{itemize}
+	\item fond légèrement coloré ;
+	\item bordure gauche ;
+	\item personnalisation du titre.
+\end{itemize}
+
+\begin{codehigh}[language=latex/latex2,style/main=cyan!10,style/code=cyan!10]
+%version avec compteur 'global'
+\CreationBoiteAlt%
+  [Couleur]%
+  {Nom}%
+  {Compteur}%
+  {Label singulier}
+  {Label pluriel}
+  [options tcbox]
+
+%version avec compteur 'lié' à 'section'
+\CreationBoiteAltResetSection%
+  [Couleur]%
+  {Nom}%
+  {Compteur}%
+  {Label singulier}
+  {Label pluriel}
+  [options tcbox]
+\end{codehigh}
+
+La boîte ainsi créée a la syntaxe suivante.
+
+\begin{codehigh}[language=latex/latex2,style/main=cyan!10,style/code=cyan!10]
+\begin{monenvt}[clés]
+...
+\end{monenvt}
+
+%-- Les clés disponibles sont :
+% ComplementTitre = {}     (entre le label et le compteur)
+% SousTitre       = {}     (après le compteur, en italique)
+% Compteur        = true 
+% Pluriel         = false
+% SouligneLabel   = false  (il faut charger ulem dans ce cas !)
+\end{codehigh}
+
+\subsection{Exemples}
+
+\begin{demohigh}[language=latex/latex2,style/main=cyan!10,style/code=cyan!10]
+\setKVdefault[cpaltboites]{SouligneLabel=true} %souligné par défaut
+\CreationBoiteAltResetSection%avec compteur lié à la section
+  [red]{testintro}{cptintro}{Intro}{Intros}{$\blacktriangleright$\,}
+\CreationBoiteAlt%avec compteur global
+  [teal]{testcadre}{cbcptcadre}{Cadre}{Cadres}{$\blacktriangleright$\,}
+
+\begin{testintro}
+\lipsum[1][1-2]
+\end{testintro}
+
+\begin{testintro}[ComplementTitre={ super importante},SousTitre={ (essentiel)}]
+\lipsum[1][1-2]
+\end{testintro}
+
+\begin{testcadre}
+\lipsum[1][5-6]
+\end{testcadre}
+
+\renewcommand\policetitreboite{\itshape\scshape}
+\begin{testcadre}[Pluriel]
+\lipsum[1][7-8]
+\end{testcadre}
+\end{demohigh}
+
+\subsection{Définitions des paramètres}
+
+Les boîtes \texttt{Alt} sont définies grâce aux définitions suivantes :
+
+\begin{codehigh}[language=latex/latex2,style/main=cyan!10,style/code=cyan!10]
+\tcbset{basecpcours/.style={
+  enhanced,empty,size=small,boxsep=2.25pt,top=0pt,bottom=2.25pt,left=2.25pt,right=2.25pt,
+  overlay={%
+    \fill[#1!2.5] (frame.north west) rectangle (frame.south east) ;
+    \draw[line width=1.5pt,#1] (frame.north west) -- (frame.south west) ;
+    }
+  }
+}
+
+\newcommand\policetitreboite{\bfseries\sffamily}
+\end{codehigh}
+
+\pagebreak
+
 \section{Historique}
+
+\verb|v0.1.8|~:~~~~Ajout d'un style alternatif 'épuré'
+
+\verb|v0.1.7|~:~~~~Suppression de la dépendance à \texttt{xstring}
 
 \verb|v0.1.6|~:~~~~Pré-compatibilité avec \texttt{fontawesome7}
 

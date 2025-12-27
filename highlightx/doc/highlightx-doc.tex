@@ -33,8 +33,8 @@
 \hypersetup{pdfborder=0 0 0}
 \usepackage[margin=1.5cm]{geometry}
 \setlength{\parindent}{0pt}
-\def\TPversion{0.1.7}
-\def\TPdate{26 mai 2025}
+\def\TPversion{0.1.8}
+\def\TPdate{26 décembre 2025}
 \usepackage{tcolorbox}
 \tcbuselibrary{skins,hooks}
 \sethlcolor{lightgray!25}
@@ -76,7 +76,7 @@
 	\\
 	\texttt{Merci à Antal Spector-Zabusky pour le code dédié aux paragraphes !}
 	\\
-	\texttt{Merci à Denis Bitouzé pour ses retours !}
+	\texttt{Merci à Denis Bitouzé et rafa4mat pour leurs retours !}
 \end{tabular}
 \end{center}
 
@@ -258,6 +258,7 @@ Concernant cette commande :
 		\item \MontreCode{Fond} pour la couleur de fond (\MontreCode{yellow!35} par défaut) ;
 		\item \MontreCode{Bord} pour une éventuelle bordure, \MontreCode{none} ou \MontreCode{couleur} (\MontreCode{none} par défaut) ;
 		\item \MontreCode{Texte} pour une couleur de texte (\MontreCode{black} par défaut) ;
+		\item \MontreCode{Opacite} pour l'opacité du fond (\MontreCode{1} par défaut) ;
 		\item \MontreCode{OpaciteTexte} pour l'opacité de la couleur de texte (\MontreCode{1} par défaut) ;
 		\item \MontreCode{Offset} pour \textit{élargir} le surlignage, sous la forme \MontreCode{Offset} ou \MontreCode{OffsetH/OffsetV} (\MontreCode{1pt/2pt} par défaut) ;
 	\end{itemize}
@@ -269,7 +270,7 @@ Concernant cette commande :
 $\SurlignerFormule{f(x)=\displaystyle\frac{1}{1+x}}$.\\
 $\SurlignerFormule*[OpaciteTexte=0.75]{f(x)=\displaystyle\frac{1}{1+x}}$.\\
 $\SurlignerFormule[Fond=teal!35]{f(x)=\displaystyle\frac{1}{1+x}}$.\\
-$\SurlignerFormule[Fond=teal!35,Bord=red]{f(x)=\displaystyle\frac{1}{1+x}}<thick>$.\\
+$\SurlignerFormule[Fond=pink,Bord=red,Opacite=0.25]{f(x)=\displaystyle\frac{1}{1+x}}<thick>$.\\
 $\SurlignerFormule[Offset=5mm/2mm]{f(x)=\displaystyle\frac{1}{1+x}}$\\
 $\SurlignerFormule*[Texte=red]{f(x)=\displaystyle\frac{1}{1+x}}$.\\
 \end{codehigh}
@@ -280,7 +281,7 @@ $\SurlignerFormule*[OpaciteTexte=0.75]{f(x)=\displaystyle\frac{1}{1+x}}$
 \qquad
 $\SurlignerFormule[Fond=teal!35]{f(x)=\displaystyle\frac{1}{1+x}}$
 \qquad
-$\SurlignerFormule[Fond=teal!35,Bord=red]{f(x)=\displaystyle\frac{1}{1+x}}<thick>$
+$\SurlignerFormule[Fond=pink,Bord=red,Opacite=0.25]{f(x)=\displaystyle\frac{1}{1+x}}<thick>$
 \qquad
 $\SurlignerFormule[Offset=5mm/2mm]{f(x)=\displaystyle\frac{1}{1+x}}$
 \qquad
@@ -556,7 +557,7 @@ There's also english versions of the commands and keys :
 $\HighlightFormula{f(x)=\displaystyle\frac{1}{1+x}}$.\\
 $\HighlightFormula*[textopacity=0.75]{f(x)=\displaystyle\frac{1}{1+x}}$.\\
 $\HighlightFormula[bg=teal!35]{f(x)=\displaystyle\frac{1}{1+x}}$.\\
-$\HighlightFormula[bg=teal!35,border=red]{f(x)=\displaystyle\frac{1}{1+x}}<thick>$.\\
+$\HighlightFormula[bg=pink,border=red,opacity=0.25]{f(x)=\displaystyle\frac{1}{1+x}}<thick>$.\\
 $\HighlightFormula[offset=5mm/2mm]{f(x)=\displaystyle\frac{1}{1+x}}$\\
 $\HighlightFormula*[text=red]{f(x)=\displaystyle\frac{1}{1+x}}$.\\
 \end{codehigh}
@@ -567,7 +568,7 @@ $\HighlightFormula*[textopacity=0.75]{f(x)=\displaystyle\frac{1}{1+x}}$
 \qquad
 $\HighlightFormula[bg=teal!35]{f(x)=\displaystyle\frac{1}{1+x}}$
 \qquad
-$\HighlightFormula[bg=teal!35,border=red]{f(x)=\displaystyle\frac{1}{1+x}}<thick>$
+$\HighlightFormula[bg=pink,border=red,opacity=0.25]{f(x)=\displaystyle\frac{1}{1+x}}<thick>$
 \qquad
 $\HighlightFormula[offset=5mm/2mm]{f(x)=\displaystyle\frac{1}{1+x}}$
 \qquad

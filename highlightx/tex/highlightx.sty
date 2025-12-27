@@ -3,9 +3,10 @@
 % licence    : Released under the LaTeX Project Public License v1.3c or later, see http://www.latex-project.org/lppl.txt
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{highlightx}[2025/05/26 0.1.7 Macros pour surligner du texte, meme en mode paragraphe]
+\ProvidesPackage{highlightx}[2025/12/26 0.1.8 Macros pour surligner du texte, meme en mode paragraphe]
 
 %====HISTORIQUE
+% v 0.1.8	Opacité pour les formules
 % v 0.1.7	Ajout d'un mode fluo + crayon
 % v 0.1.6	Ajout d'une clé pour l'opacité du texte d'une formule
 % v 0.1.5	Mise à jour de la doc
@@ -42,14 +43,16 @@
 	Bord=\def\surlignformulebord{#1},%
 	Texte=\def\surlignformuletexte{#1},%
 	Offset=\def\surlignformuleoffset{#1},%
-	OpaciteTexte=\def\surlignformuleopac{#1}
+	OpaciteTexte=\def\surlignformuleopac{#1},%
+	Opacite=\def\surlignformuleomainpac{#1}
 }
 \setKVdefault[surlignformule]{%
 	Fond=hlcolback,%
 	Bord=none,%
 	Texte=black,%
 	Offset=1pt/2pt,%
-	OpaciteTexte=1
+	OpaciteTexte=1,%
+	Opacite=1
 }
 
 \NewDocumentCommand\SurlignerFormule{ s O{} m D<>{} }{%
@@ -66,10 +69,10 @@
 	\begin{tikzpicture}[remember picture,overlay]
 		\IfBooleanTF{#1}%
 			{%
-				\fill[\surlignformulefond,draw=\surlignformulebord,#4] ([xshift=-\surlignformuleoffsetH,yshift=-\surlignformuleoffsetV]formule.south west) rectangle ([xshift=\surlignformuleoffsetH,yshift=\surlignformuleoffsetV]formule.north east) node[text=\surlignformuletexte,midway,text opacity=\surlignformuleopac] {\ensuremath{#3}} ;
+				\fill[\surlignformulefond,draw=\surlignformulebord,#4,fill opacity=\surlignformuleomainpac] ([xshift=-\surlignformuleoffsetH,yshift=-\surlignformuleoffsetV]formule.south west) rectangle ([xshift=\surlignformuleoffsetH,yshift=\surlignformuleoffsetV]formule.north east) node[text=\surlignformuletexte,midway,text opacity=\surlignformuleopac] {\ensuremath{#3}} ;
 			}%
 			{%
-				\fill[\surlignformulefond,draw=\surlignformulebord,encadreformule,#4] ([xshift=-\surlignformuleoffsetH,yshift=-\surlignformuleoffsetV]formule.south west) rectangle ([xshift=\surlignformuleoffsetH,yshift=\surlignformuleoffsetV]formule.north east) node[text=\surlignformuletexte,midway,text opacity=\surlignformuleopac] {\ensuremath{#3}} ;
+				\fill[\surlignformulefond,draw=\surlignformulebord,encadreformule,#4,fill opacity=\surlignformuleomainpac] ([xshift=-\surlignformuleoffsetH,yshift=-\surlignformuleoffsetV]formule.south west) rectangle ([xshift=\surlignformuleoffsetH,yshift=\surlignformuleoffsetV]formule.north east) node[text=\surlignformuletexte,midway,text opacity=\surlignformuleopac] {\ensuremath{#3}} ;
 			}%
 	\end{tikzpicture}%
 }
@@ -79,14 +82,16 @@
 	border=\def\hlformulaborder{#1},%
 	text=\def\surlignformulatext{#1},%
 	offset=\def\hlformulaoffset{#1},%
-	textopacity=\def\hlformulaopac{#1}
+	textopacity=\def\hlformulaopac{#1},%
+	opacity=\def\surlignformuleomainpac{#1}
 }
 \setKVdefault[hlformula]{%
 	bg=hlcolback,%
 	border=none,%
 	text=black,%
 	offset=1pt/2pt,%
-	textopacity=1
+	textopacity=1,%
+	opacity=1
 }
 
 \NewDocumentCommand\HighlightFormula{ s O{\surlignformulefond} m D<>{} }{%
@@ -103,10 +108,10 @@
 	\begin{tikzpicture}[remember picture,overlay]
 		\IfBooleanTF{#1}%
 			{%
-				\fill[\hlformulabg,draw=\hlformulaborder,#4] ([xshift=-\hlformulaoffsetH,yshift=-\hlformulaoffsetV]formula.south west) rectangle ([xshift=\hlformulaoffsetH,yshift=\hlformulaoffsetV]formula.north east) node[text=\surlignformulatext,midway,text opacity=\hlformulaopac] {\ensuremath{#3}} ;
+				\fill[\hlformulabg,draw=\hlformulaborder,#4,fill opacity=\surlignformuleomainpac] ([xshift=-\hlformulaoffsetH,yshift=-\hlformulaoffsetV]formula.south west) rectangle ([xshift=\hlformulaoffsetH,yshift=\hlformulaoffsetV]formula.north east) node[text=\surlignformulatext,midway,text opacity=\hlformulaopac] {\ensuremath{#3}} ;
 			}%
 			{%
-				\fill[\hlformulabg,draw=\hlformulaborder,borderformula,#4] ([xshift=-\hlformulaoffsetH,yshift=-\hlformulaoffsetV]formula.south west) rectangle ([xshift=\hlformulaoffsetH,yshift=\hlformulaoffsetV]formula.north east) node[text=\surlignformulatext,midway,text opacity=\hlformulaopac] {\ensuremath{#3}} ;
+				\fill[\hlformulabg,draw=\hlformulaborder,borderformula,#4,fill opacity=\surlignformuleomainpac] ([xshift=-\hlformulaoffsetH,yshift=-\hlformulaoffsetV]formula.south west) rectangle ([xshift=\hlformulaoffsetH,yshift=\hlformulaoffsetV]formula.north east) node[text=\surlignformulatext,midway,text opacity=\hlformulaopac] {\ensuremath{#3}} ;
 			}
 	\end{tikzpicture}%
 }
