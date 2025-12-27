@@ -3,7 +3,8 @@
 % licence cliparts...: CC0 from openclipart or svgrepo
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{ProfLycee-Light}[2025/12/18 4.00a Aide pour l'utilisation de LaTeX en lycee]
+\ProvidesPackage{ProfLycee-Light}[2025/12/26 4.00b Aide pour l'utilisation de LaTeX en lycee]
+%4.00b  Meilleures traductions + bugfixes + geom analytique
 %4.00a  Refonte du fonctionnement, et reprise de la numérotation pfl
 
 %%=====Option(s)
@@ -101,13 +102,14 @@
 \RequirePackage{tcolorbox}%
 \tcbuselibrary{breakable,fitting,skins,listings,listingsutf8,hooks}
 
-%%=====LABELS MULTILANGUES
+%%=====LABELS MULTILANGUES SI OPTION
 \if@pfllngfr
   \def\labelcodepython{Code Python}
   \def\labelpseudocode{Pseudo-Code}
   \def\labelconsolepythondebut{Début de la console Python}
   \def\labelconsolepythonfin{Fin de la console Python}
   \def\labelsepdec{,}
+  \def\labelavec{avec}
 \fi
 \if@pfllngen
   \def\labelcodepython{Python code}
@@ -115,6 +117,7 @@
   \def\labelconsolepythondebut{Start of Python console}
   \def\labelconsolepythonfin{End of Python console}
   \def\labelsepdec{.}
+  \def\labelavec{with}
 \fi
 \if@pfllngde
   \def\labelcodepython{Python-Code}
@@ -122,6 +125,7 @@
   \def\labelconsolepythondebut{Beginn der Python-Konsole}
   \def\labelconsolepythonfin{Ende der Python-Konsole}
   \def\labelsepdec{,}
+  \def\labelavec{mit}
 \fi
 \if@pfllnges
   \def\labelcodepython{Código Python}
@@ -129,6 +133,7 @@
   \def\labelconsolepythondebut{Inicio de la consola de Python}
   \def\labelconsolepythonfin{Fin de la consola de Python}
   \def\labelsepdec{,}
+  \def\labelavec{con}
 \fi
 
 %%=====FONTAWESOME...
@@ -193,7 +198,7 @@
 \cs_new_protected:Npn \proflycee_use_library:n #1
   {
     % si "most" est présent, charger le pack complet
-    \str_if_in:nnTF {#1} {most}
+    \str_if_in:nnTF {,#1,} {,most,}
       {
         \file_input:n { proflycee-tools-analyse.tex }
         \file_input:n { proflycee-tools-graphiques.tex }
@@ -209,36 +214,36 @@
       }
       {
         % sinon, chargements modulaires
-        \str_if_in:nnT {#1} {analyse}     { \file_input:n { proflycee-tools-analyse.tex } }
-		\str_if_in:nnT {#1} {analysis}    { \file_input:n { proflycee-tools-analyse.tex } }
-        \str_if_in:nnT {#1} {graphiques}  { \file_input:n { proflycee-tools-graphiques.tex } }
-        \str_if_in:nnT {#1} {listings}    { \file_input:n { proflycee-tools-listings.tex } }
-        \str_if_in:nnT {#1} {trigo}       { \file_input:n { proflycee-tools-trigo.tex } }
-        \str_if_in:nnT {#1} {probas}      { \file_input:n { proflycee-tools-probas.tex } }
-        \str_if_in:nnT {#1} {stats}       { \file_input:n { proflycee-tools-stats.tex } }
-        \str_if_in:nnT {#1} {arithm}      { \file_input:n { proflycee-tools-arithm.tex } }
-        \str_if_in:nnT {#1} {aleatoire}   { \file_input:n { proflycee-tools-aleatoire.tex } }
-		\str_if_in:nnT {#1} {random}      { \file_input:n { proflycee-tools-aleatoire.tex } }
-        \str_if_in:nnT {#1} {suites}      { \file_input:n { proflycee-tools-suites.tex } }
-		\str_if_in:nnT {#1} {seq}         { \file_input:n { proflycee-tools-suites.tex } }
-        \str_if_in:nnT {#1} {geom}        { \file_input:n { proflycee-tools-geom.tex } }
-        \str_if_in:nnT {#1} {cliparts}    { \file_input:n { proflycee-tools-cliparts.tex } }
-        \str_if_in:nnT {#1} {pictosbac}   { \RequirePackage { ProfLycee-Pictosbac } }
+        \str_if_in:nnT {,#1,} {,analyse,}     { \file_input:n { proflycee-tools-analyse.tex } }
+        \str_if_in:nnT {,#1,} {,analysis,}    { \file_input:n { proflycee-tools-analyse.tex } }
+        \str_if_in:nnT {,#1,} {,graphiques,}  { \file_input:n { proflycee-tools-graphiques.tex } }
+        \str_if_in:nnT {,#1,} {,listings,}    { \file_input:n { proflycee-tools-listings.tex } }
+        \str_if_in:nnT {,#1,} {,trigo},       { \file_input:n { proflycee-tools-trigo.tex } }
+        \str_if_in:nnT {,#1,} {,probas,}      { \file_input:n { proflycee-tools-probas.tex } }
+        \str_if_in:nnT {,#1,} {,stats,}       { \file_input:n { proflycee-tools-stats.tex } }
+        \str_if_in:nnT {,#1,} {,arithm,}      { \file_input:n { proflycee-tools-arithm.tex } }
+        \str_if_in:nnT {,#1,} {,aleatoire,}   { \file_input:n { proflycee-tools-aleatoire.tex } }
+        \str_if_in:nnT {,#1,} {,random,}      { \file_input:n { proflycee-tools-aleatoire.tex } }
+        \str_if_in:nnT {,#1,} {,suites,}      { \file_input:n { proflycee-tools-suites.tex } }
+        \str_if_in:nnT {,#1,} {,seq,}         { \file_input:n { proflycee-tools-suites.tex } }
+        \str_if_in:nnT {,#1,} {,geom,}        { \file_input:n { proflycee-tools-geom.tex } }
+        \str_if_in:nnT {,#1,} {,cliparts,}    { \file_input:n { proflycee-tools-cliparts.tex } }
+        \str_if_in:nnT {,#1,} {,pictosbac,}   { \RequirePackage { ProfLycee-Pictosbac } }
       }
 
     % Ces modules sont toujours testés même si "most" est présent
-    \str_if_in:nnT {#1} {piton}        { \file_input:n { proflycee-tools-piton.tex } }
-    \str_if_in:nnT {#1} {espace}       { \file_input:n { proflycee-tools-espace.tex } }
-	\str_if_in:nnT {#1} {space}        { \file_input:n { proflycee-tools-espace.tex } }
-    \str_if_in:nnT {#1} {ecritures}    { \file_input:n { proflycee-tools-ecritures.tex } }
-	\str_if_in:nnT {#1} {mathwriting}  { \file_input:n { proflycee-tools-ecritures.tex } }
-    \str_if_in:nnT {#1} {complexes}    { \file_input:n { proflycee-tools-complexes.tex } }
-    \str_if_in:nnT {#1} {recreat}      { \file_input:n { proflycee-tools-recreat.tex } }
-    \str_if_in:nnT {#1} {competences}  { \file_input:n { proflycee-tools-competences.tex } }
-    \str_if_in:nnT {#1} {exams}        { \file_input:n { proflycee-tools-exams.tex } }
-    \str_if_in:nnT {#1} {cas}          { \RequirePackage { FenetreCas } }
-    \str_if_in:nnT {#1} {tikz2d}       { \RequirePackage { tikz2d-fr } }
-    \str_if_in:nnT {#1} {tikz3d}       { \RequirePackage { tikz3d-fr } }
+    \str_if_in:nnT {,#1,} {,piton,}        { \file_input:n { proflycee-tools-piton.tex } }
+    \str_if_in:nnT {,#1,} {,espace,}       { \file_input:n { proflycee-tools-espace.tex } }
+    \str_if_in:nnT {,#1,} {,space,}        { \file_input:n { proflycee-tools-espace.tex } }
+    \str_if_in:nnT {,#1,} {,ecritures,}    { \file_input:n { proflycee-tools-ecritures.tex } }
+    \str_if_in:nnT {,#1,} {,mathwriting,}  { \file_input:n { proflycee-tools-ecritures.tex } }
+    \str_if_in:nnT {,#1,} {,complexes,}    { \file_input:n { proflycee-tools-complexes.tex } }
+    \str_if_in:nnT {,#1,} {,recreat,}      { \file_input:n { proflycee-tools-recreat.tex } }
+    \str_if_in:nnT {,#1,} {,competences,}  { \file_input:n { proflycee-tools-competences.tex } }
+    \str_if_in:nnT {,#1,} {,exams,}        { \file_input:n { proflycee-tools-exams.tex } }
+    \str_if_in:nnT {,#1,} {,cas,}          { \RequirePackage { FenetreCas } }
+    \str_if_in:nnT {,#1,} {,tikz2d,}       { \RequirePackage { tikz2d-fr } }
+    \str_if_in:nnT {,#1,} {,tikz3d,}       { \RequirePackage { tikz3d-fr } }
   }
 
 % Interface LaTeX2e : \useproflyclib{...}
@@ -265,6 +270,7 @@
     \def\labelconsolepythondebut{Début~de~la~console~Python}
     \def\labelconsolepythonfin{Fin~de~la~console~Python}
     \def\labelsepdec{,}
+    \def\labelavec{avec}
   \fi
   \if@pfllngen
     \def\labelcodepython{Python~code}
@@ -272,6 +278,7 @@
     \def\labelconsolepythondebut{Start~of~Python~console}
     \def\labelconsolepythonfin{End~of~Python~console}
     \def\labelsepdec{.}
+    \def\labelavec{with}
   \fi
   \if@pfllngde
     \def\labelcodepython{Python-Code}
@@ -279,6 +286,7 @@
     \def\labelconsolepythondebut{Beginn~der~Python-Konsole}
     \def\labelconsolepythonfin{Ende~der~Python-Konsole}
     \def\labelsepdec{,}
+    \def\labelavec{mit}
   \fi
   \if@pfllnges
     \def\labelcodepython{Código~Python}
@@ -286,6 +294,7 @@
     \def\labelconsolepythondebut{Inicio~de~la~consola~de~Python}
     \def\labelconsolepythonfin{Fin~de~la~consola~de~Python}
     \def\labelsepdec{,}
+    \def\labelavec{con}
   \fi
 }
 \ExplSyntaxOff

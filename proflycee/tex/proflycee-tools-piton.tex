@@ -1011,6 +1011,35 @@
   }
 }
 
+\tcbset{consolepyluaalt/.style={%base de la boîte
+  enhanced,colback=white,colframe=CouleurVertForet,rounded corners,arc=0.25\tmppitonconsoleheighttitles,boxrule=1pt,%
+  left=0.5mm,right=3mm,fontupper=\footnotesize,%test 3.12e,top=1mm,bottom=\pflpitonconsoletcboxbottom,
+  before skip=\CODPITstrechbefaft\baselineskip,after skip=\CODPITstrechbefaft\baselineskip,%
+  }
+}
+
+\tcbset{consolepyluatexlogoalt/.style={%avec logo python
+  consolepyluaalt,top=\tmppitonconsoleheighttitles+0.75\pflpitonconsoletcboxbottom,bottom=\tmppitonconsoleheighttitles+0.75\pflpitonconsoletcboxbottom,%
+  overlay={%
+    \draw (frame.south) node[above,CouleurVertForet!50!black,font=\scriptsize\ttfamily,inner ysep=3pt] {\scalebox{0.8}[0.8]{\pflfapython} \labelconsolepythonfin\ \scalebox{0.8}[0.8]{\pflfapython}} ;
+    \draw (frame.north) node[below,CouleurVertForet!50!black,font=\scriptsize\ttfamily,inner ysep=3pt] {\scalebox{0.8}[0.8]{\pflfapython} \labelconsolepythondebut\ \scalebox{0.8}[0.8]{\pflfapython}} ;
+	\draw[CouleurVertForet!75,line width=0.5pt,densely dashed] ([yshift=-\tmppitonconsoleheighttitles-6pt]frame.north west) -- ([yshift=-\tmppitonconsoleheighttitles-6pt]frame.north east) ;
+	\draw[CouleurVertForet!75,line width=0.5pt,densely dashed] ([yshift=\tmppitonconsoleheighttitles+6pt]frame.south west) -- ([yshift=\tmppitonconsoleheighttitles+6pt]frame.south east) ;
+    }
+  }
+}
+
+\tcbset{consolepyluatexalt/.style={%sans logo python
+  consolepyluaalt,top=\tmppitonconsoleheighttitles+0.75\pflpitonconsoletcboxbottom,bottom=\tmppitonconsoleheighttitles+0.75\pflpitonconsoletcboxbottom,%
+  overlay={%
+    \draw (frame.south) node[above,CouleurVertForet!50!black,font=\scriptsize\ttfamily,inner ysep=3pt] {\labelconsolepythonfin} ;
+    \draw (frame.north) node[below,CouleurVertForet!50!black,font=\scriptsize\ttfamily,inner ysep=3pt] {\labelconsolepythondebut} ;
+	\draw[CouleurVertForet!75,line width=0.5pt,densely dashed] ([yshift=-\tmppitonconsoleheighttitles-6pt]frame.north west) -- ([yshift=-\tmppitonconsoleheighttitles-6pt]frame.north east) ;
+	\draw[CouleurVertForet!75,line width=0.5pt,densely dashed] ([yshift=\tmppitonconsoleheighttitles+6pt]frame.south west) -- ([yshift=\tmppitonconsoleheighttitles+6pt]frame.south east) ;
+    }
+  }
+}
+
 %===test newlength
 \newlength\ConsPyluaLarg
 
@@ -1025,8 +1054,11 @@
   Largeur=\linewidth,width=\linewidth,%
   Alignement={flush left},align={flush left},%
   CouleurNombres={orange!75!black},num color={orange!75!black},%
-  CoeffAvantApres=0.75,beforeafter sep=0.75
+  CoeffAvantApres=0.75,beforeafter sep=0.75,%
+  AltStyle=false
 }
+
+\newlength\tmppitonconsoleheighttitles
 
 \ExplSyntaxOn
 \NewDocumentEnvironment{ConsolePiton}{O{}D<>{}m} % semble OK
@@ -1036,6 +1068,15 @@
   %en/fr
   \setKVbooltruedefaultmulti[consolepyluatex]{logo}{logo}%
   %next
+  %height calculus
+  \ifboolKV[consolepyluatex]{Logo}%
+	{%
+		\settototalheight\tmppitonconsoleheighttitles{\hbox{\ifboolKV[consolepyluatex]{AltStyle}{\scriptsize}{\scriptsize}\ttfamily\scalebox{0.8}[0.8]{\pflfapython}\labelconsolepythonfin\labelconsolepythondebut}}%
+	}%
+	{%
+		\settototalheight\tmppitonconsoleheighttitles{\hbox{\ifboolKV[consolepyluatex]{AltStyle}{\scriptsize}{\scriptsize}\ttfamily\labelconsolepythonfin\labelconsolepythondebut}}%
+	}%
+  %renext
   \tcbset{reset}%
   \SetPitonStyle[Python]{Number=\color{\CODPITcolnb} }%
   \PitonOptions{width=\ConsPyluaLarg-5mm,break-lines,end-of-broken-line={\,},continuation-symbol={\;},#1}%
@@ -1044,10 +1085,22 @@
   \PyLTVerbatimEnv
   \ifboolKV[consolepyluatex]{Logo}%
   {%
-  \begin{tcolorbox}[consolepyluatexlogo,width=\ConsPyluaLarg,\ConsPyluaAlign,#3]
+	\ifboolKV[consolepyluatex]{AltStyle}%
+		{%
+			\begin{tcolorbox}[consolepyluatexlogoalt,width=\ConsPyluaLarg,\ConsPyluaAlign,#3]%
+		}%
+		{%
+			\begin{tcolorbox}[consolepyluatexlogo,width=\ConsPyluaLarg,\ConsPyluaAlign,#3]%
+		}%
   }%
   {%
-  \begin{tcolorbox}[consolepyluatex,width=\ConsPyluaLarg,\ConsPyluaAlign,#3]
+	\ifboolKV[consolepyluatex]{AltStyle}%
+		{%
+			\begin{tcolorbox}[consolepyluatexalt,width=\ConsPyluaLarg,\ConsPyluaAlign,#3]%
+		}%
+		{%
+			\begin{tcolorbox}[consolepyluatex,width=\ConsPyluaLarg,\ConsPyluaAlign,#3]%
+		}%
   }%
   \begin{pythonrepl}
   }%
@@ -1070,6 +1123,15 @@
   %en/fr
   \setKVbooltruedefaultmulti[consolepyluatex]{logo}{logo}%
   %next
+  %height calculus
+  \ifboolKV[consolepyluatex]{Logo}%
+	{%
+		\settototalheight\tmppitonconsoleheighttitles{\hbox{\ifboolKV[consolepyluatex]{AltStyle}{\tiny}{\scriptsize}\ttfamily\scalebox{0.8}[0.8]{\pflfapython}\labelconsolepythonfin\labelconsolepythondebut}}%
+	}%
+	{%
+		\settototalheight\tmppitonconsoleheighttitles{\hbox{\ifboolKV[consolepyluatex]{AltStyle}{\tiny}{\scriptsize}\ttfamily\labelconsolepythonfin\labelconsolepythondebut}}%
+	}%
+  %renext
   \tcbset{reset}%
   \SetPitonStyle[Python]{Number=\color{\CODPITcolnb} }%
   \PitonOptions{width=\ConsPyluaLarg-5mm,break-lines,end-of-broken-line={\,},continuation-symbol={\;},#1}%
@@ -1078,10 +1140,22 @@
   \PyLTVerbatimEnv
   \ifboolKV[consolepyluatex]{Logo}%
   {%
-  \begin{tcolorbox}[consolepyluatexlogo,width=\ConsPyluaLarg,\ConsPyluaAlign,#3]
+	\ifboolKV[consolepyluatex]{AltStyle}%
+		{%
+			\begin{tcolorbox}[consolepyluatexlogoalt,width=\ConsPyluaLarg,\ConsPyluaAlign,#3]%
+		}%
+		{%
+			\begin{tcolorbox}[consolepyluatexlogo,width=\ConsPyluaLarg,\ConsPyluaAlign,#3]%
+		}%
   }%
   {%
-  \begin{tcolorbox}[consolepyluatex,width=\ConsPyluaLarg,\ConsPyluaAlign,#3]
+	\ifboolKV[consolepyluatex]{AltStyle}%
+		{%
+			\begin{tcolorbox}[consolepyluatexalt,width=\ConsPyluaLarg,\ConsPyluaAlign,#3]%
+		}%
+		{%
+			\begin{tcolorbox}[consolepyluatex,width=\ConsPyluaLarg,\ConsPyluaAlign,#3]%
+		}%
   }%
   \begin{pythonrepl}
   }%

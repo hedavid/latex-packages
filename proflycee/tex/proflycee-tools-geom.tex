@@ -179,15 +179,41 @@
     }%
 }
 
+\NewDocumentCommand\AffCoeffSimpl{ s O{} m D<>{} }{%
+  \IfStrEq{#4}{}%si argument vide, on convertit en fraction
+    {%
+      \xintifboolexpr{\xinteval{#3} == 0}%
+        {}%on n'affiche rien si le coeff est nul
+        {%sinon on teste >0 puis else
+          \xintifboolexpr{\xinteval{#3} > 0}%
+            {%
+              \IfBooleanTF{#1}{}{+}%
+              \xintifboolexpr{\xinteval{#3} == 1}%
+                {1}%
+                {\ConversionFraction[#2]{#3}}%
+            }%
+            {%
+              \xintifboolexpr{\xinteval{#3} == -1}%
+                {-1}%
+                {\ConversionFraction[#2]{#3}}%
+          }  %
+        }%
+    }%
+  %sinon on met en brut
+    {%
+      #3%
+    }%
+}
+
 \defKV[eqcartplan]{%
-  OptionCoeffs=\def\eqcartplformat{#1},%
-  Facteur=\def\eqcartplfact{#1}
+  OptionCoeffs=\def\eqcartplformat{#1},coeff fmt=\def\eqcartplformat{#1},%
+  Facteur=\def\eqcartplfact{#1},factor=\def\eqcartplfact{#1}
 }
 
 \setKVdefault[eqcartplan]{%
-  OptionCoeffs={d},%
-  SimplifCoeffs=false,%
-  Facteur=1
+  OptionCoeffs={d},coeff fmt={d},%
+  SimplifCoeffs=false,simpl coeffs=false,%
+  Facteur=1,factor=1
 }
 
 \NewDocumentCommand\TrouveEqCartPlan{ }{%
@@ -195,11 +221,15 @@
   \catcode`\;12
   \TrouveEqCartPlanAux
 }
+\NewCommandCopy\pflcartplaneq\TrouveEqCartPlan
 
 \NewDocumentCommand\TrouveEqCartPlanAux{ O{} r() r() d() }{%test commande générique avec VP ou PPP ou PVV
   \endgroup
   \restoreKV[eqcartplan]% revenir au valeurs par défaut
   \setKV[eqcartplan]{#1}% lit les arguments optionnels
+	%en/fr
+  \setKVboolfalsedefaultmulti[eqcartplan]{simpl coeffs}{SimplifCoeffs}%
+  %next
   \IfNoValueTF{#4}%c'est Vect+Point
     {%
       \setsepchar{;}\readlist*\CoordVecNorm{#2}%
@@ -222,7 +252,7 @@
       %affichages
       \ifboolKV[eqcartplan]{SimplifCoeffs}%
         {%
-          \AffCoeffSgn*[\eqcartplformat]{(\vecnx)*(\eqcartplfact)*\PPCMDenom/\PGCDsiEntiers}{x} \AffCoeffSgn[\eqcartplformat]{(\vecny)*(\eqcartplfact)*\PPCMDenom/\PGCDsiEntiers}{y} \AffCoeffSgn[\eqcartplformat]{(\vecnz)*(\eqcartplfact)*\PPCMDenom/\PGCDsiEntiers}{z} \AffCoeffSgnSimpl*[\eqcartplformat]{\coeffd*\PPCMDenom/\PGCDsiEntiers} = 0%
+          \AffCoeffSgn*[\eqcartplformat]{(\vecnx)*(\eqcartplfact)*\PPCMDenom/\PGCDsiEntiers}{x} \AffCoeffSgn[\eqcartplformat]{(\vecny)*(\eqcartplfact)*\PPCMDenom/\PGCDsiEntiers}{y} \AffCoeffSgn[\eqcartplformat]{(\vecnz)*(\eqcartplfact)*\PPCMDenom/\PGCDsiEntiers}{z} \AffCoeffSgnSimpl*[\eqcartplformat]{\coeffd*(\eqcartplfact)*\PPCMDenom/\PGCDsiEntiers} = 0%
         }%
         {%
           \AffCoeffSgn*[\eqcartplformat]{\vecnx}{x} \AffCoeffSgn[\eqcartplformat]{\vecny}{y} \AffCoeffSgn[\eqcartplformat]{\vecnz}{z} \AffCoeffSgnSimpl*[\eqcartplformat]{\coeffd} = 0%
@@ -313,15 +343,15 @@
 }
 
 \defKV[eqcartdroite]{%
-  OptionCoeffs=\def\eqcartdteformat{#1},%
-  Facteur=\def\eqcartdtefact{#1}
+  OptionCoeffs=\def\eqcartdteformat{#1},fmt coeff=\def\eqcartdteformat{#1},%
+  Facteur=\def\eqcartdtefact{#1},factor=\def\eqcartdtefact{#1}
 }
 
 \setKVdefault[eqcartdroite]{%
-  OptionCoeffs={d},%
-  SimplifCoeffs=false,%
-  VectDirecteur=false,%
-  Facteur=1
+  OptionCoeffs={d},coeff fmt={d},%
+  SimplifCoeffs=false,simpl coeffs=false,%
+  VectDirecteur=false,dir vect=false,%
+  Facteur=1,factor=1
 }
 
 \NewDocumentCommand\TrouveEqCartDroite{ }{%
@@ -329,11 +359,16 @@
   \catcode`\;12
   \TrouveEqCartDroiteAux
 }
+\NewCommandCopy\pflcarteqline\TrouveEqCartDroite
 
 \NewDocumentCommand\TrouveEqCartDroiteAux{ O{} r() r() }{%vect/point ou point/point
   \endgroup
   \restoreKV[eqcartdroite]% revenir au valeurs par défaut
   \setKV[eqcartdroite]{#1}% lit les arguments optionnels
+	%en/fr
+  \setKVboolfalsedefaultmulti[eqcartdroite]{simpl coeffs}{SimplifCoeffs}%
+	\setKVboolfalsedefaultmulti[eqcartdroite]{dir vect}{VectDirecteur}%
+  %next
   %on teste si c'est point/point
   \IfSubStr{#2}{,}%c'est point+point, sinon c'est vecteur+point
     {%
@@ -494,16 +529,16 @@
 
 %%Équation paramétrique de droite
 \defKV[eqparamdroite]{%
-  OptionCoeffs=\def\eqparamdteformat{#1},%
-  Reel=\def\eqparamdtereel{#1}
+  OptionCoeffs=\def\eqparamdteformat{#1},coeff fmt=\def\eqparamdteformat{#1},%
+  Reel=\def\eqparamdtereel{#1},real=\def\eqparamdtereel{#1}
 }
 
 \setKVdefault[eqparamdroite]{%
-  OptionCoeffs={d},%
-  Reel=k,%
-  Aligne=false,%
-  Oppose=false,%
-  Rgras=false
+  OptionCoeffs={d},coeff fmt={d},%%
+  Reel=k,,real=k,%
+  Aligne=false,align=false,%
+  Oppose=false,opposite=false,%
+  Rgras=false,rbold=false
 }
 
 \NewDocumentCommand\AffVarDteParam{ m m }{%
@@ -525,11 +560,17 @@
   \catcode`\;12
   \TrouveEqParamDroiteAux
 }
+\NewCommandCopy\pflparameqline\TrouveEqParamDroite
 
 \NewDocumentCommand\TrouveEqParamDroiteAux{ O{} r() r() }{%vect/point ou point/point
   \endgroup
   \restoreKV[eqparamdroite]% revenir au valeurs par défaut
   \setKV[eqparamdroite]{#1}% lit les arguments optionnels
+	%en/fr
+  \setKVboolfalsedefaultmulti[eqparamdroite]{align}{Aligne}%
+	\setKVboolfalsedefaultmulti[eqparamdroite]{opposite}{Oppose}%
+	\setKVboolfalsedefaultmulti[eqparamdroite]{rbold}{Rgras}%
+  %next
   %on teste si c'est point/point
   \IfSubStr{#2}{,}%c'est point+point, sinon c'est vecteur+point
     {%
@@ -587,6 +628,7 @@
   \catcode`\;12
   \TrouveDistancePtPlanAux
 }
+\NewCommandCopy\pfldistptplan\TrouveDistancePtPlan
 
 \NewDocumentCommand\TrouveDistancePtPlanAux{ r() r() d() }{%pt+vect+pt
   \endgroup
@@ -702,5 +744,122 @@
     }%
   \SimplificationRacine{\restmp}%
 }
+
+\defKV[eqsphere]{%
+  OptionCoeffs=\def\eqcartsphformat{#1},coeff fmt=\def\eqcartsphformat{#1}
+}
+
+\setKVdefault[eqsphere]{%
+  OptionCoeffs={d},coeff fmt={d},%
+  Diam=false,diameter=false,%
+  Develop=true,expand=true,%
+  Tri=true,sort=true
+}
+
+\NewDocumentCommand\TrouveEqSphere{ O{} r() r() }{%test commande générique avec Pc ou PP
+  \restoreKV[eqsphere]% revenir au valeurs par défaut
+  \setKV[eqsphere]{#1}% lit les arguments optionnels
+	%en/fr
+  \setKVboolfalsedefaultmulti[eqsphere]{diameter}{Diam}%
+  \setKVbooltruedefaultmulti[eqsphere]{expand}{Develop}%
+  \setKVbooltruedefaultmulti[eqsphere]{sort}{Tri}%
+  %next
+  %si c'est deux points ou point + rayon
+  \IfSubStr{#3}{,}%
+    {%
+      \ifboolKV[eqsphere]{Diam}%
+        {%
+          \setsepchar{,}\readlist*\CoordDiamASphere{#2}%
+          \itemtomacro\CoordDiamASphere[1]\xpta%
+          \itemtomacro\CoordDiamASphere[2]\ypta%
+          \itemtomacro\CoordDiamASphere[3]\zpta%
+          \setsepchar{,}\readlist*\CoordDiamBSphere{#3}%
+          \itemtomacro\CoordDiamBSphere[1]\xptb%
+          \itemtomacro\CoordDiamBSphere[2]\yptb%
+          \itemtomacro\CoordDiamBSphere[3]\zptb%
+          \xdef\xptc{0.5*((\xpta)+(\xptb))}%
+          \xdef\yptc{0.5*((\ypta)+(\yptb))}%
+          \xdef\zptc{0.5*((\zpta)+(\zptb))}%
+          \xdef\rayoncarre{0.25*((\xpta)-(\xptb))*((\xpta)-(\xptb))+0.25*((\ypta)-(\yptb))*((\ypta)-(\yptb))+0.25*((\zpta)-(\zptb))*((\zpta)-(\zptb))}%
+        }%
+        {%
+          \setsepchar{,}\readlist*\CoordCentreSphere{#2}%
+          \itemtomacro\CoordCentreSphere[1]\xptc%
+          \itemtomacro\CoordCentreSphere[2]\yptc%
+          \itemtomacro\CoordCentreSphere[3]\zptc%
+          \setsepchar{,}\readlist*\CoordPtSphere{#3}%
+          \itemtomacro\CoordPtSphere[1]\xptb%
+          \itemtomacro\CoordPtSphere[2]\yptb%
+          \itemtomacro\CoordPtSphere[3]\zptb%
+          \xdef\rayoncarre{((\xptc)-(\xptb))*((\xptc)-(\xptb))+((\yptc)-(\yptb))*((\yptc)-(\yptb))+((\zptc)-(\zptb))*((\zptc)-(\zptb))}%
+        }%
+    }%
+    {%
+			\IfSubStr{#3}{=}%
+				{%
+					\setsepchar{,}\readlist*\CoordCentreSphere{#2}%
+					\itemtomacro\CoordCentreSphere[1]\xptc%
+					\itemtomacro\CoordCentreSphere[2]\yptc%
+					\itemtomacro\CoordCentreSphere[3]\zptc%
+					\xintdeffloatvar tmpM = [#2] ; 
+					\StrBefore{#3}{=}[\tmpeqcart]%
+					\xintdeffloatfunc tempeqcartplan(x,y,z) := \tmpeqcart ;
+					\xintdeffloatvar tmpnum = ((tempeqcartplan(1,0,0)-tempeqcartplan(0,0,0)) * tmpM[0] + (tempeqcartplan(0,1,0)-tempeqcartplan(0,0,0)) * tmpM[1] + (tempeqcartplan(0,0,1)-tempeqcartplan(0,0,0)) * tmpM[2] + tempeqcartplan(0,0,0))^{2} ; 
+					\xintdeffloatvar tmpdenom = (tempeqcartplan(1,0,0)-tempeqcartplan(0,0,0))^{2} + (tempeqcartplan(0,1,0)-tempeqcartplan(0,0,0))^{2} + (tempeqcartplan(0,0,1)-tempeqcartplan(0,0,0))^{2} ; 
+					\xdef\rayoncarre{\xinteval{tmpnum / tmpdenom}}%
+				}%
+				{%
+					\setsepchar{,}\readlist*\CoordCentreSphere{#2}%
+					\itemtomacro\CoordCentreSphere[1]\xptc%
+					\itemtomacro\CoordCentreSphere[2]\yptc%
+					\itemtomacro\CoordCentreSphere[3]\zptc%
+					\xdef\rayoncarre{(#3)*(#3)}%
+				}%
+    }%
+  %affichages
+  \ifboolKV[eqsphere]{Develop}%
+    {%
+      \ifboolKV[eqsphere]{Tri}%
+        {%
+            x^2 \AffCoeffSgn*[\eqcartsphformat]{-2*(\xptc)}{x}
+          + y^2 \AffCoeffSgn*[\eqcartsphformat]{-2*(\yptc)}{y}
+          + z^2 \AffCoeffSgn*[\eqcartsphformat]{-2*(\zptc)}{z}
+          \AffCoeffSgnSimpl*[\eqcartsphformat]{(\xptc)^2+(\yptc)^2+(\zptc)^2-(\rayoncarre)} = 0%
+        }%
+        {%
+          x^2 + y^2 + z^2
+          \AffCoeffSgn*[\eqcartsphformat]{-2*(\xptc)}{x}
+          \AffCoeffSgn*[\eqcartsphformat]{-2*(\yptc)}{y}
+          \AffCoeffSgn*[\eqcartsphformat]{-2*(\zptc)}{z}
+          \AffCoeffSgnSimpl*[\eqcartsphformat]{(\xptc)^2+(\yptc)^2+(\zptc)^2-(\rayoncarre)} = 0%
+        }%
+    }%
+    {%
+				\xintifboolexpr{\xptc == 0}%
+					{%
+						x^2
+					}%
+					{%
+						\left(x \AffCoeffSgnSimpl*[\eqcartsphformat]{-(\xptc)}\right)^2
+					}%
+				+ \xintifboolexpr{\yptc == 0}%
+					{%
+						y^2
+					}%
+					{%
+						\left(y \AffCoeffSgnSimpl*[\eqcartsphformat]{-(\yptc)}\right)^2
+					}%
+				+ \xintifboolexpr{\zptc == 0}%
+					{%
+						z^2
+					}%
+					{%
+						\left(z \AffCoeffSgnSimpl*[\eqcartsphformat]{-(\zptc)}\right)^2
+					}%
+      = \AffCoeffSimpl*[\eqcartsphformat]{\rayoncarre}%
+    }%
+}
+
+\NewCommandCopy\pfleqsphere\TrouveEqSphere
 
 \endinput

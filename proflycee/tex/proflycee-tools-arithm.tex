@@ -1301,7 +1301,7 @@
   \xdef\tmpAA{\xinteval{#3}}\xdef\tmpBB{\xinteval{#4}}%
   \xdef\tmpQuotient{\xintiiQuo{\tmpAA}{\tmpBB}}\xdef\tmpReste{\xintiiRem{\tmpAA}{\tmpBB}}%
   \ensuremath{\num{\xinteval{#3}}=\num{\xinteval{#4}}\times\ifboolKV[diveucl]{Quotient}{\xintifboolexpr{\tmpQuotient < 0}{(\num{\tmpQuotient})}{\num{\tmpQuotient}}}{\useKV[diveucl]{Pointilles}}+\ifboolKV[diveucl]{Reste}{\num{\tmpReste}}{\useKV[diveucl]{Pointilles}}}%
-  \IfBooleanT{#1}{~avec $0 \pflleq \num{\xintiiRem{\tmpAA}{\tmpBB}} < \xintifboolexpr{\tmpBB < 0}{\lvert\num{\xinteval{#4}}\rvert}{\num{\xinteval{#4}}}$}%
+  \IfBooleanT{#1}{~\labelavec\ $0 \pflleq \num{\xintiiRem{\tmpAA}{\tmpBB}} < \xintifboolexpr{\tmpBB < 0}{\lvert\num{\xinteval{#4}}\rvert}{\num{\xinteval{#4}}}$}%
 }
 \NewCommandCopy\pfldiveucl\DivEucl
 

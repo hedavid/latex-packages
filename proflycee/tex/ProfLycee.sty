@@ -5,13 +5,14 @@
 % code
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{ProfLycee}[2025/12/18 4.00a Aide pour l'utilisation de LaTeX en lycee]
+\ProvidesPackage{ProfLycee}[2025/12/26 4.00b Aide pour l'utilisation de LaTeX en lycee]
+% 4.00b  Meilleures traductions + bugfixes + ajout geom analytique
 % 4.00a  Boulot sur latex3 + option [lng] pour multilangue ?
 % 3.12f  Modif mineure des styles piton
 % 3.12e  Correction d'un bug de couleur avec piton
 % 3.12d  Compat fa567
 % 3.12c  Pictosbac version 'flat'
-% 3.12b Style grille histo + améliorations de qques codes + binôme Newton + corrections de bugs (nouveaux codes 'piton')
+% 3.12b  Style grille histo + améliorations de qques codes + binôme Newton + corrections de bugs (nouveaux codes 'piton')
 % 3.12a  Ajout de cliparts 'zone bac' (via ProfLycee-Pictosbac)
 % 3.11g  Ajout de deux cliparts (bullseye)
 % 3.11f  Bugfix
@@ -134,6 +135,7 @@
   \def\labelconsolepythondebut{Début de la console Python}
   \def\labelconsolepythonfin{Fin de la console Python}
   \def\labelsepdec{,}
+  \def\labelavec{avec}
 \fi
 \if@pfllngen
   \def\labelcodepython{Python code}
@@ -141,6 +143,7 @@
   \def\labelconsolepythondebut{Start of Python console}
   \def\labelconsolepythonfin{End of Python console}
   \def\labelsepdec{.}
+  \def\labelavec{with}
 \fi
 \if@pfllngde
   \def\labelcodepython{Python-Code}
@@ -148,6 +151,7 @@
   \def\labelconsolepythondebut{Beginn der Python-Konsole}
   \def\labelconsolepythonfin{Ende der Python-Konsole}
   \def\labelsepdec{,}
+  \def\labelavec{mit}
 \fi
 \if@pfllnges
   \def\labelcodepython{Código Python}
@@ -155,6 +159,7 @@
   \def\labelconsolepythondebut{Inicio de la consola de Python}
   \def\labelconsolepythonfin{Fin de la consola de Python}
   \def\labelsepdec{,}
+  \def\labelavec{con}
 \fi
 
 %%=====FONTAWESOME...
@@ -210,12 +215,12 @@
 \cs_new_protected:Npn \proflycee_use_library:n #1
   {
     % Ces modules sont toujours testés même si "most" est présent
-    \str_if_in:nnT {#1} {piton}        { \file_input:n { proflycee-tools-piton.tex } }
-    \str_if_in:nnT {#1} {espace}       { \file_input:n { proflycee-tools-espace.tex } }
-	\str_if_in:nnT {#1} {space}        { \file_input:n { proflycee-tools-espace.tex } }
-    \str_if_in:nnT {#1} {ecritures}    { \file_input:n { proflycee-tools-ecritures.tex } }
-	\str_if_in:nnT {#1} {mathwriting}  { \file_input:n { proflycee-tools-ecritures.tex } }
-    \str_if_in:nnT {#1} {pythontex}
+    \str_if_in:nnT {,#1,} {,piton,}        { \file_input:n { proflycee-tools-piton.tex } }
+    \str_if_in:nnT {,#1,} {,espace,}       { \file_input:n { proflycee-tools-espace.tex } }
+    \str_if_in:nnT {,#1,} {,space,}        { \file_input:n { proflycee-tools-espace.tex } }
+    \str_if_in:nnT {,#1,} {,ecritures,}    { \file_input:n { proflycee-tools-ecritures.tex } }
+    \str_if_in:nnT {,#1,} {,mathwriting,}  { \file_input:n { proflycee-tools-ecritures.tex } }
+    \str_if_in:nnT {,#1,} {,pythontex,}
       { 
         \RequirePackage[gobble=auto]{pythontex}
     \setpythontexlistingenv{pythont} %pour ne pas télescoper lstlistings (?)
@@ -224,9 +229,9 @@
     \fi
     \file_input:n { proflycee-tools-pythontex.tex }
       }
-    \str_if_in:nnT {#1} {cas}          { \RequirePackage { FenetreCas } }
-    \str_if_in:nnT {#1} {tikz2d}       { \RequirePackage { tikz2d-fr } }
-    \str_if_in:nnT {#1} {tikz3d}       { \RequirePackage { tikz3d-fr } }
+    \str_if_in:nnT {,#1,} {,cas,}          { \RequirePackage { FenetreCas } }
+    \str_if_in:nnT {,#1,} {,tikz2d,}       { \RequirePackage { tikz2d-fr } }
+    \str_if_in:nnT {,#1,} {,tikz3d,}       { \RequirePackage { tikz3d-fr } }
   }
 
 % Interface LaTeX2e : \useproflyclib{...}
@@ -253,6 +258,7 @@
     \def\labelconsolepythondebut{Début~de~la~console~Python}
     \def\labelconsolepythonfin{Fin~de~la~console~Python}
     \def\labelsepdec{,}
+    \def\labelavec{avec}
   \fi
   \if@pfllngen
     \def\labelcodepython{Python~code}
@@ -260,6 +266,7 @@
     \def\labelconsolepythondebut{Start~of~Python~console}
     \def\labelconsolepythonfin{End~of~Python~console}
     \def\labelsepdec{.}
+    \def\labelavec{with}
   \fi
   \if@pfllngde
     \def\labelcodepython{Python-Code}
@@ -267,6 +274,7 @@
     \def\labelconsolepythondebut{Beginn~der~Python-Konsole}
     \def\labelconsolepythonfin{Ende~der~Python-Konsole}
     \def\labelsepdec{,}
+    \def\labelavec{mit}
   \fi
   \if@pfllnges
     \def\labelcodepython{Código~Python}
@@ -274,6 +282,7 @@
     \def\labelconsolepythondebut{Inicio~de~la~consola~de~Python}
     \def\labelconsolepythonfin{Fin~de~la~consola~de~Python}
     \def\labelsepdec{,}
+    \def\labelavec{con}
   \fi
 }
 \ExplSyntaxOff
