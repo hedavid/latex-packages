@@ -19,7 +19,10 @@ https://ctan.org/author/pierquet
 * jetbrainsmono-otf
 * JeuxCartes
 * logoetalab
+* lucide-icons
+* mathador
 * nodepthtext
+* openmoji
 * OutilsGeomTikZ
 * PanneauxRoute
 * PapierGurvan
@@ -46,6 +49,7 @@ https://ctan.org/author/pierquet
 * timeop
 * tkz-bernoulli
 * tkz-grapheur
+* tkz-interval
 * TrivialPursuit
 * vectorlogos
 * wordle
