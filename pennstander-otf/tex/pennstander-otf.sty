@@ -1,16 +1,19 @@
 % pennstander-otf.sty
-% C. Pierquet 2025
+% C. Pierquet 2025-2026
 % https://github.com/juliusross1/Pennstander SIL OPEN FONT LICENSE Version 1.1
+% https://etceteratype.co/grandstander from Tyler Finck
 % Code inspired by fourier-otf.sty from D. Flipo
 % This file is distributed under the terms of the LaTeX Project Public
 % License from CTAN archives in directory  macros/latex/base/lppl.txt.
 % Either version 1.3 or, at your option, any later version.
 
-\ProvidesPackage{pennstander-otf}[2025/12/03 v0.1 Supports pennstander fonts for lualatex and xelatex (v0.2.1)] 
+\ProvidesPackage{pennstander-otf}[2026/01/02 v0.3 Supports pennstander fonts for lualatex and xelatex (v0.3)] 
 
 \RequirePackage{iftex}
 \RequireTUTeX
 \RequirePackage{unicode-math}
+\newcommand\pennstanderbasefontsize{\strip@pt\fontdimen6\font}
+\newcommand\pennstanderscriptfontsize{\strip@pt\fontdimen6\scriptfont0}
 
 \newtoks\PSOTtoksT
 \newtoks\PSOTtoksM
@@ -71,10 +74,13 @@
 
 \DeclareKeys
 {
-  onlymacros.if         = PSOT@onlymacros                         ,
-  Weight.code           = \def\PSOT@weight{#1}                    ,% WeightGlobal: Thin, ExtraLight, Light, Regular, Medium, SemiBold, Bold
-  WeightT.code          = \def\PSOT@weightT{#1}                   ,% Weight: Thin, ExtraLight, Light, Regular, Medium, SemiBold, Bold
-  WeightM.code          = \def\PSOT@weightM{#1}                   ,% Weight: Thin, ExtraLight, Light, Regular, Medium, SemiBold, Bold
+  no-macros.if          = PSOT@nomacros                           ,
+  onlyconfig.if         = PSOT@onlyconfig                         ,
+  opsz.if               = PSOT@opsz                               ,
+  no-ssty.if            = PSOT@nossty                             ,
+  Weight.code           = \def\PSOT@weight{#1}                    ,% WeightGlobal: Thin, ExtraLight, Light, Regular, Medium, SemiBold, Bold, Extrabold, Black
+  WeightT.code          = \def\PSOT@weightT{#1}                   ,% Weight: Thin, ExtraLight, Light, Regular, Medium, SemiBold, Bold, Extrabold, Black
+  WeightM.code          = \def\PSOT@weightM{#1}                   ,% Weight: Thin, ExtraLight, Light, Regular, Medium, SemiBold, Bold, Extrabold, Black
   no-text.if            = PSOT@notext                             ,
   no-math.if            = PSOT@nomath                             ,
   altfour.if            = PSOT@altfour                            ,
@@ -100,40 +106,25 @@
   \def\PSOT@weightM{\PSOT@weight}
 \fi
 
-%====nott & notext
-\ifPSOT@onlymacros%
-  \PSOT@notexttrue%
+%====onlyconfig (for using fonstpec files only)
+\ifPSOT@onlyconfig%
+  \PSOT@nomacrostrue%
   \PSOT@nomathtrue%
-\fi
-
-\ifPSOT@notext
-\else
-  \IfFontExistsTF{Pennstander-\PSOT@weightT}{%
-    \ifPSOT@altfour
-      \PSOTtoksT=\expandafter{\the\PSOTtoksT RawFeature={+ss03},}%
-    \fi
-    \ifPSOT@frenchseven
-      \PSOTtoksT=\expandafter{\the\PSOTtoksT RawFeature={+ss07},}%
-    \fi
-    \begingroup
-      \edef\temp{%
-        \endgroup
-        \noexpand\setmainfont{Pennstander-\PSOT@weightT}[\unexpanded\expandafter{\the\PSOTtoksT}]%
-      }%
-    \temp
-  }{%
-    \PackageWarning{pennstander-otf}{Font 'Pennstander-\PSOT@weightT' not found}%
-  }%
+  \PSOT@nomathtrue%
 \fi
 
 \ifPSOT@nomath
 \else
-  \IfFontExistsTF{PennstanderMath-\PSOT@weightM}{%
+  \IfFontExistsTF{PennstanderMath-\PSOT@weightM}%
+  {%
     \ifPSOT@altfour
       \PSOTtoksM=\expandafter{\the\PSOTtoksM RawFeature={+ss03},}%
     \fi
     \ifPSOT@frenchseven
       \PSOTtoksM=\expandafter{\the\PSOTtoksM RawFeature={+ss07},}%
+    \fi
+    \ifPSOT@nossty
+      \PSOTtoksM=\expandafter{\the\PSOTtoksM RawFeature={-ssty},}%
     \fi
     \begingroup
       \edef\temp{%
@@ -141,29 +132,93 @@
         \noexpand\setmathfont{PennstanderMath-\PSOT@weightM}[\unexpanded\expandafter{\the\PSOTtoksM}]%
       }%
     \temp
-  }{%
+  }%
+  {%
     \PackageWarning{pennstander-otf}{Font 'PennstanderMath-\PSOT@weightM' not found}%
   }%
 \fi
 
-%====fontfamily
-\newfontfamily\pennstanderthin{Pennstander-Thin}[Scale=MatchLowercase]%
-\newfontfamily\pennstanderextralight{Pennstander-ExtraLight}[Scale=MatchLowercase]%
-\newfontfamily\pennstanderlight{Pennstander-Light}[Scale=MatchLowercase]%
-\newfontfamily\pennstander{Pennstander-Regular}[Scale=MatchLowercase]%
-\newfontfamily\pennstandermedium{Pennstander-Medium}[Scale=MatchLowercase]%
-\newfontfamily\pennstandersemibold{Pennstander-SemiBold}[Scale=MatchLowercase]%
-\newfontfamily\pennstanderbold{Pennstander-Bold}[Scale=MatchLowercase]%
+\ifPSOT@notext
+\else
+  \ifPSOT@opsz%VF.ttf
+    \IfFontExistsTF{PennstanderVF}%
+    {%
+      \ifPSOT@altfour
+        \PSOTtoksT=\expandafter{\the\PSOTtoksT RawFeature={+ss03},}%
+      \fi
+      \ifPSOT@frenchseven
+        \PSOTtoksT=\expandafter{\the\PSOTtoksT RawFeature={+ss07},}%
+      \fi
+      \begingroup
+        \edef\temp{%
+        \endgroup
+        \noexpand\setmainfont{Pennstander-\PSOT@weightT-opsz}[\unexpanded\expandafter{\the\PSOTtoksT}]%
+        }%
+      \temp
+    }%
+    {%
+      \PackageWarning{pennstander-otf}{Font 'Pennstander-VF' not found}%
+    }%
+  \else%VF.ttf
+    \IfFontExistsTF{Pennstander-\PSOT@weightT}%
+    {%
+      \ifPSOT@altfour
+        \PSOTtoksT=\expandafter{\the\PSOTtoksT RawFeature={+ss03},}%
+      \fi
+      \ifPSOT@frenchseven
+        \PSOTtoksT=\expandafter{\the\PSOTtoksT RawFeature={+ss07},}%
+      \fi
+      \begingroup
+        \edef\temp{%
+        \endgroup
+        \noexpand\setmainfont{Pennstander-\PSOT@weightT}[\unexpanded\expandafter{\the\PSOTtoksT}]%
+        }%
+      \temp
+    }%
+    {%
+      \PackageWarning{pennstander-otf}{Font 'Pennstander-\PSOT@weightT' not found}%
+    }%
+\fi
 
-%====mathfontface
-\setmathfontface\pennstandermaththin{PennstanderMath-Thin}[Scale=MatchLowercase]%
-\setmathfontface\pennstandermathextralight{PennstanderMath-ExtraLight}[Scale=MatchLowercase]%
-\setmathfontface\pennstandermathlight{PennstanderMath-Light}[Scale=MatchLowercase]%
-\setmathfontface\pennstandermath{PennstanderMath-Regular}[Scale=MatchLowercase]%
-\setmathfontface\pennstandermathmedium{PennstanderMath-Medium}[Scale=MatchLowercase]%
-\setmathfontface\pennstandermathsemibold{PennstanderMath-SemiBold}[Scale=MatchLowercase]%
-\setmathfontface\pennstandermathbold{PennstanderMath-Bold}[Scale=MatchLowercase]%
+\ifPSOT@onlyconfig%
+\else%
+  \ifPSOT@nomacros%
+  \else
+    %====fontfamily
+    \ifPSOT@opsz%
+      \newfontfamily\pennstanderthin{Pennstander-Thin-opsz}[Scale=MatchLowercase]%
+      \newfontfamily\pennstanderextralight{Pennstander-ExtraLight-opsz}[Scale=MatchLowercase]%
+      \newfontfamily\pennstanderlight{Pennstander-Light-opsz}[Scale=MatchLowercase]%
+      \newfontfamily\pennstander{Pennstander-Regular-opsz}[Scale=MatchLowercase]%
+      \newfontfamily\pennstandermedium{Pennstander-Medium-opsz}[Scale=MatchLowercase]%
+      \newfontfamily\pennstandersemibold{Pennstander-SemiBold-opsz}[Scale=MatchLowercase]%
+      \newfontfamily\pennstanderbold{Pennstander-Bold-opsz}[Scale=MatchLowercase]%
+      \newfontfamily\pennstanderextrabold{Pennstander-ExtraBold-opsz}[Scale=MatchLowercase]%
+      \newfontfamily\pennstanderblack{Pennstander-Black-opsz}[Scale=MatchLowercase]%
+    \else
+      \newfontfamily\pennstanderthin{Pennstander-Thin}[Scale=MatchLowercase]%
+      \newfontfamily\pennstanderextralight{Pennstander-ExtraLight}[Scale=MatchLowercase]%
+      \newfontfamily\pennstanderlight{Pennstander-Light}[Scale=MatchLowercase]%
+      \newfontfamily\pennstander{Pennstander-Regular}[Scale=MatchLowercase]%
+      \newfontfamily\pennstandermedium{Pennstander-Medium}[Scale=MatchLowercase]%
+      \newfontfamily\pennstandersemibold{Pennstander-SemiBold}[Scale=MatchLowercase]%
+      \newfontfamily\pennstanderbold{Pennstander-Bold}[Scale=MatchLowercase]%
+      \newfontfamily\pennstanderextrabold{Pennstander-ExtraBold}[Scale=MatchLowercase]%
+      \newfontfamily\pennstanderblack{Pennstander-Black}[Scale=MatchLowercase]%
+    \fi
 
+    %====mathfontface
+    \setmathfontface\pennstandermaththin{PennstanderMath-Thin}[Scale=MatchLowercase]%
+    \setmathfontface\pennstandermathextralight{PennstanderMath-ExtraLight}[Scale=MatchLowercase]%
+    \setmathfontface\pennstandermathlight{PennstanderMath-Light}[Scale=MatchLowercase]%
+    \setmathfontface\pennstandermath{PennstanderMath-Regular}[Scale=MatchLowercase]%
+    \setmathfontface\pennstandermathmedium{PennstanderMath-Medium}[Scale=MatchLowercase]%
+    \setmathfontface\pennstandermathsemibold{PennstanderMath-SemiBold}[Scale=MatchLowercase]%
+    \setmathfontface\pennstandermathbold{PennstanderMath-Bold}[Scale=MatchLowercase]%
+    \setmathfontface\pennstandermathextrabold{PennstanderMath-ExtraBold}[Scale=MatchLowercase]%
+    \setmathfontface\pennstandermathblack{PennstanderMath-Black}[Scale=MatchLowercase]%
+  \fi
+\fi
 %====default
 \defaultfontfeatures{}
 

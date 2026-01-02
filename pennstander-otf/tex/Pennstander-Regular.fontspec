@@ -5,9 +5,5 @@
   ItalicFont          = Pennstander-ItalicRegular,
   BoldFont            = Pennstander-SemiBold,
   BoldItalicFont      = Pennstander-ItalicSemiBold,
-  SlantedFont         = Pennstander-Regular,
-  SlantedFeatures     = {FakeSlant=0.19},
-  BoldSlantedFont     = Pennstander-SemiBold,
-  BoldSlantedFeatures = {FakeSlant=0.19},
   Ligatures           = {Common,TeX}
 }

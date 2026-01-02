@@ -3,8 +3,9 @@ pennstander-otf fonts
 
 ## Description
 
-`pennstander-otf` is a font family (based on v0.2.1 version) with math support  
+`pennstander-otf` is a font family (based on v0.3 version) with math support  
 Official site is https://github.com/juliusross1/Pennstander  
+Inigial version of font is from https://etceteratype.co/grandstander, by Tyler Finck  
 Pennstander and PennstanderMath typeface are available under the SIL Open Font License 1.1 license
 
 ## Contents
@@ -17,7 +18,7 @@ Pennstander and PennstanderMath typeface are available under the SIL Open Font L
 
 lualatex/xelatex and fontspec are necessary in order to use pennstander fonts.
 
-Several weights are given : Thin / ExtraLight / Light / Regular / Medium / SemiBold / Bold
+Several weights are given : Thin / ExtraLight / Light / Regular / Medium / SemiBold / Bold / ExtraBold / Black
 
 ## Installation
 
@@ -40,8 +41,9 @@ Either version 1.3 or, at your option, any later version.
 Pennstander and PennstanderMath typeface are available under the SIL Open Font License 1.1 license.
 
 ## Changes
+* v0.3 (new version of otf + new fontfaces + variable ttf version)
 * v0.1 (experimental).
 
 ---
-Copyright 2025 C. Pierquet
+Copyright 2025-2026 C. Pierquet
 E-mail: cpierquet (at) outlook (dot) fr
