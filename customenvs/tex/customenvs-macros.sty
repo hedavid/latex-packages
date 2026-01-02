@@ -2,9 +2,10 @@
 % licence.........: Released under the LaTeX Project Public License v1.3c or later, see http://www.latex-project.org/lppl.txt
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{customenvs-macros}[2025/10/26 0.1.1 Small macros, for several usages]
+\ProvidesPackage{customenvs-macros}[2025/12/22 0.1.2 Small macros, for several usages]
 
 %====HISTORY
+% v 0.1.2	Improvements with vimg
 % v 0.1.1	Improvements with latex3
 % v 0.1.0	Initial version subpackage of customenvs
 
@@ -30,12 +31,59 @@
 	\setKV[vfillincludegphcs]{#1}%
 	\ifboolKV[vfillincludegphcs]{vRemplir}%
 		{%
-			\IfStrEqCase{\tmpincludegpvcenter}{%
-				{m}{\vfill\includegraphics[height=\dimexpr\pagegoal-\pagetotal-\tmp@includegraphics@vfill@offset\relax,#2]{#3}\vfill}%
-				{h}{\includegraphics[height=\dimexpr\pagegoal-\pagetotal-\tmp@includegraphics@vfill@offset\relax,#2]{#3}\vfill}%
-				{b}{\vfill\includegraphics[height=\dimexpr\pagegoal-\pagetotal-\tmp@includegraphics@vfill@offset\relax,#2]{#3}}%
-				{n}{\includegraphics[height=\dimexpr\pagegoal-\pagetotal-\tmp@includegraphics@vfill@offset\relax,#2]{#3}}%
-			}[{\includegraphics[height=\dimexpr\pagegoal-\pagetotal-\tmp@includegraphics@vfill@offset\relax,#2]{#3}}]%
+			\def\tmpimg{\includegraphics[height=\dimexpr\pagegoal-\pagetotal-\tmp@includegraphics@vfill@offset\relax,#2]{#3}}%
+			\ifthenelse{\equal{\tmpincludegpvcenter}{hg}}{\noindent\tmpimg}{}%
+			\ifthenelse{\equal{\tmpincludegpvcenter}{h}}{\noindent\hfill\tmpimg\hfill\null}{}%
+			\ifthenelse{\equal{\tmpincludegpvcenter}{hd}}{\noindent\hfill\tmpimg}{}%
+			\ifthenelse{\equal{\tmpincludegpvcenter}{g}}{\vspace*{\fill}\tmpimg\vspace*{\fill}}{}%
+			\ifthenelse{\equal{\tmpincludegpvcenter}{m}}{\vspace*{\fill}\noindent\hfill\tmpimg\hfill\null\vspace*{\fill}}{}%
+			\ifthenelse{\equal{\tmpincludegpvcenter}{d}}{\vspace*{\fill}\noindent\hfill\tmpimg\vspace*{\fill}}{}%
+			\ifthenelse{\equal{\tmpincludegpvcenter}{bg}}{\vspace*{\fill}\tmpimg}{}%
+			\ifthenelse{\equal{\tmpincludegpvcenter}{b}}{\vspace*{\fill}\noindent\hfill\tmpimg\hfill\null}{}%
+			\ifthenelse{\equal{\tmpincludegpvcenter}{bd}}{\vspace*{\fill}\noindent\hfill\tmpimg}{}%
+			\ifthenelse{\equal{\tmpincludegpvcenter}{n}}{\tmpimg}{}%
+			% \IfStrEqCase{\tmpincludegpvcenter}{%
+				% {gh}%
+					% {%
+						% \includegraphics[height=\dimexpr\pagegoal-\pagetotal-\tmp@includegraphics@vfill@offset\relax,#2]{#3}%
+					% }%
+				% {h}%
+					% {%
+						% \noindent\hfill\includegraphics[height=\dimexpr\pagegoal-\pagetotal-\tmp@includegraphics@vfill@offset\relax,#2]{#3}\hfill\null%
+					% }%
+				% {dh}%
+					% {%
+						% \hfill\includegraphics[height=\dimexpr\pagegoal-\pagetotal-\tmp@includegraphics@vfill@offset\relax,#2]{#3}%
+					% }%
+				% {g}%
+					% {%
+						% \vspace*{\fill}%
+						% \includegraphics[height=\dimexpr\pagegoal-\pagetotal-\tmp@includegraphics@vfill@offset\relax,#2]{#3}%
+						% \vspace*{\fill}%
+					% }%
+				% {m}%
+					% {%
+						% \vspace*{\fill}%
+						% \noindent\hfill\includegraphics[height=\dimexpr\pagegoal-\pagetotal-\tmp@includegraphics@vfill@offset\relax,#2]{#3}\hfill\null%
+						% \vspace*{\fill}%
+					% }%
+				% {gb}%
+					% {%
+						% \vspace*{\fill}%
+						% \includegraphics[height=\dimexpr\pagegoal-\pagetotal-\tmp@includegraphics@vfill@offset\relax,#2]{#3}%
+					% }%
+				% {b}%
+					% {%
+						% \vspace*{\fill}%
+						% \noindent\hfill\includegraphics[height=\dimexpr\pagegoal-\pagetotal-\tmp@includegraphics@vfill@offset\relax,#2]{#3}\hfill\null%
+					% }%
+				% {bd}%
+					% {%
+						% \vspace*{\fill}%
+						% \noindent\hfill\includegraphics[height=\dimexpr\pagegoal-\pagetotal-\tmp@includegraphics@vfill@offset\relax,#2]{#3}%
+					% }%
+				% {n}{\includegraphics[height=\dimexpr\pagegoal-\pagetotal-\tmp@includegraphics@vfill@offset\relax,#2]{#3}}%
+			% }[{\includegraphics[height=\dimexpr\pagegoal-\pagetotal-\tmp@includegraphics@vfill@offset\relax,#2]{#3}}]%
 		}%
 		{%
 			\includegraphics[#2]{#3}%
@@ -50,12 +98,23 @@
 	\setKV[vfillincludegraphics]{#1}%
 	\ifboolKV[vfillincludegraphics]{vfill}%
 		{%
-			\IfStrEqCase{\tmpincludegpvcenter}{%
-				{m}{\vfill\includegraphics[height=\dimexpr\pagegoal-\pagetotal-\tmp@includegraphics@vfill@offset\relax,#2]{#3}\vfill\null}%
-				{t}{\includegraphics[height=\dimexpr\pagegoal-\pagetotal-\tmp@includegraphics@vfill@offset\relax,#2]{#3}\vfill\null}%
-				{b}{\vfill\includegraphics[height=\dimexpr\pagegoal-\pagetotal-\tmp@includegraphics@vfill@offset\relax,#2]{#3}}%
-				{n}{\includegraphics[height=\dimexpr\pagegoal-\pagetotal-\tmp@includegraphics@vfill@offset\relax,#2]{#3}}%
-			}[{\includegraphics[height=\dimexpr\pagegoal-\pagetotal-\tmp@includegraphics@vfill@offset\relax,#2]{#3}}]%
+			\def\tmpimg{\includegraphics[height=\dimexpr\pagegoal-\pagetotal-\tmp@includegraphics@vfill@offset\relax,#2]{#3}}%
+			\ifthenelse{\equal{\tmpincludegpvcenter}{ul}}{\noindent\tmpimg}{}%
+			\ifthenelse{\equal{\tmpincludegpvcenter}{u}}{\noindent\hfill\tmpimg\hfill\null}{}%
+			\ifthenelse{\equal{\tmpincludegpvcenter}{ur}}{\noindent\hfill\tmpimg}{}%
+			\ifthenelse{\equal{\tmpincludegpvcenter}{l}}{\vspace*{\fill}\tmpimg\vspace*{\fill}}{}%
+			\ifthenelse{\equal{\tmpincludegpvcenter}{m}}{\vspace*{\fill}\noindent\hfill\tmpimg\hfill\null\vspace*{\fill}}{}%
+			\ifthenelse{\equal{\tmpincludegpvcenter}{r}}{\vspace*{\fill}\noindent\hfill\tmpimg\vspace*{\fill}}{}%
+			\ifthenelse{\equal{\tmpincludegpvcenter}{dl}}{\vspace*{\fill}\tmpimg}{}%
+			\ifthenelse{\equal{\tmpincludegpvcenter}{d}}{\vspace*{\fill}\noindent\hfill\tmpimg\hfill\null}{}%
+			\ifthenelse{\equal{\tmpincludegpvcenter}{dr}}{\vspace*{\fill}\noindent\hfill\tmpimg}{}%
+			\ifthenelse{\equal{\tmpincludegpvcenter}{n}}{\tmpimg}{}%
+			% \IfStrEqCase{\tmpincludegpvcenter}{%
+				% {m}{\vfill\includegraphics[height=\dimexpr\pagegoal-\pagetotal-\tmp@includegraphics@vfill@offset\relax,#2]{#3}\vfill\null}%
+				% {t}{\includegraphics[height=\dimexpr\pagegoal-\pagetotal-\tmp@includegraphics@vfill@offset\relax,#2]{#3}\vfill\null}%
+				% {b}{\vfill\includegraphics[height=\dimexpr\pagegoal-\pagetotal-\tmp@includegraphics@vfill@offset\relax,#2]{#3}}%
+				% {n}{\includegraphics[height=\dimexpr\pagegoal-\pagetotal-\tmp@includegraphics@vfill@offset\relax,#2]{#3}}%
+			% }[{\includegraphics[height=\dimexpr\pagegoal-\pagetotal-\tmp@includegraphics@vfill@offset\relax,#2]{#3}}]%
 		}%
 		{%
 			\includegraphics[#2]{#3}%

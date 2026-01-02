@@ -2,9 +2,10 @@
 % licence.........: Released under the LaTeX Project Public License v1.3c or later, see http://www.latex-project.org/lppl.txt
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{customenvs-tikzpictos}[2025/10/04 0.20b Small pictograms, made with tikz]
+\ProvidesPackage{customenvs-tikzpictos}[2025/11/19 0.20c Small pictograms, made with tikz]
 
 %====HISTORY
+% v 0.20c	Excalamation + Bugfixes
 % v 0.20b	Donut + PoolBall
 % v 0.20a	3dim deco + kawaiihamster + spidercab
 % v 0.1.9	Hair gk
@@ -2741,13 +2742,13 @@
 		{%
 			\setlength\tkzspidercabdepth{\dimexpr-\tkzspidercabdepth+\fpeval{(1-\tkzspidercabrescale)/2}\tkzspidercabheight\relax}%
 			\raisebox{\tkzspidercabdepth}{%
-				\begin{tikzpicture}[scale=\tkzspidercabscale,line width=\fpeval{\tkzspidercabscale*0.6}mm,#2,transform shape]
+				\begin{tikzpicture}[scale=\fpeval{\tkzspidercabrescale*\tkzspidercabscale},line width=\fpeval{\tkzspidercabrescale*\tkzspidercabscale*0.6}mm,#2,transform shape]
 					\inttkzspidercab
 				\end{tikzpicture}%
 			}%
 		}%
 		{%
-			\begin{tikzpicture}[scale=\tkzspidercabscale,line width=\fpeval{\tkzspidercabscale*0.6}mm,#2,transform shape]
+			\begin{tikzpicture}[scale=\fpeval{\tkzspidercabrescale*\tkzspidercabscale},line width=\fpeval{\tkzspidercabrescale*\tkzspidercabscale*0.6}mm,#2,transform shape]
 				\inttkzspidercab
 			\end{tikzpicture}%
 		}%
@@ -2828,13 +2829,13 @@
 		{%
 			\setlength\tkzdonutdepth{\dimexpr-\tkzdonutdepth+\fpeval{(1-\tkzdonutrescale)/2}\tkzdonutheight\relax}%
 			\raisebox{\tkzdonutdepth}{%
-				\begin{tikzpicture}[scale=\tkzdonutscale,line width=\fpeval{\tkzdonutscale*0.25}cm,transform shape]
+				\begin{tikzpicture}[scale=\fpeval{\tkzdonutrescale*\tkzdonutscale},line width=\fpeval{\tkzdonutrescale*\tkzdonutscale*0.25}cm,transform shape]
 					\inttkzdonut
 				\end{tikzpicture}%
 			}%
 		}%
 		{%
-			\begin{tikzpicture}[scale=\tkzdonutscale,line width=\fpeval{\tkzdonutscale*0.25}cm,transform shape]
+			\begin{tikzpicture}[scale=\fpeval{\tkzdonutrescale*\tkzdonutscale},line width=\fpeval{\tkzdonutrescale*\tkzdonutscale*0.25}cm,transform shape]
 				\inttkzdonut
 			\end{tikzpicture}%
 		}%
@@ -2910,16 +2911,66 @@
 	{%
 		\setlength\tkzpoolballdepth{\dimexpr-\tkzpoolballdepth+\fpeval{(1-\tkzpoolballrescale)/2}\tkzpoolballheight\relax}%
 		\raisebox{\tkzpoolballdepth}{%
-			\begin{tikzpicture}[scale=\tkzpoolballscale,transform shape]
+			\begin{tikzpicture}[scale=\fpeval{\tkzpoolballrescale*\tkzpoolballscale},transform shape]
 				\inttkzpoolball{\tkzpoolballnb}
 			\end{tikzpicture}%
 		}%
 	}%
 	{%
-		\begin{tikzpicture}[scale=\tkzpoolballscale,transform shape]
+		\begin{tikzpicture}[scale=\fpeval{\tkzpoolballrescale*\tkzpoolballscale},transform shape]
 			\inttkzpoolball{\tkzpoolballnb}
 		\end{tikzpicture}%
 	}%
+}
+
+%====EXCALAMATION
+\newlength\tmptkzexclaheight
+\newlength\tmptkzexcladepth
+
+\defKV[tkzexclamation]{%
+	rescale=\def\tkzexclarescale{#1},%
+	strut=\def\tkzexclastrut{#1},%
+	dstrut=\def\tkzexcladstrut{#1}
+}
+\setKVdefault[tkzexclamation]{%
+	rescale=1,%
+	strut={M},%
+	dstrut={(qM)}
+}
+
+\newcommand\inttkzexcla{
+	\useasboundingbox (0.05,0) circle[radius=1] ;
+	\fill[even odd rule] (0.05,0) circle[radius=1] (0.129,-0.651) circle[x radius=0.275,y radius=0.18] plot[smooth,line join=round] coordinates {(0,-0.4) (-0.274,0.196) (-0.347,0.658) (0.03,0.874) (0.2,0.8) (0.248,0.535) (0.224,0.264) (0.1,-0.385) (0,-0.4)};
+}
+
+\NewDocumentCommand\tkzexcla{ O{} D<>{} m }{%
+	\restoreKV[tkzexclamation]%
+	\setKV[tkzexclamation]{#1}%
+	\intpictotestautodautolen{#3}%
+	{%
+		\settoheight\tmptkzexclaheight{\hbox{\tkzexclastrut}}%
+	}%
+	{%
+		\settototalheight\tmptkzexclaheight{\hbox{\tkzexcladstrut}}%
+		\settodepth\tmptkzexcladepth{\hbox{\tkzexcladstrut}}%
+	}%
+	{%
+		\setlength\tmptkzexclaheight{#3}%
+	}%
+	\intpictotestdautolen{#3}%
+		{%
+			\setlength\tmptkzexcladepth{\dimexpr-\tmptkzexcladepth+\fpeval{(1-\tkzexclarescale)/2}\tmptkzexclaheight\relax}%
+			\raisebox{\tmptkzexcladepth}{%
+				\begin{tikzpicture}[x=\fpeval{\tkzexclarescale*0.5}\tmptkzexclaheight,y=\fpeval{\tkzexclarescale*0.5}\tmptkzexclaheight,#2]
+					\inttkzexcla
+				\end{tikzpicture}%
+			}%
+		}%
+		{%
+			\begin{tikzpicture}[x=0.5\tmptkzexclaheight,y=0.5\tmptkzexclaheight,#2]
+				\inttkzexcla
+			\end{tikzpicture}%
+		}%
 }
 
 \endinput

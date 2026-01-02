@@ -3,9 +3,10 @@
 % source pencil...: CC-BY-SA 4.0 https://tex.stackexchange.com/questions/504092/replicating-a-fancy-bordered-text-style-in-latex/504145#504145
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{customenvs}[2025/11/08 0.42c Custom classic environments]
+\ProvidesPackage{customenvs}[2026/01/02 0.42d Custom classic environments]
 
 %====HISTORIQUE
+% v 0.42d	Keybord ([fr] layout only)
 % v 0.42c	New icons + new mathpictos
 % v 0.42b	New icons + mathpictos
 % v 0.42a	Box Number Style + option nonbabel
@@ -5284,6 +5285,336 @@
 		\draw[numboxnumber] (char) node[inner sep=0pt] {\vphantom{0123456789}\makebox[\tmpwidthboxnumber][c]{#2}} ;
 	\end{tikzpicture}%
 	\endgroup%
+}
+
+%====[FR] KEYBOARD
+\begingroup\expandafter\expandafter\expandafter\endgroup
+\expandafter\ifx\csname pdfsuppresswarningpagegroup\endcsname\relax
+\else
+\pdfsuppresswarningpagegroup=1\relax
+\fi
+
+\newlength\tikzkeyboardfullwidth
+\newlength\tikzkeyboardlw
+\newlength\tikzkeyboardgap
+\newlength\tikzkeyboardfnwidth
+\newlength\tikzkeyboardsize
+\newlength\tikzkeyboardmidwidth
+\newlength\tikzkeyboardbackspace
+\newlength\tikzkeyboardstar
+\newlength\tikzkeyboardenter
+\newlength\tikzkeyboardrightmaj
+\newlength\tikzkeyboardspace
+\newlength\tikzkeyboardarrows
+
+\tikzset{%
+	layoutkeyboard basis/.style={%
+		draw=tkzkeyboardborder,line width=\tikzkeyboardlw,rounded corners=4\tikzkeyboardlw
+	}
+}
+
+\tikzset{%create all nodes !!
+	key coords/.pic={
+		\tikzset{/tikz/key/.cd,#1}
+		% Ne crée QUE les coordonnées, pas de \draw
+		\coordinate (-south west) at (0,0);
+		\coordinate (-south east) at (\keywidth,0);
+		\coordinate (-north west) at (0,\keyheight);
+		\coordinate (-north east) at (\keywidth,\keyheight);
+		\coordinate (-south) at (0.5*\keywidth,0);
+		\coordinate (-north) at (0.5*\keywidth,\keyheight);
+		\coordinate (-west) at (0,0.5*\keyheight);
+		\coordinate (-east) at (\keywidth,0.5*\keyheight);
+		\coordinate (-center) at (0.5*\keywidth,0.5*\keyheight);
+	},
+	key/.cd,
+	w/.store in=\keywidth,
+	h/.store in=\keyheight,
+	w=1cm,
+	h=1cm
+}
+
+\colorlet{tkzkeyboardborder}{black}
+\colorlet{tkzkeyboardbg}{lightgray!25}
+\colorlet{tkzkeyboardsel}{teal!25}
+
+\newcommand\inttikzlayoutkeybordfrdrawkey[2][tkzkeyboardbg]{%
+	% #1 = couleur de remplissage
+	% #2 = nom de la touche
+	\draw[layoutkeyboard basis,fill=#1] 
+	(#2-south west) rectangle (#2-north east);
+}
+
+	% Définir la liste de TOUTES les touches
+\def\tkzintallkeys{%
+	echap,F1,F2,F3,F4,F5,F6,F7,F8,F9,F10,F11,F12,printscreen,inser,suppr,NUMstar,NUMslash,off,%
+	square,N1,N2,N3,N4,N5,N6,N7,N8,N9,N0,rparen,equal,backspace,NUMplus,NUMminus,numlock,%
+	tab,A,Z,E,R,T,Y,U,I,O,P,circum,dollar,star,NUM7,NUM8,NUM9,%
+	capslock,Q,S,D,F,G,H,J,K,L,M,ugrave,enter,NUM4,NUM5,NUM6,%
+	leftmaj,geqleq,W,X,C,V,B,N,comma,semicolon,colon,excla,rightmaj,NUM1,NUM2,NUM3,%
+	leftctrl,fn,win,alt,space,altgr,rightctrl,NUM0,NUMdot,NUMenter,left,right,down,up}
+	
+\newcommand\inttikzlayoutkeybordfrdrawallkeys[1]{%
+	% #1 = liste des touches à mettre en valeur (ex: ctrlleft,alt,suppr)
+	\foreach \k in \tkzintallkeys {%
+		\IfSubStr{,#1,}{,\k,}{%
+			\inttikzlayoutkeybordfrdrawkey[tkzkeyboardsel]{\k}% touche en valeur
+		}{%
+			\inttikzlayoutkeybordfrdrawkey[tkzkeyboardbg]{\k}% touche normale
+		}%
+	}
+}
+
+\newcommand\intlabelkeyboardtikz[3][\tikzkeyboardsize]{%
+	\ifboolKV[ClavierFrancais]{Complet}%
+		{%
+			\draw (#2-center) node {\includegraphics[height=#1,page=#3]{ce-keyboardtikzlabelsfull}} ;
+		}%
+		{%
+			\draw (#2-center) node {\includegraphics[height=#1,page=#3]{ce-keyboardtikzlabels}} ;
+		}%
+}
+
+\newcommand\inttikzlayoutkeybordfr{%
+	%Fn line
+	\pic[] (echap) at (0,0) {key coords={w=\tikzkeyboardfnwidth, h=0.666\tikzkeyboardsize}};
+	\pic[] (F1) at ([xshift=\tikzkeyboardgap]echap-south east) {key coords={w=\tikzkeyboardfnwidth, h=0.666\tikzkeyboardsize}};
+	\foreach \j [count=\i] in {2,...,12}{%
+		\pic[] (F\j) at ([xshift=\tikzkeyboardgap]F\i-south east) {key coords={w=\tikzkeyboardfnwidth, h=0.666\tikzkeyboardsize}};
+	}
+	\pic[] (printscreen) at ([xshift=\tikzkeyboardgap]F12-south east) {key coords={w=\tikzkeyboardfnwidth, h=0.666\tikzkeyboardsize}};
+	\pic[] (inser) at ([xshift=\tikzkeyboardgap]printscreen-south east) {key coords={w=\tikzkeyboardfnwidth, h=0.666\tikzkeyboardsize}};
+	\pic[] (suppr) at ([xshift=\tikzkeyboardgap]inser-south east) {key coords={w=\tikzkeyboardfnwidth, h=0.666\tikzkeyboardsize}};
+	\pic[] (NUMstar) at ([xshift=\tikzkeyboardgap]suppr-south east) {key coords={w=\tikzkeyboardfnwidth, h=0.666\tikzkeyboardsize}};
+	\pic[] (NUMslash) at ([xshift=\tikzkeyboardgap]NUMstar-south east) {key coords={w=\tikzkeyboardfnwidth, h=0.666\tikzkeyboardsize}};
+	\pic[] (off) at ([xshift=\tikzkeyboardgap]NUMslash-south east) {key coords={w=\tikzkeyboardfnwidth, h=0.666\tikzkeyboardsize}};
+	%Nb lines
+	\pic[] (square) at ([yshift=-\tikzkeyboardgap-\tikzkeyboardsize]echap-south west) {key coords={w=0.75\tikzkeyboardsize, h=\tikzkeyboardsize}};
+	\pic[] (N1) at ([xshift=\tikzkeyboardgap]square-south east) {key coords={w=\tikzkeyboardsize, h=\tikzkeyboardsize}};
+	\foreach \j [count=\i] in {2,...,9}{%
+		\pic[] (N\j) at ([xshift=\tikzkeyboardgap]N\i-south east) {key coords={w=\tikzkeyboardsize, h=\tikzkeyboardsize}} ;
+	}
+	\pic[] (N0) at ([xshift=\tikzkeyboardgap]N9-south east) {key coords={w=\tikzkeyboardsize, h=\tikzkeyboardsize}} ;
+	\pic[] (rparen) at ([xshift=\tikzkeyboardgap]N0-south east) {key coords={w=\tikzkeyboardsize, h=\tikzkeyboardsize}} ;
+	\pic[] (equal) at ([xshift=\tikzkeyboardgap]rparen-south east) {key coords={w=\tikzkeyboardsize, h=\tikzkeyboardsize}} ;
+	\setlength\tikzkeyboardbackspace{\tikzkeyboardmidwidth-12.75\tikzkeyboardsize-13\tikzkeyboardgap+\fpeval{4/3}\tikzkeyboardlw}%OK !
+	\pic[] (backspace) at ([xshift=\tikzkeyboardgap]equal-south east)  {key coords={w=\tikzkeyboardbackspace, h=\tikzkeyboardsize}} ;
+	\pic[] (NUMplus) at ([xshift=\tikzkeyboardgap]backspace-south east)  {key coords={w=\tikzkeyboardfnwidth, h=\tikzkeyboardsize}} ;
+	\pic[] (NUMminus) at ([xshift=\tikzkeyboardgap]NUMplus-south east)  {key coords={w=\tikzkeyboardfnwidth, h=\tikzkeyboardsize}} ;
+	\pic[] (numlock) at ([xshift=\tikzkeyboardgap]NUMminus-south east)  {key coords={w=\tikzkeyboardfnwidth, h=\tikzkeyboardsize}} ;
+	%first line of letters
+	\pic[] (tab) at ([yshift=-\tikzkeyboardgap-\tikzkeyboardsize]square-south west) {key coords={w=1.35\tikzkeyboardsize, h=\tikzkeyboardsize}} ;
+	\pic[] (A) at ([xshift=\tikzkeyboardgap]tab-south east) {key coords={w=\tikzkeyboardsize, h=\tikzkeyboardsize}} ;
+	\pic[] (Z) at ([xshift=\tikzkeyboardgap]A-south east) {key coords={w=\tikzkeyboardsize, h=\tikzkeyboardsize}} ;
+	\pic[] (E) at ([xshift=\tikzkeyboardgap]Z-south east) {key coords={w=\tikzkeyboardsize, h=\tikzkeyboardsize}} ;
+	\pic[] (R) at ([xshift=\tikzkeyboardgap]E-south east) {key coords={w=\tikzkeyboardsize, h=\tikzkeyboardsize}} ;
+	\pic[] (T) at ([xshift=\tikzkeyboardgap]R-south east) {key coords={w=\tikzkeyboardsize, h=\tikzkeyboardsize}} ;
+	\pic[] (Y) at ([xshift=\tikzkeyboardgap]T-south east) {key coords={w=\tikzkeyboardsize, h=\tikzkeyboardsize}} ;
+	\pic[] (U) at ([xshift=\tikzkeyboardgap]Y-south east) {key coords={w=\tikzkeyboardsize, h=\tikzkeyboardsize}} ;
+	\pic[] (I) at ([xshift=\tikzkeyboardgap]U-south east) {key coords={w=\tikzkeyboardsize, h=\tikzkeyboardsize}} ;
+	\pic[] (O) at ([xshift=\tikzkeyboardgap]I-south east) {key coords={w=\tikzkeyboardsize, h=\tikzkeyboardsize}} ;
+	\pic[] (P) at ([xshift=\tikzkeyboardgap]O-south east) {key coords={w=\tikzkeyboardsize, h=\tikzkeyboardsize}} ;
+	\pic[] (circum) at ([xshift=\tikzkeyboardgap]P-south east) {key coords={w=\tikzkeyboardsize, h=\tikzkeyboardsize}} ;
+	\pic[] (dollar) at ([xshift=\tikzkeyboardgap]circum-south east) {key coords={w=\tikzkeyboardsize, h=\tikzkeyboardsize}} ;
+	\setlength\tikzkeyboardstar{\tikzkeyboardmidwidth-13.35\tikzkeyboardsize-13\tikzkeyboardgap+\fpeval{4/3}\tikzkeyboardlw}%OK !
+	\pic[] (star) at ([xshift=\tikzkeyboardgap]dollar-south east) {key coords={w=\tikzkeyboardstar, h=\tikzkeyboardsize}} ;
+	\pic[] (NUM7) at ([xshift=\tikzkeyboardgap]star-south east) {key coords={w=\tikzkeyboardfnwidth, h=\tikzkeyboardsize}} ;
+	\pic[] (NUM8) at ([xshift=\tikzkeyboardgap]NUM7-south east) {key coords={w=\tikzkeyboardfnwidth, h=\tikzkeyboardsize}} ;
+	\pic[] (NUM9) at ([xshift=\tikzkeyboardgap]NUM8-south east) {key coords={w=\tikzkeyboardfnwidth, h=\tikzkeyboardsize}} ;
+	%second line of letters
+	\pic[] (capslock) at ([yshift=-\tikzkeyboardgap-\tikzkeyboardsize]tab-south west) {key coords={w=1.75\tikzkeyboardsize, h=\tikzkeyboardsize}} ;
+	\pic[] (Q) at ([xshift=\tikzkeyboardgap]capslock-south east) {key coords={w=\tikzkeyboardstar, h=\tikzkeyboardsize}} ;
+	\pic[] (S) at ([xshift=\tikzkeyboardgap]Q-south east) {key coords={w=\tikzkeyboardstar, h=\tikzkeyboardsize}} ;
+	\pic[] (D) at ([xshift=\tikzkeyboardgap]S-south east) {key coords={w=\tikzkeyboardstar, h=\tikzkeyboardsize}} ;
+	\pic[] (F) at ([xshift=\tikzkeyboardgap]D-south east) {key coords={w=\tikzkeyboardstar, h=\tikzkeyboardsize}} ;
+	\pic[] (G) at ([xshift=\tikzkeyboardgap]F-south east) {key coords={w=\tikzkeyboardstar, h=\tikzkeyboardsize}} ;
+	\pic[] (H) at ([xshift=\tikzkeyboardgap]G-south east) {key coords={w=\tikzkeyboardstar, h=\tikzkeyboardsize}} ;
+	\pic[] (J) at ([xshift=\tikzkeyboardgap]H-south east) {key coords={w=\tikzkeyboardstar, h=\tikzkeyboardsize}} ;
+	\pic[] (K) at ([xshift=\tikzkeyboardgap]J-south east) {key coords={w=\tikzkeyboardstar, h=\tikzkeyboardsize}} ;
+	\pic[] (L) at ([xshift=\tikzkeyboardgap]K-south east) {key coords={w=\tikzkeyboardstar, h=\tikzkeyboardsize}} ;
+	\pic[] (M) at ([xshift=\tikzkeyboardgap]L-south east) {key coords={w=\tikzkeyboardstar, h=\tikzkeyboardsize}} ;
+	\pic[] (ugrave) at ([xshift=\tikzkeyboardgap]M-south east) {key coords={w=\tikzkeyboardstar, h=\tikzkeyboardsize}} ;
+	\setlength\tikzkeyboardenter{\tikzkeyboardmidwidth-12.75\tikzkeyboardsize-12\tikzkeyboardgap-\fpeval{22/3}\tikzkeyboardlw}%OK !
+	\pic[] (enter) at ([xshift=\tikzkeyboardgap]ugrave-south east) {key coords={w=\tikzkeyboardenter, h=\tikzkeyboardsize}} ;
+	\pic[] (NUM4) at ([xshift=\tikzkeyboardgap]enter-south east) {key coords={w=\tikzkeyboardfnwidth, h=\tikzkeyboardsize}} ;
+	\pic[] (NUM5) at ([xshift=\tikzkeyboardgap]NUM4-south east) {key coords={w=\tikzkeyboardfnwidth, h=\tikzkeyboardsize}} ;
+	\pic[] (NUM6) at ([xshift=\tikzkeyboardgap]NUM5-south east) {key coords={w=\tikzkeyboardfnwidth, h=\tikzkeyboardsize}} ;
+	%third line of letters
+	\pic[] (leftmaj) at ([yshift=-\tikzkeyboardgap-\tikzkeyboardsize]capslock-south west) {key coords={w=\tikzkeyboardsize, h=\tikzkeyboardsize}} ;
+	\pic[] (geqleq) at ([xshift=\tikzkeyboardgap]leftmaj-south east) {key coords={w=\tikzkeyboardsize, h=\tikzkeyboardsize}} ;
+	\pic[] (W) at ([xshift=\tikzkeyboardgap]geqleq-south east) {key coords={w=\tikzkeyboardsize, h=\tikzkeyboardsize}} ;
+	\pic[] (X) at ([xshift=\tikzkeyboardgap]W-south east) {key coords={w=\tikzkeyboardsize, h=\tikzkeyboardsize}} ;
+	\pic[] (C) at ([xshift=\tikzkeyboardgap]X-south east) {key coords={w=\tikzkeyboardsize, h=\tikzkeyboardsize}} ;
+	\pic[] (V) at ([xshift=\tikzkeyboardgap]C-south east) {key coords={w=\tikzkeyboardsize, h=\tikzkeyboardsize}} ;
+	\pic[] (B) at ([xshift=\tikzkeyboardgap]V-south east) {key coords={w=\tikzkeyboardsize, h=\tikzkeyboardsize}} ;
+	\pic[] (N) at ([xshift=\tikzkeyboardgap]B-south east) {key coords={w=\tikzkeyboardsize, h=\tikzkeyboardsize}} ;
+	\pic[] (comma) at ([xshift=\tikzkeyboardgap]N-south east) {key coords={w=\tikzkeyboardsize, h=\tikzkeyboardsize}} ;
+	\pic[] (semicolon) at ([xshift=\tikzkeyboardgap]comma-south east) {key coords={w=\tikzkeyboardsize, h=\tikzkeyboardsize}} ;
+	\pic[] (colon) at ([xshift=\tikzkeyboardgap]semicolon-south east) {key coords={w=\tikzkeyboardsize, h=\tikzkeyboardsize}} ;
+	\pic[] (excla) at ([xshift=\tikzkeyboardgap]colon-south east) {key coords={w=\tikzkeyboardsize, h=\tikzkeyboardsize}} ;
+	\setlength\tikzkeyboardrightmaj{\tikzkeyboardmidwidth-12\tikzkeyboardsize-12\tikzkeyboardgap+\fpeval{4/3}\tikzkeyboardlw}%OK !
+	\pic[] (rightmaj) at ([xshift=\tikzkeyboardgap]excla-south east) {key coords={w=\tikzkeyboardrightmaj, h=\tikzkeyboardsize}} ;
+	\pic[] (NUM1) at ([xshift=\tikzkeyboardgap]rightmaj-south east) {key coords={w=\tikzkeyboardfnwidth, h=\tikzkeyboardsize}} ;
+	\pic[] (NUM2) at ([xshift=\tikzkeyboardgap]NUM1-south east) {key coords={w=\tikzkeyboardfnwidth, h=\tikzkeyboardsize}} ;
+	\pic[] (NUM3) at ([xshift=\tikzkeyboardgap]NUM2-south east) {key coords={w=\tikzkeyboardfnwidth, h=\tikzkeyboardsize}} ;
+	%fourth line of letters
+	\pic[] (leftctrl) at ([yshift=-\tikzkeyboardgap-\tikzkeyboardsize]leftmaj-south west) {key coords={w=\tikzkeyboardsize, h=\tikzkeyboardsize}} ;
+
+	\pic[] (fn) at ([xshift=\tikzkeyboardgap]leftctrl-south east) {key coords={w=\tikzkeyboardsize, h=\tikzkeyboardsize}} ;
+	\pic[] (win) at ([xshift=\tikzkeyboardgap]fn-south east) {key coords={w=\tikzkeyboardsize, h=\tikzkeyboardsize}} ;
+	\pic[] (alt) at ([xshift=\tikzkeyboardgap]win-south east) {key coords={w=\tikzkeyboardsize, h=\tikzkeyboardsize}} ;
+	\setlength\tikzkeyboardspace{5\tikzkeyboardsize+4\tikzkeyboardgap}%+0.06\tikzkeyboardsize}
+	\pic[] (space) at ([xshift=\tikzkeyboardgap]alt-south east) {key coords={w=\tikzkeyboardspace, h=\tikzkeyboardsize}} ;
+	\pic[] (altgr) at ([xshift=\tikzkeyboardgap]space-south east) {key coords={w=\tikzkeyboardsize, h=\tikzkeyboardsize}} ;
+	\pic[] (rightctrl) at ([xshift=\tikzkeyboardgap]altgr-south east) {key coords={w=\tikzkeyboardsize, h=\tikzkeyboardsize}} ;
+	\pic[] (NUM0) at ([yshift=-\tikzkeyboardgap-\tikzkeyboardsize]NUM1-south west) {key coords={w=\tikzkeyboardfnwidth, h=\tikzkeyboardsize}} ;
+	\pic[] (NUMdot) at ([xshift=\tikzkeyboardgap]NUM0-south east) {key coords={w=\tikzkeyboardfnwidth, h=\tikzkeyboardsize}} ;
+	\pic[] (NUMenter) at ([xshift=\tikzkeyboardgap]NUMdot-south east) {key coords={w=\tikzkeyboardfnwidth, h=\tikzkeyboardsize}} ;
+	%--flèches :-/
+	\setlength\tikzkeyboardarrows{\tikzkeyboardmidwidth-11\tikzkeyboardsize-11\tikzkeyboardgap}
+	\setlength\tikzkeyboardarrows{\fpeval{1/3}\tikzkeyboardarrows-\fpeval{2/3}\tikzkeyboardgap+\fpeval{1/3}\tikzkeyboardlw}%OK !
+	\pic[] (left) at ([xshift=\tikzkeyboardgap]rightctrl-south east) {key coords={w=\tikzkeyboardarrows, h=0.5\tikzkeyboardsize-0.5\tikzkeyboardgap}} ;
+	\pic[] (right) at ([xshift=-\tikzkeyboardarrows-\tikzkeyboardgap]NUM0-south west) {key coords={w=\tikzkeyboardarrows, h=0.5\tikzkeyboardsize-\tikzkeyboardgap}} ;
+	\pic[] (down) at ([xshift=\tikzkeyboardgap]left-south east) {key coords={w=\tikzkeyboardarrows, h=0.5\tikzkeyboardsize-0.5\tikzkeyboardgap}} ;
+	\pic[] (up) at ([yshift=\tikzkeyboardgap]down-north west) {key coords={w=\tikzkeyboardarrows, h=0.5\tikzkeyboardsize-0.5\tikzkeyboardgap}} ;
+}
+
+\newcommand\inttikzlayoutkeybordfrtouchs{
+	\intlabelkeyboardtikz[0.66\tikzkeyboardsize]{echap}{1}
+	\intlabelkeyboardtikz[0.66\tikzkeyboardsize]{F1}{2}
+	\intlabelkeyboardtikz[0.66\tikzkeyboardsize]{F2}{3}
+	\intlabelkeyboardtikz[0.66\tikzkeyboardsize]{F3}{4}
+	\intlabelkeyboardtikz[0.66\tikzkeyboardsize]{F4}{5}
+	\intlabelkeyboardtikz[0.66\tikzkeyboardsize]{F5}{6}
+	\intlabelkeyboardtikz[0.66\tikzkeyboardsize]{F6}{7}
+	\intlabelkeyboardtikz[0.66\tikzkeyboardsize]{F7}{8}
+	\intlabelkeyboardtikz[0.66\tikzkeyboardsize]{F8}{9}
+	\intlabelkeyboardtikz[0.66\tikzkeyboardsize]{F9}{10}
+	\intlabelkeyboardtikz[0.66\tikzkeyboardsize]{F10}{11}
+	\intlabelkeyboardtikz[0.66\tikzkeyboardsize]{F11}{12}
+	\intlabelkeyboardtikz[0.66\tikzkeyboardsize]{F12}{13}
+	\intlabelkeyboardtikz[0.66\tikzkeyboardsize]{printscreen}{14}
+	\intlabelkeyboardtikz[0.66\tikzkeyboardsize]{inser}{15}
+	\intlabelkeyboardtikz[0.66\tikzkeyboardsize]{suppr}{16}
+	\intlabelkeyboardtikz[0.66\tikzkeyboardsize]{NUMstar}{17}
+	\intlabelkeyboardtikz[0.66\tikzkeyboardsize]{NUMslash}{18}
+	\intlabelkeyboardtikz{square}{19}
+	\intlabelkeyboardtikz{N1}{20}
+	\intlabelkeyboardtikz{N2}{21}
+	\intlabelkeyboardtikz{N3}{22}
+	\intlabelkeyboardtikz{N4}{23}
+	\intlabelkeyboardtikz{N5}{24}
+	\intlabelkeyboardtikz{N6}{25}
+	\intlabelkeyboardtikz{N7}{26}
+	\intlabelkeyboardtikz{N8}{27}
+	\intlabelkeyboardtikz{N9}{28}
+	\intlabelkeyboardtikz{N0}{29}
+	\intlabelkeyboardtikz{rparen}{30}
+	\intlabelkeyboardtikz{equal}{31}
+	\intlabelkeyboardtikz{backspace}{32}
+	\intlabelkeyboardtikz{NUMplus}{33}
+	\intlabelkeyboardtikz{NUMminus}{34}
+	\intlabelkeyboardtikz{numlock}{35}
+	\intlabelkeyboardtikz{tab}{36}
+	\intlabelkeyboardtikz{A}{37}
+	\intlabelkeyboardtikz{Z}{38}
+	\intlabelkeyboardtikz{E}{39}
+	\intlabelkeyboardtikz{R}{40}
+	\intlabelkeyboardtikz{T}{41}
+	\intlabelkeyboardtikz{Y}{42}
+	\intlabelkeyboardtikz{U}{43}
+	\intlabelkeyboardtikz{I}{44}
+	\intlabelkeyboardtikz{O}{45}
+	\intlabelkeyboardtikz{P}{46}
+	\intlabelkeyboardtikz{circum}{47}
+	\intlabelkeyboardtikz{dollar}{48}
+	\intlabelkeyboardtikz{star}{49}
+	\intlabelkeyboardtikz{NUM7}{50}
+	\intlabelkeyboardtikz{NUM8}{51}
+	\intlabelkeyboardtikz{NUM9}{52}
+	\intlabelkeyboardtikz{capslock}{53}
+	\intlabelkeyboardtikz{Q}{54}
+	\intlabelkeyboardtikz{S}{55}
+	\intlabelkeyboardtikz{D}{56}
+	\intlabelkeyboardtikz{F}{57}
+	\intlabelkeyboardtikz{G}{58}
+	\intlabelkeyboardtikz{H}{59}
+	\intlabelkeyboardtikz{J}{60}
+	\intlabelkeyboardtikz{K}{61}
+	\intlabelkeyboardtikz{L}{62}
+	\intlabelkeyboardtikz{M}{63}
+	\intlabelkeyboardtikz{ugrave}{64}
+	\intlabelkeyboardtikz{enter}{65}
+	\intlabelkeyboardtikz{NUM4}{66}
+	\intlabelkeyboardtikz{NUM5}{67}
+	\intlabelkeyboardtikz{NUM6}{68}
+	\intlabelkeyboardtikz{leftmaj}{69}
+	\intlabelkeyboardtikz{geqleq}{70}
+	\intlabelkeyboardtikz{W}{71}
+	\intlabelkeyboardtikz{X}{72}
+	\intlabelkeyboardtikz{C}{73}
+	\intlabelkeyboardtikz{V}{74}
+	\intlabelkeyboardtikz{B}{75}
+	\intlabelkeyboardtikz{N}{76}
+	\intlabelkeyboardtikz{comma}{77}
+	\intlabelkeyboardtikz{semicolon}{78}
+	\intlabelkeyboardtikz{colon}{79}
+	\intlabelkeyboardtikz{excla}{80}
+	\intlabelkeyboardtikz{rightmaj}{69}
+	\intlabelkeyboardtikz{NUM1}{81}
+	\intlabelkeyboardtikz{NUM2}{82}
+	\intlabelkeyboardtikz{NUM3}{83}
+	\intlabelkeyboardtikz{leftctrl}{84}
+	\intlabelkeyboardtikz{fn}{85}
+	\intlabelkeyboardtikz{win}{86}
+	\intlabelkeyboardtikz{alt}{87}
+	\intlabelkeyboardtikz{altgr}{88}
+	\intlabelkeyboardtikz{rightctrl}{84}
+	\intlabelkeyboardtikz[0.45\tikzkeyboardsize]{left}{89}
+	\intlabelkeyboardtikz[0.45\tikzkeyboardsize]{down}{90}
+	\intlabelkeyboardtikz[0.45\tikzkeyboardsize]{up}{91}
+	\intlabelkeyboardtikz[0.45\tikzkeyboardsize]{right}{92}
+	\intlabelkeyboardtikz{NUM0}{93}
+	\intlabelkeyboardtikz{NUMdot}{94}
+	\intlabelkeyboardtikz{NUMenter}{95}
+	\intlabelkeyboardtikz{off}{96}
+}
+
+\defKV[ClavierFrancais]{%
+	Largeur=\setlength\tikzkeyboardfullwidth{#1},%
+	CouleurBordure=\colorlet{tkzkeyboardborder}{#1},%
+	CouleurFond=\colorlet{tkzkeyboardbg}{#1},%
+	CouleurSelect=\colorlet{tkzkeyboardsel}{#1}
+}
+
+\setKVdefault[ClavierFrancais]{%
+	Largeur=16cm,%
+	CouleurBordure={black},%
+	CouleurFond={lightgray!15},%
+	CouleurSelect={cyan!50},%
+	AfficheTouches=true,%
+	Complet=false
+}
+
+\NewDocumentCommand\ClavierFrancais{ O{} D<>{} m }{%
+	\restoreKV[ClavierFrancais]%
+	\setKV[ClavierFrancais]{#1}%
+	\setlength\tikzkeyboardgap{\tikzkeyboardfullwidth/250}%fixed
+	\setlength\tikzkeyboardlw{\tikzkeyboardfullwidth/750}%fixed
+	\setlength\tikzkeyboardfnwidth{\fpeval{1/19}\tikzkeyboardfullwidth-\fpeval{18/19}\tikzkeyboardgap}%fixed
+	\setlength\tikzkeyboardsize{1.125\tikzkeyboardfnwidth}%fixed
+	\setlength\tikzkeyboardmidwidth{\tikzkeyboardfullwidth+\tikzkeyboardlw-3\tikzkeyboardfnwidth-3\tikzkeyboardgap-\fpeval{7/3}\tikzkeyboardlw}%fixed
+	\begin{tikzpicture}[#2,transform shape]
+		% Étape 1 : créer TOUTES les coordonnées
+		\inttikzlayoutkeybordfr
+		% Étape 2 : dessiner les touches avec la bonne couleur
+		\inttikzlayoutkeybordfrdrawallkeys{#3}
+		\ifboolKV[ClavierFrancais]{AfficheTouches}%
+			{%Étape 3 : ajouter les labels
+				\inttikzlayoutkeybordfrtouchs
+			}%
+			{}%
+	\end{tikzpicture}%
 }
 
 \endinput
