@@ -41,6 +41,7 @@ Either version 1.3 or, at your option, any later version.
 Pennstander and PennstanderMath typeface are available under the SIL Open Font License 1.1 license.
 
 ## Changes
+* v0.3a (bugfixes)
 * v0.3 (new version of otf + new fontfaces + variable ttf version)
 * v0.1 (experimental).
 

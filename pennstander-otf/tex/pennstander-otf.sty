@@ -7,7 +7,7 @@
 % License from CTAN archives in directory  macros/latex/base/lppl.txt.
 % Either version 1.3 or, at your option, any later version.
 
-\ProvidesPackage{pennstander-otf}[2026/01/02 v0.3 Supports pennstander fonts for lualatex and xelatex (v0.3)] 
+\ProvidesPackage{pennstander-otf}[2026/01/06 v0.3a Supports pennstander fonts for lualatex and xelatex (v0.3)] 
 
 \RequirePackage{iftex}
 \RequireTUTeX
@@ -43,7 +43,7 @@
     \fi%
   \fi%
   %stylisticset specific option (global or indiv)
-  \ifx\PSOT@opt\PSOT@styleset%
+  \ifx\PSOT@opt\PSOT@stylset%
     \PSOTtoksT=\expandafter{\the\PSOTtoksT StylisticSet={#2},}%
     \PSOTtoksM=\expandafter{\the\PSOTtoksM StylisticSet={#2},}%
   \else%
@@ -110,74 +110,102 @@
 \ifPSOT@onlyconfig%
   \PSOT@nomacrostrue%
   \PSOT@nomathtrue%
-  \PSOT@nomathtrue%
+  \PSOT@notexttrue%
 \fi
 
-\ifPSOT@nomath
-\else
-  \IfFontExistsTF{PennstanderMath-\PSOT@weightM}%
-  {%
-    \ifPSOT@altfour
-      \PSOTtoksM=\expandafter{\the\PSOTtoksM RawFeature={+ss03},}%
-    \fi
-    \ifPSOT@frenchseven
-      \PSOTtoksM=\expandafter{\the\PSOTtoksM RawFeature={+ss07},}%
-    \fi
-    \ifPSOT@nossty
-      \PSOTtoksM=\expandafter{\the\PSOTtoksM RawFeature={-ssty},}%
-    \fi
-    \begingroup
-      \edef\temp{%
-        \endgroup
-        \noexpand\setmathfont{PennstanderMath-\PSOT@weightM}[\unexpanded\expandafter{\the\PSOTtoksM}]%
-      }%
-    \temp
-  }%
-  {%
-    \PackageWarning{pennstander-otf}{Font 'PennstanderMath-\PSOT@weightM' not found}%
-  }%
-\fi
-
-\ifPSOT@notext
-\else
-  \ifPSOT@opsz%VF.ttf
+%====if opsz := math then text
+\ifPSOT@opsz%VF.ttf
+  \ifPSOT@nomath
+  \else
+    \IfFontExistsTF{PennstanderMath-\PSOT@weightM}%
+    {%
+      \ifPSOT@altfour
+        \PSOTtoksM=\expandafter{\the\PSOTtoksM RawFeature={+ss03},}%
+      \fi
+      \ifPSOT@frenchseven
+        \PSOTtoksM=\expandafter{\the\PSOTtoksM RawFeature={+ss07},}%
+      \fi
+      \ifPSOT@nossty
+        \PSOTtoksM=\expandafter{\the\PSOTtoksM RawFeature={-ssty},}%
+      \fi
+      \begingroup
+        \edef\temp{%
+          \endgroup
+          \noexpand\setmathfont{PennstanderMath-\PSOT@weightM}[\unexpanded\expandafter{\the\PSOTtoksM}]%
+        }%
+      \temp
+    }%
+    {%
+      \PackageWarning{pennstander-otf}{Font 'PennstanderMath-\PSOT@weightM' not found}%
+    }%
+  \fi
+  \ifPSOT@notext
+  \else
     \IfFontExistsTF{PennstanderVF}%
-    {%
-      \ifPSOT@altfour
-        \PSOTtoksT=\expandafter{\the\PSOTtoksT RawFeature={+ss03},}%
-      \fi
-      \ifPSOT@frenchseven
-        \PSOTtoksT=\expandafter{\the\PSOTtoksT RawFeature={+ss07},}%
-      \fi
-      \begingroup
-        \edef\temp{%
-        \endgroup
-        \noexpand\setmainfont{Pennstander-\PSOT@weightT-opsz}[\unexpanded\expandafter{\the\PSOTtoksT}]%
-        }%
-      \temp
-    }%
-    {%
-      \PackageWarning{pennstander-otf}{Font 'Pennstander-VF' not found}%
-    }%
-  \else%VF.ttf
+      {%
+        \ifPSOT@altfour
+          \PSOTtoksT=\expandafter{\the\PSOTtoksT RawFeature={+ss03},}%
+        \fi
+        \ifPSOT@frenchseven
+          \PSOTtoksT=\expandafter{\the\PSOTtoksT RawFeature={+ss07},}%
+        \fi
+        \begingroup
+          \edef\temp{%
+          \endgroup
+          \noexpand\setmainfont{Pennstander-\PSOT@weightT-opsz}[\unexpanded\expandafter{\the\PSOTtoksT}]%
+          }%
+        \temp
+      }%
+      {%
+        \PackageWarning{pennstander-otf}{Font 'Pennstander-VF' not found}%
+      }%
+    \fi
+\else
+  \ifPSOT@notext
+  \else
     \IfFontExistsTF{Pennstander-\PSOT@weightT}%
+      {%
+        \ifPSOT@altfour
+          \PSOTtoksT=\expandafter{\the\PSOTtoksT RawFeature={+ss03},}%
+        \fi
+        \ifPSOT@frenchseven
+          \PSOTtoksT=\expandafter{\the\PSOTtoksT RawFeature={+ss07},}%
+        \fi
+        \begingroup
+          \edef\temp{%
+          \endgroup
+          \noexpand\setmainfont{Pennstander-\PSOT@weightT}[\unexpanded\expandafter{\the\PSOTtoksT}]%
+          }%
+        \temp
+      }%
+      {%
+        \PackageWarning{pennstander-otf}{Font 'Pennstander-\PSOT@weightT' not found}%
+      }%
+  \fi
+  \ifPSOT@nomath
+  \else
+    \IfFontExistsTF{PennstanderMath-\PSOT@weightM}%
     {%
       \ifPSOT@altfour
-        \PSOTtoksT=\expandafter{\the\PSOTtoksT RawFeature={+ss03},}%
+        \PSOTtoksM=\expandafter{\the\PSOTtoksM RawFeature={+ss03},}%
       \fi
       \ifPSOT@frenchseven
-        \PSOTtoksT=\expandafter{\the\PSOTtoksT RawFeature={+ss07},}%
+        \PSOTtoksM=\expandafter{\the\PSOTtoksM RawFeature={+ss07},}%
+      \fi
+      \ifPSOT@nossty
+        \PSOTtoksM=\expandafter{\the\PSOTtoksM RawFeature={-ssty},}%
       \fi
       \begingroup
         \edef\temp{%
-        \endgroup
-        \noexpand\setmainfont{Pennstander-\PSOT@weightT}[\unexpanded\expandafter{\the\PSOTtoksT}]%
+          \endgroup
+          \noexpand\setmathfont{PennstanderMath-\PSOT@weightM}[\unexpanded\expandafter{\the\PSOTtoksM}]%
         }%
       \temp
     }%
     {%
-      \PackageWarning{pennstander-otf}{Font 'Pennstander-\PSOT@weightT' not found}%
+      \PackageWarning{pennstander-otf}{Font 'PennstanderMath-\PSOT@weightM' not found}%
     }%
+  \fi
 \fi
 
 \ifPSOT@onlyconfig%
