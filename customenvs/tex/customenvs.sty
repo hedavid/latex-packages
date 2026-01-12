@@ -3,9 +3,10 @@
 % source pencil...: CC-BY-SA 4.0 https://tex.stackexchange.com/questions/504092/replicating-a-fancy-bordered-text-style-in-latex/504145#504145
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{customenvs}[2026/01/02 0.42d Custom classic environments]
+\ProvidesPackage{customenvs}[2026/01/12 0.42e Custom classic environments]
 
 %====HISTORIQUE
+% v 0.42e	Correction d'un bug avec fa...
 % v 0.42d	Keybord ([fr] layout only)
 % v 0.42c	New icons + new mathpictos
 % v 0.42b	New icons + mathpictos
@@ -154,6 +155,7 @@
 \def\faArrDownNb{}
 \def\faProjDiag{}
 \def\faFlipPhone{}
+\def\faFaceSmiley{}
 
 \@ifpackageloaded{fontawesome5}%
 	{%
@@ -164,6 +166,7 @@
 		\def\faArrDownNb{\faSortNumericDown}
 		\def\faProjDiag{\faProjectDiagram}
 		\def\faFlipPhone{\faPhone*}
+		\def\faFaceSmiley{\faIcon{smile}}
 	}%
 	{}
 
@@ -176,6 +179,7 @@
 		\def\faArrDownNb{\faIcon{arrow-down-1-9}}
 		\def\faProjDiag{\faDiagramProject}
 		\def\faFlipPhone{\faPhoneFlip}
+		\def\faFaceSmiley{\faIcon{face-smile}}
 	}%
 	{}%
 \@ifpackageloaded{fontawesome7}%
@@ -187,6 +191,7 @@
 		\def\faArrDownNb{\faIcon{arrow-down-1-9}}
 		\def\faProjDiag{\faDiagramProject}
 		\def\faFlipPhone{\faPhoneFlip}
+		\def\faFaceSmiley{\faIcon{face-smile}}
 	}%
 	{}%
 
@@ -4597,7 +4602,7 @@
 			\node[draw=none,anchor=west,inner sep=1pt,text=wacoltitle] at ([xshift=1mm]title.west) (picture) {\phantom{\faArrowLeft}\space\ProjectWaAvat};
 			\node[draw=none,anchor=west,text=wacoltitle,text depth=0pt,inner sep=1pt] at (picture.east) {\space\sffamily\vphantom{pB}\NameofWa} ;
 			%le bas
-			\node[draw=white,fill=white,line width=1pt,rounded corners=8pt,text width={\WidthofWa-2.5mm-1cm},minimum height=0.75cm,font=\ProjectWaFonte,text=darkgray,inner xsep=3pt,anchor=west] at ([shift={(1.25mm,0.5cm)}]frame.south west) {\faIcon{smile}\space\rule[-0.1cm]{1pt}{0.5cm}\,\ProjectWaWrite\hfill\faPaperclip\space\space\faVideo\space};
+			\node[draw=white,fill=white,line width=1pt,rounded corners=8pt,text width={\WidthofWa-2.5mm-1cm},minimum height=0.75cm,font=\ProjectWaFonte,text=darkgray,inner xsep=3pt,anchor=west] at ([shift={(1.25mm,0.5cm)}]frame.south west) {\faFaceSmiley\space\rule[-0.1cm]{1pt}{0.5cm}\,\ProjectWaWrite\hfill\faPaperclip\space\space\faVideo\space};
 			\node[draw=wacolmicro,fill=wacolmicro,line width=1pt,rounded corners=8pt,text width={0.35cm},minimum height=0.75cm,font=\ProjectWaFonte,text=white,anchor=east,align=center] at ([shift={(-1.25mm,0.5cm)}]frame.south east) {\faMicrophone};
 		},
 		boxrule=0.8pt,colframe=wacolmicro!50!gray,title style={color=white},
