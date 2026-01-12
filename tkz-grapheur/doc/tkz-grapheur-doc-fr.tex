@@ -34,8 +34,8 @@
 \hypersetup{pdfborder=0 0 0}
 \usepackage[margin=2cm]{geometry}
 \setlength{\parindent}{0pt}
-\def\TPversion{0.2.7}
-\def\TPdate{09/11/2025}
+\def\TPversion{0.2.9}
+\def\TPdate{12/01/2026}
 \usepackage{soul}
 \usepackage{codehigh}
 \usepackage{tabularray}
@@ -319,8 +319,10 @@ Dans une optique de \textit{simplicité}, seule la couleur des éléments peut �
 	Origx/.store in=\pflOx,Origx/.default=0,Origx=0,
 	Origy/.store in=\pflOy,Origy/.default=0,Origy=0,
 	Xgrille/.store in=\pflgrillex,Xgrille/.default=1,Xgrille=1,
+	Xgrillei/.store in=\pflgrillexi,Xgrillei/.default=1,Xgrillei=1,
 	Xgrilles/.store in=\pflgrillexs,Xgrilles/.default=0.5,Xgrilles=0.5,
 	Ygrille/.store in=\pflgrilley,Ygrille/.default=1,Ygrille=1,
+	Ygrillei/.store in=\pflgrilleyi,Ygrillei/.default=1,Ygrillei=1,
 	Ygrilles/.store in=\pflgrilleys,Ygrilles/.default=0.5,Ygrilles=0.5
 }
 \end{tcblisting}
@@ -334,6 +336,8 @@ On retrouve donc :
 	\item les valeurs extrêmes des axes (\MontreCode{Xmin}/\MontreCode{Xmax}/\MontreCode{Ymin}/\MontreCode{Ymax}) ;
 	\item les paramètres des grilles principales et secondaires (\MontreCode{Xgrille}/\MontreCode{Xgrilles}/\MontreCode{Ygrille}/\MontreCode{Ygrilles}).
 \end{itemize}
+
+À noter que, depuis la version \texttt{0.2.8}, un troisième niveau de grille est accessible, via les valeurs \MontreCode{Xgrillei}/\MontreCode{Ygrillei}.
 
 \smallskip
 
@@ -409,6 +413,7 @@ Les \MontreCode{<clés>} spécifiques (et optionnelles) sont :
 
 \begin{itemize}
 	\item \MontreCode{TailleGrad} : taille des graduations des axes (\MontreCode{3pt} pour 3pt \textit{dessus} et 3pt \textit{dessous}) ;
+	\item \MontreCode{Theme} : thème \textit{couleurs} de la grille ;
 	\item \MontreCode{AffCadre} : booléen (\MontreCode{false} par défaut) pour afficher un cadre qui délimite la fenêtre graphique (hors graduations éventuelles).
 \end{itemize}
 
@@ -449,6 +454,8 @@ Dans ce cas, les clés et arguments diffèrent légèrement, notamment via la cl
 \pagebreak
 
 \subsection{Grilles et axes}\label{creaaxesgr}
+
+\subsubsection{Fonctionnement global}
 
 La première commande \textit{utile} va permettre de créer les grilles, les axes et les graduations.
 
@@ -539,6 +546,58 @@ Dans le cas où les graduations sont \textit{naturellement} définies par les do
 	[x=1.5cm,y=6cm,Xmin=0,Xmax=7,Xgrille=0.5,Xgrilles=0.25,
 	Ymin=0,Ymax=1,Ygrille=0.1,Ygrilles=0.05]
 	\TracerAxesGrilles[Elargir=2.5mm,Dernier]{auto}{auto}
+\end{GraphiqueTikz}
+\end{tcblisting}
+
+À noter qu'une clé (expérimentale), \MontreCode[Grille Intermediaire], permet d'afficher un troisième niveau de grille, définie par \MontreCode{[Xgrillei=...,Ygrillei=...]}.
+
+\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5}
+\begin{GraphiqueTikz}%
+	[x=1.5cm,y=6cm,Xmin=0,Xmax=7,Xgrille=0.5,Xgrillei=0.25,Xgrilles=0.05,
+	Ymin=0,Ymax=1,Ygrille=0.1,Ygrillei=0.05,Ygrilles=0.01]
+	\TracerAxesGrilles[Elargir=2.5mm,Dernier,Grille Intermediaire]{auto}{auto}
+\end{GraphiqueTikz}
+\end{tcblisting}
+
+\pagebreak
+
+\subsubsection{Thème de couleurs de la grille}
+
+Il existe de plus 6 thèmes prédéfinis de couleurs pour les grilles, parmi :
+
+\MontreCode{<Theme=standard/gris/bleu/vert/chaud/contraste>}.
+
+\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5,listing only}
+\begin{GraphiqueTikz}[options]<Theme=...>
+	...
+\end{tcblisting}
+
+\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5,text only}
+\begin{GraphiqueTikz}[x=0.9cm,y=0.9cm]<Theme=standard,Milli>
+	\TracerAxesGrilles[Elargir=2.5mm,Police=\small,Grille Intermediaire]{auto}{auto}
+	\PlacerTexte[Position=above,Police=\large\ttfamily]{([yshift=2.5mm]0,\pflymax)}{Theme=standard}
+\end{GraphiqueTikz}
+\begin{GraphiqueTikz}[x=0.9cm,y=0.9cm]<Theme=gris,Milli>
+	\TracerAxesGrilles[Elargir=2.5mm,Police=\small,Grille Intermediaire]{auto}{auto}
+	\PlacerTexte[Position=above,Police=\large\ttfamily]{([yshift=2.5mm]0,\pflymax)}{Theme=gris}
+\end{GraphiqueTikz}
+
+\begin{GraphiqueTikz}[x=0.9cm,y=0.9cm]<Theme=bleu,Milli>
+	\TracerAxesGrilles[Elargir=2.5mm,Police=\small,Grille Intermediaire]{auto}{auto}
+	\PlacerTexte[Position=above,Police=\large\ttfamily]{([yshift=2.5mm]0,\pflymax)}{Theme=bleu}
+\end{GraphiqueTikz}
+\begin{GraphiqueTikz}[x=0.9cm,y=0.9cm]<Theme=vert,Milli>
+	\TracerAxesGrilles[Elargir=2.5mm,Police=\small,Grille Intermediaire]{auto}{auto}
+	\PlacerTexte[Position=above,Police=\large\ttfamily]{([yshift=2.5mm]0,\pflymax)}{Theme=vert}
+\end{GraphiqueTikz}
+
+\begin{GraphiqueTikz}[x=0.9cm,y=0.9cm]<Theme=chaud,Milli>
+	\TracerAxesGrilles[Elargir=2.5mm,Police=\small,Grille Intermediaire]{auto}{auto}
+	\PlacerTexte[Position=above,Police=\large\ttfamily]{([yshift=2.5mm]0,\pflymax)}{Theme=chaud}
+\end{GraphiqueTikz}
+\begin{GraphiqueTikz}[x=0.9cm,y=0.9cm]<Theme=contraste,Milli>
+	\TracerAxesGrilles[Elargir=2.5mm,Police=\small,Grille Intermediaire]{auto}{auto}
+	\PlacerTexte[Position=above,Police=\large\ttfamily]{([yshift=2.5mm]0,\pflymax)}{Theme=contraste}
 \end{GraphiqueTikz}
 \end{tcblisting}
 
@@ -2413,6 +2472,7 @@ Les solutions de $f(x)=66$ sont d'environ \ArrondirNum*[0]{\xMonItscA} \&\ \Arro
 
 {\footnotesize \begin{quote}
 \begin{verbatim}
+0.2.9 : Ajout de thèmes de couleurs pour les grilles
 0.2.7 : Possibilité de spécifier les dimensions du graphique (en test)
 0.2.6 : Inegalité linéaire (en test)
 0.2.5 : Interpolation de Lagrange + améliorations

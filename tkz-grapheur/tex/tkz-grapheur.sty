@@ -2,9 +2,11 @@
 % licence    : Released under the LaTeX Project Public License v1.3c or later, see http://www.latex-project.org/lppl.txt
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{tkz-grapheur}[2025/11/09 0.2.7 Des outils en TikZ pour travailler comme avec un grapheur]
+\ProvidesPackage{tkz-grapheur}[2026/01/12 0.2.9 Des outils en TikZ pour travailler comme avec un grapheur]
 
 %====HISTORIQUE
+% v 0.2.9 Clés [Theme/Milli] pour des couleurs prédéfinies de grilles (à définir dans l'environnement)
+% v 0.2.8	Clé [Fleche] pour les axes
 % v 0.2.7	Gestion de la taille du graphique
 % v 0.2.6	Inégalité linéraire (test)
 % v 0.2.5	Interpolation de Lagrange + améliorations 
@@ -159,8 +161,10 @@
 \tikzset{pfltraitantec/.style={line width=0.9pt,densely dashed}}
 \tikzset{pfltraitimg/.style={line width=0.9pt,densely dashed,->,>=latex}}
 \tikzset{pflgrillep/.style={thin,lightgray}}
+\tikzset{pflgrillei/.style={line width=0.3pt,lightgray}}
 \tikzset{pflgrilles/.style={very thin,lightgray}}
 \tikzset{pflaxes/.style={line width=0.8pt,->,>=latex}}
+\tikzset{pflaxessansfleche/.style={line width=0.8pt}}
 \tikzset{
 	Xmin/.store in=\pflxmin,Xmin/.default=-3,Xmin=-3,
 	Xmax/.store in=\pflxmax,Xmax/.default=3,Xmax=3,
@@ -169,8 +173,10 @@
 	Origx/.store in=\pflOx,Origx/.default=0,Origx=0,
 	Origy/.store in=\pflOy,Origy/.default=0,Origy=0,
 	Xgrille/.store in=\pflgrillex,Xgrille/.default=1,Xgrille=1,
+	Xgrillei/.store in=\pflgrillexi,Xgrillei/.default=1,Xgrillei=1,
 	Xgrilles/.store in=\pflgrillexs,Xgrilles/.default=0.5,Xgrilles=0.5,
 	Ygrille/.store in=\pflgrilley,Ygrille/.default=1,Ygrille=1,
+	Ygrillei/.store in=\pflgrilleyi,Ygrillei/.default=1,Ygrillei=1,
 	Ygrilles/.store in=\pflgrilleys,Ygrilles/.default=0.5,Ygrilles=0.5
 }
 \tikzset{%
@@ -190,6 +196,26 @@
 	},
 	pics/pflptcarre/.default={2pt/0}
 }
+
+%====COULEURS
+\definecolor{pflgrillepdefault}{HTML}{f39c12}
+\definecolor{pflgrilleidefault}{HTML}{bdc3c7}
+\definecolor{pflgrillesdefault}{HTML}{e0e0e0}
+\definecolor{pflgrillepgray}{HTML}{707070}
+\definecolor{pflgrilleigray}{HTML}{bdc3c7}
+\definecolor{pflgrillesgray}{HTML}{f0f0f0}
+\definecolor{pflgrillepblue}{HTML}{1565c0}
+\definecolor{pflgrilleiblue}{HTML}{90caf9}
+\definecolor{pflgrillesblue}{HTML}{e3f2fd}
+\definecolor{pflgrillepwarm}{HTML}{d84315}
+\definecolor{pflgrilleiwarm}{HTML}{ffab91}
+\definecolor{pflgrilleswarm}{HTML}{fbe9e7}
+\definecolor{pflgrillepgreen}{HTML}{2e7d32}
+\definecolor{pflgrilleigreen}{HTML}{a5d6a7}
+\definecolor{pflgrillesgreen}{HTML}{e8f5e9}
+\definecolor{pflgrillepcontrast}{HTML}{000000}
+\definecolor{pflgrilleicontrast}{HTML}{999999}
+\definecolor{pflgrillescontrast}{HTML}{cccccc}
 
 %====CONSTANTE PI pour xint, à voir si incompatibilité...
 \xintdefvar pi:=3.141592653589793238462643;
@@ -380,7 +406,8 @@
 	Xmax=\def\pflxmaxtmp{#1},%
 	Ymin=\def\pflymintmp{#1},%
 	Ymax=\def\pflymaxtmp{#1},%
-	Taille=\def\pflgraphdims{#1}
+	Taille=\def\pflgraphdims{#1},%
+	Theme=\def\pflgraphthem{#1}
 }
 \setKVdefault[GraphiqueTikz]{%
 	AffCadre=false,%
@@ -389,7 +416,9 @@
 	Xmax=3,%
 	Ymin=-3,%
 	Ymax=3,%
-	Taille={}
+	Taille={},%
+	Theme={},
+	Milli=false
 }
 
 \NewDocumentEnvironment{GraphiqueTikz}{ O{} D<>{} }%
@@ -409,6 +438,15 @@
 			\setlength\pflglobalheight{\fpeval{(\pfltmpheight)/(\pflymaxtmp-\pflymintmp)}pt}%\the\pflglobalheight%
 			\begin{tikzpicture}[x=\pflglobalwidth,y=\pflglobalheight,Xmin=\pflxmintmp,Xmax=\pflxmaxtmp,Ymin=\pflymintmp,Ymax=\pflymaxtmp,#1]%
 		}%
+		%thèmes personnalisés
+		\IfStrEqCase{\pflgraphthem}{%
+			{standard}{\tikzset{pflgrillep/.style={line width=0.75pt,pflgrillepdefault!75}}\tikzset{pflgrilles/.style={line width=0.25pt,pflgrillesdefault}}\tikzset{pflgrillei/.style={line width=0.5pt,pflgrilleidefault}}}%
+			{gris}{\tikzset{pflgrillep/.style={line width=0.75pt,pflgrillepgray!75}}\tikzset{pflgrilles/.style={line width=0.25pt,pflgrillesgray}}\tikzset{pflgrillei/.style={line width=0.5pt,pflgrilleigray}}}%
+			{bleu}{\tikzset{pflgrillep/.style={line width=0.75pt,pflgrillepblue!75}}\tikzset{pflgrilles/.style={line width=0.25pt,pflgrillesblue}}\tikzset{pflgrillei/.style={line width=0.5pt,pflgrilleiblue}}}%
+			{vert}{\tikzset{pflgrillep/.style={line width=0.75pt,pflgrillepgreen!75}}\tikzset{pflgrilles/.style={line width=0.25pt,pflgrillesgreen}}\tikzset{pflgrillei/.style={line width=0.5pt,pflgrilleigreen}}}%
+			{chaud}{\tikzset{pflgrillep/.style={line width=0.75pt,pflgrillepwarm!75}}\tikzset{pflgrilles/.style={line width=0.25pt,pflgrilleswarm}}\tikzset{pflgrillei/.style={line width=0.5pt,pflgrilleiwarm}}}%
+			{contraste}{\tikzset{pflgrillep/.style={line width=0.75pt,pflgrillepcontrast!75}}\tikzset{pflgrilles/.style={line width=0.25pt,pflgrillescontrast}}\tikzset{pflgrillei/.style={line width=0.5pt,pflgrilleicontrast}}}%
+		}%
 		%unités x/y pour des calculs de coordonnées
 		\TikZUnites
 		%noeuds
@@ -427,6 +465,7 @@
 }
 \setKVdefault[GraphiqueTikzAxes]{%
 	Grille=true,%
+	Grille Intermediaire=false,%
 	Elargir=0,%
 	Grads=true,%
 	Origine=false,%
@@ -435,7 +474,8 @@
 	Traits=true,%
 	Dernier=false,%
 	Derriere=false,%
-	Devant=false
+	Devant=false,%
+	Fleches=true
 }
 
 \NewDocumentCommand\FormatterValeurAxex{ m m }{%
@@ -494,7 +534,19 @@
 		}%
 	\ifboolKV[GraphiqueTikzAxes]{Grille}%
 		{%
-			\draw[pflgrilles,xstep=\pflgrillexs,ystep=\pflgrilleys] ({\pflxmin},{\pflymin}) grid ({\pflxmax},{\pflymax});
+			\ifboolKV[GraphiqueTikz]{Milli}%
+				{%
+					\draw[pflgrilles,xstep=\fpeval{0.1*\pflgrillex},ystep=\fpeval{0.1*\pflgrilley}] ({\pflxmin},{\pflymin}) grid ({\pflxmax},{\pflymax});
+					\draw[pflgrillei,xstep=\fpeval{0.5*\pflgrillex},ystep=\fpeval{0.5*\pflgrilley}] ({\pflxmin},{\pflymin}) grid ({\pflxmax},{\pflymax});
+				}%
+				{%
+					\draw[pflgrilles,xstep=\pflgrillexs,ystep=\pflgrilleys] ({\pflxmin},{\pflymin}) grid ({\pflxmax},{\pflymax});
+				}%
+				\ifboolKV[GraphiqueTikzAxes]{Grille Intermediaire}%
+					{%
+						\draw[pflgrillei,xstep=\pflgrillexi,ystep=\pflgrilleyi] ({\pflxmin},{\pflymin}) grid ({\pflxmax},{\pflymax});
+					}%
+					{}%
 			\draw[pflgrillep,xstep=\pflgrillex,ystep=\pflgrilley] ({\pflxmin},{\pflymin}) grid ({\pflxmax},{\pflymax});
 			\ifboolKV[GraphiqueTikzAxes]{Dernier}%
 				{%
@@ -504,8 +556,16 @@
 				{}%
 		}%
 		{}%
-	\draw[pflaxes] ({\pflxmin},{\pflOy}) -- ([xshift={\useKV[GraphiqueTikzAxes]{Elargir}}]{\pflxmax},{\pflOy}) ;
-	\draw[pflaxes] ({\pflOx},{\pflymin}) -- ([yshift={\useKV[GraphiqueTikzAxes]{Elargir}}]{\pflOx},{\pflymax}) ;
+	%axes
+	\ifboolKV[GraphiqueTikzAxes]{Fleches}%
+		{%
+			\draw[pflaxes] ({\pflxmin},{\pflOy}) -- ([xshift={\useKV[GraphiqueTikzAxes]{Elargir}}]{\pflxmax},{\pflOy}) ;
+			\draw[pflaxes] ({\pflOx},{\pflymin}) -- ([yshift={\useKV[GraphiqueTikzAxes]{Elargir}}]{\pflOx},{\pflymax}) ;
+		}%
+		{%
+			\draw[pflaxessansfleche] ({\pflxmin},{\pflOy}) -- ([xshift={\useKV[GraphiqueTikzAxes]{Elargir}}]{\pflxmax},{\pflOy}) ;
+			\draw[pflaxessansfleche] ({\pflOx},{\pflymin}) -- ([yshift={\useKV[GraphiqueTikzAxes]{Elargir}}]{\pflOx},{\pflymax}) ;
+		}%
 	\IfEq{#3}{auto}%
 		{%
 			\xdef\tmprangexvalues{\xintfloateval{seq(i,i=\pflxmin..[\pflgrillex]..\pflxmax)}}\StrDel{\tmprangexvalues}{ }[\tmprangexvalues]%
@@ -2493,6 +2553,7 @@
 \tikzset{tkzgrphgridp/.style={thin,lightgray}}
 \tikzset{tkzgrphgrids/.style={very thin,lightgray}}
 \tikzset{tkzgrphaxes/.style={line width=0.8pt,->,>=latex}}
+\tikzset{tkzgrphaxeswoarrows/.style={line width=0.8pt}}
 \tikzset{
 	Xgrid/.store in=\pflgrillex,Xgrid/.default=1,Xgrid=1,
 	Xgrids/.store in=\pflgrillexs,Xgrids/.default=0.5,Xgrids=0.5,
@@ -2747,7 +2808,8 @@
 	Lines=true,%
 	Last=false,%
 	Behind=false,%
-	Above=false
+	Above=false,%
+	Arrows=true
 }
 
 \NewDocumentCommand\FormatXaxisValues{ m m }{%
@@ -2816,8 +2878,16 @@
 				{}%
 		}%
 		{}%
-	\draw[tkzgrphaxes] ({\pflxmin},{\pflOy}) -- ([xshift={\useKV[GraphicTikzAxis]{Enlarge}}]{\pflxmax},{\pflOy}) ;
-	\draw[tkzgrphaxes] ({\pflOx},{\pflymin}) -- ([yshift={\useKV[GraphicTikzAxis]{Enlarge}}]{\pflOx},{\pflymax}) ;
+	%axis
+	\ifboolKV[GraphicTikzAxis]{Arrows}%
+		{%
+			\draw[tkzgrphaxes] ({\pflxmin},{\pflOy}) -- ([xshift={\useKV[GraphicTikzAxis]{Enlarge}}]{\pflxmax},{\pflOy}) ;
+			\draw[tkzgrphaxes] ({\pflOx},{\pflymin}) -- ([yshift={\useKV[GraphicTikzAxis]{Enlarge}}]{\pflOx},{\pflymax}) ;
+		}%
+		{%
+			\draw[tkzgrphaxeswoarrows] ({\pflxmin},{\pflOy}) -- ([xshift={\useKV[GraphicTikzAxis]{Enlarge}}]{\pflxmax},{\pflOy}) ;
+			\draw[tkzgrphaxeswoarrows] ({\pflOx},{\pflymin}) -- ([yshift={\useKV[GraphicTikzAxis]{Enlarge}}]{\pflOx},{\pflymax}) ;
+		}%
 	\IfEq{#3}{auto}%
 		{%
 			\xdef\tmprangexvalues{\xintfloateval{seq(i,i=\pflxmin..[\pflgrillex]..\pflxmax)}}\StrDel{\tmprangexvalues}{ }[\tmprangexvalues]%
