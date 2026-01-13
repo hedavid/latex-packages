@@ -48,8 +48,8 @@
 \setlength{\parindent}{0pt}
 \definecolor{LightGray}{gray}{0.9}
 
-\def\TPversion{0.1.8}
-\def\TPdate{05 novembre 2024}
+\def\TPversion{0.1.9}
+\def\TPdate{13 janvier 2026}
 \usepackage{minted2}
 \usepackage[most]{tcolorbox}
 \tcbuselibrary{minted}
@@ -102,7 +102,7 @@
 	\begin{tabular}{c}
 	\texttt{Cédric Pierquet}\\
 	{\ttfamily c pierquet -- at -- outlook . fr}\\
-	\texttt{\url{https://github.com/cpierquet/WriteOnGrid}}
+	\texttt{\url{https://forge.apps.education.fr/pierquetcedric/packages-latex}}
 \end{tabular}
 \end{center}
 
@@ -322,7 +322,7 @@ Le premier argument, \textit{optionnel}, entre \texttt{[...]} propose les \Cle{c
 	\item le booléen \Cle{AffBarre} pour afficher ou non la marge ; \hfill~défaut : \Cle{true}
 	\item \Cle{Elargir} pour préciser les carreaux de débordements, sous la forme unique \texttt{\textcolor{red}{G}\textcolor{blue}{D}} ou par côté \texttt{\textcolor{red}{G}/\textcolor{blue}{D}} ;\hfill~défaut : \Cle{0}
 	\item le booléen \Cle{Cadre} pour afficher le cadre de base du quadrillage ;\hfill~défaut : \Cle{false}
-	\item la clé \Cle{Grille}, parmi \Cle{5x5 / Seyes / Ruled}, pour spécifier le type de quadrillage ;\hfill~défaut : \Cle{5x5}
+	\item la clé \Cle{Grille}, parmi \Cle{5x5 / Seyes / Ruled / Milli}, pour spécifier le type de quadrillage ;\hfill~défaut : \Cle{5x5}
 	\item la clé \Cle{ReglureSeyes} pour paramétrer (en mm) la réglure dans le cas de lignes Seyes ;\hfill~défaut : \Cle{2}
 	\item la clé \Cle{CouleurBarreSeyes} pour rajouter un trait vertical pour le papier Seyes .\hfill~défaut : \Cle{red!75}
 \end{itemize}
@@ -331,7 +331,8 @@ Le second argument, \textit{optionnel}, entre \texttt{<...>} correspond quant à
 
 \begin{itemize}
 	\item sous la forme \Cle{Couleur} (\Cle{lightgray!66} par défaut) pour le quadrillage $5\times5$ ;
-	\item sous la forme \Cle{CouleurP/CouleurS} (\Cle{lightgray!66/lightgray!33} par défaut) pour le Seyes ou le Ruled.
+	\item sous la forme \Cle{CouleurP/CouleurS} (\Cle{lightgray!66/lightgray!33} par défaut) pour le Seyes ou le Ruled ;
+	\item sous la forme \Cle{CouleurP/CouleurS/CouleurI} (\Cle{lightgray!66/lightgray!33/lightgray!50}) pour le Milli.
 \end{itemize}
 
 \medskip
@@ -360,6 +361,24 @@ Le second argument, \textit{optionnel}, entre \texttt{<...>} correspond quant à
 \begin{center}
 	\AffQuadrillage[NbCarreaux=12x3,Elargir=2/2,Grille=Ruled,Marge=2]<\CoulRuled>
 \end{center}
+
+\begin{PresentationCode}{listing only}
+%papiers millimétrés avec couleurs prédéfinies
+
+\AffQuadrillage[Grille=Milli,NbCarreaux=9x2]<\CoulMilli>
+\AffQuadrillage[Grille=Milli,NbCarreaux=9x2]<\CoulMilliGris>
+\AffQuadrillage[Grille=Milli,NbCarreaux=9x2]<\CoulMilliBleu>
+\AffQuadrillage[Grille=Milli,NbCarreaux=9x2]<\CoulMilliVert>
+\AffQuadrillage[Grille=Milli,NbCarreaux=9x2]<\CoulMilliChaud>
+\AffQuadrillage[Grille=Milli,NbCarreaux=9x2]<\CoulMilliContraste>
+\end{PresentationCode}
+
+\AffQuadrillage[Grille=Milli,NbCarreaux=9x2]<\CoulMilli>\par
+\AffQuadrillage[Grille=Milli,NbCarreaux=9x2]<\CoulMilliGris>\par
+\AffQuadrillage[Grille=Milli,NbCarreaux=9x2]<\CoulMilliBleu>\par
+\AffQuadrillage[Grille=Milli,NbCarreaux=9x2]<\CoulMilliVert>\par
+\AffQuadrillage[Grille=Milli,NbCarreaux=9x2]<\CoulMilliChaud>\par
+\AffQuadrillage[Grille=Milli,NbCarreaux=9x2]<\CoulMilliContraste>
 
 \pagebreak
 
@@ -391,7 +410,8 @@ Le second argument, \textit{optionnel}, entre \texttt{<...>} correspond quant à
 
 \begin{itemize}
 	\item sous la forme \Cle{Couleur} (\Cle{lightgray!66} par défaut) pour le quadrillage $5\times5$ ;
-	\item sous la forme \Cle{CouleurP/CouleurS} (\Cle{lightgray!66/lightgray!33} par défaut) pour le Seyes ou le Ruled.
+	\item sous la forme \Cle{CouleurP/CouleurS} (\Cle{lightgray!66/lightgray!33} par défaut) pour le Seyes ou le Ruled ;
+	\item sous la forme \Cle{CouleurP/CouleurS/CouleurI} (\Cle{lightgray!66/lightgray!33/lightgray!50}) pour le Milli.
 \end{itemize}
 
 \medskip
@@ -863,6 +883,8 @@ Les exemples des pages suivantes ont été obtenus de la même manière que celu
 \pagebreak
 
 \section{Historique}
+
+\verb|v0.1.9|~:~~~~Ajout des grilles \textsf{Milli}
 
 \verb|v0.1.8|~:~~~~Styles modifiables pour les épaisseurs des réglures
 

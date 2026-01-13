@@ -2,7 +2,8 @@
 % licence                        : Released under the LaTeX Project Public License v1.3c or later, see http://www.latex-project.org/lppl.txt
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{WriteOnGrid}[2024/11/05 v0.1.8 package to write on grid lines]
+\ProvidesPackage{WriteOnGrid}[2026/01/13 v0.1.9 package to write on grid lines]
+% 0.1.9		Grille Milli avec couleurs prédéfinies
 % 0.1.8		Option pour la taille des règlures (via style tikzset)
 % 0.1.7		Option pour régler la marge pour les PleinePageCinqCinq
 % 0.1.6		Commande pour calculer le nombre de lignes à insérer en fin de page / options Auto
@@ -25,6 +26,7 @@
 
 %------Styles
 \tikzset{WoGridp/.style={semithick}}
+\tikzset{WoGridi/.style={line width=0.6pt}}
 \tikzset{WoGrids/.style={thin}}
 \tikzset{WoGridbar/.style={thick}}
 
@@ -34,6 +36,7 @@
 		{Seyes}{\xdef#1{\fpeval{trunc((\the\linewidth)/(22.762192pt),0)}}}%
 		{5x5}{\xdef#1{\fpeval{trunc((\the\linewidth)/(14.22637pt),0)}}}%
 		{Ruled}{\xdef#1{\fpeval{trunc((\the\linewidth)/(25.607466pt),0)}}}%
+		{Milli}{\xdef#1{\fpeval{trunc((\the\linewidth)/(28.45274pt),0)}}}%
 	}[\xdef#1{\fpeval{trunc((\the\linewidth)/(22.762192pt),0)}}]%
 }
 
@@ -43,6 +46,7 @@
 		{Seyes}{\xdef#1{\fpeval{trunc((\the\measurepage)/(22.762192pt),0)}}}%
 		{5x5}{\xdef#1{\fpeval{trunc((\the\measurepage)/(14.22637pt),0)}}}%
 		{Ruled}{\xdef#1{\fpeval{trunc((\the\measurepage)/(25.607466pt),0)}}}%
+		{Milli}{\xdef#1{\fpeval{trunc((\the\measurepage)/(28.45274pt),0)}}}%
 	}[\xdef#1{\fpeval{trunc((\the\measurepage)/(22.762192pt),0)}}]%
 }
 
@@ -52,6 +56,7 @@
 		{Seyes}{\xdef#1{\fpeval{trunc((\the\measurepage)/(22.762192pt),0)}}\xdef#2{\fpeval{trunc((\the\linewidth)/(22.762192pt),0)}}}%
 		{5x5}{\xdef#1{\fpeval{trunc((\the\measurepage)/(14.22637pt),0)}}\xdef#2{\fpeval{trunc((\the\linewidth)/(14.22637pt),0)}}}%
 		{Ruled}{\xdef#1{\fpeval{trunc((\the\measurepage)/(25.607466pt),0)}}\xdef#2{\fpeval{trunc((\the\linewidth)/(25.607466pt),0)}}}%
+		{Milli}{\xdef#1{\fpeval{trunc((\the\measurepage)/(28.45274pt),0)}}\xdef#2{\fpeval{trunc((\the\linewidth)/(28.45274pt),0)}}}%
 	}[\xdef#1{\fpeval{trunc((\the\measurepage)/(22.762192pt),0)}}\xdef#2{\fpeval{trunc((\the\linewidth)/(22.762192pt),0)}}]%
 }
 
@@ -60,11 +65,47 @@
 \definecolor{PapierRose}{HTML}{E6B8E6}
 \definecolor{PapierGris}{HTML}{D7E2EE}
 
+\definecolor{PapierMilliDefautFonce}{HTML}{f39c12}
+\definecolor{PapierMilliDefautInter}{HTML}{bdc3c7}
+\definecolor{PapierMilliDefautClair}{HTML}{e0e0e0}
+
+\definecolor{PapierMilliGrisFonce}{HTML}{707070}
+\definecolor{PapierMilliGrisInter}{HTML}{bdc3c7}
+\definecolor{PapierMilliGrisClair}{HTML}{f0f0f0}
+
+\definecolor{PapierMilliBleuFonce}{HTML}{1565c0}
+\definecolor{PapierMilliBleuInter}{HTML}{90caf9}
+\definecolor{PapierMilliBleuClair}{HTML}{e3f2fd}
+
+\definecolor{PapierMilliChaudFonce}{HTML}{d84315}
+\definecolor{PapierMilliChaudInter}{HTML}{ffab91}
+\definecolor{PapierMilliChaudClair}{HTML}{fbe9e7}
+
+\definecolor{PapierMilliVertFonce}{HTML}{2e7d32}
+\definecolor{PapierMilliVertInter}{HTML}{a5d6a7}
+\definecolor{PapierMilliVertClair}{HTML}{e8f5e9}
+
+\definecolor{PapierMilliContrasteFonce}{HTML}{000000}
+\definecolor{PapierMilliContrasteInter}{HTML}{999999}
+\definecolor{PapierMilliContrasteClair}{HTML}{cccccc}
+
 \def\CoulSeyes{PapierRose/PapierGris}
 \def\CoulRuled{PapierGris/TyrianPurple}
+\def\CoulMilli{PapierMilliDefautFonce/PapierMilliDefautInter/PapierMilliDefautClair}
+\def\CoulMilliGris{PapierMilliGrisFonce/PapierMilliGrisInter/PapierMilliGrisClair}
+\def\CoulMilliBleu{PapierMilliBleuFonce/PapierMilliBleuInter/PapierMilliBleuClair}
+\def\CoulMilliChaud{PapierMilliChaudFonce/PapierMilliChaudInter/PapierMilliChaudClair}
+\def\CoulMilliVert{PapierMilliVertFonce/PapierMilliVertInter/PapierMilliVertClair}
+\def\CoulMilliContraste{PapierMilliContrasteFonce/PapierMilliContrasteInter/PapierMilliContrasteClair}
 
 \def\ColSeyes{PapierRose/PapierGris}
 \def\ColRuled{PapierGris/TyrianPurple}
+\def\ColMilli{PapierMilliDefautFonce/PapierMilliDefautInter/PapierMilliDefautClair}
+\def\ColMilliGray{PapierMilliGrisFonce/PapierMilliGrisInter/PapierMilliGrisClair}
+\def\ColMilliBlue{PapierMilliBleuFonce/PapierMilliBleuInter/PapierMilliBleuClair}
+\def\ColMilliWarm{PapierMilliChaudFonce/PapierMilliChaudInter/PapierMilliChaudClair}
+\def\ColMilliGreen{PapierMilliVertFonce/PapierMilliVertInter/PapierMilliVertClair}
+\def\ColMilliContrast{PapierMilliContrasteFonce/PapierMilliContrasteInter/PapierMilliContrasteClair}
 
 % \def\CoulSeyes{Plum!75/LightSteelBlue!50}
 % \def\CoulRuled{LightSteelBlue!50/TyrianPurple}
@@ -74,7 +115,7 @@
 %------Commandes [fr]
 \newcommand\PasseLigne{\addtocounter{lgquadri}{1}}%passer une ligne
 
-\defKV[LigneQuadrill]{Echelle=\xdef\QuadEchelle{#1}}%déf des clés
+\defKV[LigneQuadrill]{Echelle=\def\QuadEchelle{#1}}%déf des clés
 \setKVdefault[LigneQuadrill]{DecalV=0pt,DecalH=0,Sep=0pt,Echelle=1}%valeurs par défaut
 
 \NewDocumentCommand\EcrireLigne{ O{} D<>{left} m }{%écrire sur les lignes l'une après l'autre
@@ -87,11 +128,11 @@
 %déf des clés
 
 \defKV[Quadrill]{%
-	Grille=\xdef\QuadType{#1},%
-	NbCarreaux=\xdef\QuadNbCar{#1},%
-	Elargir=\xdef\QuadElar{#1},%
-	CouleurBarreSeyes=\xdef\QuadCoulSeyes{#1},%
-	ReglureSeyes=\xdef\QuadReglureSeyes{#1}
+	Grille=\def\QuadType{#1},%
+	NbCarreaux=\def\QuadNbCar{#1},%
+	Elargir=\def\QuadElar{#1},%
+	CouleurBarreSeyes=\def\QuadCoulSeyes{#1},%
+	ReglureSeyes=\def\QuadReglureSeyes{#1}
 }
 
 \setKVdefault[Quadrill]{%
@@ -106,13 +147,28 @@
 	ReglureSeyes=2
 }
 
-\NewDocumentCommand\AffQuadrillage{ O{} D<>{lightgray!66/lightgray!33} }{%affichage simple du quadrillage
+\NewDocumentCommand\AffQuadrillage{ O{} D<>{lightgray!66/lightgray!33/lightgray!50} }{%affichage simple du quadrillage
 	\setcounter{lgquadri}{0}%on réinitialise les lignes
 	\useKVdefault[Quadrill]%on met les clés par défaut
 	\setKV[Quadrill]{#1}%on lit les clés
-	\IfSubStr{#2}{/}%on récupère les couleurs
-		{\StrCut{#2}{/}{\QuadCoulA}{\QuadCoulB}}
-		{\def\QuadCoulA{#2}\def\QuadCoulB{#2}}%
+	%si une ou deux ou trois couleurs...
+	\StrCount{#2}{/}[\tmpnbofcolors]%
+	\ifnum\tmpnbofcolors=0\relax%
+		\def\QuadCoulA{#2}\def\QuadCoulB{#2}\def\QuadCoulC{#2}%
+	\fi%
+	\ifnum\tmpnbofcolors=1\relax%
+		\StrCut{#2}{/}{\QuadCoulA}{\QuadCoulB}%
+		\def\QuadCoulC{\QuadCoulB}%
+	\fi%
+	\ifnum\tmpnbofcolors=2\relax%
+		\StrBefore[1]{#2}{/}[\QuadCoulA]%
+		\StrBetween[1,2]{#2}{/}{/}[\QuadCoulB]%
+		\StrBehind[2]{#2}{/}[\QuadCoulC]%
+	\fi%
+	%\QuadCoulA+\QuadCoulB+\QuadCoulC
+	%\IfSubStr{#2}{/}%on récupère les couleurs
+	%	{\StrCut{#2}{/}{\QuadCoulA}{\QuadCoulB}}
+	%	{\def\QuadCoulA{#2}\def\QuadCoulB{#2}}%
 	%détermination des nb de carreaux, sans unite... ? TEST !!!!!!
 	\IfSubStr{\QuadNbCar}{Auto}%
 		{%
@@ -151,6 +207,9 @@
 	\IfStrEq{\QuadType}{Ruled}%
 		{\xdef\ValeurCarreau{0.9}\xdef\CoeffUnite{1}}%
 		{}%
+	\IfStrEq{\QuadType}{Milli}%
+		{\xdef\ValeurCarreau{1}\xdef\CoeffUnite{1}}%
+		{}%
 	\IfSubStr{\QuadElar}{/}%on récupère les élargissements G et D
 		{\StrCut{\QuadElar}{/}{\QuadElarG}{\QuadElarD}}%
 		{\def\QuadElarG{\QuadElar}\def\QuadElarD{\QuadElar}}%
@@ -169,6 +228,13 @@
 		\IfStrEq{\QuadType}{5x5}%
 			{%
 				\draw[xstep=0.5,ystep=0.5,WoGridp,\QuadCoulA] ({-\ValeurCarreau*\QuadElarG},0) grid ({\ValeurCarreau*\QuadNbCol+\ValeurCarreau*\QuadElarD},{-\ValeurCarreau*\QuadNbLig}) ;%grille 5x5
+			}%
+			{}%
+		\IfStrEq{\QuadType}{Milli}%
+			{%
+				\draw[xstep=0.1,ystep=0.1,WoGrids,\QuadCoulC] ({-\ValeurCarreau*\QuadElarG},0) grid ({\ValeurCarreau*\QuadNbCol+\ValeurCarreau*\QuadElarD},{-\ValeurCarreau*\QuadNbLig}) ;%grille Milli s
+				\draw[xstep=0.5,ystep=0.5,WoGridi,\QuadCoulB] ({-\ValeurCarreau*\QuadElarG},0) grid ({\ValeurCarreau*\QuadNbCol+\ValeurCarreau*\QuadElarD},{-\ValeurCarreau*\QuadNbLig}) ;%grille Milli i
+				\draw[xstep=1,ystep=1,WoGridp,\QuadCoulA] ({-\ValeurCarreau*\QuadElarG},0) grid ({\ValeurCarreau*\QuadNbCol+\ValeurCarreau*\QuadElarD},{-\ValeurCarreau*\QuadNbLig}) ;%grille Milli p
 			}%
 			{}%
 		\IfStrEq{\QuadType}{Ruled}%
@@ -187,14 +253,25 @@
 	\end{tikzpicture}%
 }
 
-\NewDocumentEnvironment{EnvQuadrillage}{ O{} D<>{lightgray!66/lightgray!33} }%créer le quadrillage, couleurs ?
+\NewDocumentEnvironment{EnvQuadrillage}{ O{} D<>{lightgray!66/lightgray!33/lightgray!50} }%créer le quadrillage, couleurs ?
 {%
 	\setcounter{lgquadri}{0}%on réinitialise les lignes
 	\useKVdefault[Quadrill]%on met les clés par défaut
 	\setKV[Quadrill]{#1}%on lit les clés
-	\IfSubStr{#2}{/}%on récupère les couleurs
-		{\StrCut{#2}{/}{\QuadCoulA}{\QuadCoulB}}
-		{\def\QuadCoulA{#2}\def\QuadCoulB{#2}}%
+	%si une ou deux ou trois couleurs...
+	\StrCount{#2}{/}[\tmpnbofcolors]%
+	\ifnum\tmpnbofcolors=0\relax%
+		\def\QuadCoulA{#2}\def\QuadCoulB{#2}\def\QuadCoulC{#2}%
+	\fi%
+	\ifnum\tmpnbofcolors=1\relax%
+		\StrCut{#2}{/}{\QuadCoulA}{\QuadCoulB}%
+		\def\QuadCoulC{\QuadCoulB}%
+	\fi%
+	\ifnum\tmpnbofcolors=2\relax%
+		\StrBefore[1]{#2}{/}[\QuadCoulA]%
+		\StrBetween[1,2]{#2}{/}{/}[\QuadCoulB]%
+		\StrBehind[2]{#2}{/}[\QuadCoulC]%
+	\fi%
 	%détermination des nb de carreaux, sans unite... ? TEST !!!!!!
 	\IfSubStr{\QuadNbCar}{Auto}%
 		{%
@@ -233,6 +310,9 @@
 	\IfStrEq{\QuadType}{Ruled}%
 		{\xdef\ValeurCarreau{0.9}\xdef\CoeffUnite{1}}%
 		{}%
+	\IfStrEq{\QuadType}{Milli}%
+		{\xdef\ValeurCarreau{1}\xdef\CoeffUnite{1}}%
+		{}%
 	\IfSubStr{\QuadElar}{/}%on récupère les élargissements G et D
 		{\StrCut{\QuadElar}{/}{\QuadElarG}{\QuadElarD}}%
 		{\def\QuadElarG{\QuadElar}\def\QuadElarD{\QuadElar}}%
@@ -251,6 +331,13 @@
 		\IfStrEq{\QuadType}{5x5}%
 			{%
 				\draw[xstep=0.5,ystep=0.5,WoGridp,\QuadCoulA] ({-\ValeurCarreau*\QuadElarG},0) grid ({\ValeurCarreau*\QuadNbCol+\ValeurCarreau*\QuadElarD},{-\ValeurCarreau*\QuadNbLig}) ;%grille 5x5
+			}%
+			{}%
+		\IfStrEq{\QuadType}{Milli}%
+			{%
+				\draw[xstep=0.1,ystep=0.1,WoGrids,\QuadCoulC] ({-\ValeurCarreau*\QuadElarG},0) grid ({\ValeurCarreau*\QuadNbCol+\ValeurCarreau*\QuadElarD},{-\ValeurCarreau*\QuadNbLig}) ;%grille Milli s
+				\draw[xstep=0.5,ystep=0.5,WoGridi,\QuadCoulB] ({-\ValeurCarreau*\QuadElarG},0) grid ({\ValeurCarreau*\QuadNbCol+\ValeurCarreau*\QuadElarD},{-\ValeurCarreau*\QuadNbLig}) ;%grille Milli i
+				\draw[xstep=1,ystep=1,WoGridp,\QuadCoulA] ({-\ValeurCarreau*\QuadElarG},0) grid ({\ValeurCarreau*\QuadNbCol+\ValeurCarreau*\QuadElarD},{-\ValeurCarreau*\QuadNbLig}) ;%grille Milli p
 			}%
 			{}%
 		\IfStrEq{\QuadType}{Ruled}%
@@ -274,7 +361,7 @@
 %------Commandes [en]
 \newcommand\PassLine{\addtocounter{lgquadri}{1}}%passer une ligne
 
-\defKV[LineQuadril]{Scale=\xdef\QuadEchelle{#1}}%déf des clés
+\defKV[LineQuadril]{Scale=\def\QuadEchelle{#1}}%déf des clés
 \setKVdefault[LineQuadril]{OffsetV=0pt,OffsetH=0,Sep=0pt,Scale=1}%valeurs par défaut
 
 \NewDocumentCommand\WriteLine{ O{} D<>{left} m }{%écrire sur les lignes l'une après l'autre
@@ -284,16 +371,27 @@
 	\node[text width=\fpeval{\ValeurCarreau*\QuadNbCol/\QuadEchelle-\ValeurCarreau*\useKV[Quadrill]{Marge}/\QuadEchelle}cm,align=#2,scale=\QuadEchelle,anchor=base west,inner sep={\useKV[LineQuadril]{Sep}}] at ($({\ValeurCarreau*\useKV[Quadril]{Margin}+\ValeurCarreau*\useKV[LineQuadril]{OffsetH}},{-\ValeurCarreau*\thelgquadri})+(0.025,\useKV[LineQuadril]{OffsetV})$) {\strut #3} ;
 }
 
-\defKV[Quadril]{Grid=\xdef\QuadType{#1},NumSquares=\xdef\QuadNbCar{#1},Enlarge=\xdef\QuadElar{#1}}%déf des clés
+\defKV[Quadril]{Grid=\def\QuadType{#1},NumSquares=\def\QuadNbCar{#1},Enlarge=\def\QuadElar{#1}}%déf des clés
 \setKVdefault[Quadril]{Grid=5x5,NumSquares=17x5,Unit=1,Margin=0,Enlarge=0,Border=false,DispBar=true}%valeurs par défaut
 
-\NewDocumentCommand\DispGrid{ O{} D<>{lightgray!66/lightgray!33} }{%créer le quadrillage
+\NewDocumentCommand\DispGrid{ O{} D<>{lightgray!66/lightgray!33/lightgray!50} }{%créer le quadrillage
 	\setcounter{lgquadri}{0}%on réinitialise les lignes
 	\useKVdefault[Quadril]%on met les clés par défaut
 	\setKV[Quadril]{#1}%on lit les clés
-	\IfSubStr{#2}{/}%on récupère les couleurs
-		{\StrCut{#2}{/}{\QuadCoulA}{\QuadCoulB}}
-		{\def\QuadCoulA{#2}\def\QuadCoulB{#2}}%
+	%si une ou deux ou trois couleurs...
+	\StrCount{#2}{/}[\tmpnbofcolors]%
+	\ifnum\tmpnbofcolors=0\relax%
+		\def\QuadCoulA{#2}\def\QuadCoulB{#2}\def\QuadCoulC{#2}%
+	\fi%
+	\ifnum\tmpnbofcolors=1\relax%
+		\StrCut{#2}{/}{\QuadCoulA}{\QuadCoulB}%
+		\def\QuadCoulC{\QuadCoulB}%
+	\fi%
+	\ifnum\tmpnbofcolors=2\relax%
+		\StrBefore[1]{#2}{/}[\QuadCoulA]%
+		\StrBetween[1,2]{#2}{/}{/}[\QuadCoulB]%
+		\StrBehind[2]{#2}{/}[\QuadCoulC]%
+	\fi%
 	%détermination des nb de carreaux, sans unite... ? TEST !!!!!!
 	\IfSubStr{\QuadNbCar}{Auto}%
 		{%
@@ -332,6 +430,9 @@
 	\IfStrEq{\QuadType}{Ruled}%
 		{\xdef\ValeurCarreau{0.9}}%
 		{}%
+	\IfStrEq{\QuadType}{Milli}%
+		{\xdef\ValeurCarreau{1}\xdef\CoeffUnite{1}}%
+		{}%
 	\IfSubStr{\QuadElar}{/}%on récupère les élargissements G et D
 		{\StrCut{\QuadElar}{/}{\QuadElarG}{\QuadElarD}}%
 		{\def\QuadElarG{\QuadElar}\def\QuadElarD{\QuadElar}}%
@@ -350,6 +451,13 @@
 		\IfStrEq{\QuadType}{5x5}%
 			{%
 				\draw[xstep=0.5,ystep=0.5,WoGridp,\QuadCoulA] ({-\ValeurCarreau*\QuadElarG},0) grid ({\ValeurCarreau*\QuadNbCol+\ValeurCarreau*\QuadElarD},{-\ValeurCarreau*\QuadNbLig}) ;%grille 5x5
+			}%
+			{}%
+		\IfStrEq{\QuadType}{Milli}%
+			{%
+				\draw[xstep=0.1,ystep=0.1,WoGrids,\QuadCoulC] ({-\ValeurCarreau*\QuadElarG},0) grid ({\ValeurCarreau*\QuadNbCol+\ValeurCarreau*\QuadElarD},{-\ValeurCarreau*\QuadNbLig}) ;%grille Milli s
+				\draw[xstep=0.5,ystep=0.5,WoGridi,\QuadCoulB] ({-\ValeurCarreau*\QuadElarG},0) grid ({\ValeurCarreau*\QuadNbCol+\ValeurCarreau*\QuadElarD},{-\ValeurCarreau*\QuadNbLig}) ;%grille Milli i
+				\draw[xstep=1,ystep=1,WoGridp,\QuadCoulA] ({-\ValeurCarreau*\QuadElarG},0) grid ({\ValeurCarreau*\QuadNbCol+\ValeurCarreau*\QuadElarD},{-\ValeurCarreau*\QuadNbLig}) ;%grille Milli p
 			}%
 			{}%
 		\IfStrEq{\QuadType}{Ruled}%
@@ -368,14 +476,25 @@
 	\end{tikzpicture}%
 }%
 
-\NewDocumentEnvironment{EnvGrid}{ O{} D<>{lightgray!66/lightgray!33} }%créer le quadrillage
+\NewDocumentEnvironment{EnvGrid}{ O{} D<>{lightgray!66/lightgray!33/lightgray!50} }%créer le quadrillage
 {%
 	\setcounter{lgquadri}{0}%on réinitialise les lignes
 	\useKVdefault[Quadril]%on met les clés par défaut
 	\setKV[Quadril]{#1}%on lit les clés
-	\IfSubStr{#2}{/}%on récupère les couleurs
-		{\StrCut{#2}{/}{\QuadCoulA}{\QuadCoulB}}
-		{\def\QuadCoulA{#2}\def\QuadCoulB{#2}}%
+	%si une ou deux ou trois couleurs...
+	\StrCount{#2}{/}[\tmpnbofcolors]%
+	\ifnum\tmpnbofcolors=0\relax%
+		\def\QuadCoulA{#2}\def\QuadCoulB{#2}\def\QuadCoulC{#2}%
+	\fi%
+	\ifnum\tmpnbofcolors=1\relax%
+		\StrCut{#2}{/}{\QuadCoulA}{\QuadCoulB}%
+		\def\QuadCoulC{\QuadCoulB}%
+	\fi%
+	\ifnum\tmpnbofcolors=2\relax%
+		\StrBefore[1]{#2}{/}[\QuadCoulA]%
+		\StrBetween[1,2]{#2}{/}{/}[\QuadCoulB]%
+		\StrBehind[2]{#2}{/}[\QuadCoulC]%
+	\fi%
 	%détermination des nb de carreaux, sans unite... ? TEST !!!!!!
 	\IfSubStr{\QuadNbCar}{Auto}%
 		{%
@@ -414,6 +533,9 @@
 	\IfStrEq{\QuadType}{Ruled}%
 		{\xdef\ValeurCarreau{0.9}}%
 		{}%
+	\IfStrEq{\QuadType}{Milli}%
+		{\xdef\ValeurCarreau{1}\xdef\CoeffUnite{1}}%
+		{}%
 	\IfSubStr{\QuadElar}{/}%on récupère les élargissements G et D
 		{\StrCut{\QuadElar}{/}{\QuadElarG}{\QuadElarD}}%
 		{\def\QuadElarG{\QuadElar}\def\QuadElarD{\QuadElar}}%
@@ -432,6 +554,13 @@
 		\IfStrEq{\QuadType}{5x5}%
 			{%
 				\draw[xstep=0.5,ystep=0.5,WoGridp,\QuadCoulA] ({-\ValeurCarreau*\QuadElarG},0) grid ({\ValeurCarreau*\QuadNbCol+\ValeurCarreau*\QuadElarD},{-\ValeurCarreau*\QuadNbLig}) ;%grille 5x5
+			}%
+			{}%
+		\IfStrEq{\QuadType}{Milli}%
+			{%
+				\draw[xstep=0.1,ystep=0.1,WoGrids,\QuadCoulC] ({-\ValeurCarreau*\QuadElarG},0) grid ({\ValeurCarreau*\QuadNbCol+\ValeurCarreau*\QuadElarD},{-\ValeurCarreau*\QuadNbLig}) ;%grille Milli s
+				\draw[xstep=0.5,ystep=0.5,WoGridi,\QuadCoulB] ({-\ValeurCarreau*\QuadElarG},0) grid ({\ValeurCarreau*\QuadNbCol+\ValeurCarreau*\QuadElarD},{-\ValeurCarreau*\QuadNbLig}) ;%grille Milli i
+				\draw[xstep=1,ystep=1,WoGridp,\QuadCoulA] ({-\ValeurCarreau*\QuadElarG},0) grid ({\ValeurCarreau*\QuadNbCol+\ValeurCarreau*\QuadElarD},{-\ValeurCarreau*\QuadNbLig}) ;%grille Milli p
 			}%
 			{}%
 		\IfStrEq{\QuadType}{Ruled}%
@@ -454,11 +583,11 @@
 
 %------page entière seyes
 \defKV[SeyesFull]{%
-	CouleurP=\xdef\SeyesFullCoulP{#1},%
-	CouleurS=\xdef\SeyesFullCoulS{#1},%
-	CouleurMarge=\xdef\SeyesFullCoulM{#1},%
-	ReglureSeyes=\xdef\SeyesFullReglureSeyes{#1},%
-	FormatPapier=\xdef\SeyesFullFormatPapier{#1}
+	CouleurP=\def\SeyesFullCoulP{#1},%
+	CouleurS=\def\SeyesFullCoulS{#1},%
+	CouleurMarge=\def\SeyesFullCoulM{#1},%
+	ReglureSeyes=\def\SeyesFullReglureSeyes{#1},%
+	FormatPapier=\def\SeyesFullFormatPapier{#1}
 }
 \setKVdefault[SeyesFull]{%
 	CouleurP=PapierRose,%
@@ -516,10 +645,10 @@
 }
 
 \defKV[SeyesLigne]{%
-	Couleur=\xdef\SeyesLigneCouleur{#1},%
-	Echelle=\xdef\SeyesLigneEchelle{#1},%
-	Ligne=\xdef\SeyesLigne{#1},%
-	Largeur=\xdef\SeyesLigneLarg{#1}
+	Couleur=\def\SeyesLigneCouleur{#1},%
+	Echelle=\def\SeyesLigneEchelle{#1},%
+	Ligne=\def\SeyesLigne{#1},%
+	Largeur=\def\SeyesLigneLarg{#1}
 }
 \setKVdefault[SeyesLigne]{%
 	Couleur=black,%
@@ -538,11 +667,11 @@
 }
 
 \defKV[SeyesPar]{%
-	Couleur=\xdef\SeyesParCouleur{#1},%
-	Echelle=\xdef\SeyesParEchelle{#1},%
-	Espacement=\xdef\SeyesParBase{#1},%
-	Ligne=\xdef\SeyesPar{#1},%
-	Largeur=\xdef\SeyesParLarg{#1}
+	Couleur=\def\SeyesParCouleur{#1},%
+	Echelle=\def\SeyesParEchelle{#1},%
+	Espacement=\def\SeyesParBase{#1},%
+	Ligne=\def\SeyesPar{#1},%
+	Largeur=\def\SeyesParLarg{#1}
 }
 \setKVdefault[SeyesPar]{%
 	Couleur=black,%
@@ -573,11 +702,11 @@
 %------page entière 5x5
 %les marges doivent valoir MargeH=0.2+k*0.5 et MargeV=0.3+k'*0.5
 \defKV[CxCFull]{%
-	Couleur=\xdef\CCFullCoul{#1},%
-	CouleurMarge=\xdef\CCFullCoulM{#1},%
-	FormatPapier=\xdef\CCFullFormatPap{#1},%
-	MargeG=\xdef\CCFullMargeG{#1},%
-	MargeH=\xdef\CCFullMargeH{#1}
+	Couleur=\def\CCFullCoul{#1},%
+	CouleurMarge=\def\CCFullCoulM{#1},%
+	FormatPapier=\def\CCFullFormatPap{#1},%
+	MargeG=\def\CCFullMargeG{#1},%
+	MargeH=\def\CCFullMargeH{#1}
 }
 \setKVdefault[CxCFull]{%
 	Couleur=lightgray!50,%
@@ -668,10 +797,10 @@
 }
 
 \defKV[CCLigne]{%
-	Couleur=\xdef\CCLigneCouleur{#1},%
-	Echelle=\xdef\CCLigneEchelle{#1},%
-	Ligne=\xdef\CCLigne{#1},%
-	Largeur=\xdef\CCLigneLarg{#1}
+	Couleur=\def\CCLigneCouleur{#1},%
+	Echelle=\def\CCLigneEchelle{#1},%
+	Ligne=\def\CCLigne{#1},%
+	Largeur=\def\CCLigneLarg{#1}
 }
 \setKVdefault[CCLigne]{%
 	Couleur=black,%
@@ -690,11 +819,11 @@
 }
 
 \defKV[CCPar]{%
-	Couleur=\xdef\CCParCouleur{#1},%
-	Echelle=\xdef\CCParEchelle{#1},%
-	Espacement=\xdef\CCParBase{#1},%
-	Ligne=\xdef\CCPar{#1},%
-	Largeur=\xdef\CCParLarg{#1}
+	Couleur=\def\CCParCouleur{#1},%
+	Echelle=\def\CCParEchelle{#1},%
+	Espacement=\def\CCParBase{#1},%
+	Ligne=\def\CCPar{#1},%
+	Largeur=\def\CCParLarg{#1}
 }
 \setKVdefault[CCPar]{%
 	Couleur=black,%
@@ -722,9 +851,9 @@
 
 %------page entière ruled
 \defKV[RuledFull]{%
-	Couleur=\xdef\RuledFullCoul{#1},%
-	CouleurMarge=\xdef\RuledFullCoulMarge{#1},%
-	FormatPapier=\xdef\RuledFullFormatPapier{#1}
+	Couleur=\def\RuledFullCoul{#1},%
+	CouleurMarge=\def\RuledFullCoulMarge{#1},%
+	FormatPapier=\def\RuledFullFormatPapier{#1}
 }
 \setKVdefault[RuledFull]{%
 	Couleur=PapierGris,%
@@ -780,10 +909,10 @@
 }
 
 \defKV[RuledLigne]{%
-	Couleur=\xdef\RuledLigneCouleur{#1},%
-	Echelle=\xdef\RuledLigneEchelle{#1},%
-	Ligne=\xdef\RuledLigne{#1},%
-	Largeur=\xdef\RuledLigneLarg{#1}
+	Couleur=\def\RuledLigneCouleur{#1},%
+	Echelle=\def\RuledLigneEchelle{#1},%
+	Ligne=\def\RuledLigne{#1},%
+	Largeur=\def\RuledLigneLarg{#1}
 }
 \setKVdefault[RuledLigne]{%
 	Couleur=black,%
@@ -802,12 +931,12 @@
 }
 
 \defKV[RuledPar]{%
-	Couleur=\xdef\RuledParCouleur{#1},%
-	Echelle=\xdef\RuledParEchelle{#1},%
-	%TaillePolice=\xdef\RuledParEchelle{#1},%
-	Espacement=\xdef\RuledParBase{#1},%
-	Ligne=\xdef\RuledPar{#1},%
-	Largeur=\xdef\RuledParLarg{#1}
+	Couleur=\def\RuledParCouleur{#1},%
+	Echelle=\def\RuledParEchelle{#1},%
+	%TaillePolice=\def\RuledParEchelle{#1},%
+	Espacement=\def\RuledParBase{#1},%
+	Ligne=\def\RuledPar{#1},%
+	Largeur=\def\RuledParLarg{#1}
 }
 \setKVdefault[RuledPar]{%
 	Couleur=black,%
@@ -832,6 +961,68 @@
 			\def\RuledStretchPar{\RuledParBase}%
 		}
 	\node[\RuledParCouleur,text width=\fpeval{\RuledParLarg/\RuledParEchelle}cm,align=#2,inner sep=0pt,anchor=base west,scale=\RuledParEchelle,execute at begin node=\setlength{\baselineskip}{\RuledStretchPar mm}] at ($(RuledOrigine)+(0.05,{-(\RuledPar-1)*0.9})+(#3)$) {#4} ;
+}
+
+%------page entière Milli
+\defKV[MilliFull]{%
+	CouleurP=\def\MilliFullCoulP{#1},%
+	CouleurS=\def\MilliFullCoulS{#1},%
+	CouleurI=\def\MilliFullCoulI{#1},%
+	FormatPapier=\def\MilliFullFormatPapier{#1},%
+	Theme=\def\MilliFullTheme{#1},%
+}
+\setKVdefault[MilliFull]{%
+	CouleurP=PapierMilliDefautFonce,%
+	CouleurS=PapierMilliDefautClair,%
+	CouleurI=PapierMilliDefautInter,
+	NumLignes=false,%
+	FormatPapier=A4,%
+	Theme={}
+}
+
+\NewDocumentEnvironment{PleinePageMilli}{ O{} }%semble OK ^^, à tester avec modification de la taille de papier... version simplifiée
+{
+	\useKVdefault[MilliFull]%
+	\setKV[MilliFull]{#1}%
+	\IfEq{\MilliFullTheme}{defaut}%
+		{%
+			\def\MilliFullCoulP{PapierMilliDefautFonce}\def\MilliFullCoulI{PapierMilliDefautInter}\def\MilliFullCoulS{PapierMilliDefautClair}%
+		}%
+		{}%
+	\IfEq{\MilliFullTheme}{gris}%
+		{%
+			\def\MilliFullCoulP{PapierMilliGrisFonce}\def\MilliFullCoulI{PapierMilliGrisInter}\def\MilliFullCoulS{PapierMilliGrisClair}%
+		}%
+		{}%
+	\IfEq{\MilliFullTheme}{bleu}%
+		{%
+			\def\MilliFullCoulP{PapierMilliBleuFonce}\def\MilliFullCoulI{PapierMilliBleuInter}\def\MilliFullCoulS{PapierMilliBleuClair}%
+		}%
+		{}%
+	\IfEq{\MilliFullTheme}{chaud}%
+		{%
+			\def\MilliFullCoulP{PapierMilliChaudFonce}\def\MilliFullCoulI{PapierMilliChaudInter}\def\MilliFullCoulS{PapierMilliChaudClair}%
+		}%
+		{}%
+	\IfEq{\MilliFullTheme}{vert}%
+		{%
+			\def\MilliFullCoulP{PapierMilliVertFonce}\def\MilliFullCoulI{PapierMilliVertInter}\def\MilliFullCoulS{PapierMilliVertClair}%
+		}%
+		{}%
+	\IfEq{\MilliFullTheme}{contraste}%
+		{%
+			\def\MilliFullCoulP{PapierMilliContrasteFonce}\def\MilliFullCoulI{PapierMilliContrasteInter}\def\MilliFullCoulS{PapierMilliContrasteClair}%
+		}%
+		{}%
+	% %création de la grille
+	\begin{tikzpicture}[remember picture,overlay,x=1cm,y=1cm]%
+		%grille secondaire
+		\draw[WoGrids,\MilliFullCoulS,xstep=0.1,ystep=0.1] (current page.north west) grid (current page.south east) ;
+		\draw[WoGridi,\MilliFullCoulI,xstep=0.5,ystep=0.5] (current page.north west) grid (current page.south east) ;
+		\draw[WoGridp,\MilliFullCoulP,xstep=1,ystep=1] (current page.north west) grid (current page.south east) ;
+	}
+	{
+	\end{tikzpicture}%
 }
 
 \endinput

@@ -45,11 +45,12 @@
 \setlength{\parindent}{0pt}
 \definecolor{LightGray}{gray}{0.9}
 
-\def\TPversion{0.1.8}
-\def\TPdate{05/11/2024}
+\def\TPversion{0.1.9}
+\def\TPdate{13/01/2026}
 
 \usepackage{minted2}
 \usepackage[most]{tcolorbox}
+\usepackage{minted2}
 \tcbuselibrary{minted}
 \NewTCBListing{PresentationCode}{ O{blue} m }{%
 	sharp corners=downhill,enhanced,arc=12pt,skin=bicolor,%
@@ -100,7 +101,7 @@
 	\begin{tabular}{c}
 	\texttt{Cédric Pierquet}\\
 	{\ttfamily c pierquet -- at -- outlook . fr}\\
-	\texttt{\url{https://github.com/cpierquet/WriteOnGrid}}
+	\texttt{\url{https://forge.apps.education.fr/pierquetcedric/packages-latex}}
 \end{tabular}
 \end{center}
 
@@ -159,7 +160,7 @@
 
 \subsection{Loading of the package, used packages}
 
-The package \textsf{WriteOnGrid} loads within the preamble :
+The package \textsf{WriteOnGrid} loads within the preamble:
 
 \begin{PresentationCode}{listing only}
 \usepackage{WriteOnGrid}
@@ -173,11 +174,11 @@ For a better compatibility, \texttt{xcolor} isn't charged anymore with options, 
 
 \medskip
 
-It loads the following packages and libraries :
+It loads the following packages and libraries:
 
 \begin{itemize}
-	%\item \texttt{xcolor} with options \Cle{table,svgnames} ;
-	\item \texttt{tikz} with the librairies \Cle{calc} and \Cle{positionning} ;
+	%\item \texttt{xcolor} with options \Cle{table,svgnames};
+	\item \texttt{tikz} with the librairies \Cle{calc} and \Cle{positionning};
 	\item \texttt{xstring}, \texttt{xparse} and \texttt{simplekv}.
 \end{itemize}
 
@@ -201,12 +202,12 @@ The grid is given by the number of squares (nbCol$\times$nbRow), and after we ca
 
 \medskip
 
-For example, a $5\times5$ grid :
+For example, a $5\times5$ grid:
 
 \begin{itemize}
-	\item with a size 24x5 squares ;
-	\item with an overtaking by \textcolor{red}{2 squares at the left} and \textcolor{blue}{3 squares at the right} ;
-	\item with a global margin of \textcolor{orange}{1 square} ;
+	\item with a size 24x5 squares;
+	\item with an overtaking by \textcolor{red}{2 squares at the left} and \textcolor{blue}{3 squares at the right};
+	\item with a global margin of \textcolor{orange}{1 square};
 	\item with a \textcolor{green!50!black}{\textit{border}} to show the \textit{basis} grid.
 \end{itemize}
 
@@ -299,22 +300,22 @@ To \textit{force} the addition of additional line(s), it is possible to use:
 \DispGrid[keys]<color>
 \end{PresentationCode}
 
-The first argument, \textit{optional}, between \texttt{[...]} give the \Cle{keys} :
+The first argument, \textit{optional}, between \texttt{[...]} give the \Cle{keys}:
 
 \begin{itemize}
-	\item \Cle{NumSquares} to specify the size of the grid, under \texttt{(nbCol)x(nbRow)} ; \hfill~default : \Cle{17x5}
-	\item \Cle{Unit} to specify the scale of the grid ; \hfill~default : \Cle{1}
-	\item \Cle{Margin} to specify the global \textcolor{orange}{margin} at the beginning of the lines ; \hfill~default : \Cle{0}
-	\item the boolean \Cle{DispBar} to display or not the bar ; \hfill~défaut : \Cle{true}
-	\item \Cle{Enlarge} to specify the squares-overtakings, globally with \texttt{\textcolor{red}{L}\textcolor{blue}{R}} or side by side with \texttt{\textcolor{red}{L}/\textcolor{blue}{R}} ;\hfill~default : \Cle{0}
-	\item the boolean \Cle{Border} to display the basis border of the grid ;\hfill~default : \Cle{false}
-	\item the key\Cle{Grille}, from \Cle{5x5/Seyes/Ruled}, to specify the grid's type.\hfill~défaut : \Cle{5x5}
+	\item \Cle{NumSquares} to specify the size of the grid, under \texttt{(nbCol)x(nbRow)}; \hfill~default: \Cle{17x5}
+	\item \Cle{Unit} to specify the scale of the grid; \hfill~default: \Cle{1}
+	\item \Cle{Margin} to specify the global \textcolor{orange}{margin} at the beginning of the lines; \hfill~default: \Cle{0}
+	\item the boolean \Cle{DispBar} to display or not the bar; \hfill~défaut: \Cle{true}
+	\item \Cle{Enlarge} to specify the squares-overtakings, globally with \texttt{\textcolor{red}{L}\textcolor{blue}{R}} or side by side with \texttt{\textcolor{red}{L}/\textcolor{blue}{R}};\hfill~default: \Cle{0}
+	\item the boolean \Cle{Border} to display the basis border of the grid;\hfill~default: \Cle{false}
+	\item the key\Cle{Grille}, from \Cle{5x5/Seyes/Ruled}, to specify the grid's type.\hfill~défaut: \Cle{5x5}
 \end{itemize}
 
-The second argument, \textit{optional}, between \texttt{<...>} is the color(s) of the grid :
+The second argument, \textit{optional}, between \texttt{<...>} is the color(s) of the grid:
 
 \begin{itemize}
-	\item by \Cle{Color} (\Cle{lightgray!66} by default) for $5\times5$  ;
+	\item by \Cle{Color} (\Cle{lightgray!66} by default) for $5\times5$;
 	\item by \Cle{ColorA/ColorB} (\Cle{lightgray!66/lightgray!33} by default) for Seyes or Ruled.
 \end{itemize}
 
@@ -347,6 +348,24 @@ The second argument, \textit{optional}, between \texttt{<...>} is the color(s) o
 	\DispGrid[NumSquares=12x3,Grid=Ruled,Margin=2]<\ColRuled>
 \end{center}
 
+\begin{PresentationCode}{listing only}
+%milli papers
+
+\DispGrid[Grid=Milli,NumSquares=9x2]<\ColMilli>
+\DispGrid[Grid=Milli,NumSquares=9x2]<\ColMilliGray>
+\DispGrid[Grid=Milli,NumSquares=9x2]<\ColMilliBlue>
+\DispGrid[Grid=Milli,NumSquares=9x2]<\ColMilliWarm>
+\DispGrid[Grid=Milli,NumSquares=9x2]<\ColMilliGreen>
+\DispGrid[Grid=Milli,NumSquares=9x2]<\ColMilliContrast>
+\end{PresentationCode}
+
+\DispGrid[Grid=Milli,NumSquares=9x2]<\ColMilli>
+\DispGrid[Grid=Milli,NumSquares=9x2]<\ColMilliGray>
+\DispGrid[Grid=Milli,NumSquares=9x2]<\ColMilliBlue>
+\DispGrid[Grid=Milli,NumSquares=9x2]<\ColMilliWarm>
+\DispGrid[Grid=Milli,NumSquares=9x2]<\ColMilliGreen>
+\DispGrid[Grid=Milli,NumSquares=9x2]<\ColMilliContrast>
+
 \pagebreak
 
 \subsection{The environment}
@@ -359,22 +378,22 @@ The second argument, \textit{optional}, between \texttt{<...>} is the color(s) o
 \end{EnvGrid}
 \end{PresentationCode}
 
-The first argument, \textit{optional}, between \texttt{[...]} give the \Cle{keys} :
+The first argument, \textit{optional}, between \texttt{[...]} give the \Cle{keys}:
 
 \begin{itemize}
-	\item \Cle{NumSquares} to specify the size of the grid, under \texttt{(nbCol)x(nbRow)} ; \hfill~default : \Cle{17x5}
-	\item \Cle{Unit} to specify the scale of the grid ; \hfill~default : \Cle{1}
-	\item \Cle{Margin} to specify the global \textcolor{orange}{margin} at the beginning of the lines ; \hfill~default : \Cle{0}
-	\item the boolean \Cle{DispBar} to display or not the bar ; \hfill~défaut : \Cle{true}
-	\item \Cle{Enlarge} to specify the squares-overtakings, globally with \texttt{\textcolor{red}{L}\textcolor{blue}{R}} or side by side with \texttt{\textcolor{red}{L}/\textcolor{blue}{R}} ;\hfill~default : \Cle{0}
-	\item the boolean \Cle{Border} to display the basis border of the grid ;\hfill~default : \Cle{false}
-	\item the key\Cle{Grille}, from \Cle{5x5/Seyes/Ruled}, to specify the grid's type.\hfill~défaut : \Cle{5x5}
+	\item \Cle{NumSquares} to specify the size of the grid, under \texttt{(nbCol)x(nbRow)}; \hfill~default: \Cle{17x5}
+	\item \Cle{Unit} to specify the scale of the grid; \hfill~default: \Cle{1}
+	\item \Cle{Margin} to specify the global \textcolor{orange}{margin} at the beginning of the lines; \hfill~default: \Cle{0}
+	\item the boolean \Cle{DispBar} to display or not the bar; \hfill~défaut: \Cle{true}
+	\item \Cle{Enlarge} to specify the squares-overtakings, globally with \texttt{\textcolor{red}{L}\textcolor{blue}{R}} or side by side with \texttt{\textcolor{red}{L}/\textcolor{blue}{R}};\hfill~default: \Cle{0}
+	\item the boolean \Cle{Border} to display the basis border of the grid;\hfill~default: \Cle{false}
+	\item the key\Cle{Grille}, from \Cle{5x5/Seyes/Ruled}, to specify the grid's type.\hfill~défaut: \Cle{5x5}
 \end{itemize}
 
-The second argument, \textit{optional}, between \texttt{<...>} is the color(s) of the grid :
+The second argument, \textit{optional}, between \texttt{<...>} is the color(s) of the grid:
 
 \begin{itemize}
-	\item by \Cle{Color} (\Cle{lightgray!66} by default) for $5\times5$  ;
+	\item by \Cle{Color} (\Cle{lightgray!66} by default) for $5\times5$;
 	\item by \Cle{ColorA/ColorB} (\Cle{lightgray!66/lightgray!33} by default) for Seyes or Ruled.
 \end{itemize}
 
@@ -417,11 +436,11 @@ The second argument, \textit{optional}, between \texttt{<...>} is the color(s) o
 
 \subsection{Write on the lines}
 
-The idea is to write on the created grid (environment !). In order to write \textit{right} on the lines, we can :
+The idea is to write on the created grid (environment !). In order to write \textit{right} on the lines, we can:
 
 \begin{itemize}
-	\item give the lines one by one ;
-	\item avoid using multilines paragraps, items ;
+	\item give the lines one by one;
+	\item avoid using multilines paragraps, items;
 	\item pass a line.
 \end{itemize}
 
@@ -434,12 +453,12 @@ The idea is to write on the created grid (environment !). In order to write \tex
 ...
 \end{PresentationCode}
 
-The fisrt argument, \textit{optional}, between \texttt{[...]} give the \Cle{keys} :
+The fisrt argument, \textit{optional}, between \texttt{[...]} give the \Cle{keys}:
 
 \begin{itemize}
-	\item \Cle{OffsetH}, in squares, to shift the text from the \textcolor{orange}{margin} ; \hfill~default : \Cle{0}
-	\item \Cle{OffsetV} to shift vertically the line ; \hfill~default : \Cle{0pt}
-	\item \Cle{Scale} to specify the scale of the given text.\hfill~default : \Cle{1}
+	\item \Cle{OffsetH}, in squares, to shift the text from the \textcolor{orange}{margin}; \hfill~default: \Cle{0}
+	\item \Cle{OffsetV} to shift vertically the line; \hfill~default: \Cle{0pt}
+	\item \Cle{Scale} to specify the scale of the given text.\hfill~default: \Cle{1}
 \end{itemize}
 
 the second argument, \textit{optional}, between \texttt{<...>} is the horizontal alignment (\Cle{left/center/right}) of the text in the basis \textcolor{green!50!black}{\textit{border}}, \Cle{left} by default.
@@ -503,7 +522,7 @@ To sum up, they create full paper grid (by preference for \texttt{\textbf{a4pape
 	\LignePapierRuled[Echelle=1.25,Ligne=1]{C. PIERQUET \hfill LaTeX}
 	\LignePapierRuled[Echelle=1.25,Ligne=2,Couleur=red]<center>{\underline{\cursive\bfseries Evaluation 3}}
 	\CadreNoteRuled{3}
-	\LignePapierRuled[Echelle=1.25,Ligne=8,Couleur=green!50!black]{\sffamily\underline{Exercise 1 :}}
+	\LignePapierRuled[Echelle=1.25,Ligne=8,Couleur=green!50!black]{\sffamily\underline{Exercise 1:}}
 	\ParagraphePapierRuled[Ligne=9]{\cursive\lipsum[1]}
 	\ParagraphePapierRuled[Ligne=22]
 	{%
@@ -522,7 +541,7 @@ To sum up, they create full paper grid (by preference for \texttt{\textbf{a4pape
 	\LignePapierRuled[Echelle=1.25,Ligne=1]{C. PIERQUET \hfill LaTeX}
 	\LignePapierRuled[Echelle=1.25,Ligne=2,Couleur=red]<center>{\underline{\cursive\bfseries Evaluation 3}}
 	\CadreNoteRuled{3}
-	\LignePapierRuled[Echelle=1.25,Ligne=8,Couleur=green!50!black]{\sffamily\underline{Exercise 1 :}}
+	\LignePapierRuled[Echelle=1.25,Ligne=8,Couleur=green!50!black]{\sffamily\underline{Exercise 1:}}
 	\ParagraphePapierRuled[Ligne=9]{\cursive\lipsum[1]}
 	\ParagraphePapierRuled[Ligne=22]
 	{%
@@ -536,22 +555,24 @@ To sum up, they create full paper grid (by preference for \texttt{\textbf{a4pape
 
 \part*{History}
 
-\verb|v0.1.8|~:~~~~Styles for rules thickness
+\verb|v0.1.9|:~~~~Grid \textsf{Milli}
 
-\verb|v0.1.7|~:~~~~New feature for french paper \textsf{PleinePageCinqCinq}
+\verb|v0.1.8|:~~~~Styles for rules thickness
 
-\verb|v0.1.6|~:~~~~Possibility to automatically determine L\&C based on the remaining space.
+\verb|v0.1.7|:~~~~New feature for french paper \textsf{PleinePageCinqCinq}
 
-\verb|v0.1.4|~:~~~~New \texttt{[keys]} + enhancements for paragraphs, for french version (for the moment\dots)
+\verb|v0.1.6|:~~~~Possibility to automatically determine L\&C based on the remaining space
 
-\verb|v0.1.4|~:~~~~\texttt{xcolor} isn't loaded with \textsf{[table,svgnames]})
+\verb|v0.1.4|:~~~~New \texttt{[keys]} + enhancements for paragraphs, for french version (for the moment\dots)
 
-\verb|v0.1.3|~:~~~~Command to display a grid (w/o writing on it)
+\verb|v0.1.4|:~~~~\texttt{xcolor} isn't loaded with \textsf{[table,svgnames]})
 
-\verb|v0.1.2|~:~~~~Shortcuts for default colors + small bugfixes
+\verb|v0.1.3|:~~~~Command to display a grid (w/o writing on it)
 
-\verb|v0.1.1|~:~~~~Best color choice
+\verb|v0.1.2|:~~~~Shortcuts for default colors + small bugfixes
 
-\verb|v0.1.0|~:~~~~Initial version
+\verb|v0.1.1|:~~~~Best color choice
+
+\verb|v0.1.0|:~~~~Initial version
 
 \end{document}
