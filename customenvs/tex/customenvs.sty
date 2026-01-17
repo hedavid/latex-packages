@@ -3,9 +3,10 @@
 % source pencil...: CC-BY-SA 4.0 https://tex.stackexchange.com/questions/504092/replicating-a-fancy-bordered-text-style-in-latex/504145#504145
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{customenvs}[2026/01/12 0.42e Custom classic environments]
+\ProvidesPackage{customenvs}[2026/01/17 0.42f Custom classic environments]
 
 %====HISTORIQUE
+% v 0.42f	Feuille perforée
 % v 0.42e	Correction d'un bug avec fa...
 % v 0.42d	Keybord ([fr] layout only)
 % v 0.42c	New icons + new mathpictos
@@ -5620,6 +5621,91 @@
 			}%
 			{}%
 	\end{tikzpicture}%
+}
+
+%====FEUILLE PERFORÉE
+\newlength\tcboxspiraleradius
+\newlength\tcboxspiralehsep
+\setlength\tcboxspiraleradius{1.5mm}
+\setlength\tcboxspiralehsep{4.5mm}
+
+\defKV[feuilleperforee]{%
+	orientation=\def\feuilleperfoorient{#1},%
+	bg=\colorlet{feuilleperfofond}{#1},%
+}
+
+\setKVdefault[feuilleperforee]{%
+	orientation=V,
+	bar=true,%
+	bg=white
+}
+
+\NewDocumentCommand\tcboxnotebooktitle{ O{blue!50!black} m }{%
+	%\renewcommand\ULthickness{1pt}%
+	%\hspace{2.5mm}\textcolor{#1}{\bfseries\large\sffamily\uline{\vphantom{(qÉ)}#2}}\par\smallskip
+	\hspace{2.5mm}\textcolor{#1}{\bfseries\large\sffamily\vphantom{(qÉ)}#2}\par\smallskip
+}
+
+\tikzset{tcboxperfobarre/.style={red!50!black,thick,opacity=0.5}}
+
+\tcbset{tcboxperfoH/.style={
+		enhanced,frame empty,opacityfill=0,sharp corners=all,nobeforeafter,before skip=0.5\baselineskip,after skip=0.5\baselineskip,size=title,top=2\tcboxspiraleradius,
+		underlay={%
+			\draw[feuilleperfofond!75!black] (frame.north west) rectangle (frame.south east) ;
+			\begin{tcbclipframe}
+				\path let \p1=(frame.north west), \p2=(frame.north east), \n1={veclen(\x2-\x1,\y2-\y1)} in \pgfextra{\xdef\largeurboitecm{\n1}};
+				\xdef\nbtrous{\fpeval{round(\largeurboitecm/\tcboxspiralehsep,0)+1}}%
+				\fill[black!66,even odd rule] 
+				([xshift=0.75pt, yshift=-0.75pt]frame.north west) rectangle (frame.south east) 
+				\foreach \i in {1,...,\nbtrous}{
+					([xshift=\fpeval{\i-0.5}\tcboxspiralehsep+0.75pt, yshift=-1.5\tcboxspiraleradius-0.75pt]frame.north west) 
+					circle[radius=\tcboxspiraleradius]
+				};
+				\draw[feuilleperfofond!75!black,fill=feuilleperfofond,even odd rule] (frame.north west) rectangle (frame.south east) \foreach \i in {1,...,\nbtrous}{([xshift=\fpeval{\i-0.5}\tcboxspiralehsep,yshift=-1.5\tcboxspiraleradius]frame.north west) circle[radius=\tcboxspiraleradius]} ;
+			\end{tcbclipframe}
+		}
+	}
+}%
+
+\tcbset{tcboxperfoV/.style={
+		enhanced,frame empty,opacityfill=0,sharp corners=all,nobeforeafter,before skip=0.5\baselineskip,after skip=0.5\baselineskip,size=title,left=2\tcboxspiraleradius+2mm,
+		underlay={%
+			\draw[feuilleperfofond!75!black] (frame.north west) rectangle (frame.south east) ;
+			\begin{tcbclipframe}
+				\path let \p1=(frame.north west), \p2=(frame.south west), \n1={veclen(\x2-\x1,\y2-\y1)} in \pgfextra{\xdef\hauteurboitecm{\n1}};
+				\xdef\nbtrous{\fpeval{round(\hauteurboitecm/\tcboxspiralehsep,0)+1}}%
+				\fill[black!66,even odd rule] 
+				([xshift=0.75pt, yshift=-0.75pt]frame.north west) rectangle (frame.south east) 
+				\foreach \i in {1,...,\nbtrous}{
+					([xshift=1.5\tcboxspiraleradius+0.75pt, yshift=\fpeval{-\i+0.5}\tcboxspiralehsep-0.75pt]frame.north west) 
+					circle[radius=\tcboxspiraleradius]
+				};
+				\draw[feuilleperfofond!75!black,fill=feuilleperfofond,even odd rule] (frame.north west) rectangle (frame.south east) \foreach \i in {1,...,\nbtrous}{([xshift=1.5\tcboxspiraleradius,yshift=\fpeval{-\i+0.5}\tcboxspiralehsep]frame.north west) circle[radius=\tcboxspiraleradius]} ;
+				\ifboolKV[feuilleperforee]{bar}%
+				{%
+					\draw[tcboxperfobarre] ([xshift=2\tcboxspiraleradius+1.675mm,yshift=-0.5mm]frame.north west)--([xshift=2\tcboxspiraleradius+1.675mm,yshift=0.5mm]frame.south west) ;
+				}%
+				{}%
+			\end{tcbclipframe}
+		}
+	}
+}%
+
+\NewDocumentEnvironment{tcboxnotebook}{ O{} m }%
+{
+	\restoreKV[feuilleperforee]%
+	\setKV[feuilleperforee]{#1}%
+	\ifthenelse{\equal{\feuilleperfoorient}{H}}%
+	{%
+		\tcbset{tcboxperfo/.style={tcboxperfoH}}%
+	}%
+	{%
+		\tcbset{tcboxperfo/.style={tcboxperfoV}}%
+	}%
+	\tcolorbox[tcboxperfo,#2]
+}
+{
+	\endtcolorbox%
 }
 
 \endinput
