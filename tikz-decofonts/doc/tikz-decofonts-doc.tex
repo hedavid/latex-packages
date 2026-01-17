@@ -33,8 +33,8 @@
 \hypersetup{pdfborder=0 0 0}
 \usepackage[margin=2cm]{geometry}
 \setlength{\parindent}{0pt}
-\def\TPversion{0.1.6}
-\def\TPdate{12/09/2025}
+\def\TPversion{0.1.7}
+\def\TPdate{17/01/2026}
 \usepackage{tcolorbox}
 \tcbuselibrary{breakable,skins,hooks,listingsutf8}
 
@@ -52,7 +52,7 @@
 	keywordstyle={\color{violet}},%
 	classoffset=2,%
 	alsoletter={-},%
-	morekeywords={\tkzbrush,\tkzink,\tkzpixl,\tkzpixletter,\tkzpixlquote,\tkzcomicbubble,\tkzunderline,\tkzsurround,\tkzfittextinarrow,\tkzcircledtxt},%
+	morekeywords={\tkzbrush,\tkzink,\tkzpixl,\tkzpixletter,\tkzpixlquote,\tkzcomicbubble,\tkzunderline,\tkzsurround,\tkzfittextinarrow,\tkzcircledtxt,\tkzletterblock},%
 	keywordstyle={\color{green!50!black}},%
 	classoffset=3,%
 	morekeywords={},%
@@ -82,10 +82,10 @@
 		keywordstyle={\color{violet}},%
 		classoffset=2,%
 		alsoletter={-},%
-		morekeywords={\tkzbrush,\tkzink,\tkzpixl,\tkzpixletter,\tkzpixlquote,\tkzbicolor,\tkzcomicbubble,\tkzunderline,\tkzsurround,\tkzfittextinarrow,\tkzcircledtxt},%
+		morekeywords={\tkzbrush,\tkzink,\tkzpixl,\tkzpixletter,\tkzpixlquote,\tkzbicolor,\tkzcomicbubble,\tkzunderline,\tkzsurround,\tkzfittextinarrow,\tkzcircledtxt,\tkzletterblock},%
 		keywordstyle={\color{green!50!black}},%
 		classoffset=3,%
-		morekeywords={color,lines,scale,height,offseth,offsetv,thick,gridcolor,gridafter,nospaceafter,border,colors,style,intdelta,paralcolors,width,node,txtcolor,width,bheight,sheight,hoffset,shadow,shownodes,expand,globalwidth,absolute,thickness},%
+		morekeywords={color,lines,scale,height,offseth,offsetv,thick,gridcolor,gridafter,nospaceafter,border,colors,style,intdelta,paralcolors,width,node,txtcolor,width,bheight,sheight,hoffset,shadow,shownodes,expand,globalwidth,absolute,thickness,strut,dstrut,hstretch,font,height,spacestretch},%
 		keywordstyle={\color{orange}}
 	},%
 	#1
@@ -225,7 +225,7 @@ In order to load \texttt{tikz-decofonts}, simply use:
 \usepackage{tikz-decofonts}
 \end{DemoCode}
 
-Loaded packages are \texttt{tikz}, \texttt{xintexpr}, \texttt{simplekv}, \texttt{listofitems}, \texttt{xstring}, \texttt{ifthen} and \texttt{calc}.
+Loaded packages are \texttt{tikz}, \texttt{tikz-3dplot}, \texttt{settobox}, \texttt{xintexpr}, \texttt{simplekv}, \texttt{listofitems}, \texttt{xstring}, \texttt{ifthen} and \texttt{calc}.
 
 Loaded \texttt{tikz.librairies} are \texttt{decorations}, \texttt{decorations.pathreplacing}, \texttt{calc}, \texttt{positioning}, \texttt{bbox}, \texttt{arrows.meta}, \texttt{shapes.callouts} and \texttt{bending}.
 
@@ -254,7 +254,7 @@ Since many calculations are required internally, compilation time can be increas
 	\item \href{https://tex.stackexchange.com/questions/460836/custom-line-cap-to-simulate-inked-line-in-tikz/460842#460842}{[link on tex.stackexchange]} from \textsf{user121799} for inkbrush.
 \end{itemize}
 
-Some adjustments (keys, paths) are maid from original code, but the global usage is due to the links above !
+Some adjustments (keys, paths) are maid from original code, but the global usage is due to the links above!
 
 \pagebreak
 
@@ -262,7 +262,7 @@ Some adjustments (keys, paths) are maid from original code, but the global usage
 
 \subsection{Paint brush}
 
-{\small\faBomb} The effect is \textbf{very} \textit{time-consuming} to compile !!
+{\small\faBomb} The effect is \textbf{very} \textit{time-consuming} to compile!!
 
 \begin{DemoCode}{listing only}
 %only uppercase letters allowed
@@ -652,7 +652,62 @@ with text after
 
 \pagebreak
 
+\subsection{Block (3D) of letters}
+
+\begin{DemoCode}{listing only}
+\tkzcircledtxt[<keys>]<tikzpicture options>{list of blocks}
+
+%height        = height dim or auto/dauto for inline usage (dauto)
+%hstretch      = h sep coefficient (1.05)
+%spacestretch  = space sep coefficient (0.25)
+%dstrut        = characters for dauto usage (qH)
+%strut         = characters for auto usage (H)
+%font          = font for labels (\huge\bfseries\sffamily)
+
+%list of blocks within letter1/colorblock1/colorletter1,...
+%use * for 'space'
+\end{DemoCode}
+
+\begin{DemoCode}{}
+{\LARGE%
+q%
+\tkzletterblock%
+  {%
+    C/red/white,H/blue/white,A/violet/white,%
+    P/yellow/black,T/white/black,E/orange/black,%
+    R/teal/white,*/magenta/white,0/cyan/white,7/pink/white%
+  }%
+H%
+}
+\end{DemoCode}
+
+\begin{DemoCode}{}
+\sffamily\bfseries\Huge%
+H%
+\tkzletterblock%
+  [height=auto]%
+  {%
+    L/red/white,A/blue/white,T/violet/white,E/cyan/white,X/pink/white%
+  }%
+H
+\end{DemoCode}
+
+\begin{DemoCode}{}
+%green lines for visualizing manual height
+{\tikz\draw[thick,green] (0,0)--(0,1.75cm);}%
+\tkzletterblock%
+  [height=1.75cm,hstretch=1.25,font=\Huge\ttfamily,spacestretch=0.5]%
+  {%
+    D/yellow/black,E/white/black,*//,C/orange/black,O/teal/white%
+  }%
+{\tikz\draw[thick,green] (0,0)--(0,1.75cm);}%
+\end{DemoCode}
+
+\pagebreak
+
 \section{History}
+
+\texttt{0.1.7: AlphabetCubes}
 
 \texttt{0.1.6: Thickness for 'freehand' circled text}
 

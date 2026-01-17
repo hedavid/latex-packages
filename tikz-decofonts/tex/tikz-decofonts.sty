@@ -4,9 +4,10 @@
 %                 :              (https://tex.stackexchange.com/questions/460836/custom-line-cap-to-simulate-inked-line-in-tikz/460842#460842 from user121799)
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{tikz-decofonts}[2025/09/12 0.1.6 Custom fonts, made with TikZ, with effects]
+\ProvidesPackage{tikz-decofonts}[2026/01/17 0.1.7 Custom fonts, made with TikZ, with effects]
 
 %------History
+% 0.1.7	AlphabetCubes (experimental)
 % 0.1.6	New key for 'freehand' circled text
 % 0.1.5	Small 'freehand' circled text
 % 0.1.4	Arrow (fixed size) with text
@@ -17,6 +18,8 @@
 
 %------Packages and library
 \RequirePackage{tikz}
+\RequirePackage{tikz-3dplot}
+\RequirePackage{settobox}
 \RequirePackage{xstring}
 \RequirePackage{xintexpr}
 \RequirePackage{listofitems}
@@ -1352,6 +1355,112 @@
 		\end{scope}
 	\end{tikzpicture}%
 	\endgroup%
+}
+
+%----alphacubes
+\newlength\tmpheightalphacubes
+\newlength\tmpdepthalphacubes
+\newlength\tmpstrutalphacubes
+\newsavebox{\tmpalphacubes}
+
+\newcommand\intalphacube[4]{%
+	\begin{scope}[shift={(#4)}]
+		\fill[draw=#1!20!black,fill=#1!85!lightgray] (0,1,0)--(1,1,0)--(1,1,1)--(0,1,1)--cycle ;
+		\fill[draw=#1!20!black,fill=#1!90!lightgray] (0,0,0)--(1,0,0)--(1,1,0)--(0,1,0)--cycle ;
+		\fill[draw=#1!20!black,fill=#1!65!lightgray] (0,0,0)--(0,1,0)--(0,1,1)--(0,0,1)--cycle ;
+		\fill[draw=#1!20!black,fill=#1!90!lightgray] (1,0,0)--(1,1,0)--(1,1,1)--(1,0,1)--cycle ;
+		\fill[draw=#1!20!black,fill=#1!80!lightgray] (0,0,0)--(1,0,0)--(1,0,1)--(0,0,1)--cycle ;
+		\fill[draw=#1!20!black,fill=#1!85!lightgray] (0,0,1)--(1,0,1)--(1,1,1)--(0,1,1)--cycle ;
+		\begin{scope}[canvas is xz plane at y=0]
+			\draw[] ([xshift=-0.2pt,yshift=0.2pt]0.5,0.5) node[font=\cubealphabetfont,text=#1!25!black] {#2} ;
+			\draw[] (0.5,0.5,1) node[font=\cubealphabetfont,text=#3] {#2} ;
+		\end{scope}
+	\end{scope}
+}
+
+\newcommand\intalphablocks{%
+	\foreach \i in {1,...,\listelettrescubealphalen}{%
+		\xdef\j{\inteval{\listelettrescubealphalen-\i+1}}%
+		\itemtomacro\listelettrescubealpha[\j,1]\tmplettre%
+		\itemtomacro\listelettrescubealpha[\j,2]\tmpcouleur%
+		\itemtomacro\listelettrescubealpha[\j,3]\tmpcouleurlettre%
+		\ifthenelse{\equal{\tmplettre}{*}}%
+			{%
+				\xdef\tmpalphacubesnbofstars{\inteval{\tmpalphacubesnbofstars+1}}%
+			}%
+			{%
+				\xdef\k{\fpeval{\j+\tmpalphacubesnbofstars*(1-(\cubealphabetspacestretch))}}%
+				\intalphacube{\tmpcouleur}{\tmplettre}{\tmpcouleurlettre}{{(\cubealphabethstretch)*\k},0,0}%
+			}%
+	}%
+}
+
+\defKV[cubealphabet]{%
+	hstretch=\def\cubealphabethstretch{#1},%
+	spacestretch=\def\cubealphabetspacestretch{#1},%
+	dstrut=\def\cubealphabetdstrut{#1},%
+	strut=\def\cubealphabetstrut{#1},%
+	font=\def\cubealphabetfont{#1},%
+	height=\def\cubealphabetheight{#1}
+}
+\setKVdefault[cubealphabet]{%
+	hstretch=1.05,%
+	spacestretch=0.25,
+	dstrut={qH},%
+	strut={H},
+	font=\huge\bfseries\sffamily,%
+	height=dauto
+}
+
+\NewDocumentCommand\tkzletterblock{ O{} D<>{} m }{%
+	\setsepchar[.]{,./}%
+	\readlist*\listelettrescubealpha{#3}%
+	\restoreKV[cubealphabet]%
+	\setKV[cubealphabet]{#1}%
+	\sbox{\tmpalphacubes}{%
+		\def\tmpalphacubesnbofstars{0}%
+		\def\tmpcubealphabetscale{1}%
+		\tdplotsetmaincoords{80}{-10}\unskip\unskip%
+		\begin{tikzpicture}[scale=\tmpcubealphabetscale,line join=round,rounded corners=\fpeval{\tmpcubealphabetscale*0.5}mm,line width=\fpeval{\tmpcubealphabetscale*0.2}mm,transform shape,tdplot_main_coords,#2]%
+			\intalphablocks
+		\end{tikzpicture}%
+	}%
+	\settoboxtotalheight\tmpheightalphacubes{\tmpalphacubes}%
+	%height dauto / auto / manual
+	\ifthenelse{\equal{\cubealphabetheight}{dauto}}%
+		{%dauto
+			\def\tmpalphacubesnbofstars{0}%
+			\settototalheight\tmpstrutalphacubes{\hbox{\cubealphabetdstrut}}%
+			\settodepth\tmpdepthalphacubes{\hbox{\cubealphabetdstrut}}%
+			\xdef\tmpcubealphabetscale{\fpeval{\tmpstrutalphacubes/\tmpheightalphacubes}}%
+			\raisebox{-\tmpdepthalphacubes}{%
+				\tdplotsetmaincoords{80}{-10}\unskip\unskip%
+				\begin{tikzpicture}[scale=\tmpcubealphabetscale,line join=round,rounded corners=\fpeval{\tmpcubealphabetscale*0.5}mm,line width=\fpeval{\tmpcubealphabetscale*0.2}mm,transform shape,tdplot_main_coords]%
+					\intalphablocks
+				\end{tikzpicture}%
+			}%
+		}%
+		{%auto
+			\ifthenelse{\equal{\cubealphabetheight}{auto}}%
+				{%
+					\def\tmpalphacubesnbofstars{0}%
+					\settototalheight\tmpstrutalphacubes{\hbox{\cubealphabetstrut}}%
+					\xdef\tmpcubealphabetscale{\fpeval{\tmpstrutalphacubes/\tmpheightalphacubes}}%
+					\tdplotsetmaincoords{80}{-10}\unskip\unskip%
+					\begin{tikzpicture}[scale=\tmpcubealphabetscale,line join=round,rounded corners=\fpeval{\tmpcubealphabetscale*0.5}mm,line width=\fpeval{\tmpcubealphabetscale*0.2}mm,transform shape,tdplot_main_coords]%
+						\intalphablocks
+					\end{tikzpicture}%
+				}%
+			{%manual
+				\def\tmpalphacubesnbofstars{0}%
+				\setlength\tmpstrutalphacubes{\cubealphabetheight}%
+				\xdef\tmpcubealphabetscale{\fpeval{\tmpstrutalphacubes/\tmpheightalphacubes}}%
+					\tdplotsetmaincoords{80}{-10}\unskip\unskip%
+					\begin{tikzpicture}[scale=\tmpcubealphabetscale,line join=round,rounded corners=\fpeval{\tmpcubealphabetscale*0.5}mm,line width=\fpeval{\tmpcubealphabetscale*0.2}mm,transform shape,tdplot_main_coords]%
+						\intalphablocks
+					\end{tikzpicture}%
+			}%
+		}%
 }
 
 \endinput
