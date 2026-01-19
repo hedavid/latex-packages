@@ -1,5 +1,5 @@
 % proflycee-tools-arithm.tex
-% Copyright 2023-2025 Cédric Pierquet
+% Copyright 2023-2026 Cédric Pierquet
 % Released under the LaTeX Project Public License v1.3c or later, see http://www.latex-project.org/lppl.txt
 
 %===trad fr/en wip
@@ -65,7 +65,7 @@
 
 \cs_new_protected:Npn \pfl_decompnb:n #1
 {
-  \tl_set:Ne \l_tmpa_tl { \xinteval{#1} }
+  \tl_set:Ne \l_tmpa_tl { \xintiieval{#1} }
   %\tl_set:Nn \l_tmpa_tl { #1 }
   %compat xint := remplacer toutes les occurrences de 'exemple' par 'test'
   %\regex_replace_all:nnN {\*\*} {^} \l_tmpa_tl
@@ -2350,5 +2350,266 @@
   }%
 }
 \NewCommandCopy\pflconvbases\ConversionEntreBases
+
+%====PRESENTATION VERTICALE FACT PREMIERS
+\RequirePackage{colortbl}
+
+\defKV[pflpresfactprem]{%
+  CouleurTrait=\arrayrulecolor{#1},%
+  rulecolor=\arrayrulecolor{#1},%
+  EpaisseurTrait=\setlength{\arrayrulewidth}{#1},%
+  rulethick=\setlength{\arrayrulewidth}{#1}
+}
+\setKVdefault[pflpresfactprem]{%
+  CouleurTrait=black,%
+  rulecolor=black,%
+  EpaisseurTrait=0.4pt,%
+  rulethick=0.4pt,%
+  EncadreFin=false,%
+  endbox=false,
+  Longue=false,%
+  long=false,
+  PuissanceUn=false,%
+  onepower=false
+}
+
+\newcommand\DecompFactPremiers[2][]{%
+  \xdef\pfldecompoquotient{\xintiieval{#2}}%
+  \restoreKV[pflpresfactprem]%
+  \setKV[pflpresfactprem]{#1}%
+  %en/fr
+  \setKVboolfalsedefaultmulti[pflpresfactprem]{long}{Longue}%
+  \setKVboolfalsedefaultmulti[pflpresfactprem]{onepower}{PuissanceUn}%
+  %next
+  \ifboolKV[pflpresfactprem]{Longue}%
+    {%
+      \ensuremath{%
+        \xdef\tmptrouvediviseurdecompo{0}%
+        \xdef\pfldecompodiviseur{2}%
+        \xintifboolexpr{ \pfldecompoquotient > 1 }{\def\tmploop{1}}{\def\tmploop{0}}%
+        \whiledo{ \tmploop > 0 }{%
+          \xdef\pfldecomporeste{\xintiiRem{\pfldecompoquotient}{\pfldecompodiviseur}}%
+          \xintifboolexpr{ \pfldecomporeste == 0 }%
+            {%
+              \xintifboolexpr{ \tmptrouvediviseurdecompo == 0 }{}{\times}\num{\pfldecompodiviseur}%
+              \xdef\tmptrouvediviseurdecompo{1}%
+              \xdef\pfldecompoquotient{\xintiiQuo{\pfldecompoquotient}{\pfldecompodiviseur}}%
+            }%
+            {%
+              \xintifboolexpr{ \pfldecompodiviseur == 2 }%
+                {%
+                  \xdef\pfldecompodiviseur{\xintiiAdd{\pfldecompodiviseur}{1}}%
+                }%
+                {%
+                  \xdef\pfldecompodiviseur{\xintiiAdd{\pfldecompodiviseur}{2}}%
+                }%
+            }%
+          \xintifboolexpr{ \pfldecompoquotient > 1 }{\def\tmploop{1}}{\def\tmploop{0}}%
+        }%
+      }%
+    }%
+    {%
+      \ensuremath{%
+        \xdef\pflfirstfactor{1}%
+        \xdef\pfldecompodiviseur{2}%
+        \xdef\pflcurrentfactor{0}% 0 au lieu de vide
+        \xdef\pflcurrentexp{0}%
+        \xintifboolexpr{ \pfldecompoquotient > 1 }{\def\tmploop{1}}{\def\tmploop{0}}%
+        \whiledo{ \tmploop > 0 }{%
+          \xdef\pfldecomporeste{\xintiiRem{\pfldecompoquotient}{\pfldecompodiviseur}}%
+          \xintifboolexpr{ \pfldecomporeste == 0 }%
+          {%
+            % Même diviseur que le précédent ?
+            \xintifboolexpr{ \pflcurrentfactor == \pfldecompodiviseur }%
+              {% Oui : on incrémente l'exposant
+                \xdef\pflcurrentexp{\xintiiAdd{\pflcurrentexp}{1}}%
+              }%
+              {% Non : on affiche le facteur précédent (s'il existe)
+                \xintifboolexpr{ \pflcurrentfactor > 0 }% test si pas le premier
+                  {%
+                    \xintifboolexpr{ \pflfirstfactor == 1 }%
+                      {\xdef\pflfirstfactor{0}}%
+                      {\times}%
+                    \num{\pflcurrentfactor}%
+                    \ifboolKV[pflpresfactprem]{PuissanceUn}%
+                      {%
+                        {^{\pflcurrentexp}}%
+                      }%
+                      {%
+                        \xintifboolexpr{ \pflcurrentexp > 1 }{^{\num{\pflcurrentexp}}}{}%
+                      }%
+                  }%
+                  {}%
+                \xdef\pflcurrentfactor{\pfldecompodiviseur}%
+                \xdef\pflcurrentexp{1}%
+              }%
+            \xdef\pfldecompoquotient{\xintiiQuo{\pfldecompoquotient}{\pfldecompodiviseur}}%
+          }%
+          {%
+            \xintifboolexpr{ \pfldecompodiviseur == 2 }%
+              {\xdef\pfldecompodiviseur{3}}%
+              {\xdef\pfldecompodiviseur{\xintiiAdd{\pfldecompodiviseur}{2}}}%
+          }%
+          \xintifboolexpr{ \pfldecompoquotient > 1 }{\def\tmploop{1}}{\def\tmploop{0}}%
+        }%
+        % Afficher le dernier facteur
+        \xintifboolexpr{ \pflcurrentfactor > 0 }%
+          {%
+            \xintifboolexpr{ \pflfirstfactor == 1 }{}{\times}%
+            \num{\pflcurrentfactor}%
+            \ifboolKV[pflpresfactprem]{PuissanceUn}%
+              {%
+                {^{\pflcurrentexp}}%
+              }%
+              {%
+                \xintifboolexpr{ \pflcurrentexp > 1 }{^{\num{\pflcurrentexp}}}{}%
+              }%
+          }%
+          {}%
+      }%
+    }%
+}
+\NewCommandCopy\pflfactornb\DecompFactPremiers
+
+\newcommand\PresFactPremiers[2][]{%
+  \xdef\pfldecompoquotient{\xintiieval{#2}}%
+  \ensuremath{%
+    \restoreKV[pflpresfactprem]%
+    \setKV[pflpresfactprem]{#1}%
+    %en/fr
+    \setKVboolfalsedefaultmulti[pflpresfactprem]{endbox}{EncadreFin}%
+    %next
+    \begin{array}{r|l}
+      \xdef\pfldecompodiviseur{2}%
+      \xintifboolexpr{ \pfldecompoquotient > 1 }{\def\tmploop{1}}{\def\tmploop{0}}%
+      \whiledo{ \tmploop > 0 }{%
+        \xdef\pfldecomporeste{\xintiiRem{\pfldecompoquotient}{\pfldecompodiviseur}}%
+        \xintifboolexpr{ \pfldecomporeste == 0 }%
+          {%
+            \num{\pfldecompoquotient} & \num{\pfldecompodiviseur} \\
+            \xdef\pfldecompoquotient{\xintiiQuo{\pfldecompoquotient}{\pfldecompodiviseur}}%
+          }%
+          {%
+            \xintifboolexpr{ \pfldecompodiviseur == 2 }%
+              {%
+                \xdef\pfldecompodiviseur{\xintiiAdd{\pfldecompodiviseur}{1}}%
+              }%
+              {%
+                \xdef\pfldecompodiviseur{\xintiiAdd{\pfldecompodiviseur}{2}}%
+              }%
+          }%
+        \xintifboolexpr{ \pfldecompoquotient > 1 }{\def\tmploop{1}}{\def\tmploop{0}}%
+      }%
+      \ifboolKV[pflpresfactprem]{EncadreFin}{{\setlength{\fboxsep}{2pt}\fbox{1}}}{1} &
+    \end{array}%
+  }%
+}
+\NewCommandCopy\pflpresfactprem\PresFactPremiers
+\NewCommandCopy\pflprimefactpres\PresFactPremiers
+
+%====SIMPLIF FRACTIONS
+\defKV[pflsimplifrac]{%
+  CouleurCommun=\def\pflcouleurfacteurcommun{#1}
+}
+
+\setKVdefault[pflsimplifrac]{%
+  CouleurCommun=red!90!black,%
+  Barrer=false,%
+  d=false,%
+  t=false
+}
+
+% Macro pour décomposer en liste (tous les facteurs répétés)
+% Stocke le résultat dans \pfllistefacteurs
+\newcommand\CreerListeFacteurs[1]{%
+  \xdef\pflquotientliste{\xintiieval{#1}}%
+  \xdef\pfldiviseurliste{2}%
+  \xdef\pfllistefacteurs{}% liste vide
+  \xintifboolexpr{ \pflquotientliste > 1 }{\def\tmploop{1}}{\def\tmploop{0}}%
+  \whiledo{ \tmploop > 0 }{%
+    \xdef\pflresteliste{\xintiiRem{\pflquotientliste}{\pfldiviseurliste}}%
+    \xintifboolexpr{ \pflresteliste == 0 }%
+      {%
+        % Ajouter le diviseur à la liste
+        \ifx\pfllistefacteurs\empty
+          \xdef\pfllistefacteurs{\pfldiviseurliste}%
+        \else
+          \xdef\pfllistefacteurs{\pfllistefacteurs,\pfldiviseurliste}%
+        \fi
+        \xdef\pflquotientliste{\xintiiQuo{\pflquotientliste}{\pfldiviseurliste}}%
+      }%
+      {%
+        \xintifboolexpr{ \pfldiviseurliste == 2 }%
+          {\xdef\pfldiviseurliste{3}}%
+          {\xdef\pfldiviseurliste{\xintiiAdd{\pfldiviseurliste}{2}}}%
+      }%
+    \xintifboolexpr{ \pflquotientliste > 1 }{\def\tmploop{1}}{\def\tmploop{0}}%
+  }%
+}
+
+% Macro pour afficher une liste de facteurs en coloriant les communs
+% #1 = liste de facteurs
+% #2 = liste des facteurs du PGCD à colorier
+\newcommand\AfficherListeAvecCouleur[2]{%
+  \def\pflfirstdisplay{1}%
+  \def\pfllistecommuns{,#2,}% entouré de virgules pour la recherche
+  \xintFor ##1 in {#1} \do {%
+    \ifnum\pflfirstdisplay=1\relax
+      \def\pflfirstdisplay{0}%
+    \else
+      \times
+    \fi
+    % Vérifier si ##1 est dans la liste des communs, et on le retire/affiche ?
+    \IfSubStr{\pfllistecommuns}{,##1,}%
+      {%on affiche en couleur et on retire
+        \ifboolKV[pflsimplifrac]{Barrer}%
+          {%
+            \cancel{\mathcolor{\pflcouleurfacteurcommun}{\num{##1}}}%
+          }%
+          {%
+            \mathcolor{\pflcouleurfacteurcommun}{\num{##1}}%
+          }%
+        \StrDel[1]{\pfllistecommuns}{##1,}[\pfllistecommuns]%
+      }%
+      {%
+        \num{##1}%
+      }%
+  }%
+}
+
+% Macro principale
+\newcommand\SimplFracDecomp[3][]{%
+  \restoreKV[pflsimplifrac]%
+  \setKV[pflsimplifrac]{#1}%
+  % Calculer PGCD et simplification
+  \xdef\pflpgcd{\xintiiGCD{#2}{#3}}%
+  \xdef\pflnumsimp{\xintiiQuo{#2}{\pflpgcd}}%
+  \xdef\pfldenssimp{\xintiiQuo{#3}{\pflpgcd}}%
+  % Créer les listes
+  \CreerListeFacteurs{#2}%
+  \xdef\pfllistenum{\pfllistefacteurs}%
+  \CreerListeFacteurs{#3}%
+  \xdef\pfllisteden{\pfllistefacteurs}%
+  \CreerListeFacteurs{\pflpgcd}%
+  \xdef\pfllistepgcd{\pfllistefacteurs}%
+  % Affichage
+  \ensuremath{%
+    \ifboolKV[pflsimplifrac]{d}{\displaystyle}{}%
+    \ifboolKV[pflsimplifrac]{t}%
+      {%
+        \tfrac{\num{\xintiieval{#2}}}{\num{\xintiieval{#3}}} = 
+        \tfrac{\AfficherListeAvecCouleur{\pfllistenum}{\pfllistepgcd}}%
+        {\AfficherListeAvecCouleur{\pfllisteden}{\pfllistepgcd}} = 
+        \tfrac{\num{\pflnumsimp}}{\num{\pfldenssimp}}
+      }%
+      {%
+        \frac{\num{\xintiieval{#2}}}{\num{\xintiieval{#3}}} = 
+        \frac{\AfficherListeAvecCouleur{\pfllistenum}{\pfllistepgcd}}%
+        {\AfficherListeAvecCouleur{\pfllisteden}{\pfllistepgcd}} = 
+        \frac{\num{\pflnumsimp}}{\num{\pfldenssimp}}
+      }%
+  }%
+}
+\NewCommandCopy\pflsimpliffrac\SimplFracDecomp
 
 \endinput

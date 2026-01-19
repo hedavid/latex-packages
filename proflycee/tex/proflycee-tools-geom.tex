@@ -1,5 +1,5 @@
 % proflycee-tools-geom.tex
-% Copyright 2023-2025  Cédric Pierquet
+% Copyright 2023-2026  Cédric Pierquet
 % Released under the LaTeX Project Public License v1.3c or later, see http://www.latex-project.org/lppl.txt
 
 %%------PaveDroitTikZ
@@ -227,7 +227,7 @@
   \endgroup
   \restoreKV[eqcartplan]% revenir au valeurs par défaut
   \setKV[eqcartplan]{#1}% lit les arguments optionnels
-	%en/fr
+  %en/fr
   \setKVboolfalsedefaultmulti[eqcartplan]{simpl coeffs}{SimplifCoeffs}%
   %next
   \IfNoValueTF{#4}%c'est Vect+Point
@@ -365,9 +365,9 @@
   \endgroup
   \restoreKV[eqcartdroite]% revenir au valeurs par défaut
   \setKV[eqcartdroite]{#1}% lit les arguments optionnels
-	%en/fr
+  %en/fr
   \setKVboolfalsedefaultmulti[eqcartdroite]{simpl coeffs}{SimplifCoeffs}%
-	\setKVboolfalsedefaultmulti[eqcartdroite]{dir vect}{VectDirecteur}%
+  \setKVboolfalsedefaultmulti[eqcartdroite]{dir vect}{VectDirecteur}%
   %next
   %on teste si c'est point/point
   \IfSubStr{#2}{,}%c'est point+point, sinon c'est vecteur+point
@@ -566,10 +566,10 @@
   \endgroup
   \restoreKV[eqparamdroite]% revenir au valeurs par défaut
   \setKV[eqparamdroite]{#1}% lit les arguments optionnels
-	%en/fr
+  %en/fr
   \setKVboolfalsedefaultmulti[eqparamdroite]{align}{Aligne}%
-	\setKVboolfalsedefaultmulti[eqparamdroite]{opposite}{Oppose}%
-	\setKVboolfalsedefaultmulti[eqparamdroite]{rbold}{Rgras}%
+  \setKVboolfalsedefaultmulti[eqparamdroite]{opposite}{Oppose}%
+  \setKVboolfalsedefaultmulti[eqparamdroite]{rbold}{Rgras}%
   %next
   %on teste si c'est point/point
   \IfSubStr{#2}{,}%c'est point+point, sinon c'est vecteur+point
@@ -759,7 +759,7 @@
 \NewDocumentCommand\TrouveEqSphere{ O{} r() r() }{%test commande générique avec Pc ou PP
   \restoreKV[eqsphere]% revenir au valeurs par défaut
   \setKV[eqsphere]{#1}% lit les arguments optionnels
-	%en/fr
+  %en/fr
   \setKVboolfalsedefaultmulti[eqsphere]{diameter}{Diam}%
   \setKVbooltruedefaultmulti[eqsphere]{expand}{Develop}%
   \setKVbooltruedefaultmulti[eqsphere]{sort}{Tri}%
@@ -795,26 +795,26 @@
         }%
     }%
     {%
-			\IfSubStr{#3}{=}%
-				{%
-					\setsepchar{,}\readlist*\CoordCentreSphere{#2}%
-					\itemtomacro\CoordCentreSphere[1]\xptc%
-					\itemtomacro\CoordCentreSphere[2]\yptc%
-					\itemtomacro\CoordCentreSphere[3]\zptc%
-					\xintdeffloatvar tmpM = [#2] ; 
-					\StrBefore{#3}{=}[\tmpeqcart]%
-					\xintdeffloatfunc tempeqcartplan(x,y,z) := \tmpeqcart ;
-					\xintdeffloatvar tmpnum = ((tempeqcartplan(1,0,0)-tempeqcartplan(0,0,0)) * tmpM[0] + (tempeqcartplan(0,1,0)-tempeqcartplan(0,0,0)) * tmpM[1] + (tempeqcartplan(0,0,1)-tempeqcartplan(0,0,0)) * tmpM[2] + tempeqcartplan(0,0,0))^{2} ; 
-					\xintdeffloatvar tmpdenom = (tempeqcartplan(1,0,0)-tempeqcartplan(0,0,0))^{2} + (tempeqcartplan(0,1,0)-tempeqcartplan(0,0,0))^{2} + (tempeqcartplan(0,0,1)-tempeqcartplan(0,0,0))^{2} ; 
-					\xdef\rayoncarre{\xinteval{tmpnum / tmpdenom}}%
-				}%
-				{%
-					\setsepchar{,}\readlist*\CoordCentreSphere{#2}%
-					\itemtomacro\CoordCentreSphere[1]\xptc%
-					\itemtomacro\CoordCentreSphere[2]\yptc%
-					\itemtomacro\CoordCentreSphere[3]\zptc%
-					\xdef\rayoncarre{(#3)*(#3)}%
-				}%
+      \IfSubStr{#3}{=}%
+        {%
+          \setsepchar{,}\readlist*\CoordCentreSphere{#2}%
+          \itemtomacro\CoordCentreSphere[1]\xptc%
+          \itemtomacro\CoordCentreSphere[2]\yptc%
+          \itemtomacro\CoordCentreSphere[3]\zptc%
+          \xintdeffloatvar tmpM = [#2] ; 
+          \StrBefore{#3}{=}[\tmpeqcart]%
+          \xintdeffloatfunc tempeqcartplan(x,y,z) := \tmpeqcart ;
+          \xintdeffloatvar tmpnum = ((tempeqcartplan(1,0,0)-tempeqcartplan(0,0,0)) * tmpM[0] + (tempeqcartplan(0,1,0)-tempeqcartplan(0,0,0)) * tmpM[1] + (tempeqcartplan(0,0,1)-tempeqcartplan(0,0,0)) * tmpM[2] + tempeqcartplan(0,0,0))^{2} ; 
+          \xintdeffloatvar tmpdenom = (tempeqcartplan(1,0,0)-tempeqcartplan(0,0,0))^{2} + (tempeqcartplan(0,1,0)-tempeqcartplan(0,0,0))^{2} + (tempeqcartplan(0,0,1)-tempeqcartplan(0,0,0))^{2} ; 
+          \xdef\rayoncarre{\xinteval{tmpnum / tmpdenom}}%
+        }%
+        {%
+          \setsepchar{,}\readlist*\CoordCentreSphere{#2}%
+          \itemtomacro\CoordCentreSphere[1]\xptc%
+          \itemtomacro\CoordCentreSphere[2]\yptc%
+          \itemtomacro\CoordCentreSphere[3]\zptc%
+          \xdef\rayoncarre{(#3)*(#3)}%
+        }%
     }%
   %affichages
   \ifboolKV[eqsphere]{Develop}%
@@ -835,31 +835,106 @@
         }%
     }%
     {%
-				\xintifboolexpr{\xptc == 0}%
-					{%
-						x^2
-					}%
-					{%
-						\left(x \AffCoeffSgnSimpl*[\eqcartsphformat]{-(\xptc)}\right)^2
-					}%
-				+ \xintifboolexpr{\yptc == 0}%
-					{%
-						y^2
-					}%
-					{%
-						\left(y \AffCoeffSgnSimpl*[\eqcartsphformat]{-(\yptc)}\right)^2
-					}%
-				+ \xintifboolexpr{\zptc == 0}%
-					{%
-						z^2
-					}%
-					{%
-						\left(z \AffCoeffSgnSimpl*[\eqcartsphformat]{-(\zptc)}\right)^2
-					}%
+        \xintifboolexpr{\xptc == 0}%
+          {%
+            x^2
+          }%
+          {%
+            \left(x \AffCoeffSgnSimpl*[\eqcartsphformat]{-(\xptc)}\right)^2
+          }%
+        + \xintifboolexpr{\yptc == 0}%
+          {%
+            y^2
+          }%
+          {%
+            \left(y \AffCoeffSgnSimpl*[\eqcartsphformat]{-(\yptc)}\right)^2
+          }%
+        + \xintifboolexpr{\zptc == 0}%
+          {%
+            z^2
+          }%
+          {%
+            \left(z \AffCoeffSgnSimpl*[\eqcartsphformat]{-(\zptc)}\right)^2
+          }%
       = \AffCoeffSimpl*[\eqcartsphformat]{\rayoncarre}%
     }%
 }
 
 \NewCommandCopy\pfleqsphere\TrouveEqSphere
+
+\defKV[anglevect]{%
+  angle=\def\anglevectangletype{#1},%
+  prec=\def\anglevectangleprec{#1}
+}
+
+\setKVdefault[anglevect]{%
+  angle=deg,%
+  Brut=false,raw=false,%
+  prec=2
+}
+
+\NewDocumentCommand\TrouveAngleVecteurs{ }{%
+  \begingroup
+  \catcode`\;12
+  \TrouveAngleVecteursAux
+}
+
+\NewDocumentCommand\TrouveAngleVecteursAux{ O{} r() r() }{%pt+vect+pt
+  \endgroup
+  \restoreKV[anglevect]% revenir au valeurs par défaut
+  \setKV[anglevect]{#1}% lit les arguments optionnels
+  %en/fr
+  \setKVboolfalsedefaultmulti[anglevect]{raw}{Brut}%
+  %next
+  \setsepchar{;}\readlist*\CoordVecA{#2}%
+  \xintifboolexpr{\CoordVecAlen == 2}%plan
+    {%
+    \itemtomacro\CoordVecA[1]\xveca%
+    \itemtomacro\CoordVecA[2]\yveca%
+    \setsepchar{;}\readlist*\CoordVecB{#3}%
+    \itemtomacro\CoordVecB[1]\xvecb%
+    \itemtomacro\CoordVecB[2]\yvecb%
+    % Calcul du produit scalaire
+    \xdef\produitscalaire{(\xveca)*(\xvecb) + (\yveca)*(\yvecb)}%
+    % Calcul des normes
+    \xdef\normeA{sqrt((\xveca)*(\xveca) + (\yveca)*(\yveca))}%
+    \xdef\normeB{sqrt((\xvecb)*(\xvecb) + (\yvecb)*(\yvecb))}%
+    % Calcul du cosinus de l'angle
+    \xdef\cosangle{(\produitscalaire) / ((\normeA) * (\normeB))}%
+  }%
+  {%espace
+    \itemtomacro\CoordVecA[1]\xveca%
+    \itemtomacro\CoordVecA[2]\yveca%
+    \itemtomacro\CoordVecA[3]\zveca%
+    \setsepchar{;}\readlist*\CoordVecB{#3}%
+    \itemtomacro\CoordVecB[1]\xvecb%
+    \itemtomacro\CoordVecB[2]\yvecb%
+    \itemtomacro\CoordVecB[3]\zvecb%
+    % Calcul du produit scalaire
+    \xdef\produitscalaire{(\xveca)*(\xvecb) + (\yveca)*(\yvecb) + (\zveca)*(\zvecb)}%
+    % Calcul des normes
+    \xdef\normeA{sqrt((\xveca)*(\xveca) + (\yveca)*(\yveca) + (\zveca)*(\zveca))}%
+    \xdef\normeB{sqrt((\xvecb)*(\xvecb) + (\yvecb)*(\yvecb) + (\zvecb)*(\zvecb))}%
+    % Calcul du cosinus de l'angle
+    \xdef\cosangle{(\produitscalaire) / ((\normeA) * (\normeB))}%
+  }%
+  % Calcul de l'angle en degrés
+  \ifthenelse{\equal{\anglevectangletype}{deg}}%
+    {%
+		\xdef\tmpangle{\xintfloateval{acosd(\cosangle)}}%
+	}%
+	{%
+		\xdef\tmpangle{\xintfloateval{acos(\cosangle)}}%
+	}%
+  \ifboolKV[anglevect]{Brut}%
+	{%
+		\tmpangle%
+	}%
+	{%
+		\num{\xintfloateval{round(\tmpangle,\anglevectangleprec)}}%
+	}%
+}
+
+\NewCommandCopy\pflanglbtwvect\TrouveAngleVecteurs
 
 \endinput

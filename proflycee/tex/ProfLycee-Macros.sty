@@ -28,7 +28,8 @@
   % #2 = argument optionnel [d/t/n/dec=...]
   % #3 = argument mandataire {calcul ou fraction}
   % Calcul et transformation en A/B
-  \tl_set:Ne \l_tmpa_tl { \xintPRaw { \xintIrr { \xinteval{#3} } } }
+  %\tl_set:Ne \l_tmpa_tl { \xintPRaw { \xintIrr { \xinteval{#3} } } }
+  \tl_set:Ne \l_tmpa_tl { \xinteval{reduce(#3)} }
   % Test si le symbole / apparaît (fraction ou entier)
   \tl_if_in:NnTF \l_tmpa_tl { / }
   { % C'est une fraction
