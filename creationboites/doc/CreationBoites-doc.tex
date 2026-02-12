@@ -39,8 +39,8 @@
 \usepackage[margin=1.5cm]{geometry}
 \setlength{\parindent}{0pt}
 
-\def\TPversion{0.1.8}
-\def\TPdate{26/12/2025}
+\def\TPversion{0.20a}
+\def\TPdate{12/02/2026}
 \sethlcolor{lightgray!25}
 \NewDocumentCommand\MontreCode{ m }{%
 	\hl{\vphantom{\texttt{pf}}\texttt{#1}}%
@@ -171,6 +171,18 @@ Chaque boîte sera définie -- avec un style global -- via :
 
 Il ne faut pas voir ce package comme un outil avancé de création, \MontreCode{tcolorbox} étant déjà suffisamment complet pour que l'utilisateur puisse faire tout ce dont il a envie, mais comme un \textit{assistant simple} pour créer des boîtes pour des supports de cours par exemple !
 
+\subsection{Les couleurs}
+
+De manière expérimentale, la création de chaque boîte va également :
+
+\begin{itemize}
+	\item créer un nom de couleur de \textit{bordure} ;
+	\item créer un nom de couleur de \textit{fond} (titre ou boîte en fonction du style) ;
+	\item permettre d'utiliser la couleur courante de \textit{bordure} ou de \textit{fond} via des couleurs \textit{génériques}.
+\end{itemize}
+
+Les couleurs \textit{courantes} (à l'intérieur d'une boîte) sont définies par \MontreCode{cbcoulbord} et \MontreCode{cbcoulfond}.
+
 \subsection{Chargement}
 
 Le package se charge dans le préambule, via \MontreCode{\textbackslash usepackage\{CreationBoites\}}.
@@ -202,7 +214,7 @@ Les seuls packages chargés sont :
 
 \pagebreak
 
-\subsection{Utilisation basique}
+\subsection{Fonctionnement basique}
 
 Le package propose deux macros principales :
 
@@ -217,6 +229,12 @@ Le package propose deux macros principales :
 \CreationBoite[Couleur]{Nom}{Compteur}{Icône}{Libellés}[options tcbox]
 \ParamBoites[Clés]
 \end{codehigh}
+
+\medskip
+
+La couleur de la bordure (pour réutilisation) est donc définie de manière globale par \MontreCode{cbcoulbord<Nom>}.
+
+La couleur du fond (pour réutilisation) est donc définie de manière globale par \MontreCode{cbcoulfond<Nom>}.
 
 \medskip
 
@@ -332,7 +350,9 @@ Des options spécifiques \MontreCode{tcolorbox} peuvent être passées en option
 
 \begin{demohigh}[language=latex/latex2,style/main=cyan!10,style/code=cyan!10]
 \begin{BoiteDeDemo}[Pluriel]<width=0.5\linewidth>
-\lipsum[1][1-2]
+On peut utiliser la couleur de \textcolor{cbcoulbord}{bordure} et la couleur de \fcolorbox{cbcoulbord}{cbcoulfond}{fond du titre}.
+
+Il est possible d'utiliser la \textcolor{cbcoulbordmontestcadre}{couleur} de la boîte \texttt{montestcadre}.
 \end{BoiteDeDemo}
 \end{demohigh}
 
@@ -665,6 +685,15 @@ Le style global est :
 	\item personnalisation du titre.
 \end{itemize}
 
+Pour le moment, deux modèles d'utilisation du compteur sont disponibles :
+
+\begin{itemize}
+	\item une version avec compteur global ;
+	\item une version avec compteur réinitialisé par section.
+\end{itemize}
+
+{\footnotesize \faBomb}~Dans le cas où un autre comportement du compteur est attendu, il est tout à fait possible de récupérer le code source de la macro de création, et de l'adapter.
+
 \begin{codehigh}[language=latex/latex2,style/main=cyan!10,style/code=cyan!10]
 %version avec compteur 'global'
 \CreationBoiteAlt%
@@ -723,7 +752,7 @@ La boîte ainsi créée a la syntaxe suivante.
 
 \renewcommand\policetitreboite{\itshape\scshape}
 \begin{testcadre}[Pluriel]
-\lipsum[1][7-8]
+On essaye avec les couleurs stockées, comme celle de \textcolor{cbcoulbord}{la bordure}.
 \end{testcadre}
 \end{demohigh}
 
@@ -748,7 +777,11 @@ Les boîtes \texttt{Alt} sont définies grâce aux définitions suivantes :
 
 \section{Historique}
 
-\verb|v0.1.8|~:~~~~Ajout d'un style alternatif 'épuré'
+\verb|v0.20a|~:~~~~Ajout d'un mode de sauvegarde des couleurs à l'intérieur des boîtes
+
+\verb|v0.1.9|~:~~~~Bugfix avec \texttt{AltBoite} et compteur...
+
+\verb|v0.1.8|~:~~~~Ajout d'un style alternatif 'épuré' (\texttt{CreationBoiteAlt})
 
 \verb|v0.1.7|~:~~~~Suppression de la dépendance à \texttt{xstring}
 
