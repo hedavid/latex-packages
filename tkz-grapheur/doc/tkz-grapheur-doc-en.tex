@@ -1,5 +1,6 @@
 % !TeX TXS-program:compile = txs:///arara
 % arara: pdflatex: {shell: yes, synctex: no, interaction: batchmode}
+% arara: pdflatex: {shell: yes, synctex: no, interaction: batchmode}
 % arara: pdflatex: {shell: yes, synctex: no, interaction: batchmode} if found('log', '(undefined references|Please rerun|Rerun to get)')
 
 \documentclass[11pt,a4paper]{ltxdoc}
@@ -31,8 +32,8 @@
 \hypersetup{pdfborder=0 0 0}
 \usepackage[margin=2cm]{geometry}
 \setlength{\parindent}{0pt}
-\def\TPversion{0.2.9}
-\def\TPdate{12/01/2026}
+\def\TPversion{0.30a}
+\def\TPdate{13/02/2026}
 \usepackage{soul}
 \usepackage{codehigh}
 \usepackage{tabularray}
@@ -73,7 +74,7 @@
 	\begin{tabular}{c}
 	\texttt{Cédric Pierquet}\\
 	{\ttfamily c pierquet -- at -- outlook . fr}\\
-	\texttt{\url{https://forge.apps.education.fr/pierquetcedric/packages-latex}} \\
+	\texttt{\url{https://github.com/cpierquet/latex-packages/tree/main/tkz-grapheur}} \\
 \end{tabular}
 \end{center}
 
@@ -125,7 +126,7 @@
 	{pi/6,pi/4,pi/3,pi/2,2*pi/3,3*pi/4,5*pi/6,pi}
 	{0,sqrt(2)/2,1/2,sqrt(3)/2,1,-1,-sqrt(3)/2,-1/2,-sqrt(2)/2}
 	%rajouter des valeurs
-	\AddXvalues{0.25,1.4,3.3}{\num{0.25},\num{1.4},\num{3.3}}
+	\AddXvalues{0.25,1.4,3.3}{0.25,1.4,3.3}
 	%fonction trigo (déf + tracé)
 	\DefineCurve[Name=ccos,Start=0,End=pi]<fcos>{cos(x)}
 	\DefineCurve[Name=csin,Start=0,End=pi]<fsin>{sin(x)}
@@ -546,6 +547,59 @@ The mandatory arguments correspond to the x-coordinates (in \TikZ\ language) and
 		{\num{-1},\num{0.175},$\nicefrac{3}{10}$,$\frac{\sqrt{3}}{2}$}
 \end{GraphTikz}
 \end{tcblisting}
+
+\pagebreak
+
+\subsection{Nodes for window or axis}
+
+Alongside the creation of the window (and possibly the axes), nodes are created for later reuse (e.g., text placement).
+
+\begin{itemize}
+	\item 9 \textcolor{red}{nodes} for window:
+	\begin{itemize}
+		\item \MontreCode{(graph-nw)}, \MontreCode{(graph-n)}, \MontreCode{(graph-ne)} ;
+		\item \MontreCode{(graph-w)}, \MontreCode{(graph-c)}, \MontreCode{(graph-e)} ;
+		\item \MontreCode{(graph-sw)}, \MontreCode{(graph-s)}, \MontreCode{(graph-se)} ;
+	\end{itemize}
+	\item 4 \textcolor{blue}{nodes} for axis:
+	\begin{itemize}
+		\item \MontreCode{(xaxis-w)}, \MontreCode{(xaxis-e)} ;
+		\item \MontreCode{(yaxis-s)}, \MontreCode{(yaxis-n)} ;
+	\end{itemize}
+	\item 1 \textcolor{violet}{node} for origin:
+	\begin{itemize}
+		\item \MontreCode{(axis-orig)} ;
+	\end{itemize}
+	\item 2 \textcolor{purple}{nodes} for \textit{enlarge} axis:
+	\begin{itemize}
+		\item \MontreCode{(xaxis-ee)} ;
+		\item \MontreCode{(yaxis-nn)}.
+	\end{itemize}
+\end{itemize}
+
+\begin{center}%démo !!
+	\begin{GraphTikz}[Xmin=-7,Xmax=4,Ymin=-3,Ymax=5,Xgrids=0.5,Ygrids=0.5]
+		\tikzset{labellegende/.style={outer sep=2.25pt,inner sep=0.75pt,font=\scriptsize\ttfamily,fill=white}}
+		\DrawAxisGrids[Enlarge=5mm]{}{}
+		%nœuds (v0.30a)
+		\draw[red,fill=yellow] (graph-nw) circle[radius=2pt] node[above left,labellegende] {nw} ;
+		\draw[red,fill=yellow] (graph-n) circle[radius=2pt] node[above,labellegende] {n} ;
+		\draw[red,fill=yellow] (graph-ne) circle[radius=2pt] node[above right,labellegende] {ne} ;
+		\draw[red,fill=yellow] (graph-e) circle[radius=2pt] node[right,labellegende] {e} ;
+		\draw[red,fill=yellow] (graph-se) circle[radius=2pt] node[below right,labellegende] {se} ;
+		\draw[red,fill=yellow] (graph-s) circle[radius=2pt] node[below,labellegende] {s} ;
+		\draw[red,fill=yellow] (graph-sw) circle[radius=2pt] node[below left,labellegende] {sw} ;
+		\draw[red,fill=yellow] (graph-w) circle[radius=2pt] node[left,labellegende] {w} ;
+		\draw[red,fill=yellow] (graph-c) circle[radius=2pt] node[above,labellegende] {c} ;
+		\draw[blue,fill=orange] (xaxis-w) circle[radius=2pt] node[left,labellegende] {w} ;
+		\draw[blue,fill=orange] (xaxis-e) circle[radius=2pt] node[above,labellegende] {e} ;
+		\draw[blue,fill=orange] (yaxis-s) circle[radius=2pt] node[below,labellegende] {w} ;
+		\draw[blue,fill=orange] (yaxis-n) circle[radius=2pt] node[right,labellegende] {n} ;
+		\draw[violet,fill=teal] (axis-orig) circle[radius=2pt] node[above right,labellegende] {orig} ;
+		\draw[purple,fill=gray] (xaxis-ee) circle[radius=2pt] node[right,labellegende] {ee} ;
+		\draw[purple,fill=gray] (yaxis-nn) circle[radius=2pt] node[above,labellegende] {nn} ;
+	\end{GraphTikz}
+\end{center}
 
 \pagebreak
 
@@ -1858,12 +1912,11 @@ Solutions of  $f(x)=66$ are \RoundNb[0]{\xMonItscA} \&\ \RoundNb[0]{\xMonItscB} 
 Solutions of  $f(x)=66$ are \RoundNb[0]{\xMonItscA} \&\ \RoundNb[0]{\xMonItscB} \&\ \RoundNb[0]{\xMonItscC} \&\ \RoundNb[0]{\xMonItscD}.
 \end{tcblisting}
 
-
-
 \section{History}
 
 \begin{quote}
 \begin{verbatim}
+0.30a: Nodes for windows and axis
 0.2.9: New keys for french version (work in progress)
 0.2.7: Ability to specify dimensions for environment (test)
 0.2.6: Linear inequality (work in progress)

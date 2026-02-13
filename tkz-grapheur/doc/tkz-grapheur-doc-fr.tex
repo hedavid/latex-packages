@@ -1,5 +1,6 @@
 % !TeX TXS-program:compile = txs:///arara
 % arara: pdflatex: {shell: yes, synctex: no, interaction: batchmode}
+% arara: pdflatex: {shell: yes, synctex: no, interaction: batchmode}
 % arara: pdflatex: {shell: yes, synctex: no, interaction: batchmode} if found('log', '(undefined references|Please rerun|Rerun to get)')
 
 \documentclass[11pt,a4paper]{ltxdoc}
@@ -34,8 +35,8 @@
 \hypersetup{pdfborder=0 0 0}
 \usepackage[margin=2cm]{geometry}
 \setlength{\parindent}{0pt}
-\def\TPversion{0.2.9}
-\def\TPdate{12/01/2026}
+\def\TPversion{0.30a}
+\def\TPdate{13/02/2026}
 \usepackage{soul}
 \usepackage{codehigh}
 \usepackage{tabularray}
@@ -75,7 +76,7 @@
 	\begin{tabular}{c}
 	\texttt{Cédric Pierquet}\\
 	{\ttfamily c pierquet -- at -- outlook . fr}\\
-	\texttt{\url{https://forge.apps.education.fr/pierquetcedric/packages-latex}} \\
+	\texttt{\url{https://github.com/cpierquet/latex-packages/tree/main/tkz-grapheur}} \\
 \end{tabular}
 \end{center}
 
@@ -640,6 +641,59 @@ Les arguments obligatoires correspondent aux abscisses (en langage\TikZ) et aux 
 		{\num{-1},\num{0.175},$\nicefrac{3}{10}$,$\frac{\sqrt{3}}{2}$}
 \end{GraphiqueTikz}
 \end{tcblisting}
+
+\pagebreak
+
+\subsection{Nœuds liés à la fenêtre et aux axes}
+
+En marge de la création de la fenêtre (et éventuellement des axes), des nœuds sont créés pour réutilisation ultérieure (placement de texte par exemple).
+
+\begin{itemize}
+	\item 9 \textcolor{red}{nœuds} liés à la fenêtre :
+	\begin{itemize}
+		\item \MontreCode{(graphe-nw)}, \MontreCode{(graphe-n)}, \MontreCode{(graphe-ne)} ;
+		\item \MontreCode{(graphe-w)}, \MontreCode{(graphe-c)}, \MontreCode{(graphe-e)} ;
+		\item \MontreCode{(graphe-sw)}, \MontreCode{(graphe-s)}, \MontreCode{(graphe-se)} ;
+	\end{itemize}
+	\item 4 \textcolor{blue}{nœuds} liés aux axes :
+	\begin{itemize}
+		\item \MontreCode{(axeox-w)}, \MontreCode{(axeox-e)} ;
+		\item \MontreCode{(axeoy-s)}, \MontreCode{(axeoy-n)} ;
+	\end{itemize}
+	\item 1 \textcolor{violet}{nœud} liés à l'origine :
+	\begin{itemize}
+		\item \MontreCode{(axes-orig)} ;
+	\end{itemize}
+	\item 2 \textcolor{purple}{nœuds} liés aux axes \textit{élargis} (si nécessaire) :
+	\begin{itemize}
+		\item \MontreCode{(axeox-ee)} ;
+		\item \MontreCode{(axeoy-nn)}.
+	\end{itemize}
+\end{itemize}
+
+\begin{center}%démo !!
+\begin{GraphiqueTikz}[Xmin=-7,Xmax=4,Ymin=-3,Ymax=5,Xgrillei=0.5,Xgrilles=0.1,Ygrillei=0.5,Ygrilles=0.1]<Theme=gris>
+	\tikzset{labellegende/.style={outer sep=2.25pt,inner sep=0.75pt,font=\scriptsize\ttfamily,fill=white}}
+	\TracerAxesGrilles[Grille Intermediaire,Elargir=5mm]{}{}
+	%nœuds (v0.30a)
+	\draw[red,fill=yellow] (graphe-nw) circle[radius=2pt] node[above left,labellegende] {nw} ;
+	\draw[red,fill=yellow] (graphe-n) circle[radius=2pt] node[above,labellegende] {n} ;
+	\draw[red,fill=yellow] (graphe-ne) circle[radius=2pt] node[above right,labellegende] {ne} ;
+	\draw[red,fill=yellow] (graphe-e) circle[radius=2pt] node[right,labellegende] {e} ;
+	\draw[red,fill=yellow] (graphe-se) circle[radius=2pt] node[below right,labellegende] {se} ;
+	\draw[red,fill=yellow] (graphe-s) circle[radius=2pt] node[below,labellegende] {s} ;
+	\draw[red,fill=yellow] (graphe-sw) circle[radius=2pt] node[below left,labellegende] {sw} ;
+	\draw[red,fill=yellow] (graphe-w) circle[radius=2pt] node[left,labellegende] {w} ;
+	\draw[red,fill=yellow] (graphe-c) circle[radius=2pt] node[above,labellegende] {c} ;
+	\draw[blue,fill=orange] (axeox-w) circle[radius=2pt] node[left,labellegende] {w} ;
+	\draw[blue,fill=orange] (axeox-e) circle[radius=2pt] node[above,labellegende] {e} ;
+	\draw[blue,fill=orange] (axeoy-s) circle[radius=2pt] node[below,labellegende] {w} ;
+	\draw[blue,fill=orange] (axeoy-n) circle[radius=2pt] node[right,labellegende] {n} ;
+	\draw[violet,fill=teal] (axes-orig) circle[radius=2pt] node[above right,labellegende] {orig} ;
+	\draw[purple,fill=gray] (axeox-ee) circle[radius=2pt] node[right,labellegende] {ee} ;
+	\draw[purple,fill=gray] (axeoy-nn) circle[radius=2pt] node[above,labellegende] {nn} ;
+\end{GraphiqueTikz}
+\end{center}
 
 \pagebreak
 
@@ -2472,6 +2526,7 @@ Les solutions de $f(x)=66$ sont d'environ \ArrondirNum*[0]{\xMonItscA} \&\ \Arro
 
 {\footnotesize \begin{quote}
 \begin{verbatim}
+0.30a : Création des nœuds (fenêtre + axes)
 0.2.9 : Ajout de thèmes de couleurs pour les grilles
 0.2.7 : Possibilité de spécifier les dimensions du graphique (en test)
 0.2.6 : Inegalité linéaire (en test)

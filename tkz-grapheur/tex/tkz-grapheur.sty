@@ -2,10 +2,11 @@
 % licence    : Released under the LaTeX Project Public License v1.3c or later, see http://www.latex-project.org/lppl.txt
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{tkz-grapheur}[2026/01/12 0.2.9 Des outils en TikZ pour travailler comme avec un grapheur]
+\ProvidesPackage{tkz-grapheur}[2026/02/13 0.30a Des outils en TikZ pour travailler comme avec un grapheur]
 
 %====HISTORIQUE
-% v 0.2.9 Clés [Theme/Milli] pour des couleurs prédéfinies de grilles (à définir dans l'environnement)
+% v 0.30a	Création des nœuds (fenêtre + axes)
+% v 0.2.9	Clés [Theme/Milli] pour des couleurs prédéfinies de grilles (à définir dans l'environnement)
 % v 0.2.8	Clé [Fleche] pour les axes
 % v 0.2.7	Gestion de la taille du graphique
 % v 0.2.6	Inégalité linéraire (test)
@@ -449,7 +450,22 @@
 		}%
 		%unités x/y pour des calculs de coordonnées
 		\TikZUnites
-		%noeuds
+		%noeuds fenêtre + axes
+		\coordinate (graphe-ne) at ({\pflxmax},{\pflymax}) ;
+		\coordinate (graphe-nw) at ({\pflxmin},{\pflymax}) ;
+		\coordinate (graphe-se) at ({\pflxmax},{\pflymin}) ;
+		\coordinate (graphe-sw) at ({\pflxmin},{\pflymin}) ;
+		\coordinate (graphe-n) at ($(graphe-ne)!0.5!(graphe-nw)$) ;
+		\coordinate (graphe-e) at ($(graphe-ne)!0.5!(graphe-se)$) ;
+		\coordinate (graphe-s) at ($(graphe-se)!0.5!(graphe-sw)$) ;
+		\coordinate (graphe-w) at ($(graphe-sw)!0.5!(graphe-nw)$) ;
+		\coordinate (graphe-c) at ($(graphe-sw)!0.5!(graphe-ne)$) ;
+		\coordinate (axeox-w) at ({\pflxmin},{\pflOy}) ;
+		\coordinate (axeox-e) at ({\pflxmax},{\pflOy}) ;
+		\coordinate (axeoy-s) at ({\pflOx},{\pflymin}) ;
+		\coordinate (axeoy-n) at ({\pflOx},{\pflymax}) ;
+		\coordinate (axes-orig) at ({\pflOx},{\pflOy}) ;
+		%noeuds utiles pour les calculs
 		\coordinate (bbxTop) at (current bounding box.north) ;
 		\coordinate (bbxBottom) at (current bounding box.south) ;
 		\ifboolKV[GraphiqueTikz]{AffCadre}{\draw[pflcadre] ({\pflxmin},{\pflymin}) rectangle ({\pflxmax},{\pflymax}) ;}{}%
@@ -513,6 +529,9 @@
 \NewDocumentCommand\TracerAxesGrilles{ s O{} m D<>{#3} m D<>{#5} }{%
 	\restoreKV[GraphiqueTikzAxes]%
 	\setKV[GraphiqueTikzAxes]{#2}%
+	%nœuds axes élargis
+	\coordinate (axeox-ee) at ([xshift={\useKV[GraphiqueTikzAxes]{Elargir}}]{\pflxmax},{\pflOy}) ;
+	\coordinate (axeoy-nn) at ([yshift={\useKV[GraphiqueTikzAxes]{Elargir}}]{\pflOx},{\pflymax}) ;
 	%cas particuliers sous/sur impression
 	\ifboolKV[GraphiqueTikzAxes]{Derriere}%
 		{%
@@ -2784,6 +2803,21 @@
 		}%
 		%unités x/y pour des calculs de coordonnées
 		\TikZUnits
+		%nodes windows + axis
+		\coordinate (graph-ne) at ({\pflxmax},{\pflymax}) ;
+		\coordinate (graph-nw) at ({\pflxmin},{\pflymax}) ;
+		\coordinate (graph-se) at ({\pflxmax},{\pflymin}) ;
+		\coordinate (graph-sw) at ({\pflxmin},{\pflymin}) ;
+		\coordinate (graph-n) at ($(graph-ne)!0.5!(graph-nw)$) ;
+		\coordinate (graph-e) at ($(graph-ne)!0.5!(graph-se)$) ;
+		\coordinate (graph-s) at ($(graph-se)!0.5!(graph-sw)$) ;
+		\coordinate (graph-w) at ($(graph-sw)!0.5!(graph-nw)$) ;
+		\coordinate (graph-c) at ($(graph-sw)!0.5!(graph-ne)$) ;
+		\coordinate (xaxis-w) at ({\pflxmin},{\pflOy}) ;
+		\coordinate (xaxis-e) at ({\pflxmax},{\pflOy}) ;
+		\coordinate (yaxis-s) at ({\pflOx},{\pflymin}) ;
+		\coordinate (yaxis-n) at ({\pflOx},{\pflymax}) ;
+		\coordinate (axis-orig) at ({\pflOx},{\pflOy}) ;
 		%noeuds
 		\coordinate (bbxTop) at (current bounding box.north) ;
 		\coordinate (bbxBottom) at (current bounding box.south) ;
@@ -2847,6 +2881,9 @@
 \NewDocumentCommand\DrawAxisGrids{ s O{} m D<>{#3} m D<>{#5} }{%
 	\restoreKV[GraphicTikzAxis]%
 	\setKV[GraphicTikzAxis]{#2}%
+	%nodes enlarge axis
+	\coordinate (xaxis-ee) at ([xshift={\useKV[GraphicTikzAxis]{Enlarge}}]{\pflxmax},{\pflOy}) ;
+	\coordinate (yaxis-nn) at ([yshift={\useKV[GraphicTikzAxis]{Enlarge}}]{\pflOx},{\pflymax}) ;
 	%cas particuliers sous/sur impression
 	\ifboolKV[GraphicTikzAxis]{Behind}%
 		{%
