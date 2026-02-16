@@ -1,10 +1,17 @@
-% proflycee-tools-stats.tex
-% Copyright 2024  Cédric Pierquet
+% proflycee-tools-exams.tex
+% Copyright 2024-2026 Cédric Pierquet
 % Released under the LaTeX Project Public License v1.3c or later, see http://www.latex-project.org/lppl.txt
 
+%4.00d  Gestion calculatrice
 %3.03d  Page de garde Type BAC
 
 %====PAGE GARDE [BAC]
+
+%\def\pflcalculatricemodeexamen{L’usage de la calculatrice avec mode examen actif est autorisé.}
+%\def\pflcalculatricemodeexamenbis{L’usage de la calculatrice sans mémoire « type collège » est autorisé.}
+%\def\pflcalculatriceautorisee{L’usage de la calculatrice avec ou sans mode examen est autorisé.}
+%\def\pflcalculatriceinterdite{L’usage de la calculatrice n’est pas autorisé.}
+
 \defKV[EnteteSujetBac]{DernierePage=\def\packlastpage{#1},NbExos=\def\packnbexos{#1},Serie=\def\packfiliere{#1}}
 \setKVdefault[EnteteSujetBac]{%
   Police=\normalfont,%
@@ -17,6 +24,7 @@
   AffJour=true,%
   Duree=4 heures,%
   ModeExamen=true,%
+  CalculatriceInterdite=false,%
   DernierePage=lastpage,%
   Justification=true,%
   TraceRecherche=true,%
@@ -30,6 +38,7 @@
 \NewDocumentCommand\PageGardeSujetBac{ O{} }{%
   \restoreKV[EnteteSujetBac]%
   \setKV[EnteteSujetBac]{#1}%
+  \ifboolKV[EnteteSujetBac]{CalculatriceInterdite}{\setKV[EnteteSujetBac]{ModeExamen=false}}{}%
   \useKV[EnteteSujetBac]{Police}{%
   \vspace*{\useKV[EnteteSujetBac]{EspaceAvant}}
   
@@ -101,7 +110,13 @@
         \textit{L’usage de la calculatrice sans mémoire « type collège » est autorisé.}
       }%
       {%
-        \textit{L’usage de la calculatrice avec ou sans mode examen est autorisé.}
+        \ifboolKV[EnteteSujetBac]{CalculatriceInterdite}%
+          {%
+            \textit{L’usage de la calculatrice n’est pas autorisé.}
+          }%
+          {%
+            \textit{L’usage de la calculatrice avec ou sans mode examen est autorisé.}
+          }%
       }%
     \vspace*{10mm}
     
@@ -144,6 +159,121 @@
       {}%
     }%
   \end{center}%
+  }%
+  \pagebreak
+}
+
+%====PAGE GARDE [BAC]
+\defKV[EnteteSujetBacEAM]{%
+  DernierePage=\def\packlastpage{#1},%
+  NbExos=\def\packnbexos{#1},%
+  Serie=\def\packfiliere{#1},%
+  Voie=\def\packvoie{#1}
+}
+\setKVdefault[EnteteSujetBacEAM]{%
+  Police=\normalfont,%
+  Serie={GÉNÉRAL},%
+  Voie={SPÉ},%
+  Matiere=MATHÉMATIQUES,%
+  Session={SESSION \the\year},%
+  AffSession=true,%
+  AffJour=true,%
+  Duree=2 heures,%
+  DernierePage=lastpage,%
+  Justification=true,%
+  TraceRecherche=true,%
+  Clarte=true,%
+  NbExos=4,%
+  Traiter=false,%
+  EspaceAvant=1cm,%
+  LargeurPar={0.85\linewidth}
+}
+
+\NewDocumentCommand\PageGardeSujetBacEAM{ O{} }{%
+  \restoreKV[EnteteSujetBacEAM]%
+  \setKV[EnteteSujetBacEAM]{#1}%
+  \useKV[EnteteSujetBacEAM]{Police}{%
+    \vspace*{\useKV[EnteteSujetBacEAM]{EspaceAvant}}
+    
+    \begin{center}
+      {\Huge BACCALAURÉAT~%
+        \IfSubStr{\packfiliere}{GÉN}{GÉNÉRAL}{}%
+        \IfSubStr{\packfiliere}{GEN}{GÉNÉRAL}{}%
+        \IfSubStr{\packfiliere}{TECHNO}{TECHNOLOGIQUE}{}%
+      }%
+      \ifboolKV[EnteteSujetBacEAM]{AffSession}%
+        {%
+          \vspace*{10mm}
+          
+          {\Large\bfseries\useKV[EnteteSujetBacEAM]{Session}}%
+        }%
+        {}%
+      
+      \vspace*{15mm}
+      
+      {\huge\bfseries \useKV[EnteteSujetBacEAM]{Matiere}}
+      
+      \vspace*{7.5mm}
+      
+      {\LARGE\bfseries ÉPREUVE ANTICIPÉE}
+      
+      \vspace*{10mm}
+      
+      \fbox{\large\IfStrEqCase{\packvoie}{%
+        {SPÉ}{Voie générale : candidats suivant l’enseignement de spécialité de mathématiques.}%
+        {OBLI}{Voie générale : candidats \underline{ne} suivant \underline{pas} l’enseignement de spécialité de mathématiques.}%
+        {TECHNO}{Voie Technologique.}%
+      }}%
+      
+      \vspace*{15mm}
+      
+      Durée de l’épreuve : \textbf{\useKV[EnteteSujetBacEAM]{Duree}}%
+      
+      \vspace*{15mm}
+      
+      \fbox{\textit{L’usage de la calculatrice n’est pas autorisé.}}%
+
+      \vspace*{20mm}
+      
+      Dès que ce sujet vous est remis, assurez-vous qu’il est complet.
+      
+      \smallskip
+      
+      Ce sujet comporte \IfStrEqCase{\packlastpage}{{lastpage}{\pageref{LastPage}}{zref}{\zpageref{LastPage}}}[\packlastpage]\ pages numérotées de 1/\IfStrEqCase{\packlastpage}{{lastpage}{\pageref{LastPage}}{zref}{\zpageref{LastPage}}}[\packlastpage]\ à \IfStrEqCase{\packlastpage}{{lastpage}{\pageref{LastPage}}{zref}{\zpageref{LastPage}}}[\packlastpage]/\IfStrEqCase{\packlastpage}{{lastpage}{\pageref{LastPage}}{zref}{\zpageref{LastPage}}}[\packlastpage].
+    \end{center}
+    %
+    \begin{center}
+      \parbox{\useKV[EnteteSujetBacEAM]{LargeurPar}}{%
+        \ifboolKV[EnteteSujetBacEAM]{Justification}%
+        {%
+          \vspace*{10mm}
+          
+          \noindent\textbf{Sauf mention contraire, toute réponse devra être justifiée.}
+        }%
+        {}%
+        \ifboolKV[EnteteSujetBacEAM]{Traiter}%
+        {%
+          \vspace*{5mm}
+          
+          \noindent\textbf{Le candidat doit traiter les \IfStrEqCase{\packnbexos}{{2}{deux}{3}{trois}{4}{quatre}{5}{cinq}{6}{six}{7}{sept}}\ exercices proposés.}
+        }%
+        {}%
+        \ifboolKV[EnteteSujetBacEAM]{TraceRecherche}%
+        {%
+          \vspace*{10mm}
+          
+          \noindent\textit{Le candidat est invité à faire figurer sur la copie toute trace de recherche, même incomplète ou non fructueuse, qu’il aura développée.}
+        }%
+        {}%
+        \ifboolKV[EnteteSujetBacEAM]{Clarte}%
+        {%
+          \vspace*{2mm}
+          
+          \noindent\textit{La qualité de la rédaction, la clarté et la précision des raisonnements seront prises en compte dans l’appréciation de la copie. Les traces de recherche, même incomplètes ou infructueuses seront valorisées.}
+        }%
+        {}%
+      }%
+    \end{center}%
   }%
   \pagebreak
 }

@@ -2612,4 +2612,37 @@
 }
 \NewCommandCopy\pflsimpliffrac\SimplFracDecomp
 
+%====Fractions continues
+\RequirePackage{xintcfrac}
+
+\def\intmathspace{\mkern1.25mu\relax}
+
+\NewDocumentCommand\FractionContinue{ s m }{%
+  %starred = list // non starred = list
+  \IfBooleanTF{#1}%
+    {%
+      \ensuremath{%
+        [\xintFor* ##1 in {\xintCSVtoList{\xintFtoCs{#2}}}\do%
+        {%
+          ##1%
+          \xintifForFirst%
+            { \intmathspace{;}\intmathspace }%
+            {%
+              \xintifForLast%
+                {}%
+                { \intmathspace{,}\intmathspace }%
+            }
+        }%
+        ]%
+      }%
+    }%
+    {%
+      \ensuremath{\xintCFrac{#2}}%
+    }%
+}
+
+\NewCommandCopy\pflfraccont\FractionContinue
+\NewCommandCopy\pflcontfrac\FractionContinue
+
+
 \endinput
