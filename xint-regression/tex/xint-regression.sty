@@ -3,8 +3,9 @@
 % or later, see http://www.latex-project.org/lppl.txt
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{xint-regression}[2025/11/25 0.1.2 Some classic regressions, with xint]
-%0.1.2	r and r²& new names (tks to quark67 for suggestion)
+\ProvidesPackage{xint-regression}[2026/02/17 0.1.3 Some classic regressions, with xint]
+%0.1.3	logistic regression & r² for all regressions
+%0.1.2	r and r² & new names (tks to quark67 for suggestion)
 %0.1.1	Bugfix
 %0.1.0	Initial version
 
@@ -18,8 +19,8 @@
 \defKV[CoefRegLin]{%
 	coeffa=\def\RegLinCoefa{#1},%
 	coeffb=\def\RegLinCoefb{#1},%
-	coeffr=\def\RegLinCoeffr{#1},%
-	coeffrr=\def\RegLinCoeffrr{#1},%
+	coeffr=\def\RegLinCoefr{#1},%
+	coeffrr=\def\RegLinCoefrr{#1},%
 	round=\def\RegLinRound{#1}
 }
 
@@ -90,8 +91,8 @@
 			\expandafter\def\csname\RegLinCoefb\endcsname{\xintfloateval{round(\tmp@reg@lin@b,\xintarrondisreglinb)}}%
 		}%
 	%R/R2
-	\expandafter\def\csname\RegLinCoeffr\endcsname{\xintfloateval{\LXYvar/sqrt(\LXvar*\LYvar)}}%
-	\expandafter\def\csname\RegLinCoeffrr\endcsname{\xintfloateval{(\csname\RegLinCoeffr\endcsname)*(\csname\RegLinCoeffr\endcsname)}}%
+	\expandafter\def\csname\RegLinCoefr\endcsname{\xintfloateval{\LXYvar/sqrt(\LXvar*\LYvar)}}%
+	\expandafter\def\csname\RegLinCoefrr\endcsname{\xintfloateval{(\csname\RegLinCoefr\endcsname)*(\csname\RegLinCoefr\endcsname)}}%
 }
 \NewCommandCopy\xintLINreg\xintlinreg
 
@@ -101,6 +102,7 @@
 	coeffa=\def\RegQuadCoefa{#1},%
 	coeffb=\def\RegQuadCoefb{#1},%
 	coeffc=\def\RegQuadCoefc{#1},%
+	coeffrr=\def\RegQuadCoefrr{#1},%
 	round=\def\RegQuadRound{#1}
 }
 
@@ -108,6 +110,7 @@
 	coeffa=quadrega,%
 	coeffb=quadregb,%
 	coeffc=quadregc,%
+	coeffrr=quadregrr,%
 	round={} 
 }
 
@@ -154,12 +157,27 @@
 	\xdef\tmp@reg@quad@b{\xintfloateval{(\LXYSomme*\LXCXCSomme-\LXCYSomme*\LXXCSomme)/(\LXXSomme*\LXCXCSomme-(\LXXCSomme)^2)}}%
 	\xdef\tmp@reg@quad@a{\xintfloateval{(\LXCYSomme*\LXXSomme-\LXYSomme*\LXXCSomme)/(\LXXSomme*\LXCXCSomme-(\LXXCSomme)^2)}}%
 	\xdef\tmp@reg@quad@c{\xintfloateval{\LYmoy-(\tmp@reg@quad@b)*\LXmoy-(\tmp@reg@quad@a)*\LXCmoy}}%
+	%CALCUL R² (NOUVEAU)
+	%SS_tot = somme des (y_i - moyenne_y)²
+	\xdef\SStot{0}%
+	\xintFor* ##1 in {\xintSeq{1}{\LNB}}\do{%
+		\xdef\SStot{\xintfloateval{\SStot+(\LY[##1]-\LYmoy)^2}}%
+	}%
+	%SS_res = somme des (y_i - y_predit)² où y_predit = a*x² + b*x + c
+	\xdef\SSres{0}%
+	\xintFor* ##1 in {\xintSeq{1}{\LNB}}\do{%
+		\xdef\Ypred{\xintfloateval{(\tmp@reg@quad@a)*(\LX[##1])^2+(\tmp@reg@quad@b)*(\LX[##1])+(\tmp@reg@quad@c)}}%
+		\xdef\SSres{\xintfloateval{\SSres+(\LY[##1]-\Ypred)^2}}%
+	}%
+	%R² = 1 - SS_res/SS_tot
+	\xdef\tmp@reg@quad@rr{\xintfloateval{1-(\SSres)/(\SStot)}}%
 	%STOCKAGE
 	\IfStrEq{\RegQuadRound}{}%
 		{%
 			\expandafter\def\csname\RegQuadCoefb\endcsname{\tmp@reg@quad@b}%
 			\expandafter\def\csname\RegQuadCoefa\endcsname{\tmp@reg@quad@a}%
 			\expandafter\def\csname\RegQuadCoefc\endcsname{\tmp@reg@quad@c}%
+			\expandafter\def\csname\RegQuadCoefrr\endcsname{\tmp@reg@quad@rr}%
 		}%
 		{%
 			\IfSubStr{\RegQuadRound}{/}%
@@ -177,6 +195,7 @@
 			\expandafter\def\csname\RegQuadCoefb\endcsname{\xintfloateval{round(\tmp@reg@quad@b,\xintarrondisregquadb)}}%
 			\expandafter\def\csname\RegQuadCoefa\endcsname{\xintfloateval{round(\tmp@reg@quad@a,\xintarrondisregquada)}}%
 			\expandafter\def\csname\RegQuadCoefc\endcsname{\xintfloateval{round(\tmp@reg@quad@c,\xintarrondisregquadc)}}%
+			\expandafter\def\csname\RegQuadCoefrr\endcsname{\tmp@reg@quad@rr}%
 		}%
 }
 \NewCommandCopy\xintQUADreg\xintquadreg
@@ -185,12 +204,14 @@
 \defKV[CoeffRegPuiss]{%
 	coeffa=\def\RegPuissCoefa{#1},%
 	coeffb=\def\RegPuissCoefb{#1},%
+	coeffrr=\def\RegPuissCoefrr{#1},%
 	round=\def\RegPuissRound{#1}
 }
 
 \setKVdefault[CoeffRegPuiss]{%
 	coeffa=powrega,%
 	coeffb=powregb,%
+	coeffrr=powregrr,%
 	round={}
 }
 
@@ -205,27 +226,42 @@
 	\readlist*\LY{\yliste}%
 	%taille des listes
 	\xdef\LNB{\fpeval{min(\LXlen,\LYlen)}}%
-	%\def\LNB{\inteval{\LXlen}}%
 	%somme importantes
+	\xdef\LYSomme{0}%
 	\xdef\LlnXSomme{0}%
 	\xdef\LlnYSomme{0}%
 	\xdef\LlnXlnYSomme{0}%
 	\xdef\LlncXSomme{0}%
 	%calculs
 	\xintFor* ##1 in {\xintSeq{1}{\LNB}}\do{%
+		\xdef\LYSomme{\xintfloateval{\LYSomme+(\LY[##1])}}%
 		\xdef\LlnXSomme{\xintfloateval{\LlnXSomme+log(\LX[##1])}}%
 		\xdef\LlnYSomme{\xintfloateval{\LlnYSomme+log(\LY[##1])}}%
 		\xdef\LlnXlnYSomme{\xintfloateval{\LlnXlnYSomme+log(\LX[##1])*log(\LY[##1])}}%
 		\xdef\LlncXSomme{\xintfloateval{\LlncXSomme+(log(\LX[##1]))^2}}%
 	}%
+	%calcul moyenne y (pour R²)
+	\xdef\LYmoy{\xintfloateval{\LYSomme/\LNB}}%
 	%COEFFS TEMPORAIRES OK
 	\xdef\tmp@reg@pow@b{\xintfloateval{(\LNB*\LlnXlnYSomme-\LlnXSomme*\LlnYSomme)/(\LNB*\LlncXSomme-(\LlnXSomme)^2)}}%
 	\xdef\tmp@reg@pow@a{\xintfloateval{exp(1/\LNB*\LlnYSomme-(\tmp@reg@pow@b)/\LNB*\LlnXSomme)}}%
+	%CALCUL R²
+	\xdef\SStot{0}%
+	\xintFor* ##1 in {\xintSeq{1}{\LNB}}\do{%
+		\xdef\SStot{\xintfloateval{\SStot+(\LY[##1]-\LYmoy)^2}}%
+	}%
+	\xdef\SSres{0}%
+	\xintFor* ##1 in {\xintSeq{1}{\LNB}}\do{%
+		\xdef\Ypred{\xintfloateval{(\tmp@reg@pow@a)*(\LX[##1])^(\tmp@reg@pow@b)}}%
+		\xdef\SSres{\xintfloateval{\SSres+(\LY[##1]-\Ypred)^2}}%
+	}%
+	\xdef\tmp@reg@pow@rr{\xintfloateval{1-(\SSres)/(\SStot)}}%
 	%STOCKAGE
 	\IfStrEq{\RegPuissRound}{}%
 		{%
 			\expandafter\def\csname\RegPuissCoefb\endcsname{\xintfloateval{\tmp@reg@pow@b}}%
 			\expandafter\def\csname\RegPuissCoefa\endcsname{\xintfloateval{\tmp@reg@pow@a}}%
+			\expandafter\def\csname\RegPuissCoefrr\endcsname{\tmp@reg@pow@rr}%
 		}%
 		{%
 			\IfSubStr{\RegPuissRound}{/}%
@@ -233,10 +269,11 @@
 					\StrCut{\RegPuissRound}{/}{\xintarrondisregpowa}{\xintarrondisregpowb}%
 				}%
 				{%
-					\xdef\xintarrondisregpowa{\RegPuissRound}\xdef\xintrrondisregpowb{\RegPuissRound}%
+					\xdef\xintarrondisregpowa{\RegPuissRound}\xdef\xintarrondisregpowb{\RegPuissRound}%
 				}%
 			\expandafter\def\csname\RegPuissCoefb\endcsname{\xintfloateval{round(\tmp@reg@pow@b,\xintarrondisregpowb)}}%
 			\expandafter\def\csname\RegPuissCoefa\endcsname{\xintfloateval{round(\tmp@reg@pow@a,\xintarrondisregpowa)}}%
+			\expandafter\def\csname\RegPuissCoefrr\endcsname{\tmp@reg@pow@rr}%
 		}%
 }
 \NewCommandCopy\xintPOWreg\xintpowreg
@@ -245,12 +282,14 @@
 \defKV[CoeffRegExpoAB]{%
 	coeffa=\def\RegExpoCoefa{#1},%
 	coeffb=\def\RegExpoCoefb{#1},%
+	coeffrr=\def\RegExpoCoefrr{#1},%
 	round=\def\RegExpoRound{#1}
 }
 
 \setKVdefault[CoeffRegExpoAB]{%
 	coeffa=expabrega,%
 	coeffb=expabregb,%
+	coeffrr=expabregrr,%
 	round={}
 }
 
@@ -265,27 +304,42 @@
 	\readlist*\LY{\yliste}%
 	%taille des listes
 	\xdef\LNB{\fpeval{min(\LXlen,\LYlen)}}%
-	%\def\LNB{\inteval{\LXlen}}%
 	%somme importantes
+	\xdef\LYSomme{0}%
 	\xdef\LXlnYSomme{0}%
 	\xdef\LXSomme{0}%
 	\xdef\LlnYSomme{0}%
 	\xdef\LXcSomme{0}%
 	%calculs
 	\xintFor* ##1 in {\xintSeq{1}{\LNB}}\do{%
+		\xdef\LYSomme{\xintfloateval{\LYSomme+(\LY[##1])}}%
 		\xdef\LXlnYSomme{\xintfloateval{\LXlnYSomme+\LX[##1]*log(\LY[##1])}}%
 		\xdef\LXSomme{\xintfloateval{\LXSomme+\LX[##1]}}%
 		\xdef\LlnYSomme{\xintfloateval{\LlnYSomme+log(\LY[##1])}}%
 		\xdef\LXcSomme{\xintfloateval{\LXcSomme+(\LX[##1])^2}}%
 	}%
+	%calcul moyenne y (pour R²)
+	\xdef\LYmoy{\xintfloateval{\LYSomme/\LNB}}%
 	%COEFFS TEMPORAIRES OK
 	\xdef\tmp@reg@expab@b{\xintfloateval{exp((\LNB*\LXlnYSomme-\LXSomme*\LlnYSomme)/(\LNB*\LXcSomme-(\LXSomme)^2))}}%
 	\xdef\tmp@reg@expab@a{\xintfloateval{exp(1/\LNB*\LlnYSomme-log(\tmp@reg@expab@b)/\LNB*\LXSomme)}}%
+	%CALCUL R²
+	\xdef\SStot{0}%
+	\xintFor* ##1 in {\xintSeq{1}{\LNB}}\do{%
+		\xdef\SStot{\xintfloateval{\SStot+(\LY[##1]-\LYmoy)^2}}%
+	}%
+	\xdef\SSres{0}%
+	\xintFor* ##1 in {\xintSeq{1}{\LNB}}\do{%
+		\xdef\Ypred{\xintfloateval{(\tmp@reg@expab@a)*(\tmp@reg@expab@b)^(\LX[##1])}}%
+		\xdef\SSres{\xintfloateval{\SSres+(\LY[##1]-\Ypred)^2}}%
+	}%
+	\xdef\tmp@reg@expab@rr{\xintfloateval{1-(\SSres)/(\SStot)}}%
 	%STOCKAGE
 	\IfStrEq{\RegExpoRound}{}%
 		{%
 			\expandafter\def\csname\RegExpoCoefb\endcsname{\tmp@reg@expab@b}%
 			\expandafter\def\csname\RegExpoCoefa\endcsname{\tmp@reg@expab@a}%
+			\expandafter\def\csname\RegExpoCoefrr\endcsname{\tmp@reg@expab@rr}%
 		}%
 		{%
 			\IfSubStr{\RegExpoRound}{/}%
@@ -297,6 +351,7 @@
 				}%
 			\expandafter\def\csname\RegExpoCoefb\endcsname{\xintfloateval{round(\tmp@reg@expab@b,\xintarrondisregexpoabb)}}%
 			\expandafter\def\csname\RegExpoCoefa\endcsname{\xintfloateval{round(\tmp@reg@expab@a,\xintarrondisregexpoaba)}}%
+			\expandafter\def\csname\RegExpoCoefrr\endcsname{\tmp@reg@expab@rr}%
 		}%
 }
 \NewCommandCopy\xintEXPABreg\xintexpabreg
@@ -305,12 +360,14 @@
 \defKV[CoeffRegHyperb]{%
 	coeffa=\def\RegHyperbCoefa{#1},%
 	coeffb=\def\RegHyperbCoefb{#1},%
+	coeffrr=\def\RegHyperbCoefrr{#1},%
 	round=\def\RegHyperbRound{#1}
 }
 
 \setKVdefault[CoeffRegHyperb]{%
 	coeffa=hyprega,%
 	coeffb=hypregb,%
+	coeffrr=hypregrr,%
 	round={}
 }
 
@@ -325,7 +382,6 @@
 	\readlist*\LY{\yliste}%
 	%taille des listes
 	\xdef\LNB{\fpeval{min(\LXlen,\LYlen)}}%
-	%\def\LNB{\inteval{\LXlen}}%
 	%somme importantes
 	\xdef\LinvXSomme{0}%
 	\xdef\LYdivXSomme{0}%
@@ -335,17 +391,31 @@
 	\xintFor* ##1 in {\xintSeq{1}{\LNB}}\do{%
 		\xdef\LinvXSomme{\xintfloateval{\LinvXSomme+1/\LX[##1]}}%
 		\xdef\LYdivXSomme{\xintfloateval{\LYdivXSomme+\LY[##1]/\LX[##1]}}%
-		\xdef\LYSomme{\xintfloateval{\LYSomme+\LY[##1]}}%
+		\xdef\LYSomme{\xintfloateval{\LYSomme+(\LY[##1])}}%
 		\xdef\LinvXcSomme{\xintfloateval{\LinvXcSomme+1/(\LX[##1])^2}}%
 	}%
+	%calcul moyenne y (pour R²)
+	\xdef\LYmoy{\xintfloateval{\LYSomme/\LNB}}%
 	%COEFFS TEMPORAIRES OK
 	\xdef\tmp@reg@hyp@b{\xintfloateval{(\LNB*\LYdivXSomme-\LinvXSomme*\LYSomme)/(\LNB*\LinvXcSomme-(\LinvXSomme)^2)}}%
 	\xdef\tmp@reg@hyp@a{\xintfloateval{1/\LNB*\LYSomme-(\tmp@reg@hyp@b)/\LNB*\LinvXSomme}}%
+	%CALCUL R²
+	\xdef\SStot{0}%
+	\xintFor* ##1 in {\xintSeq{1}{\LNB}}\do{%
+		\xdef\SStot{\xintfloateval{\SStot+(\LY[##1]-\LYmoy)^2}}%
+	}%
+	\xdef\SSres{0}%
+	\xintFor* ##1 in {\xintSeq{1}{\LNB}}\do{%
+		\xdef\Ypred{\xintfloateval{(\tmp@reg@hyp@a)+(\tmp@reg@hyp@b)/(\LX[##1])}}%
+		\xdef\SSres{\xintfloateval{\SSres+(\LY[##1]-\Ypred)^2}}%
+	}%
+	\xdef\tmp@reg@hyp@rr{\xintfloateval{1-(\SSres)/(\SStot)}}%
 	%STOCKAGE
 	\IfStrEq{\RegHyperbRound}{}%
 		{%
 			\expandafter\def\csname\RegHyperbCoefb\endcsname{\tmp@reg@hyp@b}%
 			\expandafter\def\csname\RegHyperbCoefa\endcsname{\tmp@reg@hyp@a}%
+			\expandafter\def\csname\RegHyperbCoefrr\endcsname{\tmp@reg@hyp@rr}%
 		}%
 		{%
 			\IfSubStr{\RegHyperbRound}{/}%
@@ -357,6 +427,7 @@
 				}%
 			\expandafter\def\csname\RegHyperbCoefb\endcsname{\xintfloateval{round(\tmp@reg@hyp@b,\xintarrondisreghypb)}}%
 			\expandafter\def\csname\RegHyperbCoefa\endcsname{\xintfloateval{round(\tmp@reg@hyp@a,\xintarrondisreghypa)}}%
+			\expandafter\def\csname\RegHyperbCoefrr\endcsname{\tmp@reg@hyp@rr}%
 		}%
 }
 \NewCommandCopy\xintHYPreg\xinthypreg
@@ -365,12 +436,14 @@
 \defKV[CoeffRegLog]{%
 	coeffa=\def\RegLogCoefa{#1},%
 	coeffb=\def\RegLogCoefb{#1},%
+	coeffrr=\def\RegLogCoefrr{#1},%
 	round=\def\RegLogRound{#1}
 }
 
 \setKVdefault[CoeffRegLog]{%
 	coeffa=logrega,%
 	coeffb=logregb,%
+	coeffrr=logregrr,%
 	round={}
 }
 
@@ -385,7 +458,6 @@
 	\readlist*\LY{\yliste}%
 	%taille des listes
 	\xdef\LNB{\fpeval{min(\LXlen,\LYlen)}}%
-	%\def\LNB{\inteval{\LXlen}}%
 	%somme importantes
 	\xdef\LYlnXSomme{0}%
 	\xdef\LlnXSomme{0}%
@@ -395,17 +467,31 @@
 	\xintFor* ##1 in {\xintSeq{1}{\LNB}}\do{%
 		\xdef\LYlnXSomme{\xintfloateval{\LYlnXSomme+\LY[##1]*log(\LX[##1])}}%
 		\xdef\LlnXSomme{\xintfloateval{\LlnXSomme+log(\LX[##1])}}%
-		\xdef\LYSomme{\xintfloateval{\LYSomme+\LY[##1]}}%
+		\xdef\LYSomme{\xintfloateval{\LYSomme+(\LY[##1])}}%
 		\xdef\LYlncXSomme{\xintfloateval{\LYlncXSomme+log(\LX[##1])^2}}%
 	}%
+	%calcul moyenne y (pour R²)
+	\xdef\LYmoy{\xintfloateval{\LYSomme/\LNB}}%
 	%COEFFS TEMPORAIRES OK
 	\xdef\tmp@reg@log@b{\xintfloateval{(\LNB*\LYlnXSomme-\LlnXSomme*\LYSomme)/(\LNB*\LYlncXSomme-(\LlnXSomme)^2)}}%
 	\xdef\tmp@reg@log@a{\xintfloateval{1/\LNB*\LYSomme-(\tmp@reg@log@b)/\LNB*\LlnXSomme}}%
+	%CALCUL R²
+	\xdef\SStot{0}%
+	\xintFor* ##1 in {\xintSeq{1}{\LNB}}\do{%
+		\xdef\SStot{\xintfloateval{\SStot+(\LY[##1]-\LYmoy)^2}}%
+	}%
+	\xdef\SSres{0}%
+	\xintFor* ##1 in {\xintSeq{1}{\LNB}}\do{%
+		\xdef\Ypred{\xintfloateval{(\tmp@reg@log@a)+(\tmp@reg@log@b)*log(\LX[##1])}}%
+		\xdef\SSres{\xintfloateval{\SSres+(\LY[##1]-\Ypred)^2}}%
+	}%
+	\xdef\tmp@reg@log@rr{\xintfloateval{1-(\SSres)/(\SStot)}}%
 	%STOCKAGE
 	\IfStrEq{\RegLogRound}{}%
 		{%
 			\expandafter\def\csname\RegLogCoefb\endcsname{\tmp@reg@log@b}%
 			\expandafter\def\csname\RegLogCoefa\endcsname{\tmp@reg@log@a}%
+			\expandafter\def\csname\RegLogCoefrr\endcsname{\tmp@reg@log@rr}%
 		}%
 		{%
 			\IfSubStr{\RegLogRound}{/}%
@@ -417,6 +503,7 @@
 				}%
 			\expandafter\def\csname\RegLogCoefb\endcsname{\xintfloateval{round(\tmp@reg@log@b,\xintarrondisreglogb)}}%
 			\expandafter\def\csname\RegLogCoefa\endcsname{\xintfloateval{round(\tmp@reg@log@a,\xintarrondisregloga)}}%
+			\expandafter\def\csname\RegLogCoefrr\endcsname{\tmp@reg@log@rr}%
 		}%
 }
 \NewCommandCopy\xintLOGreg\xintlogreg
@@ -425,12 +512,14 @@
 \defKV[CoeffRegExpo]{%
 	coeffa=\def\RegExpoNCoefa{#1},%
 	coeffb=\def\RegExpoNCoefb{#1},%
+	coeffrr=\def\RegExpoNCoefrr{#1},%
 	round=\def\RegExpoNRound{#1}
 }
 
 \setKVdefault[CoeffRegExpo]{%
 	coeffa=exprega,%
 	coeffb=expregb,%
+	coeffrr=expregrr,%
 	Alt=false,%
 	round={}
 }
@@ -446,22 +535,46 @@
 	\readlist*\LY{\yliste}%
 	%taille des listes
 	\xdef\LNB{\fpeval{min(\LXlen,\LYlen)}}%
-	%\def\LNB{\inteval{\LXlen}}%
 	%somme importantes
+	\xdef\LYSomme{0}%
 	\xdef\LXlnYSomme{0}%
 	\xdef\LXSomme{0}%
 	\xdef\LlnYSomme{0}%
 	\xdef\LXcSomme{0}%
 	%calculs
 	\xintFor* ##1 in {\xintSeq{1}{\LNB}}\do{%
+		\xdef\LYSomme{\xintfloateval{\LYSomme+(\LY[##1])}}%
 		\xdef\LXlnYSomme{\xintfloateval{\LXlnYSomme+\LX[##1]*log(\LY[##1])}}%
 		\xdef\LXSomme{\xintfloateval{\LXSomme+\LX[##1]}}%
 		\xdef\LlnYSomme{\xintfloateval{\LlnYSomme+log(\LY[##1])}}%
 		\xdef\LXcSomme{\xintfloateval{\LXcSomme+(\LX[##1])^2}}%
 	}%
+	%calcul moyenne y (pour R²)
+	\xdef\LYmoy{\xintfloateval{\LYSomme/\LNB}}%
 	%COEFFS TEMPORAIRES
 	\xdef\TmpCoeffExpoA{\xintfloateval{(\LNB*\LXlnYSomme-\LXSomme*\LlnYSomme)/(\LNB*\LXcSomme-(\LXSomme)^2)}}%
 	\xdef\TmpCoeffExpoB{\xintfloateval{1/\LNB*\LlnYSomme-(\TmpCoeffExpoA)/\LNB*\LXSomme}}%
+	%CALCUL R²
+	\xdef\SStot{0}%
+	\xintFor* ##1 in {\xintSeq{1}{\LNB}}\do{%
+		\xdef\SStot{\xintfloateval{\SStot+(\LY[##1]-\LYmoy)^2}}%
+	}%
+	\xdef\SSres{0}%
+	\ifboolKV[CoeffRegExpo]{Alt}%
+		{%
+			\xintFor* ##1 in {\xintSeq{1}{\LNB}}\do{%
+				\xdef\Ypred{\xintfloateval{exp((\TmpCoeffExpoB))*exp((\TmpCoeffExpoA)*(\LX[##1]))}}%
+				\xdef\SSres{\xintfloateval{\SSres+(\LY[##1]-\Ypred)^2}}%
+			}%
+		}%
+		{%
+			\xintFor* ##1 in {\xintSeq{1}{\LNB}}\do{%
+				\xdef\Ypred{\xintfloateval{exp((\TmpCoeffExpoA)*(\LX[##1])+(\TmpCoeffExpoB))}}%
+				\xdef\SSres{\xintfloateval{\SSres+(\LY[##1]-\Ypred)^2}}%
+			}%
+		}%
+	\xdef\tmp@reg@expo@rr{\xintfloateval{1-(\SSres)/(\SStot)}}%
+	%STOCKAGE
 	\ifboolKV[CoeffRegExpo]{Alt}%
 		{%
 			%STOCKAGE
@@ -469,6 +582,7 @@
 				{%
 					\expandafter\def\csname\RegExpoNCoefb\endcsname{\xintfloateval{exp(\TmpCoeffExpoB)}}%
 					\expandafter\def\csname\RegExpoNCoefa\endcsname{\TmpCoeffExpoA}%
+					\expandafter\def\csname\RegExpoNCoefrr\endcsname{\tmp@reg@expo@rr}%
 				}%
 				{%
 					\IfSubStr{\RegExpoNRound}{/}%
@@ -480,6 +594,7 @@
 						}%
 					\expandafter\def\csname\RegExpoNCoefb\endcsname{\xintfloateval{round(exp(\TmpCoeffExpoB),\xintarrondisregexpob)}}%
 					\expandafter\def\csname\RegExpoNCoefa\endcsname{\xintfloateval{round(\TmpCoeffExpoA,\xintarrondisregexpoa)}}%
+					\expandafter\def\csname\RegExpoNCoefrr\endcsname{\tmp@reg@expo@rr}%
 				}%
 		}%
 		{%
@@ -488,6 +603,7 @@
 				{%
 					\expandafter\def\csname\RegExpoNCoefb\endcsname{\TmpCoeffExpoB}%
 					\expandafter\def\csname\RegExpoNCoefa\endcsname{\TmpCoeffExpoA}%
+					\expandafter\def\csname\RegExpoNCoefrr\endcsname{\tmp@reg@expo@rr}%
 				}%
 				{%
 					\IfSubStr{\RegExpoNRound}{/}%
@@ -499,6 +615,7 @@
 						}%
 					\expandafter\def\csname\RegExpoNCoefb\endcsname{\xintfloateval{round(\TmpCoeffExpoB,\xintarrondisregexpob)}}%
 					\expandafter\def\csname\RegExpoNCoefa\endcsname{\xintfloateval{round(\TmpCoeffExpoA,\xintarrondisregexpoa)}}%
+					\expandafter\def\csname\RegExpoNCoefrr\endcsname{\tmp@reg@expo@rr}%
 				}%
 		}%
 }
@@ -508,6 +625,7 @@
 \defKV[CoeffRegExpoOff]{%
 	coeffa=\def\RegExpoOffCoefa{#1},%
 	coeffb=\def\RegExpoOffCoefb{#1},%
+	coeffrr=\def\RegExpoOffCoefrr{#1},%
 	offset=\def\RegExpoOffset{#1},%
 	round=\def\RegExpoOffRound{#1}
 }
@@ -515,6 +633,7 @@
 \setKVdefault[CoeffRegExpoOff]{%
 	coeffa=expregoffa,%
 	coeffb=expregoffb,%
+	coeffrr=expregoffrr,%
 	offset=0,%
 	round={}
 }
@@ -530,27 +649,42 @@
 	\readlist*\LY{\yliste}%
 	%taille des listes
 	\xdef\LNB{\fpeval{min(\LXlen,\LYlen)}}%
-	%\def\LNB{\inteval{\LXlen}}%
 	%somme importantes
+	\xdef\LYSomme{0}%
 	\xdef\LXlnYSomme{0}%
 	\xdef\LXSomme{0}%
 	\xdef\LlnYSomme{0}%
 	\xdef\LXcSomme{0}%
 	%calculs
 	\xintFor* ##1 in {\xintSeq{1}{\LNB}}\do{%
+		\xdef\LYSomme{\xintfloateval{\LYSomme+(\LY[##1])}}%
 		\xdef\LXlnYSomme{\xintfloateval{\LXlnYSomme+\LX[##1]*log(\LY[##1]-\RegExpoOffset)}}%
 		\xdef\LXSomme{\xintfloateval{\LXSomme+\LX[##1]}}%
 		\xdef\LlnYSomme{\xintfloateval{\LlnYSomme+log(\LY[##1]-\RegExpoOffset)}}%
 		\xdef\LXcSomme{\xintfloateval{\LXcSomme+(\LX[##1])^2}}%
 	}%
+	%calcul moyenne y (pour R²)
+	\xdef\LYmoy{\xintfloateval{\LYSomme/\LNB}}%
 	%COEFFS TEMPORAIRES
 	\xdef\TmpCoeffExpoA{\xintfloateval{(\LNB*\LXlnYSomme-\LXSomme*\LlnYSomme)/(\LNB*\LXcSomme-(\LXSomme)^2)}}%
 	\xdef\TmpCoeffExpoB{\xintfloateval{1/\LNB*\LlnYSomme-(\TmpCoeffExpoA)/\LNB*\LXSomme}}%
+	%CALCUL R²
+	\xdef\SStot{0}%
+	\xintFor* ##1 in {\xintSeq{1}{\LNB}}\do{%
+		\xdef\SStot{\xintfloateval{\SStot+(\LY[##1]-\LYmoy)^2}}%
+	}%
+	\xdef\SSres{0}%
+	\xintFor* ##1 in {\xintSeq{1}{\LNB}}\do{%
+		\xdef\Ypred{\xintfloateval{\RegExpoOffset+exp(\TmpCoeffExpoB)*exp((\TmpCoeffExpoA)*(\LX[##1]))}}%
+		\xdef\SSres{\xintfloateval{\SSres+(\LY[##1]-\Ypred)^2}}%
+	}%
+	\xdef\tmp@reg@expoff@rr{\xintfloateval{1-(\SSres)/(\SStot)}}%
 	%STOCKAGE
 	\IfStrEq{\RegExpoOffRound}{}%
 		{%
 			\expandafter\def\csname\RegExpoOffCoefb\endcsname{\xintfloateval{exp(\TmpCoeffExpoB)}}%
 			\expandafter\def\csname\RegExpoOffCoefa\endcsname{\xintfloateval{\TmpCoeffExpoA}}%
+			\expandafter\def\csname\RegExpoOffCoefrr\endcsname{\tmp@reg@expoff@rr}%
 		}%
 		{%
 			\IfSubStr{\RegExpoOffRound}{/}%
@@ -562,6 +696,7 @@
 				}%
 			\expandafter\def\csname\RegExpoOffCoefb\endcsname{\xintfloateval{round(exp(\TmpCoeffExpoB),\xintarrondisregexpoffb)}}%
 			\expandafter\def\csname\RegExpoOffCoefa\endcsname{\xintfloateval{round(\TmpCoeffExpoA,\xintarrondisregexpoffa)}}%
+			\expandafter\def\csname\RegExpoOffCoefrr\endcsname{\tmp@reg@expoff@rr}%
 		}%
 }
 \NewCommandCopy\xintEXPOFFreg\xintexpoffreg
@@ -572,6 +707,7 @@
 	coeffb=\def\RegCubicCoefb{#1},%
 	coeffc=\def\RegCubicCoefc{#1},%
 	coeffd=\def\RegCubicCoefd{#1},%
+	coeffrr=\def\RegCubicCoefrr{#1},%
 	round=\def\RegCubicRound{#1}
 }
 
@@ -580,6 +716,7 @@
 	coeffb=cubregb,%
 	coeffc=cubregc,%
 	coeffd=cubregd,%
+	coeffrr=cubregrr,%
 	round={}
 }
 
@@ -594,7 +731,6 @@
 	\readlist*\LY{\yliste}%
 	%taille des listes
 	\xdef\LNB{\fpeval{min(\LXlen,\LYlen)}}%
-	%\def\LNB{\inteval{\LXlen}}%
 	%somme importantes
 	\xdef\LXSomme{0}%
 	\xdef\LXdSomme{0}%
@@ -608,17 +744,19 @@
 	\xdef\LXtYSomme{0}%
 	%calculs
 	\xintFor* ##1 in {\xintSeq{1}{\LNB}}\do{%
-		\xdef\LXSomme{\xintfloateval{\LXSomme+\LX[##1]}}%
+		\xdef\LXSomme{\xintfloateval{\LXSomme+(\LX[##1])}}%
 		\xdef\LXdSomme{\xintfloateval{\LXdSomme+(\LX[##1])^2}}%
 		\xdef\LXtSomme{\xintfloateval{\LXtSomme+(\LX[##1])^3}}%
 		\xdef\LXqSomme{\xintfloateval{\LXqSomme+(\LX[##1])^4}}%
 		\xdef\LXcSomme{\xintfloateval{\LXcSomme+(\LX[##1])^5}}%
 		\xdef\LXsSomme{\xintfloateval{\LXsSomme+(\LX[##1])^6}}%
-		\xdef\LYSomme{\xintfloateval{\LYSomme+\LY[##1]}}%
-		\xdef\LXYSomme{\xintfloateval{\LXYSomme+\LX[##1]*\LY[##1]}}%
-		\xdef\LXdYSomme{\xintfloateval{\LXdYSomme+(\LX[##1])^2*\LY[##1]}}%
-		\xdef\LXtYSomme{\xintfloateval{\LXtYSomme+(\LX[##1])^3*\LY[##1]}}%
+		\xdef\LYSomme{\xintfloateval{\LYSomme+(\LY[##1])}}%
+		\xdef\LXYSomme{\xintfloateval{\LXYSomme+(\LX[##1])*(\LY[##1])}}%
+		\xdef\LXdYSomme{\xintfloateval{\LXdYSomme+(\LX[##1])^2*(\LY[##1])}}%
+		\xdef\LXtYSomme{\xintfloateval{\LXtYSomme+(\LX[##1])^3*(\LY[##1])}}%
 	}%
+	%calcul moyenne y (pour R²)
+	\xdef\LYmoy{\xintfloateval{\LYSomme/\LNB}}%
 	%calculs suites, avec des matrices !!
 	\def\MatA{\LXtSomme}%
 	\def\MatB{\LXdSomme}%
@@ -662,6 +800,17 @@
 	\xdef\tmp@reg@cub@b{\xintfloateval{\MatInvE*\MatBA+\MatInvF*\MatBB+\MatInvG*\MatBC+\MatInvH*\MatBD}}%
 	\xdef\tmp@reg@cub@c{\xintfloateval{\MatInvI*\MatBA+\MatInvJ*\MatBB+\MatInvK*\MatBC+\MatInvL*\MatBD}}%
 	\xdef\tmp@reg@cub@d{\xintfloateval{\MatInvM*\MatBA+\MatInvN*\MatBB+\MatInvO*\MatBC+\MatInvP*\MatBD}}%
+	%CALCUL R²
+	\xdef\SStot{0}%
+	\xintFor* ##1 in {\xintSeq{1}{\LNB}}\do{%
+		\xdef\SStot{\xintfloateval{\SStot+(\LY[##1]-\LYmoy)^2}}%
+	}%
+	\xdef\SSres{0}%
+	\xintFor* ##1 in {\xintSeq{1}{\LNB}}\do{%
+		\xdef\Ypred{\xintfloateval{(\tmp@reg@cub@a)*(\LX[##1])^3+(\tmp@reg@cub@b)*(\LX[##1])^2+(\tmp@reg@cub@c)*(\LX[##1])+(\tmp@reg@cub@d)}}%
+		\xdef\SSres{\xintfloateval{\SSres+(\LY[##1]-\Ypred)^2}}%
+	}%
+	\xdef\tmp@reg@cub@rr{\xintfloateval{1-(\SSres)/(\SStot)}}%
 	%STOCKAGE
 	\IfStrEq{\RegCubicRound}{}%
 		{%
@@ -669,6 +818,7 @@
 			\expandafter\def\csname\RegCubicCoefb\endcsname{\tmp@reg@cub@b}%
 			\expandafter\def\csname\RegCubicCoefc\endcsname{\tmp@reg@cub@c}%
 			\expandafter\def\csname\RegCubicCoefd\endcsname{\tmp@reg@cub@d}%
+			\expandafter\def\csname\RegCubicCoefrr\endcsname{\tmp@reg@cub@rr}%
 		}%
 		{%
 			\IfSubStr{\RegCubicRound}{/}%
@@ -688,8 +838,100 @@
 			\expandafter\def\csname\RegCubicCoefb\endcsname{\xintfloateval{round(\tmp@reg@cub@b,\xintarrondisregcubb)}}%
 			\expandafter\def\csname\RegCubicCoefc\endcsname{\xintfloateval{round(\tmp@reg@cub@c,\xintarrondisregcubc)}}%
 			\expandafter\def\csname\RegCubicCoefd\endcsname{\xintfloateval{round(\tmp@reg@cub@d,\xintarrondisregcubd)}}%
+			\expandafter\def\csname\RegCubicCoefrr\endcsname{\tmp@reg@cub@rr}%
 		}%
 }
 \NewCommandCopy\xintCUBreg\xintcubreg
+
+%régression logistique y = L/(1 + a*e^(-bx))
+\defKV[CoeffRegLogist]{%
+	coeffa=\def\RegLogistCoefa{#1},%
+	coeffb=\def\RegLogistCoefb{#1},%
+	coeffL=\def\RegLogistCoefL{#1},%
+	coeffrr=\def\RegLogistCoefrr{#1},%
+	asymptote=\def\RegLogistAsymptote{#1},%
+	round=\def\RegLogistRound{#1}
+}
+
+\setKVdefault[CoeffRegLogist]{%
+	coeffa=logista,%
+	coeffb=logistb,%
+	coeffL=logistL,%
+	coeffrr=logistrr,%
+	asymptote=10,%
+	round={}
+}
+
+\newcommand\xintlogistreg[3][]{%
+	\useKVdefault[CoeffRegLogist]%
+	\setKV[CoeffRegLogist]{#1}% on paramètres les nouvelles clés et on les simplifie
+	%listes des données
+	\def\xliste{#2}%
+	\def\yliste{#3}%
+	\setsepchar{,}%
+	\readlist*\LX{\xliste}%
+	\readlist*\LY{\yliste}%
+	%taille des listes
+	\xdef\LNB{\fpeval{min(\LXlen,\LYlen)}}%
+	%asymptote
+	\xdef\LASYMPTOTE{\RegLogistAsymptote}%
+	%somme importantes pour régression linéaire sur données transformées
+	\xdef\LYSomme{0}%
+	\xdef\LXSomme{0}%
+	\xdef\LZSomme{0}%
+	\xdef\LXZSomme{0}%
+	\xdef\LXcSomme{0}%
+	%calculs - transformation z = ln(L/y - 1)
+	\xintFor* ##1 in {\xintSeq{1}{\LNB}}\do{%
+		\xdef\LYSomme{\xintfloateval{\LYSomme+(\LY[##1])}}%
+		\xdef\LXSomme{\xintfloateval{\LXSomme+(\LX[##1])}}%
+		\xdef\LZSomme{\xintfloateval{\LZSomme+log(\LASYMPTOTE/\LY[##1]-1)}}%
+		\xdef\LXZSomme{\xintfloateval{\LXZSomme+(\LX[##1])*log(\LASYMPTOTE/(\LY[##1])-1)}}%
+		\xdef\LXcSomme{\xintfloateval{\LXcSomme+(\LX[##1])^2}}%
+	}%
+	%calcul moyenne y (pour R²)
+	\xdef\LYmoy{\xintfloateval{\LYSomme/\LNB}}%
+	%régression linéaire z = ln(a) - bx
+	% z = c - bx où c = ln(a)
+	\xdef\tmp@reg@logist@minusb{\xintfloateval{(\LNB*\LXZSomme-\LXSomme*\LZSomme)/(\LNB*\LXcSomme-(\LXSomme)^2)}}%
+	\xdef\tmp@reg@logist@lna{\xintfloateval{1/\LNB*\LZSomme-(\tmp@reg@logist@minusb)/\LNB*\LXSomme}}%
+	%COEFFS TEMPORAIRES
+	\xdef\tmp@reg@logist@b{\xintfloateval{-(\tmp@reg@logist@minusb)}}%
+	\xdef\tmp@reg@logist@a{\xintfloateval{exp(\tmp@reg@logist@lna)}}%
+	\xdef\tmp@reg@logist@L{\LASYMPTOTE}%
+	%CALCUL R²
+	\xdef\SStot{0}%
+	\xintFor* ##1 in {\xintSeq{1}{\LNB}}\do{%
+		\xdef\SStot{\xintfloateval{\SStot+(\LY[##1]-\LYmoy)^2}}%
+	}%
+	\xdef\SSres{0}%
+	\xintFor* ##1 in {\xintSeq{1}{\LNB}}\do{%
+		\xdef\Ypred{\xintfloateval{(\tmp@reg@logist@L)/(1+(\tmp@reg@logist@a)*exp(-(\tmp@reg@logist@b)*(\LX[##1])))}}%
+		\xdef\SSres{\xintfloateval{\SSres+(\LY[##1]-\Ypred)^2}}%
+	}%
+	\xdef\tmp@reg@logist@rr{\xintfloateval{1-(\SSres)/(\SStot)}}%
+	%STOCKAGE
+	\IfStrEq{\RegLogistRound}{}%
+		{%
+			\expandafter\def\csname\RegLogistCoefa\endcsname{\tmp@reg@logist@a}%
+			\expandafter\def\csname\RegLogistCoefb\endcsname{\tmp@reg@logist@b}%
+			\expandafter\def\csname\RegLogistCoefL\endcsname{\tmp@reg@logist@L}%
+			\expandafter\def\csname\RegLogistCoefrr\endcsname{\tmp@reg@logist@rr}%
+		}%
+		{%
+			\IfSubStr{\RegLogistRound}{/}%
+				{%
+					\StrCut{\RegLogistRound}{/}{\xintarrondisreglogista}{\xintarrondisreglogistb}%
+				}%
+				{%
+					\xdef\xintarrondisreglogista{\RegLogistRound}\xdef\xintarrondisreglogistb{\RegLogistRound}%
+				}%
+			\expandafter\def\csname\RegLogistCoefa\endcsname{\xintfloateval{round(\tmp@reg@logist@a,\xintarrondisreglogista)}}%
+			\expandafter\def\csname\RegLogistCoefb\endcsname{\xintfloateval{round(\tmp@reg@logist@b,\xintarrondisreglogistb)}}%
+			\expandafter\def\csname\RegLogistCoefL\endcsname{\tmp@reg@logist@L}%
+			\expandafter\def\csname\RegLogistCoefrr\endcsname{\tmp@reg@logist@rr}%
+		}%
+}
+\NewCommandCopy\xintLOGISTreg\xintlogistreg
 
 \endinput

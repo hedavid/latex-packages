@@ -29,8 +29,8 @@
 \hypersetup{pdfborder=0 0 0}
 \usepackage[margin=2cm]{geometry}
 \setlength{\parindent}{0pt}
-\def\TPversion{0.1.2}
-\def\TPdate{25/11/2025}
+\def\TPversion{0.1.3}
+\def\TPdate{17/02/2026}
 \usepackage{soul}
 \usepackage{tabularray}
 \sethlcolor{lightgray!25}
@@ -67,7 +67,7 @@
 	\begin{tabular}{c}
 	\texttt{Cédric Pierquet}\\
 	{\ttfamily c pierquet -- at -- outlook . fr}\\
-	\texttt{\url{https://forge.apps.education.fr/pierquetcedric/packages-latex}} \\
+	\texttt{\url{https://github.com/cpierquet/latex-packages/tree/main/xint-regression}} \\
 \end{tabular}
 \end{center}
 
@@ -75,7 +75,7 @@
 
 \vfill
 
-\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5}
+\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=teal,colback=lightgray!2}
 \def\LISTEX{1,2,3,4,5,6}
 \def\LISTEY{8.74,8.80,9.52,10.42,11.83,14.62}
 
@@ -90,7 +90,7 @@ So $y \approx \mathrm{e}^{\exprega x+\expregb}$.
 
 \vspace*{5mm}
 
-\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5}
+\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=teal,colback=lightgray!2}
 \def\LISTEXX{0,50,100,140}
 \def\LISTEYY{275,290,315,350}
 
@@ -127,23 +127,24 @@ So $y \approx 250+\expregoffb e^{\expregoffa x}$
 
 \subsection{Global usage}
 
-This package offers \textsf{xint}-based commands for working with classical regressions :
+This package offers \textsf{xint}-based commands for working with classical regressions:
 
 \begin{itemize}
-	\item linear regression $ax+b$ ;
-	\item quadratic regression $ax^2+bx+c$ ;
-	\item cubic regression $ax^3+bx^2+cx+d$ ;
-	\item power regression $ax^b$ ;
-	\item exponential regression $ab^x$ or $e^{ax+b}$ or $be^{ax}$ or $C + be^{ax}$ ;
-	\item logarithmic regression $a+b\ln(x)$ ;
-	\item hyperbolic regression $a+\displaystyle\frac{b}{x}$.
+	\item linear regression $ax+b$;
+	\item quadratic regression $ax^2+bx+c$;
+	\item cubic regression $ax^3+bx^2+cx+d$;
+	\item power regression $ax^b$;
+	\item exponential regression $ab^x$ or $e^{ax+b}$ or $be^{ax}$ or $C + be^{ax}$ (with \textit{fixed} $C$);
+	\item logarithmic regression $a+b\ln(x)$;
+	\item hyperbolic regression $a+\displaystyle\frac{b}{x}$;
+	\item logistic regression $\displaystyle\frac{L}{1 + ae^{-bx}}$ (with \textit{fixed} $L$).
 \end{itemize}
 
-For each type of regression, results can be stored in macros, either raw or with rounding (with individuals \MontreCode{[optional keys]}).
+For each type of regression, results (including the coefficient of correlation/determination $r$ or $r^2$) can be stored in macros, either raw or with rounding (with individuals \MontreCode{[optional keys]}).
 
 \smallskip
 
-For example, if \MontreCode{[coeffa=xxA]}, the macro that will contain the value of coefficient \texttt{a} will be  \MontreCode{\textbackslash xxA}.
+For example, if \MontreCode{[coeffa=xxA]}, the macro that will contain the value of coefficient \texttt{a} will be \MontreCode{\textbackslash xxA}.
 
 \medskip
 
@@ -153,7 +154,7 @@ $\blacktriangleright$ If the lists differ in size, operations are applied only t
 
 This package uses \MontreCode{simplekv}, \MontreCode{xintexpr}, \MontreCode{listofitems} and \MontreCode{xstring}.
 
-\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5,listing only}
+\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=teal,colback=lightgray!2,listing only}
 %loading
 \usepackage{xint-regression}
 \end{tcblisting}
@@ -172,38 +173,38 @@ Nevertheless, it is advisable to be cautious about the results obtained and thos
 
 The equation is \fbox{$ax+b$}.
 
-\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5,listing only}
+\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=teal,colback=lightgray!2,listing only}
 \xintLINreg[coeffa=...,coeffa=...,coeffr=...,coeffrr=...,round=...]{xlist}{ylist}
 \end{tcblisting}
 
-By default, \MontreCode{coeffa=linrega} ; \MontreCode{coeffb=linregb} and \MontreCode{round} is empty.
+By default, \MontreCode{coeffa=linrega}; \MontreCode{coeffb=linregb} and \MontreCode{round} is empty.
 
-By default, \MontreCode{coeffr=linregr} ; \MontreCode{coeffrr=linregrr} and \MontreCode{round} is empty.
+By default, \MontreCode{coeffr=linregr}; \MontreCode{coeffrr=linregrr} and \MontreCode{round} is empty.
 
 \MontreCode{round=...} can be given within \MontreCode{round=global} or \MontreCode{round=a/b}.
 
 \def\LLX{83,71,64,69,69,64,68,59,81,91,57,65,58,62}%
 \def\LLY{183,168,171,178,176,172,165,158,183,182,163,175,164,175}%
 
-\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5,listing only}
+\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=teal,colback=lightgray!2,listing only}
 \def\LLX{83,71,64,69,69,64,68,59,81,91,57,65,58,62}%
 \def\LLY{183,168,171,178,176,172,165,158,183,182,163,175,164,175}%
 \end{tcblisting}
 
-\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5}
+\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=teal,colback=lightgray!2}
 %default output
 \xintLINreg{\LLX}{\LLY}%
 $a \approx \linrega$ and $b \approx \linregb$ \\
 $r \approx \linregr$ and $r^2 \approx \linregrr$
 \end{tcblisting}
 
-\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5}
+\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=teal,colback=lightgray!2}
 %personal macros + global rounding
 \xintLINreg[coeffa=LINa,coeffb=LINb,round=2]{\LLX}{\LLY}%
 $a \approx \LINa$ and $b \approx \LINb$
 \end{tcblisting}
 
-\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5}
+\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=teal,colback=lightgray!2}
 %personal macros + individual rounding
 \xintLINreg[coeffa=LINEARa,coeffb=LINEARb,round=2/0]{\LLX}{\LLY}%
 $a \approx \LINEARa$ and $b \approx \LINEARb$
@@ -213,190 +214,274 @@ $a \approx \LINEARa$ and $b \approx \LINEARb$
 
 The equation is \fbox{$ax^2+bx+c$}.
 
-\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5,listing only}
-\xintQUADreg[coeffa=...,coeffb=...,coeffc=...,round=...]{xlist}{ylist}
+\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=teal,colback=lightgray!2,listing only}
+\xintQUADreg[coeffa=...,coeffb=...,coeffc=...,coeffrr=...,round=...]{xlist}{ylist}
 \end{tcblisting}
 
-By default, \MontreCode{coeffa=quadrega} ; \MontreCode{coeffb=quadregb}, \MontreCode{coeffc=quadrega} and \MontreCode{round} is empty.
+By default, \MontreCode{coeffa=quadrega}; \MontreCode{coeffb=quadregb}, \MontreCode{coeffc=quadrega} and \MontreCode{round} is empty.
+
+By default, \MontreCode{coeffrr=quadregrr} is not rounded.
 
 \MontreCode{round=...} can be given within \MontreCode{round=global} or \MontreCode{round=a/b/...}.
 
-\def\LLX{83,71,64,69,69,64,68,59,81,91,57,65,58,62}%
-\def\LLY{183,168,171,178,176,172,165,158,183,182,163,175,164,175}%
+\def\LLX{1,2,3,4,5,6,7,8,9,10}%
+\def\LLY{3.1,9.8,20.5,35.2,54.1,77.3,103.8,135.0,169.5,208.2}%
 
-\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5,listing only}
-\def\LLX{83,71,64,69,69,64,68,59,81,91,57,65,58,62}%
-\def\LLY{183,168,171,178,176,172,165,158,183,182,163,175,164,175}%
+\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=teal,colback=lightgray!2,listing only}
+\def\LLX{1,2,3,4,5,6,7,8,9,10}%
+\def\LLY{3.1,9.8,20.5,35.2,54.1,77.3,103.8,135.0,169.5,208.2}%
 \end{tcblisting}
 
-\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5}
+\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=teal,colback=lightgray!2}
 %default output
 \xintQUADreg{\LLX}{\LLY}%
-$a \approx \quadrega$ ; $b \approx \quadregb$ and $c \approx \quadregc$
+$a \approx \quadrega$; $b \approx \quadregb$ and $c \approx \quadregc$
+
+$r^2 \approx \quadregrr$
 \end{tcblisting}
 
-\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5}
+\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=teal,colback=lightgray!2}
 %personal macros + global rounding
 \xintQUADreg[coeffa=QUADa,coeffb=QUADb,coeffc=QUADc,round=2]{\LLX}{\LLY}%
-$a \approx \QUADa$ ; $b \approx \QUADb$ and $c \approx \QUADc$
+$a \approx \QUADa$; $b \approx \QUADb$ and $c \approx \QUADc$
 \end{tcblisting}
 
-\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5}
+\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=teal,colback=lightgray!2}
 %personal macros + individual rounding
 \xintQUADreg[coeffa=QUADRAa,coeffb=QUADRAb,coeffc=QUADRAc,round=4/3/2]{\LLX}{\LLY}%
-$a \approx \QUADRAa$ ; $b \approx \QUADRAb$ and $c \approx \QUADRAc$
+$a \approx \QUADRAa$; $b \approx \QUADRAb$ and $c \approx \QUADRAc$
 \end{tcblisting}
 
 \subsection{Cubic regression (xintCUBreg or xintcubreg)}%, hyperbolic and logarithmic regression}
 
 The equation for cubic is \fbox{$ax^3+bx^2+cx+d$}.
 
-\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5,listing only}
-\xintCUBreg[coeffa=...,coeffb=...,coeffc=...,coeffd=...,round=...]{xlist}{ylist}
+\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=teal,colback=lightgray!2,listing only}
+\xintCUBreg[coeffa=...,coeffb=...,coeffc=...,coeffd=...,coeffrr=...,round=...]%
+  {xlist}
+  {ylist}
 \end{tcblisting}
 
-By default, \MontreCode{coeffa=cubrega} ; \MontreCode{coeffb=cubregb} ; \MontreCode{coeffc=cubregc} and \MontreCode{coeffd=cubregd}.
+By default, \MontreCode{coeffa=cubrega}; \MontreCode{coeffb=cubregb}; \MontreCode{coeffc=cubregc} and \MontreCode{coeffd=cubregd}.
 
-\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5,listing only}
-\def\LLX{83,71,64,69,69,64,68,59,81,91,57,65,58,62}%
-\def\LLY{183,168,171,178,176,172,165,158,183,182,163,175,164,175}%
+By default, \MontreCode{coeffrr=cubregrr} is not rounded.
+
+\def\LLX{1,2,3,4,5,6,7,8}%
+\def\LLY{2.1,7.9,22.3,49.8,95.2,163.4,259.1,387.5}%
+
+\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=teal,colback=lightgray!2,listing only}
+\def\LLX{1,2,3,4,5,6,7,8}%
+\def\LLY{2.1,7.9,22.3,49.8,95.2,163.4,259.1,387.5}%
 \end{tcblisting}
 
-\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5}
+\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=teal,colback=lightgray!2}
 %individual roudings
 \xintCUBreg[round=5/3/2/1]{\LLX}{\LLY}%
-$a \approx \cubrega$ ; $b \approx \cubregb$ ; $c \approx \cubregc$ and $d \approx \cubregd$
+$a \approx \cubrega$; $b \approx \cubregb$; $c \approx \cubregc$ and $d \approx \cubregd$
+
+$r^2 \approx \cubregrr$
 \end{tcblisting}
 
 \subsection{Hyperbolic regression (xintHYPreg or xinthypreg)}
 
 The equation for hyperbolic is \fbox{$a+\displaystyle\frac{b}{x}$}.
 
-\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5,listing only}
-\xintHYPreg[coeffa=...,coeffb=...,round=...]{xlist}{ylist}
+\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=teal,colback=lightgray!2,listing only}
+\xintHYPreg[coeffa=...,coeffb=...,coeffrr=...,round=...]{xlist}{ylist}
 \end{tcblisting}
 
 By default, \MontreCode{coeffa=hyprega} and \MontreCode{coeffb=hypregb}.
 
-\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5,listing only}
-\def\LLX{83,71,64,69,69,64,68,59,81,91,57,65,58,62}%
-\def\LLY{183,168,171,178,176,172,165,158,183,182,163,175,164,175}%
+By default, \MontreCode{coeffrr=hypregrr} is not rounded.
+
+\def\LLX{1,2,4,5,8,10,20}%
+\def\LLY{12.1,7.4,4.3,3.8,2.7,2.3,1.7}%
+
+\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=teal,colback=lightgray!2,listing only}
+\def\LLX{1,2,4,5,8,10,20}%
+\def\LLY{12.1,7.4,4.3,3.8,2.7,2.3,1.7}%
 \end{tcblisting}
 
-\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5}
+\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=teal,colback=lightgray!2}
 %global roudings
 \xintHYPreg[round=2]{\LLX}{\LLY}%
 $a \approx \hyprega$ and $b \approx \hypregb$
+
+$r^2 \approx \hypregrr$
 \end{tcblisting}
 
 \subsection{Logarithmic regression (xintLOGreg or xintlogreg)}
 
 The equation for logarithmic is \fbox{$a+b\,\log(x)$}.
 
-\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5,listing only}
-\xintLOGreg[coeffa=...,coeffb=...,round=...]{xlist}{ylist}
+\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=teal,colback=lightgray!2,listing only}
+\xintLOGreg[coeffa=...,coeffb=...,coeffrr=...,round=...]{xlist}{ylist}
 \end{tcblisting}
 
 By default, \MontreCode{coeffa=logrega} and \MontreCode{coeffb=logregb}.
 
-\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5,listing only}
-\def\LLX{83,71,64,69,69,64,68,59,81,91,57,65,58,62}%
-\def\LLY{183,168,171,178,176,172,165,158,183,182,163,175,164,175}%
+By default, \MontreCode{coeffrr=logregrr} is not rounded.
+
+\def\LLX{1,2,5,10,20,50,100}%
+\def\LLY{2.1,3.5,5.7,7.2,8.8,10.9,12.3}%
+
+\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=teal,colback=lightgray!2,listing only}
+\def\LLX{1,2,5,10,20,50,100}%
+\def\LLY{2.1,3.5,5.7,7.2,8.8,10.9,12.3}%
 \end{tcblisting}
 
-\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5}
+\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=teal,colback=lightgray!2}
 %individual roudings
 \xintLOGreg[round=1/4]{\LLX}{\LLY}%
 $a \approx \logrega$ and $b \approx \logregb$
+
+$r^2 \approx \logregrr$
 \end{tcblisting}
 
 \subsection{Power regression (xintPOWreg or xintpowreg)}
 
 The equation for power is \fbox{$a \times x^{b}$}.
 
-\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5,listing only}
-\xintPOWreg[coeffa=...,coeffb=...,round=...]{xlist}{ylist}
+\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=teal,colback=lightgray!2,listing only}
+\xintPOWreg[coeffa=...,coeffb=...,coeffrr=...,round=...]{xlist}{ylist}
 \end{tcblisting}
 
 By default, \MontreCode{coeffa=powrega} and \MontreCode{coeffb=powregb}.
 
-\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5,listing only}
-\def\LLX{83,71,64,69,69,64,68,59,81,91,57,65,58,62}%
-\def\LLY{183,168,171,178,176,172,165,158,183,182,163,175,164,175}%
+By default, \MontreCode{coeffrr=powregrr} is not rounded.
+
+\def\LLX{1,2,3,4,5,6,7,8}%
+\def\LLY{2.1,5.9,10.8,17.2,25.1,34.1,44.8,57.2}%
+
+\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=teal,colback=lightgray!2,listing only}
+\def\LLX{1,2,3,4,5,6,7,8}%
+\def\LLY{2.1,5.9,10.8,17.2,25.1,34.1,44.8,57.2}%
 \end{tcblisting}
 
-\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5}
+\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=teal,colback=lightgray!2}
 %default output
 \xintPOWreg{\LLX}{\LLY}%
 $a \approx \powrega$ and $b \approx \powregb$
+
+$r^2 \approx \powregrr$
 \end{tcblisting}
 
 \subsection{Exponential regression}
 
-Available regressions are :
+Available regressions are:
 
 \begin{itemize}
 	\item \fbox{$a \times b^{x}$} (\texttt{xintEXPABreg} or \texttt{xintexpabreg});
 	\item \fbox{$e^{ax+b}$} (\texttt{xintEXPreg} or \texttt{xintexpreg});
 	\item \fbox{$b\,e^{ax}$} (\texttt{xintEXPreg} or \texttt{xintexpreg} with \MontreCode{[Alt]} key);
-	\item \fbox{$C+b\,e^{ax}$} (\texttt{xintEXPOFFreg} or \texttt{xintexpoffreg}).
+	\item \fbox{$C+b\,e^{ax}$} with \textit{fixed} $C$ (\texttt{xintEXPOFFreg} or \texttt{xintexpoffreg}).
 \end{itemize}
 
-\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5,listing only}
+\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=teal,colback=lightgray!2,listing only}
 %a*b^x
-\xintEXPABreg[coeffa=...,coeffb=...,round=...]{xlist}{ylist}
+\xintEXPABreg[coeffa=...,coeffb=...,coeffrr=...,round=...]{xlist}{ylist}
 \end{tcblisting}
 
 By default, \MontreCode{coeffa=expabrega} and \MontreCode{coeffb=expabregb}.
 
+By default, \MontreCode{coeffrr=expabregrr} is not rounded.
+
 \smallskip
 
-\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5,listing only}
+\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=teal,colback=lightgray!2,listing only}
 %e^(ax+b)
-\xintEXPreg[coeffa=...,coeffb=...,round=...]{xlist}{ylist}
+\xintEXPreg[coeffa=...,coeffb=...,coeffrr=...,round=...]{xlist}{ylist}
 \end{tcblisting}
 
 By default, \MontreCode{coeffa=exprega} and \MontreCode{coeffb=expregb}.
 
+By default, \MontreCode{coeffrr=expregrr} is not rounded.
+
 \smallskip
 
-\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5,listing only}
+\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=teal,colback=lightgray!2,listing only}
 %b*e^(ax)
-\xintEXPreg[Alt,coeffa=...,coeffb=...,round=...]{xlist}{ylist}
+\xintEXPreg[Alt,coeffa=...,coeffb=...,coeffrr=...,round=...]{xlist}{ylist}
 \end{tcblisting}
 
 By default, \MontreCode{coeffa=exprega} and \MontreCode{coeffb=expregb}.
 
+By default, \MontreCode{coeffrr=expregrr} is not rounded.
+
 \smallskip
 
-\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5,listing only}
+\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=teal,colback=lightgray!2,listing only}
 %C+b*e^(ax)
-\xintEXPOFFreg[offset=C,coeffa=...,coeffb=...,round=...]{xlist}{ylist}
+\xintEXPOFFreg[offset=C,coeffa=...,coeffb=...,coeffrr=...,round=...]{xlist}{ylist}
 \end{tcblisting}
 
 By default, \MontreCode{coeffa=expregoffa} and \MontreCode{coeffb=expregoffb}.
 
-\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5,listing only}
-\def\LLX{83,71,64,69,69,64,68,59,81,91,57,65,58,62}%
-\def\LLY{183,168,171,178,176,172,165,158,183,182,163,175,164,175}%
+By default, \MontreCode{coeffrr=expregoffrr} is not rounded.
+
+\def\LLX{1,2,3,4,5,6,7,8}%
+\def\LLY{2.1,5.9,10.8,17.2,25.1,34.1,44.8,57.2}%
+
+\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=teal,colback=lightgray!2,listing only}
+\def\LLX{1,2,3,4,5,6,7,8}%
+\def\LLY{2.1,5.9,10.8,17.2,25.1,34.1,44.8,57.2}%
 \end{tcblisting}
 
-\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5}
+\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=teal,colback=lightgray!2}
 %a*b^x
 \xintEXPABreg{\LLX}{\LLY}
-$a \approx \expabrega$ and $b \approx \expabregb$
+$a \approx \expabrega$ and $b \approx \expabregb$ and $r^2 \approx \expabregrr$
 
 %e^(ax+b)
 \xintEXPreg{\LLX}{\LLY}
-$a \approx \exprega$ and $b \approx \expregb$
+$a \approx \exprega$ and $b \approx \expregb$  and $r^2 \approx \expregrr$
 
 %b*e^(ax)
 \xintEXPreg[Alt]{\LLX}{\LLY}
-$a \approx \exprega$ and $b \approx \expregb$
+$a \approx \exprega$ and $b \approx \expregb$  and $r^2 \approx \expregrr$
+\end{tcblisting}
 
+\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=teal,colback=lightgray!2}
 %C+b*e^(ax)
-\xintEXPOFFreg[offset=50]{\LLX}{\LLY}
-$a \approx \expregoffa$ and $b \approx \expregoffb$
+\def\LLX{0,50,100,140}%
+\def\LLY{275,290,315,350}%
+\xintEXPOFFreg[offset=250]{\LLX}{\LLY}
+$a \approx \expregoffa$ and $b \approx \expregoffb$ and $r^2 \approx \expregoffrr$
+\end{tcblisting}
+
+\subsection{Logistic regression (xintLOGISTreg or xintlogistreg)}
+
+The equation for logistic is \fbox{$\displaystyle\frac{L}{1+a \times e^{-bx}}$} with \textit{fixed} $L$, given by \textit{asmyptote}.
+
+\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=teal,colback=lightgray!2,listing only}
+\xintLOGISTreg[asymptote=...,coeffa=...,coeffb=...,coeffL=...,coeffrr=...,round=...]%
+  {xlist}
+  {ylist}
+\end{tcblisting}
+
+By default, \MontreCode{coeffa=logista}, \MontreCode{coeffb=logistb}, and \MontreCode{coeffL=logistL}.
+
+By default, \MontreCode{asymptote=10} (user \textbf{must} provide the asymptote value).
+
+By default, \MontreCode{coeffrr=logistrr} is not rounded.
+
+\def\LLX{0,1,2,3,4,5,6}%
+\def\LLY{1,2,4.5,7,8.5,9.2,9.6}%
+
+\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=teal,colback=lightgray!2,listing only}
+\def\LLX{0,1,2,3,4,5,6}%
+\def\LLY{1,2,4.5,7,8.5,9.2,9.6}%
+\end{tcblisting}
+
+\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=teal,colback=lightgray!2}
+%default output with asymptote L=10
+\def\LLX{0,1,2,3,4,5,6}%
+\def\LLY{1,2,4.5,7,8.5,9.2,9.6}%
+
+\xintLOGISTreg[asymptote=10]{\LLX}{\LLY}%
+$L = \logistL$, $a \approx \logista$ and $b \approx \logistb$
+
+$r^2 \approx \logistrr$
 \end{tcblisting}
 
 \pagebreak
@@ -409,9 +494,9 @@ It is possible to format the results, according to locale rules, for example wit
 
 \smallskip
 
-With \MontreCode{[locale=FR]} :
+With \MontreCode{[locale=FR]}:
 
-\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5}
+\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=teal,colback=lightgray!2}
 %a*b^x
 \xintEXPABreg[round=1/3]{\LLX}{\LLY}%
 So we obtain $y \approx \num{\expabrega} \times e^{\num{\expabregb}\times x}$
@@ -423,9 +508,9 @@ It is also possible to integrate the package's commands into a plotting environm
 
 \smallskip
 
-For example, with \textsf{tkz-grapheur} package :
+For example, with \textsf{tkz-grapheur} package:
 
-\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5}
+\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=teal,colback=lightgray!2}
 \def\LISTEXX{0,50,100,140}%
 \def\LISTEYY{275,290,315,350}%
 
@@ -453,6 +538,7 @@ For example, with \textsf{tkz-grapheur} package :
 
 \begin{quote}
 \begin{verbatim}
+0.1.3: logistic regression + r² for other regressions
 0.1.2: r and r² for linreg + new names (tks to quark67 for suggestion)
 0.1.1: Bugfix
 0.1.0: Initial version
