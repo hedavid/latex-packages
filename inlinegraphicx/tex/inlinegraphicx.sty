@@ -2,65 +2,101 @@
 % licence       : Released under the LaTeX Project Public License v1.3c or later, see http://www.latex-project.org/lppl.txt
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesExplPackage{inlinegraphicx}{2025-08-25}{0.2.0}{Insert inline graphicx with LaTeX3}
+\ProvidesExplPackage{inlinegraphicx}{2026-02-20}{0.20a}{Insert inline graphicx with LaTeX3}
 
 %====HISTORY
-% v 0.2.0	LaTeX3 conversion
-% v 0.1.1	Alt options for includegraphics
-% v 0.1.0	Initial version
+% v 0.20a  Bugfix with gset + l3 improvements
+% v 0.2.0  LaTeX3 conversion
+% v 0.1.1  Alt options for includegraphics
+% v 0.1.0  Initial version
 
 %====PACKAGE
-\RequirePackage{graphicx}
+\RequirePackage { graphicx }
 
-%====VARIABLES
-\dim_new:N \g_totheight_inlinegraphicx_dim
-\dim_new:N \g_depth_inlinegraphicx_dim
-\dim_new:N \g_inlinedepthgraphicx_scale_dim
-\fp_new:N \g_inlinegraphicx_scale_fp
-\fp_new:N \l_inlinegraphicx_invscale_fp
-\tl_new:N \l_inlinegraphicx_strut_tl
+%====VARIABLES  (toutes \l_ = locales au groupe de la macro)
+\dim_new:N \l_totheight_inlinegraphicx_dim
+\dim_new:N \l_depth_inlinegraphicx_dim
+\dim_new:N \l_raisebox_inlinegraphicx_dim
+\fp_new:N  \l_scale_inlinegraphicx_fp
+\fp_new:N  \l_invscale_inlinegraphicx_fp
+\tl_new:N  \l_strut_inlinegraphicx_tl
 
 %====KEYS
 \keys_define:nn { inlinegraphics }
   {
-    scale .fp_set:N = \g_inlinegraphicx_scale_fp,
-    scale .initial:n = {1.0},
-    strut .tl_set:N = \l_inlinegraphicx_strut_tl,
-    strut .initial:n = {qH},
+    scale .fp_set:N  = \l_scale_inlinegraphicx_fp,
+    scale .initial:n = { 1.0 },
+    scale .default:n = { 1.0 },
+    strut .tl_set:N  = \l_strut_inlinegraphicx_tl,
+    strut .initial:n = { qH },
+    strut .default:n = { qH },
   }
 
 %====MAIN MACRO
-\NewDocumentCommand \inlinegraphics { s O{} D<>{} m }
+\NewDocumentCommand \inlinegraphics { s O { } D < > { } m }
+{
+  \group_begin:
+  
+  \keys_set:nn { inlinegraphics } { scale = { 1.0 } , strut = { qH } }
+  \keys_set:nn { inlinegraphics } { #2 }
+  % ---
+  \bool_if:NTF #1
   {
-    \group_begin:
-    \keys_set:nn { inlinegraphics } { #2 }
-    \bool_if:NTF #1
-      {
-        \hbox_set:Nn \l_tmpa_box { \tl_use:N \l_inlinegraphicx_strut_tl }
-        \dim_set:Nn \g_totheight_inlinegraphicx_dim { \box_ht:N \l_tmpa_box }
-        \includegraphics[
-          height={\fp_eval:n {\g_inlinegraphicx_scale_fp * \g_totheight_inlinegraphicx_dim}pt},
-          #3
-        ]{#4}
-      }
-      {
-        \hbox_set:Nn \l_tmpa_box { \tl_use:N \l_inlinegraphicx_strut_tl }
-        \dim_set:Nn \g_totheight_inlinegraphicx_dim { \box_dp:N \l_tmpa_box + \box_ht:N \l_tmpa_box }
-        \dim_set:Nn \g_depth_inlinegraphicx_dim { \box_dp:N \l_tmpa_box }
-        \fp_set:Nn \l_inlinegraphicx_invscale_fp { 0.5 * (1.0 - \g_inlinegraphicx_scale_fp) }
-        \dim_set:Nn \g_inlinedepthgraphicx_scale_dim
-          { \g_depth_inlinegraphicx_dim - \fp_eval:n {\l_inlinegraphicx_invscale_fp * \g_totheight_inlinegraphicx_dim}pt }
-        \raisebox{-\dim_use:N \g_inlinedepthgraphicx_scale_dim}
+    % --- Mode étoilé : hauteur = hauteur de la capitale du strut
+    \hbox_set:Nn \l_tmpa_box { \tl_use:N \l_strut_inlinegraphicx_tl }
+    \dim_set:Nn \l_totheight_inlinegraphicx_dim { \box_ht:N \l_tmpa_box }
+    \includegraphics
+      [
+        height =
+        {
+          \fp_eval:n
           {
-            \includegraphics[
-              height={\fp_eval:n {\g_inlinegraphicx_scale_fp * \g_totheight_inlinegraphicx_dim}pt},
-              #3
-            ]{#4}
-          }
-      }
-    \group_end:
+            \l_scale_inlinegraphicx_fp * \l_totheight_inlinegraphicx_dim
+          } 
+        pt 
+        },
+        #3
+      ]
+      { #4 }
   }
-
-\ExplSyntaxOff
+  {
+    % --- Mode normal : hauteur totale (ht+dp) du strut avec alignement vertical
+    \hbox_set:Nn \l_tmpa_box { \tl_use:N \l_strut_inlinegraphicx_tl }
+    \dim_set:Nn \l_totheight_inlinegraphicx_dim
+      { \box_dp:N \l_tmpa_box + \box_ht:N \l_tmpa_box }
+    \dim_set:Nn \l_depth_inlinegraphicx_dim
+      { \box_dp:N \l_tmpa_box }
+    \fp_set:Nn \l_invscale_inlinegraphicx_fp
+      { 0.5 * ( 1.0 - \l_scale_inlinegraphicx_fp ) }
+    \dim_set:Nn \l_raisebox_inlinegraphicx_dim
+      {
+        \l_depth_inlinegraphicx_dim
+        -
+        \fp_eval:n 
+        {
+          \l_invscale_inlinegraphicx_fp * \l_totheight_inlinegraphicx_dim
+        } 
+        pt
+      }
+    
+    \raisebox { - \dim_use:N \l_raisebox_inlinegraphicx_dim }
+      {
+        \includegraphics
+          [
+            height = 
+            {
+              \fp_eval:n 
+              {
+                \l_scale_inlinegraphicx_fp * \l_totheight_inlinegraphicx_dim
+              }
+              pt
+            },
+            #3
+          ]
+          { #4 }
+      }
+  }
+  \group_end:
+}
 
 \endinput
