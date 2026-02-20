@@ -36,8 +36,8 @@
 \usepackage[margin=2cm]{geometry}
 \setlength{\parindent}{0pt}
 
-\def\TPversion{0.1.6}
-\def\TPdate{3 octobre 2025}
+\def\TPversion{0.20a}
+\def\TPdate{20/02/2026}
 \def\HtRet{0.45}\def\LgRect{1.5}
 \usepackage{tcolorbox}
 
@@ -136,7 +136,7 @@ Je remercie Sascha Christmann pour sa contribution aux ceintures bicolores (les 
 
 Le package se charge dans le préambule, via \MontreCode{\textbackslash usepackage\{coloredbelts\}}.
 
-Les seuls packages chargés sont \MontreCode{graphicx}, le reste du code est en \hologo{LaTeX3}.
+Les seuls packages chargés sont \MontreCode{graphicx} et \MontreCode{tikz}, le reste du code est en \hologo{LaTeX3}.
 
 \begin{codehigh}[language=latex/latex2,style/main=cyan!10,style/code=cyan!10]
 \usepackage{coloredbelts}
@@ -264,6 +264,8 @@ Version en ligne d'une (\tkzcoloredbelt[border=blue,strut=()]{pink}) ceinture ro
 \vfill
 
 \section{Historique}
+
+\verb|v0.20a|~:~~~~Améliorations \hologo{LaTeX3}
 
 \verb|v0.1.6|~:~~~~Améliorations + version \TikZ
 

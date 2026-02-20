@@ -28,8 +28,8 @@
 \hypersetup{pdfborder=0 0 0}
 \usepackage[margin=2cm]{geometry}
 \setlength{\parindent}{0pt}
-\def\TPversion{0.1.7}
-\def\TPdate{17/10/2025}
+\def\TPversion{0.20a}
+\def\TPdate{20/02/2026}
 \usepackage{tcolorbox}
 \usepackage{pgffor}
 \tcbuselibrary{breakable,skins,hooks,listingsutf8}
@@ -50,10 +50,10 @@
 	keywordstyle={\color{violet}},%
 	classoffset=2,%
 	alsoletter={-},%
-	morekeywords={\ctshowlist,\ctsortasclist,\ctsortdeslist,\ctaddvalinlist,\ctremovevalinlist,\ctboolvalinlist,\cttestifvalinlist,\ctcountvalinlist,\ctminoflist,\ctmaxoflist,\ctmeanoflist,\ctsumoflist,\ctprodoflist,\ctreverselist,\ctgetvaluefromlist,\ctlenoflist},%
+	morekeywords={\ctshowlist,\ctsortasclist,\ctsortdeslist,\ctaddvalinlist,\ctremovevalinlist,\ctboolvalinlist,\cttestifvalinlist,\ctcountvalinlist,\ctminoflist,\ctmaxoflist,\ctmeanoflist,\ctsumoflist,\ctprodoflist,\ctreverselist,\ctgetvaluefromlist,\ctlenoflist,\ctgetindexfromlist,\ctsublist,\ctslicelist,\cttransformlist,\ctuniqlist,\ctintersectlists,\ctmergelists,\ctdifflist,\ctsymdifflist},%
 	keywordstyle={\color{green!50!black}},%
 	classoffset=3,%
-	morekeywords={},%
+	morekeywords={asc,des},%
 	keywordstyle={\color{orange}}
 }
 
@@ -80,10 +80,10 @@
 		keywordstyle={\color{violet}},%
 		classoffset=2,%
 		alsoletter={-},%
-		morekeywords={\ctshowlist,\ctsortasclist,\ctsortdeslist,\ctaddvalinlist,\ctremovevalinlist,\ctboolvalinlist,\cttestifvalinlist,\ctcountvalinlist,\ctminoflist,\ctmaxoflist,\ctmeanoflist,\ctsumoflist,\ctprodoflist,\ctreverselist,\ctgetvaluefromlist,\ctlenoflist},%
+		morekeywords={\ctshowlist,\ctsortasclist,\ctsortdeslist,\ctaddvalinlist,\ctremovevalinlist,\ctboolvalinlist,\cttestifvalinlist,\ctcountvalinlist,\ctminoflist,\ctmaxoflist,\ctmeanoflist,\ctsumoflist,\ctprodoflist,\ctreverselist,\ctgetvaluefromlist,\ctlenoflist,\ctgetindexfromlist,\ctsublist,\ctslicelist,\cttransformlist,\ctuniqlist,\ctintersectlists,\ctmergelists,\ctdifflist,\ctsymdifflist},%
 		keywordstyle={\color{green!50!black}},%
 		classoffset=3,%
-		morekeywords={},%
+		morekeywords={asc,des},%
 		keywordstyle={\color{orange}}
 	},%
 	#1
@@ -100,7 +100,7 @@
 		breakatwhitespace=true,%
 		style=tcblatex,
 		basicstyle=\scriptsize\ttfamily,%
-		tabsize=4,%
+		tabsize=2,%
 		commentstyle={\itshape\color{gray}},%
 		%lastline=148
 	},%
@@ -142,7 +142,7 @@
 	\begin{tabular}{c}
 		\texttt{Cédric Pierquet}\\
 		{\ttfamily c pierquet -- at -- outlook . fr}\\
-		\texttt{\url{https://github.com/cpierquet/latex-packages/tree/main//commalists-tools}} \\
+		\texttt{\url{https://github.com/cpierquet/latex-packages/tree/main/commalists-tools}} \\
 	\end{tabular}
 \end{center}
 
@@ -160,6 +160,8 @@
 \ctremovevalinlist*{10}{\mytestlist}
 \cttestifvalinlist{15}{\mytestlist}{true}{false}
 \ctgetvaluefromlist*{\mytestlist}{3}
+\ctgetindexfromlist*{15}{\mytestlist}
+\ctsublist*{\mytestlist}{*}{4}
 \end{tcblisting}
 
 \begin{tcolorbox}[colframe=lightgray,colback=lightgray!5]
@@ -171,20 +173,12 @@ Ascending sorted list is \ctsortasclist*{\mytestlist}\par\smallskip
 Mean value of the list is \ctmeanoflist*{\mytestlist}\par\smallskip
 If we remove the value 10, then the list is \ctremovevalinlist*{10}{\mytestlist}\par\smallskip
 We test if 15 is in the list: \cttestifvalinlist{15}{\mytestlist}{true}{false}\par\smallskip
-The third value of the list is \ctgetvaluefromlist*{\mytestlist}{3}
+The third value of the list is \ctgetvaluefromlist*{\mytestlist}{3}\par\smallskip
+15 is in index \ctgetindexfromlist*{15}{\mytestlist} in the list\par\smallskip
+Sublist [-,4] of the list is: \ctsublist*{\mytestlist}{*}{4}
 \end{tcolorbox}
 
 \vfill~
-
-%\hrule
-%
-%\medskip
-
-%\emph{%
-%	The \textsf{luarandom} package do the same things, but with the obligation to compile with \hologo{LuaLaTeX}.
-%}
-%
-%\medskip
 
 \hrule
 
@@ -200,13 +194,11 @@ The third value of the list is \ctgetvaluefromlist*{\mytestlist}{3}
 
 \vspace*{5mm}
 
-%\hrule
-
 \pagebreak
 
-\section{Loading, useful packages}
+\section{Introduction}
 
-In order to load \texttt{randintlist}, simply use:
+In order to load \texttt{commalists-tools-l3}, simply use:
 
 \begin{DemoCode}{listing only}
 \usepackage{commalists-tools-l3}
@@ -214,9 +206,13 @@ In order to load \texttt{randintlist}, simply use:
 
 All code is written in \hologo{LaTeX3}, so no extra packages are needed.
 
-\section{The individual macros}
+\medskip
 
-\subsection{Global usage}
+{\footnotesize\faLightbulb} See also the \href{https://ctan.org/pkg/tuple}{\texttt{tuple}} package on CTAN, which provides a more complete and fully expandable approach to numeral list operations, with an elegant \texttt{object.method} chaining syntax!
+
+\section{Global usage}
+
+\subsection{Tools}
 
 Package \texttt{commalists-tools-l3} supports (basic) manipulations on numeral comma separated lists:
 
@@ -252,7 +248,9 @@ Starred versions only print the result, whereas non starred versions store the r
 \ctshowlist[\,/\,]{\mytmplist}
 \end{DemoCode}
 
-\subsection{The macros for calculating}
+\section{The macros for calculating}
+
+\subsection{Length, minimum, maximum}
 
 \begin{DemoCode}{listing only}
 %getting length of list, only printing
@@ -284,6 +282,8 @@ Starred versions only print the result, whereas non starred versions store the r
 \ctmaxoflist{\mytestlist}[\mymax]Max of list is \mymax
 \end{DemoCode}
 
+\subsection{Mean, sum, prod}
+
 \begin{DemoCode}{listing only}
 %getting mean of list, only printing
 \ctmeanoflist*{list}
@@ -311,7 +311,9 @@ Starred versions only print the result, whereas non starred versions store the r
 The sum is \mysum\ and the prod is \myprod
 \end{DemoCode}
 
-\subsection{Macros for manipulating}
+\section{Macros for manipulating}
+
+\subsection{Sorting}
 
 \begin{DemoCode}{listing only}
 %sorting (asc), only printing
@@ -327,13 +329,26 @@ The sum is \mysum\ and the prod is \myprod
 \begin{DemoCode}{}
 %sorting (asc), only printing
 \ctsortasclist*{14,10,15,11.5,9,10}\\
-%sorting (asc) and storing (overwrite)
+%sorting (asc) and storing within \myreslist
 \def\tmpsortlist{14,10,15,11.5,9,10}
-\ctsortasclist{\tmpsortlist}\tmpsortlist\\
+\ctsortasclist{\tmpsortlist}[\myreslist]\myreslist\\
 %analysing
-\readlist*\tmpSORTlist{\tmpsortlist}
+\readlist*\tmpSORTlist{\myreslist}
 \showitems{\tmpSORTlist}
 \end{DemoCode}
+
+\begin{DemoCode}{}
+%sorting (des), only printing
+\ctsortdeslist*{14,10,15,11.5,9,10}\\
+%sorting (asc) and storing within \myreslist
+\def\tmpsortlist{14,10,15,11.5,9,10}
+\ctsortdeslist{\tmpsortlist}[\myreslist]\myreslist\\
+%analysing
+\readlist*\tmpSORTlist{\myreslist}
+\showitems{\tmpSORTlist}
+\end{DemoCode}
+
+\subsection{Extract element, add/remove element}
 
 \begin{DemoCode}{listing only}
 %extract value, only printing
@@ -348,17 +363,6 @@ The sum is \mysum\ and the prod is \myprod
 \ctgetvaluefromlist*{\listtmp}{4}\par\smallskip
 %storing
 \ctgetvaluefromlist{\listtmp}{-1}[\mylastelt]The last element is \mylastelt
-\end{DemoCode}
-
-\begin{DemoCode}{}
-%sorting (des), only printing
-\ctsortdeslist*{14,10,15,11.5,9,10}\\
-%sorting (asc) and storing (overwrite)
-\def\tmpsortlist{14,10,15,11.5,9,10}
-\ctsortdeslist{\tmpsortlist}\tmpsortlist\\
-%analysing
-\readlist*\tmpSORTlist{\tmpsortlist}
-\showitems{\tmpSORTlist}
 \end{DemoCode}
 
 \begin{DemoCode}{listing only}
@@ -386,13 +390,15 @@ The sum is \mysum\ and the prod is \myprod
 \begin{DemoCode}{}
 %only printing
 \ctremovevalinlist*{3}{1,2,3,6,3,1,5,7,3}\\
-%defining and removing
+%defining and removing within \mytmplist
 \def\tmpremlist{1,2,3,6,3,1,5,7,3}
-\ctremovevalinlist{3}{\tmpremlist}\tmpremlist\\
+\ctremovevalinlist{3}{\tmpremlist}\mytmplist\\
 %analysing
-\readlist*\tmpREMlist{\tmpremlist}
+\readlist*\tmpREMlist{\mytmplist}
 \showitems{\tmpREMlist}
 \end{DemoCode}
+
+\subsection{Reverse}
 
 \begin{DemoCode}{listing only}
 %reversing, only printing
@@ -412,7 +418,278 @@ The sum is \mysum\ and the prod is \myprod
 \showitems{\tmpREVERSElist}
 \end{DemoCode}
 
-\subsection{Macros with testing}
+\subsection{Sub-list}
+
+\begin{DemoCode}{listing only}
+%extracting a sub-list, only printing (* = start or end of list)
+\ctsublist*{list}{begin}{end}
+%extracting a sub-list and storing into \macro (\mysublist by default)
+\ctsublist{list}{begin}{end}[\macro]
+\end{DemoCode}
+
+\begin{DemoCode}{}
+\def\mylist{10,20,30,40,50,60,70}
+%indices 2 to 5, only printing
+\ctsublist*{\mylist}{2}{5}\\
+%from start to index 4, only printing
+\ctsublist*{\mylist}{*}{4}\\
+%from index 3 to end, only printing
+\ctsublist*{\mylist}{3}{*}\\
+%whole list (* on both sides), only printing
+\ctsublist*{\mylist}{*}{*}
+\end{DemoCode}
+
+\begin{DemoCode}{}
+\def\mylist{10,20,30,40,50,60,70}
+%storing sub-list [2,5] into \myresult
+\ctsublist{\mylist}{2}{5}[\myresult]Sub-list [2,5]: \myresult\\
+%storing sub-list [*,3] into \myresultb
+\ctsublist{\mylist}{*}{3}[\myresultb]Sub-list [*,3]: \myresultb\\
+%storing sub-list [5,*] into \myresultc
+\ctsublist{\mylist}{5}{*}[\myresultc]Sub-list [5,*]: \myresultc
+\end{DemoCode}
+
+\begin{DemoCode}{listing only}
+%slicing by formula (x variable), only printing
+\ctslicelist*{list}{formula}
+%slicing by formula and storing into \macro (\myslicelist by default)
+\ctslicelist{list}{formula}[\macro]
+\end{DemoCode}
+
+\begin{DemoCode}{}
+\def\mylist{10,20,30,40,50,60,70,80,90,100}
+%even indices (2*x), only printing
+\ctslicelist*{\mylist}{2*x}\\
+%odd indices (2*x-1), only printing
+\ctslicelist*{\mylist}{2*x-1}\\
+%formula 3*x+1, only printing
+\ctslicelist*{\mylist}{3*x+1}\\
+%square indices (x^2), only printing
+\ctslicelist*{\mylist}{x^2}
+\end{DemoCode}
+
+\begin{DemoCode}{}
+\def\mylist{10,20,30,40,50,60,70,80,90,100}
+%storing slice with 2*x into \myresult
+\ctslicelist{\mylist}{2*x}[\myresult]Slice formula 2*x: \myresult\\
+%storing slice with x^2 into \myresultb
+\ctslicelist{\mylist}{x^2}[\myresultb]Slice formula x\^{}2: \myresultb
+\end{DemoCode}
+
+\subsection{Transform}
+
+\begin{DemoCode}{listing only}
+%transforming a list through formula, only printing
+\cttransformlist*[round]{list}{formula}
+%transforming a list through formula and storing into \macro (\mytransformlist by default)
+\cttransformlist*[round]{list}{formula}[\macro]
+\end{DemoCode}
+
+\begin{DemoCode}{}
+\def\mylist{10,20,30,40,50,60,70,80,90,100}
+%transform with 3x+1, only printing
+\cttransformlist*{\mylist}{3*x+1}\\
+%transform with x^2, only printing
+\cttransformlist*{\mylist}{x^2}\\
+%formula sqrt(x), only printing
+\cttransformlist*{10,20,30}{sqrt(x)}\\
+%formula round(sqrt(x),3), only printing
+\cttransformlist*[3]{\mylist}{sqrt(x)}\\
+\end{DemoCode}
+
+\begin{DemoCode}{}
+\def\mylist{10,20,30,40,50,60,70,80,90,100}
+%storing transform with 2*x into \myresult
+\cttransformlist{\mylist}{2*x}[\myresult]Transform formula 2*x:\\
+\myresult\\
+%storing transform with x^2-sqrt(x) into \myresultb
+\cttransformlist[1]{\mylist}{x^2-sqrt(x)}[\myresultb]Transform formula x\^{}2-sqrt(x):\\
+\myresultb
+\end{DemoCode}
+
+\subsection{Remove duplicate entries}
+
+\begin{DemoCode}{listing only}
+%removing duplicates, only printing
+\ctuniqlist*{list}
+%removing duplicates with optional sorting [asc] or [des]
+\ctuniqlist*[asc]{list}
+\ctuniqlist*[des]{list}
+%removing duplicates and storing into \macro (\myuniqlist by default)
+\ctuniqlist{list}[\macro]
+\ctuniqlist[asc]{list}[\macro]
+\ctuniqlist[des]{list}[\macro]
+\end{DemoCode}
+
+\begin{DemoCode}{}
+\def\mylist{1,2,3,2,4,3,5,1}
+%without sorting, only printing
+\ctuniqlist*{\mylist}\\
+%with ascending sort, only printing
+\ctuniqlist*[asc]{\mylist}\\
+%with descending sort, only printing
+\ctuniqlist*[des]{\mylist}
+\end{DemoCode}
+
+\begin{DemoCode}{}
+\def\mylist{5,2,9,2,1,5,7,3,1}
+%storing without sort into \myuniq
+\ctuniqlist{\mylist}[\myuniq]No sort: \myuniq\\
+%storing with [asc] into \myuniqasc
+\ctuniqlist[asc]{\mylist}[\myuniqasc]With [asc]: \myuniqasc\\
+%storing with [des] into \myuniqdes
+\ctuniqlist[des]{\mylist}[\myuniqdes]With [des]: \myuniqdes
+\end{DemoCode}
+
+\section{With two lists}
+
+\subsection{Intersection}
+
+\begin{DemoCode}{listing only}
+%intersection of two lists, only printing
+\ctintersectlists*{list1}{list2}
+%intersection with optional sorting [asc] or [des], only printing
+\ctintersectlists*[asc]{list1}{list2}
+\ctintersectlists*[des]{list1}{list2}
+%intersection and storing into \macro (\myintersectlist by default)
+\ctintersectlists{list1}{list2}[\macro]
+\ctintersectlists[asc]{list1}{list2}[\macro]
+\ctintersectlists[des]{list1}{list2}[\macro]
+\end{DemoCode}
+
+\begin{DemoCode}{}
+\def\mylistA{1,3,5,7,9,11,13}
+\def\mylistB{3,6,9,12,15,7,1}
+%without sorting, only printing
+\ctintersectlists*{\mylistA}{\mylistB}\\
+%with ascending sort, only printing
+\ctintersectlists*[asc]{\mylistA}{\mylistB}\\
+%with descending sort, only printing
+\ctintersectlists*[des]{\mylistA}{\mylistB}
+\end{DemoCode}
+
+\begin{DemoCode}{}
+\def\mylistA{4,8,2,6,10,3,7}
+\def\mylistB{2,5,8,11,6,3}
+%storing without sort into \myinter
+\ctintersectlists{\mylistA}{\mylistB}[\myinter]No sort: \myinter\\
+%storing with [asc] into \myinterasc
+\ctintersectlists[asc]{\mylistA}{\mylistB}[\myinterasc]With [asc]: \myinterasc\\
+%storing with [des] into \myinterdes
+\ctintersectlists[des]{\mylistA}{\mylistB}[\myinterdes]With [des]: \myinterdes
+\end{DemoCode}
+
+\subsection{Union (merge)}
+
+\begin{DemoCode}{listing only}
+%union of two lists (no duplicates), only printing
+\ctmergelists*{list1}{list2}
+%union with optional sorting [asc] or [des], only printing
+\ctmergelists*[asc]{list1}{list2}
+\ctmergelists*[des]{list1}{list2}
+%union and storing into \macro (\mymergelist by default)
+\ctmergelists{list1}{list2}[\macro]
+\ctmergelists[asc]{list1}{list2}[\macro]
+\ctmergelists[des]{list1}{list2}[\macro]
+\end{DemoCode}
+
+\begin{DemoCode}{}
+\def\mylistA{1,3,5,7,9}
+\def\mylistB{3,6,9,12,15}
+%without sorting, only printing
+\ctmergelists*{\mylistA}{\mylistB}\\
+%with ascending sort, only printing
+\ctmergelists*[asc]{\mylistA}{\mylistB}\\
+%with descending sort, only printing
+\ctmergelists*[des]{\mylistA}{\mylistB}
+\end{DemoCode}
+
+\begin{DemoCode}{}
+\def\mylistA{4,8,2,6,10}
+\def\mylistB{2,5,8,11,6}
+%storing without sort into \mymerge
+\ctmergelists{\mylistA}{\mylistB}[\mymerge]No sort: \mymerge\\
+%storing with [asc] into \mymergeasc
+\ctmergelists[asc]{\mylistA}{\mylistB}[\mymergeasc]With [asc]: \mymergeasc\\
+%storing with [des] into \mymergedes
+\ctmergelists[des]{\mylistA}{\mylistB}[\mymergedes]With [des]: \mymergedes
+\end{DemoCode}
+
+\subsection{Difference}
+
+\begin{DemoCode}{listing only}
+%difference A\B (elements in A absent from B), only printing
+\ctdifflist*{listA}{listB}
+%difference with optional sorting [asc] or [des], only printing
+\ctdifflist*[asc]{listA}{listB}
+\ctdifflist*[des]{listA}{listB}
+%difference and storing into \macro (\mydifflist by default)
+\ctdifflist{listA}{listB}[\macro]
+\ctdifflist[asc]{listA}{listB}[\macro]
+\ctdifflist[des]{listA}{listB}[\macro]
+\end{DemoCode}
+
+\begin{DemoCode}{}
+\def\mylistA{1,3,5,7,9,11,13}
+\def\mylistB{3,7,11,15,19}
+%without sorting, only printing
+\ctdifflist*{\mylistA}{\mylistB}\\
+%with ascending sort, only printing
+\ctdifflist*[asc]{\mylistA}{\mylistB}\\
+%with descending sort, only printing
+\ctdifflist*[des]{\mylistA}{\mylistB}
+\end{DemoCode}
+
+\begin{DemoCode}{}
+\def\mylistA{4,8,2,6,10,3,7}
+\def\mylistB{2,5,8,11,6,3}
+%storing without sort into \mydiff
+\ctdifflist{\mylistA}{\mylistB}[\mydiff]No sort: \mydiff\\
+%storing with [asc] into \mydiffasc
+\ctdifflist[asc]{\mylistA}{\mylistB}[\mydiffasc]With [asc]: \mydiffasc\\
+%storing with [des] into \mydiffdes
+\ctdifflist[des]{\mylistA}{\mylistB}[\mydiffdes]With [des]: \mydiffdes
+\end{DemoCode}
+
+\subsection{Symmetric difference}
+
+\begin{DemoCode}{listing only}
+%symmetric difference (elements in A or B but not both), only printing
+\ctsymdifflist*{listA}{listB}
+%symmetric difference with optional sorting [asc] or [des], only printing
+\ctsymdifflist*[asc]{listA}{listB}
+\ctsymdifflist*[des]{listA}{listB}
+%symmetric difference and storing into \macro (\mysymdifflist by default)
+\ctsymdifflist{listA}{listB}[\macro]
+\ctsymdifflist[asc]{listA}{listB}[\macro]
+\ctsymdifflist[des]{listA}{listB}[\macro]
+\end{DemoCode}
+
+\begin{DemoCode}{}
+\def\mylistA{1,3,5,7,9,11,13}
+\def\mylistB{3,7,11,15,19}
+%without sorting, only printing
+\ctsymdifflist*{\mylistA}{\mylistB}\\
+%with ascending sort, only printing
+\ctsymdifflist*[asc]{\mylistA}{\mylistB}\\
+%with descending sort, only printing
+\ctsymdifflist*[des]{\mylistA}{\mylistB}
+\end{DemoCode}
+
+\begin{DemoCode}{}
+\def\mylistA{4,8,2,6,10,3,7}
+\def\mylistB{2,5,8,11,6,3}
+%storing without sort into \mysymdiff
+\ctsymdifflist{\mylistA}{\mylistB}[\mysymdiff]No sort: \mysymdiff\\
+%storing with [asc] into \mysymdiffasc
+\ctsymdifflist[asc]{\mylistA}{\mylistB}[\mysymdiffasc]With [asc]: \mysymdiffasc\\
+%storing with [des] into \mysymdiffdes
+\ctsymdifflist[des]{\mylistA}{\mylistB}[\mysymdiffdes]With [des]: \mysymdiffdes
+\end{DemoCode}
+
+\section{Macros with testing}
+
+\subsection{Value in list ?}
 
 \begin{DemoCode}{listing only}
 %testing if value is in list, with boolean result in \macro (\resisinlist by default)
@@ -431,6 +708,8 @@ The sum is \mysum\ and the prod is \myprod
 \ctboolvalinlist{5}{\myteslist}[\resisinlist]\resisinlist
 \end{DemoCode}
 
+\subsection{Count value}
+
 \begin{DemoCode}{listing only}
 %counting value, only printing
 \ctcountvalinlist*{value}{list}
@@ -447,9 +726,33 @@ The sum is \mysum\ and the prod is \myprod
 \ctcountvalinlist{10}{\tmpcountlist}[\rescountten]\rescountten
 \end{DemoCode}
 
+\subsection{Get index}
+
+\begin{DemoCode}{listing only}
+%index value (first occurency), only printing
+\ctgetindexfromlist*{value}{list}
+%index value (first occurency), with result in \macro (\resmyindex by default)
+\ctgetindexfromlist{value}{list}[\macro]
+\end{DemoCode}
+
+\begin{DemoCode}{}
+%only printing
+\ctgetindexfromlist*{8}{1,2,3,4,5,6,6,7,8,8,8,9}\\
+%storing
+\def\tmpindexlist{1,2,3,4,5,6,6,7,8,8,8,9}
+\ctgetindexfromlist{6}{\tmpindexlist}[\resindexsix]\resindexsix\\
+\ctgetindexfromlist{10}{\tmpindexlist}[\resindexten]\resindexten
+\end{DemoCode}
+
 \pagebreak
 
 \section{History}
+
+\texttt{0.20a: Sub-list extraction + transform list + merge/intersection + improvements}
+
+\texttt{0.1.9: Improvements with \hologo{LaTeX3}, tks to \textit{ankaa3908}}
+
+\texttt{0.1.8: Get index from value}
 
 \texttt{0.1.7: Improvements with \hologo{LaTeX3}}
 
