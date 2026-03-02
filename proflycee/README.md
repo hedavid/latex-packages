@@ -33,7 +33,11 @@ If you want the latest version directly from this repository:
    - **TeX Live / Linux**: `~/texmf/tex/latex/ProfLycee/`
    - **MiKTeX / Windows**: `C:\Users\<user>\AppData\Roaming\MiKTeX\tex\latex\ProfLycee\`
    - **macOS (MacTeX)**: `~/Library/texmf/tex/latex/ProfLycee/`
-3. Refresh the filename database:
+3. Place the MetaPost files (`.mp`) in the appropriate directory, for example:
+   - **TeX Live / Linux**: `~/texmf/metapost/ProfLycee/`
+   - **MiKTeX / Windows**: `C:\Users\<user>\AppData\Roaming\MiKTeX\metapost\ProfLycee\`
+   - **macOS (MacTeX)**: `~/Library/texmf/metapost/ProfLycee/`
+4. Refresh the filename database:
    - TeX Live: `mktexlsr` or `texhash`
    - MiKTeX: `initexmf --update-fndb`
 
