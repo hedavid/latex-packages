@@ -6,6 +6,8 @@
 
 ## Installation
 
+The package is available on [CTAN](https://ctan.org/pkg/jeuxcartes) and can be installed via your LaTeX distribution's package manager.
+
 ### Via MiKTeX
 
 - **Graphically**: open the *MiKTeX Console*, go to *Packages*, search for `JeuxCartes` and click *Install*.
@@ -24,7 +26,7 @@ tlmgr install JeuxCartes
 
 ### Manual installation
 
-If the package is not yet available through a package manager, or if you want the latest version directly from this repository:
+If you want the latest version directly from this repository:
 
 1. Download the repository (click *Code > Download ZIP*, or clone it).
 2. Place `JeuxCartes.sty` in a directory where LaTeX can find it, for example:
@@ -41,17 +43,10 @@ If the package is not yet available through a package manager, or if you want th
 
 ```latex
 \usepackage{JeuxCartes}
+
+% Example: 
+\MainCartesJeu[Eventail,EspH=0,EspV=0.1]{7K § 8P § DT § AC}
 ```
-
----
-
-## Author & License
-
-| | |
-|---|---|
-| **Author** | Cédric Pierquet |
-| **Email** | cpierquet@outlook.fr |
-| **License** | Released under the [LaTeX Project Public License v1.3c](http://www.latex-project.org/lppl.txt) or later |
 
 ---
 
@@ -70,3 +65,13 @@ If the package is not yet available through a package manager, or if you want th
 | Poker bi | LGPL-3 | [tfbkny/blackjack](https://github.com/tfbkny/blackjack) |
 | Tarot v1 | Public Domain | [freesvg.org](https://freesvg.org/deck-of-french-tarot-playing-cards) |
 | Uno v1 | MIT | [eperezcosano.github.io](https://eperezcosano.github.io/uno-part1/) |
+
+---
+
+## Author & License
+
+| | |
+|---|---|
+| **Author** | Cédric Pierquet |
+| **Email** | cpierquet@outlook.fr |
+| **License** | Released under the [LaTeX Project Public License v1.3c](http://www.latex-project.org/lppl.txt) or later |
