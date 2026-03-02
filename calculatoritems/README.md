@@ -13,7 +13,7 @@ The package is available on [CTAN](https://ctan.org/pkg/calculatoritems) and can
 - **Graphically**: open the *MiKTeX Console*, go to *Packages*, search for `calculatoritems` and click *Install*.
 - **Command line**:
   ```
-  miktex packages install calculatoritems
+  mpm.exe --install calculatoritems
   ```
 
 ### Via TeX Live / tlmgr
@@ -52,7 +52,7 @@ If you want the latest version directly from this repository:
 
 ## Author & License
 
-| | |
+|||
 |---|---|
 | **Author** | Cédric Pierquet |
 | **Email** | cpierquet@outlook.fr |
