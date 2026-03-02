@@ -1,21 +1,59 @@
-You are a french mathematics teacher ?
+# ProfLycee
 
-proflycee may be a useful package to daily use of LaTeX.
+> A LaTeX package for French maths teachers in high school — Un package LaTeX pour les enseignants de mathématiques au lycée.
 
-----------------
+---
 
-Vous êtes un enseignant de mathématiques en lycée ?
+## Installation
 
-proflycee est un package qui pourra vous aider à utiliser LaTeX au quotidien.
+The package is available on [CTAN](https://ctan.org/pkg/proflycee) and can be installed via your LaTeX distribution's package manager.
 
-----------------
+### Via MiKTeX
 
-Author   : Cédric Pierquet
+- **Graphically**: open the *MiKTeX Console*, go to *Packages*, search for `ProfLycee` and click *Install*.
+- **Command line**:
+  ```
+  miktex packages install ProfLycee
+  ```
 
-email    : cpierquet@outlook.fr
+### Via TeX Live / tlmgr
 
-Licences : Released under the LaTeX Project Public License v1.3c or later, see http://www.latex-project.org/lppl.txt
+```
+tlmgr install ProfLycee
+```
 
-           CC0/MIT for cliparts (from openclipart/svgrepo)
+> On Linux, you may need to prefix with `sudo` depending on your installation.
 
-           CC BY-SA 3.0 (from Mark Wibrow helping code)
+### Manual installation
+
+If you want the latest version directly from this repository:
+
+1. Download the repository (click *Code > Download ZIP*, or clone it).
+2. Place `ProfLycee.sty` in a directory where LaTeX can find it, for example:
+   - **TeX Live / Linux**: `~/texmf/tex/latex/ProfLycee/`
+   - **MiKTeX / Windows**: `C:\Users\<user>\AppData\Roaming\MiKTeX\tex\latex\ProfLycee\`
+   - **macOS (MacTeX)**: `~/Library/texmf/tex/latex/ProfLycee/`
+3. Refresh the filename database:
+   - TeX Live: `mktexlsr` or `texhash`
+   - MiKTeX: `initexmf --update-fndb`
+
+---
+
+## Quick start
+
+```latex
+\usepackage{ProfLycee}
+
+% Example: display a trigonometric circle
+\CercleTrigo
+```
+
+---
+
+## Author & License
+
+| | |
+|---|---|
+| **Author** | Cédric Pierquet |
+| **Email** | cpierquet@outlook.fr |
+| **License** | Released under the [LaTeX Project Public License v1.3c](http://www.latex-project.org/lppl.txt) or later · CC0/MIT for cliparts · CC BY-SA 3.0 (from Mark Wibrow helping code) |
