@@ -1,35 +1,72 @@
-JeuxCartes is a package with playing cards.
+# JeuxCartes
 
---------------------------------------------------
+> A LaTeX package with playing cards — Un package LaTeX avec des cartes à jouer.
 
-JeuxCartes est un package avec des cartes à jouer.
+---
 
---------------------------------------------------
+## Installation
 
-Author : Cédric Pierquet
+### Via MiKTeX
 
-email : cpierquet@outlook.fr
+- **Graphically**: open the *MiKTeX Console*, go to *Packages*, search for `JeuxCartes` and click *Install*.
+- **Command line**:
+  ```
+  miktex packages install JeuxCartes
+  ```
 
-Licence : Released under the LaTeX Project Public License v1.3c or later, see http://www.latex-project.org/lppl.txt
+### Via TeX Live / tlmgr
 
-Poker v1 cards Image's Licence : LGPL-2.1 license https://github.com/htdebeer/SVG-cards
+```
+tlmgr install JeuxCartes
+```
 
-Poker v2 cards Image's Licence : Public Domain    https://tekeye.uk/playing_cards/svg-playing-cards
+> On Linux, you may need to prefix with `sudo` depending on your installation.
 
-Poker v3 cards Image's Licence : Public Domain    https://www.me.uk/cards/
+### Manual installation
 
-Poker v4 cards Image's Licence : CC BY-SA 4.0     https://commons.wikimedia.org/wiki/File:Computer_screen_playing_cards_deck.svg
+If the package is not yet available through a package manager, or if you want the latest version directly from this repository:
 
-Poker v5 cards Image's Licence : Public Domain    https://www.me.uk/cards/
+1. Download the repository (click *Code > Download ZIP*, or clone it).
+2. Place `JeuxCartes.sty` in a directory where LaTeX can find it, for example:
+   - **TeX Live / Linux**: `~/texmf/tex/latex/JeuxCartes/`
+   - **MiKTeX / Windows**: `C:\Users\<user>\AppData\Roaming\MiKTeX\tex\latex\JeuxCartes\`
+   - **macOS (MacTeX)**: `~/Library/texmf/tex/latex/JeuxCartes/`
+3. Refresh the filename database:
+   - TeX Live: `mktexlsr` or `texhash`
+   - MiKTeX: `initexmf --update-fndb`
 
-Poker v6 cards Image's Licence : Public Domain    https://code.google.com/archive/p/vector-playing-cards
+---
 
-Poker v7 cards Image's Licence : Public Domain    https://www.me.uk/cards/
+## Quick start
 
-Poker fr cards Image's Licence.: LGPL-2.1 license https://svg-cards.sourceforge.net/
+```latex
+\usepackage{JeuxCartes}
+```
 
-Poker bi cards Image's Licence.: LGPL-3 license   https://github.com/tfbkny/blackjack
+---
 
-Tarot v1 cards Image's Licence : Public Domain    https://freesvg.org/deck-of-french-tarot-playing-cards
+## Author & License
 
-Uno v1 cards Image's Licence   : MIT License      https://eperezcosano.github.io/uno-part1/
+| | |
+|---|---|
+| **Author** | Cédric Pierquet |
+| **Email** | cpierquet@outlook.fr |
+| **License** | Released under the [LaTeX Project Public License v1.3c](http://www.latex-project.org/lppl.txt) or later |
+
+---
+
+## Image Licenses
+
+| Deck | License | Source |
+|---|---|---|
+| Poker v1 | LGPL-2.1 | [htdebeer/SVG-cards](https://github.com/htdebeer/SVG-cards) |
+| Poker v2 | Public Domain | [tekeye.uk](https://tekeye.uk/playing_cards/svg-playing-cards) |
+| Poker v3 | Public Domain | [me.uk/cards](https://www.me.uk/cards/) |
+| Poker v4 | CC BY-SA 4.0 | [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Computer_screen_playing_cards_deck.svg) |
+| Poker v5 | Public Domain | [me.uk/cards](https://www.me.uk/cards/) |
+| Poker v6 | Public Domain | [vector-playing-cards](https://code.google.com/archive/p/vector-playing-cards) |
+| Poker v7 | Public Domain | [me.uk/cards](https://www.me.uk/cards/) |
+| Poker fr | LGPL-2.1 | [svg-cards.sourceforge.net](https://svg-cards.sourceforge.net/) |
+| Poker bi | LGPL-3 | [tfbkny/blackjack](https://github.com/tfbkny/blackjack) |
+| Tarot v1 | Public Domain | [freesvg.org](https://freesvg.org/deck-of-french-tarot-playing-cards) |
+| Uno v1 | MIT | [eperezcosano.github.io](https://eperezcosano.github.io/uno-part1/) |
