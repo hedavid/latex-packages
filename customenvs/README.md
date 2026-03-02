@@ -1,23 +1,73 @@
-customenvs is a package with some classics custom environments.
+# customenvs
 
-----------------------------------------------------------------------
+> A LaTeX package providing custom environments (MCQ, list with picked items, …) — Un package LaTeX proposant des environnements personnalisés (QCM, listes à compléter, …).
 
-customenvs est un package avec environnements classiques personnalisés.
+---
 
-----------------------------------------------------------------------
+## Installation
 
-Author....: Cédric Pierquet
+The package is available on [CTAN](https://ctan.org/pkg/customenvs) and can be installed via your LaTeX distribution's package manager.
 
-email.....: cpierquet@outlook.fr
+### Via MiKTeX
 
-Licence...: Released under the LaTeX Project Public License v1.3c or later, see http://www.latex-project.org/lppl.txt
+- **Graphically**: open the *MiKTeX Console*, go to *Packages*, search for `customenvs` and click *Install*.
+- **Command line**:
+  ```
+  miktex packages install customenvs
+  ```
 
-Sources...: CC-BY-SA 4.0 https://tex.stackexchange.com/questions/504092/replicating-a-fancy-bordered-text-style-in-latex/504145#504145
+### Via TeX Live / tlmgr
 
-..........: CC-BY https://www.svgrepo.com/collection/education-vectors/
+```
+tlmgr install customenvs
+```
 
-..........: CC-0 https://www.svgrepo.com/collection/design-8/
+> On Linux, you may need to prefix with `sudo` depending on your installation.
 
-..........: MIT https://getbootstrap.com
+### Manual installation
 
-..........: MIT https://github.com/itstor/solar-icon-react
+If you want the latest version directly from this repository:
+
+1. Download the repository (click *Code > Download ZIP*, or clone it).
+2. Place `customenvs.sty` in a directory where LaTeX can find it, for example:
+   - **TeX Live / Linux**: `~/texmf/tex/latex/customenvs/`
+   - **MiKTeX / Windows**: `C:\Users\<user>\AppData\Roaming\MiKTeX\tex\latex\customenvs\`
+   - **macOS (MacTeX)**: `~/Library/texmf/tex/latex/customenvs/`
+3. Refresh the filename database:
+   - TeX Live: `mktexlsr` or `texhash`
+   - MiKTeX: `initexmf --update-fndb`
+
+---
+
+## Quick start
+
+```latex
+\usepackage{customenvs}
+
+% Example: a multiple-choice question environment
+\begin{QCM}
+  ...
+\end{QCM}
+```
+
+---
+
+## Sources & Licenses
+
+| Source | License |
+|---|---|
+| [tex.stackexchange.com – fancy bordered text](https://tex.stackexchange.com/questions/504092/replicating-a-fancy-bordered-text-style-in-latex/504145#504145) | CC BY-SA 4.0 |
+| [svgrepo.com – Education Vectors](https://www.svgrepo.com/collection/education-vectors/) | CC BY |
+| [svgrepo.com – Design 8](https://www.svgrepo.com/collection/design-8/) | CC 0 |
+| [Bootstrap](https://getbootstrap.com) | MIT |
+| [solar-icon-react](https://github.com/itstor/solar-icon-react) | MIT |
+
+---
+
+## Author & License
+
+| | |
+|---|---|
+| **Author** | Cédric Pierquet |
+| **Email** | cpierquet@outlook.fr |
+| **License** | Released under the [LaTeX Project Public License v1.3c](http://www.latex-project.org/lppl.txt) or later |
