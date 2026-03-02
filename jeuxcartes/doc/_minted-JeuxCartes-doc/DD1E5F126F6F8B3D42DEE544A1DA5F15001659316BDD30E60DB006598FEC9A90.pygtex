@@ -1,0 +1,4 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k}{\PYGZbs{}AffCarteJeu}\PYG{n+na}{[options]}\PYG{n+nb}{\PYGZob{}}\PYGZlt{}carte\PYGZgt{}\PYG{n+nb}{\PYGZcb{}}
+\PYG{k}{\PYGZbs{}AffCartesJeu}\PYG{n+na}{[options]}\PYG{n+nb}{\PYGZob{}}\PYGZlt{}liste de cartes\PYGZgt{}\PYG{n+nb}{\PYGZcb{}}
+\end{Verbatim}

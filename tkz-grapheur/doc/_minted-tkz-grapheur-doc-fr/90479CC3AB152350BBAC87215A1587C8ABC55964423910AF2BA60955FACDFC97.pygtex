@@ -1,0 +1,11 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c}{\PYGZpc{}style des traits (normaux, antécédents, images)}
+\PYG{k}{\PYGZbs{}tikzset}\PYG{n+nb}{\PYGZob{}}pfltrait/.style=\PYG{n+nb}{\PYGZob{}}line width=0.8pt\PYG{n+nb}{\PYGZcb{}\PYGZcb{}}
+\PYG{k}{\PYGZbs{}tikzset}\PYG{n+nb}{\PYGZob{}}pfltraitantec/.style=\PYG{n+nb}{\PYGZob{}}line width=0.95pt,densely dashed\PYG{n+nb}{\PYGZcb{}\PYGZcb{}}
+\PYG{k}{\PYGZbs{}tikzset}\PYG{n+nb}{\PYGZob{}}pfltraitimg/.style=\PYG{n+nb}{\PYGZob{}}line width=0.95pt,densely dashed,\PYGZhy{}\PYGZgt{},\PYGZgt{}=latex\PYG{n+nb}{\PYGZcb{}\PYGZcb{}}
+
+\PYG{c}{\PYGZpc{}style des flèches}
+\PYG{k}{\PYGZbs{}tikzset}\PYG{n+nb}{\PYGZob{}}pflflecheg/.style=\PYG{n+nb}{\PYGZob{}}\PYGZlt{}\PYGZhy{},\PYGZgt{}=latex\PYG{n+nb}{\PYGZcb{}\PYGZcb{}}
+\PYG{k}{\PYGZbs{}tikzset}\PYG{n+nb}{\PYGZob{}}pflfleched/.style=\PYG{n+nb}{\PYGZob{}}\PYGZhy{}\PYGZgt{},\PYGZgt{}=latex\PYG{n+nb}{\PYGZcb{}\PYGZcb{}}
+\PYG{k}{\PYGZbs{}tikzset}\PYG{n+nb}{\PYGZob{}}pflflechegd/.style=\PYG{n+nb}{\PYGZob{}}\PYGZlt{}\PYGZhy{}\PYGZgt{},\PYGZgt{}=latex\PYG{n+nb}{\PYGZcb{}\PYGZcb{}}
+\end{Verbatim}

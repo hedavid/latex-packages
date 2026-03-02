@@ -1,0 +1,1200 @@
+\part{Outils pour l'arithmétique}
+
+\section{Réduction modulo}\label{restemodulo}
+
+\subsection{Idée}
+
+\begin{tipblock}
+\cmaj{3.02c} L'idée est de proposer une commande pour travailler sur les réductions \textit{modulo} :
+
+\begin{itemize}
+	\item en donnant la \textit{plus petite positive} ;
+	\item ou la \textit{plus petite négative}.
+\end{itemize}
+\vspace*{-\baselineskip}\leavevmode
+\end{tipblock}
+
+\begin{PresCodeTexPL}{listing only}
+%reste/quotient modulo de a par n
+\ResteMod(*){a}{n}
+\QuoMod{a}{n}
+\end{PresCodeTexPL}
+
+\begin{PresCodePL}{}
+%avec la librairie 'ecritures' pour les modulos
+$\num{1234} \equiv \ResteMod{1234}{26} \Modulo{26} \equiv \ResteMod*{1234}{26} \Modulo{26}$
+\end{PresCodePL}
+
+\subsection{Clés et options}
+
+\begin{cautionblock}
+En ce qui concerne la commande, la version \textit{étoilée} permet d'afficher la \textit{plus petite congruence négative}.
+
+L'argument \ctex{a} peut être donné via un \textit{calcul}, en langage \ctex{xint}.
+\end{cautionblock}
+
+\begin{PresCodePL}{}
+$\num{98} \equiv \ResteMod{98}{9} \Modulo{9}$\\
+$\num{98} \equiv \ResteMod*{98}{9} \Modulo{9}$\\
+$7^{50} \equiv \ResteMod{7**50}{8} \Modulo{8}$\\
+\end{PresCodePL}
+
+\pagebreak
+
+\section{Conversions entre bases}\label{basetobase}
+
+\subsection{Idée}
+
+\begin{tipblock}
+\cmaj{3.05a} L'idée est de proposer une commande effectuer et présenter des conversions entre bases :
+
+\begin{itemize}
+	\item avec affichage des bases ;
+	\item avec regroupements par paquets de pour le binaire.
+\end{itemize}
+\vspace*{-\baselineskip}\leavevmode
+\end{tipblock}
+
+\begin{PresCodeTexPL}{listing only}
+%mode sans affichage des bases
+\ConversionEntreBases[espace blocs 4 pour le binaire]{dep->arrivée}{nb}
+
+%mode avec affichage des bases
+\ConversionEntreBases*[espace blocs 4 pour le binaire]{dep->arrivée}{nb}
+\end{PresCodeTexPL}
+
+\subsection{Exemples}
+
+\begin{PresCodePL}{}
+\ConversionEntreBases{2->16}{11111110}\par
+\ConversionEntreBases*{2->16}{11111110}\par
+\ConversionEntreBases{16->10}{ACDC}\par
+\ConversionEntreBases*[]{16->2}{ACDC}\par
+\ConversionEntreBases*{16->5}{A47E}\par
+\ConversionEntreBases*{8->7}{7777}
+\end{PresCodePL}
+
+\pagebreak
+
+\section{Division euclidienne}\label{diveucl}
+
+\subsection{Idée}
+
+\begin{tipblock}
+\cmaj{3.01b} L'idée est de proposer une commande pour travailler sur les divisions euclidiennes :
+
+\begin{itemize}
+	\item présentation classique ;
+	\item présentation avec vérification pour le reste ;
+	\item présentation avec pointillés pour compléter ;
+	\item \cmaj{3.03b} présentation \textit{brute}.
+\end{itemize}
+\vspace*{-\baselineskip}\leavevmode
+\end{tipblock}
+
+\begin{noteblock}
+Le package \ctex{xinttools} est la base de cette macro.
+
+C'est lui qui s'occupe de la partie \textit{calculs}.
+\end{noteblock}
+
+\begin{PresCodeTexPL}{listing only}
+%mode brut
+\DivisionEucl{a}{b}
+
+%mode présentation
+\DivEucl(*)[clés]{a}{b}
+\end{PresCodeTexPL}
+
+\begin{PresCodePL}{}
+\DivisionEucl{145}{7}\par
+\DivisionEucl{-40}{7}\par
+\DivEucl{145}{7}\par
+\DivEucl*{145}{7}\par
+\DivEucl*[Quotient=false]{-145}{7}\par
+\DivisionEucl{145}{-7}\par
+\DivEucl[Reste=false]{145}{-7}\par
+\DivEucl[Vide]{-145}{-7}
+\end{PresCodePL}
+
+\subsection{Clés et options}
+
+\begin{cautionblock}
+En ce qui concerne la commande pour la division euclidienne \textit{présentée} :
+
+\begin{itemize}
+	\item la version \textit{étoilée} permet d'afficher la \textit{vérification} du reste ;
+	\item le booléen \Cle{Quotient} permet d'afficher le quotient ; \hfill{}défaut \Cle{true}
+	\item le booléen \Cle{Reste} permet d'afficher le reste ; \hfill{}défaut \Cle{true}
+	\item le booléen \Cle{Vide} permet de ne pas afficher le quotient et le reste ; \hfill{}défaut \Cle{false}
+	\item la clé \Cle{Pointilles} permet de spécifier les éventuels pointillés ; \hfill{}défaut \Cle{\textbackslash ldots}
+	\item les arguments obligatoires, et entre \ctex{\{...\}}, sont les entiers avec lesquels on travaille.
+\end{itemize}
+
+À noter que la commande est incluse dans un bloc \ctex{\textbackslash ensuremath} (sans la vérification du reste), donc les \ctex{$...$} ne sont pas nécessaires.
+\end{cautionblock}
+
+\begin{PresCodePL}{}
+\DivEucl*{123456789}{8547}\par
+\DivEucl[Vide,Pointilles={\makebox[1cm]{\dotfill}}]{123456789}{8547}
+\end{PresCodePL}
+
+\pagebreak
+
+\section{Conversions binaire/hexadécimal/décimal}\label{conversions}
+
+\subsection{Idée}
+
+\begin{tipblock}
+L'idée est de \textit{compléter} les possibilités offertes par le package \ctex{xintbinhex}, en mettant en forme quelques conversions :
+
+\begin{itemize}
+	\item décimal en binaire avec blocs de 4 chiffres en sortie ;
+	\item hexadécimal en binaire avec blocs de 4 chiffres en sortie ;
+	\item conversion binaire ou hexadécimal en décimal avec écriture polynomiale.
+\end{itemize}
+\vspace*{-\baselineskip}\leavevmode
+\end{tipblock}
+
+\begin{noteblock}
+Le package \ctex{xintbinhex} est la base de ces macros, puisqu'il permet de faire des conversions directes !
+
+\smallskip
+
+Les macros présentées ici ne font que les intégrer dans un environnement adapté à une correction ou une présentation !
+\end{noteblock}
+
+\begin{PresCodeTexPL}{listing only}
+\xintDecToHex{100}
+\xintDecToBin{51}
+\xintHexToDec{A4C}
+\xintBinToDec{110011}
+\xintBinToHex{11111111}
+\xintHexToBin{ACDC}
+\xintCHexToBin{3F}
+\end{PresCodeTexPL}
+
+\begin{PresCodeSortiePL}{text only}
+\xintDecToHex{100}
+
+\xintDecToBin{51}
+
+\xintHexToDec{A4C}
+
+\xintBinToDec{110011}
+
+\xintBinToHex{11111111}
+
+\xintHexToBin{ACDC}
+
+\xintCHexToBin{3F}
+\end{PresCodeSortiePL}
+
+\subsection{Conversion décimal vers binaire}
+
+\begin{PresCodeTexPL}{listing only}
+\ConversionDecBin(*)[clés]{nombre}
+\end{PresCodeTexPL}
+
+\begin{cautionblock}
+Concernant la commande en elle même, peu de paramétrage :
+
+\begin{itemize}
+\item la version \textit{étoilée} qui permet de ne pas afficher de zéros avant pour \og compléter \fg{} ;
+\item le booléen \Cle{AffBase} qui permet d'afficher ou non la base des nombres ; \hfill{}défaut \Cle{true}
+\item l'argument, \textit{obligatoire}, est le nombre entier à convertir.
+\end{itemize}
+
+Le formatage est géré par \ctex{sinuitx}, le mieux est donc de positionner la commande dans un environnement mathématique.
+
+\smallskip
+
+Les nombres écrits en binaire sont, par défaut, présentés en bloc(s) de 4 chiffres.
+\end{cautionblock}
+
+\begin{PresCodeTexPL}{listing only}
+% Conversion avec affichage de la base et par bloc de 4
+$\ConversionDecBin{415}$
+% Conversion avec affichage de la base et sans forcément des blocs de 4
+$\ConversionDecBin*{415}$
+% Conversion sans affichage de la base et par bloc de 4
+$\ConversionDecBin[AffBase=false]{415}$
+% Conversion sans affichage de la base et sans forcément des blocs de 4
+$\ConversionDecBin*[AffBase=false]{415}$
+\end{PresCodeTexPL}
+
+\begin{PresCodeSortiePL}{text only}
+$\ConversionDecBin{415}$
+
+\smallskip
+
+$\ConversionDecBin*{415}$
+
+\smallskip
+
+$\ConversionDecBin[AffBase=false]{415}$
+
+\smallskip
+
+$\ConversionDecBin*[AffBase=false]{415}$
+\end{PresCodeSortiePL}
+
+\subsection{Conversion binaire vers hexadécimal}
+
+\begin{noteblock}
+L'idée est ici de présenter la conversion, grâce à la conversion \og directe \fg{} par blocs de 4 chiffres :
+
+\begin{itemize}
+\item la macro rajoute éventuellement les zéros pour compléter ;
+\item elle découpe par blocs de 4 chiffres binaires ;
+\item elle présente la conversion de chacun des blocs de 4 chiffres binaires ;
+\item elle affiche la conversion en binaire.
+\end{itemize}
+\vspace*{-\baselineskip}\leavevmode
+\end{noteblock}
+
+\begin{PresCodeTexPL}{listing only}
+\ConversionBinHex[clés]{nombre}
+\end{PresCodeTexPL}
+
+\begin{cautionblock}
+Quelques \Cle{clés} sont disponibles pour cette commande :
+
+\begin{itemize}
+\item le booléen \Cle{AffBase} qui permet d'afficher ou non la base des nombres ; \hfill{}défaut \Cle{true}
+\item le booléen \Cle{Details} qui permet d'afficher ou le détail par bloc de 4. \hfill{}défaut \Cle{true}
+%\item la clé \Cle{trait} qui permet de modifier l'épaisseur du crochet. \hfill{}défaut \Cle{0.5pt}
+\end{itemize}
+
+Le formatage est géré par le package \ctex{sinuitx}, le mieux est de positionner la commande dans un environnement mathématique.
+\end{cautionblock}
+
+\begin{PresCodeTexPL}{listing only}
+%conversion avec détails et affichage de la base
+$\ConversionBinHex{110011111}$
+%conversion sans détails et affichage de la base
+$\ConversionBinHex[Details=false]{110011111}$
+%conversion sans détails et sans affichage de la base
+$\ConversionBinHex[AffBase=false,Details=false]{110011111}$
+\end{PresCodeTexPL}
+
+\begin{PresCodeSortiePL}{text only}
+$\ConversionBinHex{110011111}$
+
+$\ConversionBinHex[Details=false]{110011111}$
+
+$\ConversionBinHex[AffBase=false,Details=false]{110011111}$
+\end{PresCodeSortiePL}
+
+\pagebreak
+
+\subsection{Conversion hexadécimal vers binaire}\label{convhexbin}
+
+\begin{noteblock}
+\cmaj{2.7.8} L'idée est ici de présenter la conversion, grâce à la conversion \og directe \fg{} par blocs de 4 chiffres :
+
+\begin{itemize}
+\item la macro découpe chaque caractère hexa en bloc de 4 chiffres binaires ;
+\item elle affiche la conversion en binaire.
+\end{itemize}
+\vspace*{-\baselineskip}\leavevmode
+\end{noteblock}
+
+\begin{PresCodeTexPL}{listing only}
+\ConversionHexBin[clés]{nombre}
+\end{PresCodeTexPL}
+
+\begin{cautionblock}
+Quelques \Cle{clés} sont disponibles pour cette commande :
+
+\begin{itemize}
+\item le booléen \Cle{AffBase} qui permet d'afficher ou non la base des nombres ; \hfill{}défaut \Cle{true}
+\item le booléen \Cle{Details} qui permet d'afficher ou le détail par bloc de 4. \hfill{}défaut \Cle{true}
+%\item la clé \Cle{trait} qui permet de modifier l'épaisseur du crochet. \hfill{}défaut \Cle{0.5pt}
+\end{itemize}
+
+La commande est à insérer dans un environnement mathématique.
+\end{cautionblock}
+
+\begin{PresCodeTexPL}{listing only}
+%conversion avec détails et affichage de la base
+$\ConversionHexBin{ACDC}$
+%conversion sans détails et affichage de la base
+$\ConversionHexBin[Details=false]{ACDC}$
+%conversion sans détails et sans affichage de la base
+$\ConversionHexBin[AffBase=false,Details=false]{ACDC}$
+\end{PresCodeTexPL}
+
+\begin{PresCodeSortiePL}{text only}
+$\ConversionHexBin{ACDC}$
+
+$\ConversionHexBin[Details=false]{ACDC}$
+
+$\ConversionHexBin[AffBase=false,Details=false]{ACDC}$
+\end{PresCodeSortiePL}
+
+\subsection{Conversion binaire ou hexadécimal en décimal}
+
+\begin{noteblock}
+L'idée est ici de présenter la conversion, grâce à l'écriture polynômiale :
+
+\begin{itemize}
+\item écrit la somme des puissances ;
+\item convertir si besoin les \textit{chiffres} hexadécimal ;
+\item peut ne pas afficher les monômes de coefficient 0.
+\end{itemize}
+\vspace*{-\baselineskip}\leavevmode
+\end{noteblock}
+
+\begin{PresCodeTexPL}{listing only}
+\ConversionVersDec[clés]{nombre}
+\end{PresCodeTexPL}
+
+\begin{cautionblock}
+Quelques \Cle{clés} sont disponibles pour cette commande :
+
+\begin{itemize}
+\item la clé \Cle{BaseDep} qui est la base de départ (2 ou 16 !) ; \hfill{}défaut \Cle{2}
+\item le booléen \Cle{AffBase} qui permet d'afficher ou non la base des nombres ; \hfill{}défaut \Cle{true}
+\item le booléen \Cle{Details} qui permet d'afficher ou le détail par bloc de 4 ; \hfill{}défaut \Cle{true}
+\item le booléen \Cle{Zeros} qui affiche les chiffres 0 dans la somme. \hfill{}défaut \Cle{true}
+\end{itemize}
+
+Le formatage est toujours géré par le package \ctex{sinuitx}, le mieux est de positionner la commande dans un environnement mathématique.
+\end{cautionblock}
+
+\begin{PresCodeTexPL}{listing only}
+%conversion 16->10 avec détails et affichage de la base et zéros
+$\ConversionVersDec[BaseDep=16]{19F}$
+%conversion 2->10 avec détails et affichage de la base et zéros
+$\ConversionVersDec{110011}$
+%conversion 2->10 avec détails et affichage de la base et sans zéros
+$\ConversionVersDec[Zeros=false]{110011}$
+%conversion 16->10 sans détails et affichage de la base et avec zéros
+$\ConversionVersDec[BaseDep=16,Details=false]{AC0DC}$
+%conversion 16->10 avec détails et sans affichage de la base et sans zéros
+$\ConversionVersDec[Zeros=false,BaseDep=16]{AC0DC}$
+\end{PresCodeTexPL}
+
+\begin{PresCodeSortiePL}{text only}
+$\ConversionVersDec[BaseDep=16]{19F}$
+
+$\ConversionVersDec{110011}$
+
+$\ConversionVersDec[Zeros=false]{110011}$
+
+$\ConversionVersDec[BaseDep=16,Details=false]{AC0DC}$
+
+$\ConversionVersDec[Zeros=false,BaseDep=16]{AC0DC}$
+\end{PresCodeSortiePL}
+
+\newpage
+
+\section{Conversion \og présentée \fg{} d'un nombre en base décimale}\label{convrestes}
+
+\subsection{Idée}
+
+\begin{tipblock}
+L'idée est de proposer une \og présentation \fg{} par divisions euclidiennes pour la conversion d'un entier donné en base 10 dans une base quelconque.
+
+\smallskip
+
+Les commandes de la section précédente donne \textit{juste} les résultats, dans cette section il y a en plus la présentation de la conversion.
+%
+%\smallskip
+%
+%La commande utilise -- par défaut -- du code \TikZ{} en mode \ctex{overlay}, donc on pourra déclarer -- si ce n'est pas fait -- dans le préambule, la commande qui suit.
+\end{tipblock}
+
+%\begin{PresCodeTexPL}{listing only}
+%...
+%\tikzstyle{every picture}+=[remember picture]
+%...
+%\end{PresCodeTexPL}
+
+\subsection{Code et clés}
+
+\begin{PresCodePL}{}
+%conversion basique
+\ConversionDepuisBaseDix{78}{2}
+\end{PresCodePL}
+
+\begin{noteblock}
+La \og tableau \fg, qui est géré par \ctex{array} est inséré dans un \ctex{ensuremath}, donc les \ctex{\$...\$} ne sont pas utiles.
+\end{noteblock}
+
+\begin{PresCodeTexPL}{listing only}
+\ConversionDepuisBaseDix[options]{nombre en base 10}{base d'arrivée}
+\end{PresCodeTexPL}
+
+\begin{cautionblock}
+Quelques options pour cette commande :
+
+\begin{itemize}
+\item la clé \Cle{Couleur} pour la couleur du \og rectangle \fg{} des restes ; \hfill{}défaut \Cle{red}
+\item la clé \Cle{DecalH} pour gérer le décalage H du \og rectangle \fg{}, qui peut être donné soit sous la forme \Cle{Esp} ou soit sous la forme \Cle{espgauche/espdroite}; \hfill{}défaut \Cle{2pt}
+\item la clé \Cle{DecalV} pour le décalage vertical du \og rectangle \fg{} ; \hfill{}défaut \Cle{3pt}
+\item la clé \Cle{Noeud} pour le préfixe du nœud du premier et du dernier reste (pour utilisation en \TikZ) ;
+
+\hfill{}défaut \Cle{EEE}
+\item le booléen \Cle{Rect} pour afficher ou non le \og rectangle \fg{} des restes ; \hfill{}défaut \Cle{true}
+\item le booléen \Cle{CouleurRes} pour afficher ou non la conversion en couleur (identique au rectangle).
+
+\hfill{}défaut \Cle{false}
+\end{itemize}
+\vspace*{-\baselineskip}\leavevmode
+\end{cautionblock}
+
+\begin{PresCodeTexPL}{listing only}
+%conversion avec changement de couleur
+\ConversionDepuisBaseDix[Couleur=blue]{45}{2}
+
+%conversion sans le rectangle
+Par divisions euclidiennes successives, \ConversionDepuisBaseDix[Rect=false]{54}{3}.
+
+%conversion avec gestion du decalh pour le placement précis du rectangle
+\ConversionDepuisBaseDix[Couleur=brown,DecalH=6pt/2pt]{1012}{16}
+
+%conversion avec noeud personnalisé et réutilisation
+\ConversionDepuisBaseDix[Couleur=CouleurVertForet,CouleurRes,Noeud=TEST]{100}{9}.
+\begin{tikzpicture}
+\draw[overlay,CouleurVertForet,thick,->] (TEST2.south east) to[bend right] ++ (3cm,-1cm) node[right] {test } ;
+\end{tikzpicture}
+\end{PresCodeTexPL}
+
+\begin{PresCodeSortiePL}{text only}
+\ConversionDepuisBaseDix[Couleur=blue]{45}{2}
+
+\medskip
+
+Par divisions euclidiennes successives, \ConversionDepuisBaseDix[Rect=false]{54}{3}.
+
+\medskip
+
+\ConversionDepuisBaseDix[Couleur=brown,DecalH=6pt/2pt]{1012}{16}
+
+\medskip
+
+On obtient donc \ConversionDepuisBaseDix[Couleur=CouleurVertForet,CouleurRes,Noeud=TEST]{100}{9}.
+\begin{tikzpicture}
+\draw[overlay,CouleurVertForet,thick,->] (TEST2.south east) to[bend right] ++ (3cm,-1cm) node[right] {test } ;
+\end{tikzpicture}
+
+\vspace{1.5cm}
+
+~
+\end{PresCodeSortiePL}
+
+\newpage
+
+\section{Algorithme d'Euclide pour le PGCD}\label{prespgcd}
+
+\subsection{Idée}
+
+\begin{tipblock}
+L'idée est de proposer une \og présentation \fg{} de l'algorithme d'Euclide pour le calcul du PGCD de deux entiers.
+
+Le package \ctex{xintgcd} permet déjà de le faire, il s'agit ici de travailler sur la \textit{mise en forme}.
+\end{tipblock}
+
+\begin{PresCodeTexPL}{listing only}
+\PresentationPGCD[options]{a}{b}
+\end{PresCodeTexPL}
+
+\begin{PresCodeTexPL}{listing only}
+\tikzstyle{every picture}+=[remember picture]
+...
+\PresentationPGCD{150}{27}
+\end{PresCodeTexPL}
+
+\begin{PresCodePL}{}
+\PresentationPGCD{150}{27}
+\end{PresCodePL}
+
+\begin{warningblock}
+La mise en valeur du dernier reste non nul est géré par du code \TikZ, en mode \ctex{overlay}, donc il faut bien penser à déclarer dans le préambule : \ctex{\textbackslash{}tikzstyle\{every picture\}+=[remember picture]}
+\end{warningblock}
+
+\subsection{Options et clés}
+
+\begin{cautionblock}
+Quelques options disponibles pour cette commande :
+
+\begin{itemize}
+\item la clé \Cle{Couleur} qui correspond à la couleur pour la mise en valeur ; \hfill{}défaut \Cle{red}
+\item la clé \Cle{DecalRect} qui correspond à l'écartement du rectangle de mise en valeur ; \hfill{}défaut \Cle{2pt}
+\item le booléen \Cle{Rectangle} qui gère l'affichage ou non du rectangle de mise ne valeur ;
+
+\hfill{}défaut \Cle{true}
+\item la clé \Cle{Noeud} qui gère le préfixe du nom du nœud \TikZ{} du rectangle (pour exploitation ultérieure) ;
+
+\hfill{}défaut \Cle{FFF}
+\item le booléen \Cle{CouleurResultat} pour mettre ou non en couleur de PGCD ; \hfill{}défaut \Cle{false}
+\item le booléen \Cle{AfficheConclusion} pour afficher ou non la conclusion ; \hfill{}défaut \Cle{true}
+\item le booléen \Cle{AfficheDelimiteurs} pour afficher ou non les délimiteurs (accolade gauche et trait droit).
+
+\hfill{}défaut \Cle{true}
+\end{itemize}
+
+\medskip
+
+Le rectangle de mise en valeur est donc un nœud \TikZ{} qui sera nommé, par défaut \ctex{FFF1}.
+
+\medskip
+
+La présentation est dans un environnement \ctex{ensuremath} donc les \ctex{\$...\$} ne sont pas indispensables.
+\end{cautionblock}
+
+\begin{PresCodePL}{}
+\PresentationPGCD[CouleurResultat]{150}{27}
+\end{PresCodePL}
+
+\begin{PresCodePL}{}
+\PresentationPGCD[CouleurResultat,Couleur=CouleurVertForet]{1250}{450}.
+
+\PresentationPGCD[CouleurResultat,Couleur=blue]{13500}{2500}.
+
+\PresentationPGCD[Rectangle=false]{420}{540}. \\
+
+D'après l'algorithme d'Euclide, on a $\left| \PresentationPGCD[Couleur=lime,AfficheConclusion=false, AfficheDelimiteurs=false]%
+{123456789}{9876} \right.$
+\begin{tikzpicture}
+\draw[overlay,lime,thick,<-] (FFF1.east) to[bend right] ++ (1cm,0.75cm) node[right] {dernier reste non nul} ;
+\end{tikzpicture}
+\end{PresCodePL}
+
+\subsection{Compléments}
+
+\begin{noteblock}
+La présentation des divisions euclidiennes est gérée par un tableau du type \ctex{array}, avec alignement vertical de symboles \ctex{=} et \ctex{+}.
+
+Par défaut, les délimiteurs choisis sont donc l'accolade gauche et le trait droit, mais la clé booléenne \Cle{AfficheDelimiteurs=false} permet de choisir des délimiteurs différents.
+\end{noteblock}
+
+\begin{PresCodePL}{}
+$\left[ \PresentationPGCD[AfficheConclusion=false,AfficheDelimiteurs=false]{1234}{5} \right]$
+\end{PresCodePL}
+
+\newpage
+
+\section{Résolution d'une équation diophantienne}\label{eqdioph}
+
+\subsection{Idée}
+
+\begin{tipblock}
+L'idée est de proposer une résolution d'équation diophantienne du type $ax+by=c$ avec $(a;b;c) \in \mathbb{Z}^3$.
+
+\smallskip
+
+Le \textit{code} se charge de tester les différentes conditions d'existence, et d'adapter la rédaction (fixée et non modifiable\ldots) aux différentes situations :
+
+\begin{itemize}
+\item cas où $\text{PGCD}(a;b)=1$ ;\hfill~existence de solutions
+\item cas où $\text{PGCD}(a;b) \neq 1$ et $\text{PGCD}(a;b) \mid c$;\hfill~existence de solutions
+\item cas où $\text{PGCD}(a;b) \neq 1$ et $\text{PGCD}(a;b) \not\mid c$.\hfill~pas de solution
+\end{itemize}
+\vspace*{-\baselineskip}\leavevmode
+\end{tipblock}
+
+\begin{warningblock}
+Logiquement le \textit{code} se charge de \textit{parenthéser} de manière automatique pour les nombres négatifs, mais il se peut que certains cas particuliers puissent donner des résultats \og non esthétiques \fg{}\ldots
+\end{warningblock}
+
+\begin{PresCodeTexPL}{listing only}
+\EquationDiophantienne[Clés]{equation}
+\end{PresCodeTexPL}
+
+\subsection{Options et clés}
+
+\begin{cautionblock}
+Concernant les Clés disponibles pour cette commande, à donner entre \ctex{[...]} :
+
+\begin{itemize}
+\item la clé \Cle{Lettre} pour spécifier le \textit{nom} de l'équation ; \hfill{}défaut \Cle{E}
+\item la clé \Cle{Inconnues} qui paramètre les noms des inconnues, sous la forme \Cle{x/y} ; \hfill{}défaut \Cle{x/y}
+\item la clé \Cle{Entier} qui gère le nom de l'entier dans la solution ; \hfill{}défaut \Cle{k}
+\item le booléen \Cle{Cadres} pour mettre en valeur les solutions ;\hfill{}défaut \Cle{false}
+\item le booléen \Cle{PresPGCD} présenter le calcul du PGCD de $|a|$ et de $|b|$.\hfill{}défaut \Cle{true}
+\end{itemize}
+
+L'argument obligatoire, et entre \ctex{\{...\}} est quant à lui l'équation, en langage \og naturel \fg{} du type \ctex{ax+by=c} (le \textit{code} se charge d'extraire les coefficients, donc pas besoin des signes *).
+\end{cautionblock}
+
+\begin{PresCodePL}{}
+\EquationDiophantienne{48x+18y=3}
+\end{PresCodePL}
+
+\begin{PresCodePL}{}
+\EquationDiophantienne[PresPGCD=false]{48x+18y=-5}
+\end{PresCodePL}
+
+\pagebreak
+
+\begin{PresCodePL}{}
+\EquationDiophantienne{3x+4y=1}
+\end{PresCodePL}
+
+\pagebreak
+
+\begin{PresCodePL}{}
+\EquationDiophantienne[Cadres,Inconnues=u/v,Entier=l]{48u+18v=12}
+\end{PresCodePL}
+
+\pagebreak
+
+\begin{PresCodePL}{}
+\EquationDiophantienne{47x-18y=1}
+\end{PresCodePL}
+
+\newpage
+
+\section{Nombres premiers}\label{nbspremiers}
+
+\subsection{Idées}
+
+\begin{tipblock}
+\cmaj{3.10f} L'idée est de proposer des commandes pour travailler sur les nombres premiers :
+
+\begin{itemize}
+	\item macro booléenne pour tester la primalité d'un entier ;
+	\item macro pour afficher le résultat d'un test de primalité ;
+	\item macro pour écrire la décomposition (formatée) en facteurs premiers d'un entier.
+\end{itemize}
+
+Les macros ont pour base du code provenant de la documentation de \ctex{xint} et d'un code interne de \ctex{ProfCollege}.
+\end{tipblock}
+
+\begin{PresCodeTexPL}{listing only}
+\pflboolestpremier{nb}
+\pflestpremier[code si vrai][code si faux]{nb}
+\end{PresCodeTexPL}
+
+\begin{PresCodeTexPL}{listing only}
+\pfldecompnb(*){nb}
+\end{PresCodeTexPL}
+
+\subsection{Test de primalité}
+
+\begin{cautionblock}
+Concernant les commandes de test de primalité :
+
+\begin{itemize}
+	\item la commande \ctex{\textbackslash pflboolestpremier} renvoie \texttt{1} si l'entier est premier, \texttt{0} sinon ;
+	\item la commande \ctex{\textbackslash pflestpremier} renvoie \texttt{code si vrai} si l'entier est premier, \texttt{code si faux}.
+\end{itemize}
+
+L'argument obligatoire, et entre \ctex{\{...\}} est quant à lui le nombre ou le calcul à traiter.
+\end{cautionblock}
+
+\begin{PresCodePL}{}
+\pflboolestpremier{25457} et \pflboolestpremier{25458} \\
+%version manuelle
+\num{25457} \xintifboolexpr{\pflboolestpremier{25457} == 1}{est premier}{n'est pas premier}\\
+%version automatique
+\pflestpremier{25457}\\
+\pflestpremier[est un nombre premier][n'est pas un nombre premier]{25458}
+\end{PresCodePL}
+
+\subsection{Décomposition en facteurs premiers}
+
+\begin{cautionblock}
+La commande se charge de décomposer, avec un formatage effectué par \ctex{siunitx}, un entier en produit de facteurs premiers.
+
+La commande est protégée par un \ctex{ensuremath}, donc le mode \textsf{math} n'est pas obligatoire.
+
+La version étoilée force l'affichage des exposants égaux à 1.
+\end{cautionblock}
+
+\begin{PresCodePL}{}
+\pfldecompnb{9999} et \pfldecompnb*{9999}\\
+\pfldecompnb{24458} et \pfldecompnb*{24458}\\
+$\num{24458}=\pfldecompnb{24458}=\pfldecompnb*{24458}$
+\end{PresCodePL}
+
+\begin{PresCodePL}{}
+%avec un calcul comme argument :-)
+$\num{\xintfloateval{2**5*3**3*17**1}}=\pfldecompnb{2**5*3**3*17**1}$
+\end{PresCodePL}
+
+\newpage
+
+\section{Diviseurs}\label{listediv}
+
+\subsection{Idées}
+
+\begin{tipblock}
+\cmaj{2.7.8} L'idée est de proposer des commandes pour travailler sur les diviseurs d'un entier :
+
+\begin{itemize}
+\item afficher la liste des diviseurs sous forme d'un ensemble ordonné ;
+\item créer un arbre pour retrouver les diviseurs par la décomposition en facteurs premiers.
+\end{itemize}
+
+Le code se charge de déterminer les diviseurs et de mettre en forme l'arbre.
+\end{tipblock}
+
+\begin{PresCodeTexPL}{listing only}
+\ListeDiviseurs(*)[Clé]{nombre}
+\end{PresCodeTexPL}
+
+\begin{PresCodeTexPL}{listing only}
+\ArbreDiviseurs[Clés]{nombre}
+\end{PresCodeTexPL}
+
+\subsection{Options et clés}
+
+\begin{cautionblock}
+En ce qui concerne la commande pour la liste des diviseurs :
+
+\begin{itemize}
+\item la version \textit{étoilée} permet d'afficher le nom de l'ensemble via \ctex{\textbackslash mathscr}, \ctex{\textbackslash mathcal} sinon;
+\item le booléen \Cle{AffNom} permet d'afficher le nom de l'ensemble ; \hfill{}défaut \Cle{true}
+\item l'argument obligatoire, et entre \ctex{\{...\}}, est quant lui le nombre, y compris en langage \ctex{xint}.
+\end{itemize}
+
+À noter que la commande est incluse dans un bloc \ctex{\textbackslash ensuremath}, donc les \ctex{$...$} ne sont pas nécessaires.
+\end{cautionblock}
+
+\begin{PresCodePL}{}
+%sortie par défaut
+\ListeDiviseurs{150}
+
+%sortie avec \mathscr (si chargé)
+\ListeDiviseurs*{300}
+
+%sortie sans libellé
+\ListeDiviseurs[AffNom=false]{60}
+\end{PresCodePL}
+
+\begin{cautionblock}
+En ce qui concerne la commande pour l'arbre (créé en \TikZ) permettant d'obtenir la liste des diviseurs (je remercie Christophe Poulain pour un \textit{bout de code} que j'ai adapté et pour son aide précieuse) :
+
+\begin{itemize}
+\item les clés disponible sont :
+\begin{itemize}
+	\item la clé \Cle{EspaceNiveau} qui est l'espace horizontal (en cm) entre les étages ; \hfill{}défaut \Cle{2.25}
+	\item la clé \Cle{EspaceFeuille} qui est l'espace vertical entre les feuilles ; \hfill{}défaut \Cle{0.66}
+	\item le booléen \Cle{Details} pour afficher les calculs des diviseurs ; \hfill{}défaut \Cle{true}
+	\item la clé \Cle{CouleurDetails} pour la couleur des détails ; \hfill{}défaut \Cle{red}
+	\item la clé \Cle{Echelle} pour spécifier une échelle globale (y compris le texte) de la figure ;
+	
+	\hfill{}défaut \Cle{1}
+	\item le booléen \Cle{Fleches} pour afficher une flèche sur les branches.\hfill{}défaut \Cle{true}
+\end{itemize}
+\item l'argument obligatoire, et entre \ctex{\{...\}}, est quant lui le nombre, y compris en langage \ctex{xint}.
+\end{itemize}
+\vspace*{-\baselineskip}\leavevmode
+\end{cautionblock}
+
+\begin{PresCodePL}{}
+%sortie par défaut
+\ArbreDiviseurs{60}
+\end{PresCodePL}
+
+\begin{PresCodePL}{}
+%sortie personnalisée
+\ArbreDiviseurs[EspaceNiveau=4,EspaceFeuille=1,Details=false]{60}
+\end{PresCodePL}
+
+\begin{PresCodePL}{}
+\ArbreDiviseurs[EspaceNiveau=2,Echelle=0.75,CouleurDetails=teal,Fleches=false]{2^2*3*5*7*11}
+\end{PresCodePL}
+
+\subsection{Compléments}\label{facteurspremiers}
+
+\begin{tipblock}
+\cmaj{4.00c} L'idée est de proposer des commandes complémentaires pour travailler sur les facteurs premiers, y compris avec de \textit{grands} entiers :
+
+\begin{itemize}
+	\item décomposition en facteurs premiers ;
+	\item simplification de fractions.
+\end{itemize}
+
+Le mode mathématique est activé par défaut pour ces commandes.
+\end{tipblock}
+
+\begin{PresCodeTexPL}{listing only}
+\DecompFactPremiers[Clés]{nombre}
+% Longue      = false
+% PuissanceUn = false
+\end{PresCodeTexPL}
+
+\begin{PresCodeTexPL}{listing only}
+\PresFactPremiers[Clés]{nombre}
+% CouleurTrait   = black
+% EpaisseurTrait = 0.4pt
+% EncadreFin     = false
+\end{PresCodeTexPL}
+
+\begin{PresCodeTexPL}{listing only}
+\SimplFracDecomp[Clés]{num}{denom}
+% CouleurCommun = red!90!black
+% Barrer        = false
+% d             = false (dfrac)
+% t             = false (tfrac)
+\end{PresCodeTexPL}
+
+\begin{PresCodePL}{}
+%décomposition, compatible avec des grands entiers
+\DecompFactPremiers{2781240}\\
+\DecompFactPremiers[PuissanceUn]{2781240}\\
+\DecompFactPremiers[Longue]{2781240}
+\end{PresCodePL}
+
+\begin{PresCodePL}{}
+%décomposition, présentation verticale
+\PresFactPremiers{2781240}
+\end{PresCodePL}
+
+\begin{PresCodePL}{}
+%simplification de fractions
+\SimplFracDecomp{1320}{1248}
+
+\SimplFracDecomp[d,Barrer]{1320}{1248}
+\end{PresCodePL}
+
+\newpage
+
+\section{Chiffrements}\label{chiffrements}
+
+\subsection{Idées}
+
+\begin{tipblock}
+\cmaj{3.00c} L'idée est de proposer des commandes pour travailler sur des chiffrement/déchiffrements \textit{classiques} :
+
+\begin{itemize}
+	\item chiffrement de César ;
+	\item chiffrement affine $ax+b$ (avec détermination d'un inverse modulo) ;
+	\item chiffrement de Hill avec une matrice $2\times2$.
+\end{itemize}
+\vspace*{-\baselineskip}\leavevmode
+\end{tipblock}
+
+\begin{PresCodeTexPL}{listing only}
+%inverse modulo
+\InverseModulo(*){a}{modulo}
+
+%Chiffrement de César
+\ChiffrementCesar[clés]{message}
+
+%Chiffrement affine
+\ChiffrementAffine[clés]{message}
+
+%Chiffrement de Hill
+\ChiffrementHill[clés]{message}
+\end{PresCodeTexPL}
+
+\subsection{Chiffrement de César}
+
+\begin{PresCodePL}{}
+%Chiffrement de César
+\ChiffrementCesar[Decal=4]{ABCDEFGHIJKLMNOPQRSTUVWXYZ}
+\end{PresCodePL}
+
+\begin{cautionblock}
+Les clés disponibles sont :
+
+\begin{itemize}
+	\item la clé \Cle{Decal} qui spécifie le décalage à appliquer ; \hfill{}défaut \Cle{5}
+	\item le booléen \Cle{Dechiffr} pour déchiffrer.\hfill{}défaut \Cle{false}
+\end{itemize}
+
+L'argument obligatoire, entre \ctex{\{...\}} est le message, avec espace et/ou majuscules et/ou minuscules.
+\end{cautionblock}
+
+\begin{PresCodePL}{}
+%Chiffrement de César, décalage de 5
+\ChiffrementCesar{TEXTE A CHIFFRER}
+\end{PresCodePL}
+
+\begin{PresCodePL}{}
+%Chiffrement de César, décalage de 5
+\ChiffrementCesar[Decal=7]{TEXTE A CHIFFRER}
+\end{PresCodePL}
+
+\begin{PresCodePL}{}
+%Déchiffrement de César, décalage de 5
+\ChiffrementCesar[Dechiffr]{IJHTIJW HJXFW}
+\end{PresCodePL}
+
+\subsection{Inverse modulo}
+
+\begin{PresCodePL}{}
+%Inverse modulo, version non étoilée, résultat stocké dans \resinvmod
+\InverseModulo{3}{26}\resinvmod
+\end{PresCodePL}
+
+\begin{PresCodePL}{}
+%Inverse modulo, version étoilée, avec rédaction (fixée)
+\InverseModulo*{3}{26}
+\end{PresCodePL}
+
+\begin{cautionblock}
+La version étoilée présente une rédaction sommaire, tandis que la version non étoilée détermine l'inverse (éventuelle) et stocke le résultat dans la macro \ctex{\textbackslash resinvmod}.
+
+Les deux arguments, obligatoires et entre \ctex{\{...\}}, correspondent aux entiers, le second étant l'entier \textit{du modulo}.
+\end{cautionblock}
+
+\begin{PresCodePL}{}
+\InverseModulo{2}{26}\resinvmod
+\end{PresCodePL}
+
+\begin{PresCodePL}{}
+\InverseModulo*{2}{26}
+\end{PresCodePL}
+
+\subsection{Chiffrement affine}
+
+\begin{tipblock}
+Le principe est ici de travailler sur un chiffrement affine, du type $ax+b \: [n]$, avec gestion des cas de non possibilité de déchiffrement.
+
+\smallskip
+
+Le code permet de chiffrer et déchiffrer un message constitué des caractères majuscules et/ou minuscules et éventuellement des espaces.
+\end{tipblock}
+
+\begin{PresCodePL}{}
+%Chiffrement affine
+\ChiffrementAffine[a=3,b=12]{Texte a chiffrer}
+\end{PresCodePL}
+
+\begin{cautionblock}
+Les clés disponibles sont :
+
+\begin{itemize}
+	\item la clé \Cle{a} qui spécifie le coefficient $a$ ; \hfill{}défaut \Cle{3}
+	\item la clé \Cle{b} qui spécifie le coefficient $b$ ; \hfill{}défaut \Cle{12}
+	\item le booléen \Cle{Dechiffr} qui propose le déchiffrement.\hfill{}défaut \Cle{false}
+\end{itemize}
+
+L'argument obligatoire, entre \ctex{\{...\}} est le message, avec espace et/ou majuscules et/ou minuscules.
+\end{cautionblock}
+
+\begin{PresCodePL}{}
+\ChiffrementAffine[a=5,b=17]{BTSSIO}
+\end{PresCodePL}
+
+\begin{PresCodePL}{}
+\ChiffrementAffine[Dechiffr,a=5,b=17]{widdfj}
+\end{PresCodePL}
+
+\begin{PresCodePL}{}
+\ChiffrementAffine[Dechiffr,a=2,b=13]{WIDDFJ}
+\end{PresCodePL}
+
+\subsection{Chiffrement de Hill}
+
+\begin{tipblock}
+Le principe est ici de travailler sur un chiffrement de Hill, du type $A\times X \: [n]$, avec A une matrice $2\times2$.
+
+\smallskip
+
+Le code permet de chiffrer et déchiffrer un message constitué des caractères majuscules et/ou minuscules, complétés éventuellement avec le caractère A pour avoir un nombre pair de caractères.
+
+\smallskip
+
+Le code se charge également de gérer les cas particuliers de non possibilité de déchiffrement.
+\end{tipblock}
+
+\begin{PresCodePL}{}
+\ChiffrementHill[Matrice={3,5,1,2}]{ELECTION}
+\end{PresCodePL}
+
+\begin{cautionblock}
+Les clés disponibles sont :
+
+\begin{itemize}
+	\item la clé \Cle{Matrice} qui spécifie les coefficients de la matrice $2\times2$ \hfill{}défaut \Cle{1,2,3,5}
+	\item le booléen \Cle{Dechiffr} qui propose le déchiffrement.\hfill{}défaut \Cle{false}
+\end{itemize}
+
+L'argument obligatoire, entre \ctex{\{...\}} est le message, avec espace et/ou majuscules et/ou minuscules.
+\end{cautionblock}
+
+\begin{PresCodePL}{}
+\ChiffrementHill[Matrice={3,5,6,17}]{TEXTEACRYPTER}
+\end{PresCodePL}
+
+\begin{PresCodePL}{}
+\ChiffrementHill[Matrice={3,5,1,2},Dechiffr]{pawitjdo}
+\end{PresCodePL}
+
+\begin{PresCodePL}{}
+\ChiffrementHill[Matrice={1,2,3,4},Dechiffr]{PAWITJDO}
+\end{PresCodePL}
+
+\begin{PresCodePL}{}
+\ChiffrementHill[Matrice={1,2,3,6},Dechiffr]{PAWITJDO}
+\end{PresCodePL}
+
+\newpage
+
+\section{Primorielle}\label{primoriel}
+
+\subsection{Idée}
+
+\begin{tipblock}
+\cmaj{3.04a} L'idée est de proposer de quoi travailler avec les primorielles (produit des nombres premiers inférieurs ou égaux à un entier donné).
+
+Les calculs sont effectués par le package \ctex{xint}, et le formatage peut être effectué par le package \ctex{siunitx}.
+\end{tipblock}
+
+\begin{PresCodeTexPL}{listing only}
+\Primorielle(*)[clés]{nb}
+\end{PresCodeTexPL}
+
+\begin{PresCodePL}{}
+\Primorielle{9}\\
+\Primorielle{17}
+\end{PresCodePL}
+
+\subsection{Clés}
+
+\begin{cautionblock}
+La version \textit{étoilée} ne formate pas les résultats par \ctex{siunitx}.
+
+\smallskip
+
+Les \Cle{clés} disponibles pour cette commande sont :
+
+\begin{itemize}
+	\item \DescripCle[false]{Enonce}{booléen pour afficher l'énoncé}
+	\item \DescripCle[false]{Complet}{booléen pour afficher la formule complète}
+	\item \DescripCle[false]{Grand}{booléen pour les grands résultats}
+	\item \DescripCle[m]{Sens}{préciser l'ordre pour les détails \Cle{d/m}}
+	\item \DescripCle*[9]{ChSignif}{nombre de chiffres significatifs pour les grands résultats}
+\end{itemize}
+\vspace*{-\baselineskip}\leavevmode
+\end{cautionblock}
+
+\begin{PresCodePL}{}
+\Primorielle[Enonce,Complet]{9}
+\end{PresCodePL}
+
+\begin{PresCodePL}{}
+\Primorielle[Enonce,Complet,Sens=d]{23}
+\end{PresCodePL}
+
+\newpage
+
+\section{Opérations posées}\label{opeposees}
+
+\subsection{Idée}
+
+\begin{tipblock}
+\cmaj{3.02c} L'idée est de proposer une commande poser une opération :
+
+\begin{itemize}
+	\item addition/soustraction/multiplication ;
+	\item avec retenues pour l'addition et la soustraction (\cmaj{3.02d}).
+\end{itemize}
+\vspace*{-\baselineskip}\leavevmode
+\end{tipblock}
+
+\begin{cautionblock}
+La commande est disponible avec tout compilateur, et seule l'addition est compatible avec l'affichage des retenues.
+
+\smallskip
+
+Les commandes présentées dans la partie \textsf{projets} sont cependant toujours disponibles, pour le moment.
+\end{cautionblock}
+
+\begin{PresCodeTexPL}{listing only}
+%opération posée
+\OperationPosee[clés]{opération}
+\end{PresCodeTexPL}
+
+\begin{PresCodePL}{}
+%Addition
+\OperationPosee{9999+851}
+\end{PresCodePL}
+
+\begin{PresCodePL}{}
+%Soustraction binaire
+\OperationPosee[Base=bin]{10001-1101}
+\end{PresCodePL}
+
+\begin{PresCodePL}{}
+%Multiplication hexa
+\OperationPosee[Base=hex]{ACDC*AF4}
+\end{PresCodePL}
+
+\subsection{Clés et options}
+
+\begin{cautionblock}
+En ce qui concerne la commande, les \Cle{clés}, disponibles entre \Cle{[...]}, sont :
+
+\begin{itemize}
+	\item \Cle{Base} pour spécifier la base (\Cle{dec} par défaut) ;
+	\item \Cle{LimiteCapac} pour fixer une limite de chiffres (\Cle{0} pour aucune limite par défaut) ;
+	\item \Cle{SymbDecal} pour le symbole du décalages des multiplications (\Cle{.} par défaut) ;
+	\item \Cle{Offset} pour l'espacement horizontal entre les chiffres (\Cle{6pt} par défaut) ;
+	\item \Cle{CouleurRetenue} pour la couleur des retenues dans les additions (\Cle{red} par défaut) ;
+	\item \Cle{Interm} := booléen pour afficher les étapes intermédiaires des multiplications (\Cle{true} par défaut) ;
+	\item \Cle{AffRetenues} := booléen pour afficher les retenues des additions/soustractions (\Cle{true} par défaut) ;
+	\item \Cle{AffEgal} := booléen pour afficher le signe \texttt{=} du résultat (\Cle{true} par défaut).
+\end{itemize}
+\end{cautionblock}
+
+\subsection{Exemples}
+
+\begin{PresCodePL}{}
+%Addition décimale
+\OperationPosee{8475+6520}
+\end{PresCodePL}
+
+\begin{PresCodePL}{}
+%Addition binaire
+\OperationPosee[Base=bin]{1111+111} et
+\OperationPosee[Base=bin,AffRetenues=false]{1111+111}
+\end{PresCodePL}
+
+\begin{PresCodePL}{}
+%Addition hexa
+\OperationPosee[Base=hex]{ABC+DE}
+\end{PresCodePL}
+
+\begin{PresCodePL}{}
+%Addition hexa, personnalisée
+{\Huge\ttfamily\OperationPosee[Base=hex,AffEgal=false,Offset=0pt]{ABCD+FE}}
+\end{PresCodePL}
+
+\begin{PresCodePL}{}
+%Addition binaire, limité à 4 bits
+\OperationPosee[Base=bin,LimiteCapac=4,Offset=2pt]{1111+111}
+\end{PresCodePL}
+
+\begin{PresCodePL}{}
+%Soustraction binaire
+\OperationPosee[Base=bin]{11000-111}
+\end{PresCodePL}
+
+\begin{PresCodePL}{}
+%Multiplication binaire
+\OperationPosee[Base=bin,LimiteCapac=6]{110011*101}
+\end{PresCodePL}
+
+\begin{PresCodePL}{}
+%Mutiplication hexa, symbole de décalage '0'
+\textsf{\OperationPosee[Base=hex,SymbDecal=0]{ABCD*FE}}
+\end{PresCodePL}
+
+\begin{PresCodePL}{}
+%Mutiplication hexa
+\texttt{\OperationPosee[Base=hex]{ABCD*FAFA}}
+\end{PresCodePL}
+
+\begin{PresCodePL}{}
+%Mutiplication hexa, limité à 4 'chiffres'
+\texttt{\OperationPosee[Base=hex,LimiteCapac=4]{ABCD*FAFA}}
+\end{PresCodePL}
+
+\begin{PresCodePL}{}
+%Mutiplication hexa, sans lignes intermédiaires
+\textsf{\OperationPosee[Base=hex,Interm=false]{ABCD*FE}}
+\end{PresCodePL}
+
+\begin{PresCodePL}{}
+%Soustraction hexa, sans signe '=', sans espacement horizontal
+{\Huge\ttfamily\OperationPosee[Base=hex,AffEgal=false]{ABCD-FE}}
+\end{PresCodePL}

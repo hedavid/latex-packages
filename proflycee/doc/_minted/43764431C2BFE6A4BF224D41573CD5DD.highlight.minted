@@ -1,0 +1,4 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+\PYG{k}{\PYGZbs{}pfldetmax}\PYG{n+na}{[round]}\PYG{n+nb}{\PYGZob{}}fct\PYG{n+nb}{\PYGZcb{}\PYGZob{}}init\PYG{n+nb}{\PYGZcb{}\PYGZob{}}step\PYG{n+nb}{\PYGZcb{}\PYGZob{}}final\PYG{n+nb}{\PYGZcb{}}[\PYG{k}{\PYGZbs{}tmpmax}][\PYG{k}{\PYGZbs{}tmpmaxvalx}]
+\PYG{k}{\PYGZbs{}DetermineMax}\PYG{n+na}{[arrondi]}\PYG{n+nb}{\PYGZob{}}fct\PYG{n+nb}{\PYGZcb{}\PYGZob{}}init\PYG{n+nb}{\PYGZcb{}\PYGZob{}}pas\PYG{n+nb}{\PYGZcb{}\PYGZob{}}final\PYG{n+nb}{\PYGZcb{}}[\PYG{k}{\PYGZbs{}tmpmax}][\PYG{k}{\PYGZbs{}tmpmaxvalx}]
+\end{MintedVerbatim}

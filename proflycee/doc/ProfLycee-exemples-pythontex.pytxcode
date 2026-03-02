@@ -1,0 +1,103 @@
+=>PYTHONTEX#py#default#defaultverb#0#verbatim#####45#
+def valeur_absolue(x):
+	"Renvoie la valeur absolue de x"
+	#le petit test qui va bien
+	if x > 0:
+		return x
+	else:
+		return -x
+
+#bla
+#bla
+#bla
+=>PYTHONTEX#py#default#defaultverb#1#verbatim#####72#
+def valeur_absolue(x):
+	"Renvoie la valeur absolue de x"
+	#le petit test qui va bien
+	if x > 0:
+		return x
+	else:
+		return -x
+
+#bla
+#bla
+#bla
+=>PYTHONTEX#py#default#defaultverb#2#verbatim#####101#
+def valeur_absolue(x):
+	"Renvoie la valeur absolue de x"
+	#le petit test qui va bien
+	if x > 0:
+		return x
+	else:
+		return -x
+=>PYTHONTEX#py#default#defaultverb#3#verbatim#####124#
+def valeur_absolue(x):
+	"Renvoie la valeur absolue de x"
+	#le petit test qui va bien
+	if x > 0:
+		return x
+	else:
+		return -x
+=>PYTHONTEX#py#default#defaultverb#4#verbatim#####147#
+def valeur_absolue(x):
+	"Renvoie la valeur absolue de x"
+	#le petit test qui va bien
+	if x > 0:
+		return x
+	else:
+		return -x
+=>PYTHONTEX#pycon#default#default#0#code#####177#
+from random import randint
+
+def valeur_absolue(x):
+	"Renvoie la valeur absolue de x"
+	#le petit test qui va bien
+	if x > 0:
+		return x
+	else:
+		return -x
+
+=>PYTHONTEX#pycon#default#default#1#console#####202#
+1+1
+2**10
+valeur_absolue(-3)
+valeur_absolue(0)
+valeur_absolue(5)
+print(f"La valeur absolue de 5 est {valeur_absolue(5)}")
+print(f"La valeur absolue de -4 est {valeur_absolue(-4)}")
+=>PYTHONTEX#pycon#default#default#2#console#####229#
+1+1
+2**10
+valeur_absolue(-3)
+valeur_absolue(0)
+valeur_absolue(5)
+print(f"La valeur absolue de 5 est {valeur_absolue(5)}")
+print(f"La valeur absolue de -4 est {valeur_absolue(-4)}")
+liste = [randint(1,20) for i in range(10)]
+print(liste)
+print(max(liste), min(liste), sum(liste))
+=>PYTHONTEX:SETTINGS#
+version=0.18
+outputdir=pythontex-files-ProfLycee-exemples-pythontex
+workingdir=.
+workingdirset=false
+gobble=auto
+rerun=default
+hashdependencies=default
+makestderr=false
+stderrfilename=full
+keeptemps=none
+pyfuture=default
+pyconfuture=none
+pygments=true
+pygglobal=:GLOBAL||
+fvextfile=-1
+pyconbanner=none
+pyconfilename=stdin
+depythontex=false
+pygfamily=py|python3|
+pygfamily=pycon|pycon|
+pygfamily=sympy|python3|
+pygfamily=sympycon|pycon|
+pygfamily=pylab|python3|
+pygfamily=pylabcon|pycon|

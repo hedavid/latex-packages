@@ -1,0 +1,11 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k}{\PYGZbs{}begin}\PYG{n+nb}{\PYGZob{}}GraphTikz\PYG{n+nb}{\PYGZcb{}}\PYG{c}{\PYGZpc{}}
+	[x=0.8cm,y=1cm,Xmin=\PYGZhy{}7,Xmax=4,Ymin=\PYGZhy{}3,Ymax=5]
+	\PYG{k}{\PYGZbs{}DrawAxisGrids}\PYG{n+na}{[Enlarge=2.5mm]}\PYG{n+nb}{\PYGZob{}}auto\PYG{n+nb}{\PYGZcb{}\PYGZob{}}auto\PYG{n+nb}{\PYGZcb{}}
+	\PYG{k}{\PYGZbs{}DefinePts}\PYG{n+na}{[Mark,Color=gray]}\PYG{n+nb}{\PYGZob{}}A/\PYGZhy{}4/3,B/2/0,C/0/\PYGZhy{}1\PYG{n+nb}{\PYGZcb{}}
+	\PYG{k}{\PYGZbs{}DrawLine}\PYG{n+na}{[Color=red]}\PYG{n+nb}{\PYGZob{}}(\PYGZhy{}2,\PYGZhy{}1)\PYG{n+nb}{\PYGZcb{}\PYGZob{}}(2,4)\PYG{n+nb}{\PYGZcb{}}
+	\PYG{k}{\PYGZbs{}DrawLine}\PYG{n+na}{[Color=blue,Start=\PYGZhy{}5,End=3]}\PYG{n+nb}{\PYGZob{}}(A)\PYG{n+nb}{\PYGZcb{}\PYGZob{}}(B)\PYG{n+nb}{\PYGZcb{}}
+	\PYG{k}{\PYGZbs{}DrawLine}\PYG{n+na}{[Color=olive,Slope]}\PYG{n+nb}{\PYGZob{}}(C)\PYG{n+nb}{\PYGZcb{}\PYGZob{}}0.25\PYG{n+nb}{\PYGZcb{}}
+	\PYG{k}{\PYGZbs{}DrawAsymptote}\PYG{n+na}{[Color=brown]}\PYG{n+nb}{\PYGZob{}}\PYGZhy{}6\PYG{n+nb}{\PYGZcb{}}
+\PYG{k}{\PYGZbs{}end}\PYG{n+nb}{\PYGZob{}}GraphTikz\PYG{n+nb}{\PYGZcb{}}
+\end{Verbatim}

@@ -1,0 +1,7 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k}{\PYGZbs{}begin}\PYG{n+nb}{\PYGZob{}}GraphiqueTikz\PYG{n+nb}{\PYGZcb{}}\PYG{c}{\PYGZpc{}}
+	[x=1.5cm,y=6cm,Xmin=0,Xmax=7,Xgrille=0.5,Xgrillei=0.25,Xgrilles=0.05,
+	Ymin=0,Ymax=1,Ygrille=0.1,Ygrillei=0.05,Ygrilles=0.01]
+	\PYG{k}{\PYGZbs{}TracerAxesGrilles}\PYG{n+na}{[Elargir=2.5mm,Dernier,Grille Intermediaire]}\PYG{n+nb}{\PYGZob{}}auto\PYG{n+nb}{\PYGZcb{}\PYGZob{}}auto\PYG{n+nb}{\PYGZcb{}}
+\PYG{k}{\PYGZbs{}end}\PYG{n+nb}{\PYGZob{}}GraphiqueTikz\PYG{n+nb}{\PYGZcb{}}
+\end{Verbatim}

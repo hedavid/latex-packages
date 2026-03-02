@@ -2047,9 +2047,9 @@ Le tableau suivant présente les connecteurs logiques issues du package \package
 	{$P$,$Q$,$R$}%
 	{%
 		Q*logand*R,P*logor*(Q*logand*R),P*logor*Q,%
-		Q*logor*R,(P*logor*Q)*logand*(P*logor*R)
+		P*logor*R,(P*logor*Q)*logand*(P*logor*R)
 	}%
-	{$Q \land R$,$P \lor (Q \land R)$,$P \lor Q$,$Q \lor R$,$(P \lor Q) \land (P \lor R)$}
+	{$Q \land R$,$P \lor (Q \land R)$,$P \lor Q$,$P \lor R$,$(P \lor Q) \land (P \lor R)$}
 \end{DemoCode}
 
 \begin{DemoCode}[]

@@ -1,0 +1,12 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k}{\PYGZbs{}TangramTikz}\PYG{n+nb}{\PYGZob{}}Fusee\PYG{n+nb}{\PYGZcb{}}\PYGZti{}\PYGZti{}
+\PYG{k}{\PYGZbs{}TangramTikz}\PYG{n+na}{[Couleur=red]}\PYG{n+nb}{\PYGZob{}}Fusee\PYG{n+nb}{\PYGZcb{}}\PYGZti{}\PYGZti{}
+\PYG{k}{\PYGZbs{}TangramTikz}\PYG{n+na}{[Correction]}\PYG{n+nb}{\PYGZob{}}Fusee\PYG{n+nb}{\PYGZcb{}}\PYGZti{}\PYGZti{}
+\PYG{k}{\PYGZbs{}TangramTikz}\PYG{n+na}{[Correction,Couleur=lightgray]}\PYG{n+nb}{\PYGZob{}}Fusee\PYG{n+nb}{\PYGZcb{}}\PYGZti{}\PYGZti{}
+\PYG{k}{\PYGZbs{}TangramTikz}\PYG{n+na}{[CorrectionCouleur,ListeCouleurs=\PYGZob{}orange,blue,yellow,green,pink\PYGZcb{},Sep=1mm]}\PYG{n+nb}{\PYGZob{}}Fusee\PYG{n+nb}{\PYGZcb{}}
+
+\PYG{k}{\PYGZbs{}TangramTikz}\PYGZlt{}scale=1.5,rotate=30\PYGZgt{}\PYG{n+nb}{\PYGZob{}}Fusee\PYG{n+nb}{\PYGZcb{}}\PYGZti{}\PYGZti{}
+\PYG{k}{\PYGZbs{}TangramTikz}\PYGZlt{}scale=0.75,rotate=\PYGZhy{}90\PYGZgt{}\PYG{n+nb}{\PYGZob{}}Fusee\PYG{n+nb}{\PYGZcb{}}\PYGZti{}\PYGZti{}
+\PYG{k}{\PYGZbs{}TangramTikz}\PYG{n+na}{[NoirBlanc]}\PYGZlt{}scale=0.5\PYGZgt{}\PYG{n+nb}{\PYGZob{}}Fusee\PYG{n+nb}{\PYGZcb{}}
+\PYG{k}{\PYGZbs{}TangramTikz}\PYG{n+na}{[ListePieces=134567,CorrectionCouleur,ListeCouleurs=\PYGZob{}cyan,green,red,pink,purple,orange,yellow\PYGZcb{},Sep=0pt]}\PYG{n+nb}{\PYGZob{}}Fusee\PYG{n+nb}{\PYGZcb{}}
+\end{Verbatim}

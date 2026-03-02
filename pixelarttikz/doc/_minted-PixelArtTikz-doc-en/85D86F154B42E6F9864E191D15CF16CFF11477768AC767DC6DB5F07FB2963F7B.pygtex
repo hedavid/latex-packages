@@ -1,0 +1,16 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c}{\PYGZpc{}Fix and solution}
+\PYG{k}{\PYGZbs{}begin}\PYG{n+nb}{\PYGZob{}}tabular\PYG{n+nb}{\PYGZcb{}\PYGZob{}}c\PYG{n+nb}{\PYGZcb{}}
+	\PYG{k}{\PYGZbs{}PixlArtTikzCylindric}[\PYG{c}{\PYGZpc{}}
+		Codes=ABCDEF,
+		Colors=\PYG{n+nb}{\PYGZob{}}green,black,brown,white,brown!75!black,lightgray\PYG{n+nb}{\PYGZcb{}},
+		Solution]\PYG{c}{\PYGZpc{}}
+		\PYG{n+nb}{\PYGZob{}}PAyoda.csv\PYG{n+nb}{\PYGZcb{}}
+	\PYG{k}{\PYGZbs{}\PYGZbs{}}
+	\PYG{k}{\PYGZbs{}PixlArtTikzCylindric}[\PYG{c}{\PYGZpc{}}
+		Codes=ABCDEF,
+		Colors=\PYG{n+nb}{\PYGZob{}}green,black,brown,white,brown!75!black,lightgray\PYG{n+nb}{\PYGZcb{}},
+		Correction]\PYG{c}{\PYGZpc{}}
+		\PYG{n+nb}{\PYGZob{}}PAyoda.csv\PYG{n+nb}{\PYGZcb{}}
+\PYG{k}{\PYGZbs{}end}\PYG{n+nb}{\PYGZob{}}tabular\PYG{n+nb}{\PYGZcb{}}
+\end{Verbatim}

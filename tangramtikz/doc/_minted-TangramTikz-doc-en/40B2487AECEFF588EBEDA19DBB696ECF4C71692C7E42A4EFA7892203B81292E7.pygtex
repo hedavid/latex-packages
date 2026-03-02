@@ -1,0 +1,4 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c}{\PYGZpc{}Environment or tikz command}
+\PYG{k}{\PYGZbs{}PieceTangram}\PYG{n+na}{[style=\PYGZob{}color\PYGZcb{}]}\PYGZlt{}xscale=...,yscale=...,rotate=...\PYGZgt{}(x,y)\PYG{n+nb}{\PYGZob{}}piece\PYG{n+nb}{\PYGZus{}}name\PYG{n+nb}{\PYGZcb{}}
+\end{Verbatim}

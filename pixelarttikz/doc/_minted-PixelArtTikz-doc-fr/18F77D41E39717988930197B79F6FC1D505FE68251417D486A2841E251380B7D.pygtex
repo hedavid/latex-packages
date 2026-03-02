@@ -1,0 +1,11 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c}{\PYGZpc{}lecture du fichier csv (koala)}
+\PYG{k}{\PYGZbs{}readdtcsv}\PYG{n+nb}{\PYGZob{}}PAkoala.csv\PYG{n+nb}{\PYGZcb{}\PYGZob{}}DTkoala\PYG{n+nb}{\PYGZcb{}}
+
+\PYG{c}{\PYGZpc{}traitement du PixelArt complet}
+\PYG{k}{\PYGZbs{}dtpixlarttikz}\PYG{n+na}{[Correction,Unite=0.125,Codes=ABCDEFGHI,Couleurs=\PYGZob{}\PYGZbs{}listcoulkoala\PYGZcb{},Decoupage=8x8]}\PYG{n+nb}{\PYGZob{}}DTkoala\PYG{n+nb}{\PYGZcb{}}
+
+\PYG{c}{\PYGZpc{}traitement du PixelArt en mode découpage}
+\PYG{k}{\PYGZbs{}dtpixlarttikzblock}\PYG{n+na}{[Unite=0.125,Correction,Codes=ABCDEFGHI,Couleurs=\PYGZob{}\PYGZbs{}listcoulkoala\PYGZcb{}]}\PYG{c}{\PYGZpc{}}
+	\PYG{n+nb}{\PYGZob{}}DTkoala\PYG{n+nb}{\PYGZcb{}\PYGZob{}}8x8\PYG{n+nb}{\PYGZcb{}\PYGZob{}}1/1\PYG{n+nb}{\PYGZcb{}}
+\end{Verbatim}

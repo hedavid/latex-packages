@@ -1,0 +1,4 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c}{\PYGZpc{}par les coordonnées}
+\PYG{k}{\PYGZbs{}DefinirPts}\PYG{n+na}{[clés]}\PYG{n+nb}{\PYGZob{}}Nom1/x1/y1,Nom2/x2/y2,...\PYG{n+nb}{\PYGZcb{}}
+\end{Verbatim}

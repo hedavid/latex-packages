@@ -1,0 +1,7 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k}{\PYGZbs{}begin}\PYG{n+nb}{\PYGZob{}}PleinePageSeyes\PYG{n+nb}{\PYGZcb{}}[options]
+	\PYG{k}{\PYGZbs{}LignePapierSeyes}\PYG{n+na}{[options]}\PYGZlt{}alignement\PYGZgt{}(ajustement)\PYG{n+nb}{\PYGZob{}}texte\PYG{n+nb}{\PYGZcb{}}
+	\PYG{k}{\PYGZbs{}CadreNoteSeyes}\PYG{n+na}{[hauteur]}\PYG{n+nb}{\PYGZob{}}numligne\PYG{n+nb}{\PYGZcb{}}
+	\PYG{k}{\PYGZbs{}ParagraphePapierSeyes}\PYG{n+na}{[options]}\PYGZlt{}alignement\PYGZgt{}(ajustement)\PYG{n+nb}{\PYGZob{}}texte\PYG{n+nb}{\PYGZcb{}}
+\PYG{k}{\PYGZbs{}end}\PYG{n+nb}{\PYGZob{}}PleinePageSeyes\PYG{n+nb}{\PYGZcb{}}
+\end{Verbatim}

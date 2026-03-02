@@ -1,0 +1,124 @@
+%% !TeX TXS-program:compile = txs:///arara
+%% arara: pdflatex: {shell: no, synctex: no, interaction: nonstopmode}
+%
+%\documentclass[a4paper,french,11pt]{article}
+%\usepackage[margin=10mm]{geometry}
+%\usepackage{frenchmath}
+%\usepackage{mathtools}
+%\usepackage{tikz2d-fr}
+%\usepackage{esvect}
+%\usepackage{babel}
+%\usepackage{bm}
+%
+%\begin{document}
+%
+%\part*{Orthogone de Lill pour les équations du second degré}
+
+\subsection{Intro}
+
+\noindent On s'intéresse à une équation du type $ax^2+bx+c=0$, avec $bc \neq 0$.
+
+\noindent On construit les points :
+
+\begin{itemize}
+	\item $A$ de coordonnées $(0;0)$ ;
+	\item $B$ image de $A$ par la translation de vecteur $a\,\vec{\jmath}$ ;
+	\item $C$ image de $B$ par la translation de vecteur $-b\,\vec{\imath}$ si $a>0$, de vecteur $b\,\vec{\imath}$ si $a<0$ ;
+	\item $D$ image de $C$ par la translation de vecteur $-c\,\vec{\jmath}$ ;
+\end{itemize}
+
+\noindent On détermine les points d'intersection ($G_1$ et $G_2$) du cercle de diamètre $[AD]$ et de la droite $(BC)$.
+
+\noindent Les solutions sont les abscisses des points ($H_1$ et $H_2$) d'intersection des segments $[AG_1]$ et $[AG_2]$ avec la droite d'équation $y=\frac{a}{|a|}$.
+
+\subsection{Exemple}
+
+\noindent On s'intéresse à l'équation $2x^2-5x-6=0$.\hfill On s'intéresse à l'équation $-2x^2+5x+6=0$.
+
+\noindent On a $a=2$ ; $b=-5$ et $c=-6$.\hfill On a $a=-2$ ; $b=5$ et $c=6$.
+
+\begin{EnvOrthoLill}[Coeffs,Echelle=0.75]{2}{-5}{-6}
+	\draw[red] (B) node[above left=0pt,inner sep=1.75pt] {$B$} ;
+	\draw[red] (C) node[above left=0pt,inner sep=1.75pt] {$C$} ;
+	\draw[red] (D) node[above right=0pt,inner sep=1.75pt] {$D$} ;
+	\draw[darkgray] (a) node[below left=0pt,inner sep=1.75pt] {$G_1$} ;
+	\draw[darkgray] (b) node[below right=0pt,inner sep=1.75pt] {$G_2$} ;
+	\draw[orange] (S1) node[above=0pt,inner sep=1.75pt] {$H_1$} ;
+	\draw[orange] (S2) node[above=0pt,inner sep=1.75pt] {$H_2$} ;
+\end{EnvOrthoLill}
+\hfill
+\begin{EnvOrthoLill}[Coeffs,Echelle=0.75]{-2}{5}{6}
+	\draw[red] (B) node[below left=0pt,inner sep=1.75pt] {$B$} ;
+	\draw[red] (C) node[below left=0pt,inner sep=1.75pt] {$C$} ;
+	\draw[red] (D) node[below right=0pt,inner sep=1.75pt] {$D$} ;
+	\draw[darkgray] (a) node[below right=0pt,inner sep=1.75pt] {$G_1$} ;
+	\draw[darkgray] (b) node[below left=0pt,inner sep=1.75pt] {$G_2$} ;
+	\draw[orange] (S1) node[below=0pt,inner sep=1.75pt] {$H_1$} ;
+	\draw[orange] (S2) node[below=0pt,inner sep=1.75pt] {$H_2$} ;
+\end{EnvOrthoLill}
+
+%\section{Démonstration dans le cas $\bm{a>0}$}
+%
+%\noindent On travaille grâce aux coordonnées :
+%
+%\begin{itemize}
+%	\item $\mathcolor{red}{A(0;0)}$ ; $\mathcolor{red}{B(0;a)}$ ; $\mathcolor{red}{C(-b;a)}$ et $\mathcolor{red}{D(-b;a-c)}$ ;
+%	\item on note $\mathcolor{orange}{H(\alpha;1)}$, de sorte que $\mathcolor{darkgray}{G(a\alpha;a)}$.
+%\end{itemize}
+%
+%\medskip
+%
+%\noindent $\bullet~~$Par produit scalaire, $G$ vérifie de plus $\vv{GA}\cdot\vv{GD}=0$.
+%
+%\noindent Ainsi $\vv{HA}\cdot\vv{GD}=0 \Rightarrow \begin{pmatrix} -\alpha \\ -1 \end{pmatrix} \cdot \begin{pmatrix} -b-a\alpha \\ -c  \end{pmatrix} =0 \Rightarrow b\alpha + a\alpha^2 + c = 0 \Rightarrow a\alpha^2+b\alpha+c=0$.
+%
+%\medskip
+%
+%\noindent $\bullet~~$Par les pentes, $m_{(AH)} \times m_{(GD)} = -1$.
+%
+%\noindent Ainsi $m_{(AH)} \times m_{(GD)} = -1 \Rightarrow \dfrac{1}{\alpha} \times \dfrac{c}{b+a\alpha}=-1 \Rightarrow \dfrac{c}{a\alpha^2+b\alpha}=-1 \Rightarrow a\alpha^2+b\alpha=-c \Rightarrow a\alpha^2+b\alpha+c=0$.
+%
+%\section{Simplification}
+%
+%\noindent Il est également possible de \textit{simplifier} le problème en travaillant sur le polynôme unitaire $x^2+\dfrac{b}{a}x+\dfrac{c}{a}=0$, au quel cas les points $H$ et $G$ sont confondus.
+%
+%\pagebreak
+%
+%\vspace{1cm}
+
+\subsection{Galerie}
+
+\verb|\OrthogoneLill[Coeffs,Echelle=2,GrilleX=0.25,GrilleY=0.25]{2}{1}{-3}|
+
+\OrthogoneLill[Coeffs,Echelle=2,GrilleX=0.25,GrilleY=0.25]{2}{1}{-3}
+
+\verb|\OrthogoneLill{1}{-5}{6}|
+
+\OrthogoneLill[Coeffs]{1}{-5}{6}
+
+\verb|\OrthogoneLill[Echelle=3,GrilleX=0.25,GrilleY=0.25]{1}{-1}{-1}|
+
+\OrthogoneLill[Echelle=3,GrilleX=0.25,GrilleY=0.25,Coeffs]{1}{-1}{-1}
+
+\verb|\OrthogoneLill[Echelle=3,GrilleX=0.25,GrilleY=0.25,Arrondis=2]{-2}{2}{2}|
+
+\OrthogoneLill[Echelle=3,GrilleX=0.25,GrilleY=0.25,Coeffs,Arrondis=2]{-2}{2}{2}
+
+%\verb|\OrthogoneLill[Echelle=3,GrilleX=0.25,GrilleY=0.25,Arrondis=2]{-1}{2}{-0.5}|
+
+\OrthogoneLill[Echelle=3,GrilleX=0.25,GrilleY=0.25,Coeffs,Arrondis=2]{-1}{2}{-0.5}
+
+\verb|\OrthogoneLill{1}{1}{1}|
+
+\OrthogoneLill{1}{1}{1}
+
+\verb|\OrthogoneLill[Echelle=2.5,GrilleX=0.25,GrilleY=0.25]{2}{-3}{9/8}|
+
+\OrthogoneLill[Echelle=2.5,GrilleX=0.25,GrilleY=0.25]{2}{-3}{9/8}
+
+\verb|\OrthogoneLill[Echelle=2.5,GrilleX=0.25,GrilleY=0.25]{0.3}{-2}{0.85}|
+
+\OrthogoneLill[Echelle=2.5,GrilleX=0.25,GrilleY=0.25]{0.3}{-2}{0.85}
+%
+%
+%\end{document}

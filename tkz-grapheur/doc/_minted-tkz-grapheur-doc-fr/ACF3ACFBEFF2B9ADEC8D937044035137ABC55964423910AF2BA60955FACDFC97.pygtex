@@ -1,0 +1,16 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k}{\PYGZbs{}begin}\PYG{n+nb}{\PYGZob{}}GraphiqueTikz\PYG{n+nb}{\PYGZcb{}}\PYG{c}{\PYGZpc{}}
+	[x=0.6cm,y=0.06cm,
+	Xmin=0,Xmax=21,Xgrille=1,Xgrilles=0.5,
+	Ymin=0,Ymax=155,Ygrille=10,Ygrilles=5]
+	\PYG{k}{\PYGZbs{}TracerAxesGrilles}\PYG{c}{\PYGZpc{}}
+		[Grads=false,Elargir=2.5mm]\PYG{n+nb}{\PYGZob{}\PYGZcb{}\PYGZob{}\PYGZcb{}}
+	\PYG{k}{\PYGZbs{}DefinirCourbe}\PYG{n+na}{[Nom=cf,Debut=1,Fin=20,Couleur=red]}\PYGZlt{}f\PYGZgt{}\PYG{n+nb}{\PYGZob{}}80*x*exp(\PYGZhy{}0.2*x)\PYG{n+nb}{\PYGZcb{}}
+	\PYG{k}{\PYGZbs{}TracerIntegrale}
+		[Bornes=abs,Couleurs=blue/cyan!50]\PYG{c}{\PYGZpc{}}
+		\PYG{n+nb}{\PYGZob{}}f(x)\PYG{n+nb}{\PYGZcb{}\PYGZob{}}3\PYG{n+nb}{\PYGZcb{}\PYGZob{}}12\PYG{n+nb}{\PYGZcb{}}
+	\PYG{k}{\PYGZbs{}TracerCourbe}\PYG{n+na}{[Couleur=red,Debut=1,Fin=20]}\PYG{n+nb}{\PYGZob{}}f(x)\PYG{n+nb}{\PYGZcb{}}
+	\PYG{k}{\PYGZbs{}TracerAxesGrilles}\PYG{c}{\PYGZpc{}}
+		[Grille=false,Elargir=2.5mm,Police=\PYG{k}{\PYGZbs{}small}]\PYG{n+nb}{\PYGZob{}}0,1,...,20\PYG{n+nb}{\PYGZcb{}\PYGZob{}}0,10,...,150\PYG{n+nb}{\PYGZcb{}}
+\PYG{k}{\PYGZbs{}end}\PYG{n+nb}{\PYGZob{}}GraphiqueTikz\PYG{n+nb}{\PYGZcb{}}
+\end{Verbatim}

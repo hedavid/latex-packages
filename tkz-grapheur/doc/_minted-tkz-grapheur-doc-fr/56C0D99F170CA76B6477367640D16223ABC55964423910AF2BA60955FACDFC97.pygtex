@@ -1,0 +1,5 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c}{\PYGZpc{}dans l\PYGZsq{}environnement GraphiqueTikz}
+\PYG{k}{\PYGZbs{}DefinirCourbeSpline}\PYG{n+na}{[clés]}\PYG{n+nb}{\PYGZob{}}liste des points support\PYG{n+nb}{\PYGZcb{}}[\PYG{k}{\PYGZbs{}macronomspline}]
+\PYG{k}{\PYGZbs{}TracerCourbeSpline}\PYG{n+na}{[clés]}\PYG{n+nb}{\PYGZob{}}liste des points support\PYG{n+nb}{\PYGZcb{}}[\PYG{k}{\PYGZbs{}macronomspline}]
+\end{Verbatim}

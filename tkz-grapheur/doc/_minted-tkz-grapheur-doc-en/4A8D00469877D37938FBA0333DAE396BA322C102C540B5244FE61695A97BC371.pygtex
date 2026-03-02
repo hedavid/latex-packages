@@ -1,0 +1,16 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k}{\PYGZbs{}begin}\PYG{n+nb}{\PYGZob{}}GraphTikz\PYG{n+nb}{\PYGZcb{}}\PYG{c}{\PYGZpc{}}
+	[x=7.5cm,y=7.5cm,Xmin=0,Xmax=1.001,Xgrid=0.1,Xgrids=0.02,
+	Ymin=0,Ymax=1.001,Ygrid=0.1,Ygrids=0.02]
+	\PYG{k}{\PYGZbs{}DrawAxisGrids}\PYG{n+na}{[Enlarge=2.5mm,Font=\PYGZbs{}small]}\PYG{c}{\PYGZpc{}}
+		\PYG{n+nb}{\PYGZob{}}0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1\PYG{n+nb}{\PYGZcb{}}
+		\PYG{n+nb}{\PYGZob{}}0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1\PYG{n+nb}{\PYGZcb{}}
+	\PYG{k}{\PYGZbs{}DefineCurve}\PYG{n+na}{[Name=cf,Start=0,End=1]}\PYGZlt{}f\PYGZgt{}\PYG{n+nb}{\PYGZob{}}x*exp(x\PYGZhy{}1)\PYG{n+nb}{\PYGZcb{}}
+	\PYG{k}{\PYGZbs{}DefineCurve}\PYG{n+na}{[Name=delta,Start=0,End=1]}\PYGZlt{}D\PYGZgt{}\PYG{n+nb}{\PYGZob{}}x\PYG{n+nb}{\PYGZcb{}}
+	\PYG{k}{\PYGZbs{}DrawIntegral}\PYG{n+na}{[Type=fct/fct]}\PYG{n+nb}{\PYGZob{}}f(x)\PYG{n+nb}{\PYGZcb{}}[D(x)]\PYG{n+nb}{\PYGZob{}}0\PYG{n+nb}{\PYGZcb{}\PYGZob{}}1\PYG{n+nb}{\PYGZcb{}}
+	\PYG{k}{\PYGZbs{}DrawCurve}\PYG{n+na}{[Color=red]}\PYG{n+nb}{\PYGZob{}}f(x)\PYG{n+nb}{\PYGZcb{}}
+	\PYG{k}{\PYGZbs{}DrawCurve}\PYG{n+na}{[Color=teal]}\PYG{n+nb}{\PYGZob{}}D(x)\PYG{n+nb}{\PYGZcb{}}
+	\PYG{k}{\PYGZbs{}DrawRanges}\PYG{n+na}{[Colors=blue/cyan,Lines]}\PYG{n+nb}{\PYGZob{}}f\PYG{n+nb}{\PYGZcb{}\PYGZob{}}0.8,0.9\PYG{n+nb}{\PYGZcb{}}
+	\PYG{k}{\PYGZbs{}DrawCounterimage}\PYG{n+na}{[Colors=green!50!black/olive,Lines]}\PYG{n+nb}{\PYGZob{}}cf\PYG{n+nb}{\PYGZcb{}\PYGZob{}}0.5\PYG{n+nb}{\PYGZcb{}}
+\PYG{k}{\PYGZbs{}end}\PYG{n+nb}{\PYGZob{}}GraphTikz\PYG{n+nb}{\PYGZcb{}}
+\end{Verbatim}

@@ -45,8 +45,8 @@
 \usepackage[margin=1.5cm]{geometry}
 \setlength{\parindent}{0pt}
 
-\def\TPversion{0.1.9}
-\def\TPdate{20/10/2025}
+\def\TPversion{0.20a}
+\def\TPdate{07/12/2025}
 \usepackage{minted2}
 \usepackage[most]{tcolorbox}
 \tcbuselibrary{minted}
@@ -834,6 +834,7 @@ The first argument, \textit{optional} and between \texttt{[...]} offers \textsf{
 	\item the Boolean key \Cle{Correction} which allows you to color the PixelArt;\hfill{}default \textsf{false}
 	\item the Boolean key \Cle{Symb} which allows you to display the \textit{alternative} characters;\hfill{}default \textsf{false}
 	\item the Boolean key \Cle{Solution} which displays the solution (with \textit{mirror} effect);\hfill{}default \textsf{false}
+	\item the Boolean key \Cle{Legend} (idea from François Delannoy) ;\hfill{}défaut \textsf{false}
 	\item the Boolean key \Cle{Swap} which allows you to specify the data type (\Cle{true} := normal; \Cle{false} := inverted).
 	
 	\hfill{}default \textsf{false}
@@ -849,7 +850,9 @@ In this paragraph, we use the data \texttt{PAyoda}, which corresponds to the \te
 
 \begin{PresentationCode}{}
 %classic version
-\PixlArtTikzCylindric[Codes=ABCDEF,Style=\small\ttfamily]{PAyoda.csv}
+\PixlArtTikzCylindric[Codes=ABCDEF,Style=\small\ttfamily,Legend]{PAyoda.csv}
+
+\medskip
 
 %version with 'symbols'
 \PixlArtTikzCylindric[Codes=ABCDEF,Symbols={1,2,3,4,5,6},Symb,Style=\small\ttfamily]{PAyoda.csv}
@@ -936,6 +939,8 @@ In this paragraph, we use the data \texttt{PAsorciere}, which corresponds to the
 \newpage
 
 \part{History}
+
+\verb|v0.20a|:~~~~Key \textsf{[Legend]} pour \textit{Anamorphic}
 
 \verb|v0.1.9|:~~~~\hologo{LaTeX3} version of the package (\textsf{pixelarttikz-l3})
 

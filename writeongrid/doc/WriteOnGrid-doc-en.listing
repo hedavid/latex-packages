@@ -1,0 +1,13 @@
+\begin{PleinePageRuled}[NumLignes]
+	\LignePapierRuled[Echelle=1.25,Ligne=1]{C. PIERQUET \hfill LaTeX}
+	\LignePapierRuled[Echelle=1.25,Ligne=2,Couleur=red]<center>{\underline{\cursive\bfseries Evaluation 3}}
+	\CadreNoteRuled{3}
+	\LignePapierRuled[Echelle=1.25,Ligne=8,Couleur=green!50!black]{\sffamily\underline{Exercise 1:}}
+	\ParagraphePapierRuled[Ligne=9]{\cursive\lipsum[1]}
+	\ParagraphePapierRuled[Ligne=22]
+	{%
+		We try with math, $1+\frac12=\frac32$, inline, with several lines.\\
+		And another math example, $\int_0^1 2x dx = 1$.\\
+		A new line now !
+	}
+\end{PleinePageRuled}

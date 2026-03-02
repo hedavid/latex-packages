@@ -2,7 +2,8 @@
 % licence........: Released under the LaTeX Project Public License v1.3c or later, see http://www.latex-project.org/lppl.txt
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{PixelArtTikz}[2025/10/20 v0.1.9 PixelArts with csv and TikZ]
+\ProvidesPackage{PixelArtTikz}[2025/12/07 v0.20a PixelArts with csv and TikZ]
+% 0.20a		Clé [Legende]
 % 0.1.9		l3 version (simple usage)
 % 0.1.8		Bugfix
 % 0.1.7		Correction d'un bug avec les découpages
@@ -39,10 +40,19 @@
 	\RequirePackage[l3]{csvsimple}
 \fi
 
+%------Int macro
+\ExplSyntaxOn
+\NewDocumentCommand{\intpartnumtoletter}{m}
+{
+  \int_to_Alph:n { #1 }  % Pour majuscules A, B, C...
+}
+\ExplSyntaxOff
+
 %------Styles tikz
 \tikzset{pixlarttrait/.style={}}
 \tikzset{pixlarttraitdecoup/.style={thick,purple}}
 \tikzset{pixlartnoticedecoup/.style={font=\large\sffamily}}
+\tikzset{pixlartlegende/.style={darkgray,font=\PATtaille\sffamily,inner sep=0pt}}
 
 \NewDocumentCommand\TraiteListeSymbPixelArt{ m }{%
 	\IfSubStr{#1}{§}%
@@ -73,7 +83,8 @@
 	Symb=false,%
 	BordCases=true,%
 	Unite=1,%
-	Decoupage={}
+	Decoupage={},%
+	Legende=false
 }
 
 %----[fr] commands
@@ -135,6 +146,7 @@
 	\IfStrEq{\PATdecoup}{}%
 		{}%
 		{%
+			\setKV[pixelarttkz]{Legende=false}%
 			\csvreader{#4}{}{}%en test
 			\xdef\NbLigTot{\thecsvinputline}%
 			\xdef\NbColTot{\thecsvcolumncount}%
@@ -155,6 +167,21 @@
 				}%
 				{}%
 		}%
+		\ifboolKV[pixelarttkz]{Legende}%
+			{%
+				\csvreader{#4}{}{}%get rows and columns
+				%légende haute
+				\foreach \i in {1,...,\thecsvcolumncount}{%
+					\draw (\i,-\thecsvinputline+0.5) node[below=\fpeval{0.133*\PATunit}cm,pixlartlegende] {\i} ;
+					\draw (\i,-0.5) node[above=\fpeval{0.1*\PATunit}cm,pixlartlegende] {\i} ;
+				}%
+				\foreach \j in {1,...,\numexpr\thecsvinputline-1\relax}{%
+					\def\k{\inteval{\thecsvinputline-\j}}%
+					\draw (0.5,-\j) node[left=\fpeval{0.1*\PATunit}cm,pixlartlegende] {\intpartnumtoletter{\k}} ;
+					\draw (\thecsvcolumncount+0.5,-\j) node[right=\fpeval{0.1*\PATunit}cm,pixlartlegende] {\intpartnumtoletter{\k}} ;
+				}%
+			}%
+			{}%
 	\IfBooleanTF{#1}{}{\end{tikzpicture}}%
 }
 
@@ -216,6 +243,21 @@
 				}%
 			}%
 		}%
+		\ifboolKV[pixelarttkz]{Legende}%
+			{%
+				\csvreader{#3}{}{}%get rows and columns
+				%légende haute
+				\foreach \i in {1,...,\thecsvcolumncount}{%
+					\draw (\i,-\thecsvinputline+0.5) node[below=\fpeval{0.133*\PATunit}cm,pixlartlegende] {\i} ;
+					\draw (\i,-0.5) node[above=\fpeval{0.1*\PATunit}cm,pixlartlegende] {\i} ;
+				}%
+				\foreach \j in {1,...,\numexpr\thecsvinputline-1\relax}{%
+					\def\k{\inteval{\thecsvinputline-\j}}%
+					\draw (0.5,-\j) node[left=\fpeval{0.1*\PATunit}cm,pixlartlegende] {\intpartnumtoletter{\k}} ;
+					\draw (\thecsvcolumncount+0.5,-\j) node[right=\fpeval{0.1*\PATunit}cm,pixlartlegende] {\intpartnumtoletter{\k}} ;
+				}%
+			}%
+			{}%
 }%
 {%
 	\end{tikzpicture}%
@@ -237,7 +279,8 @@
 	Symb=false,%
 	Border=true,%
 	Unit=1,%
-	Grid={}
+	Grid={},%
+	Legend=false
 }
 
 \NewDocumentCommand\PixlArtTikz{ s O{} D<>{} m }{%commande autonome
@@ -301,6 +344,7 @@
 	\IfStrEq{\PATdecoup}{}%
 		{}%
 		{%
+			\setKV[pixelarttkzen]{Legend=false}%
 			\csvreader{#4}{}{}%en test
 			\xdef\NbLigTot{\thecsvinputline}%
 			\xdef\NbColTot{\thecsvcolumncount}%
@@ -321,6 +365,21 @@
 				}%
 				{}%
 		}%
+		\ifboolKV[pixelarttkzen]{Legend}%
+			{%
+				\csvreader{#4}{}{}%get rows and columns
+				%légende haute
+				\foreach \i in {1,...,\thecsvcolumncount}{%
+					\draw (\i,-\thecsvinputline+0.5) node[below=\fpeval{0.133*\PATunit}cm,pixlartlegende] {\i} ;
+					\draw (\i,-0.5) node[above=\fpeval{0.1*\PATunit}cm,pixlartlegende] {\i} ;
+				}%
+				\foreach \j in {1,...,\numexpr\thecsvinputline-1\relax}{%
+					\def\k{\inteval{\thecsvinputline-\j}}%
+					\draw (0.5,-\j) node[left=\fpeval{0.1*\PATunit}cm,pixlartlegende] {\intpartnumtoletter{\k}} ;
+					\draw (\thecsvcolumncount+0.5,-\j) node[right=\fpeval{0.1*\PATunit}cm,pixlartlegende] {\intpartnumtoletter{\k}} ;
+				}%
+			}%
+			{}%
 	\IfBooleanTF{#1}{}{\end{tikzpicture}}%
 }
 
@@ -382,6 +441,21 @@
 				}%
 			}%
 		}%
+		\ifboolKV[pixelarttkzen]{Legend}%
+			{%
+				\csvreader{#3}{}{}%get rows and columns
+				%légende haute
+				\foreach \i in {1,...,\thecsvcolumncount}{%
+					\draw (\i,-\thecsvinputline+0.5) node[below=\fpeval{0.133*\PATunit}cm,pixlartlegende] {\i} ;
+					\draw (\i,-0.5) node[above=\fpeval{0.1*\PATunit}cm,pixlartlegende] {\i} ;
+				}%
+				\foreach \j in {1,...,\numexpr\thecsvinputline-1\relax}{%
+					\def\k{\inteval{\thecsvinputline-\j}}%
+					\draw (0.5,-\j) node[left=\fpeval{0.1*\PATunit}cm,pixlartlegende] {\intpartnumtoletter{\k}} ;
+					\draw (\thecsvcolumncount+0.5,-\j) node[right=\fpeval{0.1*\PATunit}cm,pixlartlegende] {\intpartnumtoletter{\k}} ;
+				}%
+			}%
+			{}%
 }%
 {%
 	\end{tikzpicture}%
@@ -898,7 +972,8 @@
 	Correction=false,%
 	Style=\normalsize,%
 	Solution=false,%
-	Swap=false
+	Swap=false,%
+	Legende=false
 }
 \NewDocumentCommand\PixelArtTikzCylindre{ O{} m }{%
 	\restoreKV[PixelArtCylinder]%
@@ -971,6 +1046,20 @@
 				\foreach \sector in {0,\CylindSect,...,\xintfloateval{\AAanamcyllarg-\AAanamcylcenter}}{%
 					\draw ({\AAanamcylcenter+\sector},0) arc (0:-180:{\AAanamcylcenter+\sector}) ;
 				}%
+				%légende ?
+				\ifboolKV[PixelArtCylinder]{Legende}%
+					{%
+						\foreach \i in {1,...,\thecsvcolumncount}{%les numéros
+							\draw ({0.5*\CylindAng+(\i-1)*\CylindAng}:{-\AAanamcylcenter-(\NbLigTot-0.66)*\CylindSect}) node[rotate={90+0.5*\CylindAng+(\i-1)*\CylindAng},pixlartlegende] {\i};%
+							\draw ({0.5*\CylindAng+(\i-1)*\CylindAng}:{-\AAanamcylcenter+0.25*\CylindSect}) node[rotate={90+0.5*\CylindAng+(\i-1)*\CylindAng},pixlartlegende] {\i};%
+						}%
+						\foreach \j in {1,...,\numexpr\thecsvinputline-1\relax}{%les numéros
+							%\def\k{\inteval{\thecsvinputline-\j}}%
+							\draw ({\AAanamcylcenter+(\j-0.5)*\CylindSect},0.25) node[rotate=180,pixlartlegende] {\intpartnumtoletter{\j}};%
+							\draw ({-\AAanamcylcenter-(\j-0.5)*\CylindSect},0.25) node[rotate=180,pixlartlegende] {\intpartnumtoletter{\j}};%
+						}%
+					}%
+					{}%
 			\end{tikzpicture}%
 		}%
 }
@@ -991,7 +1080,8 @@
 	Correction=false,%
 	Style=\normalsize,%
 	Solution=false,%
-	Swap=false
+	Swap=false,%
+	Legend=false
 }
 \NewDocumentCommand\PixlArtTikzCylindric{ O{} m }{%
 	\restoreKV[PixlArtCylinder]%
@@ -1064,6 +1154,20 @@
 				\foreach \sector in {0,\CylindSect,...,\xintfloateval{\AAanamcyllarg-\AAanamcylcenter}}{%
 					\draw ({\AAanamcylcenter+\sector},0) arc (0:-180:{\AAanamcylcenter+\sector}) ;
 				}%
+				%legende ?
+				\ifboolKV[PixlArtCylinder]{Legend}%
+					{%
+						\foreach \i in {1,...,\thecsvcolumncount}{%les numéros
+							\draw ({0.5*\CylindAng+(\i-1)*\CylindAng}:{-\AAanamcylcenter-(\NbLigTot-0.66)*\CylindSect}) node[rotate={90+0.5*\CylindAng+(\i-1)*\CylindAng},pixlartlegende] {\i};%
+							\draw ({0.5*\CylindAng+(\i-1)*\CylindAng}:{-\AAanamcylcenter+0.25*\CylindSect}) node[rotate={90+0.5*\CylindAng+(\i-1)*\CylindAng},pixlartlegende] {\i};%
+						}%
+						\foreach \j in {1,...,\numexpr\thecsvinputline-1\relax}{%les numéros
+							%\def\k{\inteval{\thecsvinputline-\j}}%
+							\draw ({\AAanamcylcenter+(\j-0.5)*\CylindSect},0.25) node[rotate=180,pixlartlegende] {\intpartnumtoletter{\j}};%
+							\draw ({-\AAanamcylcenter-(\j-0.5)*\CylindSect},0.25) node[rotate=180,pixlartlegende] {\intpartnumtoletter{\j}};%
+						}%
+					}%
+					{}%
 			\end{tikzpicture}%
 		}%
 }

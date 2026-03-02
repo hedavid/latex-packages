@@ -1,0 +1,17 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k}{\PYGZbs{}pagestyle}\PYG{n+nb}{\PYGZob{}}empty\PYG{n+nb}{\PYGZcb{}}
+
+\PYG{k}{\PYGZbs{}begin}\PYG{n+nb}{\PYGZob{}}PleinePageCinqCinq\PYG{n+nb}{\PYGZcb{}}[NumLignes,MargeG=2.7,MargeH=2.3]
+	\PYG{k}{\PYGZbs{}LignePapierCinqCinq}\PYG{n+na}{[Echelle=1.25,Ligne=1]}\PYG{n+nb}{\PYGZob{}}C. PIERQUET \PYG{k}{\PYGZbs{}hfill} LaTeX\PYG{n+nb}{\PYGZcb{}}
+	\PYG{k}{\PYGZbs{}LignePapierCinqCinq}\PYG{n+na}{[Echelle=1.25,Ligne=3,Couleur=red]}\PYGZlt{}center\PYGZgt{}\PYG{n+nb}{\PYGZob{}}\PYG{k}{\PYGZbs{}underline}\PYG{n+nb}{\PYGZob{}}\PYG{k}{\PYGZbs{}cursive\PYGZbs{}bfseries} Devoir 2\PYG{n+nb}{\PYGZcb{}\PYGZcb{}}
+	\PYG{k}{\PYGZbs{}CadreNoteCinqCinq}\PYG{n+nb}{\PYGZob{}}4\PYG{n+nb}{\PYGZcb{}}
+	\PYG{k}{\PYGZbs{}LignePapierCinqCinq}\PYG{n+na}{[Echelle=1.25,Ligne=9,Couleur=green!50!black]}\PYG{n+nb}{\PYGZob{}}\PYG{k}{\PYGZbs{}sffamily\PYGZbs{}underline}\PYG{n+nb}{\PYGZob{}}Exercice 1 :\PYG{n+nb}{\PYGZcb{}\PYGZcb{}}
+	\PYG{c}{\PYGZpc{}echelle de 1.25 et espacement de 10mm (2 lignes) := calcul 10/1.25 pour l\PYGZsq{}espacement}
+	\PYG{k}{\PYGZbs{}ParagraphePapierCinqCinq}\PYG{n+na}{[Ligne=11,Echelle=1.25,Espacement=\PYGZbs{}fpeval\PYGZob{}10/1.25\PYGZcb{}]}\PYG{n+nb}{\PYGZob{}}\PYG{k}{\PYGZbs{}cursive\PYGZbs{}lipsum}\PYG{n+na}{[1]}\PYG{n+nb}{\PYGZcb{}}
+	\PYG{k}{\PYGZbs{}ParagraphePapierCinqCinq}\PYG{n+na}{[Ligne=38]}
+	\PYG{n+nb}{\PYGZob{}}\PYG{c}{\PYGZpc{}}
+		On essaye avec des maths \PYG{l+s}{\PYGZdl{}}\PYG{l+m}{1}\PYG{o}{+}\PYG{n+nv}{\PYGZbs{}frac}\PYG{l+m}{12}\PYG{o}{=}\PYG{n+nv}{\PYGZbs{}frac}\PYG{l+m}{32}\PYG{l+s}{\PYGZdl{}} en mode ligne avec des lignes assez longues pour voir
+		ce que ça peut donner\PYG{k}{\PYGZbs{}ldots} Et une intégrale \PYG{l+s}{\PYGZdl{}}\PYG{n+nv}{\PYGZbs{}int}\PYG{n+nb}{\PYGZus{}}\PYG{l+m}{0}\PYG{n+nb}{\PYGZca{}}\PYG{l+m}{1}\PYG{n+nb}{ }\PYG{l+m}{2}\PYG{n+nb}{x dx }\PYG{o}{=}\PYG{n+nb}{ }\PYG{l+m}{1}\PYG{l+s}{\PYGZdl{}}.\PYG{k}{\PYGZbs{}\PYGZbs{}}On essaye en passant à la ligne !!!
+	\PYG{n+nb}{\PYGZcb{}}
+\PYG{k}{\PYGZbs{}end}\PYG{n+nb}{\PYGZob{}}PleinePageCinqCinq\PYG{n+nb}{\PYGZcb{}}
+\end{Verbatim}

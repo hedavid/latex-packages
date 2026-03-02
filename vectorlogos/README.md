@@ -1,13 +1,61 @@
 # vectorlogos
 
-US `vectorlogos` is a package with vectorial logos of some 'classic' softwares.\
-FR `vectorlogos` est un package des logos vectoriels de logiciels 'classiques'.
+> A LaTeX package to insert vectorial logos of classic software inline, with automatic height and alignment — Un package LaTeX pour insérer des logos vectoriels de logiciels classiques en ligne, avec hauteur et alignement automatiques
+
+---
+
+## Installation
+
+The package is available on [CTAN](https://ctan.org/pkg/vectorlogos) and can be installed via your LaTeX distribution's package manager.
+
+### Via MiKTeX
+
+- **Graphically**: open the *MiKTeX Console*, go to *Packages*, search for `vectorlogos` and click *Install*.
+- **Command line**:
+  ```
+  mpm.exe --install vectorlogos
+  ```
+
+### Via TeX Live / tlmgr
 
 ```
-author: Cédric Pierquet
-email: cpierquet@outlook.fr
-licence: Released under the LaTeX Project Public License v1.3c or later, see http://www.latex-project.org/lppl.txt
+tlmgr install vectorlogos
 ```
+
+> On Linux, you may need to prefix with `sudo` depending on your installation.
+
+### Manual installation
+
+If you want the latest version directly from this repository:
+
+1. Download the repository (click *Code > Download ZIP*, or clone it).
+2. Place `vectorlogos.sty` in a directory where LaTeX can find it, for example:
+   - **TeX Live / Linux**: `~/texmf/tex/latex/vectorlogos/`
+   - **MiKTeX / Windows**: `C:\Users\<user>\AppData\Roaming\MiKTeX\tex\latex\vectorlogos\`
+   - **macOS (MacTeX)**: `~/Library/texmf/tex/latex/vectorlogos/`
+3. Refresh the filename database:
+   - TeX Live: `mktexlsr` or `texhash`
+   - MiKTeX: `initexmf --update-fndb`
+
+---
+
+## Quick start
+
+```latex
+\usepackage{vectorlogos}
+
+% Example: insert a Python logo inline\n\LogoPython
+```
+
+---
+
+## Author & License
+
+| | |
+|---|---|
+| **Author** | Cédric Pierquet |
+| **Email** | cpierquet@outlook.fr |
+| **License** | Released under the [LaTeX Project Public License v1.3c](http://www.latex-project.org/lppl.txt) or later |
 
 ## Sources
 

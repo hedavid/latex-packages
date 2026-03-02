@@ -1,0 +1,4 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c}{\PYGZpc{}in the GraphiqueTikz environment}
+\PYG{k}{\PYGZbs{}DrawTangent}\PYG{n+na}{[keys]}\PYG{n+nb}{\PYGZob{}}function or curve\PYG{n+nb}{\PYGZcb{}\PYGZob{}}point\PYG{n+nb}{\PYGZcb{}}\PYGZlt{}line options\PYGZgt{}
+\end{Verbatim}

@@ -1,0 +1,16 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k}{\PYGZbs{}begin}\PYG{n+nb}{\PYGZob{}}GraphTikz\PYG{n+nb}{\PYGZcb{}}[x=0.4cm,y=0.4cm,Xmin=\PYGZhy{}5,Xmax=5,Ymin=\PYGZhy{}5,Ymax=5]
+	\PYG{k}{\PYGZbs{}DrawAxisGrids}\PYG{n+na}{[Font=\PYGZbs{}tiny]}\PYG{n+nb}{\PYGZob{}}auto\PYG{n+nb}{\PYGZcb{}\PYGZob{}}auto\PYG{n+nb}{\PYGZcb{}}
+	\PYG{k}{\PYGZbs{}LinearInequality}\PYG{n+na}{[color=blue]}\PYG{n+nb}{\PYGZob{}}\PYGZhy{}4*y+5\PYG{n+nb}{\PYGZcb{}\PYGZob{}}\PYGZlt{}=0\PYG{n+nb}{\PYGZcb{}}
+\PYG{k}{\PYGZbs{}end}\PYG{n+nb}{\PYGZob{}}GraphTikz\PYG{n+nb}{\PYGZcb{}}
+\PYGZti{}\PYGZti{}
+\PYG{k}{\PYGZbs{}begin}\PYG{n+nb}{\PYGZob{}}GraphTikz\PYG{n+nb}{\PYGZcb{}}[x=0.4cm,y=0.4cm,Xmin=\PYGZhy{}5,Xmax=5,Ymin=\PYGZhy{}5,Ymax=5]
+	\PYG{k}{\PYGZbs{}DrawAxisGrids}\PYG{n+na}{[Font=\PYGZbs{}tiny]}\PYG{n+nb}{\PYGZob{}}auto\PYG{n+nb}{\PYGZcb{}\PYGZob{}}auto\PYG{n+nb}{\PYGZcb{}}
+	\PYG{k}{\PYGZbs{}LinearInequality}\PYG{n+na}{[color=pink,hatch=\PYGZob{}north east lines\PYGZcb{}]}\PYG{n+nb}{\PYGZob{}}\PYGZhy{}x\PYGZhy{}2y+2\PYG{n+nb}{\PYGZcb{}\PYGZob{}}\PYGZlt{}=0\PYG{n+nb}{\PYGZcb{}}
+\PYG{k}{\PYGZbs{}end}\PYG{n+nb}{\PYGZob{}}GraphTikz\PYG{n+nb}{\PYGZcb{}}
+\PYGZti{}\PYGZti{}
+\PYG{k}{\PYGZbs{}begin}\PYG{n+nb}{\PYGZob{}}GraphTikz\PYG{n+nb}{\PYGZcb{}}[x=0.4cm,y=0.4cm,Xmin=\PYGZhy{}5,Xmax=5,Ymin=\PYGZhy{}5,Ymax=5]
+	\PYG{k}{\PYGZbs{}DrawAxisGrids}\PYG{n+na}{[Font=\PYGZbs{}tiny]}\PYG{n+nb}{\PYGZob{}}auto\PYG{n+nb}{\PYGZcb{}\PYGZob{}}auto\PYG{n+nb}{\PYGZcb{}}
+	\PYG{k}{\PYGZbs{}LinearInequality}\PYG{n+na}{[style=fill,color=teal]}\PYG{n+nb}{\PYGZob{}}\PYGZhy{}x\PYGZhy{}y\PYGZhy{}4\PYG{n+nb}{\PYGZcb{}\PYGZob{}}\PYGZgt{}0\PYG{n+nb}{\PYGZcb{}}
+\PYG{k}{\PYGZbs{}end}\PYG{n+nb}{\PYGZob{}}GraphTikz\PYG{n+nb}{\PYGZcb{}}
+\end{Verbatim}

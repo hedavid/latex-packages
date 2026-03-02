@@ -1,0 +1,4 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c}{\PYGZpc{}Standalone command to display a Tangram}
+\PYG{k}{\PYGZbs{}TangramTikz}\PYG{n+na}{[keys]}\PYGZlt{}options tikz\PYGZgt{}\PYG{n+nb}{\PYGZob{}}tangram\PYG{n+nb}{\PYGZus{}}name\PYG{n+nb}{\PYGZcb{}}
+\end{Verbatim}

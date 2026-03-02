@@ -1,0 +1,11 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k}{\PYGZbs{}begin}\PYG{n+nb}{\PYGZob{}}GraphTikz\PYG{n+nb}{\PYGZcb{}}\PYG{c}{\PYGZpc{}}
+	[x=0.8cm,y=1cm,Xmin=\PYGZhy{}7,Xmax=4,Ymin=\PYGZhy{}3,Ymax=5]
+	\PYG{k}{\PYGZbs{}DrawAxisGrids}\PYG{n+na}{[Enlarge=2.5mm]}\PYG{n+nb}{\PYGZob{}}\PYGZhy{}7,\PYGZhy{}6,...,4\PYG{n+nb}{\PYGZcb{}\PYGZob{}}\PYGZhy{}3,\PYGZhy{}2,...,5\PYG{n+nb}{\PYGZcb{}}
+	\PYG{c}{\PYGZpc{}simple interpolation curves (with diff tension)}
+	\PYG{k}{\PYGZbs{}DefineInterpoCurve}\PYG{n+na}{[Name=interpotest,Color=blue,Trace]}\PYG{c}{\PYGZpc{}}
+		\PYG{n+nb}{\PYGZob{}}(\PYGZhy{}6,4)(\PYGZhy{}2,\PYGZhy{}2)(3,3.5)\PYG{n+nb}{\PYGZcb{}}
+	\PYG{k}{\PYGZbs{}DefineInterpoCurve}\PYG{n+na}{[Name=interpotest,Color=red,Trace,Tension=1]}\PYG{c}{\PYGZpc{}}
+		\PYG{n+nb}{\PYGZob{}}(\PYGZhy{}6,4)(\PYGZhy{}2,\PYGZhy{}2)(3,3.5)\PYG{n+nb}{\PYGZcb{}}
+\PYG{k}{\PYGZbs{}end}\PYG{n+nb}{\PYGZob{}}GraphTikz\PYG{n+nb}{\PYGZcb{}}
+\end{Verbatim}

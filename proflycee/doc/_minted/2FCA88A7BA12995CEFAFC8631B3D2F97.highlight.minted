@@ -1,0 +1,6 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+\PYG{l+s}{\PYGZdl{}}\PYG{l+m}{1}\PYG{o}{+}\PYG{n+nv}{\PYGZbs{}dfrac}\PYG{n+nb}{\PYGZob{}}\PYG{l+m}{7}\PYG{n+nb}{\PYGZcb{}\PYGZob{}}\PYG{l+m}{11}\PYG{n+nb}{\PYGZcb{} }\PYG{n+nv}{\PYGZbs{}approx}\PYG{n+nb}{ }\PYG{n+nv}{\PYGZbs{}pflround}\PYG{n+nb}{\PYGZob{}}\PYG{l+m}{1}\PYG{o}{+}\PYG{l+m}{7}\PYG{o}{/}\PYG{l+m}{11}\PYG{n+nb}{\PYGZcb{} }\PYG{n+nv}{\PYGZbs{}approx}\PYG{n+nb}{ }\PYG{n+nv}{\PYGZbs{}pflround}\PYG{o}{[}\PYG{l+m}{5}\PYG{o}{]}\PYG{n+nb}{\PYGZob{}}\PYG{l+m}{1}\PYG{o}{+}\PYG{l+m}{7}\PYG{o}{/}\PYG{l+m}{11}\PYG{n+nb}{\PYGZcb{} }\PYG{n+nv}{\PYGZbs{}approx}
+\PYG{n+nv}{\PYGZbs{}pflround}\PYG{o}{*[}\PYG{l+m}{2}\PYG{o}{]}\PYG{n+nb}{\PYGZob{}}\PYG{l+m}{1}\PYG{o}{+}\PYG{l+m}{7}\PYG{o}{/}\PYG{l+m}{11}\PYG{n+nb}{\PYGZcb{}}\PYG{l+s}{\PYGZdl{}}
+
+\PYG{l+s}{\PYGZdl{}}\PYG{n+nv}{\PYGZbs{}ln\PYGZbs{}big}\PYG{o}{(}\PYG{l+m}{1}\PYG{o}{+}\PYG{n+nv}{\PYGZbs{}e}\PYG{n+nb}{\PYGZca{}\PYGZob{}}\PYG{l+m}{4}\PYG{n+nb}{\PYGZcb{}}\PYG{n+nv}{\PYGZbs{}big}\PYG{o}{)}\PYG{n+nb}{ }\PYG{n+nv}{\PYGZbs{}approx}\PYG{n+nb}{ }\PYG{n+nv}{\PYGZbs{}pflround}\PYG{o}{[}\PYG{l+m}{6}\PYG{o}{]}\PYG{n+nb}{\PYGZob{}log}\PYG{o}{(}\PYG{l+m}{1}\PYG{o}{+}\PYG{n+nb}{exp}\PYG{o}{(}\PYG{l+m}{4}\PYG{o}{))}\PYG{n+nb}{\PYGZcb{}}\PYG{l+s}{\PYGZdl{}}
+\end{MintedVerbatim}

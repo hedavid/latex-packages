@@ -1,0 +1,18 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+\PYG{k}{\PYGZbs{}pflsolthreshold}\PYG{n+na}{[\PYGZlt{}keys\PYGZgt{}]}\PYG{n+nb}{\PYGZob{}}fct\PYG{n+nb}{\PYGZcb{}\PYGZob{}}val\PYG{n+nb}{\PYGZcb{}}
+\PYG{k}{\PYGZbs{}SolutionSeuil}\PYG{n+na}{[\PYGZlt{}clés\PYGZgt{}]}\PYG{n+nb}{\PYGZob{}}fct\PYG{n+nb}{\PYGZcb{}\PYGZob{}}val\PYG{n+nb}{\PYGZcb{}}
+\PYG{k}{\PYGZbs{}pflsolseuil}\PYG{n+na}{[\PYGZlt{}clés\PYGZgt{}]}\PYG{n+nb}{\PYGZob{}}fct\PYG{n+nb}{\PYGZcb{}\PYGZob{}}val\PYG{n+nb}{\PYGZcb{}}
+
+\PYG{c}{\PYGZpc{} \PYGZhy{}\PYGZhy{}\PYGZhy{} [keys/clés] \PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}}
+\PYG{c}{\PYGZpc{} prec       = Precision    = 3}
+\PYG{c}{\PYGZpc{} stretch    = Stretch      = 1.15}
+\PYG{c}{\PYGZpc{} sweeping   = Balayage     = false}
+\PYG{c}{\PYGZpc{} calc       = Calculatrice = false}
+\PYG{c}{\PYGZpc{} capital    = Majuscule    = true}
+\PYG{c}{\PYGZpc{} sign       = Sens         = \PYGZob{}\PYGZgt{}\PYGZcb{}}
+\PYG{c}{\PYGZpc{} exact      = Exact        = false}
+\PYG{c}{\PYGZpc{} exactB     = ExactB       = false}
+\PYG{c}{\PYGZpc{} conclusion = Conclusion   = true}
+\PYG{c}{\PYGZpc{} simple     = Simple       = false}
+\PYG{c}{\PYGZpc{} \PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}}
+\end{MintedVerbatim}

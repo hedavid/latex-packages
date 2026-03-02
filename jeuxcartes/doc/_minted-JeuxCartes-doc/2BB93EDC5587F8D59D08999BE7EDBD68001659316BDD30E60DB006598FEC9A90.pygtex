@@ -1,0 +1,4 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k}{\PYGZbs{}MainCartesJeu}\PYG{n+na}{[Hauteur=1.75,StyleJeu=v2,Eventail,Rotation=3.75,EspH=0.01,EspV=0.05]}
+    \PYG{n+nb}{\PYGZob{}}\PYG{k}{\PYGZbs{}JeuCompletBeloteTriHaut}\PYG{n+nb}{\PYGZcb{}}
+\end{Verbatim}

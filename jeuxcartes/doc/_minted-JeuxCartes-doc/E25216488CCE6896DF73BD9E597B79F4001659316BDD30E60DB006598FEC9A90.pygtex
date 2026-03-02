@@ -1,0 +1,18 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c}{\PYGZpc{}belote tri par couleur (P/C/T/K)}
+\PYG{k}{\PYGZbs{}JeuCompletBeloteTriCoul}
+\PYG{c}{\PYGZpc{}belote tri par hauteur (P/C/T/K)}
+\PYG{k}{\PYGZbs{}JeuCompletBeloteTriHaut}
+
+\PYG{c}{\PYGZpc{}poker tri par couleur (P/C/T/K)}
+\PYG{k}{\PYGZbs{}JeuCompletPokerTriCoul}
+\PYG{k}{\PYGZbs{}JeuCompletPokerTriCoulJok}
+\PYG{c}{\PYGZpc{}poker tri par hauteur (P/C/T/K)}
+\PYG{k}{\PYGZbs{}JeuCompletPokerTriHaut}
+\PYG{k}{\PYGZbs{}JeuCompletPokerTriHautJok}
+
+\PYG{c}{\PYGZpc{}tarot tri par couleur (P/C/T/K)}
+\PYG{k}{\PYGZbs{}JeuCompletTarotTriCoul}
+\PYG{c}{\PYGZpc{}tarot tri par hauteur (P/C/T/K)}
+\PYG{k}{\PYGZbs{}JeuCompletTarotTriHaut}
+\end{Verbatim}

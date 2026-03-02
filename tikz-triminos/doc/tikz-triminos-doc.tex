@@ -27,8 +27,8 @@
 \hypersetup{pdfborder=0 0 0}
 \usepackage[margin=2cm]{geometry}
 \setlength{\parindent}{0pt}
-\def\TPversion{0.1.0}
-\def\TPdate{20/01/2025}
+\def\TPversion{0.1.2}
+\def\TPdate{01/08/2025}
 \usepackage{tcolorbox}
 \tcbuselibrary{breakable,skins,hooks,listingsutf8}
 
@@ -46,7 +46,7 @@
 	keywordstyle={\color{violet}},%
 	classoffset=2,%
 	alsoletter={-},%
-	morekeywords={\tkztriminos},%
+	morekeywords={\tkztriminos,\dotbelownb},%
 	keywordstyle={\color{green!50!black}},%
 	classoffset=3,%
 	morekeywords={},%
@@ -76,7 +76,7 @@
 		keywordstyle={\color{violet}},%
 		classoffset=2,%
 		alsoletter={-},%
-		morekeywords={\tkztriminos},%
+		morekeywords={\tkztriminos,\dotbelownb},%
 		keywordstyle={\color{green!50!black}},%
 		classoffset=3,%
 		morekeywords={size,font,decocolor,decoration,showtxtlogo,showiconlogo,bgcolor,txtlogo,iconlogo,scaledeco,fontdeco},%
@@ -225,7 +225,10 @@
 In order to load \lstinline[language={[latex]TeX},basicstyle=\ttfamily]{tikz-triminos}, simply use:
 
 \begin{DemoCode}{listing only}
-\usepackage{tikz-triminos}
+\usepackage{tikz-triminos}               %with fa5
+\usepackage[fa6]{tikz-triminos}          %with fa6
+\usepackage[fa7]{tikz-triminos}          %with fa7
+\usepackage[nonfa]{tikz-triminos}        %w/o fa5
 \end{DemoCode}
 
 %Loaded packages are \lstinline[language={[latex]TeX},basicstyle=\ttfamily]|tikz| (with librairies \lstinline[language={[latex]TeX},basicstyle=\ttfamily]|calc| and \lstinline[language={[latex]TeX},basicstyle=\ttfamily]|decorations text|), \lstinline[language={[latex]TeX},basicstyle=\ttfamily]|ifthen|, \lstinline[language={[latex]TeX},basicstyle=\ttfamily]|simplekv|, \lstinline[language={[latex]TeX},basicstyle=\ttfamily]|listofitems|, \lstinline[language={[latex]TeX},basicstyle=\ttfamily]|fontawesome5| and \lstinline[language={[latex]TeX},basicstyle=\ttfamily]|settobox|.
@@ -236,7 +239,7 @@ The purposes of this small package is to provide simple tool to create \textsf{T
 
 \smallskip
 
-\textit{Inspiration come from \url{https://schule.paul-matthies.de/Trimino.php} (CC BY-SA 4.0)}.
+\textit{Inspiration come from \url{https://schule.paul-matthies.de/Trimino.php} (CC BY-NC-SA 4.0)}.
 
 \section{Usage}
 
@@ -305,6 +308,19 @@ Available keys, to be given within \lstinline[language={[latex]TeX},basicstyle=\
 	\item \lstinline[language={[latex]TeX},basicstyle=\ttfamily]|scaledeco| :=scale for \textit{inner} decoration\hfill(default \lstinline[language={[latex]TeX},basicstyle=\ttfamily]|0.25|)
 \end{itemize}
 
+\subsection{Internal macro}
+
+In order to work with \texttt{6} or \texttt{9} as answers/questions, it's possible to use an internal macro with dot under the number.
+
+\begin{DemoCode}{listing only}
+\dotbelownb[voffset]{nb}  %voffset = 1pt by default
+\end{DemoCode}
+
+\begin{DemoCode}{}
+%example
+\tkztriminos{\dotbelownb{6} § \dotbelownb[1mm]{9} § Answer C}
+\end{DemoCode}
+
 \pagebreak
 
 \section{Examples}
@@ -327,7 +343,7 @@ Available keys, to be given within \lstinline[language={[latex]TeX},basicstyle=\
 }
 \end{DemoCode}
 
-\subsection{Several TriMinos}
+\subsection{Multiple TriMinos}
 
 \begin{DemoCode}{}
 \tkztriminos%
@@ -362,6 +378,10 @@ Available keys, to be given within \lstinline[language={[latex]TeX},basicstyle=\
 \pagebreak
 
 \section{History}
+
+\texttt{0.1.2: Compatibility with fontawesome5/6/7}
+
+\texttt{0.1.1: Macro for putting dot below number (eg 6 or 9)}
 
 \texttt{0.1.0: Initial version}
 

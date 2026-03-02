@@ -1,0 +1,12 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k}{\PYGZbs{}begin}\PYG{n+nb}{\PYGZob{}}GraphiqueTikz\PYG{n+nb}{\PYGZcb{}}\PYG{c}{\PYGZpc{}}
+		[x=1.25cm,y=15cm,Origx=5,Xmin=5,Xmax=15,Ymin=0,Ymax=0.3,
+		Ygrille=0.1,Ygrilles=0.05]
+	\PYG{k}{\PYGZbs{}TracerAxesGrilles}\PYG{n+na}{[Elargir=2.5mm]}\PYG{n+nb}{\PYGZob{}}auto\PYG{n+nb}{\PYGZcb{}\PYGZob{}}auto\PYG{n+nb}{\PYGZcb{}}
+	\PYG{k}{\PYGZbs{}DefinirLoiNormale}\PYG{n+na}{[Nom=gaussienne]}\PYGZlt{}phi\PYGZgt{}\PYG{n+nb}{\PYGZob{}}10\PYG{n+nb}{\PYGZcb{}\PYGZob{}}1.5\PYG{n+nb}{\PYGZcb{}}
+	\PYG{k}{\PYGZbs{}TracerIntegrale}
+		[Bornes=abs,Couleurs=blue/cyan!50]\PYG{c}{\PYGZpc{}}
+		\PYG{n+nb}{\PYGZob{}}phi(x)\PYG{n+nb}{\PYGZcb{}\PYGZob{}}7\PYG{n+nb}{\PYGZcb{}\PYGZob{}}13\PYG{n+nb}{\PYGZcb{}}
+	\PYG{k}{\PYGZbs{}TracerLoiNormale}\PYG{n+na}{[Couleur=violet,Debut=5,Fin=15]}\PYG{n+nb}{\PYGZob{}}phi(x)\PYG{n+nb}{\PYGZcb{}}
+\PYG{k}{\PYGZbs{}end}\PYG{n+nb}{\PYGZob{}}GraphiqueTikz\PYG{n+nb}{\PYGZcb{}}
+\end{Verbatim}

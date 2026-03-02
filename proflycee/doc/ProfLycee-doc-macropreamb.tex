@@ -1,0 +1,254 @@
+\definecolor{BleuCadet}{HTML}{5E9EA0}
+\definecolor{Chair}{HTML}{FDDBB8}
+\definecolor{BleuAcier}{HTML}{4483B8}
+
+\newverbcommand{\pverb}{\color{purple}}{}
+\newverbcommand{\rverb}{\color{red}}{}
+\newverbcommand{\vverb}{\color{CouleurVertForet}}{}
+\newverbcommand{\averb}{\color{BleuCadet}}{}
+\newverbcommand{\overb}{\color{orange}}{}
+\newverbcommand{\bverb}{\color{blue}}{}
+\setlength{\parindent}{0pt}
+\definecolor{LightGray}{gray}{0.9}
+
+\newtcolorbox{PART}[1][]{%
+	enhanced,top=3mm,bottom=3mm,
+	bottomtitle=2mm,arc=2pt,outer arc=0pt,
+	colframe=teal,colback=white,bicolor,
+	colbacklower=teal!15,coltitle=black,
+	fonttitle=\Large\sffamily,
+	title=\centering Thème,
+	#1%
+}%
+
+\tcbset{vignettes/.style={%
+	nobeforeafter,box align=base,boxsep=0pt,enhanced,sharp corners=all,rounded corners=southeast,%
+	boxrule=0.75pt,left=7pt,right=1pt,top=0pt,bottom=0.25pt,%
+	}
+}
+\tcbset{vignettelatex/.style={%
+	fontupper={\vphantom{pf}\footnotesize\ttfamily},
+	vignettes,%
+	colframe=BleuCadet,coltitle=white,colback=BleuCadet!5,%
+	overlay={\begin{tcbclipinterior}%
+			\fill[fill=lightgray!50]($(interior.south west)$) rectangle node[rotate=90]{\tiny \sffamily{\textcolor{BleuCadet}{\scalebox{0.6}[0.75]{\textbf{\LaTeX}}}}} ($(interior.north west)+(5pt,0pt)$);%
+		\end{tcbclipinterior}}
+	}
+}
+
+\tcbset{vignettelib/.style={%
+	fontupper={\vphantom{pf}\footnotesize\ttfamily},
+	vignettes,%
+	colframe=CouleurVertForet,coltitle=white,colback=white,%
+	overlay={\begin{tcbclipinterior}%
+			\fill[fill=green!25]($(interior.south west)$) rectangle node[rotate=90]{\tiny \sffamily{\textcolor{CouleurVertForet}{\scalebox{0.85}[0.75]{\textbf{LIB}}}}} ($(interior.north west)+(5pt,0pt)$);%
+		\end{tcbclipinterior}}
+	}
+}
+
+\tcbset{vignetteMaJ/.style={%
+	fontupper={\vphantom{pf}\footnotesize\ttfamily},
+	vignettes,%
+	colframe=CouleurVertForet!50!black,coltitle=white,colback=CouleurVertForet!25,%
+	overlay={\begin{tcbclipinterior}%
+			\fill[fill=CouleurVertForet!75]($(interior.south west)$) rectangle node[rotate=90]{\tiny \sffamily{\textcolor{black}{\scalebox{0.85}[0.75]{\textbf{MàJ}}}}} ($(interior.north west)+(5pt,0pt)$);%
+			\end{tcbclipinterior}}
+	}
+}
+
+\tcbset{StyleCodeTex/.style={%
+	listing engine=listings,%
+	listing options={%
+			breaklines=true,%
+			breakatwhitespace=true,%
+			style=tcblatex,basicstyle=\footnotesize\ttfamily,%
+			tabsize=4,%
+			commentstyle={\itshape\color{gray}},
+			keywordstyle={\color{blue}},%
+			classoffset=0,%
+			keywords={dfrac,useproflyclib,includegraphics},%
+			alsoletter={-},%
+			keywordstyle={\color{blue}},%
+			classoffset=1,%
+			alsoletter={-},%
+			morekeywords={ProfLycee,ProfLycee-Pictosbac,CodePythonLst,CodePythonLstAlt,CodePiton,PitonConsole,CodePythontex,CodePythontexAlt,ConsolePythontex,CodePythonMinted,CodePythonMintedAlt,PseudoCode,PseudoCodeAlt,TerminalWin,TerminalUnix,TerminalOSX,EnvArbreProbasTikz,EnvSudoMaths,RepIntervalles,PseudoCodePiton,PlaceValeursAxe,EnvCourbeECC,PitonThonnyEditor,PitonThonnyConsole,HistoBinomiale},%
+			keywordstyle={\color{violet}},%
+			classoffset=2,%
+			alsoletter={-},%
+			morekeywords={\ResolutionApprochee,\SolutionTVI,\CalculTermeRecurrence,\ToileRecurrence,\SolutionSeuil,\IntegraleApprochee,\GrilleTikz,\AxesTikz,\AxexTikz,\AxeyTikz,\AxexyTikz,\FenetreTikz,\FenetreSimpleTikz,\DeclareFonctionTikz,\CourbeTikz,\OrigineTikz,\SplineTikz,\TangenteTikz,\MiniSchemaSignes,\MiniSchemaSignesTkzTab,\IntegraleApprocheeTikz,\CartoucheCapytale,\PaveTikz,\TetraedreTikz,\CercleTrigo,\AffPoint,\AffVecteur,\TrouveEqCartPlan,\TrouveEqParamDroite,\TrouveEqCartDroite,\TrouveNorme,\TrouveDistancePtPlan,\EquationReduite,\CalculsRegLin,\PointsRegLin,\NuagePointsTikz,\PointMoyenTikz,\BoiteMoustaches,\BoiteMoustachesAxe,\Histogramme,\CalcBinomP,\CalcBinomC,\BinomP,\BinomC,\CalcPoissP,\CalcPoissC,\PoissonP,\PoissonC,\CalcGeomP,\CalcGeomC,\GeomP,\GeomC,\CalcHypergeomP,\CalcHypergeomP,\HypergeomP,\HypergeomC,\CalcNormC,\NormaleC,\CalcExpoC,\ExpoC,\ArbreProbasTikz,\LoiNormaleGraphe,\LoiExpoGraphe,\NbAlea,\VarNbAlea,\TirageAleatoireEntiers,\Arrangement,\Combinaison,\ConversionDecBin,\ConversionBinHex,\ConversionVersDec,\ConversionHexBin,\ConversionBaseDix,\ConversionDepuisBaseDix,\PresentationPGCD,\EquationDiophantienne,\ConversionFraction,\SimplificationRacine,\EcritureEnsemble,\EcritureTrinome,\MesurePrincipale,\LigneTrigo,\SudoMaths,\FonctionRepartTikz,\IntervalleFF,\IntervalleFO,\IntervalleOF,\IntervalleOO,\RepereOij,\RepereOuv,\RepereOijk,\ReperePlan,\RepereEspace,\jfalg,\jfexp,\LoiNormale,\LoiBinomiale,\LoiPoisson,\LoiExpo,\LoiUnif,\Courbe,\Suite,\CoordPtPl,\CoordPtEsp,\CoordVecPl,\CoordVecEsp,\MatDeux,\Vecteur,\Esper,\Varianc,\EcType,\dx,\Integrale,\Modulo,\Arrondi,\CodePythonLstFichier,\CodePythonLstFichierAlt,\colorlet,\PtsDiscontinuite,\ListeDiviseurs,\ArbreDiviseurs,\FractaleTikz,\EtapesFloconKoch,\EtapesTapisSierpinski,\tkzIntervalle,\AffAngleRadian,\ChiffrementCesar,\InverseModulo,\ChiffrementAffine,\ChiffrementHill,\ChateauCartes,\PfLAllumette,\PfLAllumettes,\MachineTransformer,\FractionPeriode,\CourbeECC,\ValPremQuartile,\ValMed,\ValTroisQuartile,\MedianeQuartilesECC,\DivEucl,\DivisionEucl,\GenereSplineTikz,\CourbeSplineTikz,\Limite,\ValAbs,\Norme,\ModuleCplx,\ProbaCondit,\IntFluctu,\IntConf,\RedactionIntFluct,\RedactionIntConf,\CourbeTikzXint,\OperationPosee,\ResteMod,\tkzTabLineConvex,\SchemaEspace,\FonctionHomographique,\FormeCanonique,\pflnum,\CompMathsLyc,\CompMathsLycPro,\PageGardeSujetBac,\DeclareFonctionTikzXint,\IntegraleTikz,\IntegraleTikzXint,\CalcIntegrale,\ValeurMoyenneIntg,\Factorielle,\Primorielle,\HistogrammeBinomiale,\TraceLoiNormale,\DetermineMax,\DetermineMin,\CodePitonFichier,\PseudoCodePitonFichier,\PitonThonnyEditorFichier,\pflprix,\pflangle,\pflpcent,\pflbasetobase,\ConversionEntreBases,\InsererClipart,\pflnumsqrt,\pflnumfrac,\pflnumrad,\EmpilementBalles,\JourSelonDate,\NbJoursEntreDates,\AjoutJoursDate,\DateComplete,\DeterminerParamStats,\ArbreChoix,\ArbreChoixSansRemise,\pflnocalc,\pflboolestpremier,\pflestpremier,\pfldecompnb,\QuoMod,\pflpictobac,\TrouveEqSphere,\DecompFactPremiers,\PresFactPremiers,\SimplFracDecomp,\PageGardeSujetBacEAM},%
+			keywordstyle={\color{CouleurVertForet}},%
+			classoffset=3,%
+			alsoletter={-},%
+			morekeywords={minimum-decimal-digits,scale,nonamssymb,warningsoff,build,nonfa,fa6,fa5fa6,noncancel,nonsiunitxfr,nonbabel,compat,Precision,Intervalle,Variable,NomFct,NomSol,va,vb,Stretch,Balayage,Calculatrice,Majuscule,No,UNo,NomSuite,Simple,Exact,ExactB,Conclusion,Sens,ResultatBrut,Methode,NbSubDiv,AffFormule,Expr,Signe,Variables,Affp,Affs,Epaisseur,Police,ElargirOx,ElargirOy,Labelx,Labely,AffLabel,PosLabelx,PosLabely,EchelleFleche,TypeFleche,PosGrad,HautGrad,AffGrad,AffOrigine,Annee,Trigo,Dfrac,Style,Coeffs,AffPoints,TaillePoints,xl,xr,Code,Racines,Largeur,Hauteur,Cadre,Fct,Nom,PosLabel,DecalLabel,TailleLabel,AffTermes,RemplirbOpacite,CouleurRemplissage,Lignes,Gobble,Alignement,Filigrane,BarreTitre,CouleurNombres,Centre,EspacementVertical,Label,Titre,Profondeur,Angle,Fuite,Sommets,Math,Aff,Plein,Cube,Alpha,Beta,Rayon,Marge,TailleValeurs,TailleAngles,CouleurFond,Decal,MoinsPi,AffAngles,AffTraits,AffValeurs,Equationcos,Equationsin,sin,cos,AffTraitsEq,CouleurSol,OptionCoeffs,SimplifCoeffs,Facteur,OptionCoeffs,Reel,Oppose,Rgras,SimplifCoeffs,VectDirecteur,NomCoeffa,NomCoeffb,NomCoeffr,NomCoeffrd,NomXmin,NomXmax,Ox,Oy,xg,yg,AffNom,Elevation,Moyenne,AffMoyenne,Pointilles,Valeurs,Elargir,Min,Max,DebutOx,FinOx,ListeCouleurs,ElargirX,ElargirY,LabelX,LabelY,GradX,GradY,AffEffectifs,PosEffectifs,Opacite,AffBornes,GrilleV,PoliceAxes,PoliceEffectifs,EpaisseurTraits,Unite,EspaceNiveau,EspaceFeuille,Type,PoliceProbas,InclineProbas,Fleche,StyleTrait,EpaisseurTrait,CouleurAire,CouleurCourbe,AfficheM,AfficheCadre,ValMin,ValMax,NbVal,Sep,Tri,Repetition,Notation,NotationAncien,Formule,AffBase,Details,BaseDep,Zeros,DecalH,DecalV,Noeud,Rect,CouleurRes,DecalRect,Rectangle,CouleurResultat,AfficheConclusion,AfficheDelimiteurs,Lettre,Inconnues,Entier,Cadres,PresPGCD,Mathpunct,Option,Alea,Anegatif,Crochets,Brut,Etapes,Epaisseurg,CouleurCase,CouleurTexte,NbSubCol,NbLig,NbCol,Legendes,PoliceLeg,ListeLegV,ListeLegH,DecalLegende,Couleur,Uno,Grille,ExtraGrilleY,PosLegende,Pointilles,Extremite,Frac,PremLigne,Type,Pos,Echelle,AffNom,EspaceNiveau,CouleurDetails,Fleches,EspaceFeuille,Details,LongueurCote,AlignV,Offset,Remplir,Etape,Depart,Contour,Remplissage,Graduations,GraduationsAlt,HautGrad,Valeurs,EpTrait,Decor,NumInf,NumSup,NiveauV,PosValeurs,PosEffectifs,NbSubLig,Matrice,Dechiffr,NoirBlanc,Legende,PoliceLegende,Deco,CouleurDeco,AngleX,AngleY,Bas,CouleurBois,CouleurBout,Decal,Auto,Tableau,ES,Offset,Formule,CouleurFct,AffFleche,CouleurBloc,PoliceTbl,Logo,Echelle,Bordure,Enonce,Inconnue,Solution,Brut,Simple,Largeur,Hauteur,PasX,PasY,CouleursParams,GraduationsX,GraduationsY,AffParams,ElargirAxes,Quotient,Reste,Vide,Pointilles,NumDebut,NumFin,BB,min,Maj,Formule,Seuil,Classe,Details,Calcul,PositionProbas,LimiteCapac,SymbDecal,CouleurRetenue,Base,AffEgal,AffRetenues,AffCateg,AffNumero,Court,Puce,TypePuce,Session,AffSession,Jour,AffJour,Duree,ModeExamen,DernierePage,Justification,TraceRecherche,Clarte,NbExos,Traiter,EspaceAvant,LargeurPar,Serie,Filiere,Matiere,Jonction,Pas,Samples,Complet,Enonce,Partiel,Espace,Grand,ChSignif,Sens,Largeur,Hauteur,PasX,PasY,Plage,CouleurPlage,Epaisseur,ClipX,Police,AffNormale,Dernier,CouleurTraits,CouleurNoeuds,CouleurProbas,ValeursTan,Rotation,EspaceNiveaux,EspaceFeuilles,Repet,Notice,TraitsNotice,CouleursNiveaux,AffResultats,SepResultats,IconesCarbon,Develop,CouleurTrait,EpaisseurTrait,EncadreFin,Longue,PuissanceUn,CouleurCommun,Barrer,CalculatriceInterdite},%
+			keywordstyle={\color{orange!75!black}},
+			classoffset=4,%
+			morekeywords={\pflbasetobase,\pflprix,\pflangle,\pflpcent,\pflresolapproch,\pflsoltvi,\pflcalcrecurr,\pfltoilerecurr,\pflsolseuil,\pflintegrapproch,\pflvalintegr,\pflvalmoyintegr,\pflformcanoniq,\pflfcthomogr,\pfldetmax,\pfldetmin,\pflschemasignes,\pflschemasignestkztab,\pflintegrapprochtikz,\pflcercletrigo,\pfleqreduite,\pflschemesp,\pflcalcreglin,\pflparamstats,\pflboitemoustach,\pflhistogramme,\pflcourbeecc,\pflbinomp,\pflbinomc,\pflpoissonp,\pflpoissonc,\pflgeomp,\pflgeomc,\pflhypergeomp,\pflhypergeomc,\pflnormalec,\pflexpoc,\pflarbreprobas,\pflnormgraph,\pflexpograph,\pflhistobinom,\pflnbalea,\pflvarnbalea,\pfltiragealeaent,\pfllistediv,\pflarbrediv,\pflarbrechoix,\pflarbrechoixssremise,\pflfacto,\pflprimor,\pflarrang,\pflcombin,\pflconvbases,\pflconvdecbin,\pflconvbinhex,\pflconvhexbin,\pflconvversdec,\pflconvdix,\pflconvdepuisdix,\pflprespgcd,\pflopeposee,\pflequadioph,\pfldiveucl,\pflpresdiveucl,\pflrestemod,\pflinvmod,\pflchiffrcesar,\pflchiffraff,\pflchiffrhill,\pflecritens,\pflecrittrinom,\pflmesppale,\pflsudomaths,\pflfractaltikz,\pflchateaucartes,\pflallumettes,\pfljourselondate,\pfldatecomplet,\pflnbjoursdates,\pflajoutjoursdate,\pflmachtransf,\pflclipart,\pflquomod,\pflpresfactprem,\pflfactornb,\pflsimpliffrac},
+			keywordstyle={\color{BleuCadet}}
+			}
+	}
+}
+
+\NewTCBListing{PresCodeTexPL}{ O{BleuCadet} m }{%
+	enhanced,width=0.93\linewidth,flush right,boxrule=0.75pt,colframe=#1!85!black,%
+	sharp corners,top=0mm,bottom=0mm,left=0.4em,right=5mm,%
+	before skip=\baselineskip,after skip=\baselineskip,%
+	colback=white,
+	fontupper=\footnotesize,fontlower=\footnotesize,%
+	watermark text={\faCode},watermark opacity=0.25,watermark zoom=0.50,%
+	title={{\scriptsize\faCode} Code \LaTeX},
+	lefttitle=0.4em,
+	fonttitle=\bfseries\footnotesize\sffamily,colbacktitle=darkgray!50!#1,%
+	StyleCodeTex,
+	%listing engine=minted,minted style=colorful,minted language=tex,
+	%minted options={tabsize=4,fontsize=\footnotesize,autogobble,breaklines=true},
+	#2,%
+	overlay={\draw[#1!85!black] ($(frame.north west)+(-0.035\linewidth,-0.025\linewidth)$) node[scale=1.66] {\faCode} ;}
+}
+
+\NewTCBListing{PresCodePL}{ O{BleuCadet} m }{%
+	enhanced,width=0.93\linewidth,flush right,boxrule=0.75pt,colframe=#1!85!black,%
+	sharp corners,top=0mm,bottom=0mm,left=0.4em,right=5mm,%
+	before skip=\baselineskip,after skip=\baselineskip,%
+	colback=white,
+	fontupper=\footnotesize,fontlower=\footnotesize,%
+	watermark text={\faCogs},watermark opacity=0.25,watermark zoom=0.50,%
+	title={{\scriptsize\faCogs} Code \LaTeX{} et sortie \LaTeX},
+	lefttitle=0.4em,
+	fonttitle=\bfseries\footnotesize\sffamily,colbacktitle=darkgray!50!#1,%
+	StyleCodeTex,
+	%listing engine=minted,minted style=colorful,minted language=tex,
+	%minted options={tabsize=4,fontsize=\footnotesize,autogobble,breaklines=true},
+	#2,%
+	overlay={%
+			\draw[#1!85!black] ($(frame.north west)+(-0.035\linewidth,-0.025\linewidth)$) node[scale=1.66] {\faCode} ;
+			\draw[#1!85!black] ($(segmentation.west)+(-0.035\linewidth,-0.025\linewidth)$) node[scale=1.66] {\faFilePdf} ;
+			
+		}
+}
+
+\NewTCBListing{PresCodeSortiePL}{ O{BleuCadet} m }{%
+	enhanced,width=0.93\linewidth,flush right,boxrule=0.75pt,colframe=#1!85!black,%
+	sharp corners,top=0mm,bottom=0mm,left=0.4em,right=5mm,%
+	before skip=\baselineskip,after skip=\baselineskip,%
+	colback=white,
+	fontupper=\footnotesize,fontlower=\footnotesize,%
+	watermark text={\faFilePdf},watermark opacity=0.25,watermark zoom=0.50,%
+	title={{\scriptsize\faFilePdf} Sortie \LaTeX},
+	lefttitle=0.4em,
+	fonttitle=\bfseries\footnotesize\sffamily,colbacktitle=darkgray!50!#1,%
+	StyleCodeTex,
+%	listing engine=minted,minted style=colorful,minted language=tex,
+%	minted options={tabsize=4,fontsize=\footnotesize,autogobble,breaklines=true},
+	#2,%
+	overlay={\draw[#1!85!black] ($(frame.north west)+(-0.035\linewidth,-0.025\linewidth)$) node[scale=1.66] {\faFilePdf} ;}
+}
+
+\newtcblisting{codetex}[1][]{%
+	colback=white,colframe=red!75!black,title={\small \faCode} Code \LaTeX,fonttitle=\sffamily\bfseries,left=3pt,right=3pt,top=2pt,bottom=2pt,#1}
+
+\newtcolorbox{codeattention}[1][]{%
+	colback=Yellow!50,colframe=yellow!50!black,title={\small \faBomb} Attention,fonttitle=\sffamily\bfseries,left=3pt,right=3pt,top=2pt,bottom=2pt,#1}
+
+\newtcolorbox{codesortie}[1][]{%
+	colback=white,colframe=red!75!black,title={\small \faArrowAltCircleRight[regular]} Sortie \LaTeX,fonttitle=\sffamily\bfseries,left=3pt,right=3pt,top=2pt,bottom=2pt,#1}
+
+\newtcolorbox{condeidee}[1][]{%
+	colback=white,colframe=Chair!75!black,title={\small \faLightbulb[regular]} Idée(s),fonttitle=\sffamily\bfseries,left=3pt,right=3pt,top=2pt,bottom=2pt,#1}
+
+\newtcolorbox{codeinfo}[1][]{%
+	colback=white,colframe=BleuAcier,title={\small \faPuzzlePiece} Information(s),fonttitle=\sffamily\bfseries,left=3pt,right=3pt,top=2pt,bottom=2pt,#1}
+
+\newtcolorbox{codecles}[1][]{%
+	colback=white,colframe=CouleurVertForet!75,title={\small \faPaperclip} Clés et options,fonttitle=\sffamily\bfseries,left=3pt,right=3pt,top=2pt,bottom=2pt,#1}
+
+%petite vignette tex
+\newcommand\ctex[1]{\tcbox[vignettelatex]{#1}}
+
+%petite vignette màj
+\newcommand\cmaj[1]{%
+	{\tcbox[vignetteMaJ]{#1}\xspace}%
+}
+
+%petite vignette màj
+\newcommand\clib[1]{%
+	{\tcbox[vignettelib]{#1}\xspace}%
+}
+
+%gestion de la fenêtre v2 directement dans le tikzpicture
+\tikzset{%
+	xmin/.store in=\xmin,xmin/.default=-5,xmin=-5,
+	xmax/.store in=\xmax,xmax/.default=5,xmax=5,
+	ymin/.store in=\ymin,ymin/.default=-5,ymin=-5,
+	ymax/.store in=\ymax,ymax/.default=5,ymax=5,
+	xgrille/.store in=\xgrille,xgrille/.default=1,xgrille=1,
+	xgrilles/.store in=\xgrilles,xgrilles/.default=0.5,xgrilles=0.5,
+	ygrille/.store in=\ygrille,ygrille/.default=1,ygrille=1,
+	ygrilles/.store in=\ygrilles,ygrilles/.default=0.5,ygrilles=0.5,
+	xunit/.store in=\xunit,unit/.default=1,xunit=1,
+	yunit/.store in=\yunit,unit/.default=1,yunit=1
+}
+\newcommand\tgrilles[1][ultra thin,lightgray]{%
+	\draw[xstep=\xgrilles,ystep=\ygrilles,#1] (\xmin,\ymin) grid (\xmax,\ymax);%
+}
+\newcommand\tgrillep[1][thin,gray]{%
+	\draw[xstep=\xgrille,ystep=\ygrille,#1] (\xmin,\ymin) grid (\xmax,\ymax);%
+}
+
+\newcommand\genfenetre{%
+	%styles
+	\tikzset{noeudexpl/.style={purple,font=\sffamily\small}}
+	\tikzset{portionexpl/.style={orange,thick,<->,>=latex}}
+	\tikzset{expl/.style={midway,inner sep=1pt,above right=0,orange,font=\sffamily\scriptsize,rotate=45}}
+	\tikzset{coeffs/.style={BleuCadet!50!black,circle,draw=BleuCadet,thick,fill=BleuCadet!5,font=\small\ttfamily}}
+	\tikzset{tangente/.style={teal,line width=1pt,dashed}}
+	%grilles & axes
+	\tgrilles[line width=0.3pt,lightgray!50]
+	\tgrillep[line width=0.6pt,lightgray!50]
+	\draw[line width=1.5pt,->,gray,>=latex] (\xmin,0)--(\xmax,0) ;
+	\draw[line width=1.5pt,->,gray,>=latex] (0,\ymin)--(0,\ymax) ;
+	\foreach \x in {0,1,...,10} {\draw[gray,line width=1.5pt] (\x,4pt) -- (\x,-4pt) ;}
+	\foreach \y in {0,1,...,6} {\draw[gray,line width=1.5pt] (4pt,\y) -- (-4pt,\y) ;}
+}
+
+\newcommand\gennotice{%
+	%notice
+	\draw (0,1) node[noeudexpl,below] {point 1} ;
+	\draw (4,3.667) node[noeudexpl,above] {point 2} ;
+	\draw (7.5,1.75) node[noeudexpl,below] {point 3} ;
+	\draw (9,2) node[noeudexpl,above] {point 4} ;
+	\draw (10,0) node[noeudexpl,below] {point 5} ;
+	\draw[portionexpl] (0,6)--(4,6) node[expl] {portion 1} ;
+	\draw[portionexpl] (4,6)--(7.5,6) node[expl] {portion 2} ;
+	\draw[portionexpl] (7.5,6)--(9,6) node[expl] {portion 3} ;
+	\draw[portionexpl] (9,6)--(10,6) node[expl] {portion 4} ;
+	\draw[orange,densely dashed,thick] (4,0)--(4,6) (7.5,0)--(7.5,6) (9,0)--(9,6) (10,0)--(10,6) ;
+}
+
+\newcommand\gentangentes{%
+	%tangentes
+	\draw[tangente] (0,1)--(1,1) ;
+	\draw[tangente,domain=3:5] plot (\x,{-1/3*(\x-9)+2}) ;
+	\draw[tangente] (6.5,1.75)--(8.5,1.75) ;
+	\draw[tangente,domain=8:10] plot (\x,{-1/3*(\x-9)+2}) ;
+	\draw[tangente,domain=9.5:10] plot (\x,{-10*(\x-10)+0}) ;%
+}
+
+\newcommand\listecoeffs[4]{%
+	\draw (0,5.5) node[left,BleuCadet,font=\small\ttfamily] {Coeffs} ;
+	\node[coeffs] at (2,5.5) {#1} ;
+	\node[coeffs] at ({(4+7.5)/2},5.5) {#2} ;
+	\node[coeffs] at ({(7.5+9)/2},5.5) {#3} ;
+	\node[coeffs] at ({(9+10)/2},5.5) {#4} ;%
+}
+
+\NewDocumentCommand\DescripCle{ s O{} D<>{} m m }{%
+	\IfStrEq{#3}{passe}%
+		{%
+			\Cle{#4} : {#5}\IfBooleanTF{#1}{.}{ ;}
+			
+			\hfill{}défaut \Cle{#2}
+		}%
+		{%
+			\Cle{#4} : {#5}\IfBooleanTF{#1}{.}{ ;}\hfill{}défaut \Cle{#2}
+		}%
+}

@@ -1,8 +1,14 @@
 % proflycee-tools-aleatoire.tex
-% Copyright 2023-2025 Cédric Pierquet
+% Copyright 2023-2026 Cédric Pierquet
 % Released under the LaTeX Project Public License v1.3c or later, see http://www.latex-project.org/lppl.txt
 
 %===trad fr/en ok
+
+%%-----Ensemble, version simplifiée
+\newcommand\pflstrut{\vphantom{(Q)^{2}}}
+\newcommand\pflensemble[2][]{%
+  \left\lbrace\mathpunct{}#1#2\mathpunct{}\right\rbrace
+}
 
 %%------EnsembleList
 \defKV[kvensemble]{%

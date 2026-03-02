@@ -1,0 +1,361 @@
+\babel@toc {french}{}\relax 
+\contentsline {part}{I\hspace {1em}Introduction}{12}{part.1}%
+\contentsline {section}{\numberline {1}Le package ProfLycee}{12}{section.1}%
+\contentsline {subsection}{\numberline {1.1}\guillemotleft Philosophie \guillemotright \xspace {} du package}{12}{subsection.1.1}%
+\contentsline {subsection}{\numberline {1.2}Chargement du package}{12}{subsection.1.2}%
+\contentsline {subsection}{\numberline {1.3}Librairies}{13}{subsection.1.3}%
+\contentsline {subsection}{\numberline {1.4}Gestion des fontes}{13}{subsection.1.4}%
+\contentsline {subsection}{\numberline {1.5}Gestion de siunitx}{14}{subsection.1.5}%
+\contentsline {subsection}{\numberline {1.6}Gestion de babel}{14}{subsection.1.6}%
+\contentsline {subsection}{\numberline {1.7}Gestion de fontawesome}{14}{subsection.1.7}%
+\contentsline {subsection}{\numberline {1.8}Gestion de cancel}{14}{subsection.1.8}%
+\contentsline {section}{\numberline {2}Compléments}{14}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Support multilangues}{14}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}Le système de \guillemotleft clés/options \guillemotright \xspace }{15}{subsection.2.2}%
+\contentsline {subsection}{\numberline {2.3}Compilateur(s)}{16}{subsection.2.3}%
+\contentsline {subsection}{\numberline {2.4}Problèmes éventuels\ldots }{16}{subsection.2.4}%
+\contentsline {subsection}{\numberline {2.5}Version allégée}{16}{subsection.2.5}%
+\contentsline {subsection}{\numberline {2.6}Alias de commandes (en test)}{17}{subsection.2.6}%
+\contentsline {part}{II\hspace {1em}Liste des commandes, par thème}{20}{part.2}%
+\contentsline {part}{III\hspace {1em}Écritures d'objets mathématiques}{31}{part.3}%
+\contentsline {section}{\numberline {3}Commande spécifique de calcul/formatage}{31}{section.3}%
+\contentsline {section}{\numberline {4}Commandes}{33}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Arrondi}{33}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}Unités simplifiées}{33}{subsection.4.2}%
+\contentsline {subsection}{\numberline {4.3}Ensembles et intervalles}{33}{subsection.4.3}%
+\contentsline {subsection}{\numberline {4.4}Repères et coordonnées}{34}{subsection.4.4}%
+\contentsline {subsection}{\numberline {4.5}Valeur absolue/module et norme}{35}{subsection.4.5}%
+\contentsline {subsection}{\numberline {4.6}Divers}{36}{subsection.4.6}%
+\contentsline {subsection}{\numberline {4.7}Probabilités}{37}{subsection.4.7}%
+\contentsline {subsection}{\numberline {4.8}Intervalle de confiance, intervalle de fluctuation}{38}{subsection.4.8}%
+\contentsline {section}{\numberline {5}Collection d'objets}{41}{section.5}%
+\contentsline {subsection}{\numberline {5.1}Idée}{41}{subsection.5.1}%
+\contentsline {subsection}{\numberline {5.2}Commande et options}{41}{subsection.5.2}%
+\contentsline {part}{IV\hspace {1em}Outils pour l'analyse}{43}{part.4}%
+\contentsline {section}{\numberline {6}Maximum, minimum d'une fonction}{43}{section.6}%
+\contentsline {section}{\numberline {7}Résolution approchée d'une équation}{44}{section.7}%
+\contentsline {subsection}{\numberline {7.1}Idée}{44}{subsection.7.1}%
+\contentsline {subsection}{\numberline {7.2}Clés et options}{44}{subsection.7.2}%
+\contentsline {section}{\numberline {8}Présentation d'une solution d'équation par balayage}{46}{section.8}%
+\contentsline {subsection}{\numberline {8.1}Idée}{46}{subsection.8.1}%
+\contentsline {subsection}{\numberline {8.2}Clés et arguments}{46}{subsection.8.2}%
+\contentsline {subsection}{\numberline {8.3}Interaction avec la commande de résolution approchée}{47}{subsection.8.3}%
+\contentsline {section}{\numberline {9}Suites récurrentes simples}{48}{section.9}%
+\contentsline {subsection}{\numberline {9.1}Idées}{48}{subsection.9.1}%
+\contentsline {subsection}{\numberline {9.2}Clés et arguments}{48}{subsection.9.2}%
+\contentsline {subsection}{\numberline {9.3}Exemple d'utilisation}{49}{subsection.9.3}%
+\contentsline {section}{\numberline {10}Valeur approchée d'une intégrale}{50}{section.10}%
+\contentsline {subsection}{\numberline {10.1}Idée}{50}{subsection.10.1}%
+\contentsline {subsection}{\numberline {10.2}Clés et arguments}{50}{subsection.10.2}%
+\contentsline {subsection}{\numberline {10.3}Exemples}{51}{subsection.10.3}%
+\contentsline {subsection}{\numberline {10.4}Commande simplifiée}{51}{subsection.10.4}%
+\contentsline {section}{\numberline {11}Forme canonique, fonction homographique}{53}{section.11}%
+\contentsline {subsection}{\numberline {11.1}Idée}{53}{subsection.11.1}%
+\contentsline {subsection}{\numberline {11.2}Forme canonique}{53}{subsection.11.2}%
+\contentsline {subsection}{\numberline {11.3}Fonction homographique}{54}{subsection.11.3}%
+\contentsline {part}{V\hspace {1em}Outils graphiques}{56}{part.5}%
+\contentsline {section}{\numberline {12}Préambule}{56}{section.12}%
+\contentsline {section}{\numberline {13}Intervalles}{56}{section.13}%
+\contentsline {subsection}{\numberline {13.1}Idée}{56}{subsection.13.1}%
+\contentsline {subsection}{\numberline {13.2}Création de l'environnement}{56}{subsection.13.2}%
+\contentsline {subsection}{\numberline {13.3}Représentation d'intervalles}{57}{subsection.13.3}%
+\contentsline {section}{\numberline {14}Repérage et tracé de courbes}{60}{section.14}%
+\contentsline {subsection}{\numberline {14.1}Idée}{60}{subsection.14.1}%
+\contentsline {subsection}{\numberline {14.2}Commandes, clés et options}{61}{subsection.14.2}%
+\contentsline {subsection}{\numberline {14.3}Commandes annexes}{64}{subsection.14.3}%
+\contentsline {subsection}{\numberline {14.4}Repère non centré en O}{65}{subsection.14.4}%
+\contentsline {subsection}{\numberline {14.5}Utilisation de xint pour des courbes}{66}{subsection.14.5}%
+\contentsline {section}{\numberline {15}L'outil \guillemotleft SplineTikz \guillemotright \xspace }{68}{section.15}%
+\contentsline {subsection}{\numberline {15.1}Courbe d'interpolation}{68}{subsection.15.1}%
+\contentsline {subsection}{\numberline {15.2}Code, clés et options}{68}{subsection.15.2}%
+\contentsline {subsection}{\numberline {15.3}Compléments sur les coefficients de \guillemotleft compensation \guillemotright \xspace }{68}{subsection.15.3}%
+\contentsline {subsection}{\numberline {15.4}Exemples}{69}{subsection.15.4}%
+\contentsline {subsection}{\numberline {15.5}Avec une gestion plus fine des \guillemotleft coefficients \guillemotright \xspace }{70}{subsection.15.5}%
+\contentsline {subsection}{\numberline {15.6}Conclusion}{70}{subsection.15.6}%
+\contentsline {section}{\numberline {16}Génération de la courbe d'interpolation}{71}{section.16}%
+\contentsline {subsection}{\numberline {16.1}Intro}{71}{subsection.16.1}%
+\contentsline {subsection}{\numberline {16.2}Exemples et illustrations}{72}{subsection.16.2}%
+\contentsline {section}{\numberline {17}L'outil \guillemotleft TangenteTikz \guillemotright \xspace {}}{74}{section.17}%
+\contentsline {subsection}{\numberline {17.1}Définitions}{74}{subsection.17.1}%
+\contentsline {subsection}{\numberline {17.2}Exemple et illustration}{74}{subsection.17.2}%
+\contentsline {subsection}{\numberline {17.3}Exemple avec les deux outils, et \guillemotleft personnalisation \guillemotright \xspace }{75}{subsection.17.3}%
+\contentsline {section}{\numberline {18}Points de discontinuité}{76}{section.18}%
+\contentsline {subsection}{\numberline {18.1}Idée}{76}{subsection.18.1}%
+\contentsline {subsection}{\numberline {18.2}Commandes}{76}{subsection.18.2}%
+\contentsline {subsection}{\numberline {18.3}Exemples}{76}{subsection.18.3}%
+\contentsline {section}{\numberline {19}Petits schémas pour le signe de fonctions classiques}{77}{section.19}%
+\contentsline {subsection}{\numberline {19.1}Idée}{77}{subsection.19.1}%
+\contentsline {subsection}{\numberline {19.2}Commandes}{77}{subsection.19.2}%
+\contentsline {subsection}{\numberline {19.3}Intégration avec tkz-tab}{79}{subsection.19.3}%
+\contentsline {section}{\numberline {20}Ligne de convexité en lien avec tkz-tab}{80}{section.20}%
+\contentsline {subsection}{\numberline {20.1}Idée}{80}{subsection.20.1}%
+\contentsline {subsection}{\numberline {20.2}Commande}{80}{subsection.20.2}%
+\contentsline {section}{\numberline {21}Suites récurrentes et \guillemotleft toile \guillemotright \xspace }{82}{section.21}%
+\contentsline {subsection}{\numberline {21.1}Idée}{82}{subsection.21.1}%
+\contentsline {subsection}{\numberline {21.2}Commandes}{82}{subsection.21.2}%
+\contentsline {subsection}{\numberline {21.3}Exemples}{83}{subsection.21.3}%
+\contentsline {subsection}{\numberline {21.4}Influence des paramètres}{84}{subsection.21.4}%
+\contentsline {section}{\numberline {22}Méthodes graphiques et intégrales}{85}{section.22}%
+\contentsline {subsection}{\numberline {22.1}Idées}{85}{subsection.22.1}%
+\contentsline {subsection}{\numberline {22.2}Intégrales simples}{86}{subsection.22.2}%
+\contentsline {subsection}{\numberline {22.3}Clés et arguments pour les méthodes approchées}{87}{subsection.22.3}%
+\contentsline {subsection}{\numberline {22.4}Exemples}{89}{subsection.22.4}%
+\contentsline {part}{VI\hspace {1em}Présentation de codes}{92}{part.6}%
+\contentsline {section}{\numberline {23}Précautions}{92}{section.23}%
+\contentsline {section}{\numberline {24}Code Python \guillemotleft simple \guillemotright \xspace {} via le package listings}{92}{section.24}%
+\contentsline {subsection}{\numberline {24.1}Introduction}{92}{subsection.24.1}%
+\contentsline {subsection}{\numberline {24.2}Commande et options}{92}{subsection.24.2}%
+\contentsline {subsection}{\numberline {24.3}Insertion via un fichier \guillemotleft externe \guillemotright \xspace }{93}{subsection.24.3}%
+\contentsline {subsection}{\numberline {24.4}Exemples}{93}{subsection.24.4}%
+\contentsline {section}{\numberline {25}Code Python via le package piton}{96}{section.25}%
+\contentsline {subsection}{\numberline {25.1}Introduction}{96}{subsection.25.1}%
+\contentsline {subsection}{\numberline {25.2}Présentation de code Python}{96}{subsection.25.2}%
+\contentsline {subsection}{\numberline {25.3}Console en partenariat avec Pyluatex}{99}{subsection.25.3}%
+\contentsline {section}{\numberline {26}Code \& Console Python, via le package Pythontex}{100}{section.26}%
+\contentsline {subsection}{\numberline {26.1}Librairies}{100}{subsection.26.1}%
+\contentsline {subsection}{\numberline {26.2}Introduction}{100}{subsection.26.2}%
+\contentsline {subsection}{\numberline {26.3}Présentation de code Python grâce au package pythontex}{100}{subsection.26.3}%
+\contentsline {subsection}{\numberline {26.4}Console d'exécution Python}{101}{subsection.26.4}%
+\contentsline {section}{\numberline {27}Pseudo-Code}{103}{section.27}%
+\contentsline {subsection}{\numberline {27.1}Introduction}{103}{subsection.27.1}%
+\contentsline {subsection}{\numberline {27.2}Présentation de Pseudo-Code}{103}{subsection.27.2}%
+\contentsline {subsection}{\numberline {27.3}Compléments}{104}{subsection.27.3}%
+\contentsline {section}{\numberline {28}PseudoCode via le package piton}{105}{section.28}%
+\contentsline {subsection}{\numberline {28.1}Introduction}{105}{subsection.28.1}%
+\contentsline {subsection}{\numberline {28.2}Présentation de PseudoCode}{105}{subsection.28.2}%
+\contentsline {subsection}{\numberline {28.3}Exemples}{106}{subsection.28.3}%
+\contentsline {section}{\numberline {29}Code et console Python, à la manière de Thonny}{108}{section.29}%
+\contentsline {subsection}{\numberline {29.1}Introduction}{108}{subsection.29.1}%
+\contentsline {subsection}{\numberline {29.2}Présentation de code, style éditeur}{108}{subsection.29.2}%
+\contentsline {subsection}{\numberline {29.3}Présentation de code, style console}{109}{subsection.29.3}%
+\contentsline {subsection}{\numberline {29.4}Exemple}{110}{subsection.29.4}%
+\contentsline {section}{\numberline {30}Cartouche Capytale}{111}{section.30}%
+\contentsline {subsection}{\numberline {30.1}Introduction}{111}{subsection.30.1}%
+\contentsline {subsection}{\numberline {30.2}Commandes}{111}{subsection.30.2}%
+\contentsline {section}{\numberline {31}Présentation de code \LaTeX }{112}{section.31}%
+\contentsline {subsection}{\numberline {31.1}Introduction}{112}{subsection.31.1}%
+\contentsline {subsection}{\numberline {31.2}Commandes}{112}{subsection.31.2}%
+\contentsline {part}{VII\hspace {1em}Outils pour la géométrie}{114}{part.7}%
+\contentsline {section}{\numberline {32}Pavé droit \guillemotleft simple \guillemotright \xspace }{114}{section.32}%
+\contentsline {subsection}{\numberline {32.1}Introduction}{114}{subsection.32.1}%
+\contentsline {subsection}{\numberline {32.2}Commandes}{114}{subsection.32.2}%
+\contentsline {subsection}{\numberline {32.3}Influence des paramètres}{115}{subsection.32.3}%
+\contentsline {section}{\numberline {33}Tétraèdre \guillemotleft simple \guillemotright \xspace }{116}{section.33}%
+\contentsline {subsection}{\numberline {33.1}Introduction}{116}{subsection.33.1}%
+\contentsline {subsection}{\numberline {33.2}Commandes}{116}{subsection.33.2}%
+\contentsline {subsection}{\numberline {33.3}Influence des paramètres}{117}{subsection.33.3}%
+\contentsline {section}{\numberline {34}Cercle trigo}{118}{section.34}%
+\contentsline {subsection}{\numberline {34.1}Idée}{118}{subsection.34.1}%
+\contentsline {subsection}{\numberline {34.2}Commandes}{118}{subsection.34.2}%
+\contentsline {subsection}{\numberline {34.3}Équations trigos}{119}{subsection.34.3}%
+\contentsline {section}{\numberline {35}Schémas type de géométrie dans l'espace}{121}{section.35}%
+\contentsline {subsection}{\numberline {35.1}Idée}{121}{subsection.35.1}%
+\contentsline {subsection}{\numberline {35.2}Commande}{121}{subsection.35.2}%
+\contentsline {part}{VIII\hspace {1em}Outils pour la géométrie analytique}{129}{part.8}%
+\contentsline {section}{\numberline {36}Conseils d'utilisation}{129}{section.36}%
+\contentsline {section}{\numberline {37}Affichage de coordonnées}{129}{section.37}%
+\contentsline {subsection}{\numberline {37.1}Idée}{129}{subsection.37.1}%
+\contentsline {subsection}{\numberline {37.2}Options et arguments}{130}{subsection.37.2}%
+\contentsline {section}{\numberline {38}Équation cartésienne d'un plan de l'espace}{131}{section.38}%
+\contentsline {subsection}{\numberline {38.1}Idée et commande}{131}{subsection.38.1}%
+\contentsline {subsection}{\numberline {38.2}Clés et arguments}{131}{subsection.38.2}%
+\contentsline {section}{\numberline {39}Équation paramétrique d'une droite de l'espace}{133}{section.39}%
+\contentsline {subsection}{\numberline {39.1}Idée et commande}{133}{subsection.39.1}%
+\contentsline {subsection}{\numberline {39.2}Clés et arguments}{133}{subsection.39.2}%
+\contentsline {section}{\numberline {40}Équation cartésienne d'une droite du plan}{135}{section.40}%
+\contentsline {subsection}{\numberline {40.1}Idée et commande}{135}{subsection.40.1}%
+\contentsline {subsection}{\numberline {40.2}Clés et arguments}{135}{subsection.40.2}%
+\contentsline {section}{\numberline {41}Norme d'un vecteur, distance entre deux points}{137}{section.41}%
+\contentsline {subsection}{\numberline {41.1}Idée et commande}{137}{subsection.41.1}%
+\contentsline {subsection}{\numberline {41.2}Clés et arguments}{137}{subsection.41.2}%
+\contentsline {section}{\numberline {42}Distance d'un point à un plan}{138}{section.42}%
+\contentsline {subsection}{\numberline {42.1}Idée et commande}{138}{subsection.42.1}%
+\contentsline {subsection}{\numberline {42.2}Clés et arguments}{138}{subsection.42.2}%
+\contentsline {section}{\numberline {43}Équation d'une sphère}{140}{section.43}%
+\contentsline {subsection}{\numberline {43.1}Idée}{140}{subsection.43.1}%
+\contentsline {subsection}{\numberline {43.2}Clés et arguments}{140}{subsection.43.2}%
+\contentsline {subsection}{\numberline {43.3}Exemples}{140}{subsection.43.3}%
+\contentsline {section}{\numberline {44}Équation réduite d'une droite du plan}{142}{section.44}%
+\contentsline {subsection}{\numberline {44.1}Idée}{142}{subsection.44.1}%
+\contentsline {subsection}{\numberline {44.2}Clés et arguments}{142}{subsection.44.2}%
+\contentsline {subsection}{\numberline {44.3}Exemples}{142}{subsection.44.3}%
+\contentsline {part}{IX\hspace {1em}Outils pour les statistiques}{145}{part.9}%
+\contentsline {section}{\numberline {45}Paramètres d'une série discrète}{145}{section.45}%
+\contentsline {subsection}{\numberline {45.1}Idée}{145}{subsection.45.1}%
+\contentsline {subsection}{\numberline {45.2}Arguments, exemples}{145}{subsection.45.2}%
+\contentsline {section}{\numberline {46}Paramètres d'une régression linéaire par la méthode des moindres carrés}{146}{section.46}%
+\contentsline {subsection}{\numberline {46.1}Idée}{146}{subsection.46.1}%
+\contentsline {subsection}{\numberline {46.2}Commandes}{146}{subsection.46.2}%
+\contentsline {subsection}{\numberline {46.3}Intégration dans un environnement Ti\textit {k}Z}{148}{subsection.46.3}%
+\contentsline {section}{\numberline {47}Statistiques à deux variables}{150}{section.47}%
+\contentsline {subsection}{\numberline {47.1}Idées}{150}{subsection.47.1}%
+\contentsline {subsection}{\numberline {47.2}Commandes, clés et options}{151}{subsection.47.2}%
+\contentsline {subsection}{\numberline {47.3}Commandes annexes}{154}{subsection.47.3}%
+\contentsline {subsection}{\numberline {47.4}Interactions avec CalculsRegLin}{155}{subsection.47.4}%
+\contentsline {subsection}{\numberline {47.5}Exemple complémentaire, pour illustration}{158}{subsection.47.5}%
+\contentsline {section}{\numberline {48}Boîtes à moustaches}{160}{section.48}%
+\contentsline {subsection}{\numberline {48.1}Introduction}{160}{subsection.48.1}%
+\contentsline {subsection}{\numberline {48.2}Clés et options}{160}{subsection.48.2}%
+\contentsline {subsection}{\numberline {48.3}Commande pour placer un axe horizontal}{161}{subsection.48.3}%
+\contentsline {section}{\numberline {49}Histogrammes}{163}{section.49}%
+\contentsline {subsection}{\numberline {49.1}Introduction}{163}{subsection.49.1}%
+\contentsline {subsection}{\numberline {49.2}Clés et options}{164}{subsection.49.2}%
+\contentsline {subsection}{\numberline {49.3}Exemple avec des classes régulières}{165}{subsection.49.3}%
+\contentsline {subsection}{\numberline {49.4}Exemple avec des classes non régulières}{166}{subsection.49.4}%
+\contentsline {section}{\numberline {50}Courbe des ECC/FCC, paramètres}{168}{section.50}%
+\contentsline {subsection}{\numberline {50.1}Introduction}{168}{subsection.50.1}%
+\contentsline {subsection}{\numberline {50.2}Clés et options}{170}{subsection.50.2}%
+\contentsline {subsection}{\numberline {50.3}Styles et exemples}{170}{subsection.50.3}%
+\contentsline {part}{X\hspace {1em}Outils pour les probabilités}{173}{part.10}%
+\contentsline {section}{\numberline {51}Factorielle}{173}{section.51}%
+\contentsline {subsection}{\numberline {51.1}Idée}{173}{subsection.51.1}%
+\contentsline {subsection}{\numberline {51.2}Clés}{173}{subsection.51.2}%
+\contentsline {section}{\numberline {52}Calculs de probabilités}{175}{section.52}%
+\contentsline {subsection}{\numberline {52.1}Introduction}{175}{subsection.52.1}%
+\contentsline {subsection}{\numberline {52.2}Calculs \guillemotleft simples \guillemotright \xspace }{175}{subsection.52.2}%
+\contentsline {subsection}{\numberline {52.3}Complément avec sortie \guillemotleft formatée \guillemotright \xspace }{177}{subsection.52.3}%
+\contentsline {section}{\numberline {53}Arbres de probabilités \guillemotleft classiques \guillemotright \xspace }{179}{section.53}%
+\contentsline {subsection}{\numberline {53.1}Introduction}{179}{subsection.53.1}%
+\contentsline {subsection}{\numberline {53.2}Options et arguments}{179}{subsection.53.2}%
+\contentsline {subsection}{\numberline {53.3}Exemples complémentaires}{180}{subsection.53.3}%
+\contentsline {section}{\numberline {54}Petits schémas pour des probabilités continues}{182}{section.54}%
+\contentsline {subsection}{\numberline {54.1}Idée}{182}{subsection.54.1}%
+\contentsline {subsection}{\numberline {54.2}Commandes et options}{182}{subsection.54.2}%
+\contentsline {subsection}{\numberline {54.3}Remarques et compléments}{183}{subsection.54.3}%
+\contentsline {section}{\numberline {55}Nombres aléatoires}{184}{section.55}%
+\contentsline {subsection}{\numberline {55.1}Idée}{184}{subsection.55.1}%
+\contentsline {subsection}{\numberline {55.2}Clés et options}{185}{subsection.55.2}%
+\contentsline {section}{\numberline {56}Combinatoire}{186}{section.56}%
+\contentsline {subsection}{\numberline {56.1}Idée}{186}{subsection.56.1}%
+\contentsline {subsection}{\numberline {56.2}Utilisation}{186}{subsection.56.2}%
+\contentsline {section}{\numberline {57}Arbres de dénombrement}{187}{section.57}%
+\contentsline {subsection}{\numberline {57.1}Idée}{187}{subsection.57.1}%
+\contentsline {subsection}{\numberline {57.2}Styles et clés}{188}{subsection.57.2}%
+\contentsline {subsection}{\numberline {57.3}Exemples}{189}{subsection.57.3}%
+\contentsline {section}{\numberline {58}Fonction de répartition}{194}{section.58}%
+\contentsline {subsection}{\numberline {58.1}Idée}{194}{subsection.58.1}%
+\contentsline {subsection}{\numberline {58.2}Utilisation}{194}{subsection.58.2}%
+\contentsline {section}{\numberline {59}Loi binomiale et graphiques}{196}{section.59}%
+\contentsline {subsection}{\numberline {59.1}Idée}{196}{subsection.59.1}%
+\contentsline {subsection}{\numberline {59.2}Utilisation de la commande autonome et de l'environnement}{196}{subsection.59.2}%
+\contentsline {subsection}{\numberline {59.3}Le tracé de la loi normale}{197}{subsection.59.3}%
+\contentsline {subsection}{\numberline {59.4}Exemples}{197}{subsection.59.4}%
+\contentsline {part}{XI\hspace {1em}Outils pour l'arithmétique}{201}{part.11}%
+\contentsline {section}{\numberline {60}Réduction modulo}{201}{section.60}%
+\contentsline {subsection}{\numberline {60.1}Idée}{201}{subsection.60.1}%
+\contentsline {subsection}{\numberline {60.2}Clés et options}{201}{subsection.60.2}%
+\contentsline {section}{\numberline {61}Conversions entre bases}{202}{section.61}%
+\contentsline {subsection}{\numberline {61.1}Idée}{202}{subsection.61.1}%
+\contentsline {subsection}{\numberline {61.2}Exemples}{202}{subsection.61.2}%
+\contentsline {section}{\numberline {62}Division euclidienne}{203}{section.62}%
+\contentsline {subsection}{\numberline {62.1}Idée}{203}{subsection.62.1}%
+\contentsline {subsection}{\numberline {62.2}Clés et options}{203}{subsection.62.2}%
+\contentsline {section}{\numberline {63}Conversions binaire/hexadécimal/décimal}{205}{section.63}%
+\contentsline {subsection}{\numberline {63.1}Idée}{205}{subsection.63.1}%
+\contentsline {subsection}{\numberline {63.2}Conversion décimal vers binaire}{205}{subsection.63.2}%
+\contentsline {subsection}{\numberline {63.3}Conversion binaire vers hexadécimal}{206}{subsection.63.3}%
+\contentsline {subsection}{\numberline {63.4}Conversion hexadécimal vers binaire}{207}{subsection.63.4}%
+\contentsline {subsection}{\numberline {63.5}Conversion binaire ou hexadécimal en décimal}{207}{subsection.63.5}%
+\contentsline {section}{\numberline {64}Conversion \guillemotleft présentée \guillemotright \xspace {} d'un nombre en base décimale}{209}{section.64}%
+\contentsline {subsection}{\numberline {64.1}Idée}{209}{subsection.64.1}%
+\contentsline {subsection}{\numberline {64.2}Code et clés}{209}{subsection.64.2}%
+\contentsline {section}{\numberline {65}Algorithme d'Euclide pour le PGCD}{211}{section.65}%
+\contentsline {subsection}{\numberline {65.1}Idée}{211}{subsection.65.1}%
+\contentsline {subsection}{\numberline {65.2}Options et clés}{211}{subsection.65.2}%
+\contentsline {subsection}{\numberline {65.3}Compléments}{212}{subsection.65.3}%
+\contentsline {section}{\numberline {66}Résolution d'une équation diophantienne}{213}{section.66}%
+\contentsline {subsection}{\numberline {66.1}Idée}{213}{subsection.66.1}%
+\contentsline {subsection}{\numberline {66.2}Options et clés}{213}{subsection.66.2}%
+\contentsline {section}{\numberline {67}Nombres premiers}{217}{section.67}%
+\contentsline {subsection}{\numberline {67.1}Idées}{217}{subsection.67.1}%
+\contentsline {subsection}{\numberline {67.2}Test de primalité}{217}{subsection.67.2}%
+\contentsline {subsection}{\numberline {67.3}Décomposition en facteurs premiers}{217}{subsection.67.3}%
+\contentsline {section}{\numberline {68}Diviseurs}{219}{section.68}%
+\contentsline {subsection}{\numberline {68.1}Idées}{219}{subsection.68.1}%
+\contentsline {subsection}{\numberline {68.2}Options et clés}{219}{subsection.68.2}%
+\contentsline {subsection}{\numberline {68.3}Compléments}{222}{subsection.68.3}%
+\contentsline {section}{\numberline {69}Chiffrements}{224}{section.69}%
+\contentsline {subsection}{\numberline {69.1}Idées}{224}{subsection.69.1}%
+\contentsline {subsection}{\numberline {69.2}Chiffrement de César}{224}{subsection.69.2}%
+\contentsline {subsection}{\numberline {69.3}Inverse modulo}{225}{subsection.69.3}%
+\contentsline {subsection}{\numberline {69.4}Chiffrement affine}{225}{subsection.69.4}%
+\contentsline {subsection}{\numberline {69.5}Chiffrement de Hill}{226}{subsection.69.5}%
+\contentsline {section}{\numberline {70}Primorielle}{228}{section.70}%
+\contentsline {subsection}{\numberline {70.1}Idée}{228}{subsection.70.1}%
+\contentsline {subsection}{\numberline {70.2}Clés}{228}{subsection.70.2}%
+\contentsline {section}{\numberline {71}Opérations posées}{229}{section.71}%
+\contentsline {subsection}{\numberline {71.1}Idée}{229}{subsection.71.1}%
+\contentsline {subsection}{\numberline {71.2}Clés et options}{230}{subsection.71.2}%
+\contentsline {subsection}{\numberline {71.3}Exemples}{230}{subsection.71.3}%
+\contentsline {part}{XII\hspace {1em}Écritures, simplifications}{234}{part.12}%
+\contentsline {section}{\numberline {72}Simplification sous forme d'une fractions}{234}{section.72}%
+\contentsline {subsection}{\numberline {72.1}Idée}{234}{subsection.72.1}%
+\contentsline {subsection}{\numberline {72.2}Commande et options}{234}{subsection.72.2}%
+\contentsline {section}{\numberline {73}Écriture d'un trinôme, trinôme aléatoire}{236}{section.73}%
+\contentsline {subsection}{\numberline {73.1}Idée}{236}{subsection.73.1}%
+\contentsline {subsection}{\numberline {73.2}Clés et options}{236}{subsection.73.2}%
+\contentsline {section}{\numberline {74}Simplification de racines}{237}{section.74}%
+\contentsline {subsection}{\numberline {74.1}Idée}{237}{subsection.74.1}%
+\contentsline {subsection}{\numberline {74.2}Exemples}{237}{subsection.74.2}%
+\contentsline {section}{\numberline {75}Mesure principale d'un angle}{238}{section.75}%
+\contentsline {subsection}{\numberline {75.1}Idée}{238}{subsection.75.1}%
+\contentsline {subsection}{\numberline {75.2}Exemples}{238}{subsection.75.2}%
+\contentsline {section}{\numberline {76}Lignes trigonométriques}{239}{section.76}%
+\contentsline {subsection}{\numberline {76.1}Idée}{239}{subsection.76.1}%
+\contentsline {subsection}{\numberline {76.2}Commande}{239}{subsection.76.2}%
+\contentsline {subsection}{\numberline {76.3}Valeurs disponibles}{241}{subsection.76.3}%
+\contentsline {section}{\numberline {77}Écriture sous forme de fraction irréductible d'un décimal périodique}{242}{section.77}%
+\contentsline {subsection}{\numberline {77.1}Idées}{242}{subsection.77.1}%
+\contentsline {subsection}{\numberline {77.2}Options et clés}{242}{subsection.77.2}%
+\contentsline {part}{XIII\hspace {1em}Jeux et récréations}{245}{part.13}%
+\contentsline {section}{\numberline {78}SudoMaths, en Ti\textit {k}Z}{245}{section.78}%
+\contentsline {subsection}{\numberline {78.1}Introduction}{245}{subsection.78.1}%
+\contentsline {subsection}{\numberline {78.2}Clés et options}{246}{subsection.78.2}%
+\contentsline {section}{\numberline {79}Quelques fractales, en Ti\textit {k}Z}{249}{section.79}%
+\contentsline {subsection}{\numberline {79.1}Introduction}{249}{subsection.79.1}%
+\contentsline {subsection}{\numberline {79.2}Flocon de Koch et triangle de Sierpinski}{249}{subsection.79.2}%
+\contentsline {subsection}{\numberline {79.3}Affichage de plusieurs étapes pour les flocons de Koch}{251}{subsection.79.3}%
+\contentsline {subsection}{\numberline {79.4}Affichage de plusieurs étapes pour les tapis de Sierpinski}{252}{subsection.79.4}%
+\contentsline {section}{\numberline {80}Châteaux de cartes}{253}{section.80}%
+\contentsline {subsection}{\numberline {80.1}Introduction}{253}{subsection.80.1}%
+\contentsline {subsection}{\numberline {80.2}Clés et options}{253}{subsection.80.2}%
+\contentsline {section}{\numberline {81}Allumettes}{255}{section.81}%
+\contentsline {subsection}{\numberline {81.1}Introduction}{255}{subsection.81.1}%
+\contentsline {subsection}{\numberline {81.2}Clés et options}{255}{subsection.81.2}%
+\contentsline {section}{\numberline {82}Pyramide de sphères}{257}{section.82}%
+\contentsline {subsection}{\numberline {82.1}Introduction}{257}{subsection.82.1}%
+\contentsline {subsection}{\numberline {82.2}Clés et options}{257}{subsection.82.2}%
+\contentsline {section}{\numberline {83}Commandes pour les dates}{258}{section.83}%
+\contentsline {subsection}{\numberline {83.1}Introduction}{258}{subsection.83.1}%
+\contentsline {subsection}{\numberline {83.2}Exemples}{258}{subsection.83.2}%
+\contentsline {section}{\numberline {84}Machines à transformer, en Ti\textit {k}Z}{259}{section.84}%
+\contentsline {subsection}{\numberline {84.1}Introduction}{259}{subsection.84.1}%
+\contentsline {subsection}{\numberline {84.2}Clés et options}{260}{subsection.84.2}%
+\contentsline {part}{XIV\hspace {1em}Quelques cliparts}{264}{part.14}%
+\contentsline {section}{\numberline {85}Idées}{264}{section.85}%
+\contentsline {section}{\numberline {86}Liste des cliparts, et aliases}{265}{section.86}%
+\contentsline {section}{\numberline {87}Aperçu du logo "calculatrice interdite"}{265}{section.87}%
+\contentsline {section}{\numberline {88}Cliparts 'Zone Bac/Brevet/BTS'}{266}{section.88}%
+\contentsline {section}{\numberline {89}Cliparts flat 'Zone Bac/Brevet/BTS'}{267}{section.89}%
+\contentsline {part}{XV\hspace {1em}Compétences au lycée}{269}{part.15}%
+\contentsline {section}{\numberline {90}Introduction}{269}{section.90}%
+\contentsline {subsection}{\numberline {90.1}Fonctionnement global}{269}{subsection.90.1}%
+\contentsline {subsection}{\numberline {90.2}Commandes}{269}{subsection.90.2}%
+\contentsline {subsection}{\numberline {90.3}Liste des compétences lycée général et technologique}{270}{subsection.90.3}%
+\contentsline {subsection}{\numberline {90.4}Liste des compétences lycée professionnel}{271}{subsection.90.4}%
+\contentsline {subsection}{\numberline {90.5}Exemples}{272}{subsection.90.5}%
+\contentsline {part}{XVI\hspace {1em}Outils pour les sujets d'examen}{274}{part.16}%
+\contentsline {section}{\numberline {91}Page de garde d'un sujet de baccalauréat}{274}{section.91}%
+\contentsline {subsection}{\numberline {91.1}Idée}{274}{subsection.91.1}%
+\contentsline {subsection}{\numberline {91.2}Clés}{274}{subsection.91.2}%
+\contentsline {subsection}{\numberline {91.3}Exemples}{276}{subsection.91.3}%
+\contentsline {part}{XVII\hspace {1em}En projet}{282}{part.17}%
+\contentsline {section}{\numberline {92}Préambule, avertissement(s)}{282}{section.92}%
+\contentsline {section}{\numberline {93}Racines carrées, complexes}{282}{section.93}%
+\contentsline {section}{\numberline {94}Mini schémas de signe}{287}{section.94}%
+\contentsline {section}{\numberline {95}Additions posées}{288}{section.95}%
+\contentsline {subsection}{\numberline {95.1}Commande compatible avec tout compilateur}{288}{subsection.95.1}%
+\contentsline {subsection}{\numberline {95.2}Commande compatible en LUA}{289}{subsection.95.2}%
+\contentsline {section}{\numberline {96}Compléments sur la factorielle}{290}{section.96}%
+\contentsline {section}{\numberline {97}Binôme de Newton}{291}{section.97}%
+\contentsline {part}{XVIII\hspace {1em}Historique}{294}{part.18}%

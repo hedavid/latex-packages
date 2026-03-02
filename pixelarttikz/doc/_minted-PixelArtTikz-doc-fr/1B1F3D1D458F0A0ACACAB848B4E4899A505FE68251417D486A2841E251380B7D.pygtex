@@ -1,0 +1,10 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c}{\PYGZpc{}Affichage d\PYGZsq{}un bloc précis (si découpage)}
+\PYG{k}{\PYGZbs{}PixelArtTikzBloc}\PYG{n+na}{[clés]}\PYGZlt{}options tikz\PYGZgt{}\PYG{n+nb}{\PYGZob{}}fichier.csv\PYG{n+nb}{\PYGZcb{}\PYGZob{}}découpage\PYG{n+nb}{\PYGZcb{}\PYGZob{}}num bloc\PYG{n+nb}{\PYGZcb{}}
+
+\PYG{c}{\PYGZpc{}Affichage des blocs (si découpage)}
+\PYG{k}{\PYGZbs{}DecoupPixelArtTikz}(*)[clés]\PYGZlt{}options tikz\PYGZgt{}\PYG{n+nb}{\PYGZob{}}fichier.csv\PYG{n+nb}{\PYGZcb{}\PYGZob{}}découpage\PYG{n+nb}{\PYGZcb{}}
+
+\PYG{c}{\PYGZpc{}Affichage d\PYGZsq{}une \PYGZsq{}aide\PYGZsq{}}
+\PYG{k}{\PYGZbs{}AideGrillePixelArtTikz}(*)[Echelle]\PYG{n+nb}{\PYGZob{}}fichier.csv\PYG{n+nb}{\PYGZcb{}\PYGZob{}}découpage\PYG{n+nb}{\PYGZcb{}}
+\end{Verbatim}

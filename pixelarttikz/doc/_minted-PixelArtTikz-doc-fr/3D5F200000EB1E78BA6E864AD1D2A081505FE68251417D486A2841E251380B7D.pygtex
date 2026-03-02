@@ -1,0 +1,9 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c}{\PYGZpc{}version classique}
+\PYG{k}{\PYGZbs{}PixelArtTikzCylindre}\PYG{n+na}{[Codes=ABCDEF,Style=\PYGZbs{}small\PYGZbs{}ttfamily,Legende]}\PYG{n+nb}{\PYGZob{}}PAyoda.csv\PYG{n+nb}{\PYGZcb{}}
+
+\PYG{k}{\PYGZbs{}medskip}
+
+\PYG{c}{\PYGZpc{}version avec \PYGZsq{}symboles\PYGZsq{}}
+\PYG{k}{\PYGZbs{}PixelArtTikzCylindre}\PYG{n+na}{[Codes=ABCDEF,Symboles=\PYGZob{}1,2,3,4,5,6\PYGZcb{},Symb,Style=\PYGZbs{}small\PYGZbs{}ttfamily]}\PYG{n+nb}{\PYGZob{}}PAyoda.csv\PYG{n+nb}{\PYGZcb{}}
+\end{Verbatim}

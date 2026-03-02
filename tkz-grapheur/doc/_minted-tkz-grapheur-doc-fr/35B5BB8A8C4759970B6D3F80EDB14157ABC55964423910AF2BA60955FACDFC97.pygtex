@@ -1,0 +1,19 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k}{\PYGZbs{}begin}\PYG{n+nb}{\PYGZob{}}GraphiqueTikz\PYG{n+nb}{\PYGZcb{}}\PYG{c}{\PYGZpc{}}
+	[x=0.9cm,y=0.425cm,Xmin=4,Xmax=20,Origx=4,
+	Ymin=40,Ymax=56,Ygrille=2,Ygrilles=1,Origy=40]
+	\PYG{k}{\PYGZbs{}TracerAxesGrilles}\PYG{n+na}{[Elargir=2.5mm,Police=\PYGZbs{}small]}\PYG{n+nb}{\PYGZob{}}4,5,...,20\PYG{n+nb}{\PYGZcb{}\PYGZob{}}40,42,...,56\PYG{n+nb}{\PYGZcb{}}
+	\PYG{k}{\PYGZbs{}DefinirCourbe}\PYG{n+na}{[Nom=cf,Debut=5,Fin=19,Trace,Couleur=red]}\PYGZlt{}f\PYGZgt{}\PYG{n+nb}{\PYGZob{}}\PYGZhy{}2*x+3+24*log(2*x)\PYG{n+nb}{\PYGZcb{}}
+	\PYG{k}{\PYGZbs{}DefinirCourbe}\PYG{n+na}{[Nom=cg,Debut=5,Fin=19,Trace,Couleur=blue]}\PYGZlt{}g\PYGZgt{}\PYG{n+nb}{\PYGZob{}}0.25*(x\PYGZhy{}12)\PYG{n+nb}{\PYGZca{}}2+46\PYG{n+nb}{\PYGZcb{}}
+	\PYG{c}{\PYGZpc{}intersections, nommées (TT\PYGZhy{}1) et (TT\PYGZhy{}2)}
+	\PYG{k}{\PYGZbs{}TrouverIntersections}\PYG{n+na}{[Nom=TT,Couleur=darkgray,Aff,Traits]}\PYG{n+nb}{\PYGZob{}}cf\PYG{n+nb}{\PYGZcb{}\PYGZob{}}cg\PYG{n+nb}{\PYGZcb{}}
+	\PYG{c}{\PYGZpc{}récupération des points d\PYGZsq{}intersection}
+	\PYG{k}{\PYGZbs{}RecupererCoordonnees}\PYG{n+nb}{\PYGZob{}}(TT\PYGZhy{}1)\PYG{n+nb}{\PYGZcb{}}[\PYG{k}{\PYGZbs{}alphaA}][\PYG{k}{\PYGZbs{}betaA}]
+	\PYG{k}{\PYGZbs{}RecupererCoordonnees}\PYG{n+nb}{\PYGZob{}}(TT\PYGZhy{}2)\PYG{n+nb}{\PYGZcb{}}[\PYG{k}{\PYGZbs{}alphaB}][\PYG{k}{\PYGZbs{}betaB}]
+\PYG{k}{\PYGZbs{}end}\PYG{n+nb}{\PYGZob{}}GraphiqueTikz\PYG{n+nb}{\PYGZcb{}}\PYG{k}{\PYGZbs{}\PYGZbs{}}
+Les solutions de \PYG{l+s}{\PYGZdl{}}\PYG{n+nb}{f}\PYG{o}{(}\PYG{n+nb}{x}\PYG{o}{)=}\PYG{n+nb}{g}\PYG{o}{(}\PYG{n+nb}{x}\PYG{o}{)}\PYG{l+s}{\PYGZdl{}} sont \PYG{l+s}{\PYGZdl{}}\PYG{n+nv}{\PYGZbs{}alpha}\PYG{n+nb}{ }\PYG{n+nv}{\PYGZbs{}approx}\PYG{n+nb}{ }\PYG{n+nv}{\PYGZbs{}num}\PYG{n+nb}{\PYGZob{}}\PYG{n+nv}{\PYGZbs{}alphaA}\PYG{n+nb}{\PYGZcb{}}\PYG{l+s}{\PYGZdl{}} et
+\PYG{l+s}{\PYGZdl{}}\PYG{n+nv}{\PYGZbs{}beta}\PYG{n+nb}{ }\PYG{n+nv}{\PYGZbs{}approx}\PYG{n+nb}{ }\PYG{n+nv}{\PYGZbs{}num}\PYG{n+nb}{\PYGZob{}}\PYG{n+nv}{\PYGZbs{}alphaB}\PYG{n+nb}{\PYGZcb{}}\PYG{l+s}{\PYGZdl{}}.\PYG{k}{\PYGZbs{}\PYGZbs{}}
+Les points d\PYGZsq{}intersection des courbes de \PYG{l+s}{\PYGZdl{}}\PYG{n+nb}{f}\PYG{l+s}{\PYGZdl{}} et de \PYG{l+s}{\PYGZdl{}}\PYG{n+nb}{g}\PYG{l+s}{\PYGZdl{}} sont donc
+\PYG{l+s}{\PYGZdl{}}\PYG{o}{(}\PYG{n+nv}{\PYGZbs{}ArrondirNum}\PYG{o}{[}\PYG{l+m}{2}\PYG{o}{]}\PYG{n+nb}{\PYGZob{}}\PYG{n+nv}{\PYGZbs{}alphaA}\PYG{n+nb}{\PYGZcb{};}\PYG{n+nv}{\PYGZbs{}ArrondirNum}\PYG{o}{[}\PYG{l+m}{2}\PYG{o}{]}\PYG{n+nb}{\PYGZob{}}\PYG{n+nv}{\PYGZbs{}betaA}\PYG{n+nb}{\PYGZcb{}}\PYG{o}{)}\PYG{l+s}{\PYGZdl{}} et
+\PYG{l+s}{\PYGZdl{}}\PYG{o}{(}\PYG{n+nv}{\PYGZbs{}ArrondirNum}\PYG{o}{[}\PYG{l+m}{2}\PYG{o}{]}\PYG{n+nb}{\PYGZob{}}\PYG{n+nv}{\PYGZbs{}alphaB}\PYG{n+nb}{\PYGZcb{};}\PYG{n+nv}{\PYGZbs{}ArrondirNum}\PYG{o}{[}\PYG{l+m}{2}\PYG{o}{]}\PYG{n+nb}{\PYGZob{}}\PYG{n+nv}{\PYGZbs{}betaB}\PYG{n+nb}{\PYGZcb{}}\PYG{o}{)}\PYG{l+s}{\PYGZdl{}}.
+\end{Verbatim}

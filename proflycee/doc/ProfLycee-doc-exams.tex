@@ -1,0 +1,108 @@
+\part{Outils pour les sujets d'examen}
+
+\section{Page de garde d'un sujet de baccalauréat}\label{pagegardebac}
+
+\subsection{Idée}
+
+\begin{tipblock}
+\cmaj{4.00d} L'idée est de proposer une commande pour créer une page de garde \og Type Bac \fg{} ou \og Type Bac EAM \fg.
+
+La présentation est celle que l'on peut trouver sur les sujets officiels de baccalauréat.
+
+\smallskip
+
+Les \textit{libellés} et \textit{espacements verticaux} sont fixés, mais quelques points de personnalisation sont possibles. Il s'agit essentiellement de \textit{booléens} pour activer ou désactiver des \textit{portions}.
+\end{tipblock}
+
+\begin{PresCodeTexPL}{listing only}
+\PageGardeSujetBac[clés]
+\end{PresCodeTexPL}
+
+\begin{PresCodeTexPL}{listing only}
+\PageGardeSujetBacEAM[clés]
+\end{PresCodeTexPL}
+
+\subsection{Clés}
+
+\begin{tipblock}
+Les \Cle{clés}, à donner entre \ctex{[...]} sont :
+
+\begin{itemize}
+	\item \DescripCle[MATHÉMATIQUES]{Matiere}{paramétrage de matière}
+	\item \DescripCle[\textbackslash normalfont]{Police}{paramétrage de la police de la page de garde}
+	\item \DescripCle[SESSION \textbackslash the\textbackslash year]{Session}{paramétrage de la zone \textit{session}}
+	\item \DescripCle[true]{AffSession}{booléen pour afficher la zone de \textit{session}}
+	\item \DescripCle[GÉN]{Serie}{paramétrage de la \textit{série}, \Cle{GÉN/TECHNO/PRO}}
+	\item \DescripCle[SPÉ]{Voie}{paramétrage de la \textit{voie}, \Cle{SPÉ/OBLI/TECHNO}}
+	\item \DescripCle[Sciences et...]<passe>{Filiere}{paramétrage de la \textit{filière} pour la série technologique}
+	\item \DescripCle[Jour 1]{Jour}{paramétrage de la zone \textit{jour}}
+	\item \DescripCle[true]{AffJour}{booléen pour afficher la zone \textit{jour}}
+	\item \DescripCle[4 heures]{Duree}{paramétrage de la durée}
+	\item \DescripCle[true]{ModeExamen}{booléen pour le message \textit{calculatrice}}
+	\item \DescripCle[false]{CalculatriceInterdite}{booléen pour le message \textit{calculatrice interdite}}
+	\item \DescripCle[lastpage]<passe>{DernierePage}{méthode pour déterminer la dernière page \Cle{lastpage/zref/<num>}}
+	\item \DescripCle[true]{Justification}{booléen pour afficher la zone de \textit{justification}}
+	\item \DescripCle[true]{TraceRecherche}{booléen pour afficher la zone de \textit{trace de recherche}}
+	\item \DescripCle[true]{Clarte}{booléen pour afficher la zone de \textit{clarté}}
+	\item \DescripCle[4]{NbExos}{nombre d'exercices, qui sera converti en toutes lettres}
+	\item \DescripCle[false]{Traiter}{booléen pour afficher la zone des \textit{exos à traiter}}
+	\item \DescripCle[1cm]{EspaceAvant}{espace vertical en haut de la page de garde}
+	\item \DescripCle*[0.85\textbackslash linewidth]{LargeurPar}{largeur des derniers paragraphes}
+\end{itemize}
+\vspace*{-\baselineskip}\leavevmode
+\end{tipblock}
+
+\begin{warningblock}
+En ce qui concerne la clé \Cle{DernierePage}, en fonction du choix retenu, le package adéquat devra être chargé par l'utilisateur :
+
+\begin{itemize}
+	\item \Cle{lastpage} := utilisation du package \ctex{lastpage}
+	\item \Cle{zref} := utilistion du package \ctex{zref} avec les options \ctex{[lastpage,user]} ;
+	\item \Cle{<num>} := pour spécifier manuellement le nombre de pages (non calculé automatiquement).
+\end{itemize}
+
+Les exemples proposés ci-dessous utiliseront la version \textit{manuelle} du nombre de pages.
+\end{warningblock}
+
+\pagebreak
+
+\subsection{Exemples}
+
+\begin{PresCodePL}{}
+\PageGardeSujetBac[DernierePage=5]
+\end{PresCodePL}
+
+\pagebreak
+
+\begin{PresCodePL}{}
+\PageGardeSujetBac%
+	[DernierePage=12,CalculatriceInterdite,Traiter,Police=\sffamily,
+	Jour={Bac Blanc n°2 - Vendredi 19 avril 2024},Duree={3 heures},
+	LargeurPar=0.75\linewidth]
+\end{PresCodePL}
+
+\pagebreak
+
+\begin{PresCodePL}{}
+\PageGardeSujetBac%
+	[Police=\ttfamily,Serie=TECHNO,%
+	DernierePage=3]
+\end{PresCodePL}
+
+\pagebreak
+
+\begin{PresCodePL}{}
+\PageGardeSujetBac%
+	[Police=\sffamily,Serie=PRO,
+	AffJour=false,DernierePage=8,%
+	Duree={2 heures},%
+	Filiere={SECTEUR TERTIAIRE},
+	Matiere={ÉPREUVE DE MATHÉMATIQUES},%
+	DernierePage=4]
+\end{PresCodePL}
+
+\pagebreak
+
+\begin{PresCodePL}{}
+\PageGardeSujetBacEAM[Police=\sffamily,DernierePage=5]
+\end{PresCodePL}

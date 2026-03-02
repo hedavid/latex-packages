@@ -1,0 +1,5 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+Voilà de quoi obtenir une main aléatoire de Poker :
+
+\PYG{k}{\PYGZbs{}MainCartesJeuAleatoire}\PYG{n+nb}{\PYGZob{}}5\PYG{n+nb}{\PYGZcb{}}
+\end{Verbatim}

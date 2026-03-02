@@ -1,0 +1,10 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k}{\PYGZbs{}begin}\PYG{n+nb}{\PYGZob{}}tblr\PYG{n+nb}{\PYGZcb{}}[expand=\PYG{k}{\PYGZbs{}expanded}]\PYG{n+nb}{\PYGZob{}}width=\PYG{k}{\PYGZbs{}linewidth},colspec=\PYG{n+nb}{\PYGZob{}}*\PYG{n+nb}{\PYGZob{}}5\PYG{n+nb}{\PYGZcb{}\PYGZob{}}Q[m,l]\PYG{n+nb}{\PYGZcb{}\PYGZcb{}},hlines,vlines\PYG{n+nb}{\PYGZcb{}}
+	\PYG{k}{\PYGZbs{}expanded}\PYG{n+nb}{\PYGZob{}}\PYG{k}{\PYGZbs{}cctblr}\PYG{n+na}{[Blanc]}\PYG{n+nb}{\PYGZob{}}BrunIntense\PYG{n+nb}{\PYGZcb{}\PYGZob{}}Marron\PYG{n+nb}{\PYGZcb{}\PYGZcb{}} \PYG{n+nb}{\PYGZam{}}
+	\PYG{k}{\PYGZbs{}expanded}\PYG{n+nb}{\PYGZob{}}\PYG{k}{\PYGZbs{}cctblr}\PYG{n+nb}{\PYGZob{}}GrisClair\PYG{n+nb}{\PYGZcb{}\PYGZob{}}Gris clair\PYG{n+nb}{\PYGZcb{}\PYGZcb{}} \PYG{n+nb}{\PYGZam{}}
+	\PYG{k}{\PYGZbs{}expanded}\PYG{n+nb}{\PYGZob{}}\PYG{k}{\PYGZbs{}cctblr}\PYG{n+nb}{\PYGZob{}}VertClair\PYG{n+nb}{\PYGZcb{}\PYGZob{}}Vert clair\PYG{n+nb}{\PYGZcb{}\PYGZcb{}} \PYG{n+nb}{\PYGZam{}}
+	\PYG{k}{\PYGZbs{}expanded}\PYG{n+nb}{\PYGZob{}}\PYG{k}{\PYGZbs{}cctblr}\PYG{n+na}{[Blanc]}\PYG{n+nb}{\PYGZob{}}Noir\PYG{n+nb}{\PYGZcb{}\PYGZob{}}Noir\PYG{n+nb}{\PYGZcb{}\PYGZcb{}} \PYG{n+nb}{\PYGZam{}}
+	\PYG{k}{\PYGZbs{}ldots} \PYG{k}{\PYGZbs{}\PYGZbs{}}
+	75 \PYG{n+nb}{\PYGZam{}} \PYG{n+nb}{\PYGZob{}}112,5\PYG{n+nb}{\PYGZcb{}} \PYG{n+nb}{\PYGZam{}} 600 \PYG{n+nb}{\PYGZam{}} 9 \PYG{n+nb}{\PYGZam{}} \PYG{k}{\PYGZbs{}ldots} \PYG{k}{\PYGZbs{}\PYGZbs{}}
+\PYG{k}{\PYGZbs{}end}\PYG{n+nb}{\PYGZob{}}tblr\PYG{n+nb}{\PYGZcb{}}
+\end{Verbatim}

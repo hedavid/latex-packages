@@ -1,0 +1,23 @@
+\begin{tikzpicture}
+	\draw[thin,lightgray] (-5,-5) grid (5,3) ; %grille rajoutée pour la lisibilité du code
+	\foreach \ptsupport in {(0,0),(3,-4),(-3,-1),(-2,-3.5),(2,2.75),(-4.5,-4.5),,(1,-2.5)}%
+		{\filldraw[gray] \ptsupport circle[radius=2pt] ;}  %points rajouté pour la lisibilité du code
+	\foreach \x in {-5,-4,...,5} \draw[lightgray] (\x,-5) node[below,font=\small] {$\x$} ;
+	\foreach \y in {-5,-4,...,3} \draw[lightgray] (-5,\y) node[left,font=\small] {$\y$} ;
+	\AffCarteJeu[Hauteur=2,Tikz=true,TikzAutonome=false]%
+		{10C}
+	\AffCarteJeu[StyleJeu=v2,Hauteur=2.5,Tikz=true,TikzAutonome=false,DecalageX=3,DecalageY=-4]%
+		{JN}
+	\AffCarteJeu[Hauteur=3,Tikz=true,TikzAutonome=false,DecalageX=-3,DecalageY=-1,Rotation=20]%
+		{JR}
+	\AffCarteJeu[Hauteur=1.75,Tikz=true,TikzAutonome=false,DecalageX=-2,DecalageY=-3.5,Rotation=-50]%
+		{Dos}
+	\AffCarteJeu%
+		[TypeJeu=Tarot,Hauteur=2.75,Tikz=true,TikzAutonome=false,DecalageX=2,DecalageY=2.75,Rotation=-90]%
+		{18AT}
+	\AffCarteJeu[TypeJeu=Uno,Hauteur=2,Tikz=true,TikzAutonome=false,DecalageX=-4.5,DecalageY=-4.5]%
+		{P4}
+	\AffCarteJeu%
+		[StyleJeu=v4,Hauteur=1.75,Tikz=true,TikzAutonome=false,Rotation=-10,DecalageX=1,DecalageY=-2.5]%
+		{RP}
+\end{tikzpicture}

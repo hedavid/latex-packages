@@ -1,0 +1,68 @@
+\babel@toc {french}{}\relax 
+\contentsline {section}{\numberline {1}Historique}{4}{section.1}%
+\contentsline {section}{\numberline {2}Le package ProfSio}{5}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Introduction}{5}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}Chargement du package, packages utilisés}{5}{subsection.2.2}%
+\contentsline {subsection}{\numberline {2.3}Fonctionnement global}{5}{subsection.2.3}%
+\contentsline {section}{\numberline {3}Opérations posées}{7}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Idée}{7}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}Clés et options}{7}{subsection.3.2}%
+\contentsline {subsection}{\numberline {3.3}Exemples}{8}{subsection.3.3}%
+\contentsline {section}{\numberline {4}Graphe d'ordonnancement par méthode MPM}{11}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Commande et fonctionnement global}{11}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}Arguments et clés pour l'environnement}{12}{subsection.4.2}%
+\contentsline {subsection}{\numberline {4.3}Arguments et clés pour les tâches}{13}{subsection.4.3}%
+\contentsline {subsection}{\numberline {4.4}Arguments et clés pour les tâches}{14}{subsection.4.4}%
+\contentsline {subsection}{\numberline {4.5}Exemples}{16}{subsection.4.5}%
+\contentsline {section}{\numberline {5}Tableau de Karnaugh à trois variables}{17}{section.5}%
+\contentsline {subsection}{\numberline {5.1}Commande et fonctionnement global}{17}{subsection.5.1}%
+\contentsline {subsection}{\numberline {5.2}Arguments et clés pour l'environnement}{18}{subsection.5.2}%
+\contentsline {subsection}{\numberline {5.3}Arguments et clés pour la commande de remplissage}{19}{subsection.5.3}%
+\contentsline {subsection}{\numberline {5.4}Arguments et clés pour la commande de regroupement des blocs}{21}{subsection.5.4}%
+\contentsline {subsection}{\numberline {5.5}Exemples}{22}{subsection.5.5}%
+\contentsline {section}{\numberline {6}Simplification d'une expression booléenne par table de Karnaugh}{24}{section.6}%
+\contentsline {subsection}{\numberline {6.1}Commande et fonctionnement global}{24}{subsection.6.1}%
+\contentsline {subsection}{\numberline {6.2}Arguments et clés }{25}{subsection.6.2}%
+\contentsline {subsection}{\numberline {6.3}Exemples}{25}{subsection.6.3}%
+\contentsline {section}{\numberline {7}Écriture et simplification d'une expression booléenne}{27}{section.7}%
+\contentsline {subsection}{\numberline {7.1}Commande et fonctionnement global}{27}{subsection.7.1}%
+\contentsline {subsection}{\numberline {7.2}Arguments et clés }{27}{subsection.7.2}%
+\contentsline {subsection}{\numberline {7.3}Exemples}{27}{subsection.7.3}%
+\contentsline {section}{\numberline {8}Graphes \textit {simples}}{29}{section.8}%
+\contentsline {subsection}{\numberline {8.1}Commande et fonctionnement global}{29}{subsection.8.1}%
+\contentsline {subsection}{\numberline {8.2}Arguments et clés pour l'environnement}{30}{subsection.8.2}%
+\contentsline {subsection}{\numberline {8.3}Arguments et clés pour la commande de création des sommets}{31}{subsection.8.3}%
+\contentsline {subsection}{\numberline {8.4}Arguments et clés pour la commande de tracé des arêtes}{32}{subsection.8.4}%
+\contentsline {subsection}{\numberline {8.5}Exemples}{34}{subsection.8.5}%
+\contentsline {section}{\numberline {9}Matrice d'adjacence, fermeture transitive}{35}{section.9}%
+\contentsline {subsection}{\numberline {9.1}Commandes et fonctionnement global}{35}{subsection.9.1}%
+\contentsline {subsection}{\numberline {9.2}Matrice d'adjacence, puissance}{35}{subsection.9.2}%
+\contentsline {subsection}{\numberline {9.3}Chemins de longueur donnée}{36}{subsection.9.3}%
+\contentsline {subsection}{\numberline {9.4}Matrice de fermeture transitive}{37}{subsection.9.4}%
+\contentsline {section}{\numberline {10}Diagramme sagittal d'une application}{39}{section.10}%
+\contentsline {subsection}{\numberline {10.1}Commande et fonctionnement global}{39}{subsection.10.1}%
+\contentsline {subsection}{\numberline {10.2}Arguments et clés}{39}{subsection.10.2}%
+\contentsline {subsection}{\numberline {10.3}Exemples}{40}{subsection.10.3}%
+\contentsline {section}{\numberline {11}Diagramme sagittal d'une composée d'applications}{42}{section.11}%
+\contentsline {subsection}{\numberline {11.1}Commande et fonctionnement global}{42}{subsection.11.1}%
+\contentsline {subsection}{\numberline {11.2}Arguments et clés}{42}{subsection.11.2}%
+\contentsline {subsection}{\numberline {11.3}Exemples}{44}{subsection.11.3}%
+\contentsline {section}{\numberline {12}Table de vérité}{46}{section.12}%
+\contentsline {subsection}{\numberline {12.1}Commande et fonctionnement global}{46}{subsection.12.1}%
+\contentsline {subsection}{\numberline {12.2}Arguments et clés pour la commande}{46}{subsection.12.2}%
+\contentsline {subsection}{\numberline {12.3}Compléments pour le package luatruthtable}{48}{subsection.12.3}%
+\contentsline {subsection}{\numberline {12.4}Exemples}{48}{subsection.12.4}%
+\contentsline {section}{\numberline {13}Système 3x3 par matrices}{51}{section.13}%
+\contentsline {subsection}{\numberline {13.1}Commande et fonctionnement global}{51}{subsection.13.1}%
+\contentsline {subsection}{\numberline {13.2}Arguments et clés pour la commande}{51}{subsection.13.2}%
+\contentsline {subsection}{\numberline {13.3}Exemples}{52}{subsection.13.3}%
+\contentsline {section}{\numberline {14}Tables additives ou multiplicatives dans une base donnée}{55}{section.14}%
+\contentsline {subsection}{\numberline {14.1}Commande et fonctionnement}{55}{subsection.14.1}%
+\contentsline {subsection}{\numberline {14.2}Arguments et clés pour la commande}{55}{subsection.14.2}%
+\contentsline {subsection}{\numberline {14.3}Exemples}{55}{subsection.14.3}%
+\contentsline {section}{\numberline {15}Présentation d'un produit matriciel (sans calculs)}{58}{section.15}%
+\contentsline {section}{\numberline {16}Fiches annexes pour les CCF de mathématiques}{59}{section.16}%
+\contentsline {subsection}{\numberline {16.1}Introduction}{59}{subsection.16.1}%
+\contentsline {subsection}{\numberline {16.2}Annexe 7-1}{59}{subsection.16.2}%
+\contentsline {subsection}{\numberline {16.3}Annexe 7-2}{59}{subsection.16.3}%
+\contentsline {subsection}{\numberline {16.4}Annexe 7-3}{59}{subsection.16.4}%

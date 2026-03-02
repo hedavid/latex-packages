@@ -1,0 +1,32 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k}{\PYGZbs{}begin}\PYG{n+nb}{\PYGZob{}}GraphiqueTikz\PYG{n+nb}{\PYGZcb{}}\PYG{c}{\PYGZpc{}}
+	[x=3.5cm,y=4cm,
+	Xmin=0,Xmax=3.5,Xgrille=pi/12,Xgrilles=pi/24,
+	Ymin=\PYGZhy{}1.05,Ymax=1.05,Ygrille=0.2,Ygrilles=0.05]
+	\PYG{c}{\PYGZpc{}préparation de la fenêtre}
+	\PYG{k}{\PYGZbs{}TracerAxesGrilles}\PYG{n+na}{[Derriere,Elargir=2.5mm,Format=ntrig/nsqrt]}\PYG{n+nb}{\PYGZob{}\PYGZcb{}\PYGZob{}\PYGZcb{}}
+	\PYG{c}{\PYGZpc{}rajouter des valeurs}
+	\PYG{k}{\PYGZbs{}RajouterValeursAxeX}\PYG{n+nb}{\PYGZob{}}0.25,1.4,3.3\PYG{n+nb}{\PYGZcb{}\PYGZob{}}\PYG{k}{\PYGZbs{}num}\PYG{n+nb}{\PYGZob{}}0.25\PYG{n+nb}{\PYGZcb{}},\PYG{k}{\PYGZbs{}num}\PYG{n+nb}{\PYGZob{}}1.4\PYG{n+nb}{\PYGZcb{}},\PYG{k}{\PYGZbs{}num}\PYG{n+nb}{\PYGZob{}}3.3\PYG{n+nb}{\PYGZcb{}\PYGZcb{}}
+	\PYG{c}{\PYGZpc{}fonction trigo (déf + tracé)}
+	\PYG{k}{\PYGZbs{}DefinirCourbe}\PYG{n+na}{[Nom=ccos,Debut=0,Fin=pi]}\PYGZlt{}fcos\PYGZgt{}\PYG{n+nb}{\PYGZob{}}cos(x)\PYG{n+nb}{\PYGZcb{}}
+	\PYG{k}{\PYGZbs{}DefinirCourbe}\PYG{n+na}{[Nom=csin,Debut=0,Fin=pi]}\PYGZlt{}fsin\PYGZgt{}\PYG{n+nb}{\PYGZob{}}sin(x)\PYG{n+nb}{\PYGZcb{}}
+	\PYG{c}{\PYGZpc{}intégrale}
+	\PYG{k}{\PYGZbs{}TrouverIntersections}\PYG{n+na}{[Aff=false,Nom=JKL]}\PYG{n+nb}{\PYGZob{}}ccos\PYG{n+nb}{\PYGZcb{}\PYGZob{}}csin\PYG{n+nb}{\PYGZcb{}}
+	\PYG{k}{\PYGZbs{}TracerIntegrale}\PYG{c}{\PYGZpc{}}
+		[Bornes=noeud/abs,Type=fct/fct,Couleurs=cyan/cyan!50]\PYG{c}{\PYGZpc{}}
+		\PYG{n+nb}{\PYGZob{}}fsin(x)\PYG{n+nb}{\PYGZcb{}}[fcos(x)]\PYG{c}{\PYGZpc{}}
+		\PYG{n+nb}{\PYGZob{}}(JKL\PYGZhy{}1)\PYG{n+nb}{\PYGZcb{}\PYGZob{}}pi\PYG{n+nb}{\PYGZcb{}}
+	\PYG{c}{\PYGZpc{}tracé des courbes}
+	\PYG{k}{\PYGZbs{}TracerCourbe}\PYG{n+na}{[Couleur=red,Debut=0,Fin=pi]}\PYG{n+nb}{\PYGZob{}}fcos(x)\PYG{n+nb}{\PYGZcb{}}
+	\PYG{k}{\PYGZbs{}TracerCourbe}\PYG{n+na}{[Couleur=olive,Debut=0,Fin=pi]}\PYG{n+nb}{\PYGZob{}}fsin(x)\PYG{n+nb}{\PYGZcb{}}
+	\PYG{c}{\PYGZpc{}antécédent(s)}
+	\PYG{k}{\PYGZbs{}PlacerAntecedents}\PYG{n+na}{[Couleurs=blue/teal!50!black,Traits]}\PYG{n+nb}{\PYGZob{}}ccos\PYG{n+nb}{\PYGZcb{}\PYGZob{}}\PYGZhy{}0.25\PYG{n+nb}{\PYGZcb{}}
+	\PYG{k}{\PYGZbs{}PlacerAntecedents}\PYG{n+na}{[Couleurs=red/magenta!50!black,Traits]}\PYG{n+nb}{\PYGZob{}}csin\PYG{n+nb}{\PYGZcb{}\PYGZob{}}0.5\PYG{n+nb}{\PYGZcb{}}
+	\PYG{k}{\PYGZbs{}PlacerAntecedents}\PYG{n+na}{[Couleurs=orange/orange!50!black,Traits]}\PYG{n+nb}{\PYGZob{}}csin\PYG{n+nb}{\PYGZcb{}\PYGZob{}}sqrt(2)/2\PYG{n+nb}{\PYGZcb{}}
+	\PYG{k}{\PYGZbs{}PlacerAntecedents}\PYG{n+na}{[Couleurs=green!50!black/green,Traits]}\PYG{n+nb}{\PYGZob{}}csin\PYG{n+nb}{\PYGZcb{}\PYGZob{}}sqrt(3)/2\PYG{n+nb}{\PYGZcb{}}
+	\PYG{c}{\PYGZpc{}surimpression axes}
+	\PYG{k}{\PYGZbs{}TracerAxesGrilles}\PYG{n+na}{[Devant,Format=ntrig/nsqrt]}\PYG{c}{\PYGZpc{}}
+		\PYG{n+nb}{\PYGZob{}}pi/6,pi/4,pi/3,pi/2,2*pi/3,3*pi/4,5*pi/6,pi\PYG{n+nb}{\PYGZcb{}}
+		\PYG{n+nb}{\PYGZob{}}0,sqrt(2)/2,1/2,sqrt(3)/2,1,\PYGZhy{}1,\PYGZhy{}sqrt(3)/2,\PYGZhy{}1/2,\PYGZhy{}sqrt(2)/2\PYG{n+nb}{\PYGZcb{}}
+\PYG{k}{\PYGZbs{}end}\PYG{n+nb}{\PYGZob{}}GraphiqueTikz\PYG{n+nb}{\PYGZcb{}}
+\end{Verbatim}

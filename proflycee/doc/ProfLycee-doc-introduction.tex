@@ -1,0 +1,375 @@
+\part{Introduction}
+
+\section{Le package ProfLycee}
+
+\subsection{\og Philosophie \fg{} du package}
+
+\begin{noteblock}
+Ce \ctex{package}, très \textit{largement} inspiré (et beaucoup moins \textit{abouti}) de l'excellent \ctex{ProfCollege} de C. Poulain et des excellents \ctex{tkz-*} d'A. Matthes, va définir quelques outils pour des situations particulières qui ne sont pas \textit{encore} dans \ctex{ProfCollege}.
+
+On peut le voir comme un (maigre) complément à \ctex{ProfCollege}, et je précise que la syntaxe est très proche (car pertinente de base) et donc pas de raison de changer une \textit{équipe qui gagne} !
+
+\medskip
+
+Il se charge de manière classique, dans le préambule, par \ctex{\textbackslash usepackage\{ProfLycee\}}. Il charge des {packages} utiles, mais j'ai fait le choix de laisser l'utilisateur gérer ses autres {packages}, comme notamment \ctex{amssymb} qui peut poser souci en fonction de la \textit{position} de son chargement.
+
+L'utilisateur est libre de charger ses autres {packages} utiles et habituels, ainsi que ses \textsf{polices} et \textsf{encodages} habituels !
+\end{noteblock}
+
+\begin{cautionblock}
+\cmaj{2.7.2} Pour des soucis de compatibilités, \ctex{xcolor} n'est plus chargé, par défaut, avec les options \textsf{[table,svgnames]}, les couleurs de base de \ctex{xcolor} sont toutefois accessibles (une seule couleur, \textsf{CouleurVertForet} a été définie) !
+
+Il est cependant possible, grâce à l'option \Cle{[xcolor]} à passer au chargement du package, de charger \ctex{xcolor} avec l' option \textsf{[table,svgnames]}.
+\end{cautionblock}
+
+\begin{importantblock}
+Le {package} \ctex{ProfLycee} charge et utilise des {packages} comme :
+
+\begin{itemize}
+	\item \ctex{mathtools}, \ctex{amssymb}, \ctex{xspace}, \ctex{esvect}, \ctex{interval}, \ctex{mleftright} ;
+	\item \ctex{tikz}, \ctex{pgf}, \ctex{pgffor}, \ctex{nicefrac}, \ctex{nicematrix} ;
+	\item \ctex{tcolorbox} avec les librairies \ctex{breakable,fitting,skins,listings,listingsutf8,hooks} ;
+	\item \ctex{xstring}, \ctex{simplekv}, \ctex{xinttools} ;
+	\item \ctex{listofitems}, \ctex{xintexpr} , \ctex{xintbinhex}, \ctex{xintgcd} ;
+	\item \ctex{tabularray}, \ctex{fontawesome5}, \ctex{randomlist}, \ctex{fancyvrb}.
+\end{itemize}
+\vspace*{-\baselineskip}\leavevmode
+\end{importantblock}
+
+\begin{tipblock}
+J'ai utilisé les {packages} de C. Tellechea, je vous conseille d'aller jeter un œil sur ce qu'il est possible de faire en \LaTeX{} (même si certains n'apprécient pas ce genre de travail d'empilage sans intérêt\ldots) avec \ctex{listofitems}, \ctex{randomlist}, \ctex{simplekv} ou encore \ctex{xstring} !
+\end{tipblock}
+
+\subsection{Chargement du package}
+
+\begin{PresCodeTexPL}{listing only}
+%exemple de chargement pour une compilation en (pdf)latex
+\documentclass{article}
+\usepackage{ProfLycee}       % ou \usepackage[xcolor]{ProfLycee}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+...
+\end{PresCodeTexPL}
+
+\begin{PresCodeTexPL}{listing only}
+%exemple de chargement pour une compilation en (xe/lua)latex
+\documentclass{article}
+\usepackage{ProfLycee}       % ou \usepackage[xcolor]{ProfLycee}
+\usepackage{fontspec}
+...
+\end{PresCodeTexPL}
+
+\pagebreak
+
+\subsection{Librairies}\label{librairies}
+
+\begin{warningblock}
+\cmaj{2.5.0} Le package fonctionne désormais avec un système de \clib{librairies}, qui utilisent et chargent des packages spécifiques, avec des compilations particulières, donc l'utilisateur utilisera un système de chargement similaire à celui de \textsf{tcolorbox} ou \textsf{tikz}, dans le préambule, et une fois le package appelé.
+\end{warningblock}
+
+\begin{PresCodeTexPL}{listing only}
+\usepackage{ProfLycee}
+\useproflyclib{...,...}
+\end{PresCodeTexPL}
+
+\begin{noteblock}
+Les librairies disponibles seront indiquées dans les sections spécifiques. Pour le moment, il existe :
+
+\begin{itemize}
+	\item \clib{piton} (page \pageref{pythonpiton}) ;
+	\item \clib{pythontex} (page \pageref{pythontex}) ;
+	\item \clib{espace} (page \pageref{schemasespace}) ;
+	\item \clib{ecritures} (page \pageref{ecrituresmath}).
+\end{itemize}
+\vspace*{-\baselineskip}\leavevmode
+\end{noteblock}
+
+\begin{warningblock}
+\cmaj{2.5.8} Pour le package \ctex{piton}, la version minimale requise est la \ctex{1.5} pour bénéficier d'un rendu optimal (au niveau des marges) de la présentation du code \textsf{Python}.
+\end{warningblock}
+
+\begin{noteblock}
+En compilant (notamment avec les librairies \clib{\sout{minted}} et \clib{pythontex}) on peut spécifier des répertoires particuliers pour les (ou des) fichiers auxiliaires.
+
+Avec l'option \Cle{build}, l'utilisateur a la possibilité de placer les fichiers temporaires de \clib{\sout{minted}} et \clib{pythontex} dans un répertoire \menu{build} du répertoire courant.
+
+\smallskip
+
+Dans ce cas il faut créer au préalable le répertoire \menu{build} avant de compiler un fichier, pour éviter toute erreur !
+\end{noteblock}
+
+\begin{PresCodeTexPL}{listing only}
+...
+\usepackage[build]{ProfLycee}
+\useproflyclib{...}
+...
+\end{PresCodeTexPL}
+
+\begin{noteblock}
+L'option \Cle{build} charge certains packages (librairies \clib{minted} et \clib{pythontex}) avec les options :
+
+\begin{itemize}
+	\item \ctex{\textbackslash setpythontexoutputdir\{./build/pythontex-files-\textbackslash jobname\}}
+	%\item \ctex{\textbackslash RequirePackage[outputdir=build]\{minted\}}
+\end{itemize}
+\vspace*{-\baselineskip}\leavevmode
+\end{noteblock}
+
+\subsection{Gestion des fontes}\label{amssymb}
+
+\begin{warningblock}
+\cmaj{2.6.5} Sous \hologo{XeLaTeX} \& \hologo{LuaLaTeX}, \ctex{ProfLycee} utilisant le package \ctex{mathtools}, il est nécessaire de placer l'appel à \ctex{ProfLycee} {\em avant} l'appel des fontes.
+
+\smallskip
+
+Sous \hologo{XeLaTeX} \& \hologo{LuaLaTeX}, certaines fontes (par exemple \textsf{fourier-otf}) redéfinissent les fontes générées par le package \ctex{amssymb} et peuvent provoquer un \og warning \fg{} au mieux, une erreur de compilation au pire.
+
+\smallskip
+
+Pour cela, on pourra appeler \ctex{ProfLycee} avec l'option \Cle{nonamssymb} (idée reprise de \ctex{ProfCollege}).
+
+\smallskip
+
+Pour \textit{éviter} des \textit{warnings} liés au chargement de \ctex{unicode-math}, il est possible d'utiliser l'option \Cle{warningsoff}.
+\end{warningblock}
+
+\begin{PresCodeTexPL}{listing only}
+\documentclass{article}
+\usepackage[nonamssymb,warningsoff]{ProfLycee} %ou \usepackage[compat]{ProfLycee}
+\usepackage{fourier-otf}
+\end{PresCodeTexPL}
+
+\subsection{Gestion de siunitx}
+
+\begin{warningblock}
+\cmaj{3.11b} Le package \ctex{siunitx} est chargé et utilisé par \ctex{ProfLycee}, avec les options \textit{françaises}.
+
+\smallskip
+
+Pour \textit{éviter} de charger les options \textit{françaises} (et ainsi utiliser d'autres paramétrage(s)), il est possible d'utiliser l'option \Cle{nonsiunitxfr}.
+\end{warningblock}
+
+\begin{PresCodeTexPL}{listing only}
+\documentclass{article}
+\usepackage[nonsiunitxfr]{ProfLycee}
+\sisetup{<options>}
+\end{PresCodeTexPL}
+
+\subsection{Gestion de babel}
+
+\begin{warningblock}
+\cmaj{3.10a} Pour des raisons de compatibilité, il est possible de ne pas charger la librairie \TikZ\ \ctex{babel}.
+
+Il est toutefois conseillé de la charger, et ce pour certaines commandes liées à \TikZ.
+\end{warningblock}
+
+\begin{PresCodeTexPL}{listing only}
+\usepackage[nonbabel]{ProfLycee}
+\end{PresCodeTexPL}
+
+\subsection{Gestion de fontawesome}
+
+\begin{warningblock}
+\cmaj{3.12d} En prévision de la sortie de \ctex{fontawesome6/7}, il sera possible (c'est en pré-test) de spécifier la version de \ctex{fontawesome} à utiliser :
+
+\begin{itemize}
+	\item \ctex{fontawesome5} (par défaut) ;
+	\item \ctex{fontawesome6} ;
+	\item \ctex{fontawesome7}.
+\end{itemize}
+\vspace*{-\baselineskip}\leavevmode
+\end{warningblock}
+
+\begin{PresCodeTexPL}{listing only}
+\usepackage{ProfLycee}              %fa5 par défaut
+\usepackage[nonfa]{ProfLycee}       %sans fa
+\usepackage[fa6]{ProfLycee}         %fa6
+\usepackage[fa7]{ProfLycee}         %fa7
+\end{PresCodeTexPL}
+
+\subsection{Gestion de cancel}
+
+\begin{warningblock}
+\cmaj{3.11c} Pour des raisons de compatibilité, il est possible de ne pas charger le package \ctex{cancel} (avec l'option \texttt{[thicklines]}).
+
+Seule une commande liée à l'arithmétique (les équations diophantiennes) l'utilise.
+\end{warningblock}
+
+\begin{PresCodeTexPL}{listing only}
+\usepackage[noncancel]{ProfLycee}
+\end{PresCodeTexPL}
+
+\section{Compléments}
+
+\subsection{Support multilangues}\label{multilng}
+
+\begin{tipblock}
+L'idée est de proposer des options (\textit{expérimental}) pour modifier la langue de \ctex{ProfLycee} pour les quelques commandes \textit{à rédaction}.
+
+\smallskip
+
+À noter qu'une macro dédiée au \textit{changement local} de langue existe, et elle peut être appelée à tout moment dans le document.
+\end{tipblock}
+
+\begin{PresCodeTexPL}{listing only}
+%changement global de la langue
+\usepackage[french]{ProfLycee}    %défaut
+\usepackage[english]{ProfLycee}
+\usepackage[german]{ProfLycee}
+\usepackage[spanish]{ProfLycee}
+\end{PresCodeTexPL}
+
+\begin{PresCodeTexPL}{listing only}
+%changement local de la langue
+\setproflyclng{fr/en/de/es}
+\end{PresCodeTexPL}
+
+\begin{tipblock}
+Il est également possible de modifier le style des symboles de comparaison, qui sont définis de manière globale dans \ctex{ProfLycee}.
+\end{tipblock}
+
+\begin{PresCodeTexPL}{listing only}
+%comportement global/local geq(slant) + leq(slant) par défaut
+\def\pflgeq{\geqslant}%
+\def\pflleq{\leqslant}%
+
+%comportement global/local geq(slant) + leq(slant) modifié
+\def\pflgeq{\qeq}%
+\def\pflleq{\leq}%
+\end{PresCodeTexPL}
+
+\begin{noteblock}
+Un travail d'\textit{anglicisation} des clés, commandes et environnements est en cours.
+
+À terme, il est donc prévu que :
+
+\begin{itemize}
+	\item les commandes soient proposées avec des alias \textsf{[fr]} et \textsf{[en]} sous la forme \ctex{\textbackslash pfl<macro>} ;
+	\item les clés soient proposées en version \textsf{[fr]} et \textsf{[en]} ;
+	\item tout soit interchangeable.
+\end{itemize}
+
+C'est pour le moment en projet, mais déjà implémenté dans une majorité de commandes, et une documentation spécifique et plus concise sera proposée en marge de celle-ci.
+\end{noteblock}
+
+\subsection{Le système de \og clés/options \fg}
+
+\begin{tipblock}
+L'idée est de conserver -- autant que faire se peut -- l'idée de \Cle{Clés} qui sont :
+%
+\begin{itemize}
+	\item modifiables ;
+	\item définies (en majorité) par défaut pour chaque commande.
+\end{itemize}
+
+Pour certaines commandes, le système de \Cle{Clés} pose quelques soucis, de ce fait le fonctionnement est plus \textit{basique} avec un système d'\textsf{arguments} \textit{optionnels} (souvent entre \textsf{[\ldots]}) ou \textit{obligatoires} (souvent entre \textsf{\{\ldots\}}).
+
+\smallskip
+
+À noter que les :
+%
+\begin{itemize}
+	\item les \Cle{Clés} peuvent être mises dans n'importe quel ordre, elles peuvent être omises lorsque la valeur par défaut est conservée ;
+	\item les \textsf{arguments} doivent, eux, être positionnés dans le \textit{bon ordre}.
+\end{itemize}
+\vspace*{-\baselineskip}\leavevmode
+\end{tipblock}
+
+\subsection{Compilateur(s)}
+
+\begin{noteblock}
+Le package \ctex{ProfLycee} est compatible avec les compilateurs classiques : \textsf{latex}, \textsf{pdflatex} ou encore \textsf{lualatex}.
+
+\smallskip
+
+En ce qui concerne les codes \textsf{librairies}, il faudra :
+
+\begin{itemize}
+	\item \clib{pythontex} : compiler en chaîne \textsf{(xxx)latex + pythontex + (xxx)latex} ;
+	%\item \clib{minted} : compiler avec \textsf{shell-escape} (ou \textsf{write18}) ;
+	\item \clib{piton} : compiler en \hologo{LuaLaTeX} (et \textsf{shell-escape} ou \textsf{write18} avec \textsf{pyluatex}).
+\end{itemize}
+\vspace*{-\baselineskip}\leavevmode
+\end{noteblock}
+
+\subsection{Problèmes éventuels\ldots}
+
+\begin{noteblock}
+Certaines \textsf{commandes} sont à intégrer dans un environnement \TikZ, afin de pouvoir rajouter des éléments, elles ont été testés dans des environnement \ctex{tikzpicture}, à vérifier que la gestion des axes par l'environnement \ctex{axis} est compatible\ldots
+
+\smallskip
+
+En dehors de cela, ce sont des tests multiples et variés qui permettront de détecter d'éventuels bugs !
+\end{noteblock}
+
+\subsection{Version allégée}
+
+\begin{cautionblock}
+En marge de la version \textit{complète} du package, une version \textit{allégée} est disponible !
+
+Elle se distingue de la version complète par :
+
+\begin{itemize}
+	\item la non disponibilité automatique des librairies ;
+	\item la suppression des librairies \clib{minted} et \clib{pythontex}.
+\end{itemize}
+\end{cautionblock}
+
+\begin{importantblock}
+L'idée est de laisser l'utilisateur charger, de manière individuelle, les \textit{sous-}packages.
+
+Les options du package \ctex{Proflycee} sont disponibles également pour la version allégée !
+\end{importantblock}
+
+\begin{PresCodeTexPL}{listing only}
+%seules les commandes de calculs formatés sont disponibles
+\usepackage[options]{ProfLycee-Light}
+\end{PresCodeTexPL}
+
+\begin{importantblock}
+Les modules à importer sont à donner grâce à la commande \ctex{\textbackslash useproflyclib}.
+\end{importantblock}
+
+\begin{PresCodeTexPL}{listing only}
+%librairies individuelles, ou directement via \useproflyclib{most}
+\useproflyclib{analyse}
+\useproflyclib{graphiques}
+\useproflyclib{listings}
+\useproflyclib{trigo}
+\useproflyclib{probas}
+\useproflyclib{stats}
+\useproflyclib{arithm}
+\useproflyclib{aleatoire}
+\useproflyclib{suites}
+\useproflyclib{geom}
+\useproflyclib{cliparts}
+\end{PresCodeTexPL}
+
+\begin{PresCodeTexPL}{listing only}
+%librairies indépendantes
+\useproflyclib{piton}
+\useproflyclib{espace}
+\useproflyclib{ecritures}
+\useproflyclib{complexes}
+\useproflyclib{recreat}
+\useproflyclib{competences}
+\useproflyclib{exams}
+\end{PresCodeTexPL}
+
+\subsection{Alias de commandes (en test)}
+
+\begin{cautionblock}
+\cmaj{3.11a} La majorité des commandes de \ctex{ProfLycee} bénéficient désormais d'alias, sous la forme \ctex{\textbackslash pfl...} pour un rappel \textit{rapide} du fait qu'elles appartiennent à \ctex{ProfLycee} (conseil fait par \textsf{JFB}).
+\end{cautionblock}
+
+\pagebreak
+
+~
+
+\vfill
+
+\hfill\tikz \draw (0,0) node[above right=0pt,inner sep=0pt,outer sep=0pt,rotate=25,scale=4] {$\leftrightsquigarrow$ Bonne(s) découverte(s) $\leftrightsquigarrow$} ;\hfill~
+
+\vfill
+
+~

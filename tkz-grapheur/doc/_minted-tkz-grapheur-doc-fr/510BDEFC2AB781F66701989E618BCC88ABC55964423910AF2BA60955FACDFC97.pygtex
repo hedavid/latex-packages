@@ -1,0 +1,12 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k}{\PYGZbs{}begin}\PYG{n+nb}{\PYGZob{}}GraphiqueTikz\PYG{n+nb}{\PYGZcb{}}\PYG{c}{\PYGZpc{}}
+	[x=0.9cm,y=0.425cm,Xmin=4,Xmax=20,Origx=4,
+	Ymin=40,Ymax=56,Ygrille=2,Ygrilles=1,Origy=40]
+	\PYG{k}{\PYGZbs{}TracerAxesGrilles}\PYG{n+na}{[Elargir=2.5mm,Police=\PYGZbs{}small]}\PYG{n+nb}{\PYGZob{}}4,5,...,20\PYG{n+nb}{\PYGZcb{}\PYGZob{}}40,42,...,56\PYG{n+nb}{\PYGZcb{}}
+	\PYG{k}{\PYGZbs{}DefinirCourbe}\PYG{n+na}{[Nom=cf,Debut=5,Fin=19,Couleur=red,Trace]}\PYGZlt{}f\PYGZgt{}\PYG{n+nb}{\PYGZob{}}\PYGZhy{}2*x+3+24*log(2*x)\PYG{n+nb}{\PYGZcb{}}
+	\PYG{k}{\PYGZbs{}TrouverAntecedents}\PYG{n+na}{[Couleur=teal,Nom=JKL,Aff=false]}\PYG{n+nb}{\PYGZob{}}cf\PYG{n+nb}{\PYGZcb{}\PYGZob{}}53\PYG{n+nb}{\PYGZcb{}}
+	\PYG{c}{\PYGZpc{}tangente}
+	\PYG{k}{\PYGZbs{}TracerTangente}\PYG{c}{\PYGZpc{}}
+		[Couleurs=cyan/gray,DecG=2.5,DecD=2.5,Noeud,AffPoint]\PYG{n+nb}{\PYGZob{}}f\PYG{n+nb}{\PYGZcb{}\PYGZob{}}(JKL\PYGZhy{}1)\PYG{n+nb}{\PYGZcb{}}
+\PYG{k}{\PYGZbs{}end}\PYG{n+nb}{\PYGZob{}}GraphiqueTikz\PYG{n+nb}{\PYGZcb{}}
+\end{Verbatim}

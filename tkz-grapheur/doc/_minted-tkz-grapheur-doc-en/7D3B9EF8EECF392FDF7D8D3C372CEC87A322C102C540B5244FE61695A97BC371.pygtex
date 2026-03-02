@@ -1,0 +1,7 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k}{\PYGZbs{}begin}\PYG{n+nb}{\PYGZob{}}GraphTikz\PYG{n+nb}{\PYGZcb{}}
+	[x=0.075cm,y=0.03cm,Xmin=0,Xmax=160,Xgrid=20,Xgrids=10,
+	Origy=250,Ymin=250,Ymax=400,Ygrid=25,Ygrids=5]
+	\PYGZlt{}Frame\PYGZgt{}
+\PYG{k}{\PYGZbs{}end}\PYG{n+nb}{\PYGZob{}}GraphTikz\PYG{n+nb}{\PYGZcb{}}
+\end{Verbatim}

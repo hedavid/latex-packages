@@ -4,8 +4,8 @@
 
 \documentclass[french,a4paper,11pt]{article}
 \usepackage[margin=2cm,includefoot]{geometry}
-\def\TPversion{0.1.1}
-\def\TPdate{28 Mai 2023}
+\def\TPversion{0.1.3}
+\def\TPdate{23 avril 2025}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage{amsmath,amssymb}
@@ -78,7 +78,7 @@
 		keywordstyle={\color{violet}},%
 		classoffset=2,%
 		alsoletter={-},%
-		morekeywords={\TracerSegments,\DefinirPoints,\DefinirPoint,\MarquerPoint,\MarquerPoints,mainlevee,\ImagePoint,\ImagesPoints},%
+		morekeywords={\TracerSegments,\DefinirPoints,\DefinirPoint,\MarquerPoint,\MarquerPoints,mainlevee,\ImagePoint,\ImagesPoints,mainleveealt},%
 		keywordstyle={\color{green!50!black}},%
 		classoffset=3,%
 		morekeywords={Cap,Style,Couleurs,Cycle,Join,line,cap,line,join,Suite,Couleurs,DecalLabel,StyleMarque,Couleur,Math,TaillePolice},%
@@ -104,6 +104,11 @@
 
 \newcommand\Cle[1]{{\bfseries\sffamily\textlangle #1\textrangle}}
 \newcommand\cmaj[1]{\tcbox[vignetteMaJ]{#1}\xspace}
+
+\usepackage{frenchmath}
+\usepackage{mathtools}
+\usepackage{esvect}
+\usepackage{bm}
 
 \begin{document}
 
@@ -141,7 +146,7 @@
 	\begin{tabular}{c}
 	\texttt{Cédric Pierquet}\\
 	{\ttfamily c pierquet -- at -- outlook . fr}\\
-	\texttt{\url{https://github.com/cpierquet/tikz2dfr}}
+	\texttt{\url{https://forge.apps.education.fr/pierquetcedric/packages-latex}}
 \end{tabular}
 \end{center}
 
@@ -220,6 +225,10 @@
 \vfill
 
 \part{Historique}
+
+\verb|v0.1.3|~:~~~~Ajout d'un style alternatif pour la mainlevée
+
+\verb|v0.1.2|~:~~~~Ajout d'une commande pour l'orthogone de Lill
 
 \verb|v0.1.1|~:~~~~Ajout d'une clé \Cle{[TaillePolice]} + Points définis par une transformation simple.
 
@@ -303,7 +312,7 @@ Il est compatible avec les compilations usuelles en \textsf{latex}, \textsf{pdfl
 
 \section{Tracé à main levée}
 
-\subsection{Idée}
+\subsection{Idée n°1}
 
 \begin{tipblock}
 L'idée est de \textit{proposer} un style \textit{tout prêt} pour simuler un tracé, en \TikZ, à \og main levée \fg.
@@ -318,8 +327,6 @@ Il s'agit d'un style \textit{basique} utilisant la librairie \textsf{decorations
 		mainlevee/.default={5mm et 0.6pt}
 	}
 \end{DemoCode}
-
-\subsection{Utilisation basique}
 
 \begin{cautionblock}
 Il s'agit ni plus ni moins d'un style \TikZ{} à intégrer dans les tracés et constructions \TikZ !
@@ -369,6 +376,45 @@ Les valeurs \Cle{mainlevee=5mm et 0.6pt} donnent des résultats -- à mon sens -
 	\begin{tikzpicture}
 		\draw[xstep=0.5,ystep=0.5,ultra thin,lightgray] (0,0) grid (4,4);
 		\draw[thick,mainlevee=10mm et 3mm]  (0,0) rectangle (4,4) ;
+	\end{tikzpicture}
+	\hfill~
+\end{DemoCode}
+
+\subsection{Idée n°2}
+
+L'idée est d'utiliser une déclaration légèrement différente du tracé à main levée, basée sur un code type \texttt{stylomainlevee}.
+
+À noter que pour des chemins fermés ou des portions circulaires, le rendu peut ne pas être optimal.
+
+\begin{DemoCode}[listing only]
+	%la grille a été rajoutée pour la sortie
+	\begin{tikzpicture}
+		\draw[thick,mainleveealt] (0,0) rectangle (4,4) ;
+	\end{tikzpicture}
+	
+	\begin{tikzpicture}
+		\draw[thick,mainleveealt=1pt et 0.5pt] (0,0) rectangle (4,4) ;
+	\end{tikzpicture}
+	
+	\begin{tikzpicture}
+		\draw[thick,mainleveealt=1pt et 2pt]  (0,0) rectangle (4,4) ;
+	\end{tikzpicture}
+\end{DemoCode}
+
+\begin{DemoCode}[text only]
+	\hfill~\begin{tikzpicture}
+		\draw[xstep=0.5,ystep=0.5,ultra thin,lightgray] (0,0) grid (4,4);
+		\draw[thick,mainleveealt]  (0,0) rectangle (4,4) ;
+	\end{tikzpicture}
+	\hspace{1cm}
+	\begin{tikzpicture}
+		\draw[xstep=0.5,ystep=0.5,ultra thin,lightgray] (0,0) grid (4,4);
+		\draw[thick,mainleveealt=1pt et 0.5pt]  (0,0) rectangle (4,4) ;
+	\end{tikzpicture}
+	\hspace{1cm}
+	\begin{tikzpicture}
+		\draw[xstep=0.5,ystep=0.5,ultra thin,lightgray] (0,0) grid (4,4);
+		\draw[thick,mainleveealt=1pt et 2pt]  (0,0) rectangle (4,4) ;
 	\end{tikzpicture}
 	\hfill~
 \end{DemoCode}
@@ -732,5 +778,11 @@ Le troisième argument, obligatoire et entre \texttt{\{...\}} correspond à la s
 	\MarquerPoints{A,B,C}
 \end{tikzpicture}
 \end{DemoCode}
+
+\pagebreak
+
+\section{Orthogone de Lill}
+
+\input{OrthogoneLill.tex}
 
 \end{document}

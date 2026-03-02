@@ -1,0 +1,16 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c}{\PYGZpc{}Correction et solution}
+\PYG{k}{\PYGZbs{}begin}\PYG{n+nb}{\PYGZob{}}tabular\PYG{n+nb}{\PYGZcb{}\PYGZob{}}c\PYG{n+nb}{\PYGZcb{}}
+	\PYG{k}{\PYGZbs{}PixelArtTikzCylindre}[\PYG{c}{\PYGZpc{}}
+		Largeur=4,Centre=0.75,Codes=VNGOJ,
+		Couleurs=\PYG{n+nb}{\PYGZob{}}violet!50,black,green,orange,yellow\PYG{n+nb}{\PYGZcb{}},
+		Swap,Solution]\PYG{c}{\PYGZpc{}}
+		\PYG{n+nb}{\PYGZob{}}PAsorciere.csv\PYG{n+nb}{\PYGZcb{}}
+	\PYG{k}{\PYGZbs{}\PYGZbs{}}
+	\PYG{k}{\PYGZbs{}PixelArtTikzCylindre}[\PYG{c}{\PYGZpc{}}
+		Largeur=4,Centre=0.75,Codes=VNGOJ,
+		Couleurs=\PYG{n+nb}{\PYGZob{}}violet!50,black,green,orange,yellow\PYG{n+nb}{\PYGZcb{}},
+		Swap,Correction]\PYG{c}{\PYGZpc{}}
+		\PYG{n+nb}{\PYGZob{}}PAsorciere.csv\PYG{n+nb}{\PYGZcb{}}
+\PYG{k}{\PYGZbs{}end}\PYG{n+nb}{\PYGZob{}}tabular\PYG{n+nb}{\PYGZcb{}}
+\end{Verbatim}

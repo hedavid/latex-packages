@@ -1,0 +1,10 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k}{\PYGZbs{}begin}\PYG{n+nb}{\PYGZob{}}GraphiqueTikz\PYG{n+nb}{\PYGZcb{}}
+	[x=0.66cm,y=0.033cm,Xmin=0,Xmax=21,Xgrille=2,Xgrilles=1,
+	Ymin=0,Ymax=160,Ygrille=20,Ygrilles=10]
+	\PYG{k}{\PYGZbs{}TracerAxesGrilles}\PYG{n+na}{[Elargir=2.5mm]}\PYG{n+nb}{\PYGZob{}}auto\PYG{n+nb}{\PYGZcb{}\PYGZob{}}auto\PYG{n+nb}{\PYGZcb{}}
+	\PYG{k}{\PYGZbs{}DefinirCourbe}\PYG{n+na}{[Couleur=red,Nom=cf,Debut=1,Fin=20,Trace]}\PYGZlt{}f\PYGZgt{}\PYG{n+nb}{\PYGZob{}}80*x*exp(\PYGZhy{}0.2*x)\PYG{n+nb}{\PYGZcb{}}
+	\PYG{k}{\PYGZbs{}RepresenterMethodeIntegrale}
+	[Methode=RectanglesMilieu,Couleur=yellow,NbSubDiv=25]\PYGZlt{}f\PYGZgt{}\PYG{n+nb}{\PYGZob{}}1\PYG{n+nb}{\PYGZcb{}\PYGZob{}}20\PYG{n+nb}{\PYGZcb{}}
+\PYG{k}{\PYGZbs{}end}\PYG{n+nb}{\PYGZob{}}GraphiqueTikz\PYG{n+nb}{\PYGZcb{}}
+\end{Verbatim}

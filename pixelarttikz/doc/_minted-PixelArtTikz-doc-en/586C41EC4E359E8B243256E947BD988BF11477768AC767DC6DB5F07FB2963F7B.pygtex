@@ -1,0 +1,10 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k}{\PYGZbs{}usepackage}\PYG{n+nb}{\PYGZob{}}PixelArtTikz\PYG{n+nb}{\PYGZcb{}}                     \PYG{c}{\PYGZpc{}package latex3}
+\PYG{c}{\PYGZpc{}which loads}
+\PYG{c}{\PYGZpc{}\PYGZbs{}RequirePackage\PYGZob{}expl3\PYGZcb{}}
+\PYG{c}{\PYGZpc{}\PYGZbs{}RequirePackage[l3]\PYGZob{}csvsimple\PYGZcb{}}
+
+\PYG{k}{\PYGZbs{}usepackage}\PYG{n+na}{[csvii]}\PYG{n+nb}{\PYGZob{}}PixelArtTikz\PYG{n+nb}{\PYGZcb{}}              \PYG{c}{\PYGZpc{}package latex2}
+\PYG{c}{\PYGZpc{}which loads}
+\PYG{c}{\PYGZpc{}\PYGZbs{}RequirePackage[legacy]\PYGZob{}csvsimple\PYGZcb{}}
+\end{Verbatim}

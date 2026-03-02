@@ -1,0 +1,5 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k}{\PYGZbs{}tikzset}\PYG{n+nb}{\PYGZob{}}pfltraitvoisinageasympt/.style=\PYG{n+nb}{\PYGZob{}}\PYG{c}{\PYGZpc{}}
+	densely dashed,line width=0.75pt\PYG{n+nb}{\PYGZcb{}}\PYG{c}{\PYGZpc{}}
+\PYG{n+nb}{\PYGZcb{}}
+\end{Verbatim}

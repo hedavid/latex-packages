@@ -1,0 +1,8 @@
+\begin{MintedVerbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
+\PYG{k}{\PYGZbs{}begin}\PYG{n+nb}{\PYGZob{}}filecontents*\PYG{n+nb}{\PYGZcb{}}[overwrite]\PYG{n+nb}{\PYGZob{}}base.csv\PYG{n+nb}{\PYGZcb{}}
+A,B,C,D
+A,B,D,C
+B,A,D,C
+C,A,B,D
+\PYG{k}{\PYGZbs{}end}\PYG{n+nb}{\PYGZob{}}filecontents*\PYG{n+nb}{\PYGZcb{}}
+\end{MintedVerbatim}

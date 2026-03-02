@@ -1,0 +1,4 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c}{\PYGZpc{}as image}
+\PYG{k}{\PYGZbs{}DefineRange}\PYG{n+na}{[keys]}\PYG{n+nb}{\PYGZob{}}object\PYG{n+nb}{\PYGZcb{}\PYGZob{}}abscissa\PYG{n+nb}{\PYGZcb{}}
+\end{Verbatim}

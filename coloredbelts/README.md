@@ -13,7 +13,7 @@ The package is available on [CTAN](https://ctan.org/pkg/coloredbelts) and can be
 - **Graphically**: open the *MiKTeX Console*, go to *Packages*, search for `coloredbelts` and click *Install*.
 - **Command line**:
   ```
-  miktex packages install coloredbelts
+  mpm.exe --install coloredbelts
   ```
 
 ### Via TeX Live / tlmgr

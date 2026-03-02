@@ -1,0 +1,4 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c}{\PYGZpc{}style des courbes}
+\PYG{k}{\PYGZbs{}tikzset}\PYG{n+nb}{\PYGZob{}}pflcourbe/.style=\PYG{n+nb}{\PYGZob{}}line width=1.05pt\PYG{n+nb}{\PYGZcb{}\PYGZcb{}}
+\end{Verbatim}

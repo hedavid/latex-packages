@@ -1,0 +1,3 @@
+\begin{MintedVerbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
+\PYG{n+nb}{\PYGZob{}}\PYG{k}{\PYGZbs{}huge} Let\PYGZsq{}s consider the interval \PYG{l+s}{\PYGZdl{}}\PYG{n+nv}{\PYGZbs{}mathcolor}\PYG{n+nb}{\PYGZob{}red\PYGZcb{}\PYGZob{}I}\PYG{o}{=}\PYG{n+nv}{\PYGZbs{}tkzinterval}\PYG{n+nb}{\PYGZob{}}\PYG{n+nv}{\PYGZbs{}IntervtestA}\PYG{n+nb}{\PYGZcb{}\PYGZcb{}}\PYG{l+s}{\PYGZdl{}}.\PYG{n+nb}{\PYGZcb{}}
+\end{MintedVerbatim}

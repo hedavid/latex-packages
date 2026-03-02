@@ -1,0 +1,15 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c}{\PYGZpc{}parameters declared and stored (usable in the environment a posteriori)}
+\PYG{k}{\PYGZbs{}tikzset}\PYG{n+nb}{\PYGZob{}}
+	Xmin/.store in=\PYG{k}{\PYGZbs{}pflxmin},Xmin/.default=\PYGZhy{}3,Xmin=\PYGZhy{}3,
+	Xmax/.store in=\PYG{k}{\PYGZbs{}pflxmax},Xmax/.default=3,Xmax=3,
+	Ymin/.store in=\PYG{k}{\PYGZbs{}pflymin},Ymin/.default=\PYGZhy{}3,Ymin=\PYGZhy{}3,
+	Ymax/.store in=\PYG{k}{\PYGZbs{}pflymax},Ymax/.default=3,Ymax=3,
+	Origx/.store in=\PYG{k}{\PYGZbs{}pflOx},Origx/.default=0,Origx=0,
+	Origy/.store in=\PYG{k}{\PYGZbs{}pflOy},Origy/.default=0,Origy=0,
+	Xgrid/.store in=\PYG{k}{\PYGZbs{}pflgrillex},Xgrid/.default=1,Xgrid=1,
+	Xgrids/.store in=\PYG{k}{\PYGZbs{}pflgrillexs},Xgrids/.default=0.5,Xgrids=0.5,
+	Ygrid/.store in=\PYG{k}{\PYGZbs{}pflgrilley},Ygrid/.default=1,Ygrid=1,
+	Ygrids/.store in=\PYG{k}{\PYGZbs{}pflgrilleys},Ygrids/.default=0.5,Ygrids=0.5
+\PYG{n+nb}{\PYGZcb{}}
+\end{Verbatim}

@@ -1,0 +1,1144 @@
+% !TeX TXS-program:compile = txs:///arara
+% arara: lualatex: {shell: yes, synctex: no, interaction: batchmode}
+% arara: lualatex: {shell: yes, synctex: no, interaction: batchmode}
+% arara: lualatex: {shell: yes, synctex: no, interaction: batchmode}
+
+\documentclass[a4paper,english,11pt]{article}
+\def\PLversion{4.00d}
+\def\PLdate{15/02/2026}
+\usepackage{amsfonts}
+\usepackage[nonamssymb,warningsoff,nosiunitxfr]{ProfLycee}
+\useproflyclib{piton,ecritures}
+\usepackage[executable=python,ignoreerrors]{pyluatex}
+\usepackage[math-style=french]{fourier-otf}
+\usepackage{mathrsfs}%pour mathscr
+\usepackage{awesomebox}
+\usepackage[lua]{tkz-euclide}
+\usepackage{tkz-tab}
+\tikzstyle{every picture}+=[remember picture]
+\usetikzlibrary{hobby}
+\usepackage{siunitx}
+\sisetup{locale=US}
+\usepackage{enumitem}
+\usepackage{openmoji}
+\usepackage{ulem}
+\usepackage{fancyvrb}
+\usepackage{fancyhdr}
+\usepackage{tabularray}
+\usepackage{multicol}
+\DeclareMathSymbol{;}\mathbin{operators}{'73} %espacement avec ;
+%fancy
+\fancyhf{}
+\renewcommand{\headrulewidth}{0pt}
+\lfoot{\sffamily \small [ProfLycee]}
+\cfoot{\sffamily \small - \thepage{} -}
+\rfoot{\hyperlink{matoc}{\small\faArrowAltCircleUp[regular]}}
+
+\usepackage{codehigh}
+\usepackage{graphics}
+\usepackage{hologo}
+\providecommand\tikzlogo{Ti\textit{k}Z}
+\providecommand\TeXLive{\TeX{}Live\xspace}
+\providecommand\PSTricks{\textsf{PSTricks}\xspace}
+\let\pstricks\PSTricks
+\let\TikZ\tikzlogo
+\usepackage{menukeys}
+\let\tab\relax
+\usepackage{tabto}
+\usepackage{pgf,pgfplots}
+\pgfplotsset{compat=newest,xlabel near ticks,ylabel near ticks}
+\usepackage{scontents}
+\usepackage{geometry}
+\geometry{margin=2cm}
+\setlength\parindent{0pt}
+\usepackage{babel}
+\usepackage{newverbs}
+
+\date{\PLdate}
+\newcommand*{\version}{\PLversion}
+\title{ProfLycee (\textit{simple doc}) \\User’s Guide for \LaTeX\ (v\version)}
+\author{Cédric Pierquet \\ \texttt{cpierquet@outlook.fr}}
+
+%present macro
+\tcbuselibrary{minted}
+\newtcblisting{myprestexcode}[2]{width=0.8\linewidth,colback=violet!1!white,colframe=violet!75!white,fonttitle=\footnotesize\bfseries\sffamily,title={\vphantom{(qÉ)}\enflag\ #1 | \frflag\ #2\hfill{}[\textit{Syntax}]},listing only,left=1mm,right=1mm,top=1mm,bottom=1mm,minted options={fontsize=\footnotesize,autogobble,tabsize=2}}
+\newtcblisting{myprestex}[2]{width=0.8\linewidth,colback=teal!1!white,colframe=teal!75!white,fonttitle=\footnotesize\bfseries\sffamily,title={\vphantom{(qÉ)}\enflag\ #1 | \frflag\ #2\hfill{}[\textit{Sample(s)}]},left=1mm,right=1mm,top=1mm,bottom=1mm,fontupper=\footnotesize,minted options={fontsize=\footnotesize,autogobble,tabsize=2}}
+
+\newcommand\frflag{\openmoji[dstrut=(qH)]{flag- france}}
+\newcommand\enflag{\openmoji[dstrut=(qH)]{flag- united states}}
+
+\usepackage{hyperref}
+\urlstyle{same}
+\hypersetup{pdfborder=0 0 0}
+
+\begin{document}
+\maketitle
+
+\bigskip
+
+The purpose of this simplified documentation is to present the main macros of \texttt{ProfLycee}, including:
+
+\begin{itemize}
+  \item available names (base / French alias / English alias) if available;
+  \item available keys (French / English);
+  \item arguments (optional or not).
+\end{itemize}
+
+The general presentation of this \textit{short} documentation is:
+
+\begin{myprestexcode}{Short explanation}{Courte explication}
+\macro(*)[opt arg]{arg}
+
+% --- [keys/clés] ------------------------------------------------------------
+% key1[en] = key1[fr] = default
+% key2[en] = key2[fr] = default
+% ...
+% ----------------------------------------------------------------------------
+\end{myprestexcode}
+
+\begin{myprestex}{Short explanation}{Courte explication}
+\LaTeX
+\end{myprestex}
+
+For further details (especially regarding keys), the French documentation provides additional explanations and examples.
+
+\smallskip
+
+As the commands and keys are currently being anglicized, some may not be included in this documentation. Please note that the vast majority of \texttt{ProfLycee} commands are already compatible with both English and French.
+
+\pagebreak
+
+\tableofcontents
+
+\pagebreak
+
+\section{Loading, global usage}
+
+\subsection{Loading}
+
+\texttt{Proflycee} can be loaded with:
+
+\begin{myprestexcode}{Loading}{Chargement}
+\usepackage[options]{ProfLycee}
+\usepackage[options]{ProfLycee-Light}
+
+% --- {options} --------------------------------------------------------------
+% xcolor                     := load xcolor with [table,svgnames]
+% nosiunitxfr = nonsiunitxfr := do not load sinuitx with french parameters
+% noamssymb   = nonamssymb   := do not load amssymb
+% warningsoff = nonwarnings  := suppress warnings for unicode-math
+% notikzbabel = nontikzbabel := do not load tikzbabel library
+% nocancel    = noncancel    := do not load cancel
+% nofa        = nonfa        := do not load fontawesome (fa5 default loaded)
+% fa6                        := load fa6
+% fa7                        := load fa7
+% french                     := load french version (activated by default)
+% english                    := load english version
+% german                     := load german version
+% spanish                    := load spanish version
+% ----------------------------------------------------------------------------
+\end{myprestexcode}
+
+\subsection{Global usage}
+
+Modules (libraries) can be loaded in addition to main package:
+
+\begin{myprestexcode}{Libraries}{Librairies}
+\useproflyclib{lib}
+
+% --- {lib for full} ---------------------------------------------------------
+% piton
+% space       = espace
+% mathwriting = ecritures
+% ----------------------------------------------------------------------------
+
+% --- {lib for light} --------------------------------------------------------
+% analysis    = analyse
+% listings
+% probas
+% stats
+% arithm
+% random      = aleatoire
+% seq         = suites
+% space       = espace
+% mathwriting = ecritures
+% piton
+% ----------------------------------------------------------------------------
+\end{myprestexcode}
+
+Language can be loaded with:
+
+\begin{myprestexcode}{Language}{Langue}
+\setproflyclng{lng}
+
+% --- {lng} ------------------------------------------------------------------
+% fr / en / de / es
+% ----------------------------------------------------------------------------
+\end{myprestexcode}
+
+\newpage
+
+\section{Core mathematical utilities}
+
+\subsection{Main macros}
+
+\begin{myprestexcode}{Core calculus}{Calculs de base}
+\pflnum(*)[prec]{expr}
+\pflnumfrac[format]{expr}
+
+% --- (starred) --------------------------------------------------------------
+% * for real expr
+% 
+% --- [format] ---------------------------------------------------------------
+% for math output (d/n/t)
+% ----------------------------------------------------------------------------
+\end{myprestexcode}
+
+\begin{myprestex}{Core calculus}{Calculs de base}
+\pflnum{2^12+1} | 
+\pflnum*{4096/(12+1)} | 
+\pflnum*[4]{4096/(12+1)} | 
+\pflnum*[5]{sqrt(1+exp(9.75))} | 
+\pflnumfrac{74+1/5} \pflnumfrac[d]{74+1/5}
+\end{myprestex}
+
+\begin{myprestexcode}{Round}{Arrondi}
+\pflround(*)[prec]{expr}
+\pflarrondi(*)[prec]{expr}
+
+% --- (starred) --------------------------------------------------------------
+% * for display sign
+% ----------------------------------------------------------------------------
+\end{myprestexcode}
+
+\begin{myprestex}{Round}{Arrondi}
+$1+\dfrac{7}{11} \approx \pflround{1+7/11} \approx \pflround[5]{1+7/11} \approx
+\pflround*[2]{1+7/11}$
+
+$\ln\big(1+\e^{4}\big) \approx \pflround[6]{log(1+exp(4))}$
+\end{myprestex}
+
+\subsection{Simple conversion between basis}
+
+\begin{myprestexcode}{Conversion between basis}{Conversion entre bases}
+\pflbasetobase{init basis}{final basis}{number}
+\pflbasetobase{base départ}{base arrivée}{nombre}
+\end{myprestexcode}
+
+\begin{myprestex}{Conversion between basis}{Conversion entre bases}
+\pflbasetobase{10}{2}{27} |         % 10 -> 2
+\pflbasetobase{10}{16}{456} |       % 10 -> 16
+\pflbasetobase{2}{16}{10011111} |   % 2  -> 16
+\pflbasetobase{16}{7}{AB5F}         % 16 -> 7
+\end{myprestex}
+
+\newpage
+
+\section{Analysis}
+
+\subsection{Functions}
+
+\begin{myprestexcode}{Determine Maximum}{Détermine Max}
+\pfldetmax[round]{fct}{init}{step}{final}[\tmpmax][\tmpmaxvalx]
+\DetermineMax[arrondi]{fct}{init}{pas}{final}[\tmpmax][\tmpmaxvalx]
+\end{myprestexcode}
+
+\begin{myprestex}{Determine Maximum}{Détermine Max}
+\pfldetmax{80*x*exp(-0.2*x)}{3}{10}\tmpmax\ in \tmpmaxvalx
+\end{myprestex}
+
+\begin{myprestexcode}{Determine Minimum}{Détermine Min}
+\pfldetmin[round]{fct}{init}{step}{final}[\tmpmax][\tmpmaxvalx]
+\DetermineMin[arrondi]{fct}{init}{pas}{final}[\tmpmax][\tmpmaxvalx]
+\end{myprestexcode}
+
+\begin{myprestex}{Determine Minimum}{Détermine Min}
+\pfldetmin[0.001]%
+  {log(exp(-x)+1)+0.25*x}{1}{1.2}%
+  [\mymin]%
+  [\myminx]%
+\mymin\ in \myminx
+\end{myprestex}
+
+\begin{myprestexcode}{Approx sol f(x)=k}{Résol approch f(x)=k}
+\pflapproxsol[<keys>]{f(x)=k}[macro]
+\ResolutionApprochee[<clés>]{f(x)=k}[macro]
+\pflresolapproch[<clés>]{f(x)=k}[macro]
+
+% --- [keys/clés] ------------------------------------------------------------
+% prec     = Precision  = 2
+% var      = Variable   = x
+% interval = Intervalle = {0:10}
+%
+% --- [macro] ----------------------------------------------------------------
+% \macrod := round by default
+% \macroe := round by excess
+% \macroa := round
+% ----------------------------------------------------------------------------
+\end{myprestexcode}
+
+\begin{myprestex}{Approx sol f(x)=k}{Résol approch f(x)=k}
+\pflapproxsol[var=t,interval=-1:2,prec=4]{3*t*exp(-0.5*t+1)=5.365}[SolA]%
+$t_1 \approx \num[minimum-decimal-digits=4]{\SolAd}$\\
+$t_1 \approx \num[minimum-decimal-digits=4]{\SolAe}$\\
+$t_1 \approx \num[minimum-decimal-digits=4]{\SolAa}$
+\end{myprestex}
+
+\begin{myprestexcode}{Sol by ITV}{Sol par TVI}
+\pflivtsol[<clés>]{f(x)}{k}
+\SolutionTVI[<clés>]{f(x)}{k}
+\pflsoltvi[<clés>]{f(x)}{k}
+
+% --- [keys/clés] ------------------------------------------------------------
+% fct name   = NomFct       = f
+% prec       = Precision    = 2
+% sol name   = NomSol       = \alpha
+% stretch    = Stretch      = 1.15
+% sweep      = Balayage     = false
+% calculator = Calculatrice = false
+% capital    = Majuscule    = true
+% ----------------------------------------------------------------------------
+\end{myprestexcode}
+
+\begin{myprestex}{Sol by ITV}{Sol by TVI}
+\pflivtsol[va=1.414,vb=1.415,prec=5]{x**2-2}{0}
+\end{myprestex}
+
+\begin{myprestexcode}{Canonical form}{Forme canonique}
+\pflcanonicform(*)[format]{a}{b}{c}
+\pflformcanoniq(*)[format]{a}{b}{c}
+\FormeCanonique(*)[format]{a}{b}{c}
+
+% --- (starred) --------------------------------------------------------------
+% * for minus sign
+%
+% --- [format] ---------------------------------------------------------------
+% for math output (d/n/t)
+% ----------------------------------------------------------------------------
+\end{myprestexcode}
+
+\begin{myprestex}{Canonical form}{Forme canonique}
+$2x^2+4x-6 = \pflcanonicform{2}{4}{-6} = \pflcanonicform*{2}{4}{-6}$
+\end{myprestex}
+
+\begin{myprestexcode}{Homographic form}{Forme homographique}
+\pflhomogfct(*)[format]{a}{b}{c}
+\pflfcthomogr(*)[format]{a}{b}{c}
+\FonctionHomographique(*)[format]{a}{b}{c}
+
+% --- (starred) --------------------------------------------------------------
+% * for minus sign
+%
+% --- [format] ---------------------------------------------------------------
+% for math output (d/n/t)
+% ----------------------------------------------------------------------------
+\end{myprestexcode}
+
+\begin{myprestex}{Homographic form}{Forme homographique}
+$\dfrac{11}{3x+6} =
+\pflhomogfct{0}{11}{3}{6} = \pflhomogfct*{0}{11}{3}{6}$
+\end{myprestex}
+
+\subsection{Sequences}
+
+\begin{myprestexcode}{Calc recurrence}{Calcul terme récurrence}
+\pflcalcrecurr[<keys>]{fct}
+\CalculTermeRecurrence[<clés>]{fct}
+
+% --- [keys/clés] ------------------------------------------------------------
+% first n  = No
+% first un = UNo
+% prec     = Precision  = 3
+% final n = N
+% ----------------------------------------------------------------------------
+\end{myprestexcode}
+
+\begin{myprestex}{Calc recurrence}{Calcul terme récurrence}
+\pflcalcrecurr[prec=6,first n=0,first un=50,final n=20]{1/(x+2)}
+\end{myprestex}
+
+\begin{myprestexcode}{Threshold}{Seuil}
+\pflsolthreshold[<keys>]{fct}{val}
+\SolutionSeuil[<clés>]{fct}{val}
+\pflsolseuil[<clés>]{fct}{val}
+
+% --- [keys/clés] ------------------------------------------------------------
+% prec       = Precision    = 3
+% stretch    = Stretch      = 1.15
+% sweeping   = Balayage     = false
+% calc       = Calculatrice = false
+% capital    = Majuscule    = true
+% sign       = Sens         = {>}
+% exact      = Exact        = false
+% exactB     = ExactB       = false
+% conclusion = Conclusion   = true
+% simple     = Simple       = false
+% ----------------------------------------------------------------------------
+\end{myprestexcode}
+
+\begin{myprestex}{Threshold}{Seuil}
+\pflsolthreshold[prec=4,first n=1,first un=2]{1+(1+x**2)/(1+x)}{10}
+\end{myprestex}
+
+\subsection{Integrals}
+
+\begin{myprestexcode}{Integral approx}{Approch intégrale}
+\pflapproxintegral[<keys>]{fct}{a}{b}
+\IntegraleApprochee[<clés>]{fct}{a}{b}
+\pflintegrapproch[<clés>]{fct}{a}{b}
+
+% --- [keys/clés] ------------------------------------------------------------
+% prec         = Precision    = 3
+% nb subdiv    = NbSubDiv     = 10
+% method       = Methode      = Simpson
+% raw result   = ResultatBrut = false
+% disp formula = AffFormule   = false
+% sign         = Signe        = {\approx}
+% expr         = Expr         = f(x)
+% var          = Variable     = x
+% ----------------------------------------------------------------------------
+\end{myprestexcode}
+
+\begin{myprestex}{Integral approx}{Approch intégrale}
+\pflapproxintegral[raw result]{sqrt(x)}{4}{10}
+\end{myprestex}
+
+\begin{myprestexcode}{Raw value of integral}{Valeur 'brute' d'une intégrale}
+\pflcalcintegral(*)[prec]<num of subdiv>{fct}{a}{b}
+\CalcIntegrale(*)[prec]<num of subdiv>{fct}{a}{b}
+\pflvalintegr(*)[prec]<nb de subdiv>{fct}{a}{b}
+
+% --- (starred) --------------------------------------------------------------
+% * for siunitx output
+% ----------------------------------------------------------------------------
+\end{myprestexcode}
+
+\begin{myprestex}{Raw value of integral}{Valeur 'brute' d'une intégrale}
+\CalcIntegrale{80*x*exp(-0.2*x)}{1}{20}
+\end{myprestex}
+
+\begin{myprestexcode}{Average value}{Valeur moyenne}
+\pflaveragevalintegral(*)[prec]<num of subdiv>{fct}{a}{b}
+\pflvalmoyintegr(*)[prec]<nb de subdiv>{fct}{a}{b}
+
+% --- (starred) --------------------------------------------------------------
+% * for siunitx output
+% ----------------------------------------------------------------------------
+\end{myprestexcode}
+
+\subsection{Signs, convexity}
+
+\begin{myprestexcode}{Sign diagram}{Schémas signes}
+\pflminisignplot*[<keys>]<tikz options>
+\pflschemasignes*[<clés>]<options tikz>
+\MiniSchemaSignes*[<clés>]<options tikz>
+
+% --- [keys/clés] ------------------------------------------------------------
+% code   = Code    = da+
+% color  = Couleur = red
+% width  = Largeur = 2
+% height = Hauteur = 1
+% border = Cadre   = true
+% roots  = Racines = 2
+% ----------------------------------------------------------------------------
+\end{myprestexcode}
+
+\begin{myprestex}{Sign diagram}{Schémas signes}
+\pflminisignplot*[code=pa+d+,roots={1/2},color=orange]
+\end{myprestex}
+
+\begin{myprestexcode}{Sign diagram with tkztab}{Schémas signes avec tkztab}
+\pflminisignplottkztab[<keys>]{line}[scale][hoffset]
+\pflschemasignestkztab[<clés>]{line}[scale][hoffset]
+\MiniSchemaSignesTkzTab[<clés>]{ligne}[echelle][décal H]
+
+% --- [keys/clés] ------------------------------------------------------------
+% code   = Code    = da+
+% color  = Couleur = red
+% width  = Largeur = 2
+% height = Hauteur = 1
+% border = Cadre   = true
+% roots  = Racines = 2
+% ----------------------------------------------------------------------------
+\end{myprestexcode}
+
+\begin{myprestex}{Sign diagram with tkztab}{Schémas signes avec tkztab}
+\begin{tikzpicture}
+  \tkzTabInit[espcl=2]%
+    {$x$/1,$-2x+5$/1,$2x+4$/1,$p(x)$/1}{$-\infty$,$-2$,${2.5}$,$+\infty$}
+  \tkzTabLine{,+,t,+,z,-,}
+  \tkzTabLine{,-,z,+,t,+,}
+  \tkzTabLine{,-,z,+,z,-,}
+  \pflminisignplottkztab[code=da-,roots={\tfrac{5}{2}},color=blue]{1}
+  \pflminisignplottkztab[code=da+,roots={-2},color=purple]{2}
+  \pflminisignplottkztab[code=pa-d+,roots={-2/{\tfrac{5}{2}}},color=orange]%
+    {3}[0.85][2]
+\end{tikzpicture}
+\end{myprestex}
+
+\begin{myprestexcode}{Convexity line with tkztab}{Ligne de convexité avec tkztab}
+\pfltkztabcvx(*){line}{'cells'}
+\tkzTabLineConvex(*){ligne}{liste 'cases'}
+
+% --- (starred) --------------------------------------------------------------
+% * for text version
+% ----------------------------------------------------------------------------
+\end{myprestexcode}
+
+\begin{myprestex}{Convexity line with tkztab}{Ligne de convexité avec tkztab}
+\begin{tikzpicture}
+  \tkzTabInit[lgt=3,espcl=2.5]%
+    {$x$/1,$f''(x)$/1,Convexity\\of $f$/2}{$0$,$1$,$3$,$5$}
+  \tkzTabLine{,+,z,-,z,+,}
+  \pfltkztabcvx{2}{,cvx,i*,ccv,i*,cvx,}
+\end{tikzpicture}
+\end{myprestex}
+
+\newpage
+
+\section{Code presentation}
+
+\subsection{Python Code}
+
+\begin{myprestexcode}{Environment python code listings}{Environnement code python listings}
+\begin{pflpythoncodelst}*[<keys>]{tcbox options} ... \end{pflpythoncodelst}
+\begin{CodePythonLst}*[<clés>]{options tcbox}   ...  \end{CodePythonLst}
+
+% --- (starred) --------------------------------------------------------------
+% * for removing line numbers
+%
+% --- [keys/clés] ------------------------------------------------------------
+% width      = Largeur    = \linewidth
+% first line = PremLigne  = 1
+% hsep       = EspaceNum  = 14pt
+% ----------------------------------------------------------------------------
+\end{myprestexcode}
+
+\begin{myprestex}{Environment python code listings}{Environnement code python listings}
+\begin{pflpythoncodelst}*[width=0.75\linewidth]{flush right}
+nb = int(input("n = "))
+if (nb %7 == 0) :
+	print(f"{nb} is ok")
+#endif
+
+def f(x) :
+	return x**2
+\end{pflpythoncodelst}
+\end{myprestex}
+
+\begin{myprestexcode}{Environment python code piton}{Environnement code python piton}
+\begin{pflpitoncode}[<keys>]{tcbox options} ... \end{pflpitoncode}
+\begin{CodePiton}[<clés>]{options tcbox}    ... \end{CodePiton}
+\pflpitoncodefile[<keys>]{tcbox options}
+\CodePitonFichier[<clés>]{options tcbox}
+
+% --- [keys/clés] ------------------------------------------------------------
+% width        = Largeur        = \linewidth
+% align        = Alignement     = center
+% lines        = Lignes         = true
+% gobble       = Gobble         = {}
+% font size    = TaillePolice   = \footnotesize
+% watermark    = Filigrane      = false
+% style        = Style          = classic/modern/(light)carbon/tab
+% border       = Cadre          = true
+% title bar    = BarreTitre     = true
+% title        = Titre          = ...
+% vsep         = EspacementV    = 0.5\baselineskip
+% num color    = CouleurNombres = {orange!75!black}
+% color        = Couleur        = red
+% carbon icons = IconesCarbon   = ...
+% ----------------------------------------------------------------------------
+\end{myprestexcode}
+
+\begin{myprestex}{Environment python code piton}{Environnement code python piton}
+\begin{pflpitoncode}%
+	[gobble=tabs,width=12cm,style=lightcarbon]{}
+def f(x) :
+	return x**2
+\end{pflpitoncode}
+\end{myprestex}
+
+\begin{myprestexcode}{Console python piton}{Console python piton}
+\begin{pflpitonconsole}[<keys>]{tcbox options} ... \end{pflpitonconsole}
+\begin{ConsolePiton}[<clés>]{options tcbox}    ... \end{ConsolePiton}
+
+% --- [keys/clés] ------------------------------------------------------------
+% logo            = Logo            = true
+% width           = Largeur         = \linewidth
+% align           = Alignement      = {flush left}
+% num color       = CouleurNombres  = {orange!75!black}
+% beforeafter sep = CoeffAvantApres = 0.75
+% ----------------------------------------------------------------------------
+\end{myprestexcode}
+
+\begin{myprestex}{Console python piton}{Console python piton}
+\begin{pflpitonconsole}{}
+1+1
+2**10
+\end{pflpitonconsole}
+\end{myprestex}
+
+\begin{myprestexcode}{Thonny piton}{Thonny piton}
+\begin{pflpitonthonnyeditor}[<keys>]{...}...\end{pflpitonthonnyeditor}
+\begin{PitonThonnyEditor}[<clés>]{...}...\end{PitonThonnyEditor}
+\pflpitonthonnyeditorfile[<keys>]{...}
+\PitonThonnyEditorFichier[<clés>]{...}
+
+% --- [keys/clés] ------------------------------------------------------------
+% filename     = NomFichier     = {script.py}
+% consolename  = NomConsole     = console
+% gobble       = Gobble         = {}
+% num color    = CouleurNombres = {orange!75!black}
+% width        = Largeur        = \linewidth
+% ----------------------------------------------------------------------------
+\end{myprestexcode}
+
+\begin{myprestex}{Thonny piton}{Thonny piton}
+\begin{pflpitonthonnyeditor}[NomFichier=tpcapytale.py,Largeur=12cm]{}
+nb = int(input("n = "))
+if (nb %7 == 0) :
+	print(f"{nb} is ok")
+#endif
+
+def f(x) :
+	return x**2
+\end{pflpitonthonnyeditor}
+\end{myprestex}
+
+\begin{myprestexcode}{Thonny console piton}{Thonny console piton}
+\begin{pflpitonthonnyconsole}[<keys>]{tcbox} ... \end{pflpitonthonnyconsole}
+\begin{PitonThonnyConsole}[<clés>]{tcbox} ...    \end{PitonThonnyConsole}
+
+% --- [keys/clés] ------------------------------------------------------------
+% filename      = NomFichier      = {script.py}
+% consolename   = NomConsole      = console
+% console intro = IntroConsole    = {Python 3.11.6 /usr/bin/python}
+% gobble        = Gobble          = {}
+% num color     = CouleurNombres  = {orange!75!black}
+% width         = Largeur         = \linewidth
+% ----------------------------------------------------------------------------
+\end{myprestexcode}
+
+\begin{myprestex}{Thonny console piton}{Thonny console piton}
+\begin{pflpitonthonnyconsole}[consolename={python 3.8.10},width=12cm]{}
+#Run script.py
+from random import randint
+nb1 = randint(1,100000)
+nb2= randint(1,100000)
+print(nb1, nb2)
+\end{pflpitonthonnyconsole}
+\end{myprestex}
+
+\subsection{Pseudo-Code}
+
+\begin{myprestexcode}{Environment pseudocode piton}{Environnement pseudocode piton}
+\begin{pflpseudocodepiton}[<keys>]{tcbox} ... \end{pflpseudocodepiton}
+\begin{PseudoCodePiton}[<clés>]{tcbox}    ... \end{PseudoCodePiton}
+\pflpitonpseudocodefile[<keys>]{tcbox}
+\PseudoCodePitonFichier[<clés>]{tcbox}
+
+% --- [keys/clés] ------------------------------------------------------------
+% width       = Largeur      = \linewidth
+% align       = Alignement   = center
+% lines       = Lignes       = true
+% gobble      = Gobble       = {}
+% font size   = TaillePolice = \footnotesize
+% watermark   = Filigrane    = false
+% style       = Style        = Classique
+% border      = Cadre        = true
+% title bar   = BarreTitre   = true
+% title       = Titre        = ...
+% vsep        = EspacementV  = 0.5\baselineskip
+% color       = Couleurs     = true
+% ----------------------------------------------------------------------------
+\end{myprestexcode}
+
+\begin{myprestex}{Environment pseudocode piton}{Environnement pseudocode piton}
+%in french...
+\begin{PseudoCodePiton}[Lignes=false,Filigrane=false,Couleurs=true]{}
+Algorithme : Périmètre de rectangles
+Variables  : Long, Larg, Perim (réels)
+             Choix (chaîne) # pour refaire ou non l'exécution
+Début
+	# initialisation de l'indicateur pour entrer dans la boucle
+	Choix ← "o"
+	# boucle TantQue permettant de refaire le traitement selon le choix
+	TantQue Choix = "o" Faire
+		# traitement
+		Afficher("Donner les dimensions du rectangle") et Saisir(Long,Larg)
+		Perim ← 2 × (Long + Larg)
+		Afficher("Le périmètre du rectangle est", Perim)
+		#saisie du choix de recommencer ou non
+	Afficher("Voulez-vous continuer (o/n) ?") et Saisir(Choix)
+	FinTantQue
+Fin
+\end{PseudoCodePiton}
+\end{myprestex}
+
+%\newpage
+%
+%\section{Geometry}
+
+\newpage
+
+\section{Statistics, probabilities}
+
+\subsection{Statistics}
+
+\begin{myprestexcode}{Stats parameters}{Paramètres stats}
+\DeterminerParamStats(*){liste}[\macromin]...[\macromax]
+\pflparamstats(*){liste}[\macromin]...[\macromax]
+
+% --- (starred) --------------------------------------------------------------
+% * for data with regroupment
+% ----------------------------------------------------------------------------
+\end{myprestexcode}
+
+\begin{myprestex}{Stats parameters}{Paramètres stats}
+\def\listedonnees%
+{0.7426,0.7429,0.7435,0.7448,0.7456,0.7478,%
+	0.7478,0.748,0.7487,0.7494,0.7494,0.7496}
+\pflparamstats{\listedonnees}
+\monmin/\monquartileun/\mamediane/\monquartiletrois/\monmax
+\end{myprestex}
+
+\subsection{Probabilities}
+
+\begin{myprestexcode}{Proba tree}{Arbre de probas}
+\pflprobtree[<keys>]{data}
+\ArbreProbasTikz[<clés>]{donnees}
+\pflarbreprobas[<clés>]{donnees}
+
+% --- [keys/clés] ------------------------------------------------------------
+% unit           = Unite          = 1cm
+% level sep      = EspaceNiveau   = 3.25
+% child sep      = EspaceFeuille  = 1
+% type           = Type           = 2x2
+% font           = Police         = ...
+% prob font      = PoliceProbas   = ...
+% sloped         = InclineProbas  = true
+% arrows         = Fleche         = false
+% arc style      = StyleTrait     = {}
+% arc thickness  = EpaisseurTrait = semithick
+% prob pos       = PositionProbas = {}
+% bg color       = CouleurFond    = white
+% arc color      = CouleurTraits  = black
+% prob color     = CouleurProbas  = black
+% node color     = CouleurNoeuds  = black
+% root           = Racine         = {}
+% ----------------------------------------------------------------------------
+\end{myprestexcode}
+
+\begin{myprestex}{Proba tree}{Arbre de probas}
+\def\ArbreDeuxDeux{
+  $A$/\num{0.5}/,
+  $B$/\num{0.4}/,
+  $\overline{B}$/.../,
+  $\overline{A}$/.../,
+  $B$/.../,
+  $\overline{B}$/$\frac{1}{3}$/
+}
+\pflprobtree{\ArbreDeuxDeux}
+\end{myprestex}
+\subsection{Random}
+
+\begin{myprestexcode}{Randint}{Randint}
+\pflrandnum[n]{a}{b}{macro}
+\NbAlea[n]{a}{b}{macro}
+\pflnbalea[n]{a}{b}{macro}
+\end{myprestexcode}
+
+\begin{myprestexcode}{Rand number}{Nombre aléatoire}
+\pflvarrandnum{macro}{calculs}
+\VarNbAlea{macro}{calculs}
+\pflvarnbalea{macro}{calculs}
+\end{myprestexcode}
+
+\begin{myprestex}{Randint/randnum}{Randint/randum}
+Integer between 1 and 50: \pflrandnum{1}{50}{\FirstNbAlea}
+\FirstNbAlea
+
+\pflvarrandnum{\SecondNbAlea}{\FirstNbAlea+randint(0,10)}
+\SecondNbAlea
+
+Float between 0 and 10.999... : \pflrandnum[3]{0}{10}{\FirstFloatAlea}
+\FirstFloatAlea
+\end{myprestex}
+
+\begin{myprestexcode}{Randint list}{Liste d'entiers aléatoires}
+\pflrandintnumbers[<keys>]{macro}
+\TirageAleatoireEntiers[<clés>]{macro}
+\pfltiragealeaent[<clés>]{macro}
+
+% --- [keys/clés] ------------------------------------------------------------
+% min value  = ValMin     = 1
+% max value  = ValMax     = 50
+% nb values  = NbVal      = 6
+% sep        = Sep        = {,}
+% sort       = Tri        = non
+% repeat     = Repetition = false
+% ----------------------------------------------------------------------------
+\end{myprestexcode}
+
+\begin{myprestex}{Randint list}{Liste d'entiers aléatoires}
+\pflrandintnumbers{\FirstListAlea}\FirstListAlea
+\end{myprestex}
+
+\begin{myprestexcode}{Choice tree}{Arbre "sans remise"}
+\pflchoicetree[<keys>]<tikz options>{list}
+\ArbreChoix[clés]<options tikz>{liste}
+\pflarbrechoix[<clés>]<options tikz>{liste}
+
+% --- [keys/clés] ------------------------------------------------------------
+% level sep    = EspaceNiveaux   = 2.25
+% child sep    = EspaceFeuilles  = 0.5
+% scale        = Echelle         = 1
+% repeat       = Repet           = {}
+% help         = Notice          = {}
+% help rules   = TraitsNotice    = false
+% level color  = CouleursNiveaux = black
+% show results = AffResultats    = false
+% result sep   = SepResultats    = {}
+% ----------------------------------------------------------------------------
+\end{myprestexcode}
+
+\begin{myprestex}{Choice tree}{Arbre "sans remise"}
+\pflchoicetree{C/S,P/M/G,N/B}
+\end{myprestex}
+
+\begin{myprestexcode}{Tree no repeating}{Arbre "sans remise"}
+\pflchoicetreenorepl<tikz options>{list}
+\ArbreChoixSansRemise[clés]<options tikz>{liste}
+\pflarbrechoixssremise[<clés>]<options tikz>{liste}
+
+% --- [keys/clés] ------------------------------------------------------------
+% level sep    = EspaceNiveaux   = 2.25
+% child sep    = EspaceFeuilles  = 0.5
+% scale        = Echelle         = 1
+% repeat       = Repet           = {}
+% help         = Notice          = {}
+% help rules   = TraitsNotice    = false
+% level color  = CouleursNiveaux = black
+% show results = AffResultats    = false
+% result sep   = SepResultats    = {}
+% ----------------------------------------------------------------------------
+\end{myprestexcode}
+
+\begin{myprestex}{Tree no repeating}{Arbre "sans remise"}
+\pflchoicetreenorepl[level color={gray,olive,red,blue}]{1,3,5,7}
+\end{myprestex}
+
+\newpage
+
+\section{Analytical geometry}
+
+\subsection{Cartesian equation of a plane}
+
+\begin{myprestexcode}{Cartesian equation of plane}{Équation cartésienne d'un plan}
+\pflcartplaneq[keys](normal vect)(point)
+%or
+\pflcartplaneq[keys](dir vect 1)(dir vect 2)(point)
+%or
+\pflcartplaneq[keys](point1)(point2)(point3)
+
+\TrouveEqCartPlan[keys]......
+
+% --- [keys/clés] ------------------------------------------------------------
+% coeff fmt    = OptionCoeffs  = d
+% simpl coeffs = SimplifCoeffs = false
+% factor       = Factor        = true
+% ----------------------------------------------------------------------------
+\end{myprestexcode}
+
+\begin{myprestex}{Cartesian equation of plane}{Équation cartésienne d'un plan}
+$\pflcartplaneq(1;2;3)(4,5,6)$\\
+$\pflcartplaneq(1/2;2/3;3/5)(4,5,6)$ or
+$\pflcartplaneq[simpl coeffs](1/2;2/3;3/5)(4,5,6)$\\
+$\pflcartplaneq(2,0,1)(3,1,1)(1,-2,0)$
+\end{myprestex}
+
+\subsection{Cartesian equation of a sphere}
+
+\begin{myprestexcode}{Cartesian equation of sphere}{Équation cartésienne d'une sphère}
+\pfleqsphere[keys](point)(radius or diam point or cart plan)
+\TrouveEqSphere[clés](point)(rayon ou diamètre ou éq cart)
+
+% --- [keys/clés] ------------------------------------------------------------
+% coeff fmt    = OptionCoeffs  = d
+% simpl coeffs = SimplifCoeffs = false
+% diameter     = Diam          = false
+% expand       = Develop       = true
+% sort         = Sort          = true
+% ----------------------------------------------------------------------------
+\end{myprestexcode}
+
+\begin{myprestex}{Cartesian equation of sphere}{Équation cartésienne d'une sphère}
+%center + radius
+$\pfleqsphere(1,1,1)(2)$\\
+$\pfleqsphere[expand=false](1,1,1)(2)$\\
+$\pfleqsphere[sort=false](1,1,1)(2)$
+\end{myprestex}
+
+\begin{myprestex}{Cartesian equation of sphere}{Équation cartésienne d'une sphère}
+%center + point
+$\pfleqsphere(3,1,4)(0,0,0)$\\
+$\pfleqsphere[expand=false](3,1,4)(0,0,0)$\\
+$\pfleqsphere[sort=false](3,1,4)(0,0,0)$
+\end{myprestex}
+
+\begin{myprestex}{Cartesian equation of sphere}{Équation cartésienne d'une sphère}
+%diameter
+$\pfleqsphere[diameter](3,1,4)(0,0,0)$\\
+$\pfleqsphere[diameter,expand=false](3,1,4)(0,0,0)$\\
+$\pfleqsphere[diameter,sort=false](3,1,4)(0,0,0)$
+\end{myprestex}
+
+\begin{myprestex}{Cartesian equation of sphere}{Équation cartésienne d'une sphère}
+%center + tangent plan
+$\pfleqsphere[](1,2,4)(2x+3y-3z+1=0)$\\
+$\pfleqsphere[expand=false](1,2,4)(2x+3y-3z+1=0)$\\
+$\pfleqsphere[sort=false](1,2,4)(2x+3y-3z+1=0)$
+\end{myprestex}
+
+\newpage
+
+\section{Arithmetic}
+
+\subsection{Conversions}
+
+\begin{myprestexcode}{Conversion to dec}{Conversion en b10}
+\pflconvtodec[keys]{number}
+\pflconvversdec[clés]{nb}
+\ConversionVersDec[clés]{nb}
+
+% --- [keys/clés] ------------------------------------------------------------
+% base from  = BaseDep  = 2
+% show base  = AffBase  = true
+% details    = Details  = true
+% zeros      = Zeros    = true
+% ----------------------------------------------------------------------------
+\end{myprestexcode}
+
+\begin{myprestex}{Conversion to dec}{Conversion en b10}
+$\ConversionVersDec[zeros=false,base from=16]{AC0DC}$
+\end{myprestex}
+
+\begin{myprestexcode}{Conversion from dec}{Conversion depuis b10}
+\pflconvdepuisdix[clés]{nombre}{base arrivée}
+\pflconvfromten[keys]{number}{final basis}
+\ConversionDepuisBaseDix[clés]{nombre}{base arrivée}
+
+% --- [keys/clés] ------------------------------------------------------------
+% color     = Couleur    = red
+% hsep      = DecalH     = 2pt
+% vsep      = DecalV     = 3pt
+% rect      = Rect       = true
+% node      = Noeud      = EEE
+% res color = CouleurRes = false
+% ----------------------------------------------------------------------------
+\end{myprestexcode}
+
+\begin{myprestex}{Conversion from dec}{Conversion depuis b10}
+\ConversionDepuisBaseDix{78}{2}
+\end{myprestex}
+
+\subsection{Prime numbers, PGCD}
+
+\begin{myprestexcode}{Isprime ?}{Est premier ?}
+\pflisprimebool{expr}
+\pflboolestpremier{expr}
+\end{myprestexcode}
+
+\begin{myprestex}{Isprime ?}{Est premier ?}
+\pflisprimebool{25457} and \pflisprimebool{25458}
+\end{myprestex}
+
+\begin{myprestexcode}{Number factor}{Décompo facteurs premiers}
+\pflnumberfact(*){expr}
+\pfldecompnb(*){expr}
+
+% --- (starred) --------------------------------------------------------------
+% * for 1 power
+% ----------------------------------------------------------------------------
+\end{myprestexcode}
+
+\begin{myprestex}{Number factor}{Décompo facteurs premiers}
+$24458=\pflnumberfact{24458}=\pflnumberfact*{24458}$
+\end{myprestex}
+
+\begin{myprestexcode}{Gcd presentation}{Présentation PGCD}
+\pflprespgcd[keys]{a}{b}
+\PresentationPGCD[clés]{a}{b}
+
+% --- [keys/clés] ------------------------------------------------------------
+% color      = Couleur            = red
+% rect sep   = DecalRect          = 2pt
+% rect       = Rectangle          = true
+% node       = Noeud              = FFF
+% res color  = CouleurResultat    = false
+% disp ccl   = AfficheConclusion  = true
+% disp delim = AfficheDelimiteurs = true
+% ----------------------------------------------------------------------------
+\end{myprestexcode}
+
+\begin{myprestex}{Gcd presentation}{Présentation PGCD}
+\pflprespgcd[res color,color=CouleurVertForet]{1250}{450}.
+\end{myprestex}
+
+\subsection{Divisors}
+
+\begin{myprestexcode}{Tree divisors}{Arbre des diviseurs}
+\pfltreediv[keys]<tikz options>{expr}
+\pflarbrediv[clés]<options tikz>{expr}
+\ArbreDiviseurs[clés]<options tikz>{expr}
+
+% --- [keys/clés] ------------------------------------------------------------
+% level sep     = EspaceNiveau   = 2.25
+% child sep     = EspaceFeuille  = 0.66
+% details       = Details        = true
+% details color = CouleurDetails = red
+% scale         = Echelle        = 1
+% arrows        = Fleches        = true
+% ----------------------------------------------------------------------------
+\end{myprestexcode}
+
+\begin{myprestex}{Tree divisors}{Arbre des diviseurs}
+\pfltreediv{60}
+\end{myprestex}
+
+\subsection{Prime decomposition}
+
+\begin{myprestexcode}{Prime decomposition}{Décomposition d'un entier}
+\pflfactornb[keys]{number}
+\DecompFactPremiers[clés]{nombre}
+
+% --- [keys/clés] ------------------------------------------------------------
+% long      = Longue         = false
+% onepower  = PuissanceUn    = false
+% ----------------------------------------------------------------------------
+\end{myprestexcode}
+
+\begin{myprestex}{Prime decomposition}{Décomposition d'un entier}
+\pflfactornb{2781240}\\
+\pflfactornb[onepower]{2781240}\\
+\pflfactornb[long]{2781240}
+\end{myprestex}
+
+\begin{myprestexcode}{Prime presentation}{Présentation de la décomposition}
+\pflprimefactpres[keys]{number}
+\pflpresfactprem[clés]{nombre}
+\PresFactPremiers[clés]{nombre}
+
+% --- [keys/clés] ------------------------------------------------------------
+% rulecolor = CouleurTrait   = black
+% rulethick = EpaisseurTrait = 0.4pt
+% endbox    = EncadreFin     = false
+% ----------------------------------------------------------------------------
+\end{myprestexcode}
+
+\begin{myprestex}{Prime presentation}{Présentation de la décomposition}
+\pflprimefactpres{2781240}\\
+\pflprimefactpres[endbox,rulecolor=red,rulethick=0.8pt]{2781240}
+\end{myprestex}
+
+\subsection{Miscellaneous}
+
+\begin{myprestexcode}{Period fraction}{Fraction pédiodique}
+\pflperiodfraction[keys]{before period}{period}
+\pflfracperiod[clés]{avant période}{période}
+\FractionPeriode[clés]{avant période}{période}
+
+% --- [keys/clés] ------------------------------------------------------------
+% statement = Enonce   = true
+% d                    = true
+% unknown   = Inconnue = x
+% sol       = Solution = false
+% raw       = Brut     = true
+% simple    = Simple   = false
+% ----------------------------------------------------------------------------
+\end{myprestexcode}
+
+\begin{myprestex}{Period fraction}{Fraction pédiodique}
+\pflperiodfraction[sol]{45.1}{23}
+\end{myprestex}
+
+\newpage
+
+\section{Recreations}
+
+\subsection{Fractals}
+
+\begin{myprestexcode}{Fractals, with \TikZ}{Fractales, avec \TikZ}
+\pfltkzfractal[type=...,<keys>]<tikZ options>
+\FractaleTikz[Type=...,<clés>]<options tikz>
+\pflfractaltikz[Type=.,<clés>]<options tikz>
+
+% --- [type] -----------------------------------------------------------------
+% type        = Type         = Koch or Sierp
+%
+% --- [keys/clés] ------------------------------------------------------------
+% thickness   = Epaisseur    = 0.6pt
+% color       = Couleur      = black
+% side width  = LongueurCote = 3
+% step        = Etape        = 1
+% fill        = Remplir      = false
+% fill style  = Remplissage  = lightgray
+% start       = Depart       = {(0,0)}
+% v align     = AlignV       = false
+% offset      = Offset       = 2pt
+% ----------------------------------------------------------------------------
+\end{myprestexcode}
+
+\begin{myprestex}{Fractals, with \TikZ}{Fractales, avec \TikZ}
+\pfltkzfractal[type=Koch]
+\pfltkzfractal[type=Sierp]
+\end{myprestex}
+
+\subsection{House of cards}
+
+\begin{myprestexcode}{House of cards}{Château de cartes}
+\pflhouseofcards[keys]{levels}<tikz options>
+\pflchateaucartes[clés]{étages}<options tikz>
+\ChateauCartes[clés]{étages}<options tikz>
+
+% --- [keys/clés] ------------------------------------------------------------
+% scale       = Echelle       = 1
+% deco color  = CouleurDeco   = black
+% rounded     = Arrondi       = true
+% y angle     = AngleY        = 20
+% x angle     = AngleX        = 8
+% bottom      = Bas           = false
+% legend      = Legende       = false
+% legend font = PoliceLegende = \normalsize\normalfont
+% deco        = Deco          = remplir
+% ----------------------------------------------------------------------------
+\end{myprestexcode}
+
+\begin{myprestex}{House of cards}{Château de cartes}
+\pflhouseofcards[deco color=teal,deco=hatch,scale=2,legend]{4}
+\end{myprestex}
+
+\subsection{Stack of balls}
+
+\begin{myprestexcode}{Stack of balls}{Empilement de balles}
+\pflballstacking[keys]{levels}<tikz options>
+\pflempilballes[clés]{niveaux}<options tikz>
+\EmpilementBalles[clés]{niveaux}<options tikz>
+
+% --- [keys/clés] ------------------------------------------------------------
+% color    = Couleur  = gray
+% rotation = Rotation = -5
+% scale    = Echelle  = 1
+% ----------------------------------------------------------------------------
+\end{myprestexcode}
+
+\begin{myprestex}{Stack of balls}{Empilement de balles}
+\pflballstacking[scale=0.33,color=red]{3-8}
+\end{myprestex}
+
+%\newpage
+
+%\section{Index}
+
+%\printindex
+\end{document}

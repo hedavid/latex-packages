@@ -1,0 +1,12 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c}{\PYGZpc{}un nombre (2 chiffres après la virgule) entre 0.75 et 0.95}
+\PYG{c}{\PYGZpc{}un nombre (2 chiffres après la virgule) entre 0.05 et 0.25}
+\PYG{c}{\PYGZpc{}un nombre (2 chiffres après la virgule) entre 0.55 et \PYGZbs{}YrandMax}
+\PYG{c}{\PYGZpc{}un nombre (2 chiffres après la virgule) entre \PYGZbs{}YrandMin et 0.45}
+\PYG{k}{\PYGZbs{}ChoisirNbAlea}\PYG{n+na}{[2]}\PYG{n+nb}{\PYGZob{}}0.75\PYG{n+nb}{\PYGZcb{}\PYGZob{}}0.95\PYG{n+nb}{\PYGZcb{}}[\PYG{k}{\PYGZbs{}YrandMax}]\PYG{c}{\PYGZpc{}}
+\PYG{k}{\PYGZbs{}ChoisirNbAlea}\PYG{n+na}{[2]}\PYG{n+nb}{\PYGZob{}}0.05\PYG{n+nb}{\PYGZcb{}\PYGZob{}}0.25\PYG{n+nb}{\PYGZcb{}}[\PYG{k}{\PYGZbs{}YrandMin}]\PYG{c}{\PYGZpc{}}
+\PYG{k}{\PYGZbs{}ChoisirNbAlea*}\PYG{n+na}{[2]}\PYG{n+nb}{\PYGZob{}}0.55\PYG{n+nb}{\PYGZcb{}\PYGZob{}}\PYG{k}{\PYGZbs{}YrandMax}\PYG{n+nb}{\PYGZcb{}}[\PYG{k}{\PYGZbs{}YrandA}]\PYG{c}{\PYGZpc{}}
+\PYG{k}{\PYGZbs{}ChoisirNbAlea*}\PYG{n+na}{[2]}\PYG{n+nb}{\PYGZob{}}\PYG{k}{\PYGZbs{}YrandMin}\PYG{n+nb}{\PYGZcb{}\PYGZob{}}0.45\PYG{n+nb}{\PYGZcb{}}[\PYG{k}{\PYGZbs{}YrandB}]\PYG{c}{\PYGZpc{}}
+\PYG{c}{\PYGZpc{}vérification}
+\PYG{k}{\PYGZbs{}num}\PYG{n+nb}{\PYGZob{}}\PYG{k}{\PYGZbs{}YrandMax}\PYG{n+nb}{\PYGZcb{}} \PYG{k}{\PYGZbs{}\PYGZam{}} \PYG{k}{\PYGZbs{}num}\PYG{n+nb}{\PYGZob{}}\PYG{k}{\PYGZbs{}YrandMin}\PYG{n+nb}{\PYGZcb{}} \PYG{k}{\PYGZbs{}\PYGZam{}} \PYG{k}{\PYGZbs{}num}\PYG{n+nb}{\PYGZob{}}\PYG{k}{\PYGZbs{}YrandA}\PYG{n+nb}{\PYGZcb{}} \PYG{k}{\PYGZbs{}\PYGZam{}} \PYG{k}{\PYGZbs{}num}\PYG{n+nb}{\PYGZob{}}\PYG{k}{\PYGZbs{}YrandB}\PYG{n+nb}{\PYGZcb{}}
+\end{Verbatim}

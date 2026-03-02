@@ -1,0 +1,14 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c}{\PYGZpc{}personnalisations}
+\PYG{k}{\PYGZbs{}TablCouleursPixelArt*}\PYG{n+na}{[Largeur=3cm/]}\PYG{n+nb}{\PYGZob{}}\PYG{c}{\PYGZpc{}}
+	Marron/BrunIntense/Blanc/75,\PYG{c}{\PYGZpc{}}
+	\PYG{n+nb}{\PYGZob{}}Gris Clair\PYG{n+nb}{\PYGZcb{}}/GrisClair/Noir/\PYG{n+nb}{\PYGZob{}}112,5\PYG{n+nb}{\PYGZcb{}},\PYG{c}{\PYGZpc{}}
+	Vert Clair/VertClair/Noir/600,\PYG{c}{\PYGZpc{}}
+	Noir/Noir/Blanc/9,\PYG{c}{\PYGZpc{}}
+	Beige/Beige/Noir/15,\PYG{c}{\PYGZpc{}}
+	Gris foncé/GrisFonce/Noir/\PYG{n+nb}{\PYGZob{}}202,5\PYG{n+nb}{\PYGZcb{}},\PYG{c}{\PYGZpc{}}
+	Bleu clair/BleuClair/Noir/288,\PYG{c}{\PYGZpc{}}
+	Vert foncé/VertFonce/Blanc/10,\PYG{c}{\PYGZpc{}}
+	Blanc/Blanc/Noir/55\PYG{c}{\PYGZpc{}}
+\PYG{n+nb}{\PYGZcb{}}
+\end{Verbatim}

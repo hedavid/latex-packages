@@ -1,0 +1,32 @@
+\babel@toc {english}{}\relax 
+\contentsline {section}{\numberline {1}Loading, global usage}{3}{section.1}%
+\contentsline {subsection}{\numberline {1.1}Loading}{3}{subsection.1.1}%
+\contentsline {subsection}{\numberline {1.2}Global usage}{3}{subsection.1.2}%
+\contentsline {section}{\numberline {2}Core mathematical utilities}{4}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Main macros}{4}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}Simple conversion between basis}{4}{subsection.2.2}%
+\contentsline {section}{\numberline {3}Analysis}{5}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Functions}{5}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}Sequences}{7}{subsection.3.2}%
+\contentsline {subsection}{\numberline {3.3}Integrals}{8}{subsection.3.3}%
+\contentsline {subsection}{\numberline {3.4}Signs, convexity}{9}{subsection.3.4}%
+\contentsline {section}{\numberline {4}Code presentation}{11}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Python Code}{11}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}Pseudo-Code}{14}{subsection.4.2}%
+\contentsline {section}{\numberline {5}Statistics, probabilities}{15}{section.5}%
+\contentsline {subsection}{\numberline {5.1}Statistics}{15}{subsection.5.1}%
+\contentsline {subsection}{\numberline {5.2}Probabilities}{15}{subsection.5.2}%
+\contentsline {subsection}{\numberline {5.3}Random}{16}{subsection.5.3}%
+\contentsline {section}{\numberline {6}Analytical geometry}{19}{section.6}%
+\contentsline {subsection}{\numberline {6.1}Cartesian equation of a plane}{19}{subsection.6.1}%
+\contentsline {subsection}{\numberline {6.2}Cartesian equation of a sphere}{19}{subsection.6.2}%
+\contentsline {section}{\numberline {7}Arithmetic}{21}{section.7}%
+\contentsline {subsection}{\numberline {7.1}Conversions}{21}{subsection.7.1}%
+\contentsline {subsection}{\numberline {7.2}Prime numbers, PGCD}{21}{subsection.7.2}%
+\contentsline {subsection}{\numberline {7.3}Divisors}{22}{subsection.7.3}%
+\contentsline {subsection}{\numberline {7.4}Prime decomposition}{23}{subsection.7.4}%
+\contentsline {subsection}{\numberline {7.5}Miscellaneous}{24}{subsection.7.5}%
+\contentsline {section}{\numberline {8}Recreations}{26}{section.8}%
+\contentsline {subsection}{\numberline {8.1}Fractals}{26}{subsection.8.1}%
+\contentsline {subsection}{\numberline {8.2}House of cards}{26}{subsection.8.2}%
+\contentsline {subsection}{\numberline {8.3}Stack of balls}{27}{subsection.8.3}%

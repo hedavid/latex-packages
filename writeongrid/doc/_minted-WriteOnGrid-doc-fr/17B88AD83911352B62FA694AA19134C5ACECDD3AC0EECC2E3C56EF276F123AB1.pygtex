@@ -1,0 +1,11 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k}{\PYGZbs{}begin}\PYG{n+nb}{\PYGZob{}}EnvQuadrillage\PYG{n+nb}{\PYGZcb{}}[NbCarreaux=36x8]
+	\PYG{k}{\PYGZbs{}EcrireLigne}\PYG{n+nb}{\PYGZob{}}mon texte sur la ligne 1\PYG{k}{\PYGZbs{}ldots}\PYG{n+nb}{\PYGZcb{}}
+	\PYG{k}{\PYGZbs{}EcrireLigne}\PYG{n+na}{[Echelle=1.25]}\PYGZlt{}center\PYGZgt{}\PYG{n+nb}{\PYGZob{}}\PYG{k}{\PYGZbs{}ttfamily} mon texte, en fonte teletype +25\PYG{k}{\PYGZbs{},\PYGZbs{}\PYGZpc{}}, centré sur la ligne 2\PYG{k}{\PYGZbs{}ldots}\PYG{n+nb}{\PYGZcb{}}
+	\PYG{k}{\PYGZbs{}EcrireLigne}\PYGZlt{}right\PYGZgt{}\PYG{n+nb}{\PYGZob{}}mon texte aligné à droite sur la ligne 3\PYG{k}{\PYGZbs{}ldots}\PYG{n+nb}{\PYGZcb{}}
+	\PYG{k}{\PYGZbs{}EcrireLigne}\PYG{n+na}{[DecalV=0.1]}\PYG{n+nb}{\PYGZob{}}\PYG{k}{\PYGZbs{}textcolor}\PYG{n+nb}{\PYGZob{}}red\PYG{n+nb}{\PYGZcb{}\PYGZob{}}mon texte rouge sur la ligne 4, décalé de 1mm vers le haut\PYG{k}{\PYGZbs{}ldots}\PYG{n+nb}{\PYGZcb{}\PYGZcb{}}
+	\PYG{k}{\PYGZbs{}PasseLigne}
+	\PYG{k}{\PYGZbs{}EcrireLigne}\PYG{n+na}{[Echelle=0.5]}\PYG{n+nb}{\PYGZob{}}\PYG{k}{\PYGZbs{}sffamily} mon texte, en fonte sans réduite de 50\PYG{k}{\PYGZbs{},\PYGZbs{}\PYGZpc{}}, sur la ligne 6\PYG{k}{\PYGZbs{}ldots}\PYG{n+nb}{\PYGZcb{}}
+	\PYG{k}{\PYGZbs{}EcrireLigne}\PYG{n+na}{[DecalH=3]}\PYG{n+nb}{\PYGZob{}}\PYG{k}{\PYGZbs{}cursive} mon texte sur la ligne 7, décalé de 3 carreaux\PYG{k}{\PYGZbs{}ldots}\PYG{n+nb}{\PYGZcb{}}
+\PYG{k}{\PYGZbs{}end}\PYG{n+nb}{\PYGZob{}}EnvQuadrillage\PYG{n+nb}{\PYGZcb{}}
+\end{Verbatim}

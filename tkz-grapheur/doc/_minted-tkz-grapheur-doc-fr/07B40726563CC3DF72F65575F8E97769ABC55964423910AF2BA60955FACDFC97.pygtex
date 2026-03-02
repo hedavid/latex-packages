@@ -1,0 +1,4 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c}{\PYGZpc{}dans l\PYGZsq{}environnement GraphiqueTikz}
+\PYG{k}{\PYGZbs{}SimulerMonteCarlo}\PYG{n+na}{[clés]}\PYGZlt{}fonction\PYGZgt{}\PYG{n+nb}{\PYGZob{}}nb essais\PYG{n+nb}{\PYGZcb{}}[\PYG{k}{\PYGZbs{}nbptsmcok}][\PYG{k}{\PYGZbs{}nbptsmcko}]
+\end{Verbatim}

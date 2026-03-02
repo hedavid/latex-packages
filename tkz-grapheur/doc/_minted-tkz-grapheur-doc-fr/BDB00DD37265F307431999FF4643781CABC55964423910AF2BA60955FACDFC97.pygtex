@@ -1,0 +1,6 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c}{\PYGZpc{}dans l\PYGZsq{}environnement GraphiqueTikz}
+\PYG{k}{\PYGZbs{}RecupererAbscisse}\PYG{n+nb}{\PYGZob{}}nœud\PYG{n+nb}{\PYGZcb{}}[\PYG{k}{\PYGZbs{}macrox}]
+\PYG{k}{\PYGZbs{}RecupererOrdonnee}\PYG{n+nb}{\PYGZob{}}nœud\PYG{n+nb}{\PYGZcb{}}[\PYG{k}{\PYGZbs{}macroy}]
+\PYG{k}{\PYGZbs{}RecupererCoordonnees}\PYG{n+nb}{\PYGZob{}}nœud\PYG{n+nb}{\PYGZcb{}}[\PYG{k}{\PYGZbs{}macrox}][\PYG{k}{\PYGZbs{}macroy}]
+\end{Verbatim}

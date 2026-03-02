@@ -1,0 +1,4 @@
+\begin{MintedVerbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
+\PYG{k}{\PYGZbs{}setlength\PYGZbs{}tkzintervhoriz}\PYG{n+nb}{\PYGZob{}}length\PYG{n+nb}{\PYGZcb{}}   \PYG{c}{\PYGZpc{}brackets width        (5pt)}
+\PYG{k}{\PYGZbs{}setlength\PYGZbs{}tkzintervwidth}\PYG{n+nb}{\PYGZob{}}length\PYG{n+nb}{\PYGZcb{}}   \PYG{c}{\PYGZpc{}brackets thickness  (0.7pt)}
+\end{MintedVerbatim}

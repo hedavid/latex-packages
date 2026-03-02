@@ -1,0 +1,24 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c}{\PYGZpc{} Cardioïde  r = 1 + cos(theta)}
+\PYG{k}{\PYGZbs{}begin}\PYG{n+nb}{\PYGZob{}}GraphiqueTikz\PYG{n+nb}{\PYGZcb{}}[Xmin=\PYGZhy{}1.5,Xmax=2.5,Ymin=\PYGZhy{}1.5,Ymax=1.5]
+	\PYG{k}{\PYGZbs{}TracerAxesGrilles}\PYG{n+na}{[Elargir=2.5mm]}\PYG{n+nb}{\PYGZob{}\PYGZcb{}\PYGZob{}\PYGZcb{}} \PYG{c}{\PYGZpc{}grille cartésienne}
+	\PYG{k}{\PYGZbs{}TracerCourbePol}\PYG{n+na}{[Couleur=blue,Debut=0,Fin=6.28]}\PYG{n+nb}{\PYGZob{}}1+cos(theta)\PYG{n+nb}{\PYGZcb{}}
+\PYG{k}{\PYGZbs{}end}\PYG{n+nb}{\PYGZob{}}GraphiqueTikz\PYG{n+nb}{\PYGZcb{}}
+\PYG{c}{\PYGZpc{} Rose à 4 pétales  r = cos(2theta)}
+\PYG{k}{\PYGZbs{}begin}\PYG{n+nb}{\PYGZob{}}GraphiqueTikz\PYG{n+nb}{\PYGZcb{}}[Xmin=\PYGZhy{}1.5,Xmax=1.5,Ymin=\PYGZhy{}1.5,Ymax=1.5]
+	\PYG{k}{\PYGZbs{}TracerAxesGrilles}\PYG{n+na}{[Elargir=2.5mm]}\PYG{n+nb}{\PYGZob{}\PYGZcb{}\PYGZob{}\PYGZcb{}} \PYG{c}{\PYGZpc{}grille cartésienne}
+	\PYG{k}{\PYGZbs{}TracerCourbePol}\PYG{n+na}{[Couleur=red,Debut=0,Fin=6.28]}\PYG{n+nb}{\PYGZob{}}cos(2*theta)\PYG{n+nb}{\PYGZcb{}}
+\PYG{k}{\PYGZbs{}end}\PYG{n+nb}{\PYGZob{}}GraphiqueTikz\PYG{n+nb}{\PYGZcb{}}
+\PYG{c}{\PYGZpc{} Spirale d\PYGZsq{}Archimède  r = theta/4}
+\PYG{k}{\PYGZbs{}begin}\PYG{n+nb}{\PYGZob{}}GraphiqueTikz\PYG{n+nb}{\PYGZcb{}}\PYG{c}{\PYGZpc{}}
+		[x=0.5cm,y=0.5cm,Xmin=\PYGZhy{}3,Xmax=3,Ymin=\PYGZhy{}3,Ymax=3,Rmax=3]
+	\PYG{k}{\PYGZbs{}TracerAxesGrillePol}\PYG{n+na}{[Elargir=2.5mm]}\PYG{n+nb}{\PYGZob{}\PYGZcb{}\PYGZob{}\PYGZcb{}} \PYG{c}{\PYGZpc{}grille radiale}
+	\PYG{k}{\PYGZbs{}TracerCourbePol}\PYG{n+na}{[Couleur=teal,Debut=0,Fin=12.56]}\PYG{n+nb}{\PYGZob{}}theta/4\PYG{n+nb}{\PYGZcb{}}
+\PYG{k}{\PYGZbs{}end}\PYG{n+nb}{\PYGZob{}}GraphiqueTikz\PYG{n+nb}{\PYGZcb{}}
+\PYG{c}{\PYGZpc{} Lemniscate de Bernoulli  r² = cos(2theta)}
+\PYG{k}{\PYGZbs{}begin}\PYG{n+nb}{\PYGZob{}}GraphiqueTikz\PYG{n+nb}{\PYGZcb{}}[Xmin=\PYGZhy{}1.5,Xmax=1.5,Ymin=\PYGZhy{}1.5,Ymax=1.5]
+	\PYG{k}{\PYGZbs{}TracerAxesGrilles}\PYG{n+na}{[Elargir=2.5mm]}\PYG{n+nb}{\PYGZob{}\PYGZcb{}\PYGZob{}\PYGZcb{}} \PYG{c}{\PYGZpc{}grille cartésienne}
+	\PYG{k}{\PYGZbs{}TracerCourbePol}\PYG{n+na}{[Couleur=violet,Debut=0,Fin=6.28]}\PYG{c}{\PYGZpc{}}
+		\PYG{n+nb}{\PYGZob{}}sqrt(max(cos(2*theta),0))\PYG{n+nb}{\PYGZcb{}}
+\PYG{k}{\PYGZbs{}end}\PYG{n+nb}{\PYGZob{}}GraphiqueTikz\PYG{n+nb}{\PYGZcb{}}
+\end{Verbatim}

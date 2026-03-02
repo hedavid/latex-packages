@@ -1,0 +1,104 @@
+\title{%
+\begin{minipage}{0.85\linewidth}
+	\begin{tcolorbox}[colframe=yellow,colback=yellow!15]
+		\begin{center}
+			\begin{tabular}{c}
+				\lstinline!ProfLycee!\\
+				\\
+				Quelques \textit{petites} commandes pour  \LaTeX{} (au lycée)
+			\end{tabular}
+		\end{center}
+	\end{tcolorbox}
+\end{minipage}
+}
+\author{
+\begin{tabular}{c}
+	Cédric Pierquet\\
+	{\ttfamily c pierquet -- at -- outlook . fr}\\
+	\texttt{\url{https://github.com/cpierquet/latex-packages/tree/main/proflycee}}
+\end{tabular}
+}
+\date{Version \PLversion{} -- \PLdate}
+
+\newcommand\Cle[1]{{\bfseries\sffamily\textlangle \textcolor{orange!75!black}{#1}\textrangle}}
+\newcommand\deblst{{\tiny\faCode}~}
+
+\begin{document}
+
+\setlength{\aweboxleftmargin}{0.07\linewidth}
+\setlength{\aweboxcontentwidth}{0.93\linewidth}
+\setlength{\aweboxvskip}{8pt}
+
+\pagestyle{fancy}
+
+\maketitle
+
+\thispagestyle{empty}
+
+{\sffamily{\bfseries Résumé} : Quelques commandes pour faciliter l'utilisation de \LaTeX{} pour les mathématiques, au lycée.}
+
+\medskip
+
+{\footnotesize\noindent%
+	{\deblst} résoudre, de manière approchée, des équations\\
+	{\deblst} calculer (et représenter) une valeur approchée d'une intégrale\\
+	{\deblst} présenter du code \textsf{python} ou \textsf{pseudocode}, une console d'exécution \textsf{Python} \\
+	{\deblst} tracer rapidement un pavé, un tétraèdre \\
+	{\deblst} simplifier des calculs sous forme fractionnaire, simplifier des racines \\
+	{\deblst} effectuer des calculs avec des suites récurrentes, créer la \textit{toile} pour une suite récurrente \\
+	{\deblst} afficher et utiliser un cercle trigo \\
+	{\deblst} afficher un petit schéma pour le signe d'une fonction affine ou d'un trinôme \\
+	{\deblst} travailler sur les statistiques à deux variables (algébriques et graphiques) \\
+	{\deblst} tracer un histogramme, avec classes régulières ou non \\
+	{\deblst} convertir entre bin/dec/hex avec détails \\
+	{\deblst} présenter un calcul de PGCD \\
+	{\deblst} effectuer des calculs de probas (lois binomiale, exponentielle, de Poisson, normale) \\
+	{\deblst} créer des arbres de probas \og classiques \fg \\
+	{\deblst} déterminer la mesure principale d'un angle, calculer les lignes trigonométriques d'angles \og classiques \fg{} \\
+	{\deblst} résoudre une équation diophantienne \og classique \fg{} \\
+	{\deblst} travailler avec un peu de géométrie analytique \\
+	{\deblst} composer des mathématiques\\
+	{\deblst} travailler sur des intervalles\\
+	{\deblst} arbre des diviseurs d'un entier\\
+	{\deblst} \ldots
+}
+
+~
+
+\hfill{}\textsl{Merci à Anne et quark67 pour leurs retours et relectures !}
+
+\hfill{}\textsl{Merci à Christophe, Denis et Franck-Olivier pour leurs retours et éclairages !}
+
+\hfill{}\textsl{Merci aux membres du groupe \faFacebook{} du \og Coin \LaTeX{} \fg{} pour leur aide et leurs idées !}
+
+~
+
+\vfill
+
+\hrule
+
+\medskip
+
+\TableauDocumentation
+
+\medskip
+
+\hrule
+
+\vfill
+
+{\small \bverb|v4.00d| : Compléments sur les pages de garde des examens (\pageref{pagegardebac})}
+
+{\small \bverb|v4.00c| : Compléments sur les facteurs premiers (\pageref{facteurspremiers})}
+
+{\small \bverb|v4.00b| : Améliorations dans la traduction + ajout en géométrie analytique (\pageref{eqsphere})}
+
+%{\small \bverb|v4.00a| : Consolidation de macros en \hologo{LaTeX3} + Support \textit{multilangues} en test (\pageref{multilng})}
+
+%{\small \bverb|v3.12f| : Améliorations avec \textsf{piton}}
+
+%{\small \bverb|v3.12e| : Correction d'un bug de couleur avec \textsf{piton}}
+
+\vfill
+
+\hfill{\footnotesize\sffamily\itshape À mon papa.}

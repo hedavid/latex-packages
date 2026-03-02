@@ -1,0 +1,149 @@
+\part{Compétences au lycée}\label{competlycee}
+
+\section{Introduction}
+
+\subsection{Fonctionnement global}
+
+\begin{tipblock}
+L'idée est de proposer des commandes pour insérer, \textit{facilement}, les compétences mathématiques au lycée général ou professionnel.
+
+\smallskip
+
+Les compétences sont celles des documents de travail de l'inspection, et elles peuvent être insérées :
+
+\begin{itemize}
+	\item de manière individuelle ou par type ou toutes ;
+	\item en version raccourcie ;
+	\item avec libellé ou puce.
+\end{itemize}
+\vspace*{-\baselineskip}\leavevmode
+\end{tipblock}
+
+\subsection{Commandes}
+
+\begin{PresCodeTexPL}{listing only}
+%compétences LEGT
+\CompMathsLyc[clés]{choix}
+
+%compétences LPRO
+\CompMathsLycPro[clés]{choix}
+\end{PresCodeTexPL}
+
+\begin{cautionblock}
+Les \Cle{clés} disponibles pour ces commandes sont :
+
+\begin{itemize}
+	\item \Cle{AffCateg} : affichage de la catégorie avant ; \hfill{}défaut \Cle{false}
+	\item \Cle{AffNumero} : affichage du numéro avant ; \hfill{}défaut \Cle{false}
+	\item \Cle{Court} : booléen pour raccourcir la compétence ;\hfill{}défaut \Cle{false}
+	\item \Cle{Puce} : booléen pour afficher une puce avant ;\hfill{}défaut \Cle{false}
+	\item \Cle{TypePuce} : paramétrage de la puce éventuelle.\hfill{}défaut \Cle{\textbackslash{}textbullet~~}
+\end{itemize}
+
+L'argument obligatoire permet quant à lui de choisir les compétences à afficher :
+
+\begin{itemize}
+	\item individuellement via le code \Cle{CATEG/Item} ou \Cle{LYCnumitem} ;
+	\item globalement via le code \Cle{CATEG/Tout} ou \Cle{LYCnum} ;
+	\item toutes via le code\Cle{LYC}.
+\end{itemize}
+\vspace*{-\baselineskip}\leavevmode
+\end{cautionblock}
+
+\subsection{Liste des compétences lycée général et technologique}
+
+\begin{tipblock}
+Le tableau suivant propose les compétences, avec leurs \textit{appels} pour la commande d'insertion.
+
+\begin{tblr}{width=\linewidth,hlines,vlines,colspec={Q[l,m]Q[l,m]X[l,m]},cells={font=\scriptsize}}
+	\textbf{Chercher :} & &  \\
+	\texttt{CH/Analyser} & \texttt{LYC11} & \CompMathsLyc{CH/Analyser} \\
+	\texttt{CH/Extraire} & \texttt{LYC12} & \CompMathsLyc{CH/Extraire} \\
+	\texttt{CH/Observer} & \texttt{LYC13} & \CompMathsLyc{CH/Observer} \\
+	\texttt{CH/Valider} & \texttt{LYC14} & \CompMathsLyc{CH/Valider} \\
+	\textbf{Modéliser :} & &   \\
+	\texttt{MO/Traduire} & \texttt{LYC21} & \CompMathsLyc{MO/Traduire} \\
+	\texttt{MO/Utiliser} & \texttt{LYC22} & \CompMathsLyc{MO/Utiliser} \\
+	\texttt{MO/Valider} & \texttt{LYC23} & \CompMathsLyc{MO/Valider} \\
+	\textbf{Représenter :} & &   \\
+	\texttt{RE/Cadre} & \texttt{LYC31} & \CompMathsLyc{RE/Cadre} \\
+	\texttt{RE/Passer} & \texttt{LYC32} & \CompMathsLyc{RE/Passer} \\
+	\texttt{RE/Registre} & \texttt{LYC33} & \CompMathsLyc{RE/Registre} \\
+	\textbf{Calculer :} & &   \\
+	\texttt{CA/Effectuer} & \texttt{LYC41} & \CompMathsLyc{CA/Effectuer} \\
+	\texttt{CA/Mettre} & \texttt{LYC42} & \CompMathsLyc{CA/Mettre} \\
+	\texttt{CA/Intellig} & \texttt{LYC43} & \CompMathsLyc{CA/Intellig} \\
+	\texttt{CA/Controler} & \texttt{LYC44} & \CompMathsLyc{CA/Controler} \\
+	\textbf{Raisonner :} & &   \\
+	\texttt{RA/Logique} & \texttt{LYC51} & \CompMathsLyc{RA/Logique} \\
+	\texttt{RA/Differencier} & \texttt{LYC52} & \CompMathsLyc{RA/Differencier} \\
+	\texttt{RA/Raisonnement} & \texttt{LYC53} & \CompMathsLyc{RA/Raisonnement} \\
+	\texttt{RA/Inference} & \texttt{LYC54} & \CompMathsLyc{RA/Inference}\\
+	\textbf{Communiquer :} & &   \\
+	\texttt{CO/Operer} & \texttt{LYC61} & \CompMathsLyc{CO/Operer} \\
+	\texttt{CO/Developper} & \texttt{LYC62} & \CompMathsLyc{CO/Developper} \\
+	\texttt{CO/Critiquer} & \texttt{LYC63} & \CompMathsLyc{CO/Critiquer} \\
+	\texttt{CO/Exprimer} & \texttt{LYC64} & \CompMathsLyc{CO/Exprimer} \\
+\end{tblr}
+\end{tipblock}
+
+\subsection{Liste des compétences lycée professionnel}
+
+\begin{tipblock}
+Le tableau suivant propose les compétences, avec leurs \textit{appels} pour la commande d'insertion.
+
+\begin{tblr}{width=\linewidth,hlines,vlines,colspec={Q[l,m]Q[l,m]X[l,m]},cells={font=\scriptsize}}
+	\textbf{S'approprier :} & &  \\
+	\texttt{AP/Rechercher} & \texttt{LYC11} & \CompMathsLycPro{AP/Rechercher} \\
+	\texttt{AP/Traduire} & \texttt{LYC12} & \CompMathsLycPro{AP/Traduire} \\
+	%
+	\textbf{Analyser/Raisonner :} & &  \\
+	\texttt{AR/Emettre} & \texttt{LYC21} & \CompMathsLycPro{AR/Emettre} \\
+	\texttt{AR/Proposer} & \texttt{LYC22} & \CompMathsLycPro{AR/Proposer} \\
+	\texttt{AR/Modele} & \texttt{LYC23} & \CompMathsLycPro{AR/Modele} \\
+	\texttt{AR/Algorithme} & \texttt{LYC24} & \CompMathsLycPro{AR/Algorithme} \\
+	\texttt{AR/Choisir} & \texttt{LYC25} & \CompMathsLycPro{AR/Choisir} \\
+	\texttt{AR/Grandeur} & \texttt{LYC26} & \CompMathsLycPro{AR/Grandeur} \\
+	%
+	\textbf{Réaliser :} & &  \\
+	\texttt{RE/Etapes} & \texttt{LYC31} & \CompMathsLycPro{RE/Etapes} \\
+	\texttt{RE/Modele} & \texttt{LYC32} & \CompMathsLycPro{RE/Modele} \\
+	\texttt{RE/Representer} & \texttt{LYC33} & \CompMathsLycPro{RE/Representer} \\
+	\texttt{RE/Calculer} & \texttt{LYC34} & \CompMathsLycPro{RE/Calculer} \\
+	\texttt{RE/Algorithmes} & \texttt{LYC35} & \CompMathsLycPro{RE/Algorithmes} \\
+	\texttt{RE/Experimenter} & \texttt{LYC36} & \CompMathsLycPro{RE/Experimenter} \\
+	\texttt{RE/Simulation} & \texttt{LYC37} & \CompMathsLycPro{RE/Simulation} \\
+	\texttt{RE/Effectuer} & \texttt{LYC38} & \CompMathsLycPro{RE/Effectuer} \\
+	\texttt{RE/Protocole} & \texttt{LYC39} & \CompMathsLycPro{RE/Protocole} \\
+	\texttt{RE/Organiser} & \texttt{LYC3A} & \CompMathsLycPro{RE/Organiser} \\
+	%
+	\textbf{Valider :} & &  \\
+	\texttt{VA/Exploiter} & \texttt{LYC41} & \CompMathsLycPro{VA/Exploiter} \\
+	\texttt{VA/Valider} & \texttt{LYC42} & \CompMathsLycPro{VA/Valider} \\
+	\texttt{VA/Controler} & \texttt{LYC43} & \CompMathsLycPro{VA/Controler} \\
+	\texttt{VA/Critiquer} & \texttt{LYC44} & \CompMathsLycPro{VA/Critiquer} \\
+	\texttt{VA/Raisonnement} & \texttt{LYC45} & \CompMathsLycPro{VA/Raisonnement} \\
+	%
+	\textbf{Communiquer :} & &  \\
+	\texttt{CO/Rendre} & \texttt{LYC51} & \CompMathsLycPro{CO/Rendre} \\
+	\texttt{CO/Expliquer} & \texttt{LYC22} & \CompMathsLycPro{CO/Expliquer} \\
+\end{tblr}
+\end{tipblock}
+
+\subsection{Exemples}
+
+\begin{PresCodePL}{}
+\CompMathsLyc[Court,Puce]{RE/Tout}
+\end{PresCodePL}
+
+\begin{PresCodePL}{}
+\CompMathsLyc[Court,Puce,TypePuce={---~}]{LYC4}
+\end{PresCodePL}
+
+\begin{PresCodePL}{}
+\CompMathsLycPro[Court,AffNumero]{LYC3}
+\end{PresCodePL}
+
+\begin{PresCodePL}{}
+\CompMathsLyc[Court,Puce,TypePuce={---~~}]{LYC4}
+\end{PresCodePL}

@@ -1,0 +1,79 @@
+\babel@toc {french}{}\relax 
+\contentsline {section}{\numberline {1}Introduction}{4}{section.1}%
+\contentsline {subsection}{\numberline {1.1}Description et idées générales}{4}{subsection.1.1}%
+\contentsline {subsection}{\numberline {1.2}Fonctionnement global}{4}{subsection.1.2}%
+\contentsline {subsection}{\numberline {1.3}Packages utilisés, et options du package}{4}{subsection.1.3}%
+\contentsline {subsection}{\numberline {1.4}Chargement du package}{5}{subsection.1.4}%
+\contentsline {subsection}{\numberline {1.5}Avertissements}{5}{subsection.1.5}%
+\contentsline {subsection}{\numberline {1.6}Exemple introductif}{6}{subsection.1.6}%
+\contentsline {section}{\numberline {2}Styles de base et création de l'environnement}{7}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Styles de base}{7}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}Création de l'environnement}{8}{subsection.2.2}%
+\contentsline {subsubsection}{\numberline {2.2.1}Valeurs manuelles}{8}{subsubsection.2.2.1}%
+\contentsline {subsubsection}{\numberline {2.2.2}Avec choix des dimensions}{10}{subsubsection.2.2.2}%
+\contentsline {subsection}{\numberline {2.3}Grilles et axes}{11}{subsection.2.3}%
+\contentsline {subsubsection}{\numberline {2.3.1}Fonctionnement global}{11}{subsubsection.2.3.1}%
+\contentsline {subsubsection}{\numberline {2.3.2}Thème de couleurs de la grille}{14}{subsubsection.2.3.2}%
+\contentsline {subsection}{\numberline {2.4}Ajout de valeurs manuellement}{15}{subsection.2.4}%
+\contentsline {subsection}{\numberline {2.5}Nœuds liés à la fenêtre et aux axes}{16}{subsection.2.5}%
+\contentsline {section}{\numberline {3}Commandes spécifiques de définitions}{17}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Tracer une droite}{17}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}Définir une fonction, tracer la courbe d'une fonction}{18}{subsection.3.2}%
+\contentsline {subsection}{\numberline {3.3}Définir/tracer une courbe d'interpolation (simple)}{19}{subsection.3.3}%
+\contentsline {subsection}{\numberline {3.4}Définir/tracer une courbe d'interpolation (Hermite)}{20}{subsection.3.4}%
+\contentsline {subsection}{\numberline {3.5}Définir/tracer une courbe d'interpolation (Lagrange)}{21}{subsection.3.5}%
+\contentsline {subsection}{\numberline {3.6}Définir des points sous forme de nœuds}{24}{subsection.3.6}%
+\contentsline {subsection}{\numberline {3.7}Marquage de points}{26}{subsection.3.7}%
+\contentsline {subsection}{\numberline {3.8}Marquer des points de discontinuité}{27}{subsection.3.8}%
+\contentsline {subsection}{\numberline {3.9}Récupérer les coordonnées de nœuds}{28}{subsection.3.9}%
+\contentsline {subsection}{\numberline {3.10}Placer du texte}{28}{subsection.3.10}%
+\contentsline {section}{\numberline {4}Commandes spécifiques d'exploitation des courbes}{30}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Placement d'images}{30}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}Détermination d'antécédents}{31}{subsection.4.2}%
+\contentsline {subsection}{\numberline {4.3}Construction d'antécédents}{32}{subsection.4.3}%
+\contentsline {subsection}{\numberline {4.4}Intersections de deux courbes}{33}{subsection.4.4}%
+\contentsline {subsection}{\numberline {4.5}Extremums}{34}{subsection.4.5}%
+\contentsline {subsection}{\numberline {4.6}Intégrales (version améliorée)}{38}{subsection.4.6}%
+\contentsline {subsection}{\numberline {4.7}Tangentes}{42}{subsection.4.7}%
+\contentsline {subsection}{\numberline {4.8}Nuage de points d'une suite}{44}{subsection.4.8}%
+\contentsline {subsection}{\numberline {4.9}Suites récurrentes et toiles}{45}{subsection.4.9}%
+\contentsline {subsection}{\numberline {4.10}Inégalité linéaire}{47}{subsection.4.10}%
+\contentsline {subsection}{\numberline {4.11}Dérivée, primitive(s)}{49}{subsection.4.11}%
+\contentsline {section}{\numberline {5}Commandes spécifiques des fonctions de densité}{52}{section.5}%
+\contentsline {subsection}{\numberline {5.1}Loi normale}{52}{subsection.5.1}%
+\contentsline {subsection}{\numberline {5.2}Loi du khi deux}{53}{subsection.5.2}%
+\contentsline {subsection}{\numberline {5.3}Histogramme pour une loi binomiale}{53}{subsection.5.3}%
+\contentsline {section}{\numberline {6}Commandes spécifiques des méthodes intégrales}{56}{section.6}%
+\contentsline {subsection}{\numberline {6.1}Méthodes géométriques}{56}{subsection.6.1}%
+\contentsline {subsection}{\numberline {6.2}Méthode de Monte-Carlo}{58}{subsection.6.2}%
+\contentsline {section}{\numberline {7}Commandes spécifiques des statistiques}{60}{section.7}%
+\contentsline {subsection}{\numberline {7.1}Limitations}{60}{subsection.7.1}%
+\contentsline {subsection}{\numberline {7.2}Courbe des ECC/FCC (1 variable)}{60}{subsection.7.2}%
+\contentsline {subsection}{\numberline {7.3}Le nuage de points (2 variables)}{61}{subsection.7.3}%
+\contentsline {subsection}{\numberline {7.4}La droite de régression (2 variables)}{62}{subsection.7.4}%
+\contentsline {subsection}{\numberline {7.5}Autres régressions (2 variables)}{63}{subsection.7.5}%
+\contentsline {section}{\numberline {8}Courbes paramétriques, courbes polaires}{66}{section.8}%
+\contentsline {subsection}{\numberline {8.1}Courbes paramétriques}{66}{subsection.8.1}%
+\contentsline {subsection}{\numberline {8.2}Courbes polaires}{68}{subsection.8.2}%
+\contentsline {section}{\numberline {9}Commandes complémentaires (expérimentales)}{70}{section.9}%
+\contentsline {subsection}{\numberline {9.1}Valeurs interdites}{70}{subsection.9.1}%
+\contentsline {subsection}{\numberline {9.2}Voisinages}{71}{subsection.9.2}%
+\contentsline {subsection}{\numberline {9.3}Coniques}{74}{subsection.9.3}%
+\contentsline {section}{\numberline {10}Codes source des exemples de la page d'accueil}{77}{section.10}%
+\contentsline {section}{\numberline {11}Commandes auxiliaires}{79}{section.11}%
+\contentsline {subsection}{\numberline {11.1}Intro}{79}{subsection.11.1}%
+\contentsline {subsection}{\numberline {11.2}Arrondi formaté}{79}{subsection.11.2}%
+\contentsline {subsection}{\numberline {11.3}Nombre aléatoire sous contraintes}{79}{subsection.11.3}%
+\contentsline {section}{\numberline {12}Liste des commandes}{82}{section.12}%
+\contentsline {subsection}{\numberline {12.1}Environnement, axes et grilles}{82}{subsection.12.1}%
+\contentsline {subsection}{\numberline {12.2}Courbes, suites}{82}{subsection.12.2}%
+\contentsline {subsection}{\numberline {12.3}Outils graphiques}{82}{subsection.12.3}%
+\contentsline {subsection}{\numberline {12.4}Intégrales, probabilités, statistiques}{82}{subsection.12.4}%
+\contentsline {subsection}{\numberline {12.5}Courbes polaires, paramétriques}{83}{subsection.12.5}%
+\contentsline {subsection}{\numberline {12.6}Coniques}{83}{subsection.12.6}%
+\contentsline {subsection}{\numberline {12.7}Commandes diverses}{83}{subsection.12.7}%
+\contentsline {section}{\numberline {13}Quelques commandes liées à pgfplots}{84}{section.13}%
+\contentsline {subsection}{\numberline {13.1}Introduction}{84}{subsection.13.1}%
+\contentsline {subsection}{\numberline {13.2}Macros spécifique pgfplots/axis}{84}{subsection.13.2}%
+\contentsline {subsection}{\numberline {13.3}Exemple illustré}{85}{subsection.13.3}%
+\contentsline {section}{\numberline {14}Historique}{87}{section.14}%

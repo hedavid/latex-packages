@@ -1,0 +1,4 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c}{\PYGZpc{}in the GraphiqueTikz environment}
+\PYG{k}{\PYGZbs{}DrawScatter}\PYG{n+na}{[keys]}\PYG{n+nb}{\PYGZob{}}ListX\PYG{n+nb}{\PYGZcb{}\PYGZob{}}ListY\PYG{n+nb}{\PYGZcb{}}
+\end{Verbatim}

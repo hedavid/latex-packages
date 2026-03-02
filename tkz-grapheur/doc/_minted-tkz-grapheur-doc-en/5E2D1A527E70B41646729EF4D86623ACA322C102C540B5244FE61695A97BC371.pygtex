@@ -1,0 +1,12 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k}{\PYGZbs{}begin}\PYG{n+nb}{\PYGZob{}}GraphTikz\PYG{n+nb}{\PYGZcb{}}\PYG{c}{\PYGZpc{}}
+	[x=0.9cm,y=0.425cm,Xmin=4,Xmax=20,Origx=4,
+	Ymin=40,Ymax=56,Ygrid=2,Ygrids=1,Origy=40]
+	\PYG{k}{\PYGZbs{}DrawAxisGrids}\PYG{n+na}{[Enlarge=2.5mm,Font=\PYGZbs{}small]}\PYG{n+nb}{\PYGZob{}}4,5,...,20\PYG{n+nb}{\PYGZcb{}\PYGZob{}}40,42,...,56\PYG{n+nb}{\PYGZcb{}}
+	\PYG{c}{\PYGZpc{}definition of the function + drawing of the curve}
+	\PYG{k}{\PYGZbs{}DefineCurve}\PYG{n+na}{[Name=cf,Start=5,End=19,Trace,Color=red]}\PYGZlt{}f\PYGZgt{}\PYG{n+nb}{\PYGZob{}}\PYGZhy{}2*x+3+24*log(2*x)\PYG{n+nb}{\PYGZcb{}}
+	\PYG{c}{\PYGZpc{}history}
+	\PYG{k}{\PYGZbs{}FindCounterimage}\PYG{n+na}{[Color=teal,DispLine,Disp]}\PYG{n+nb}{\PYGZob{}}cf\PYG{n+nb}{\PYGZcb{}\PYGZob{}}53\PYG{n+nb}{\PYGZcb{}}
+	\PYG{c}{\PYGZpc{}the two antecedents are at nodes (S\PYGZhy{}1) and (S\PYGZhy{}2)}
+\PYG{k}{\PYGZbs{}end}\PYG{n+nb}{\PYGZob{}}GraphTikz\PYG{n+nb}{\PYGZcb{}}
+\end{Verbatim}

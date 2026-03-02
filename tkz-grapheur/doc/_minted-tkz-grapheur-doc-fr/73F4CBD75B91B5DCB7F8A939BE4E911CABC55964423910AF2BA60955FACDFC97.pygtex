@@ -1,0 +1,10 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k}{\PYGZbs{}begin}\PYG{n+nb}{\PYGZob{}}GraphiqueTikz\PYG{n+nb}{\PYGZcb{}}\PYG{c}{\PYGZpc{}}
+	[x=1.2cm,y=1.6cm,Xmin=\PYGZhy{}7,Xmax=4,Ymin=\PYGZhy{}3,Ymax=3,Ygrille=0.5,Ygrilles=0.25]
+	\PYG{k}{\PYGZbs{}TracerAxesGrilles}\PYG{n+na}{[Elargir=2.5mm]}\PYG{n+nb}{\PYGZob{}}auto\PYG{n+nb}{\PYGZcb{}\PYGZob{}}auto\PYG{n+nb}{\PYGZcb{}}
+	\PYG{k}{\PYGZbs{}def\PYGZbs{}LISTETEST}\PYG{n+nb}{\PYGZob{}}\PYGZhy{}6/2/0§\PYGZhy{}1/\PYGZhy{}2/0§2/1/0§3.5/0/\PYGZhy{}1\PYG{n+nb}{\PYGZcb{}}
+	\PYG{k}{\PYGZbs{}DefinirCourbeSpline}\PYG{n+na}{[Nom=splinetest,Trace]}\PYG{n+nb}{\PYGZob{}}\PYG{k}{\PYGZbs{}LISTETEST}\PYG{n+nb}{\PYGZcb{}}
+	\PYG{k}{\PYGZbs{}TrouverMinimum}\PYG{n+na}{[Methode=spline]}\PYG{n+nb}{\PYGZob{}}\PYG{k}{\PYGZbs{}LISTETEST}\PYG{n+nb}{\PYGZcb{}}[spline\PYGZhy{}min]
+	\PYG{k}{\PYGZbs{}MarquerPts*}\PYG{n+na}{[Couleur=red]}\PYG{n+nb}{\PYGZob{}}(spline\PYGZhy{}min)\PYG{n+nb}{\PYGZcb{}}
+\PYG{k}{\PYGZbs{}end}\PYG{n+nb}{\PYGZob{}}GraphiqueTikz\PYG{n+nb}{\PYGZcb{}}
+\end{Verbatim}

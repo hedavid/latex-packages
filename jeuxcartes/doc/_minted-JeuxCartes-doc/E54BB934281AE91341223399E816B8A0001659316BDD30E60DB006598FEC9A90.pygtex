@@ -1,0 +1,6 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k}{\PYGZbs{}foreach} \PYG{k}{\PYGZbs{}EECARTE} in \PYG{n+nb}{\PYGZob{}}2,3,4,5,6,7,8,9,10,V,C,D,R,A\PYG{n+nb}{\PYGZcb{}\PYGZob{}}\PYG{k}{\PYGZbs{}AffMiniCarteJeu}\PYG{n+na}{[Largeur=0.75cm]}\PYG{n+nb}{\PYGZob{}}\PYG{k}{\PYGZbs{}EECARTE}.K\PYG{n+nb}{\PYGZcb{}\PYGZcb{}}\PYG{k}{\PYGZbs{}\PYGZbs{}}
+\PYG{k}{\PYGZbs{}foreach} \PYG{k}{\PYGZbs{}EECARTE} in \PYG{n+nb}{\PYGZob{}}2,3,4,5,6,7,8,9,10,J,Q,K,A\PYG{n+nb}{\PYGZcb{}\PYGZob{}}\PYG{k}{\PYGZbs{}AffMiniCarteJeu}\PYG{n+na}{[Largeur=0.75cm]}\PYG{n+nb}{\PYGZob{}}\PYG{k}{\PYGZbs{}EECARTE}.P\PYG{n+nb}{\PYGZcb{}\PYGZcb{}}\PYG{k}{\PYGZbs{}\PYGZbs{}}
+\PYG{k}{\PYGZbs{}AffMiniCarteJeu}\PYG{n+na}{[FondAtout=cyan,Largeur=0.75cm]}\PYG{n+nb}{\PYGZob{}}Exc\PYG{n+nb}{\PYGZcb{}}\PYG{c}{\PYGZpc{}}
+\PYG{k}{\PYGZbs{}foreach} \PYG{k}{\PYGZbs{}EECARTE} in \PYG{n+nb}{\PYGZob{}}1,2,...,21\PYG{n+nb}{\PYGZcb{}\PYGZob{}}\PYG{k}{\PYGZbs{}AffMiniCarteJeu}\PYG{n+na}{[FondAtout=cyan,Largeur=0.75cm]}\PYG{n+nb}{\PYGZob{}}\PYG{k}{\PYGZbs{}EECARTE}.AT\PYG{n+nb}{\PYGZcb{}\PYGZcb{}}
+\end{Verbatim}

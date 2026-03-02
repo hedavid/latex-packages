@@ -1,0 +1,480 @@
+\part{Outils pour la géométrie}
+
+\section{Pavé droit \og simple \fg}\label{pave}
+
+\subsection{Introduction}
+
+\begin{tipblock}
+L'idée est d'obtenir un pavé droit, dans un environnement \TikZ, avec les nœuds créés et nommés directement pour utilisation ultérieure.
+\end{tipblock}
+
+\subsection{Commandes}
+
+\begin{PresCodeTexPL}{listing only}
+\begin{tikzpicture}[options tikz]
+	\PaveTikz[options]
+	...
+\end{tikzpicture}
+\end{PresCodeTexPL}
+
+\begin{cautionblock}
+Quelques \Cle{clés} sont disponibles pour cette commande :
+
+\begin{itemize}
+	\item \Cle{Largeur} : largeur du pavé ;\hfill{}défaut \Cle{2}
+	\item \Cle{Profondeur} : profondeur du pavé ;\hfill{}défaut \Cle{1}
+	\item \Cle{Hauteur} : hauteur du pavé ;\hfill{}défaut \Cle{1.25}
+	\item \Cle{Angle} : angle de fuite de la perspective ;\hfill{}défaut \Cle{30}
+	\item \Cle{Fuite} : coefficient de fuite de la perspective ;\hfill{}défaut \Cle{0.5}
+	\item \Cle{Sommets} : liste des sommets (avec délimiteur § !) ;\hfill{}défaut \Cle{A§B§C§D§E§F§G§H}
+	\item \Cle{Math} : booléen pour forcer le mode math des sommets ;\hfill{}défaut \Cle{false}
+	\item \Cle{Epaisseur} : épaisseur des arêtes (en \textit{langage simplifié} \TikZ) ;\hfill{}défaut \Cle{thick}
+	\item \Cle{Aff} : booléen pour afficher les noms des sommets ;\hfill{}défaut \Cle{false}
+	\item \Cle{Plein} : booléen pour ne pas afficher les arêtes \textit{invisibles} ;\hfill{}défaut \Cle{false}
+	\item \Cle{Cube} : booléen pour préciser qu'il s'agit d'un cube (seule la valeur \Cle{Largeur} est util(isé)e).
+	
+	\hfill{}défaut \Cle{false}
+\end{itemize}
+\vspace*{-\baselineskip}\leavevmode
+\end{cautionblock}
+
+\begin{PresCodePL}{tikz lower}
+%code tikz
+\PaveTikz
+\end{PresCodePL}
+
+\begin{PresCodePL}{tikz lower}
+%code tikz
+\PaveTikz[Cube,Largeur=2]
+\end{PresCodePL}
+
+\begin{noteblock}
+La ligne est de ce fait à insérer dans un environnement \TikZ, avec les options au choix pour cet environnement.
+
+Le code crée les nœuds relatifs aux sommets, et les nomme comme les sommets, ce qui permet de les réutiliser pour éventuellement compléter la figure !
+\end{noteblock}
+
+\subsection{Influence des paramètres}
+
+\begin{PresCodeTexPL}{listing only}
+\begin{tikzpicture}[line join=bevel]
+	\PaveTikz[Aff,Largeur=4,Profondeur=3,Hauteur=2,Epaisseur={ultra thick}]
+\end{tikzpicture}
+\end{PresCodeTexPL}
+
+\begin{PresCodeSortiePL}{text only}
+\begin{tikzpicture}[line join=bevel]
+	\PaveTikz[Aff,Largeur=4,Profondeur=3,Hauteur=2,Epaisseur={ultra thick}]
+\end{tikzpicture}
+\end{PresCodeSortiePL}
+
+\begin{PresCodeTexPL}{listing only}
+\begin{center}
+\begin{tikzpicture}[line join=bevel]
+	\PaveTikz[Plein,Aff,Largeur=7,Profondeur=3.5,Hauteur=4,Sommets=Q§S§D§F§G§H§J§K]
+	\draw[thick,red,densely dotted] (G)--(J) ;
+	\draw[thick,blue,densely dotted] (K)--(H) ;
+\end{tikzpicture}
+\end{center}
+\end{PresCodeTexPL}
+
+\begin{PresCodeSortiePL}{text only}
+\begin{center}
+\begin{tikzpicture}[line join=bevel]
+	\PaveTikz[Plein,Aff,Largeur=7,Profondeur=3.5,Hauteur=4,Sommets=Q§S§D§F§G§H§J§K]
+	\draw[thick,red,densely dotted] (G)--(J) ;
+	\draw[thick,blue,densely dotted] (K)--(H) ;
+\end{tikzpicture}
+\end{center}
+\end{PresCodeSortiePL}
+
+\newpage
+
+\section{Tétraèdre \og simple \fg}\label{tetra}
+
+\subsection{Introduction}
+
+\begin{tipblock}
+L'idée est d'obtenir un tétraèdre, dans un environnement \TikZ, avec les nœuds créés et nommés directement pour utilisation ultérieure.
+\end{tipblock}
+
+\subsection{Commandes}
+
+\begin{PresCodeTexPL}{listing only}
+\begin{tikzpicture}[options tikz]
+	\TetraedreTikz[options]
+	...
+\end{tikzpicture}
+\end{PresCodeTexPL}
+
+\begin{cautionblock}
+Quelques \Cle{clés} sont disponibles pour cette commande :
+
+\begin{itemize}
+	\item \Cle{Largeur} : \textit{largeur} du tétraèdre ;\hfill{}défaut \Cle{4}
+	\item \Cle{Profondeur} : \textit{profondeur} du tétraèdre ;\hfill{}défaut \Cle{1.25}
+	\item \Cle{Hauteur} : \textit{hauteur} du tétraèdre ;\hfill{}défaut \Cle{3}
+	\item \Cle{Alpha} : angle \textit{du sommet de devant} ;\hfill{}défaut \Cle{40}
+	\item \Cle{Beta} : angle \textit{du sommet du haut} ;\hfill{}défaut \Cle{60}
+	\item \Cle{Sommets} : liste des sommets (avec délimiteur § !) ;\hfill{}défaut \Cle{A§B§C§D}
+	\item \Cle{Math} : booléen pour forcer le mode math des sommets ;\hfill{}défaut \Cle{false}
+	\item \Cle{Epaisseur} : épaisseur des arêtes (en \textit{langage simplifié} \TikZ) ;\hfill{}défaut \Cle{thick}
+	\item \Cle{Aff} : booléen pour afficher les noms des sommets ;\hfill{}défaut \Cle{false}
+	\item \Cle{Plein} : booléen pour ne pas afficher l'arête \textit{invisible} .\hfill{}défaut \Cle{false}
+\end{itemize}
+\vspace*{-\baselineskip}\leavevmode
+\end{cautionblock}
+
+\begin{PresCodePL}{tikz lower}
+%code tikz
+\TetraedreTikz
+\end{PresCodePL}
+
+\begin{PresCodePL}{tikz lower}
+%code tikz
+\TetraedreTikz[Aff,Largeur=2,Profondeur=0.625,Hauteur=1.5]
+\end{PresCodePL}
+
+\begin{PresCodePL}{tikz lower}
+%code tikz
+\TetraedreTikz[Plein,Aff,Largeur=5,Beta=60]
+\end{PresCodePL}
+
+\subsection{Influence des paramètres}
+
+\begin{noteblock}
+Pour \textit{illustrer} un peu les \Cle{clés}, un petit schéma, avec les différents paramètres utiles.
+
+\begin{center}
+\begin{tikzpicture}[x=1.25cm,y=1.25cm,line width=1pt,line join=bevel]
+	\TetraedreTikz[Largeur=5,Profondeur=1.95,Hauteur=2.75,Alpha=45,Beta=70]
+	\draw[draw=none] (A)--(C) node[midway,sloped,above,font=\small\sffamily,BleuCadet] {Largeur} ;
+	\draw[draw=none] (A)--(B) node[midway,sloped,below,font=\small\sffamily,BleuCadet] {Profondeur} ;
+	\draw[draw=none] (A)--(D) node[midway,sloped,above,font=\small\sffamily,BleuCadet] {Hauteur} ;
+	\draw[purple] (0.5,0) arc (0:-45:0.5) ;
+	\draw (-22.5:0.5) node[purple,right] {$\alpha$} ;
+	\draw[orange] (0.75,0) arc (0:70:0.75) ;
+	\draw (35:0.75) node[orange,right] {$\beta$} ;
+\end{tikzpicture}
+\end{center}
+\end{noteblock}
+
+\begin{PresCodeTexPL}{listing only}
+\begin{center}
+\begin{tikzpicture}[line join=bevel]
+	\TetraedreTikz[Aff,Largeur=7,Profondeur=3,Hauteur=5,Epaisseur={ultra thick},Alpha=20,Beta=30]
+	\draw[very thick,CouleurVertForet,<->,>=latex] ($(A)!0.5!(D)$)--($(B)!0.5!(D)$) ;
+\end{tikzpicture}
+\end{center}
+\end{PresCodeTexPL}
+
+\begin{PresCodeSortiePL}{text only}
+\begin{center}
+\begin{tikzpicture}[line join=bevel]
+	\TetraedreTikz[Aff,Largeur=7,Profondeur=3,Hauteur=5,Epaisseur={ultra thick},Alpha=20,Beta=30]
+	\draw[very thick,CouleurVertForet,<->,>=latex] ($(A)!0.5!(D)$)--($(B)!0.5!(D)$) ;
+\end{tikzpicture}
+\end{center}
+\end{PresCodeSortiePL}
+
+\newpage
+
+\section{Cercle trigo}\label{cercletrigo}
+
+\subsection{Idée}
+
+\begin{tipblock}
+L'idée est d'obtenir une commande pour tracer (en \TikZ) un cercle trigonométrique, avec personnalisation des affichages.
+
+\smallskip
+
+Comme pour les autres commandes \TikZ, l'idée est de laisser l'utilisateur définir et créer son environnement \TikZ, et d'insérer la commande \ctex{CercleTrigo} pour afficher le cercle.
+\end{tipblock}
+
+\begin{PresCodePL}{tikz lower}
+%code tikz
+\CercleTrigo
+\end{PresCodePL}
+
+\subsection{Commandes}
+
+\begin{PresCodeTexPL}{listing only}
+...
+\begin{tikzpicture}[options tikz]
+	...
+	\CercleTrigo[clés]
+	...
+\end{tikzpicture}
+\end{PresCodeTexPL}
+
+\begin{cautionblock}
+Plusieurs \Cle{Clés} sont disponibles pour cette commande :
+
+\begin{itemize}
+	\item la clé \Cle{Rayon} qui définit le rayon du cercle ;\hfill{}défaut \Cle{3}
+	\item la clé \Cle{Epaisseur} qui donne l'épaisseur des traits de base ;\hfill{}défaut \Cle{thick}
+	\item la clé \Cle{Marge} qui est l'\textit{écartement} de axes  ;\hfill{}défaut \Cle{0.25}
+	\item la clé \Cle{TailleValeurs} qui est la taille des valeurs remarquables ;\hfill{}défaut \Cle{scriptsize}
+	\item la clé \Cle{TailleAngles} qui est la taille des angles ;\hfill{}défaut \Cle{footnotesize}
+	\item la clé \Cle{CouleurFond} qui correspond à la couleur de fond des labels ;\hfill{}défaut \Cle{white}
+	\item la clé \Cle{Decal} qui correspond au décalage des labels par rapport au cercle ;\hfill{}défaut \Cle{10pt}
+	\item un booléen \Cle{MoinsPi} qui bascule les angles \og -pipi \fg{} à \og zerodeuxpi \fg{} ;\hfill{}défaut \Cle{true}
+	\item un booléen \Cle{AffAngles} qui permet d'afficher les angles ;\hfill{}défaut \Cle{true}
+	\item un booléen \Cle{AffTraits} qui permet d'afficher les \textit{traits de construction} ;\hfill{}défaut \Cle{true}
+	\item un booléen \Cle{ValeursTan} qui permet de rajouter les éléments de la tangente ;\hfill{}défaut \Cle{false}
+	\item un booléen \Cle{AffValeurs} qui permet d'afficher les valeurs remarquables.\hfill{}défaut \Cle{true}
+\end{itemize}
+\vspace*{-\baselineskip}\leavevmode
+\end{cautionblock}
+
+\pagebreak
+
+\begin{PresCodeTexPL}{listing only}
+\begin{center}
+\begin{tikzpicture}[line join=bevel]
+	\CercleTrigo[Rayon=2.5,AffValeurs=false,Decal=8pt]
+\end{tikzpicture}
+~~~~
+\begin{tikzpicture}[line join=bevel]
+	\CercleTrigo[Rayon=2.5,AffAngles=false]
+\end{tikzpicture}
+~~~~
+\begin{tikzpicture}[line join=bevel]
+	\CercleTrigo[Rayon=2.5,MoinsPi=false,CouleurFond=orange!15]
+\end{tikzpicture}
+\end{center}
+\end{PresCodeTexPL}
+
+\begin{PresCodeSortiePL}{text only}
+\begin{center}
+\begin{tikzpicture}[line join=bevel]
+	\CercleTrigo[Rayon=2.5,AffValeurs=false,Decal=8pt]
+\end{tikzpicture}
+~~~~
+\begin{tikzpicture}[line join=bevel]
+	\CercleTrigo[Rayon=2.5,AffAngles=false]
+\end{tikzpicture}
+~~~~
+\begin{tikzpicture}[line join=bevel]
+	\CercleTrigo[Rayon=2.5,MoinsPi=false,CouleurFond=orange!15,TailleValeurs=\tiny,ValeursTan]
+\end{tikzpicture}
+\end{center}
+\end{PresCodeSortiePL}
+
+\subsection{Équations trigos}
+
+\begin{noteblock}
+En plus des \Cle{Clés} précédentes, il existe un complément pour \textit{visualiser} des solutions d'équations simples du type $\cos(x)=\ldots$ ou $\sin(x)=\ldots$.
+\end{noteblock}
+
+\begin{cautionblock}
+Les \Cle{Clés} pour cette possibilité sont :
+
+\begin{itemize}
+	\item un booléen \Cle{Equationcos} pour \textit{activer} \og $\cos=$ \fg; \hfill{}défaut \Cle{false}
+	\item un booléen \Cle{Equationsin} pour \textit{activer} \og $\sin=$ \fg;\hfill{}défaut \Cle{false}
+	\item la clé \Cle{sin} qui est la valeur de l'angle (en degrés) du sin ;\hfill{}défaut \Cle{30}
+	\item la clé \Cle{cos} qui est la valeur de l'angle (en degrés) cos ;\hfill{}défaut \Cle{45}
+	\item \cmaj{2.6.2} un booléen \Cle{AffTraitsEq} qui permet d'afficher les \textit{traits de construction secondaires} pour les équations ;
+	
+	\hfill{}défaut \Cle{true}
+	\item la clé \Cle{CouleurSol} qui est la couleur des \textit{solutions}.\hfill{}défaut \Cle{blue}
+\end{itemize}
+\vspace*{-\baselineskip}\leavevmode
+\end{cautionblock}
+
+\begin{PresCodeTexPL}{listing only}
+\begin{center}
+\begin{tikzpicture}
+	\CercleTrigo[%
+	AffAngles=false,AffValeurs=false,Rayon=2,Equationsin,sin=-30, CouleurSol=red]
+\end{tikzpicture}
+\begin{tikzpicture}
+	\CercleTrigo[%
+	AffAngles=false,AffValeurs=false,AffTraits=false,Rayon=2,Equationcos,cos=135, CouleurSol=orange]
+\end{tikzpicture}
+\begin{tikzpicture}
+	\CercleTrigo[%
+	AffAngles=false,AffValeurs=false,AffTraits=false,AffTraitsEq=false,Rayon=2, Equationcos,cos=126,CouleurSol=violet]
+\end{tikzpicture}
+\begin{tikzpicture}
+	\CercleTrigo[%
+	AffTraits=false,AffAngles=false,Rayon=2.5,Equationcos,cos=60,CouleurSol=purple, TailleValeurs=\tiny]
+\end{tikzpicture}
+\end{center}
+\end{PresCodeTexPL}
+
+\begin{PresCodeSortiePL}{text only}
+\begin{center}
+\begin{tikzpicture}
+	\CercleTrigo[%
+	AffAngles=false,AffValeurs=false,AffTraits=false,Rayon=2,Equationsin,sin=-30,CouleurSol=red]
+\end{tikzpicture}
+~~~~
+\begin{tikzpicture}
+	\CercleTrigo[%
+	AffAngles=false,AffValeurs=false,AffTraits=false,Rayon=2,Equationcos,cos=135,CouleurSol=orange]
+\end{tikzpicture}
+~~~~
+\begin{tikzpicture}
+	\CercleTrigo[%
+	AffAngles=false,AffValeurs=false,AffTraits=false,AffTraitsEq=false,Rayon=2, Equationcos,cos=126,CouleurSol=violet]
+\end{tikzpicture}
+
+\medskip
+
+\begin{tikzpicture}
+	\CercleTrigo[%
+	AffTraits=false,AffAngles=false,Rayon=2.5,Equationcos,cos=60,CouleurSol=purple,TailleValeurs=\tiny]
+\end{tikzpicture}
+\end{center}
+\end{PresCodeSortiePL}
+
+\newpage
+
+\section{Schémas type de géométrie dans l'espace}\label{schemasespace}
+
+\subsection{Idée}
+
+\begin{tipblock}
+\cmaj{3.02f} L'idée est d'obtenir une commande pour obtenir \textit{facilement} des petits schémas pour illustrer des propriétés de géométrie dans l'espace.
+
+\smallskip
+
+Les commandes sont accessibles en chargeant la librairie \clib{espace}.
+
+\smallskip
+
+Le schémas sont réalisés en \hologo{METAPOST}, donc une compilation adaptée est nécessaire :
+
+\begin{itemize}
+	\item en \hologo{LuaLaTeX} !
+\end{itemize}
+\vspace*{-\baselineskip}\leavevmode
+\end{tipblock}
+
+\begin{importantblock}
+\cmaj{3.03c} Le code \hologo{METAPOST} est largement inspiré du travail de David Nivaud sur \url{https://melusine.eu.org/syracuse/exemples/} et une comptabilité avec \textsf{ProfCollege} a été déployée.
+\end{importantblock}
+
+\begin{PresCodeTexPL}{listing only}
+\useproflyclib{espace}
+...
+
+\SchemaEspace(*)[clé]{type}
+\end{PresCodeTexPL}
+
+\subsection{Commande}
+
+\begin{cautionblock}
+La version étoilée force l'affichage des labels des plans en mode \ctex{mathscr} (si chargé), sinon il se fait en mode \ctex{mathcal}.
+
+\smallskip
+
+La \Cle{Clé} disponible est la clé \Cle{Echelle} (en cm) pour tracer le schéma.
+
+\smallskip
+
+L'argument obligatoire, et entre \ctex{\{...\}}, est le type de schéma souhaité, parmi :
+
+\begin{itemize}
+	\item \texttt{plan} ;
+	\item \texttt{interplans} ;
+	\item \texttt{plan3points} ;
+	\item \texttt{plandroitessecantes} ;
+	\item \texttt{plandroitepoint} ;
+	\item \texttt{plandroitespara} ;
+	\item \texttt{droitesnoncopla} ;
+	\item \texttt{incidence} ;
+	\item \texttt{droiteparaplans} ;
+	\item \texttt{toit} ;
+	\item \texttt{planspara} ;
+	\item \texttt{droiteplanpara} ;
+	\item \texttt{droitesortho} ;
+	\item \texttt{droiteorthoplan} ;
+	\item \texttt{plansparadroiteortho} ;
+	\item \texttt{plansparadroitesortho} ;
+	\item \texttt{plansperp} ;
+	\item \texttt{plansperpplan}.
+\end{itemize}
+\vspace*{-\baselineskip}\leavevmode
+\end{cautionblock}
+
+\begin{PresCodePL}{}
+\SchemaEspace{plan}
+\end{PresCodePL}
+
+\begin{PresCodePL}{}
+\SchemaEspace[Echelle=1.5]{plan}
+\end{PresCodePL}
+
+\begin{PresCodePL}{}
+\SchemaEspace{interplans}
+\end{PresCodePL}
+
+\begin{PresCodePL}{}
+\SchemaEspace{plan3points}
+\end{PresCodePL}
+
+\begin{PresCodePL}{}
+\SchemaEspace{plandroitessecantes}
+\end{PresCodePL}
+
+\begin{PresCodePL}{}
+\SchemaEspace{plandroitepoint}
+\end{PresCodePL}
+
+\begin{PresCodePL}{}
+\SchemaEspace{plandroitespara}
+\end{PresCodePL}
+
+\begin{PresCodePL}{}
+\SchemaEspace{droitesnoncopla}
+\end{PresCodePL}
+
+\begin{PresCodePL}{}
+\SchemaEspace{incidence}
+\end{PresCodePL}
+
+\begin{PresCodePL}{}
+\SchemaEspace{droiteparaplans}
+\end{PresCodePL}
+
+\begin{PresCodePL}{}
+\SchemaEspace{toit}
+\end{PresCodePL}
+
+\begin{PresCodePL}{}
+\SchemaEspace{planspara}
+\end{PresCodePL}
+
+\begin{PresCodePL}{}
+\SchemaEspace{droiteplanpara}
+\end{PresCodePL}
+
+\begin{PresCodePL}{}
+\SchemaEspace{droitesortho}
+\end{PresCodePL}
+
+\begin{PresCodePL}{}
+\SchemaEspace{droiteorthoplan}
+\end{PresCodePL}
+\begin{PresCodePL}{}
+\SchemaEspace{plansparadroiteortho}
+\end{PresCodePL}
+
+\begin{PresCodePL}{}
+\SchemaEspace{plansparadroitesortho}
+\end{PresCodePL}
+
+\begin{PresCodePL}{}
+\SchemaEspace{plansperp}
+\end{PresCodePL}
+
+\begin{PresCodePL}{}
+\SchemaEspace{plansperpplan}
+\end{PresCodePL}
+
+\begin{PresCodePL}{}
+\SchemaEspace*{plansperpplan}
+\end{PresCodePL}

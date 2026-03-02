@@ -3,7 +3,8 @@
 % Inspiration....: https://tex.stackexchange.com/questions/407449/typesetting-tangram-figures-in-latex
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{TangramTikz}[2025/05/05 v0.2.2 Tangram Puzzles with TikZ]
+\ProvidesPackage{TangramTikz}[2025/12/07 v0.2.3 Tangram Puzzles with TikZ]
+% 0.2.3		New model(s)
 % 0.2.2		Bugfix
 % 0.2.1		New model(s)
 % 0.2.0		New key for choosing parts + new models + enhancements for colors + help ('MTT')
@@ -1043,6 +1044,54 @@
 	}%
 }
 
+%the reindeer / le renne (0.2.3)
+\NewDocumentCommand\TangramReinDerr{ s O{TangPuzz} }{%*=colorcorrection,[key for pic]
+	\IfBooleanTF{#1}%
+	{%
+		\IfSubStr{\TangLstPieces}{1}{\PieceTangram[TangSol={\TanGListeCouleurs[1]}]({0},0){TangGrandTri}}{}%
+		\IfSubStr{\TangLstPieces}{2}{\PieceTangram[TangSol={\TanGListeCouleurs[2]}]<rotate=180>({1},{1}){TangGrandTri}}{}%
+		\IfSubStr{\TangLstPieces}{3}{\PieceTangram[TangSol={\TanGListeCouleurs[3]}]<rotate=45>({1.5},{1.5}){TangMoyTri}}{}%
+		\IfSubStr{\TangLstPieces}{4}{\PieceTangram[TangSol={\TanGListeCouleurs[4]}]<yscale=-1,rotate=15>({2},{0}){TangPetTri}}{}%
+		\IfSubStr{\TangLstPieces}{5}{\PieceTangram[TangSol={\TanGListeCouleurs[5]}]<yscale=-1,rotate=-40>(2,{0.25}){TangPetTri}}{}%
+		\IfSubStr{\TangLstPieces}{6}{\PieceTangram[TangSol={\TanGListeCouleurs[6]}]({-2},{1}){TangCar}}{}%
+		\IfSubStr{\TangLstPieces}{7}{\PieceTangram[TangSol={\TanGListeCouleurs[7]}]<xscale=-1>({1.5+1},{1.5+sqrt(2)}){TangPara}}{}%
+		%\filldraw (0,0) circle[radius=2pt] ;
+	}%
+	{%
+		\IfSubStr{\TangLstPieces}{1}{\PieceTangram[#2]({0},0){TangGrandTri}}{}%
+		\IfSubStr{\TangLstPieces}{2}{\PieceTangram[#2]<rotate=180>({1},{1}){TangGrandTri}}{}%
+		\IfSubStr{\TangLstPieces}{3}{\PieceTangram[#2]<rotate=45>({1.5},{1.5}){TangMoyTri}}{}%
+		\IfSubStr{\TangLstPieces}{4}{\PieceTangram[#2]<yscale=-1,rotate=15>({2},{0}){TangPetTri}}{}%
+		\IfSubStr{\TangLstPieces}{5}{\PieceTangram[#2]<yscale=-1,rotate=-40>(2,{0.25}){TangPetTri}}{}%
+		\IfSubStr{\TangLstPieces}{6}{\PieceTangram[#2]({-2},{1}){TangCar}}{}%
+		\IfSubStr{\TangLstPieces}{7}{\PieceTangram[#2]<xscale=-1>({1.5+1},{1.5+sqrt(2)}){TangPara}}{}%
+	}%
+}
+
+%the bell / la cloche (0.2.3)
+\NewDocumentCommand\TangramBell{ s O{TangPuzz} }{%*=colorcorrection,[key for pic]
+	\IfBooleanTF{#1}%
+	{%
+		\IfSubStr{\TangLstPieces}{1}{\PieceTangram[TangSol={\TanGListeCouleurs[1]}]({-2},{0}){TangGrandTri}}{}%
+		\IfSubStr{\TangLstPieces}{2}{\PieceTangram[TangSol={\TanGListeCouleurs[2]}]<xscale=-1>({2},{0}){TangGrandTri}}{}%
+		\IfSubStr{\TangLstPieces}{3}{\PieceTangram[TangSol={\TanGListeCouleurs[3]}]<yscale=-1>({-1},{0}){TangMoyTri}}{}%
+		\IfSubStr{\TangLstPieces}{4}{\PieceTangram[TangSol={\TanGListeCouleurs[4]}]<rotate=180>(0,2){TangPetTri}}{}%
+		\IfSubStr{\TangLstPieces}{5}{\PieceTangram[TangSol={\TanGListeCouleurs[5]}]<>(-1,2){TangPetTri}}{}%
+		\IfSubStr{\TangLstPieces}{6}{\PieceTangram[TangSol={\TanGListeCouleurs[6]}]<rotate=45>({0},{3}){TangCar}}{}%
+		\IfSubStr{\TangLstPieces}{7}{\PieceTangram[TangSol={\TanGListeCouleurs[7]}]<rotate=90>({1},{1}){TangPara}}{}%
+		%\filldraw (0,0) circle[radius=2pt] ;
+	}%
+	{%
+		\IfSubStr{\TangLstPieces}{1}{\PieceTangram[#2]({-2},{0}){TangGrandTri}}{}%
+		\IfSubStr{\TangLstPieces}{2}{\PieceTangram[#2]<xscale=-1>({2},{0}){TangGrandTri}}{}%
+		\IfSubStr{\TangLstPieces}{3}{\PieceTangram[#2]<yscale=-1>({-1},{0}){TangMoyTri}}{}%
+		\IfSubStr{\TangLstPieces}{4}{\PieceTangram[#2]<rotate=180>(0,2){TangPetTri}}{}%
+		\IfSubStr{\TangLstPieces}{5}{\PieceTangram[#2]<>(-1,2){TangPetTri}}{}%
+		\IfSubStr{\TangLstPieces}{6}{\PieceTangram[#2]<rotate=45>({0},{3}){TangCar}}{}%
+		\IfSubStr{\TangLstPieces}{7}{\PieceTangram[#2]<rotate=90>({1},{1}){TangPara}}{}%
+	}%
+}
+
 %macros for tangram creation / commandes pour créer le tangram
 \NewDocumentCommand\TangramTikzCreateEN{ m }{%
 	%list of pieces/colors
@@ -1256,9 +1305,15 @@
 		%ARROW
 		\IfStrEq{#3}{Arrow}{\TangramTikzCreateEN{\TangramArrow}}{}%
 		\IfStrEq{#3}{Fleche}{\TangramTikzCreateFR{\TangramArrow}}{}%
-		%Triangle
+		%TRIANGLE
 		\IfStrEq{#3}{Triangl}{\TangramTikzCreateEN{\TangramTriangl}}{}%
 		\IfStrEq{#3}{Triangle}{\TangramTikzCreateFR{\TangramTriangl}}{}%
+		%REINDEER
+		\IfStrEq{#3}{Reindeer}{\TangramTikzCreateEN{\TangramReinDerr}}{}%
+		\IfStrEq{#3}{Renne}{\TangramTikzCreateFR{\TangramReinDerr}}{}%
+		%BELL
+		\IfStrEq{#3}{Bell}{\TangramTikzCreateEN{\TangramBell}}{}%
+		\IfStrEq{#3}{Cloche}{\TangramTikzCreateFR{\TangramBell}}{}%
 	\end{tikzpicture}%
 }
 

@@ -1,0 +1,9 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c}{\PYGZpc{}fixed dimensions (excluding graduations)}
+\PYG{k}{\PYGZbs{}begin}\PYG{n+nb}{\PYGZob{}}GraphTikz\PYG{n+nb}{\PYGZcb{}}\PYG{c}{\PYGZpc{}}
+	[Xgrid=10,Xgrids=5,Ygrid=50,Ygrids=25]
+	\PYG{c}{\PYGZpc{}Xgrid(s) and/or Ygrid(s) in this case}
+	\PYGZlt{}Xmin=0,Xmax=100,Ymin=0,Ymax=250,Size=\PYG{n+nb}{\PYGZob{}}10cm/5cm\PYG{n+nb}{\PYGZcb{}}\PYGZgt{}
+	\PYG{k}{\PYGZbs{}DrawAxisGrids}\PYG{n+na}{[]}\PYG{n+nb}{\PYGZob{}}auto\PYG{n+nb}{\PYGZcb{}\PYGZob{}}auto\PYG{n+nb}{\PYGZcb{}}
+\PYG{k}{\PYGZbs{}end}\PYG{n+nb}{\PYGZob{}}GraphTikz\PYG{n+nb}{\PYGZcb{}}
+\end{Verbatim}

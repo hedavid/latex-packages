@@ -1,0 +1,12 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c}{\PYGZpc{}Commande autonome}
+\PYG{k}{\PYGZbs{}PixelArtTikz}\PYG{n+na}{[clés]}\PYGZlt{}options tikz\PYGZgt{}\PYG{n+nb}{\PYGZob{}}fichier.csv\PYG{n+nb}{\PYGZcb{}}
+
+\PYG{c}{\PYGZpc{}Commande semi\PYGZhy{}autonome, à intégrer dans un environnement tikz}
+\PYG{k}{\PYGZbs{}PixelArtTikz*}\PYG{n+na}{[clés]}\PYG{n+nb}{\PYGZob{}}fichier.csv\PYG{n+nb}{\PYGZcb{}}
+
+\PYG{c}{\PYGZpc{}environnement}
+\PYG{k}{\PYGZbs{}begin}\PYG{n+nb}{\PYGZob{}}EnvPixelArtTikz\PYG{n+nb}{\PYGZcb{}}[clés]\PYGZlt{}options tikz\PYGZgt{}\PYG{n+nb}{\PYGZob{}}fichier.csv\PYG{n+nb}{\PYGZcb{}}
+	\PYG{c}{\PYGZpc{}code tikz}
+\PYG{k}{\PYGZbs{}end}\PYG{n+nb}{\PYGZob{}}EnvPixelArtTikz\PYG{n+nb}{\PYGZcb{}}
+\end{Verbatim}

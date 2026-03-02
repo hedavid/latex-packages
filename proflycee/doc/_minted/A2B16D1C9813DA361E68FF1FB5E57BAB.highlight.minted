@@ -1,0 +1,6 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+\PYG{k}{\PYGZbs{}begin}\PYG{n+nb}{\PYGZob{}}pflpitonconsole\PYG{n+nb}{\PYGZcb{}\PYGZob{}\PYGZcb{}}
+1+1
+2**10
+\PYG{k}{\PYGZbs{}end}\PYG{n+nb}{\PYGZob{}}pflpitonconsole\PYG{n+nb}{\PYGZcb{}}
+\end{MintedVerbatim}

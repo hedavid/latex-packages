@@ -1,0 +1,5 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c}{\PYGZpc{}in the GraphiqueTikz environment}
+\PYG{k}{\PYGZbs{}DrawLine}\PYG{n+na}{[keys]}\PYG{n+nb}{\PYGZob{}}point or node\PYG{n+nb}{\PYGZcb{}\PYGZob{}}point or node or slope\PYG{n+nb}{\PYGZcb{}}
+\PYG{k}{\PYGZbs{}DrawAsymptote}\PYG{n+na}{[keys]}\PYG{n+nb}{\PYGZob{}}x value\PYG{n+nb}{\PYGZcb{}}
+\end{Verbatim}

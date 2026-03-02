@@ -1,0 +1,32 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c}{\PYGZpc{}codes à afficher, avec utiliser des symboles}
+
+\PYG{k}{\PYGZbs{}begin}\PYG{n+nb}{\PYGZob{}}filecontents*\PYG{n+nb}{\PYGZcb{}}[overwrite]\PYG{n+nb}{\PYGZob{}}cap.csv\PYG{n+nb}{\PYGZcb{}}
+	\PYGZhy{},\PYGZhy{},\PYGZhy{},\PYGZhy{},\PYGZhy{},\PYGZhy{},\PYGZhy{},\PYGZhy{},D,\PYGZhy{},D,\PYGZhy{},D,\PYGZhy{},\PYGZhy{},\PYGZhy{},\PYGZhy{},\PYGZhy{},\PYGZhy{},\PYGZhy{},\PYGZhy{},\PYGZhy{}
+	\PYGZhy{},D,D,\PYGZhy{},\PYGZhy{},\PYGZhy{},\PYGZhy{},D,D,D,D,D,D,\PYGZhy{},\PYGZhy{},D,D,D,D,\PYGZhy{},\PYGZhy{},\PYGZhy{}
+	D,\PYGZhy{},\PYGZhy{},D,\PYGZhy{},D,D,F,F,F,F,F,F,D,D,\PYGZhy{},\PYGZhy{},\PYGZhy{},\PYGZhy{},D,\PYGZhy{},\PYGZhy{}
+	\PYGZhy{},D,\PYGZhy{},\PYGZhy{},D,F,F,F,\PYGZhy{},\PYGZhy{},F,F,F,F,F,D,\PYGZhy{},D,D,\PYGZhy{},\PYGZhy{},\PYGZhy{}
+	\PYGZhy{},\PYGZhy{},D,D,F,F,F,\PYGZhy{},F,F,\PYGZhy{},F,F,F,F,F,D,D,\PYGZhy{},\PYGZhy{},\PYGZhy{},\PYGZhy{}
+	\PYGZhy{},\PYGZhy{},\PYGZhy{},D,F,F,F,F,F,F,F,F,F,F,F,F,D,\PYGZhy{},\PYGZhy{},\PYGZhy{},\PYGZhy{},\PYGZhy{}
+	\PYGZhy{},\PYGZhy{},\PYGZhy{},D,F,J,J,J,J,J,J,J,F,F,F,F,D,\PYGZhy{},\PYGZhy{},\PYGZhy{},\PYGZhy{},\PYGZhy{}
+	\PYGZhy{},\PYGZhy{},\PYGZhy{},D,J,\PYGZhy{},\PYGZhy{},\PYGZhy{},J,\PYGZhy{},\PYGZhy{},\PYGZhy{},J,J,F,F,D,\PYGZhy{},\PYGZhy{},\PYGZhy{},\PYGZhy{},\PYGZhy{}
+	\PYGZhy{},\PYGZhy{},\PYGZhy{},D,J,\PYGZhy{},D,\PYGZhy{},J,\PYGZhy{},D,\PYGZhy{},J,J,B,B,D,\PYGZhy{},\PYGZhy{},\PYGZhy{},\PYGZhy{},\PYGZhy{}
+	\PYGZhy{},\PYGZhy{},\PYGZhy{},D,J,\PYGZhy{},\PYGZhy{},\PYGZhy{},J,\PYGZhy{},\PYGZhy{},\PYGZhy{},J,J,B,B,D,\PYGZhy{},\PYGZhy{},\PYGZhy{},\PYGZhy{},\PYGZhy{}
+	\PYGZhy{},\PYGZhy{},\PYGZhy{},D,C,J,J,J,J,J,J,J,J,C,C,C,D,\PYGZhy{},\PYGZhy{},\PYGZhy{},\PYGZhy{},\PYGZhy{}
+	\PYGZhy{},\PYGZhy{},\PYGZhy{},D,C,C,C,C,C,C,C,C,C,C,C,D,D,D,\PYGZhy{},\PYGZhy{},\PYGZhy{},\PYGZhy{}
+	\PYGZhy{},\PYGZhy{},\PYGZhy{},D,C,C,C,D,D,D,D,D,D,C,D,A,A,A,D,\PYGZhy{},\PYGZhy{},\PYGZhy{}
+	\PYGZhy{},\PYGZhy{},\PYGZhy{},D,F,C,C,C,C,C,C,C,C,D,A,\PYGZhy{},\PYGZhy{},\PYGZhy{},A,D,\PYGZhy{},\PYGZhy{}
+	\PYGZhy{},\PYGZhy{},\PYGZhy{},D,F,C,F,C,C,C,C,F,D,A,\PYGZhy{},A,A,A,\PYGZhy{},A,D,\PYGZhy{}
+	\PYGZhy{},\PYGZhy{},D,C,F,F,F,F,C,C,F,D,A,\PYGZhy{},A,F,F,F,A,\PYGZhy{},A,D
+	\PYGZhy{},\PYGZhy{},D,C,F,F,F,F,F,F,F,D,A,\PYGZhy{},A,F,\PYGZhy{},F,A,\PYGZhy{},A,D
+	\PYGZhy{},\PYGZhy{},D,A,D,\PYGZhy{},A,\PYGZhy{},A,\PYGZhy{},A,D,A,\PYGZhy{},A,F,F,F,A,\PYGZhy{},A,D
+	\PYGZhy{},\PYGZhy{},\PYGZhy{},D,D,\PYGZhy{},A,\PYGZhy{},A,\PYGZhy{},A,\PYGZhy{},D,A,\PYGZhy{},A,A,A,\PYGZhy{},A,D,\PYGZhy{}
+	\PYGZhy{},\PYGZhy{},\PYGZhy{},\PYGZhy{},\PYGZhy{},D,D,F,D,D,D,D,F,D,A,\PYGZhy{},\PYGZhy{},\PYGZhy{},A,D,\PYGZhy{},\PYGZhy{}
+	\PYGZhy{},\PYGZhy{},\PYGZhy{},\PYGZhy{},\PYGZhy{},\PYGZhy{},D,A,D,\PYGZhy{},\PYGZhy{},D,\PYGZhy{},\PYGZhy{},D,A,A,A,D,\PYGZhy{},\PYGZhy{},\PYGZhy{}
+	\PYGZhy{},\PYGZhy{},\PYGZhy{},\PYGZhy{},\PYGZhy{},\PYGZhy{},D,D,D,\PYGZhy{},\PYGZhy{},D,D,D,D,D,D,D,\PYGZhy{},\PYGZhy{},\PYGZhy{},\PYGZhy{}
+\PYG{k}{\PYGZbs{}end}\PYG{n+nb}{\PYGZob{}}filecontents*\PYG{n+nb}{\PYGZcb{}}
+
+\PYG{k}{\PYGZbs{}PixelArtTikz}\PYG{n+na}{[Codes=ABCDFJ,Symboles=\PYGZob{}1,2,3,4,6,10\PYGZcb{},Symb,Style=\PYGZbs{}tiny\PYGZbs{}sffamily,Unite=0.35]}\PYG{n+nb}{\PYGZob{}}cap.csv\PYG{n+nb}{\PYGZcb{}}
+\PYGZti{}\PYGZti{}
+\PYG{k}{\PYGZbs{}PixelArtTikz}\PYG{n+na}{[Codes=ABCDFJ,Couleurs=\PYGZob{}red,brown,yellow,black,blue,gray\PYGZcb{},Correction,Unite=0.35]}\PYG{n+nb}{\PYGZob{}}cap.csv\PYG{n+nb}{\PYGZcb{}}
+\end{Verbatim}

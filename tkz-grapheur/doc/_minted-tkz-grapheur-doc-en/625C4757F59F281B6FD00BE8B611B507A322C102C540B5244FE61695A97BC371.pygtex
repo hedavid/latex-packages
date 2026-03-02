@@ -1,0 +1,15 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k}{\PYGZbs{}begin}\PYG{n+nb}{\PYGZob{}}GraphTikz\PYG{n+nb}{\PYGZcb{}}\PYG{c}{\PYGZpc{}}
+	[x=0.075cm,y=0.03cm,Xmin=0,Xmax=160,Xgrid=20,Xgrids=10,
+	Origy=250,Ymin=250,Ymax=400,Ygrid=25,Ygrids=5]
+	\PYG{k}{\PYGZbs{}DrawAxisGrids}\PYG{n+na}{[Enlarge=2.5mm,Font=\PYGZbs{}small]}\PYG{n+nb}{\PYGZob{}}0,10,...,160\PYG{n+nb}{\PYGZcb{}\PYGZob{}}250,275,...,400\PYG{n+nb}{\PYGZcb{}}
+	\PYG{c}{\PYGZpc{}cloud and right}
+	\PYG{k}{\PYGZbs{}DrawScatter}\PYG{c}{\PYGZpc{}}
+		[ColorScatter=red,ColorLine=brown,DrawLine]\PYG{c}{\PYGZpc{}}
+	\PYG{n+nb}{\PYGZob{}}0,50,100,140\PYG{n+nb}{\PYGZcb{}\PYGZob{}}275,290,315,350\PYG{n+nb}{\PYGZcb{}}
+	\PYG{c}{\PYGZpc{}picture}
+	\PYG{k}{\PYGZbs{}DrawRanges}\PYG{n+na}{[Colors=cyan/magenta,Lines]}\PYG{n+nb}{\PYGZob{}}d\PYG{n+nb}{\PYGZcb{}\PYGZob{}}120\PYG{n+nb}{\PYGZcb{}}
+	\PYG{c}{\PYGZpc{}history}
+	\PYG{k}{\PYGZbs{}DrawCounterimage}\PYG{n+na}{[Style=x,Colors=blue/green!50!black,Lines]}\PYG{n+nb}{\PYGZob{}}reglin\PYG{n+nb}{\PYGZcb{}\PYGZob{}}300\PYG{n+nb}{\PYGZcb{}}
+\PYG{k}{\PYGZbs{}end}\PYG{n+nb}{\PYGZob{}}GraphTikz\PYG{n+nb}{\PYGZcb{}}
+\end{Verbatim}

@@ -1,0 +1,7 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c}{\PYGZpc{}individual roudings}
+\PYG{k}{\PYGZbs{}xintCUBreg}\PYG{n+na}{[round=5/3/2/1]}\PYG{n+nb}{\PYGZob{}}\PYG{k}{\PYGZbs{}LLX}\PYG{n+nb}{\PYGZcb{}\PYGZob{}}\PYG{k}{\PYGZbs{}LLY}\PYG{n+nb}{\PYGZcb{}}\PYG{c}{\PYGZpc{}}
+\PYG{l+s}{\PYGZdl{}}\PYG{n+nb}{a }\PYG{n+nv}{\PYGZbs{}approx}\PYG{n+nb}{ }\PYG{n+nv}{\PYGZbs{}cubrega}\PYG{l+s}{\PYGZdl{}}; \PYG{l+s}{\PYGZdl{}}\PYG{n+nb}{b }\PYG{n+nv}{\PYGZbs{}approx}\PYG{n+nb}{ }\PYG{n+nv}{\PYGZbs{}cubregb}\PYG{l+s}{\PYGZdl{}}; \PYG{l+s}{\PYGZdl{}}\PYG{n+nb}{c }\PYG{n+nv}{\PYGZbs{}approx}\PYG{n+nb}{ }\PYG{n+nv}{\PYGZbs{}cubregc}\PYG{l+s}{\PYGZdl{}} and \PYG{l+s}{\PYGZdl{}}\PYG{n+nb}{d }\PYG{n+nv}{\PYGZbs{}approx}\PYG{n+nb}{ }\PYG{n+nv}{\PYGZbs{}cubregd}\PYG{l+s}{\PYGZdl{}}
+
+\PYG{l+s}{\PYGZdl{}}\PYG{n+nb}{r\PYGZca{}}\PYG{l+m}{2}\PYG{n+nb}{ }\PYG{n+nv}{\PYGZbs{}approx}\PYG{n+nb}{ }\PYG{n+nv}{\PYGZbs{}cubregrr}\PYG{l+s}{\PYGZdl{}}
+\end{Verbatim}

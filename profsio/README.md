@@ -13,7 +13,7 @@ The package is available on [CTAN](https://ctan.org/pkg/profsio) and can be inst
 - **Graphically**: open the *MiKTeX Console*, go to *Packages*, search for `ProfSio` and click *Install*.
 - **Command line**:
   ```
-  miktex packages install ProfSio
+  mpm.exe --install ProfSio
   ```
 
 ### Via TeX Live / tlmgr

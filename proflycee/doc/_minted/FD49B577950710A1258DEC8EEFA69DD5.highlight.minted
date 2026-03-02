@@ -1,0 +1,10 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+Integer between 1 and 50: \PYG{k}{\PYGZbs{}pflrandnum}\PYG{n+nb}{\PYGZob{}}1\PYG{n+nb}{\PYGZcb{}\PYGZob{}}50\PYG{n+nb}{\PYGZcb{}\PYGZob{}}\PYG{k}{\PYGZbs{}FirstNbAlea}\PYG{n+nb}{\PYGZcb{}}
+\PYG{k}{\PYGZbs{}FirstNbAlea}
+
+\PYG{k}{\PYGZbs{}pflvarrandnum}\PYG{n+nb}{\PYGZob{}}\PYG{k}{\PYGZbs{}SecondNbAlea}\PYG{n+nb}{\PYGZcb{}\PYGZob{}}\PYG{k}{\PYGZbs{}FirstNbAlea}+randint(0,10)\PYG{n+nb}{\PYGZcb{}}
+\PYG{k}{\PYGZbs{}SecondNbAlea}
+
+Float between 0 and 10.999... : \PYG{k}{\PYGZbs{}pflrandnum}\PYG{n+na}{[3]}\PYG{n+nb}{\PYGZob{}}0\PYG{n+nb}{\PYGZcb{}\PYGZob{}}10\PYG{n+nb}{\PYGZcb{}\PYGZob{}}\PYG{k}{\PYGZbs{}FirstFloatAlea}\PYG{n+nb}{\PYGZcb{}}
+\PYG{k}{\PYGZbs{}FirstFloatAlea}
+\end{MintedVerbatim}

@@ -1,0 +1,7 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c}{\PYGZpc{}définition des focntions paramétriques}
+\PYG{k}{\PYGZbs{}DefinirCourbeParam}\PYG{n+na}{[clés]}\PYGZlt{}nom x(t)\PYGZgt{}\PYGZlt{}nom y(t)\PYGZgt{}\PYG{n+nb}{\PYGZob{}}x(t)\PYG{n+nb}{\PYGZcb{}\PYGZob{}}y(t)\PYG{n+nb}{\PYGZcb{}}
+
+\PYG{c}{\PYGZpc{}tracé des fonctions paramétriques}
+\PYG{k}{\PYGZbs{}TracerCourbeParam}\PYG{n+na}{[clés]}\PYG{n+nb}{\PYGZob{}}x(t)\PYG{n+nb}{\PYGZcb{}\PYGZob{}}y(t)\PYG{n+nb}{\PYGZcb{}}
+\end{Verbatim}

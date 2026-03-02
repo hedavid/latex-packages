@@ -1,0 +1,5 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c}{\PYGZpc{}dans l\PYGZsq{}environnement GraphiqueTikz}
+\PYG{k}{\PYGZbs{}DefinirCourbeInterpo}\PYG{n+na}{[clés]}\PYG{n+nb}{\PYGZob{}}liste des points support\PYG{n+nb}{\PYGZcb{}}
+\PYG{k}{\PYGZbs{}TracerCourbeInterpo}\PYG{n+na}{[clés]}\PYG{n+nb}{\PYGZob{}}liste des points support\PYG{n+nb}{\PYGZcb{}}
+\end{Verbatim}

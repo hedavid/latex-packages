@@ -1,0 +1,8 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k}{\PYGZbs{}begin}\PYG{n+nb}{\PYGZob{}}filecontents*\PYG{n+nb}{\PYGZcb{}\PYGZob{}}nomfichier.csv\PYG{n+nb}{\PYGZcb{}}
+	A,B,C,D
+	A,B,D,C
+	B,A,C,D
+	B,A,D,C
+\PYG{k}{\PYGZbs{}end}\PYG{n+nb}{\PYGZob{}}filecontents*\PYG{n+nb}{\PYGZcb{}}
+\end{Verbatim}

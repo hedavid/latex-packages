@@ -1,0 +1,3 @@
+\TangramTikz<scale=0.75>{Bell}
+\TangramTikz[Solution]<scale=0.75>{Bell}
+\TangramTikz[ColorSolution]<scale=0.75>{Bell}

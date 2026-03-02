@@ -44,8 +44,8 @@
 \usepackage[margin=1.5cm]{geometry}
 \setlength{\parindent}{0pt}
 
-\def\TPversion{0.1.9}
-\def\TPdate{20 octobre 2025}
+\def\TPversion{0.20a}
+\def\TPdate{07 décembre 2025}
 
 \usepackage{minted2}
 \usepackage[most]{tcolorbox}
@@ -900,6 +900,7 @@ Le premier argument, \textit{optionnel} et entre \texttt{[...]} propose des \tex
 	\item la clé booléenne \Cle{Correction} qui permet de colorier le PixelArt ;\hfill{}défaut \textsf{false}
 	\item la clé booléenne \Cle{Symb} qui permet d'afficher les caractères \textit{alternatifs} ;\hfill{}défaut \textsf{false}
 	\item la clé booléenne \Cle{Solution} qui permet d'afficher la solution (avec effet \textit{mirroir}) ;\hfill{}défaut \textsf{false}
+	\item la clé booléenne \Cle{Legende} qui permet d'afficher une légende (sur une idée de François Delannoy) ;\hfill{}défaut \textsf{false}
 	\item la clé booléenne \Cle{Swap} qui permet de spécifier le type de données (\Cle{true} := normal ; \Cle{false} := inversé).
 	
 	\hfill{}défaut \textsf{false}
@@ -915,7 +916,9 @@ Dans ce paragraphe, on utilise les données \texttt{PAyoda}, qui correspondent �
 
 \begin{PresentationCode}{}
 %version classique
-\PixelArtTikzCylindre[Codes=ABCDEF,Style=\small\ttfamily]{PAyoda.csv}
+\PixelArtTikzCylindre[Codes=ABCDEF,Style=\small\ttfamily,Legende]{PAyoda.csv}
+
+\medskip
 
 %version avec 'symboles'
 \PixelArtTikzCylindre[Codes=ABCDEF,Symboles={1,2,3,4,5,6},Symb,Style=\small\ttfamily]{PAyoda.csv}
@@ -1180,6 +1183,8 @@ Les clés sont les mêmes que pour la version \textsf{csvsimple}, mais il est n�
 \pagebreak
 
 \part{Historique}
+
+\verb|v0.20a|~:~~~~Clé \textsf{[Legende]} pour la version \textit{anamorphose}
 
 \verb|v0.1.9|~:~~~~Version \hologo{LaTeX3} du package (\textsf{pixelarttikz-l3})
 

@@ -1,0 +1,21 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+\PYG{k}{\PYGZbs{}begin}\PYG{n+nb}{\PYGZob{}}pflpseudocodepiton\PYG{n+nb}{\PYGZcb{}}[\PYGZlt{}keys\PYGZgt{}]\PYG{n+nb}{\PYGZob{}}tcbox\PYG{n+nb}{\PYGZcb{}} ... \PYG{k}{\PYGZbs{}end}\PYG{n+nb}{\PYGZob{}}pflpseudocodepiton\PYG{n+nb}{\PYGZcb{}}
+\PYG{k}{\PYGZbs{}begin}\PYG{n+nb}{\PYGZob{}}PseudoCodePiton\PYG{n+nb}{\PYGZcb{}}[\PYGZlt{}clés\PYGZgt{}]\PYG{n+nb}{\PYGZob{}}tcbox\PYG{n+nb}{\PYGZcb{}}    ... \PYG{k}{\PYGZbs{}end}\PYG{n+nb}{\PYGZob{}}PseudoCodePiton\PYG{n+nb}{\PYGZcb{}}
+\PYG{k}{\PYGZbs{}pflpitonpseudocodefile}\PYG{n+na}{[\PYGZlt{}keys\PYGZgt{}]}\PYG{n+nb}{\PYGZob{}}tcbox\PYG{n+nb}{\PYGZcb{}}
+\PYG{k}{\PYGZbs{}PseudoCodePitonFichier}\PYG{n+na}{[\PYGZlt{}clés\PYGZgt{}]}\PYG{n+nb}{\PYGZob{}}tcbox\PYG{n+nb}{\PYGZcb{}}
+
+\PYG{c}{\PYGZpc{} \PYGZhy{}\PYGZhy{}\PYGZhy{} [keys/clés] \PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}}
+\PYG{c}{\PYGZpc{} width       = Largeur      = \PYGZbs{}linewidth}
+\PYG{c}{\PYGZpc{} align       = Alignement   = center}
+\PYG{c}{\PYGZpc{} lines       = Lignes       = true}
+\PYG{c}{\PYGZpc{} gobble      = Gobble       = \PYGZob{}\PYGZcb{}}
+\PYG{c}{\PYGZpc{} font size   = TaillePolice = \PYGZbs{}footnotesize}
+\PYG{c}{\PYGZpc{} watermark   = Filigrane    = false}
+\PYG{c}{\PYGZpc{} style       = Style        = Classique}
+\PYG{c}{\PYGZpc{} border      = Cadre        = true}
+\PYG{c}{\PYGZpc{} title bar   = BarreTitre   = true}
+\PYG{c}{\PYGZpc{} title       = Titre        = ...}
+\PYG{c}{\PYGZpc{} vsep        = EspacementV  = 0.5\PYGZbs{}baselineskip}
+\PYG{c}{\PYGZpc{} color       = Couleurs     = true}
+\PYG{c}{\PYGZpc{} \PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}}
+\end{MintedVerbatim}

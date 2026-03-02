@@ -1,0 +1,10 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k}{\PYGZbs{}begin}\PYG{n+nb}{\PYGZob{}}GraphTikz\PYG{n+nb}{\PYGZcb{}}\PYG{c}{\PYGZpc{}}
+	[x=0.8cm,y=1cm,Xmin=\PYGZhy{}7,Xmax=4,Ymin=\PYGZhy{}3,Ymax=5]
+	\PYG{k}{\PYGZbs{}DrawAxisGrids}\PYG{n+na}{[Enlarge=2.5mm]}\PYG{n+nb}{\PYGZob{}}\PYGZhy{}7,\PYGZhy{}6,...,4\PYG{n+nb}{\PYGZcb{}\PYGZob{}}\PYGZhy{}3,\PYGZhy{}2,...,5\PYG{n+nb}{\PYGZcb{}}
+	\PYG{c}{\PYGZpc{}definition of the list of spline support points}
+	\PYG{k}{\PYGZbs{}def\PYGZbs{}LISTETEST}\PYG{n+nb}{\PYGZob{}}\PYGZhy{}6/4/\PYGZhy{}2§\PYGZhy{}5/2/\PYGZhy{}2§\PYGZhy{}4/0/\PYGZhy{}2§\PYGZhy{}2/\PYGZhy{}2/0§1/2/2§3/3.5/0.5\PYG{n+nb}{\PYGZcb{}}
+	\PYG{c}{\PYGZpc{}definition and plot of the cubic spline}
+	\PYG{k}{\PYGZbs{}DefineSplineCurve}\PYG{n+na}{[Name=splinetest,Trace,Color=olive]}\PYG{n+nb}{\PYGZob{}}\PYG{k}{\PYGZbs{}LISTETEST}\PYG{n+nb}{\PYGZcb{}}
+\PYG{k}{\PYGZbs{}end}\PYG{n+nb}{\PYGZob{}}GraphTikz\PYG{n+nb}{\PYGZcb{}}
+\end{Verbatim}

@@ -1,0 +1,498 @@
+\part{Écritures, simplifications}
+
+\section{Simplification sous forme d'une fractions}\label{convfrac}
+
+\subsection{Idée}
+
+\begin{tipblock}
+L'idée est d'obtenir une commande pour \textit{simplifier} un calcul sous forme de fraction irréductible.
+\end{tipblock}
+
+\begin{PresCodeTexPL}{listing only}
+\ConversionFraction(*)[option de formatage]{calcul}
+\end{PresCodeTexPL}
+
+\subsection{Commande et options}
+
+\begin{cautionblock}
+Quelques explications sur cette commande :
+
+\begin{itemize}
+	\item \cmaj{2.5.1} la version \textit{étoilée} force l'écriture du signe \og $-$ \fg{} sur le numérateur ;
+	\item le premier argument, \textit{optionnel} et entre \textsf{[...]} permet de spécifier un formatage du résultat :
+	\begin{itemize}
+			\item \Cle{t} pour l'affichage de la fraction en mode \textsf{tfrac} ;
+			\item \Cle{d} pour l'affichage de la fraction en mode \textsf{dfrac} ;
+			\item \Cle{n} pour l'affichage de la fraction en mode \textsf{nicefrac} ;
+			\item \Cle{dec} pour l'affichage du résultat en mode \texttt{décimal} (sans arrondi !) ;
+			\item \Cle{dec=k} pour l'affichage du résultat en mode \texttt{décimal} arrondi à $10^{-k}$ ;
+		\end{itemize}
+	\item le second argument, \textit{obligatoire}, est quant à lui, le calcul en syntaxe \textsf{xint}.
+\end{itemize}
+
+À noter que la macro est dans un bloc \ctex{ensuremath} donc les \ctex{\$...\$} ne sont pas nécessaires.
+\end{cautionblock}
+
+\begin{PresCodeTexPL}{listing only}
+\ConversionFraction{-10+1/3*(-5/16)}          %sortie par défaut 
+\ConversionFraction*{-10+1/3*(-5/16)}         %sortie fraction avec - sur numérateur
+\ConversionFraction[d]{-10+1/3*(-5/16)}       %sortie en displaystyle
+\ConversionFraction[n]{-10+1/3*(-5/16)}       %sortie en nicefrac
+\ConversionFraction[dec=4]{-10+1/3*(-5/16)}   %sortie en décimal arrondi à 0,0001
+\ConversionFraction{2+91/7}                   %entier formaté
+\ConversionFraction{111/2145}
+\ConversionFraction{111/3}
+\end{PresCodeTexPL}
+
+\begin{PresCodeSortiePL}{text only}
+\ConversionFraction{-10+1/3*(-5/16)}
+
+\smallskip
+
+\ConversionFraction*{-10+1/3*(-5/16)}
+
+\smallskip
+
+\ConversionFraction[d]{-10+1/3*(-5/16)}
+
+\smallskip
+
+\ConversionFraction[n]{-10+1/3*(-5/16)}
+
+\smallskip
+
+\ConversionFraction[dec=4]{-10+1/3*(-5/16)}
+
+\smallskip
+
+\ConversionFraction{2+91/7}
+
+\smallskip
+
+\ConversionFraction{111/2145}
+
+\smallskip
+
+\ConversionFraction{111/3}
+\end{PresCodeSortiePL}
+
+\begin{PresCodePL}{}
+$\frac{111}{2145}=\ConversionFraction{111/2145}$ \\
+
+$\frac{3}{15}=\ConversionFraction[]{3/15}$ \\
+
+$\tfrac{3}{15}=\ConversionFraction[t]{3/15}$ \\
+
+$\dfrac{3}{15}=\ConversionFraction[d]{3/15}$ \\
+
+$\dfrac{0,42}{0,015}=\ConversionFraction[d]{0.42/0.015}$ \\
+
+$\dfrac{0,41}{0,015}=\ConversionFraction[d]{0.41/0.015}$ \\
+
+$\dfrac{1}{7}-\dfrac{3}{8}=\ConversionFraction[d]{1/7-3/8}$ \\
+
+$\ConversionFraction[d]{1+1/2}$ \\
+
+$\ConversionFraction{0.1/0.7+30/80}$
+\end{PresCodePL}
+
+\begin{noteblock}
+A priori le package \ctex{xint} permet de s'en sortir pour des calculs \og simples \fg, je ne garantis pas que tout calcul ou toute division donne un résultat \textit{satisfaisant} !
+\end{noteblock}
+
+\newpage
+
+\section{Écriture d'un trinôme, trinôme aléatoire}\label{trinome}
+
+\subsection{Idée}
+
+\begin{tipblock}
+L'idée est de proposer une commande pour écrire, sous forme développée réduite, un trinôme en fonction de ses coefficients $a$, $b$ et $c$ (avec $a\neq0$), avec la gestion des coefficients nuls ou égaux à $\pm1$.
+
+\smallskip
+
+En combinant avec le package \ctex{xfp} et fonction de générateur d'entiers aléatoires, on peut de ce fait proposer une commande pour générer aléatoirement des trinômes à coefficients entiers (pour des fiches d'exercices par exemple).
+
+\smallskip
+
+L'affichage des monômes est géré par le package \ctex{siunitx} et le tout est dans un environnement \ctex{ensuremath}.
+\end{tipblock}
+
+\begin{PresCodeTexPL}{listing only}
+\EcritureTrinome[options]{a}{b}{c}
+\end{PresCodeTexPL}
+
+\begin{PresCodePL}{}
+\EcritureTrinome{1}{7}{0}\\
+\EcritureTrinome{1.5}{7.3}{2.56}\\
+\EcritureTrinome{-1}{0}{12}\\
+\EcritureTrinome{-1}{-5}{0}
+\end{PresCodePL}
+
+\subsection{Clés et options}
+
+\begin{cautionblock}
+Quelques clés et options sont disponibles :
+
+\begin{itemize}
+	\item la clé booléenne \Cle{Alea} pour autoriser les coefficients aléatoires ;\hfill{}défaut \Cle{false}
+	\item la clé booléenne \Cle{Anegatif} pour autoriser $a$ à être négatif.\hfill{}défaut \Cle{true}
+\end{itemize}
+\vspace*{-\baselineskip}\leavevmode
+\end{cautionblock}
+
+\begin{noteblock}
+La clé \Cle{Alea} va modifier la manière de saisir les coefficients, il suffira dans ce cas de  préciser les bornes, sous la forme \ctex{valmin,valmax}, de chacun des coefficients. C'est ensuite le package \ctex{xfp} qui va se charger de générer les coefficients.
+\end{noteblock}
+
+\begin{PresCodePL}{}
+Avec $a$ entre 1 et 5 (et signe aléatoire) puis $b$ entre $-5$ et 5 puis $c$ entre $-10$ et 20 : \\
+$f(x)=\EcritureTrinome[Alea]{1,5}{-5,5}{-10,10}$\\
+$g(x)=\EcritureTrinome[Alea]{1,5}{-5,5}{-10,10}$\\
+$h(x)=\EcritureTrinome[Alea]{1,5}{-5,5}{-10,10}$\\
+Avec $a$ entre 1 et 10 (forcément positif) puis $b$ entre $-2$ et 2 puis $c$ entre 0 et 4 : \\
+\EcritureTrinome[Alea,Anegatif=false]{1,10}{-2,2}{0,4}\\
+\EcritureTrinome[Alea,Anegatif=false]{1,10}{-2,2}{0,4}\\
+\EcritureTrinome[Alea,Anegatif=false]{1,10}{-2,2}{0,4}
+\end{PresCodePL}
+
+\newpage
+
+\section{Simplification de racines}\label{simplracine}
+
+\subsection{Idée}
+
+\begin{tipblock}
+\cmaj{2.1.0} L'idée est de proposer une commande pour simplifier \textit{automatiquement} une racine carrée, sous la forme $\frac{a\sqrt{b}}{c}$ avec $\frac{a}{c}$ irréductible et $b$ le \frquote{plus petit possible}.
+\end{tipblock}
+
+\begin{PresCodeTexPL}{listing only}
+\SimplificationRacine{expression ou calcul}
+\end{PresCodeTexPL}
+
+\begin{PresCodePL}{}
+\SimplificationRacine{48} \\ \SimplificationRacine{100/34}\\
+\SimplificationRacine{99999} \\ \SimplificationRacine{1500*0.31*(1-0.31)}\\
+\end{PresCodePL}
+
+\begin{noteblock}
+C'est -- comme souvent -- le package \ctex{xint} qui s'occupe en interne des calculs, et qui devrait donner des résultats satisfaisants dans la majorité des cas (attention aux \textit{grands nombres}\ldots)
+
+\smallskip
+
+La commande ne fait pas office de \textit{calculatrice}, elle ne permet \textit{que} de simplifier \textit{une} racine carrée (donc transformer si besoin !).
+\end{noteblock}
+
+\subsection{Exemples}
+
+\begin{PresCodePL}{}
+%Simplification d'un module de complexe
+$\left| 4+6\text{i}\right| = \sqrt{4^2+6^2} = \sqrt{\xinteval{4**2+6**2}}=\SimplificationRacine{4**2+6**2}$
+
+%Simplification n°1
+$\frac{1}{\sqrt{6}}=\left(\sqrt{\frac{1}{6}}\right)=\SimplificationRacine{1/6}$
+
+%Simplification n°2
+$\frac{42}{\sqrt{5}}=\left(\sqrt{\frac{42^2}{5}}\right)=\SimplificationRacine{(42*42)/5}$
+
+%Écart-type d'une loi binomiale
+$\sqrt{\num{150}\times\num{0.35}\times(1-\num{0.35})} = \displaystyle\SimplificationRacine{150*0.35*(1-0.35)}$
+\end{PresCodePL}
+
+\newpage
+
+\section{Mesure principale d'un angle}\label{mesureprincipale}
+
+\subsection{Idée}
+
+\begin{tipblock}
+\cmaj{2.1.2} L'idée est de proposer (sur une suggestion de Marylyne Vignal) une commande pour déterminer la mesure principale d'un angle en radian.
+\end{tipblock}
+
+\begin{PresCodeTexPL}{listing only}
+\MesurePrincipale[booléens]{angle}   %dans un mode mathématique
+\end{PresCodeTexPL}
+
+\begin{noteblock}
+La commande est à insérer dans un environnement mathématique, via \ctex{\$...\$} ou \ctex{\textbackslash[...\textbackslash]}.
+
+L'angle est donné sous forme \textit{explicite} avec la chaîne \ctex{pi}.
+\end{noteblock}
+
+\subsection{Exemples}
+
+\begin{cautionblock}
+Pour cette commande :
+
+\begin{itemize}
+	\item le booléen \Cle{d} permet de forcer l'affichage en \ctex{displaystyle} ; \hfill{}défaut \Cle{false}
+	\item le booléen \Cle{Crochets} permet d'afficher le \textit{modulo} entre crochets (sinon parenthèses) ;
+	
+	\hfill{}défaut \Cle{false}
+	\item \cmaj{2.6.0} le booléen \Cle{Brut} pour afficher uniquement la mesure principale ; \hfill{}défaut \Cle{false}
+	\item l'argument \textit{obligatoire} est en écriture \textit{en ligne}.
+\end{itemize}
+\vspace*{-\baselineskip}\leavevmode
+\end{cautionblock}
+
+\begin{PresCodeTexPL}{listing only}
+$\MesurePrincipale[d]{54pi/7}$
+$\MesurePrincipale[d]{-128pi/15}$
+$\MesurePrincipale{3pi/2}$
+$\MesurePrincipale[Crochets]{5pi/2}$
+$\MesurePrincipale{-13pi}$
+$\MesurePrincipale{28pi}$
+$\MesurePrincipale[d]{14pi/4}$
+$\MesurePrincipale[Crochets]{14pi/7}$
+$\dfrac{121\pi}{12} = \MesurePrincipale[Brut]{121pi/12}$ à $2\pi$ près
+\end{PresCodeTexPL}
+
+\begin{PresCodeSortiePL}{text only}
+$\MesurePrincipale[d]{54pi/7}$
+
+\medskip
+
+$\MesurePrincipale{-128pi/15}$
+
+\medskip
+
+$\MesurePrincipale{3pi/2}$
+
+\medskip
+
+$\MesurePrincipale[Crochets]{5pi/2}$
+
+\medskip
+
+$\MesurePrincipale{-13pi}$
+
+\medskip
+
+$\MesurePrincipale{28pi}$
+
+\medskip
+
+$\MesurePrincipale[d]{14pi/4}$
+
+\medskip
+
+$\MesurePrincipale[Crochets]{14pi/7}$
+
+\medskip
+
+$\dfrac{121\pi}{12} = \MesurePrincipale[d,Brut]{121pi/12}$ à $2\pi$ près
+\end{PresCodeSortiePL}
+
+\pagebreak
+
+\section{Lignes trigonométriques}\label{lignestrigo}
+
+\subsection{Idée}
+
+\begin{tipblock}
+\cmaj{2.6.0} L'idée est de proposer pour déterminer les lignes trigonométriques (cos, sin et tan) d'angles classiques, formés des \og $\pi$ \fg{} et \og $\pi$ sur 2 ; 3 ; 4 ; 5 ; 6 ; 8 ; 10 ; 12 \fg{}.
+
+\smallskip
+
+La commande détermine -- et affiche si demandée la réduction -- et la valeur exacte de la ligne trigonométrique demandée.
+\end{tipblock}
+
+\begin{PresCodeTexPL}{listing only}
+\LigneTrigo(*)[booléens]{cos/sin/tan}(angle)
+\end{PresCodeTexPL}
+
+\subsection{Commande}
+
+\begin{cautionblock}
+Pour cette commande :
+
+\begin{itemize}
+	\item la version \textit{étoilée} n'affiche pas l'angle initial ;
+	\item le booléen \Cle{d} permet de forcer l'affichage en \ctex{displaystyle} ; \hfill{}défaut \Cle{false}
+	\item le booléen \Cle{Etapes} permet d'afficher la réduction avant le résultat ; \hfill{}défaut \Cle{false}
+	\item le premier argument \textit{obligatoire}, entre \ctex{\{...\}} est le type de calcul demandé, parmi \Cle{cos / sin / tan} ;
+	\item le second argument \textit{obligatoire}, entre \ctex{(...)} est l'angle, donné en ligne, avec \ctex{pi}.
+\end{itemize}
+\vspace*{-\baselineskip}\leavevmode
+\end{cautionblock}
+
+\begin{PresCodePL}{}
+$\LigneTrigo{cos}(56pi/3)$ et $\LigneTrigo{sin}(56pi/3)$ et $\LigneTrigo{tan}(56pi/3)$
+\end{PresCodePL}
+
+\begin{PresCodePL}{}
+$\LigneTrigo[d,Etapes]{cos}(56pi/3)$ et $\LigneTrigo[d,Etapes]{sin}(56pi/3)$
+\end{PresCodePL}
+
+\begin{PresCodePL}{}
+$\LigneTrigo*[d,Etapes]{cos}(2pi/3)$ et $\LigneTrigo*[d,Etapes]{sin}(2pi/3)$
+\end{PresCodePL}
+
+\begin{PresCodePL}{}
+$\LigneTrigo[d,Etapes]{cos}(146pi)$ et $\LigneTrigo[d,Etapes]{sin}(146pi)$
+\end{PresCodePL}
+
+\begin{PresCodePL}{}
+$\LigneTrigo[d,Etapes]{cos}(-551pi/12)$ et $\LigneTrigo[d,Etapes]{sin}(-551pi/12)$
+\end{PresCodePL}
+
+\begin{PresCodePL}{}
+$\LigneTrigo[d,Etapes]{cos}(447pi/8)$ et $\LigneTrigo[d,Etapes]{sin}(447pi/8)$
+\end{PresCodePL}
+
+\begin{PresCodePL}{}
+$\LigneTrigo*[d,Etapes]{cos}(-pi/8)$ et $\LigneTrigo*[d,Etapes]{sin}(-pi/8)$
+\end{PresCodePL}
+
+\begin{PresCodePL}{}
+$\LigneTrigo[d,Etapes]{cos}(-595pi/12)$ et $\LigneTrigo[d,Etapes]{sin}(-595pi/12)$ et $\LigneTrigo[d,Etapes]{tan}(-595pi/12)$
+\end{PresCodePL}
+
+\begin{PresCodePL}{}
+$\LigneTrigo[d,Etapes]{cos}(33pi/10)$ et $\LigneTrigo[d,Etapes]{sin}(33pi/10)$\\
+$\LigneTrigo[d,Etapes]{tan}(33pi/10)$
+\end{PresCodePL}
+
+\begin{PresCodePL}{}
+$\LigneTrigo[d,Etapes]{cos}(-14pi/5)$ et $\LigneTrigo[d,Etapes]{sin}(-14pi/5)$\\
+$\LigneTrigo[d,Etapes]{tan}(-14pi/5)$
+\end{PresCodePL}
+
+\subsection{Valeurs disponibles}
+
+\begin{noteblock}
+Les valeurs disponibles sont :
+
+\begin{tblr}{hlines,vlines,colspec={Q[1cm,m,l]*{9}{Q[1.195cm,m,c]}},cells={font=\scriptsize},row{1}={bg=lightgray!50},column{1}={bg=lightgray!50}}
+	angle	& $0$	& $\nicefrac{\pi}{6}$	& $\nicefrac{\pi}{4}$	& $\nicefrac{\pi}{3}$	& $\nicefrac{\pi}{2}$	& $\nicefrac{2\pi}{3}$	& $\nicefrac{3\pi}{4}$	& $\nicefrac{5\pi}{6}$ & $\pi$ \\
+	cos		& $\LigneTrigo{cos}(0)$ & $\LigneTrigo{cos}(pi/6)$ & $\LigneTrigo{cos}(pi/4)$ & $\LigneTrigo{cos}(pi/3)$ & $\LigneTrigo{cos}(pi/2)$ & $\LigneTrigo{cos}(2pi/3)$ & $\LigneTrigo{cos}(3pi/4)$ & $\LigneTrigo{cos}(5pi/6)$ & $\LigneTrigo{cos}(pi)$ \\
+	sin		& $\LigneTrigo{sin}(0)$ & $\LigneTrigo{sin}(pi/6)$ & $\LigneTrigo{sin}(pi/4)$ & $\LigneTrigo{sin}(pi/3)$ & $\LigneTrigo{sin}(pi/2)$ & $\LigneTrigo{sin}(2pi/3)$ & $\LigneTrigo{sin}(3pi/4)$ & $\LigneTrigo{sin}(5pi/6)$ & $\LigneTrigo{sin}(pi)$ \\
+	tan		& $\LigneTrigo{tan}(0)$ & $\LigneTrigo{tan}(pi/6)$ & $\LigneTrigo{tan}(pi/4)$ & $\LigneTrigo{tan}(pi/3)$ & $\LigneTrigo{tan}(pi/2)$ & $\LigneTrigo{tan}(2pi/3)$ & $\LigneTrigo{tan}(3pi/4)$ & $\LigneTrigo{tan}(5pi/6)$ & $\LigneTrigo{tan}(pi)$ \\
+\end{tblr}
+
+\medskip
+
+\begin{tblr}{hlines,vlines,colspec={Q[1cm,m,l]*{9}{Q[1.195cm,m,c]}},cells={font=\scriptsize},row{1}={bg=lightgray!50},column{1}={bg=lightgray!50}}
+	angle	& 	& $\nicefrac{-\pi}{6}$	& $\nicefrac{-\pi}{4}$	& $\nicefrac{-\pi}{3}$	& $\nicefrac{-\pi}{2}$	& $\nicefrac{-2\pi}{3}$	& $\nicefrac{-3\pi}{4}$	& $\nicefrac{-5\pi}{6}$ &  \\
+	cos		&  & $\LigneTrigo{cos}(-pi/6)$ & $\LigneTrigo{cos}(-pi/4)$ & $\LigneTrigo{cos}(-pi/3)$ & $\LigneTrigo{cos}(-pi/2)$ & $\LigneTrigo{cos}(-2pi/3)$ & $\LigneTrigo{cos}(-3pi/4)$ & $\LigneTrigo{cos}(-5pi/6)$ &  \\
+	sin		&  & $\LigneTrigo{sin}(-pi/6)$ & $\LigneTrigo{sin}(-pi/4)$ & $\LigneTrigo{sin}(-pi/3)$ & $\LigneTrigo{sin}(-pi/2)$ & $\LigneTrigo{sin}(-2pi/3)$ & $\LigneTrigo{sin}(-3pi/4)$ & $\LigneTrigo{sin}(-5pi/6)$ &  \\
+	tan		&  & $\LigneTrigo{tan}(-pi/6)$ & $\LigneTrigo{tan}(-pi/4)$ & $\LigneTrigo{tan}(-pi/3)$ & $\LigneTrigo{tan}(-pi/2)$ & $\LigneTrigo{tan}(-2pi/3)$ & $\LigneTrigo{tan}(-3pi/4)$ & $\LigneTrigo{tan}(-5pi/6)$ &  \\
+\end{tblr}
+
+\medskip
+
+\begin{tblr}{hlines,vlines,colspec={Q[1cm,m,l]*{8}{Q[1.4cm,m,c]}},cells={font=\scriptsize},row{1}={bg=lightgray!50},column{1}={bg=lightgray!50}}
+	angle	& $\nicefrac{\pi}{8}$	& $\nicefrac{3\pi}{8}$	& $\nicefrac{5\pi}{8}$	& $\nicefrac{7\pi}{8}$	& $\nicefrac{\pi}{12}$	& $\nicefrac{5\pi}{12}$	& $\nicefrac{7\pi}{12}$ & $\nicefrac{11\pi}{12}$  \\
+	cos		& $\LigneTrigo{cos}(pi/8)$ & $\LigneTrigo{cos}(3pi/8)$ & $\LigneTrigo{cos}(5pi/8)$ & $\LigneTrigo{cos}(7pi/8)$ & $\LigneTrigo{cos}(pi/12)$ & $\LigneTrigo{cos}(5pi/12)$ & $\LigneTrigo{cos}(7pi/12)$ & $\LigneTrigo{cos}(11pi/12)$  \\
+	sin		& $\LigneTrigo{sin}(pi/8)$ & $\LigneTrigo{sin}(3pi/8)$ & $\LigneTrigo{sin}(5pi/8)$ & $\LigneTrigo{sin}(7pi/8)$ & $\LigneTrigo{sin}(pi/12)$ & $\LigneTrigo{sin}(5pi/12)$ & $\LigneTrigo{sin}(7pi/12)$ & $\LigneTrigo{sin}(11pi/12)$  \\
+	tan		& $\LigneTrigo{tan}(pi/8)$ & $\LigneTrigo{tan}(3pi/8)$ & $\LigneTrigo{tan}(5pi/8)$ & $\LigneTrigo{tan}(7pi/8)$ & $\LigneTrigo{tan}(pi/12)$ & $\LigneTrigo{tan}(5pi/12)$ & $\LigneTrigo{tan}(7pi/12)$ & $\LigneTrigo{tan}(11pi/12)$  \\
+\end{tblr}
+
+\medskip
+
+\begin{tblr}{hlines,vlines,colspec={Q[1cm,m,l]*{8}{Q[1.4cm,m,c]}},cells={font=\scriptsize},row{1}={bg=lightgray!50},column{1}={bg=lightgray!50}}
+	angle	& $\nicefrac{-\pi}{8}$	& $\nicefrac{-3\pi}{8}$	& $\nicefrac{-5\pi}{8}$	& $\nicefrac{-7\pi}{8}$	& $\nicefrac{-\pi}{12}$	& $\nicefrac{-5\pi}{12}$	& $\nicefrac{-7\pi}{12}$ & $\nicefrac{-11\pi}{12}$  \\
+	cos		& $\LigneTrigo{cos}(-pi/8)$ & $\LigneTrigo{cos}(-3pi/8)$ & $\LigneTrigo{cos}(-5pi/8)$ & $\LigneTrigo{cos}(-7pi/8)$ & $\LigneTrigo{cos}(-pi/12)$ & $\LigneTrigo{cos}(-5pi/12)$ & $\LigneTrigo{cos}(-7pi/12)$ & $\LigneTrigo{cos}(-11pi/12)$  \\
+	sin		& $\LigneTrigo{sin}(-pi/8)$ & $\LigneTrigo{sin}(-3pi/8)$ & $\LigneTrigo{sin}(-5pi/8)$ & $\LigneTrigo{sin}(-7pi/8)$ & $\LigneTrigo{sin}(-pi/12)$ & $\LigneTrigo{sin}(-5pi/12)$ & $\LigneTrigo{sin}(-7pi/12)$ & $\LigneTrigo{sin}(-11pi/12)$  \\
+	tan		& $\LigneTrigo{tan}(-pi/8)$ & $\LigneTrigo{tan}(-3pi/8)$ & $\LigneTrigo{tan}(-5pi/8)$ & $\LigneTrigo{tan}(-7pi/8)$ & $\LigneTrigo{tan}(-pi/12)$ & $\LigneTrigo{tan}(-5pi/12)$ & $\LigneTrigo{tan}(-7pi/12)$ & $\LigneTrigo{tan}(-11pi/12)$  \\
+\end{tblr}
+
+\medskip
+
+\begin{tblr}{hlines,vlines,colspec={Q[1cm,m,l]*{8}{Q[1.4cm,m,c]}},cells={font=\scriptsize},row{1}={bg=lightgray!50},column{1}={bg=lightgray!50}}
+	angle	& $\nicefrac{-4\pi}{5}$	& $\nicefrac{-3\pi}{5}$	& $\nicefrac{-2\pi}{5}$	& $\nicefrac{-\pi}{5}$	& $\nicefrac{\pi}{5}$	& $\nicefrac{2\pi}{5}$	& $\nicefrac{3\pi}{5}$ & $\nicefrac{4\pi}{5}$  \\
+	cos		& $\LigneTrigo{cos}(-4pi/5)$ & $\LigneTrigo{cos}(-3pi/5)$ & $\LigneTrigo{cos}(-2pi/5)$ & $\LigneTrigo{cos}(-pi/5)$ & $\LigneTrigo{cos}(pi/5)$ & $\LigneTrigo{cos}(2pi/5)$ & $\LigneTrigo{cos}(3pi/5)$ & $\LigneTrigo{cos}(4pi/5)$  \\
+	sin		& $\LigneTrigo{sin}(-4pi/5)$ & $\LigneTrigo{sin}(-3pi/5)$ & $\LigneTrigo{sin}(-2pi/5)$ & $\LigneTrigo{sin}(-pi/5)$ & $\LigneTrigo{sin}(pi/5)$ & $\LigneTrigo{sin}(2pi/5)$ & $\LigneTrigo{sin}(3pi/5)$ & $\LigneTrigo{sin}(4pi/5)$  \\
+	tan		& $\LigneTrigo{tan}(-4pi/5)$ & $\LigneTrigo{tan}(-3pi/5)$ & $\LigneTrigo{tan}(-2pi/5)$ & $\LigneTrigo{tan}(-pi/5)$ & $\LigneTrigo{tan}(pi/5)$ & $\LigneTrigo{tan}(2pi/5)$ & $\LigneTrigo{tan}(3pi/5)$ & $\LigneTrigo{tan}(4pi/5)$  \\
+\end{tblr}
+
+\medskip
+
+\begin{tblr}{hlines,vlines,colspec={Q[1cm,m,l]*{8}{Q[1.4cm,m,c]}},cells={font=\scriptsize},row{1}={bg=lightgray!50},column{1}={bg=lightgray!50}}
+	angle	& $\nicefrac{-9\pi}{10}$	& $\nicefrac{-7\pi}{10}$	& $\nicefrac{-3\pi}{10}$	& $\nicefrac{-\pi}{10}$	& $\nicefrac{\pi}{10}$	& $\nicefrac{3\pi}{10}$	& $\nicefrac{7\pi}{10}$ & $\nicefrac{9\pi}{10}$  \\
+	cos		& $\LigneTrigo{cos}(-9pi/10)$ & $\LigneTrigo{cos}(-7pi/10)$ & $\LigneTrigo{cos}(-3pi/10)$ & $\LigneTrigo{cos}(-pi/10)$ & $\LigneTrigo{cos}(pi/10)$ & $\LigneTrigo{cos}(3pi/10)$ & $\LigneTrigo{cos}(7pi/10)$ & $\LigneTrigo{cos}(9pi/10)$  \\
+	sin		& $\LigneTrigo{sin}(-9pi/10)$ & $\LigneTrigo{sin}(-7pi/10)$ & $\LigneTrigo{sin}(-3pi/10)$ & $\LigneTrigo{sin}(-pi/10)$ & $\LigneTrigo{sin}(pi/10)$ & $\LigneTrigo{sin}(3pi/10)$ & $\LigneTrigo{sin}(7pi/10)$ & $\LigneTrigo{sin}(9pi/10)$  \\
+	tan		& $\LigneTrigo{tan}(-9pi/10)$ & $\LigneTrigo{tan}(-7pi/10)$ & $\LigneTrigo{tan}(-3pi/10)$ & $\LigneTrigo{tan}(-pi/10)$ & $\LigneTrigo{tan}(pi/10)$ & $\LigneTrigo{tan}(3pi/10)$ & $\LigneTrigo{tan}(7pi/10)$ & $\LigneTrigo{tan}(9pi/10)$  \\
+\end{tblr}
+\end{noteblock}
+
+\newpage
+
+\section{Écriture sous forme de fraction irréductible d'un décimal périodique}\label{fracperiod}
+
+\subsection{Idées}
+
+\begin{tipblock}
+\cmaj{3.00f} L'idée est de proposer une commande pour travailler sur l'écriture fractionnaire d'un nombre à écriture décimale périodique.
+
+\smallskip
+
+À partir de l'écriture sous la forme \og $A.B\overline{C}$ \fg, le code se charge de :
+
+\begin{itemize}
+	\item faire les calculs pour obtenir le numérateur et le dénominateur de la fraction (sans simplification) ;
+	\item ou de présenter le résultat de manière basique ;
+	\item ou de rédiger complètement la résolution.
+\end{itemize}
+\vspace*{-\baselineskip}\leavevmode
+\end{tipblock}
+
+\begin{PresCodeTexPL}{listing only}
+%commande générale
+\FractionPeriode[clés]{partie avant la période}{période}
+%résultats bruts, pour utilisation 'externe'
+\FractionPeriode{partie avant la période}{période}
+%présentation simple := nombre + fraction brute + frction simplifiée
+\FractionPeriode[Simple]{partie avant la période}{période}
+%présentation complète := résolution
+\FractionPeriode[Solution]{partie avant la période}{période}
+\end{PresCodeTexPL}
+
+\subsection{Options et clés}
+
+\begin{cautionblock}
+Les clés disponibles pour cette commande sont :
+
+\begin{itemize}
+	\item le booléen \Cle{Brut} qui permet de stocker le numérateur et dénominateur :
+	\begin{itemize}
+		\item dans les variables \ctex{\textbackslash FracPerNum} et \ctex{\textbackslash FracPerDenom} pour la version \textit{complète} ;
+		\item dans les variables \ctex{\textbackslash FracPerNumSimpl} et \ctex{\textbackslash FracPerDenomSimpl} pour la version \textit{irréductible} ;
+	\end{itemize}
+	\hfill{}défaut \Cle{true}
+	\item le booléen \Cle{d} pour forcer l'afficher avec \ctex{\textbackslash displaystyle} ; \hfill{}défaut \Cle{true}
+	\item la clé \Cle{Inconnue} qui gère l'inconnue dans la rédaction ; \hfill{}défaut \Cle{x}
+	\item le booléen \Cle{Solution} qui afficher la résolution \textit{complète} ; \hfill{}défaut \Cle{false}
+	\item le booléen \Cle{Simple} qui affiche uniquement la \textit{conclusion} ; \hfill{}défaut \Cle{false}
+	\item le booléen \Cle{Enonce} (en mode \Cle{Simple=true}) qui affiche le nombre de départ (formaté).
+	
+	\hfill{}défaut \Cle{false}
+\end{itemize}
+
+À noter que la commande gère automatiquement le mode mathématique éventuel.
+\end{cautionblock}
+
+\begin{PresCodePL}{}
+%version brute, pour extraire numérateur et dénominateur puis mise en forme manuelle
+\FractionPeriode{45.1}{23}Numérateur : \FracPerNum{} et \FracPerNumSimpl\par Dénominateur = \FracPerDenom{} et \FracPerDenomSimpl\par
+\medskip
+On a $\num{45.1}\overline{23}=\dfrac{\num{\FracPerNum}}{\num{\FracPerDenom}}=
+\dfrac{\num{\FracPerNumSimpl}}{\num{\FracPerDenomSimpl}}=
+\nicefrac{\num{\FracPerNumSimpl}}{\num{\FracPerDenomSimpl}}$.
+\end{PresCodePL}
+
+\begin{PresCodePL}{}
+\FractionPeriode[Simple]{45.1}{23}
+\end{PresCodePL}
+
+\begin{PresCodePL}{}
+\FractionPeriode[Solution]{45.1}{23}
+\end{PresCodePL}
+
+\begin{PresCodePL}{}
+\FractionPeriode[Simple]{0.}{4}
+\end{PresCodePL}
+
+\begin{PresCodePL}{}
+\FractionPeriode[Solution,Inconnue=n]{154.99}{174}
+\end{PresCodePL}

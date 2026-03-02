@@ -1,0 +1,4 @@
+\begin{MintedVerbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
+\PYG{k}{\PYGZbs{}def\PYGZbs{}IntervtestA}\PYG{n+nb}{\PYGZob{}} \PYGZhy{}4 ; \PYG{k}{\PYGZbs{}dfrac}\PYG{n+nb}{\PYGZob{}}1\PYG{n+nb}{\PYGZcb{}\PYGZob{}}7\PYG{n+nb}{\PYGZcb{}}       \PYG{n+nb}{\PYGZcb{}}
+\PYG{k}{\PYGZbs{}def\PYGZbs{}IntervtestB}\PYG{n+nb}{\PYGZob{}} \PYG{k}{\PYGZbs{}dfrac}\PYG{n+nb}{\PYGZob{}}1\PYG{n+nb}{\PYGZcb{}\PYGZob{}}2\PYG{n+nb}{\PYGZcb{}} ; \PYG{k}{\PYGZbs{}sqrt}\PYG{n+nb}{\PYGZob{}}7\PYG{n+nb}{\PYGZcb{}} \PYG{n+nb}{\PYGZcb{}}
+\end{MintedVerbatim}

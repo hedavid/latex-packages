@@ -1,0 +1,3 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k}{\PYGZbs{}tikzset}\PYG{n+nb}{\PYGZob{}}tangramhelp/.style=\PYG{n+nb}{\PYGZob{}}text=white,inner sep=0pt,font=\PYG{k}{\PYGZbs{}sffamily\PYGZbs{}small\PYGZbs{}bfseries}\PYG{n+nb}{\PYGZcb{}\PYGZcb{}}
+\end{Verbatim}

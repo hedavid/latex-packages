@@ -1,0 +1,3 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k}{\PYGZbs{}ChoisirNbAlea}(*)[precision (déf 0)]\PYG{n+nb}{\PYGZob{}}borne inf\PYG{n+nb}{\PYGZcb{}\PYGZob{}}borne sup\PYG{n+nb}{\PYGZcb{}}[\PYG{k}{\PYGZbs{}macro}]
+\end{Verbatim}

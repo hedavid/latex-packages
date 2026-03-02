@@ -1,0 +1,172 @@
+\part{Quelques cliparts}
+
+\section{Idées}\label{cliparts}
+
+\begin{tipblock}
+\cmaj{3.05a} L'idée est de proposer des petits cliparts vectoriels, en licence libre, pour insertion dans un document :
+
+\begin{itemize}
+	\item en mode \textit{normal} ;
+	\item en mode \textit{en ligne} avec taille et ajustement automatiques.
+\end{itemize}
+\vspace*{-\baselineskip}\leavevmode
+\end{tipblock}
+
+\begin{importantblock}
+Les \textsf{pdf} ont été obtenus depuis des fichiers \textsf{svg} des sites \url{https://openclipart.org} et \url{https://www.svgrepo.com}, les auteurs étant \texttt{Firkin}, \texttt{Juhele}, \texttt{qubodup}, \texttt{TzeenieWheenie}, \texttt{Twitter} et \texttt{jetxee}.
+\end{importantblock}
+
+\begin{PresCodeTexPL}{listing only}
+%insertion classique
+\InsererClipart*[options includegraphics]{clipart}
+
+%insertion en ligne
+\InsererClipart{clipart}
+\end{PresCodeTexPL}
+
+\begin{PresCodePL}{}
+%médialle d'or, insertion manuelle
+\InsererClipart*[height=3cm]{gold-medal}
+
+%insertion en ligne, avec hauteur et profondeur adaptées
+En mode ligne, on peut donner cet exemple (\InsererClipart{notok}) pour illustrer.
+\end{PresCodePL}
+
+\begin{tipblock}
+\cmaj{3.10e} Un petit logo, pour illustrer une interdiction de calculatrice, peut être utilisé.
+
+Il est \textit{créé} à partir de \ctex{fontawesome5} et est destiné à être utilisé en mode \textit{en ligne}, car il s'adapte à la taille de la fonte courante (hauteur et profondeur).
+
+\smallskip
+
+La version étoilée augmente légèrement les espaces horizontaux autour du logo, et l'argument optionnel permet de spécifier la couleur.
+\end{tipblock}
+
+\begin{PresCodeTexPL}{listing only}
+\pflnocalc(*)[couleur]
+\end{PresCodeTexPL}
+
+\pagebreak
+
+\section{Liste des cliparts, et aliases}
+
+\begin{cautionblock}
+Chaque clipart est nommé sous la forme \texttt{pfl-<nom>}, et des aliases sont disponibles, pour insertion \textit{plus rapide}.
+\end{cautionblock}
+
+\begin{PresCodePL}{text only}
+\begin{tblr}{hlines,vlines,colspec={Q[6cm,l]Q[5cm,l]l},cells={font=\LARGE},row{1}={c,font=\bfseries\sffamily\LARGE,bg=cyan!10}}
+	{NOM (pfl-)} & {MACRO} & {RENDU} \\
+	\texttt{bronze-cup}      & \fakeverb{\pflimgcoupeb} & \pflimgcoupeb \\
+	\texttt{bronze-medal}    & \fakeverb{\pflimgmedb}   & \pflimgmedb \\
+	\texttt{bronze-medal-flat}& \fakeverb{\pflimgmedbp}   & \pflimgmedbp \\
+	\texttt{silver-cup}      & \fakeverb{\pflimgcoupea} & \pflimgcoupea \\
+	\texttt{silver-medal}    & \fakeverb{\pflimgmeda}   & \pflimgmeda \\
+	\texttt{silver-medal-flat}& \fakeverb{\pflimgmedap}   & \pflimgmedap \\
+	\texttt{gold-cup}        & \fakeverb{\pflimgcoupeo} & \pflimgcoupeo \\
+	\texttt{gold-medal}      & \fakeverb{\pflimgmedo}   & \pflimgmedo \\
+	\texttt{gold-medal-flat} & \fakeverb{\pflimgmedop}   & \pflimgmedop
+\end{tblr}
+
+\smallskip
+
+\begin{tblr}{hlines,vlines,colspec={Q[6cm,l]Q[5cm,l]l},cells={font=\LARGE},row{1}={c,font=\bfseries\sffamily\LARGE,bg=cyan!10}}
+	{NOM (pfl-)} & {MACRO} & {RENDU} \\
+	\texttt{checked}         & \fakeverb{\pflimgverif}  & \pflimgverif \\
+	\texttt{crossed}         & \fakeverb{\pflimgnonverif} & \pflimgnonverif \\
+	\texttt{ok}              & \fakeverb{\pflimgok} & \pflimgok \\
+	\texttt{notok}           & \fakeverb{\pflimgko} & \pflimgko \\
+	\texttt{mouse}           & \fakeverb{\pflimgsouris} & \pflimgsouris \\
+	\texttt{mouse-left}      & \fakeverb{\pflimgsourisg} & \pflimgsourisg \\
+	\texttt{mouse-center}    & \fakeverb{\pflimgsourisc} & \pflimgsourisc \\
+	\texttt{mouse-right}     & \fakeverb{\pflimgsourisd} & \pflimgsourisd \\
+	\texttt{bullseye-3d}      & \fakeverb{\pflimgcible}   & \pflimgcible \\
+	\texttt{bullseye-dart} & \fakeverb{\pflimgflechette}   & \pflimgflechette \\
+\end{tblr}
+\end{PresCodePL}
+
+\section{Aperçu du logo "calculatrice interdite"}\label{pflnocalc}
+
+\begin{PresCodePL}{}
+En ligne \pflnocalc\ avec un petit texte\\
+\textcolor{blue}{\sffamily\LARGE En ligne \pflnocalc[blue] avec un petit texte}\\
+\textcolor{red}{\ttfamily\Huge En ligne \pflnocalc[red] avec un petit texte}\\
+\scalebox{3.25}[3.25]{Avec une échelle perso : \pflnocalc}
+\end{PresCodePL}
+
+\section{Cliparts 'Zone Bac/Brevet/BTS'}\label{clipartsbac}
+
+\begin{tipblock}
+\cmaj{3.12a} L'idée est de proposer des petits cliparts vectoriels (sur une idée du site \url{https://mathsapiens.fr}), en licence libre, pour illustrer des documents type \textsf{Zone Examen}.
+
+Les cliparts ne sont pas proposés en version individuelle, mais sont à insérer (via \ctex{\textbackslash includegraphics[options,page=...]\{pfl-pictosbac.pdf\}}) ou via la macro du package.
+
+\smallskip
+
+Une insertion en ligne n'est pas (directement) proposée, mais il est possible d'insérer la commande dans un \ctex{raisebox} ou autre !
+\end{tipblock}
+
+\newcommand\affpictobwtblr[1]{$\vcenter{\hbox{\pflpictobac*[height=0.75cm]{#1}}}$}
+\newcommand\affpictocoltblr[1]{$\vcenter{\hbox{\pflpictobac[height=0.75cm]{#1}}}$}
+
+\begin{PresCodePL}{text only}
+\begin{tblr}{hlines,vlines,colspec={*{6}{Q[m,c]}},column{1-2}={font=\sffamily},column{3}={font=\ttfamily},row{1}={bg=teal!25},column{Z}={font=\sffamily}}
+	\textbf{Centre} & \textbf{Alias} & \fakeverb{\pflpictobac*{...}} & \fakeverb{\pflpictobac{...}} & \textbf{Pages} \\
+	Amérique du Nord & \vphantom{pf}amnord & \affpictobwtblr{amnord} & \affpictocoltblr{amnord} & 1-2 \\
+	Amérique du Sud & \vphantom{pf}amsud.v1 & \affpictobwtblr{amsud.v1} & \affpictocoltblr{amsud.v1} & 3-4 \\
+	Amérique du Sud & \vphantom{pf}amsud.v2 & \affpictobwtblr{amsud.v2} & \affpictocoltblr{amsud.v2} & 5-6 \\
+	Asie & \vphantom{pf}asie & \affpictobwtblr{asie} & \affpictocoltblr{asie} & 7-8 \\
+	Asie & \vphantom{pf}asie.v2 & \affpictobwtblr{asie.v2} & \affpictocoltblr{asie.v2} & 9-10 \\
+	Centres Étrangers & \vphantom{pf}ce & \affpictobwtblr{ce} & \affpictocoltblr{ce} & 10-11 \\
+	Centres Étrangers & \vphantom{pf}ce.v2 & \affpictobwtblr{ce.v2} & \affpictocoltblr{ce.v2} & 12-13 \\
+	Centres Étrangers & \vphantom{pf}ce.v3 & \affpictobwtblr{ce.v3} & \affpictocoltblr{ce.v3} & 14-15 \\
+	Métropole & \vphantom{pf}fr & \affpictobwtblr{fr} & \affpictocoltblr{fr} & 16-17 \\
+	Métropole & \vphantom{pf}fr.v2 & \affpictobwtblr{fr.v2} & \affpictocoltblr{fr.v2} & 18-19 \\
+	Liban & \vphantom{pf}liban & \affpictobwtblr{liban} & \affpictocoltblr{liban} & 20-21 \\
+	Nouvelle Calédonie & \vphantom{pf}nouvcal & \affpictobwtblr{nouvcal} & \affpictocoltblr{nouvcal} & 22-23 \\
+	Polynésie & \vphantom{pf}poly & \affpictobwtblr{poly} & \affpictocoltblr{poly} & 24-25 \\
+	Polynésie & \vphantom{pf}poly.v2 & \affpictobwtblr{poly.v2} & \affpictocoltblr{poly.v2} & 28-29 \\
+	La Réunion & \vphantom{pf}reunion & \affpictobwtblr{reunion} & \affpictocoltblr{reunion} & 26-27 \\
+	La Réunion & \vphantom{pf}reunion.v2 & \affpictobwtblr{reunion.v2} & \affpictocoltblr{reunion.v2} & 30-31 \\
+\end{tblr}
+\end{PresCodePL}
+
+\begin{tipblock}
+\cmaj{3.12a} À noter que ces cliparts peuvent être insérés sans forcément charger tout le package \ctex{ProfLycee}, mais en chargeant l'une de ses dépendances, à savoir le package \ctex{ProfLycee-Pictosbac} (inutile si \ctex{ProfLycee} est chargé !)
+\end{tipblock}
+
+\begin{PresCodeTexPL}{listing only}
+\usepackage{ProfLycee-Pictosbac}
+\end{PresCodeTexPL}
+
+\pagebreak
+
+\section{Cliparts flat 'Zone Bac/Brevet/BTS'}\label{clipartsflat}
+
+\begin{tipblock}
+\cmaj{3.12d} L'idée est de proposer des petits cliparts '\textit{flat}' vectoriels (sur une idée du site \url{https://mathsapiens.fr}), en licence libre, pour illustrer des documents type \textsf{Zone Examen}.
+
+Les cliparts ne sont pas proposés en version individuelle, mais sont à insérer (via \ctex{\textbackslash includegraphics[options,page=...]\{pfl-flatpictosbac.pdf\}}) ou via la macro du package.
+
+\smallskip
+
+Une insertion en ligne n'est pas (directement) proposée, mais il est possible d'insérer la commande dans un \ctex{raisebox} ou autre !
+\end{tipblock}
+
+\newcommand\affpictoflatcroptblr[1]{$\vcenter{\hbox{\pflflatpictobac*[height=0.75cm]{#1}}}$}
+\newcommand\affpictoflattblr[1]{$\vcenter{\hbox{\pflflatpictobac[height=0.75cm]{#1}}}$}
+
+\begin{PresCodePL}{text only}
+	\begin{tblr}{hlines,vlines,colspec={*{6}{Q[m,c]}},column{1-2}={font=\sffamily},column{3}={font=\ttfamily},row{1}={bg=teal!25},column{Z}={font=\sffamily}}
+		\textbf{Centre} & \textbf{Alias} & \fakeverb{\pflflatpictobac{...}} & \fakeverb{\pflflatpictobac*{...}} & \textbf{Pages} \\
+		Amérique du Nord & \vphantom{pf}amnord & \affpictoflattblr{amnord} & \affpictoflatcroptblr{amnord} & 1-2 \\
+		Amérique du Sud & \vphantom{pf}amsud & \affpictoflattblr{amsud} & \affpictoflatcroptblr{amsud} & 3-4 \\
+		Asie & \vphantom{pf}asie.v1 & \affpictoflattblr{asie} & \affpictoflatcroptblr{asie.v1} & 5-6 \\
+		Asie & \vphantom{pf}asie.v2 & \affpictoflattblr{asie.v2} & \affpictoflatcroptblr{asie.v2} & 7-8 \\
+		Centres Étrangers & \vphantom{pf}ce.v1 & \affpictoflattblr{ce.v1} & \affpictoflatcroptblr{ce.v1} & 9-10 \\
+		Centres Étrangers & \vphantom{pf}ce.v2 & \affpictoflattblr{ce.v2} & \affpictoflatcroptblr{ce.v2} & 11-12 \\
+		Métropole & \vphantom{pf}fr.v1 & \affpictoflattblr{fr.v1} & \affpictoflatcroptblr{fr.v1} & 12-14 \\
+		Métropole & \vphantom{pf}fr.v2 & \affpictoflattblr{fr.v2} & \affpictoflatcroptblr{fr.v2} & 15-16 \\
+		Polynésie & \vphantom{pf}poly & \affpictoflattblr{poly} & \affpictoflatcroptblr{poly} & 17-18 \\
+	\end{tblr}
+\end{PresCodePL}

@@ -1,0 +1,11 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k}{\PYGZbs{}begin}\PYG{n+nb}{\PYGZob{}}EnvGrid\PYG{n+nb}{\PYGZcb{}}[NumSquares=36x8]
+	\PYG{k}{\PYGZbs{}WriteLine}\PYG{n+na}{[Scale=1.5]}\PYG{n+nb}{\PYGZob{}}my text on ligne 1\PYG{k}{\PYGZbs{}ldots}\PYG{n+nb}{\PYGZcb{}}
+	\PYG{k}{\PYGZbs{}WriteLine}\PYG{n+na}{[Scale=1.5]}\PYGZlt{}center\PYGZgt{}\PYG{n+nb}{\PYGZob{}}\PYG{k}{\PYGZbs{}ttfamily} my tetetype text centered on line 2\PYG{k}{\PYGZbs{}ldots}\PYG{n+nb}{\PYGZcb{}}
+	\PYG{k}{\PYGZbs{}WriteLine}\PYG{n+na}{[Scale=1.5]}\PYGZlt{}right\PYGZgt{}\PYG{n+nb}{\PYGZob{}}right\PYGZhy{}align text on line 3\PYG{k}{\PYGZbs{}ldots}\PYG{n+nb}{\PYGZcb{}}
+	\PYG{k}{\PYGZbs{}WriteLine}\PYG{n+na}{[Scale=1.5,OffsetH=0.1]}\PYG{n+nb}{\PYGZob{}}\PYG{k}{\PYGZbs{}textcolor}\PYG{n+nb}{\PYGZob{}}red\PYG{n+nb}{\PYGZcb{}\PYGZob{}}red text, 1mm\PYGZhy{}shifted\PYG{k}{\PYGZbs{}ldots}\PYG{n+nb}{\PYGZcb{}\PYGZcb{}}
+	\PYG{k}{\PYGZbs{}PassLine}
+	\PYG{k}{\PYGZbs{}WriteLine}\PYG{n+na}{[Scale=0.5]}\PYG{n+nb}{\PYGZob{}}\PYG{k}{\PYGZbs{}sffamily} sans serif text, reduced by 50\PYG{k}{\PYGZbs{},\PYGZbs{}\PYGZpc{}}, on line 6\PYG{k}{\PYGZbs{}ldots}\PYG{n+nb}{\PYGZcb{}}
+	\PYG{k}{\PYGZbs{}WriteLine}\PYG{n+na}{[Scale=1.5,OffsetH=3]}\PYG{n+nb}{\PYGZob{}}\PYG{k}{\PYGZbs{}cursive} 3 squares\PYGZhy{}shifted text\PYG{k}{\PYGZbs{}ldots}\PYG{n+nb}{\PYGZcb{}}
+\PYG{k}{\PYGZbs{}end}\PYG{n+nb}{\PYGZob{}}EnvGrid\PYG{n+nb}{\PYGZcb{}}
+\end{Verbatim}

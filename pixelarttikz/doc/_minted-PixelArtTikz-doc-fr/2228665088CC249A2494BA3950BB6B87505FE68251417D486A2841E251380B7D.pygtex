@@ -1,0 +1,19 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c}{\PYGZpc{}notice et PixelArt}
+\PYG{k}{\PYGZbs{}begin}\PYG{n+nb}{\PYGZob{}}center\PYG{n+nb}{\PYGZcb{}}
+	\PYG{k}{\PYGZbs{}begin}\PYG{n+nb}{\PYGZob{}}tblr\PYG{n+nb}{\PYGZcb{}\PYGZob{}}colspec=\PYG{n+nb}{\PYGZob{}}*\PYG{n+nb}{\PYGZob{}}4\PYG{n+nb}{\PYGZcb{}\PYGZob{}}Q[1.25cm,c,m]\PYG{n+nb}{\PYGZcb{}\PYGZcb{}},hlines,vlines,rows=\PYG{n+nb}{\PYGZob{}}1.15em\PYG{n+nb}{\PYGZcb{}\PYGZcb{}}
+		\PYG{k}{\PYGZbs{}SetCell}\PYG{n+na}{[c=4]}\PYG{n+nb}{\PYGZob{}}c\PYG{n+nb}{\PYGZcb{}} Notice \PYG{n+nb}{\PYGZam{}} \PYG{n+nb}{\PYGZam{}} \PYG{n+nb}{\PYGZam{}} \PYG{k}{\PYGZbs{}\PYGZbs{}}
+		A \PYG{n+nb}{\PYGZam{}} B \PYG{n+nb}{\PYGZam{}} C \PYG{n+nb}{\PYGZam{}} D \PYG{k}{\PYGZbs{}\PYGZbs{}}
+		45 \PYG{n+nb}{\PYGZam{}} 22 \PYG{n+nb}{\PYGZam{}} 1 \PYG{n+nb}{\PYGZam{}} 7 \PYG{k}{\PYGZbs{}\PYGZbs{}}
+		Noir \PYG{n+nb}{\PYGZam{}} Vert \PYG{n+nb}{\PYGZam{}} Jaune \PYG{n+nb}{\PYGZam{}} Rouge \PYG{k}{\PYGZbs{}\PYGZbs{}}
+	\PYG{k}{\PYGZbs{}end}\PYG{n+nb}{\PYGZob{}}tblr\PYG{n+nb}{\PYGZcb{}}
+\PYG{k}{\PYGZbs{}end}\PYG{n+nb}{\PYGZob{}}center\PYG{n+nb}{\PYGZcb{}}
+
+\PYG{k}{\PYGZbs{}PixelArtTikz}\PYG{n+na}{[Codes=ABCD,Style=\PYGZbs{}large\PYGZbs{}sffamily,Unite=0.85]}\PYG{n+nb}{\PYGZob{}}base.csv\PYG{n+nb}{\PYGZcb{}}
+\PYGZti{}\PYGZti{}
+\PYG{k}{\PYGZbs{}PixelArtTikz}\PYG{n+na}{[Codes=ABCD,Symboles=\PYGZob{}45,22,1,7\PYGZcb{},Symb,Style=\PYGZbs{}large\PYGZbs{}sffamily,Unite=0.85]}\PYG{n+nb}{\PYGZob{}}base.csv\PYG{n+nb}{\PYGZcb{}}
+\PYGZti{}\PYGZti{}
+\PYG{k}{\PYGZbs{}PixelArtTikz}\PYG{n+na}{[Codes=ABCD,Couleurs=\PYGZob{}black,green,yellow,red\PYGZcb{},Correction,Unite=0.85]}\PYG{n+nb}{\PYGZob{}}base.csv\PYG{n+nb}{\PYGZcb{}}
+\PYGZti{}\PYGZti{}
+\PYG{k}{\PYGZbs{}PixelArtTikz}\PYG{n+na}{[Codes=ABCD,Couleurs=\PYGZob{}black,green,yellow,red\PYGZcb{},Correction,BordCases=false,Unite=0.85]}\PYG{n+nb}{\PYGZob{}}base.csv\PYG{n+nb}{\PYGZcb{}}
+\end{Verbatim}

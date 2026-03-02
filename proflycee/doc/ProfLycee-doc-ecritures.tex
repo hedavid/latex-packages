@@ -1,0 +1,439 @@
+\part{Écritures d'objets mathématiques}\label{ecrituresmath}
+
+\section{Commande spécifique de calcul/formatage}\label{pflnum}
+
+\begin{tipblock}
+\cmaj{3.03b} L'idée est de proposer une commande pour cumuler les possibilités des packages \ctex{xint} et \ctex{sinuitx} pour automatiser et formater des calculs.
+
+\cmaj{3.10a} IL est également possible de spécifier des formats particuliers (fraction, racine, radians).
+
+\begin{itemize}
+	\item la version étoilée force le calcul en flottant ;
+	\item l'argument optionnel, entre \ctex{[...]} permet de paramétrer l'arrondi en flottant ;
+	\item l'argument obligatoire, entre \ctex{\{...\}}, est quant à lui le calcul en langage \ctex{xint}.
+\end{itemize}
+\vspace*{-\baselineskip}\leavevmode
+\end{tipblock}
+
+\begin{PresCodeTexPL}{}
+\pflnum{2^12+1}
+
+\pflnum*{4096/(12+1)}
+
+\pflnum*[4]{4096/(12+1)}
+
+\pflnum*[5]{sqrt(1+exp(9.75))}
+
+\pflnumfrac{74+1/5} \pflnumfrac[d]{74+1/5}
+
+\pflnumrad{1250pi/4589} ou \pflnumrad[d]{-9pi/4} ou \pflnumrad*[d]{-9pi/4}
+
+\pflnumsqrt[d]{0.45}
+\end{PresCodeTexPL}
+
+\begin{tipblock}
+\cmaj{3.05a} L'idée est de proposer une commande \textit{interne} pour convertir d'une base à une autre, en accord avec les spécificités de conversions en \hologo{LaTeX3}.
+
+\smallskip
+
+La commande ne s'occupe \textit{que} de convertir d'une base à une autre, sans formatage ou autre.
+\end{tipblock}
+
+\begin{PresCodeTexPL}{}
+%\pflbasetobase{base initiale}{base finale}{nb}
+
+\pflbasetobase{10}{2}{27}\\          %conversion en binaire
+\pflbasetobase{10}{16}{456}\\        %conversion en hexa
+\pflbasetobase{2}{16}{10011111}\\    %conversion en hexa
+\pflbasetobase{5}{10}{2043}\\        %conversion b5-b10
+\pflbasetobase{10}{5}{273}\\         %conversion b10-b5
+\pflbasetobase{16}{7}{AB5F}          %conversion b16-b7
+\end{PresCodeTexPL}
+
+\pagebreak
+
+\section{Commandes}
+
+\begin{tipblock}
+Les commandes de cette section sont disponibles en chargeant la librairie \clib{ecritures}, car elles peuvent redéfinir des commandes personnelles déjà existantes !
+\end{tipblock}
+
+\subsection{Arrondi}
+
+\begin{tipblock}
+Il est possible de calculer/arrondir/formater un calcul mathématique, grâce aux packages \ctex{siunitx} et \ctex{xint}.
+
+\begin{itemize}
+	\item la version étoilée force l'affichage du \og + \fg{} pour les nombres positifs ;
+	\item l'argument optionnel est la précision demandée (3 par défaut)
+	\item l'argument obligatoire est le calcul, au langage \ctex{xint}.
+\end{itemize}
+\vspace*{-\baselineskip}\leavevmode
+\end{tipblock}
+
+\begin{PresCodeTexPL}{}
+$1+\dfrac{7}{11} \approx \Arrondi{1+7/11} \approx \Arrondi[5]{1+7/11} \approx \Arrondi*[2]{1+7/11}$
+
+$\ln\big(1+\e^{4}\big) \approx \Arrondi[6]{log(1+exp(4))}$
+\end{PresCodeTexPL}
+
+\subsection{Unités simplifiées}\label{numfmt}
+
+\begin{tipblock}
+Les commandes suivantes permettent de saisir des quantités avec unités classiques (€/°/\%).
+
+Elles sont compatibles avec le mode \textsf{math} et les espacements sont gérés en interne par le package et par \ctex{siunitx}.
+
+L'argument optionnel permet de préciser un arrondi pour l'affichage.
+\end{tipblock}
+
+\begin{PresCodeTexPL}{}
+On a un prix de $\pflprix{1199.99}$ ou \pflprix[1]{1199.99}.\\
+L'angle mesure $\pflangle{164.46}$ ou \pflangle[1]{164.46}.\\
+L'évolution est de $\pflpcent{47.567}$ ou \pflpcent[2]{47.567}.
+\end{PresCodeTexPL}
+
+\subsection{Ensembles et intervalles}
+
+\begin{tipblock}
+Les commandes suivantes permettent de composer les ensembles traditionnels, en mode \textit{tableau noir}.
+
+Elles sont dans un bloc \textsf{ensuremath}, donc les \textsf{\$...\$} ne sont pas nécessaires.
+
+\smallskip
+
+À noter la macro particulière pour l'ensemble des quaternions, pour éviter des erreurs éventuelles de \textit{re}définition.
+\end{tipblock}
+
+\begin{PresCodeTexPL}{}
+\N, \Z, \D, \Q, \R, \C, \ensH, \N*, \Z*, \D*, \Q*, \R*, \C*, \ensH*
+\end{PresCodeTexPL}
+
+\begin{tipblock}
+Des intervalles peuvent être composés, grâce à la commande \ctex{\textbackslash IntervalleXX}, dont la base est le package \ctex{interval} :
+
+\begin{itemize}
+	\item la commande est insérée dans un bloc \textsf{ensuremath} ;
+	\item le séparateur est le point-virgule ;
+	\item l'espacement autour du point-virgule est laissé aux réglages du document (\ctex{babel}, \ctex{frenchmath}, etc).
+\end{itemize}
+\vspace*{-\baselineskip}\leavevmode
+\end{tipblock}
+
+\begin{PresCodeTexPL}{}
+\IntervalleFO{0}{+\infty} ou \IntervalleOO{0}{+\infty} ou \IntervalleOO{-\infty}{0} ou \IntervalleOF{-\infty}{0}
+\end{PresCodeTexPL}
+
+\begin{PresCodeTexPL}{}
+\IntervalleFF{\frac12}{\sqrt{26}} ou \IntervalleOO{\frac12}{\sqrt{26}} ou 
+\IntervalleFO{\dfrac12}{\sqrt{26}} ou \IntervalleFO{\dfrac12}{\sqrt{26}}
+\end{PresCodeTexPL}
+
+\subsection{Repères et coordonnées}
+
+\begin{tipblock}
+Des vecteurs/repères/coordonnées peuvent être composées :
+
+\begin{itemize}
+	\item les vecteurs sont mis en forme par le package \ctex{esvect} (y compris en version étoilée pour les indices) ;
+	\item des coordonnées de point/vecteur dans le plan ou l'espace ;
+	\item des repères génériques, avec choix du séparateur entre le point et les vecteurs ;
+	\item les versions étoilées des repères n'alignent pas les flèches.
+\end{itemize}
+\vspace*{-\baselineskip}\leavevmode
+\end{tipblock}
+
+\begin{PresCodeTexPL}{}
+%vecteurs
+\Vecteur{\imath} et \Vecteur{u} et \Vecteur{AB}
+
+$\Vecteur{AB}+\Vecteur{BC} = \Vecteur{AC}$
+
+$\Vecteur*{u}[1]+\Vecteur*{v}[2] = \Vecteur*{w}[3]$
+\end{PresCodeTexPL}
+
+\begin{PresCodeTexPL}{}
+%coordonnées points
+\CoordPtPl{4}{-2} ou \CoordPtPl{\frac12}{\frac47}
+
+\CoordPtEsp{4}{-2}{7} ou \CoordPtEsp{-2}{\frac12}{\frac47}
+\end{PresCodeTexPL}
+
+\begin{PresCodeTexPL}{}
+%coordonnées vecteurs
+\CoordVecPl{4}{-2} ou \CoordVecPl{\frac12}{\frac47}
+
+\CoordVecEsp{4}{-2}{7} ou \CoordVecEsp{-2}{\frac12}{\frac47}
+\end{PresCodeTexPL}
+
+\begin{PresCodeTexPL}{}
+%matrices 2x2
+\MatDeux{4}{-2}{1}{-5}
+
+\MatDeux{\frac47}{-1}{0}{-\frac17}
+\end{PresCodeTexPL}
+
+\begin{PresCodeTexPL}{}
+%repères classiques
+\RepereOij ou \RepereOij* ou \RepereOij[Sep={,}] ou \RepereOij*[Sep={,}]
+
+\RepereOijk ou \RepereOijk* ou \RepereOijk[Sep={,}] ou \RepereOijk*[Sep={,}]
+
+\RepereOuv ou \RepereOuv* ou \RepereOuv[Sep={,}] ou \RepereOuv*[Sep={,}]
+\end{PresCodeTexPL}
+
+\begin{PresCodeTexPL}{}
+%repères personnalisés
+\ReperePlan{A}{AB}{AC} ou \ReperePlan*{A}{AB}{AC} ou \ReperePlan*{O}{OI}{OJ} ou \ReperePlan[Sep={,}]{O}{OI}{OK}
+
+\RepereEspace{A}{AB}{AC}{AD} ou \RepereEspace*{A}{AB}{AC}{k} ou \RepereEspace{D}{i}{j}{k}
+\end{PresCodeTexPL}
+
+\subsection{Valeur absolue/module et norme}
+
+\begin{tipblock}
+Des valeurs absolues (ou modules) ou des normes peuvent être saisies :
+
+\begin{itemize}
+	\item les délimiteurs s'adaptent à la hauteur de l'intérieur ;
+	\item les versions étoilées ne tiennent pas compte de la hauteur de l'intérieur.
+\end{itemize}
+\vspace*{-\baselineskip}\leavevmode
+\end{tipblock}
+
+\begin{PresCodeTexPL}{}
+$\ValAbs{\dfrac{x+1}{x-1}}$ ou $\ValAbs*{\dfrac{x+1}{x-1}}$
+
+$\Norme{\Vecteur{AB}}$ ou $\Norme*{\Vecteur{AB}}$
+
+$\ModuleCplx{1+\dfrac12\i}$
+\end{PresCodeTexPL}
+
+\subsection{Divers}
+
+\begin{tipblock}
+La librairie \clib{ecritures} permet également de définir des commandes pour :
+
+\begin{itemize}
+	\item composer le nom d'une courbe ;
+	\item composer le \og i \fg{} et le \og e \fg{} en romain ;
+	\item composer le complexe $\j$ en mode algébrique ou exponentielle ;
+	\item composer un modulo avec choix de la congruence ;
+	\item composer une suite numérique ;
+	\item composer une intégrale (mode \textsf{displaystyle}) ;
+	\item \cmaj{3.02a} composer une limite.
+\end{itemize}
+
+À noter que les commandes sont (sauf mention contraire) dans un bloc \textsf{ensuremath}.
+\end{tipblock}
+
+\begin{PresCodeTexPL}{}
+%version normale := mathcal
+%version étoilée := mathscr (si chargé)
+
+\Courbe et \Courbe[f] et \Courbe[g^{-1}]
+
+\Courbe* et \Courbe*[f] et \Courbe*[g^{-1}]
+\end{PresCodeTexPL}
+
+\begin{PresCodeTexPL}{}
+$\e^{\i \pi} = -1$
+\end{PresCodeTexPL}
+
+\begin{PresCodeTexPL}{}
+On a $\j = \jfalg = \jfexp$
+\end{PresCodeTexPL}
+
+\begin{PresCodeTexPL}{}
+%La version étoilée augmente l'espacement, l'argument optionnel change la présentation
+$21 \equiv 1 \Modulo{5} \equiv 1 \Modulo[Par]{5} \equiv 1 \Modulo[Txt]{5}$
+
+$21 \equiv 1 \Modulo*{5} \equiv 1 \Modulo*[Par]{5} \equiv 1 \Modulo*[Txt]{5}$
+\end{PresCodeTexPL}
+
+\begin{PresCodeTexPL}{}
+Soient les suites \Suite{u} et \Suite[p]{v} et \Suite[q]{\Omega}.
+\end{PresCodeTexPL}
+
+\begin{PresCodeTexPL}{}
+$I = \Integrale f(x) \dx = \Integrale f(t) \dx[t]$
+\end{PresCodeTexPL}
+
+\begin{PresCodeTexPL}{}
+$\Limite{\dfrac{x^3-3x+1}{1+x^2}}{x \to +\infty} = +\infty$
+
+$\Limite{f(x)}{x \to 0}[x > 0] = -\infty$
+\end{PresCodeTexPL}
+
+\subsection{Probabilités}
+
+\begin{tipblock}
+La librairie \clib{ecritures} permet également de définir des commandes pour :
+
+\begin{itemize}
+	\item composer une loi classique (binomiale, exponentielle, etc) avec \textsf{mathcal} ou \textsf{mathscr} ;
+	\item composer espérance, variance et écart-type ;
+	\item \cmaj{3.02a} composer une probabilité conditionnelle, avec ou sans la formule et choix de la typographique de la proba.
+\end{itemize}
+
+À noter que les commandes sont dans un bloc \textsf{ensuremath}.
+\end{tipblock}
+
+\begin{PresCodeTexPL}{}
+%version normale := mathcal
+%version étoilée := mathscr (si chargé)
+
+\LoiNormale{150}{25} ou \LoiNormale*{150}{25}
+
+\LoiBinomiale{150}{\num{0.45}} ou \LoiBinomiale*{150}{\num{0.45}}
+
+\LoiPoisson{5} ou \LoiPoisson*{5}
+
+\LoiExpo{\num{0.001}} ou \LoiExpo*{\num{0.001}}
+
+\LoiUnif{\IntervalleFF{5}{60}} ou \LoiUnif*{\IntervalleFF{5}{60}}
+\end{PresCodeTexPL}
+
+\begin{PresCodeTexPL}{}
+%par défaut E et V en \mathbb
+\Esper{X} ou \Esper[E]{X} \\
+\Varianc{X^2} ou \Varianc[V]{X^2} \\
+\EcType{X^2}
+\end{PresCodeTexPL}
+
+\begin{PresCodeTexPL}{}
+%par défaut
+$\ProbaCondit{A}{B}$ et $\ProbaCondit[Formule]{A}{B}$
+
+$\ProbaCondit{\overline{A}}{\overline{B}}$ et $\ProbaCondit[Formule]{\overline{A}}{\overline{B}}$
+
+%avec proba en minuscule
+$\ProbaCondit[min]{A}{B}$ et $\ProbaCondit[min,Formule]{A}{B}$
+
+%avec proba en \mathbb
+$\ProbaCondit[BB]{A}{B}$ et $\ProbaCondit[BB,Formule]{A}{B}$
+\end{PresCodeTexPL}
+
+\begin{tipblock}
+Il est également possible de configurer \textit{manuellement} sa \textit{propre} notation pour la probabilité, grâce à \ctex{\textbackslash renewcommand\textbackslash notationproba\{...\}}.
+\end{tipblock}
+
+\subsection{Intervalle de confiance, intervalle de fluctuation}\label{IFIC}
+
+\begin{tipblock}
+\cmaj{3.02a} La librairie \clib{ecritures} permet également de définir des commandes pour :
+
+\begin{itemize}
+	\item composer un intervalle de fluctuation, avec ou sans détails et/ou calcul, et avec choix du \textit{niveau} (2de ou terminale) ;
+	\item composer un intervalle de confiance, avec ou sans détails et/ou calcul, et avec choix du \textit{niveau} (2de ou terminale) ;
+	\item composer une rédaction complète avec formule, détail et calcul.
+\end{itemize}
+
+Les niveaux de confiance possibles sont 90\,\%, 95\,\% et 99\,\%.
+\end{tipblock}
+
+\begin{PresCodeTexPL}{}
+%sorties par défaut
+$\IntFluctu$
+
+$\IntConf$
+\end{PresCodeTexPL}
+
+\begin{PresCodeTexPL}{}
+%visualisation des clés
+$\IntFluctu[Details,p=0.85,n=1000]$
+
+$\IntFluctu[Details,p=1/3,n=1000]$
+
+$\IntFluctu[Calcul,p=0.85,n=1000]$
+
+$\IntFluctu[Details,Calcul,p=0.3,n=50,Arrondi=3]$
+
+$\IntFluctu[Seuil=99]$
+
+$\IntFluctu[Details,Calcul,Classe=2de,p=0.3,n=10000,Symbole={=},Arrondi=3]$
+
+$\IntFluctu[Details,Calcul,Classe=2de,p=0.3,n=10001,Symbole=\subseteq,Arrondi=1]$
+
+$\IntFluctu[Details,Calcul,Classe=2de,p=0.3,n=10001,Arrondi=2]$
+
+$\IntFluctu[Details,Calcul,Classe=2de,p=0.3,n=123456,Arrondi=4]$
+
+$\IntFluctu[Details,Calcul,Classe=2de,p=0.3,n=10,Arrondi=2]$
+
+$\IntConf[Details,Calcul,Classe=Term,f=0.5,n=250,Arrondi=3]$
+\end{PresCodeTexPL}
+
+\begin{PresCodeTexPL}{}
+%rédaction complète, via amsmath
+\RedactionIntFluct[Arrondi=3,p=0.55,n=189]{IF} %1=clés,2=nom intervalle
+
+\RedactionIntConf[Arrondi=3,f=0.55,n=189]{IC} %1=clés,2=nom intervalle
+\end{PresCodeTexPL}
+
+\pagebreak
+
+\section{Collection d'objets}\label{ensembles}
+
+\subsection{Idée}
+
+\begin{tipblock}
+L'idée est d'obtenir une commande pour simplifier l'écriture d'un ensemble d'éléments, en laissant gérer les espaces.
+
+Les délimiteurs de l'ensemble créé sont toujours \textsf{\{~~\}}.
+\end{tipblock}
+
+\begin{PresCodeTexPL}{listing only}
+\EcritureEnsemble[clés]{liste}
+\end{PresCodeTexPL}
+
+\subsection{Commande et options}
+
+\begin{cautionblock}
+Peu d'options pour ces commandes :
+
+\begin{itemize}
+	\item le premier argument, \textit{optionnel}, permet de spécifier les \Cle{Clés} :
+	\begin{itemize}
+			\item clé \Cle{Sep} qui correspond au délimiteur des éléments de l'ensemble ; \hfill{}défaut \Cle{;}
+			\item clé \Cle{Option} qui est un code (par exemple \textsf{strut}\dots) inséré avant les éléments ;\hfill{}défaut \Cle{vide}
+			\item un booléen \Cle{Mathpunct} qui permet de préciser si on utilise l'espacement mathématique \textsf{mathpunct}.
+			
+			\hfill{}défaut \Cle{true}
+		\end{itemize}
+	\item le second, \textit{obligatoire}, est la \textsf{liste} des éléments, séparés par \textsf{/}.
+\end{itemize}
+\vspace*{-\baselineskip}\leavevmode
+\end{cautionblock}
+
+\begin{PresCodeTexPL}{listing only}
+$\EcritureEnsemble{a/b/c/d/e}$
+$\EcritureEnsemble[Mathpunct=false]{a/b/c/d/e}$
+$\EcritureEnsemble[Sep={,}]{a/b/c/d/e}$
+$\EcritureEnsemble[Option={\strut}]{a/b/c/d/e}$                      % \strut pour "augmenter" un peu la hauteur des {}
+$\EcritureEnsemble{ \frac{1}{1+\frac{1}{3}} / b / c / d / \frac{1}{2} }$
+\end{PresCodeTexPL}
+
+\begin{PresCodeSortiePL}{text only}
+$\EcritureEnsemble{a/b/c/d/e}$
+
+\smallskip
+
+$\EcritureEnsemble[Mathpunct=false]{a/b/c/d/e}$
+
+\smallskip
+
+$\EcritureEnsemble[Sep={,}]{a/b/c/d/e}$
+
+\smallskip
+
+$\EcritureEnsemble[Option={\strut}]{a/b/c/d/e}$
+
+\smallskip
+
+$\EcritureEnsemble{ \displaystyle\frac{1}{1+\frac{1}{3}} / b / c / d / \displaystyle\frac{1}{2} }$
+\end{PresCodeSortiePL}
+
+\begin{noteblock}
+Attention cependant au comportement de la commande avec des éléments en mode \textsf{mathématique}, ceux-ci peuvent générer une erreur si \textsf{displaystyle} n'est pas utilisé\ldots
+\end{noteblock}

@@ -205,7 +205,7 @@
 	\setKV[TkzTriDimPoint]{#2}%
 	\setsepchar[.]{ ./}%
 	\readlist*\ListePtsEspace{#3}
-	\foreach \i in {1,2,...,\ListePtsEspacelen}
+	\foreach \i in {1,...,\ListePtsEspacelen}
 		{%
 			\IfBooleanTF{#1}%on désactive le label avec (*)
 				{%
@@ -247,7 +247,7 @@
 \NewDocumentCommand\TraceSegmentsEspace{ O{} m }{%1=optionstikz,2=liste A/B C/D
 	\setsepchar[.]{ ./}%
 	\readlist*\ListePtsEspace{#2}
-	\foreach \i in {1,2,...,\ListePtsEspacelen}
+	\foreach \i in {1,...,\ListePtsEspacelen}
 		{\draw[#1,line cap=round] (\ListePtsEspace[\i,1])--(\ListePtsEspace[\i,2]) ;}
 }
 

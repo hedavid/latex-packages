@@ -13,7 +13,7 @@ The package is available on [CTAN](https://ctan.org/pkg/proflycee) and can be in
 - **Graphically**: open the *MiKTeX Console*, go to *Packages*, search for `ProfLycee` and click *Install*.
 - **Command line**:
   ```
-  miktex packages install ProfLycee
+  mpm.exe --install ProfLycee
   ```
 
 ### Via TeX Live / tlmgr
@@ -29,7 +29,7 @@ tlmgr install ProfLycee
 If you want the latest version directly from this repository:
 
 1. Download the repository (click *Code > Download ZIP*, or clone it).
-2. Place `ProfLycee.sty` in a directory where LaTeX can find it, for example:
+2. Place `ProfLycee.sty` and all other files (`*.tex` and `*.pdf`) in a directory where LaTeX can find it, for example:
    - **TeX Live / Linux**: `~/texmf/tex/latex/ProfLycee/`
    - **MiKTeX / Windows**: `C:\Users\<user>\AppData\Roaming\MiKTeX\tex\latex\ProfLycee\`
    - **macOS (MacTeX)**: `~/Library/texmf/tex/latex/ProfLycee/`

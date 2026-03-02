@@ -3,21 +3,48 @@
 % Inspiration.....: https://schule.paul-matthies.de/Trimino.php (CC BY-NC-SA 4.0)
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{tikz-triminos}[2025/01/23 0.1.1 triminos, made with TikZ]
+\ProvidesPackage{tikz-triminos}[2025/08/01 0.1.3 Triminos, made with TikZ]
 
 %------History
+% 0.1.3	Compatibility with fa5/6/7
+% 0.1.2	Compatibility with fa5/6
 % 0.1.1	Macro with number with dot below (6/9)
 % 0.1.0	Initial version
+
+%------Option
+\newif\if@fafive \@fafivetrue
+\newif\if@fasix \@fasixfalse
+\newif\if@faseven \@fasevenfalse
+\DeclareOption{nofa}{\@fafivefalse\@fasixfalse\@fasevenfalse}
+\DeclareOption{nonfa}{\@fafivefalse\@fasixfalse\@fasevenfalse}
+\DeclareOption{fa6}{\@fafivefalse\@fasixtrue\@fasevenfalse}
+\DeclareOption{fa7}{\@fafivefalse\@fasixfalse\@faseventrue}
+\DeclareOption*{}
+\ProcessOptions\relax
 
 %------Packages and library
 \RequirePackage{tikz}
 \usetikzlibrary{calc,decorations.text}
 \RequirePackage{xstring}
-\RequirePackage{fontawesome5}
+\if@fafive
+	\RequirePackage{fontawesome5}
+\fi
+\if@fasix
+	\RequirePackage{fontawesome6}
+\fi
+\if@faseven
+	\RequirePackage{fontawesome7}
+\fi
 \RequirePackage{ifthen}
 \RequirePackage{settobox}
 \RequirePackage{simplekv}
 \RequirePackage{listofitems}
+
+%------default icon
+\def\defaulticontriminos{}
+\@ifpackageloaded{fontawesome5}{\def\defaulticontriminos{\faBahai}}{}
+\@ifpackageloaded{fontawesome6}{\def\defaulticontriminos{\faBahai}}{}
+\@ifpackageloaded{fontawesome7}{\def\defaulticontriminos{\faBahai}}{}
 
 %------tikz styles
 \tikzset{tkztriminoside/.style={thick}}
@@ -49,7 +76,7 @@
 	showiconlogo=false,%
 	bgcolor={},%
 	txtlogo={TriMino~TriMino~TriMino~},%
-	iconlogo={\scalebox{2}[2]{\textcolor{darkgray}{\faBahai}}},%
+	iconlogo={\scalebox{2}[2]{\textcolor{darkgray}{\defaulticontriminos}}},%
 	scaledeco=0.25,%
 	fontdeco={\tiny\sffamily}
 }

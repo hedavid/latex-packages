@@ -1,0 +1,22 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k}{\PYGZbs{}def\PYGZbs{}LISTEXX}\PYG{n+nb}{\PYGZob{}}0,50,100,140\PYG{n+nb}{\PYGZcb{}}\PYG{k}{\PYGZbs{}def\PYGZbs{}LISTEYY}\PYG{n+nb}{\PYGZob{}}275,290,315,350\PYG{n+nb}{\PYGZcb{}}\PYG{c}{\PYGZpc{}}
+ListX:= \PYG{k}{\PYGZbs{}LISTEXX\PYGZbs{}\PYGZbs{}}
+ListY:= \PYG{k}{\PYGZbs{}LISTEYY}
+
+\PYG{k}{\PYGZbs{}begin}\PYG{n+nb}{\PYGZob{}}GraphTikz\PYG{n+nb}{\PYGZcb{}}
+	[x=0.05cm,y=0.04cm,Xmin=0,Xmax=160,Xgrid=20,Xgrids=10,
+	Origy=250,Ymin=250,Ymax=400,Ygrid=25,Ygrids=5]
+	\PYG{c}{\PYGZpc{}window preparation}
+	\PYG{k}{\PYGZbs{}DrawAxisGrids}\PYG{n+na}{[Enlarge=2.5mm,Font=\PYGZbs{}footnotesize]}\PYG{n+nb}{\PYGZob{}}auto\PYG{n+nb}{\PYGZcb{}\PYGZob{}}auto\PYG{n+nb}{\PYGZcb{}}
+	\PYG{c}{\PYGZpc{}A cloud of dots}
+	\PYG{k}{\PYGZbs{}DrawScatter}\PYG{n+na}{[Style=o,ColorScatter=red]}\PYG{n+nb}{\PYGZob{}}\PYG{k}{\PYGZbs{}LISTEXX}\PYG{n+nb}{\PYGZcb{}\PYGZob{}}\PYG{k}{\PYGZbs{}LISTEYY}\PYG{n+nb}{\PYGZcb{}}
+	\PYG{c}{\PYGZpc{}adjustment expoffset}
+	\PYG{k}{\PYGZbs{}DrawRegression}\PYG{n+na}{[Color=blue,Name=adjust]}\PYGZlt{}adjust\PYGZgt{}\PYG{n+nb}{\PYGZob{}}expoff=250\PYG{n+nb}{\PYGZcb{}\PYGZob{}}\PYG{k}{\PYGZbs{}LISTEXX}\PYG{n+nb}{\PYGZcb{}\PYGZob{}}\PYG{k}{\PYGZbs{}LISTEYY}\PYG{n+nb}{\PYGZcb{}}
+	\PYG{c}{\PYGZpc{}holdings}
+	\PYG{k}{\PYGZbs{}DrawRanges}\PYG{n+na}{[Colors=cyan/magenta,Lines]}\PYG{n+nb}{\PYGZob{}}adjust\PYG{n+nb}{\PYGZcb{}\PYGZob{}}80\PYG{n+nb}{\PYGZcb{}}
+	\PYG{k}{\PYGZbs{}DrawCounterimage}\PYG{n+na}{[Style=x,Colors=blue/green!50!black,Lines]}\PYG{n+nb}{\PYGZob{}}adjust\PYG{n+nb}{\PYGZcb{}\PYGZob{}}325\PYG{n+nb}{\PYGZcb{}}
+\PYG{k}{\PYGZbs{}end}\PYG{n+nb}{\PYGZob{}}GraphTikz\PYG{n+nb}{\PYGZcb{}}
+
+\PYG{k}{\PYGZbs{}xintexpoffreg}\PYG{n+na}{[offset=250,round=3/1]}\PYG{n+nb}{\PYGZob{}}\PYG{k}{\PYGZbs{}LISTEXX}\PYG{n+nb}{\PYGZcb{}\PYGZob{}}\PYG{k}{\PYGZbs{}LISTEYY}\PYG{n+nb}{\PYGZcb{}}\PYG{c}{\PYGZpc{}}
+We obtain \PYG{l+s}{\PYGZdl{}}\PYG{n+nb}{y}\PYG{o}{=}\PYG{l+m}{250}\PYG{o}{+}\PYG{n+nv}{\PYGZbs{}num}\PYG{n+nb}{\PYGZob{}}\PYG{n+nv}{\PYGZbs{}expregoffb}\PYG{n+nb}{\PYGZcb{}}\PYG{n+nv}{\PYGZbs{}text}\PYG{n+nb}{\PYGZob{}e\PYGZcb{}\PYGZca{}\PYGZob{}}\PYG{n+nv}{\PYGZbs{}num}\PYG{n+nb}{\PYGZob{}}\PYG{n+nv}{\PYGZbs{}expregoffa}\PYG{n+nb}{\PYGZcb{}x\PYGZcb{}}\PYG{l+s}{\PYGZdl{}}
+\end{Verbatim}

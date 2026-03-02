@@ -1,0 +1,5 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+\PYG{k}{\PYGZbs{}pflvarrandnum}\PYG{n+nb}{\PYGZob{}}macro\PYG{n+nb}{\PYGZcb{}\PYGZob{}}calculs\PYG{n+nb}{\PYGZcb{}}
+\PYG{k}{\PYGZbs{}VarNbAlea}\PYG{n+nb}{\PYGZob{}}macro\PYG{n+nb}{\PYGZcb{}\PYGZob{}}calculs\PYG{n+nb}{\PYGZcb{}}
+\PYG{k}{\PYGZbs{}pflvarnbalea}\PYG{n+nb}{\PYGZob{}}macro\PYG{n+nb}{\PYGZcb{}\PYGZob{}}calculs\PYG{n+nb}{\PYGZcb{}}
+\end{MintedVerbatim}

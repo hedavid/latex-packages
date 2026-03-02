@@ -1,0 +1,8 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c}{\PYGZpc{}grid}
+\PYG{k}{\PYGZbs{}tikzset}\PYG{n+nb}{\PYGZob{}}WoGridp/.style=\PYG{n+nb}{\PYGZob{}}semithick\PYG{n+nb}{\PYGZcb{}\PYGZcb{}}    \PYG{c}{\PYGZpc{}0.6pt}
+\PYG{c}{\PYGZpc{}secondary grid (if Seyes)}
+\PYG{k}{\PYGZbs{}tikzset}\PYG{n+nb}{\PYGZob{}}WoGridp/.style=\PYG{n+nb}{\PYGZob{}}thin\PYG{n+nb}{\PYGZcb{}\PYGZcb{}}         \PYG{c}{\PYGZpc{}0.4pt}
+\PYG{c}{\PYGZpc{}bar}
+\PYG{k}{\PYGZbs{}tikzset}\PYG{n+nb}{\PYGZob{}}WoGridbar/.style=\PYG{n+nb}{\PYGZob{}}thick\PYG{n+nb}{\PYGZcb{}\PYGZcb{}}      \PYG{c}{\PYGZpc{}0.8pt}
+\end{Verbatim}

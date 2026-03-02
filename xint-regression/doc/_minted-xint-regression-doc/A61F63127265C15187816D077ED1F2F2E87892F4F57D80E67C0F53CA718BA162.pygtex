@@ -1,0 +1,12 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k}{\PYGZbs{}def\PYGZbs{}LISTEX}\PYG{n+nb}{\PYGZob{}}1,2,3,4,5,6\PYG{n+nb}{\PYGZcb{}}
+\PYG{k}{\PYGZbs{}def\PYGZbs{}LISTEY}\PYG{n+nb}{\PYGZob{}}8.74,8.80,9.52,10.42,11.83,14.62\PYG{n+nb}{\PYGZcb{}}
+
+\PYG{k}{\PYGZbs{}xintEXPreg}\PYG{n+na}{[Alt]}\PYG{n+nb}{\PYGZob{}}\PYG{k}{\PYGZbs{}LISTEX}\PYG{n+nb}{\PYGZcb{}\PYGZob{}}\PYG{k}{\PYGZbs{}LISTEY}\PYG{n+nb}{\PYGZcb{}}             \PYG{c}{\PYGZpc{}raw results}
+\PYG{l+s}{\PYGZdl{}}\PYG{n+nb}{a }\PYG{n+nv}{\PYGZbs{}approx}\PYG{n+nb}{ }\PYG{n+nv}{\PYGZbs{}exprega}\PYG{l+s}{\PYGZdl{}} and \PYG{l+s}{\PYGZdl{}}\PYG{n+nb}{b }\PYG{n+nv}{\PYGZbs{}approx}\PYG{n+nb}{ }\PYG{n+nv}{\PYGZbs{}expregb}\PYG{l+s}{\PYGZdl{}}
+
+\PYG{k}{\PYGZbs{}xintEXPreg}\PYG{n+na}{[Alt,round=2]}\PYG{n+nb}{\PYGZob{}}\PYG{k}{\PYGZbs{}LISTEX}\PYG{n+nb}{\PYGZcb{}\PYGZob{}}\PYG{k}{\PYGZbs{}LISTEY}\PYG{n+nb}{\PYGZcb{}}     \PYG{c}{\PYGZpc{}rounded results}
+\PYG{l+s}{\PYGZdl{}}\PYG{n+nb}{a }\PYG{n+nv}{\PYGZbs{}approx}\PYG{n+nb}{ }\PYG{n+nv}{\PYGZbs{}exprega}\PYG{l+s}{\PYGZdl{}} and \PYG{l+s}{\PYGZdl{}}\PYG{n+nb}{b }\PYG{n+nv}{\PYGZbs{}approx}\PYG{n+nb}{ }\PYG{n+nv}{\PYGZbs{}expregb}\PYG{l+s}{\PYGZdl{}}\PYG{k}{\PYGZbs{}\PYGZbs{}}
+
+So \PYG{l+s}{\PYGZdl{}}\PYG{n+nb}{y }\PYG{n+nv}{\PYGZbs{}approx}\PYG{n+nb}{ }\PYG{n+nv}{\PYGZbs{}mathrm}\PYG{n+nb}{\PYGZob{}e\PYGZcb{}\PYGZca{}\PYGZob{}}\PYG{n+nv}{\PYGZbs{}exprega}\PYG{n+nb}{ x}\PYG{o}{+}\PYG{n+nv}{\PYGZbs{}expregb}\PYG{n+nb}{\PYGZcb{}}\PYG{l+s}{\PYGZdl{}}.
+\end{Verbatim}

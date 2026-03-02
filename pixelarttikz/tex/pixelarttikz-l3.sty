@@ -2,7 +2,9 @@
 % licence........: Released under the LaTeX Project Public License v1.3c or later, see http://www.latex-project.org/lppl.txt
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesExplPackage{pixelarttikz-l3}{2025-10-20}{0.1.9}{PixelArts with LaTeX3 and TikZ}
+\ProvidesExplPackage{pixelarttikz-l3}{2025-12-07}{0.20a}{PixelArts with LaTeX3 and TikZ}
+% 0.20a  New key in legacy verison (for anamorphosis)
+% 0.2.0  Bugfix with borders
 % 0.1.9  l3 version (simple usage)
 
 %------Package(s)
@@ -217,7 +219,7 @@
             % draw cell with or without border
             \bool_if:NTF \g_pixlarttikz_borders_bool
             {
-              \draw[fill=\l_tmpb_tl] ({\int_use:N \l_pixelart_col_int-0.5}, {-\int_use:N \l_pixelart_row_int+0.5}) rectangle ++(1,-1) ;
+              \draw[pixlartborder,fill=\l_tmpb_tl] ({\int_use:N \l_pixelart_col_int-0.5}, {-\int_use:N \l_pixelart_row_int+0.5}) rectangle ++(1,-1) ;
             }
             {
               \filldraw[pixlartborder,\l_tmpb_tl] ({\int_use:N \l_pixelart_col_int-0.5}, {-\int_use:N \l_pixelart_row_int+0.5}) rectangle ++(1, -1);
@@ -225,18 +227,18 @@
           }
           \bool_if:NT \g_pixlarttikz_codes_bool
           {
-            \draw[] ({\int_use:N \l_pixelart_col_int-0.5}, {-\int_use:N \l_pixelart_row_int+0.5}) rectangle ++(1, -1) node[inner~sep=0pt,midway,font=\tl_use:N \g_pixlarttikz_font_tl,text~depth=0pt] {\resizebox*{!}{\fp_eval:n {\g_pixlarttikz_font_scale * \g_pixlarttikz_unit_tl} cm}{\vphantom{AZERTYUIOPQSDFGHJKLMWXCVBN0123456789azertyuiopqsdfghjklmwxcvbn}\tl_use:N \l_tmpa_tl}} ;
+            \draw[pixlartborder] ({\int_use:N \l_pixelart_col_int-0.5}, {-\int_use:N \l_pixelart_row_int+0.5}) rectangle ++(1, -1) node[inner~sep=0pt,midway,font=\tl_use:N \g_pixlarttikz_font_tl,text~depth=0pt] {\resizebox*{!}{\fp_eval:n {\g_pixlarttikz_font_scale * \g_pixlarttikz_unit_tl} cm}{\vphantom{AZERTYUIOPQSDFGHJKLMWXCVBN0123456789azertyuiopqsdfghjklmwxcvbn}\tl_use:N \l_tmpa_tl}} ;
           }
           \bool_if:NT \g_pixlarttikz_symbols_bool
           {
-            \draw[] ({\int_use:N \l_pixelart_col_int-0.5}, {-\int_use:N \l_pixelart_row_int+0.5}) rectangle ++(1, -1) node[inner~sep=0pt,midway,font=\tl_use:N \g_pixlarttikz_font_tl,text~depth=0pt] {\resizebox*{!}{\fp_eval:n {\g_pixlarttikz_font_scale * \g_pixlarttikz_unit_tl} cm}{\vphantom{AZERTYUIOPQSDFGHJKLMWXCVBN0123456789azertyuiopqsdfghjklmwxcvbn}\pixelart_traite_liste:V \l_tmpb_tl}} ;
+            \draw[pixlartborder] ({\int_use:N \l_pixelart_col_int-0.5}, {-\int_use:N \l_pixelart_row_int+0.5}) rectangle ++(1, -1) node[inner~sep=0pt,midway,font=\tl_use:N \g_pixlarttikz_font_tl,text~depth=0pt] {\resizebox*{!}{\fp_eval:n {\g_pixlarttikz_font_scale * \g_pixlarttikz_unit_tl} cm}{\vphantom{AZERTYUIOPQSDFGHJKLMWXCVBN0123456789azertyuiopqsdfghjklmwxcvbn}\pixelart_traite_liste:V \l_tmpb_tl}} ;
           }
         }
         {
           % default color if not found
           \bool_if:NT \g_pixlarttikz_borders_bool
           {
-            \draw[black,fill=white] ({\int_use:N \l_pixelart_col_int-0.5}, {-\int_use:N \l_pixelart_row_int+0.5}) rectangle ++(1, -1);
+            \draw[pixlartborder,black,fill=white] ({\int_use:N \l_pixelart_col_int-0.5}, {-\int_use:N \l_pixelart_row_int+0.5}) rectangle ++(1, -1);
           }
         }
         \int_incr:N \l_pixelart_col_int
@@ -359,7 +361,7 @@
                 \int_compare_p:n { \l_pixelart_col_int + 1 <= \l_pixelart_block_cmax_int }
               }
               {
-                \draw[fill=\l_tmpb_tl] ({\int_use:N \l_pixelart_col_int-0.5}, {-\int_use:N \l_pixelart_row_int+0.5}) rectangle ++(1,-1) ;
+                \draw[pixlartborder,fill=\l_tmpb_tl] ({\int_use:N \l_pixelart_col_int-0.5}, {-\int_use:N \l_pixelart_row_int+0.5}) rectangle ++(1,-1) ;
               }
             }
             {
@@ -391,12 +393,12 @@
                 \int_compare_p:n { \l_pixelart_col_int + 1 <= \l_pixelart_block_cmax_int }
               }
               {
-                \draw[] ({\int_use:N \l_pixelart_col_int-0.5}, {-\int_use:N \l_pixelart_row_int+0.5}) rectangle ++(1, -1) node[inner~sep=0pt,midway,font=\tl_use:N \g_pixlarttikz_font_tl,text~depth=0pt] {\resizebox*{!}{\fp_eval:n {\g_pixlarttikz_font_scale * \g_pixlarttikz_unit_tl} cm}{\vphantom{AZERTYUIOPQSDFGHJKLMWXCVBN0123456789azertyuiopqsdfghjklmwxcvbn}\tl_use:N \l_tmpa_tl}} ;
+                \draw[pixlartborder] ({\int_use:N \l_pixelart_col_int-0.5}, {-\int_use:N \l_pixelart_row_int+0.5}) rectangle ++(1, -1) node[inner~sep=0pt,midway,font=\tl_use:N \g_pixlarttikz_font_tl,text~depth=0pt] {\resizebox*{!}{\fp_eval:n {\g_pixlarttikz_font_scale * \g_pixlarttikz_unit_tl} cm}{\vphantom{AZERTYUIOPQSDFGHJKLMWXCVBN0123456789azertyuiopqsdfghjklmwxcvbn}\tl_use:N \l_tmpa_tl}} ;
               }
           }
           \bool_if:NT \g_pixlarttikz_symbols_bool
           {
-            \draw[] ({\int_use:N \l_pixelart_col_int-0.5}, {-\int_use:N \l_pixelart_row_int+0.5}) rectangle ++(1, -1) node[inner~sep=0pt,midway,font=\tl_use:N \g_pixlarttikz_font_tl,text~depth=0pt] {\resizebox*{!}{\fp_eval:n {\g_pixlarttikz_font_scale * \g_pixlarttikz_unit_tl} cm}{\vphantom{AZERTYUIOPQSDFGHJKLMWXCVBN0123456789azertyuiopqsdfghjklmwxcvbn}\tl_use:N \l_tmpb_tl}} ;
+            \draw[pixlartborder] ({\int_use:N \l_pixelart_col_int-0.5}, {-\int_use:N \l_pixelart_row_int+0.5}) rectangle ++(1, -1) node[inner~sep=0pt,midway,font=\tl_use:N \g_pixlarttikz_font_tl,text~depth=0pt] {\resizebox*{!}{\fp_eval:n {\g_pixlarttikz_font_scale * \g_pixlarttikz_unit_tl} cm}{\vphantom{AZERTYUIOPQSDFGHJKLMWXCVBN0123456789azertyuiopqsdfghjklmwxcvbn}\tl_use:N \l_tmpb_tl}} ;
           }
         }
         {
@@ -414,7 +416,7 @@
                 \int_compare_p:n { \l_pixelart_col_int + 1 <= \l_pixelart_block_cmax_int }
               }
               {
-                \draw[black,fill=white] ({\int_use:N \l_pixelart_col_int-0.5}, {-\int_use:N \l_pixelart_row_int+0.5}) rectangle ++(1, -1);
+                \draw[pixlartborder,black,fill=white] ({\int_use:N \l_pixelart_col_int-0.5}, {-\int_use:N \l_pixelart_row_int+0.5}) rectangle ++(1, -1);
               }
           }
         }

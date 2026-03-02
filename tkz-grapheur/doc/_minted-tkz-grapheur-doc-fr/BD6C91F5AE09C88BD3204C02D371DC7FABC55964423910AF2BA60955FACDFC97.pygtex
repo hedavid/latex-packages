@@ -1,0 +1,43 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c}{\PYGZpc{}\PYGZbs{}usepackage\PYGZob{}alphalph\PYGZcb{}}
+
+\PYG{k}{\PYGZbs{}begin}\PYG{n+nb}{\PYGZob{}}tikzpicture\PYG{n+nb}{\PYGZcb{}}
+	\PYG{k}{\PYGZbs{}begin}\PYG{n+nb}{\PYGZob{}}axis\PYG{n+nb}{\PYGZcb{}}\PYG{c}{\PYGZpc{}}
+		[\PYG{c}{\PYGZpc{}}
+		axis y line=center,axis x line=middle,                                   \PYG{c}{\PYGZpc{}axes}
+		axis line style=\PYG{n+nb}{\PYGZob{}}line width=0.8pt,\PYGZhy{}latex\PYG{n+nb}{\PYGZcb{}},
+		x=0.33cm,y=0.55cm,xmin=1985,xmax=2030,ymin=56,ymax=70,                   \PYG{c}{\PYGZpc{}unités}
+		grid=both,xtick distance=5,ytick distance=2,                             \PYG{c}{\PYGZpc{}grillep}
+		minor x tick num=4,minor y tick num=1,                                   \PYG{c}{\PYGZpc{}grilles}
+		extra x ticks=\PYG{n+nb}{\PYGZob{}}1985\PYG{n+nb}{\PYGZcb{}},extra x tick style=\PYG{n+nb}{\PYGZob{}}grid=none\PYG{n+nb}{\PYGZcb{}},                     \PYG{c}{\PYGZpc{}origx}
+		extra y ticks=\PYG{n+nb}{\PYGZob{}}56\PYG{n+nb}{\PYGZcb{}},extra y tick style=\PYG{n+nb}{\PYGZob{}}grid=none\PYG{n+nb}{\PYGZcb{}},                       \PYG{c}{\PYGZpc{}origy}
+		x tick label style=\PYG{n+nb}{\PYGZob{}}/pgf/number format/.cd,use comma,1000 sep=\PYG{n+nb}{\PYGZob{}\PYGZcb{}\PYGZcb{}},       \PYG{c}{\PYGZpc{}année}
+		major tick length=\PYG{n+nb}{\PYGZob{}}2*3pt\PYG{n+nb}{\PYGZcb{}},minor tick length=\PYG{n+nb}{\PYGZob{}}1.5*3pt\PYG{n+nb}{\PYGZcb{}},                   \PYG{c}{\PYGZpc{}grads}
+		every tick/.style=\PYG{n+nb}{\PYGZob{}}line width=0.8pt\PYG{n+nb}{\PYGZcb{}},enlargelimits=false,                \PYG{c}{\PYGZpc{}style}
+		enlarge x limits=\PYG{n+nb}{\PYGZob{}}abs=2.5mm,upper\PYG{n+nb}{\PYGZcb{}},enlarge y limits=\PYG{n+nb}{\PYGZob{}}abs=2.5mm,upper\PYG{n+nb}{\PYGZcb{}},   \PYG{c}{\PYGZpc{}élargir}
+		]
+		\PYG{c}{\PYGZpc{}spline + y=66}
+		\PYG{k}{\PYGZbs{}addplot}\PYG{n+na}{[name path global=eqtest,mark=none,red,line width=1.05pt,domain=1985:2030]} \PYG{n+nb}{\PYGZob{}}66\PYG{n+nb}{\PYGZcb{}} ;
+		\PYG{k}{\PYGZbs{}def\PYGZbs{}LISTETEST}\PYG{n+nb}{\PYGZob{}}1985/60/0§1995/68/0§2015/58/0§2025/69/0§2030/62/\PYGZhy{}2\PYG{n+nb}{\PYGZcb{}}
+		\PYG{k}{\PYGZbs{}addplotspline*}\PYG{n+na}{[line width=1.05pt,violet,name path global=splinecubtest]}\PYG{n+nb}{\PYGZob{}}\PYG{k}{\PYGZbs{}LISTETEST}\PYG{n+nb}{\PYGZcb{}}[\PYG{k}{\PYGZbs{}monsplineviolet}]
+		\PYG{c}{\PYGZpc{}recherche d\PYGZsq{}antécédents}
+		\PYG{k}{\PYGZbs{}findintersectionspgf}\PYG{n+na}{[MonItsc]}\PYG{n+nb}{\PYGZob{}}eqtest\PYG{n+nb}{\PYGZcb{}\PYGZob{}}splinecubtest\PYG{n+nb}{\PYGZcb{}}
+		\PYG{c}{\PYGZpc{}extraction des coordonnées}
+		\PYG{k}{\PYGZbs{}gextractxnodepgf}\PYG{n+nb}{\PYGZob{}}(MonItsc\PYGZhy{}1)\PYG{n+nb}{\PYGZcb{}}[\PYG{k}{\PYGZbs{}xMonItscA}]
+		\PYG{k}{\PYGZbs{}gextractxnodepgf}\PYG{n+nb}{\PYGZob{}}(MonItsc\PYGZhy{}2)\PYG{n+nb}{\PYGZcb{}}[\PYG{k}{\PYGZbs{}xMonItscB}]
+		\PYG{k}{\PYGZbs{}gextractxnodepgf}\PYG{n+nb}{\PYGZob{}}(MonItsc\PYGZhy{}3)\PYG{n+nb}{\PYGZcb{}}[\PYG{k}{\PYGZbs{}xMonItscC}]
+		\PYG{k}{\PYGZbs{}gextractxnodepgf}\PYG{n+nb}{\PYGZob{}}(MonItsc\PYGZhy{}4)\PYG{n+nb}{\PYGZcb{}}[\PYG{k}{\PYGZbs{}xMonItscD}]
+		\PYG{c}{\PYGZpc{}visualisation}
+		\PYG{k}{\PYGZbs{}xintFor*} \PYGZsh{}1 in \PYG{n+nb}{\PYGZob{}}\PYG{k}{\PYGZbs{}xintSeq}\PYG{n+nb}{\PYGZob{}}1\PYG{n+nb}{\PYGZcb{}\PYGZob{}}4\PYG{n+nb}{\PYGZcb{}\PYGZcb{}}\PYG{k}{\PYGZbs{}do}\PYG{n+nb}{\PYGZob{}}\PYG{c}{\PYGZpc{}}
+			\PYG{k}{\PYGZbs{}draw}\PYG{n+na}{[line width=0.9pt,densely dashed,olive,\PYGZhy{}\PYGZgt{},\PYGZgt{}=latex]} (MonItsc\PYGZhy{}\PYGZsh{}1) \PYGZhy{}\PYGZhy{} (\PYG{k}{\PYGZbs{}csname} xMonItsc\PYG{k}{\PYGZbs{}AlphAlph}\PYG{n+nb}{\PYGZob{}}\PYGZsh{}1\PYG{n+nb}{\PYGZcb{}}\PYG{k}{\PYGZbs{}endcsname},56) ;
+			\PYG{k}{\PYGZbs{}filldraw}\PYG{n+na}{[olive]} (MonItsc\PYGZhy{}\PYGZsh{}1) circle[radius=1.75pt] ;
+		\PYG{n+nb}{\PYGZcb{}}
+		\PYG{c}{\PYGZpc{}intégrale}
+		\PYG{k}{\PYGZbs{}path} [name path=xaxis] (1985,56) \PYGZhy{}\PYGZhy{} (2030,56);
+		\PYG{k}{\PYGZbs{}fillbetweencurvespgf}\PYG{n+nb}{\PYGZob{}}splinecubtest\PYG{n+nb}{\PYGZcb{}\PYGZob{}}xaxis\PYG{n+nb}{\PYGZcb{}}\PYGZlt{}domain=\PYG{n+nb}{\PYGZob{}}\PYG{k}{\PYGZbs{}xMonItscB:\PYGZbs{}xMonItscA}\PYG{n+nb}{\PYGZcb{}}\PYGZgt{}
+		\PYG{k}{\PYGZbs{}fillbetweencurvespgf}\PYG{n+nb}{\PYGZob{}}splinecubtest\PYG{n+nb}{\PYGZcb{}\PYGZob{}}xaxis\PYG{n+nb}{\PYGZcb{}}\PYGZlt{}domain=\PYG{n+nb}{\PYGZob{}}\PYG{k}{\PYGZbs{}xMonItscD:\PYGZbs{}xMonItscC}\PYG{n+nb}{\PYGZcb{}}\PYGZgt{}
+	\PYG{k}{\PYGZbs{}end}\PYG{n+nb}{\PYGZob{}}axis\PYG{n+nb}{\PYGZcb{}}
+\PYG{k}{\PYGZbs{}end}\PYG{n+nb}{\PYGZob{}}tikzpicture\PYG{n+nb}{\PYGZcb{}}
+
+Les solutions de \PYG{l+s}{\PYGZdl{}}\PYG{n+nb}{f}\PYG{o}{(}\PYG{n+nb}{x}\PYG{o}{)=}\PYG{l+m}{66}\PYG{l+s}{\PYGZdl{}} sont d\PYGZsq{}environ \PYG{k}{\PYGZbs{}ArrondirNum*}\PYG{n+na}{[0]}\PYG{n+nb}{\PYGZob{}}\PYG{k}{\PYGZbs{}xMonItscA}\PYG{n+nb}{\PYGZcb{}} \PYG{k}{\PYGZbs{}\PYGZam{}\PYGZbs{}} \PYG{k}{\PYGZbs{}ArrondirNum*}\PYG{n+na}{[0]}\PYG{n+nb}{\PYGZob{}}\PYG{k}{\PYGZbs{}xMonItscB}\PYG{n+nb}{\PYGZcb{}} \PYG{k}{\PYGZbs{}\PYGZam{}\PYGZbs{}} \PYG{k}{\PYGZbs{}ArrondirNum*}\PYG{n+na}{[0]}\PYG{n+nb}{\PYGZob{}}\PYG{k}{\PYGZbs{}xMonItscC}\PYG{n+nb}{\PYGZcb{}} \PYG{k}{\PYGZbs{}\PYGZam{}\PYGZbs{}} \PYG{k}{\PYGZbs{}ArrondirNum*}\PYG{n+na}{[0]}\PYG{n+nb}{\PYGZob{}}\PYG{k}{\PYGZbs{}xMonItscD}\PYG{n+nb}{\PYGZcb{}}.
+\end{Verbatim}

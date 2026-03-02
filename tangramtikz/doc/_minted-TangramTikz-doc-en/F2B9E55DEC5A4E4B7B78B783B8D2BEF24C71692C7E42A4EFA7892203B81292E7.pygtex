@@ -1,0 +1,12 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k}{\PYGZbs{}TangramTikz}\PYG{n+nb}{\PYGZob{}}Rocket\PYG{n+nb}{\PYGZcb{}}\PYGZti{}\PYGZti{}
+\PYG{k}{\PYGZbs{}TangramTikz}\PYG{n+na}{[Color=red]}\PYG{n+nb}{\PYGZob{}}Rocket\PYG{n+nb}{\PYGZcb{}}\PYGZti{}\PYGZti{}
+\PYG{k}{\PYGZbs{}TangramTikz}\PYG{n+na}{[Solution]}\PYG{n+nb}{\PYGZob{}}Rocket\PYG{n+nb}{\PYGZcb{}}\PYGZti{}\PYGZti{}
+\PYG{k}{\PYGZbs{}TangramTikz}\PYG{n+na}{[Solution,Color=lightgray]}\PYG{n+nb}{\PYGZob{}}Rocket\PYG{n+nb}{\PYGZcb{}}\PYGZti{}\PYGZti{}
+\PYG{k}{\PYGZbs{}TangramTikz}\PYG{n+na}{[ColorSolution,ColorList=\PYGZob{}orange,blue,yellow,green,pink\PYGZcb{},Sep=1mm]}\PYG{n+nb}{\PYGZob{}}Rocket\PYG{n+nb}{\PYGZcb{}}
+
+\PYG{k}{\PYGZbs{}TangramTikz}\PYGZlt{}scale=1.5,rotate=30\PYGZgt{}\PYG{n+nb}{\PYGZob{}}Rocket\PYG{n+nb}{\PYGZcb{}}\PYGZti{}\PYGZti{}
+\PYG{k}{\PYGZbs{}TangramTikz}\PYGZlt{}scale=0.75,rotate=\PYGZhy{}90\PYGZgt{}\PYG{n+nb}{\PYGZob{}}Rocket\PYG{n+nb}{\PYGZcb{}}\PYGZti{}\PYGZti{}
+\PYG{k}{\PYGZbs{}TangramTikz}\PYG{n+na}{[BlackWhite]}\PYGZlt{}scale=0.5\PYGZgt{}\PYG{n+nb}{\PYGZob{}}Rocket\PYG{n+nb}{\PYGZcb{}}\PYGZti{}\PYGZti{}
+\PYG{k}{\PYGZbs{}TangramTikz}\PYG{n+na}{[PartsList=134567,ColorSolution,ColorList=\PYGZob{}cyan,green,red,pink,purple,orange,yellow\PYGZcb{},Sep=0pt]}\PYG{n+nb}{\PYGZob{}}Rocket\PYG{n+nb}{\PYGZcb{}}
+\end{Verbatim}

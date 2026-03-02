@@ -1,0 +1,8 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k}{\PYGZbs{}begin}\PYG{n+nb}{\PYGZob{}}GraphTikz\PYG{n+nb}{\PYGZcb{}}[x=1cm,y=1cm,Xmin=0,Ymin=0]
+	\PYG{k}{\PYGZbs{}DrawAxisGrids}\PYG{n+na}{[Enlarge=2.5mm]}\PYG{n+nb}{\PYGZob{}}auto\PYG{n+nb}{\PYGZcb{}\PYGZob{}}auto\PYG{n+nb}{\PYGZcb{}}
+	\PYG{k}{\PYGZbs{}MarkPts}\PYG{n+na}{[Color=red,Style=x,Size=3.5pt]}\PYG{n+nb}{\PYGZob{}}(1.25,1.25)/below/\PYG{l+s}{\PYGZdl{}}\PYG{n+nb}{A}\PYG{l+s}{\PYGZdl{}}\PYG{n+nb}{\PYGZcb{}}
+	\PYG{k}{\PYGZbs{}MarkPts}\PYG{n+na}{[Color=teal,Size=2.5pt]}\PYG{n+nb}{\PYGZob{}}(2,2)/right/\PYG{l+s}{\PYGZdl{}}\PYG{n+nb}{A}\PYG{l+s}{\PYGZdl{}}\PYG{n+nb}{\PYGZcb{}}
+	\PYG{k}{\PYGZbs{}MarkPts*}\PYG{n+na}{[Color=orange,Style=c,Size=4pt]}\PYG{n+nb}{\PYGZob{}}(0.5,2.5)\PYG{n+nb}{\PYGZcb{}}
+\PYG{k}{\PYGZbs{}end}\PYG{n+nb}{\PYGZob{}}GraphTikz\PYG{n+nb}{\PYGZcb{}}
+\end{Verbatim}

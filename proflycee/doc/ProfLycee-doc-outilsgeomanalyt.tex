@@ -1,0 +1,557 @@
+\part{Outils pour la géométrie analytique}
+
+\section{Conseils d'utilisation}
+
+\begin{warningblock}
+\cmaj{2.6.5} Il est conseillé d'utiliser \hologo{LuaLaTeX} pour les commandes (vectorielles) de géométrie analytique, même s'il est toutefois possible d'utiliser \hologo{pdfLaTeX}.
+
+\smallskip
+
+Il est possible que les simplifications demandées (coefficients entiers, ou premiers entre eux) ne donnent pas entière satisfaction, donc prudence sur l'utilisation de celles-ci (ce sont des tests et retours de \textit{bugs} qui montreront les limites des commandes).
+\end{warningblock}
+
+\section{Affichage de coordonnées}\label{affcoord}
+
+\subsection{Idée}
+
+\begin{tipblock}
+\cmaj{2.6.4} L'idée est de proposer des commandes pour simplifier la saisie de coordonnées de vecteurs ou de points (plan ou espace), en saisissant les coordonnées \textit{en ligne}.
+
+\smallskip
+
+À noter que les calculs et résultats sont traités par la commande de \textit{conversion de fraction} de \ctex{ProfLycee}.
+\end{tipblock}
+
+\begin{warningblock}
+Logiquement les commandes (à insérer dans un environnement mathématique) doivent donner des résultats satisfaisants pour tout ce qui est \textit{rationnel}, mais cela ne sera pas pertinent dans le cas de coordonnées irrationnelles\ldots
+\end{warningblock}
+
+\begin{PresCodeTexPL}{listing only}
+%Affichage des coordonnées d'un point (2 ou 3 coordonnées)
+\AffPoint[options de formatage](liste des coordonnées)
+
+%Affichage des coordonnées d'un vecteur (2 ou 3 coordonnées)
+\AffVecteur[options de formatage]<options nicematrix>(liste des coordonnées)
+\end{PresCodeTexPL}
+
+\begin{warningblock}
+Dans cette partie liée à la géométrie analytique, j'ai choisi de saisir les arguments (coordonnées) via les délimiteurs \ctex{(...)} :
+
+\begin{itemize}
+	\item avec le séparateur \ctex{,} pour les points ;
+	\item avec le séparateur \ctex{;}.
+\end{itemize}
+
+De ce fait, le code \textit{sait} s'il est face à un point ou à un vecteur, et adapte sa méthode de calcul en conséquence !
+\end{warningblock}
+
+\subsection{Options et arguments}
+
+\begin{cautionblock}
+Concernant les arguments des commandes :
+
+\begin{itemize}
+	\item le premier argument, optionnel et entre \ctex{[...]} permet de spécifier la ou les caractéristiques de formatage des coordonnées, de manière globale ou individuelle, et de manière cohérente avec les options disponibles pour la commande de \textit{conversion en fraction} de \ctex{ProfLycee} :
+	\begin{itemize}
+			\item \Cle{d} : pour un formatage en \ctex{dfrac} si nécessaire ;
+			\item \Cle{t} : pour un formatage en \ctex{tfrac} si nécessaire ;
+			\item \Cle{n} : pour un formatage en \ctex{nicefrac} si nécessaire ;
+			\item \Cle{dec} : pour la forme décimale (brute) ;
+			\item \Cle{dec=k} : pour la forme décimale à $10^{-k}$.
+		\end{itemize}
+	Il est possible de spécifier des formatages différents en utilisant une \textit{liste} sous la forme :
+	\begin{itemize}
+			\item \Cle{f1,f2} ou \Cle{f1,f2,f3} pour les points ;
+			\item \Cle{f1;f2} ou \Cle{f1;f2;f3} ;
+		\end{itemize}
+	\item l'argument \textit{optionnel} et entre \ctex{<...>} (uniquement pour les vecteurs !) permet de spécifier des options de type \textit{nicematrix} ;
+	\item l'argument obligatoire, et entre \ctex{\{...\}} est quant à lui la liste des coordonnées, en ligne et au format \textit{naturel xint}.
+\end{itemize}
+\vspace*{-\baselineskip}\leavevmode
+\end{cautionblock}
+
+\begin{noteblock}
+Il est donc possible de mettre des \textit{calculs} dans l'argument des coordonnées.
+
+Il suffit \textit{juste} d'utiliser une syntaxe compréhensible par les commandes du package \ctex{xint}.
+\end{noteblock}
+
+\begin{PresCodePL}{}
+%Point, avec affichage classique en dfrac
+$\AffPoint(1,2/3)$ \\
+%Point, avec affichage en décimal + dfrac + dfrac
+$\AffPoint[dec,d,d](-0.5,1,2/3)$ \\
+%Vecteurs, avec affichages classiques
+$\AffVecteur(1;2)$ et $\AffVecteur(1;2;3)$ \\
+%Vecteurs, avec option nicematrix et affichage en décimal + tfrac
+$\AffVecteur[dec;t]<cell-space-limits=2pt>(0.5;2/3)$ \\
+%Vecteurs, avec option nicematrix et affichage en décimal
+$\AffVecteur[dec]<cell-space-limits=2pt>(0.5;0.6;0.75)$ \\
+%Vecteurs, avec cacluls et affichage classique
+$\AffVecteur((2-(-3));(5-6);(1-1))$
+\end{PresCodePL}
+
+\newpage
+
+\section{Équation cartésienne d'un plan de l'espace}\label{eqcartplan}
+
+\subsection{Idée et commande}
+
+\begin{tipblock}
+\cmaj{2.6.4} L'idée est de proposer une commande pour déterminer une équation cartésienne d'un plan dans l'un des cas suivants :
+
+\begin{itemize}
+	\item en donnant un vecteur normal et un point ;
+	\item en donnant deux vecteurs directeurs et un point ;
+	\item en donnant trois points.
+\end{itemize}
+\vspace*{-\baselineskip}\leavevmode
+\end{tipblock}
+
+\begin{PresCodeTexPL}{listing only}
+%Avec un vecteur normal et un point
+\TrouveEqCartPlan[clés](vecteur normal)(point)
+%Avec deux vecteurs directeurs et un point
+\TrouveEqCartPlan[clés](vecteur dir1)(vecteur dir2)(point)
+%Avec trois points
+\TrouveEqCartPlan[clés](point1)(point2)(point3)
+\end{PresCodeTexPL}
+
+\subsection{Clés et arguments}
+
+\begin{cautionblock}
+Concernant les arguments des commandes :
+
+\begin{itemize}
+	\item le premier argument, optionnel et entre \ctex{[...]}  contient les clés :
+	\begin{itemize}
+			\item \Cle{OptionCoeffs} pour spécifier un formatage \textit{global} des coefficients ; \hfill{}défaut : \Cle{d}
+			\item \Cle{SimplifCoeffs} pour forcer des coefficients simples (entiers et premiers entre eux) ;
+			
+			\hfill{}défaut : \Cle{false}
+			\item \Cle{Facteur} pour spécifier un facteur personnalisé aux simplifications. \hfill{}défaut : \Cle{1}
+		\end{itemize}
+	\item les arguments suivants, entre \ctex{(...)} correspondent aux données utilisées (entre 2 et 3).
+\end{itemize}
+
+À noter que les séparateurs \ctex{,} ou \ctex{;} permettent de spécifier point ou vecteur.
+\end{cautionblock}
+
+\begin{PresCodePL}{}
+Une équation cartésienne du plan $\mathcal{P}$ de vecteur normal $\vv{n} \AffVecteur(1;2;3)$ et passant par le point A de coordonnées $\AffPoint(4,5,6)$ est $\mathcal{P}$ : $\TrouveEqCartPlan(1;2;3)(4,5,6)$
+\end{PresCodePL}
+
+\begin{PresCodePL}{}
+Une équation cartésienne du plan $\mathcal{P}$ de vecteur normal $\vv{n} \AffVecteur[n](1/2;2/3;3/5)$ et passant par le point A de coordonnées $\AffPoint(4,5,6)$ est $\mathcal{P}$ : $\TrouveEqCartPlan(1/2;2/3;3/5)(4,5,6) \Leftrightarrow \TrouveEqCartPlan[SimplifCoeffs](1/2;2/3;3/5)(4,5,6)$
+\end{PresCodePL}
+
+\begin{PresCodePL}{}
+Une équation cartésienne du plan $\mathcal{P}$ de vecteur normal $\vv{n} \AffVecteur[n](1;2/3;0)$ et passant par le point A de coordonnées $\AffPoint[dec,dec,d](0.75,0.56,1/3)$ est $\mathcal{P}$ :  $\TrouveEqCartPlan(1;2/3;0)(0.75,0.56,1/3) \Leftrightarrow  \TrouveEqCartPlan[SimplifCoeffs](1;2/3;0)(0.75,0.56,1/3)$
+\end{PresCodePL}
+
+\begin{PresCodePL}{}
+Une équation cartésienne du plan $\mathcal{P}_3$ passant par les points $A\AffPoint(2,0,1)$, $B\AffPoint(3,1,1)$ et $C\AffPoint(1,-2,0)$ est
+\[ \mathcal{P}_3 \text{ : } \TrouveEqCartPlan(2,0,1)(3,1,1)(1,-2,0)\]
+\end{PresCodePL}
+
+
+
+\begin{PresCodePL}{}
+Une équation cartésienne du plan $\mathcal{R}$ passant par le points $A\AffPoint(0,0,1)$, $B\AffPoint(4,2,3)$ et $C\AffPoint(-3,1,1)$ est
+\[ \mathcal{R} \text{ : } \TrouveEqCartPlan[SimplifCoeffs](0,0,1)(4,2,3)(-3,1,1)\]
+\[ \mathcal{R} \text{ : } \TrouveEqCartPlan[SimplifCoeffs,Facteur=-1](0,0,1)(4,2,3)(-3,1,1)\]
+\end{PresCodePL}
+
+\begin{PresCodePL}{}
+Une équation cartésienne du plan $\mathcal{P}_0$ dirigé par les vecteurs $\AffVecteur(9;7;-8)$ et $\AffVecteur(-2;2;-1)$ et passant par le point $A\AffPoint(5,1,-1)$ est :
+\[ \mathcal{P}_0 \text{ : } \TrouveEqCartPlan[SimplifCoeffs](9;7;-8)(-2;2;-1)(5,1,-1)\]
+\end{PresCodePL}
+
+\newpage
+
+\section{Équation paramétrique d'une droite de l'espace}\label{eqparamdroite}
+
+\subsection{Idée et commande}
+
+\begin{tipblock}
+\cmaj{2.6.4} L'idée est de proposer une commande pour déterminer un système d'équations paramétriques d'une droite de l'espace dans l'un des cas suivants :
+
+\begin{itemize}
+	\item en donnant un vecteur directeur et un point ;
+	\item en donnant deux points.
+\end{itemize}
+\vspace*{-\baselineskip}\leavevmode
+\end{tipblock}
+
+\begin{PresCodeTexPL}{listing only}
+%Avec un vecteur directeur et un point
+\TrouveEqParamDroite[clés](vecteur directeur)(point)
+%Avec deux points
+\TrouveEqParamDroite[clés](point1)(point2)
+\end{PresCodeTexPL}
+
+\subsection{Clés et arguments}
+
+\begin{cautionblock}
+Concernant les arguments des commandes :
+
+\begin{itemize}
+	\item le premier argument, optionnel et entre \ctex{[...]}  contient les clés :
+	\begin{itemize}
+			\item \Cle{OptionCoeffs} pour spécifier un formatage \textit{global} des coefficients ; \hfill{}défaut : \Cle{d}
+			\item \Cle{Reel} pour coder le paramètre réel ; \hfill{}défaut : \Cle{k}
+			\item le booléen \Cle{Oppose} pour utiliser plutôt l'opposé du vecteur directeur ; \hfill{}défaut : \Cle{false}
+			\item le booléen \Cle{Rgras} pour utiliser le symbole \textbf{R} ou lieu de $\mathbb{R}$ (si \ctex{amsfonts} est chargé !).
+			
+			\hfill{}défaut : \Cle{false}
+		\end{itemize}
+	\item les arguments suivants, entre \ctex{(...)} correspondent aux données utilisées.
+\end{itemize}
+
+À noter que les séparateurs \ctex{,} ou \ctex{;} permettent de spécifier point ou vecteur.
+\end{cautionblock}
+
+\begin{PresCodePL}{}
+Une équation paramétrique de la droite $(d)$ dirigée par le vecteur $\vv{u}\AffVecteur(2;5;-4)$ et passant par $A\AffPoint(-1,-1,-1)$ est
+\[ \TrouveEqParamDroite(2;5;-4)(-1,-1,-1) \]
+\end{PresCodePL}
+
+\begin{PresCodePL}{}
+Une équation paramétrique de la droite $(d)$ passant par $\AffPoint(2,5,-4)$ et $\AffPoint(-1,-1,-1)$ est
+\[ \TrouveEqParamDroite[Oppose](2,5,-4)(-1,-1,-1) \text{ ou } \TrouveEqParamDroite(2,5,-4)(-1,-1,-1) \]
+\end{PresCodePL}
+
+\begin{PresCodePL}{}
+Une équation paramétrique de la droite $(d)$ dirigée par le vecteur $\vv{u}\AffVecteur(0;-1;3)$ et passant par $O\AffPoint(0,0,0)$ est
+\[ \TrouveEqParamDroite(0;-1;3)(0,0,0) \]
+\end{PresCodePL}
+
+\begin{PresCodePL}{}
+Une équation paramétrique de la droite $(d)$ dirigée par le vecteur $\vv{u}\AffVecteur(-1;2;3)$ et passant par $A\AffPoint(2,0,-3)$ est
+\[ \TrouveEqParamDroite[Reel=\ell,Rgras](-1;2;3)(2,0,-3) \]
+\end{PresCodePL}
+
+\newpage
+
+\section{Équation cartésienne d'une droite du plan}\label{eqcartdroite}
+
+\subsection{Idée et commande}
+
+\begin{tipblock}
+\cmaj{2.6.4} L'idée est de proposer une commande pour déterminer une équation cartésienne d'une droite du plan dans l'un des cas suivants :
+
+\begin{itemize}
+	\item en donnant un vecteur directeur et un point ;
+	\item en donnant un vecteur normal et un point ;
+	\item en donnant deux points.
+\end{itemize}
+\vspace*{-\baselineskip}\leavevmode
+\end{tipblock}
+
+\begin{PresCodeTexPL}{listing only}
+%Avec un vecteur normal (choix par défaut) et un point
+\TrouveEqCartDroite[clés](vecteur normal)(point)
+%Avec un vecteur directeur et un point
+\TrouveEqCartDroite[clés,VectDirecteur](vecteur directeur)(point1)
+%Avec deux points
+\TrouveEqCartDroite[clés](point1)(point2)
+\end{PresCodeTexPL}
+
+\subsection{Clés et arguments}
+
+\begin{cautionblock}
+Concernant les arguments des commandes :
+
+\begin{itemize}
+	\item le premier argument, optionnel et entre \ctex{[...]}  contient les clés :
+	\begin{itemize}
+			\item \Cle{OptionCoeffs} pour spécifier un formatage \textit{global} des coefficients ; \hfill{}défaut : \Cle{d}
+			\item le booléen \Cle{SimplifCoeffs} pour forcer des coeffs simples (entiers et premiers entre eux) ;
+			
+			\hfill{}défaut : \Cle{false}
+			\item \Cle{Facteur} pour spécifier un facteur personnalisé aux simplifications ; \hfill{}défaut : \Cle{1}
+			\item le booléen \Cle{VectDirecteur} pour pour préciser que le vecteur utilisé est directeur.\hfill{}défaut : \Cle{false}
+		\end{itemize}
+	\item les arguments suivants, entre \ctex{(...)} correspondent aux données utilisées.
+\end{itemize}
+
+À noter que les séparateurs \ctex{,} ou \ctex{;} permettent de spécifier point ou vecteur.
+\end{cautionblock}
+
+\begin{PresCodePL}{}
+Une équation cartésienne de la droite $\mathcal{D}$ de vecteur normal $\vv{n} \AffVecteur(1;2)$ et passant par le point A de coordonnées $\AffPoint(4,5)$ est $\mathcal{D}$ : $\TrouveEqCartDroite[VectNormal](1;2)(4,5)$
+\end{PresCodePL}
+
+\begin{PresCodePL}{}
+Une équation cartésienne de la droite $\mathcal{D}$ de vecteur directeur $\vv{u} \AffVecteur[n](1/2;2/3)$ et passant par le point A de coordonnées $\AffPoint(5,6)$ est $\mathcal{D}$ : $\TrouveEqCartDroite[VectDirecteur](1/2;2/3)(5,6) \Leftrightarrow \TrouveEqCartDroite[SimplifCoeffs,VectDirecteur](1/2;2/3)(5,6) \Leftrightarrow \TrouveEqCartDroite[SimplifCoeffs,VectDirecteur,Facteur=-1](1/2;2/3)(5,6)$
+\end{PresCodePL}
+
+\begin{PresCodePL}{}
+Une équation cartésienne de la droite $\mathcal{D}$ passant par les points $\AffPoint(2,4)$ et $\AffPoint(-4,2)$ est \[\mathcal{D}  \text{ : } \TrouveEqCartDroite(2,4)(-4,2) \Leftrightarrow \TrouveEqCartDroite[SimplifCoeffs](2,4)(-4,2)\]
+\end{PresCodePL}
+
+\newpage
+
+\section{Norme d'un vecteur, distance entre deux points}\label{normevect}
+
+\subsection{Idée et commande}
+
+\begin{tipblock}
+\cmaj{2.6.5} L'idée est de proposer une commande pour déterminer la distance entre deux points, ou la norme d'un vecteur :
+
+\begin{itemize}
+	\item en donnant le vecteur ;
+	\item en donnant deux points.
+\end{itemize}
+\vspace*{-\baselineskip}\leavevmode
+\end{tipblock}
+
+\begin{PresCodeTexPL}{listing only}
+%Avec le vecteur
+\TrouveNorme(vecteur)
+%Avec deux points
+\TrouveNorme(point 1)(point 2)
+\end{PresCodeTexPL}
+
+\begin{noteblock}
+Le résultat étant souvent écrit à l'aide d'une racine carrée, le code se charge de simplifier le résultat sous la forme $\frac{a\sqrt{n}}{b}$.
+
+Dans le cas où les coordonnées ne seraient pas rationnelles, le résultat risque de ne pas être conforme à celui attendu.
+\end{noteblock}
+
+\subsection{Clés et arguments}
+
+\begin{cautionblock}
+Concernant les arguments de cette commande :
+
+\begin{itemize}
+	\item les séparateurs \ctex{,} ou \ctex{;} permettent de spécifier point ou vecteur pour les arguments 1 et 2.
+\end{itemize}
+\vspace*{-\baselineskip}\leavevmode
+\end{cautionblock}
+
+\begin{PresCodePL}{}
+La distance $AB$ avec $A\AffPoint(-5,2)$ et $B\AffPoint(4,-3)$ vaut
+$d =\displaystyle\TrouveNorme(-5,2)(4,-3)$
+\end{PresCodePL}
+
+\begin{PresCodePL}{}
+La distance $AB$ avec $A\AffPoint(2,1,2)$ et $B\AffPoint(-4,1,1)$ vaut
+$d =\displaystyle\TrouveNorme(2,1,2)(-4,1,1)$
+\end{PresCodePL}
+
+\begin{PresCodePL}{}
+La norme de $\AffVecteur(2;4)$ vaut
+$d =\displaystyle\TrouveNorme(2;4)$
+\end{PresCodePL}
+
+\begin{PresCodePL}{}
+La norme de $\AffVecteur[d;d;n](2;4;0.5)$ vaut
+$d =\displaystyle\TrouveNorme(2;4;0.5)$
+\end{PresCodePL}
+
+\newpage
+
+\section{Distance d'un point à un plan}\label{distptplan}
+
+\subsection{Idée et commande}
+
+\begin{tipblock}
+\cmaj{2.6.4} L'idée est de proposer une commande pour déterminer la distance d'un point à un plan :
+
+\begin{itemize}
+	\item en donnant le point puis le plan défini par vecteur normal \&{} point ;
+	\item en donnant le point puis le plan défini par une équation cartésienne.
+\end{itemize}
+\vspace*{-\baselineskip}\leavevmode
+\end{tipblock}
+
+\begin{PresCodeTexPL}{listing only}
+%Avec le point et le plan via vect normal + point
+\TrouveDistancePtPlan(point)(vec normal du plan)(point du plan)
+%Avec le point et le plan via vect normal + point
+\TrouveDistancePtPlan(point)(équation cartésienne)
+\end{PresCodeTexPL}
+
+\begin{noteblock}
+Le résultat étant souvent écrit à l'aide d'une racine carrée, le code se charge de simplifier le résultat sous la forme $\frac{a\sqrt{n}}{b}$.
+
+Dans le cas où les coordonnées ne seraient pas rationnelles, le résultat risque de ne pas être conforme à celui attendu.
+\end{noteblock}
+
+\subsection{Clés et arguments}
+
+\begin{cautionblock}
+Concernant les arguments de cette commande :
+
+\begin{itemize}
+	\item si on travaille avec une équation cartésienne, elle est à donner sous la forme \ctex{ax+by+cz=0} ou \ctex{ax+by+cz}
+	\item les séparateurs \ctex{,} ou \ctex{;} permettent de spécifier point ou vecteur pour les arguments 1 et 3.
+\end{itemize}
+\vspace*{-\baselineskip}\leavevmode
+\end{cautionblock}
+
+\begin{PresCodePL}{}
+La distance entre le point $\AffPoint(1,2,3)$ et le plan de vecteur normal $\AffVecteur(-1;-2;3)$ et passant par $\AffPoint(5,0,2)$ vaut
+\[ d = \displaystyle\TrouveDistancePtPlan(1,2,3)(-1;-2;3)(5,0,2) \]
+\end{PresCodePL}
+
+\begin{PresCodePL}{}
+La distance entre le point $\AffPoint(1,2,3)$ et le plan d'équation $x+2y+2z-7=0$ vaut
+\[ d = \displaystyle\TrouveDistancePtPlan(1,2,3)(x+2y-2z+7) \]
+\end{PresCodePL}
+
+\begin{PresCodePL}{}
+La distance entre le point $\AffPoint(-7,0,4)$ et le plan d'équation $0,5x+2y-z-1=0$ vaut
+\[ d = \displaystyle\TrouveDistancePtPlan(-7,0,4)(0.5x+2y-z-1=0) \]
+\end{PresCodePL}
+
+\begin{PresCodePL}{}
+La distance entre le point $H\AffPoint(0,4,8)$ et le plan d'équation $-x+y+z-4=0$ vaut
+\[ d = \displaystyle\TrouveDistancePtPlan(0,4,8)(-x+y+z-4=0) \]
+\end{PresCodePL}
+
+\begin{PresCodePL}{}
+La distance entre le point $H\AffPoint(0,0,5)$ et le plan d'équation $z-1=0$ vaut
+\[ d = \displaystyle\TrouveDistancePtPlan(0,0,5)(z-1=0) \]
+\end{PresCodePL}
+
+\newpage
+
+\section{Équation d'une sphère}\label{eqsphere}
+
+\subsection{Idée}
+
+\begin{tipblock}
+\cmaj{4.00b} L'idée est de proposer une commande pour travailler sur les équations de sphères :
+\begin{itemize}
+	\item en spécifiant centre et rayon ;
+	\item en spécifiant centre et point ;
+	\item en spécifiant un diamètre ;
+	\item en spécifiant centre et plan tangent.
+\end{itemize}
+
+À noter que les calculs et résultats sont traités par la commande de \textit{conversion de fraction} de \ctex{ProfLycee}.
+\end{tipblock}
+
+\begin{PresCodeTexPL}{listing only}
+\TrouveEqSphere[clés](centre ou point n°1)(rayon ou point ou éq plan)
+\end{PresCodeTexPL}
+
+\subsection{Clés et arguments}
+
+\begin{cautionblock}
+Concernant les clés de cette commande :
+
+\begin{itemize}
+	\item \Cle{OptionCoeffs} pour spécifier un formatage \textit{global} des coefficients ; \hfill{}défaut : \Cle{d}
+	\item \Cle{Diam} (booléen) pour préciser que les 2 points forment un diamètre ; \hfill{}défaut : \Cle{false}
+	\item \Cle{Develop} (booléen) pour développer l'équation ; \hfill{}défaut : \Cle{true}
+	\item \Cle{Tri} (booléen) pour trier les termes.\hfill{}défaut : \Cle{true}
+\end{itemize}
+\vspace*{-\baselineskip}\leavevmode
+\end{cautionblock}
+
+\subsection{Exemples}
+
+\begin{PresCodePL}{}
+%centre + rayon
+$\TrouveEqSphere(1,1,1)(2)$\\
+$\TrouveEqSphere[Develop=false](1,1,1)(2)$\\
+$\TrouveEqSphere[Tri=false](1,1,1)(2)$
+\end{PresCodePL}
+
+\begin{PresCodePL}{}
+%centre + point
+$\TrouveEqSphere(3,1,4)(0,0,0)$\\
+$\TrouveEqSphere[Develop=false](3,1,4)(0,0,0)$\\
+$\TrouveEqSphere[Tri=false](3,1,4)(0,0,0)$
+\end{PresCodePL}
+
+\begin{PresCodePL}{}
+%diamètre
+$\TrouveEqSphere[Diam](3,1,4)(0,0,0)$\\
+$\TrouveEqSphere[Diam,Develop=false](3,1,4)(0,0,0)$\\
+$\TrouveEqSphere[Diam,Tri=false](3,1,4)(0,0,0)$
+\end{PresCodePL}
+
+\begin{PresCodePL}{}
+%centre + plan tangent
+$\TrouveEqSphere[](1,2,4)(2x+3y-3z+1=0)$\\
+$\TrouveEqSphere[Develop=false](1,2,4)(2x+3y-3z+1=0)$\\
+$\TrouveEqSphere[Tri=false](1,2,4)(2x+3y-3z+1=0)$
+\end{PresCodePL}
+
+\newpage
+
+\section{Équation réduite d'une droite du plan}\label{eqreduite}
+
+\subsection{Idée}
+
+\begin{tipblock}
+\cmaj{2.6.3} L'idée est de proposer une commande pour déterminer l'équation réduite d'une droite passant par deux points :
+\begin{itemize}
+	\item en traitant les cas particuliers \textit{horizontale}, \textit{verticale} ;
+	\item en affichant une méthode de résolution ;
+	\item en travaillant sous forme exacte fractionnaire (les racines carrées ou autres ne seront pas gérés).
+\end{itemize}
+
+À noter que les calculs et résultats sont traités par la commande de \textit{conversion de fraction} de \ctex{ProfLycee}.
+\end{tipblock}
+
+\begin{warningblock}
+La commande se charge de formater (normalement !) correctement les différentes étapes de calculs (il se peut quand même que cela puisse ne pas donner le résultat réellement escompté\ldots) :
+
+\begin{itemize}
+	\item en travaillant en fraction ;
+	\item en mettant les parenthèses nécessaires devant les éventuels nombres négatifs ;
+	\item en traitant les cas particuliers $m=\pm1$ et $b=0$.
+\end{itemize}
+\vspace*{-\baselineskip}\leavevmode
+\end{warningblock}
+
+\begin{PresCodeTexPL}{listing only}
+\EquationReduite[option]{A/xa/ya,B/xb/yb}
+\end{PresCodeTexPL}
+
+\subsection{Clés et arguments}
+
+\begin{cautionblock}
+Concernant le fonctionnement de la commande :
+
+\begin{itemize}
+	\item le premier argument, optionnel et entre \ctex{[...]} et valant \Cle{[d]} par défaut, permet de formater les fractions éventuelles en mode \ctex{\textbackslash displaystyle} ;
+	\item le second argument, obligatoire et entre \ctex{\{...\}}, permet de donner les coordonnées des points concernés.
+\end{itemize}
+\vspace*{-\baselineskip}\leavevmode
+\end{cautionblock}
+
+\begin{PresCodePL}{}
+\EquationReduite{C/2/0,D/-2/-8}
+\end{PresCodePL}
+
+\subsection{Exemples}
+
+\begin{PresCodePL}{}
+\EquationReduite{I/-4/5,J/-4/12}
+\end{PresCodePL}
+
+\begin{PresCodePL}{}
+\EquationReduite{U/-4/5,V/-4/5}
+\end{PresCodePL}
+
+\begin{PresCodePL}{}
+\EquationReduite{L/10/7,M/-2/7}
+\end{PresCodePL}
+
+\begin{PresCodePL}{}
+\EquationReduite{L/{1/3}/2.5,M/{-5/7}/{3/5}}
+\end{PresCodePL}
+
+\begin{PresCodePL}{}
+\EquationReduite{P/4/-4,Q/-2/2}
+\end{PresCodePL}
+
+\begin{PresCodePL}{}
+\EquationReduite{G/-4/5,H/10/4}
+\end{PresCodePL}

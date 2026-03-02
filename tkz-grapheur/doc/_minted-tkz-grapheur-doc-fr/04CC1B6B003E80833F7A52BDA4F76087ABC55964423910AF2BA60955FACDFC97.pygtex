@@ -1,0 +1,18 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c}{\PYGZpc{}avec \PYGZbs{}sisetup\PYGZob{}group\PYGZhy{}minimum\PYGZhy{}digits=4\PYGZcb{} pour le formatage des \PYGZdq{}milliers\PYGZdq{}}
+
+\PYG{k}{\PYGZbs{}begin}\PYG{n+nb}{\PYGZob{}}GraphiqueTikz\PYG{n+nb}{\PYGZcb{}}\PYG{c}{\PYGZpc{}}
+	[x=10cm,y=10cm,Xmin=0,Xmax=1,Xgrille=0.1,Xgrilles=0.05,
+	Ymin=0,Ymax=1,Ygrille=0.1,Ygrilles=0.05]
+	\PYG{k}{\PYGZbs{}TracerAxesGrilles}\PYG{n+na}{[Elargir=2.5mm,Dernier]}\PYG{n+nb}{\PYGZob{}}auto\PYG{n+nb}{\PYGZcb{}\PYGZob{}}auto\PYG{n+nb}{\PYGZcb{}}
+	\PYG{k}{\PYGZbs{}DefinirCourbe}\PYG{n+na}{[Trace,Couleur=teal,Pas=0.001]}\PYGZlt{}f\PYGZgt{}\PYG{n+nb}{\PYGZob{}}sqrt(1\PYGZhy{}x\PYG{n+nb}{\PYGZca{}}2)\PYG{n+nb}{\PYGZcb{}}
+	\PYG{k}{\PYGZbs{}SimulerMonteCarlo}\PYGZlt{}f\PYGZgt{}\PYG{n+nb}{\PYGZob{}}5000\PYG{n+nb}{\PYGZcb{}}
+\PYG{k}{\PYGZbs{}end}\PYG{n+nb}{\PYGZob{}}GraphiqueTikz\PYG{n+nb}{\PYGZcb{}}
+
+Le nombre de points bleus est de \PYG{k}{\PYGZbs{}textcolor}\PYG{n+nb}{\PYGZob{}}blue\PYG{n+nb}{\PYGZcb{}\PYGZob{}}\PYG{k}{\PYGZbs{}num}\PYG{n+nb}{\PYGZob{}}\PYG{k}{\PYGZbs{}nbptsmcok}\PYG{n+nb}{\PYGZcb{}\PYGZcb{}},
+le nombre de points rouges est de \PYG{k}{\PYGZbs{}textcolor}\PYG{n+nb}{\PYGZob{}}red\PYG{n+nb}{\PYGZcb{}\PYGZob{}}\PYG{k}{\PYGZbs{}num}\PYG{n+nb}{\PYGZob{}}\PYG{k}{\PYGZbs{}nbptsmcko}\PYG{n+nb}{\PYGZcb{}\PYGZcb{}}.
+
+La proportion de points bleus est de \PYG{l+s}{\PYGZdl{}}\PYG{n+nv}{\PYGZbs{}frac}\PYG{n+nb}{\PYGZob{}}\PYG{n+nv}{\PYGZbs{}num}\PYG{n+nb}{\PYGZob{}}\PYG{n+nv}{\PYGZbs{}nbptsmcok}\PYG{n+nb}{\PYGZcb{}\PYGZcb{}\PYGZob{}}\PYG{n+nv}{\PYGZbs{}num}\PYG{n+nb}{\PYGZob{}}\PYG{n+nv}{\PYGZbs{}nbptsmc}\PYG{n+nb}{\PYGZcb{}\PYGZcb{}}
+\PYG{n+nv}{\PYGZbs{}approx}\PYG{n+nb}{ }\PYG{n+nv}{\PYGZbs{}ArrondirNum}\PYG{o}{[}\PYG{l+m}{4}\PYG{o}{]}\PYG{n+nb}{\PYGZob{}}\PYG{n+nv}{\PYGZbs{}nbptsmcok}\PYG{o}{/}\PYG{n+nv}{\PYGZbs{}nbptsmc}\PYG{n+nb}{\PYGZcb{}}\PYG{l+s}{\PYGZdl{}}
+et \PYG{l+s}{\PYGZdl{}}\PYG{n+nv}{\PYGZbs{}frac}\PYG{n+nb}{\PYGZob{}}\PYG{n+nv}{\PYGZbs{}pi}\PYG{n+nb}{\PYGZcb{}\PYGZob{}}\PYG{l+m}{4}\PYG{n+nb}{\PYGZcb{} }\PYG{n+nv}{\PYGZbs{}approx}\PYG{n+nb}{ }\PYG{n+nv}{\PYGZbs{}ArrondirNum}\PYG{o}{[}\PYG{l+m}{4}\PYG{o}{]}\PYG{n+nb}{\PYGZob{}pi}\PYG{o}{/}\PYG{l+m}{4}\PYG{n+nb}{\PYGZcb{}}\PYG{l+s}{\PYGZdl{}}.
+\end{Verbatim}

@@ -1,0 +1,12 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k}{\PYGZbs{}begin}\PYG{n+nb}{\PYGZob{}}GraphTikz\PYG{n+nb}{\PYGZcb{}}\PYG{c}{\PYGZpc{}}
+	[x=0.9cm,y=0.425cm,Xmin=4,Xmax=20,Origx=4,
+	Ymin=40,Ymax=56,Ygrid=2,Ygrids=1,Origy=40]
+	\PYG{k}{\PYGZbs{}DrawAxisGrids}\PYG{n+na}{[Enlarge=2.5mm,Font=\PYGZbs{}small]}\PYG{n+nb}{\PYGZob{}}4,5,...,20\PYG{n+nb}{\PYGZcb{}\PYGZob{}}40,42,...,56\PYG{n+nb}{\PYGZcb{}}
+	\PYG{k}{\PYGZbs{}DefineCurve}\PYG{n+na}{[Name=cf,Start=5,End=19,Color=red,Trace]}\PYGZlt{}f\PYGZgt{}\PYG{n+nb}{\PYGZob{}}\PYGZhy{}2*x+3+24*log(2*x)\PYG{n+nb}{\PYGZcb{}}
+	\PYG{k}{\PYGZbs{}FindCounterimage}\PYG{n+na}{[Color=teal,Name=JKL,Disp=false]}\PYG{n+nb}{\PYGZob{}}cf\PYG{n+nb}{\PYGZcb{}\PYGZob{}}53\PYG{n+nb}{\PYGZcb{}}
+	\PYG{c}{\PYGZpc{}tangent}
+	\PYG{k}{\PYGZbs{}DrawTangent}\PYG{c}{\PYGZpc{}}
+		[Colors=cyan/gray,OffsetL=2.5,OffsetR=2.5,Node,DispPt]\PYG{n+nb}{\PYGZob{}}f\PYG{n+nb}{\PYGZcb{}\PYGZob{}}(JKL\PYGZhy{}1)\PYG{n+nb}{\PYGZcb{}}
+\PYG{k}{\PYGZbs{}end}\PYG{n+nb}{\PYGZob{}}GraphTikz\PYG{n+nb}{\PYGZcb{}}
+\end{Verbatim}

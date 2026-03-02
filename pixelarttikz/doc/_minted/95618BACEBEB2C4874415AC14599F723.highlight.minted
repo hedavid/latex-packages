@@ -1,0 +1,21 @@
+\begin{MintedVerbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
+\PYG{k}{\PYGZbs{}pixlarttikz}\PYG{c}{\PYGZpc{}with letters}
+  \PYG{n+nb}{\PYGZob{}}A,B,C,D\PYG{n+nb}{\PYGZcb{}}
+  \PYG{n+nb}{\PYGZob{}}base.csv\PYG{n+nb}{\PYGZcb{}}
+\PYG{k}{\PYGZbs{}pixlarttikz}\PYG{n+na}{[correction]}\PYG{c}{\PYGZpc{}with colors}
+  \PYG{n+nb}{\PYGZob{}}A=green,B=blue,C=orange,D=pink\PYG{n+nb}{\PYGZcb{}}\PYG{c}{\PYGZpc{}}
+  \PYG{n+nb}{\PYGZob{}}base.csv\PYG{n+nb}{\PYGZcb{}}
+\PYG{k}{\PYGZbs{}pixlarttikz}\PYG{n+na}{[correction,borders=false]}\PYG{c}{\PYGZpc{}with colors w/o borders}
+  \PYG{n+nb}{\PYGZob{}}A=green,B=blue,C=orange,D=pink\PYG{n+nb}{\PYGZcb{}}\PYG{c}{\PYGZpc{}}
+  \PYG{n+nb}{\PYGZob{}}base.csv\PYG{n+nb}{\PYGZcb{}}
+
+\PYG{k}{\PYGZbs{}pixlarttikz}\PYG{n+na}{[symbols]}\PYG{c}{\PYGZpc{}with symbols}
+  \PYG{n+nb}{\PYGZob{}}A=12,B=\PYGZhy{}5,C=4,D=0\PYG{n+nb}{\PYGZcb{}}
+  \PYG{n+nb}{\PYGZob{}}base.csv\PYG{n+nb}{\PYGZcb{}}
+\PYG{k}{\PYGZbs{}pixlarttikz}\PYG{n+na}{[symbols,text size=0.875]}\PYG{c}{\PYGZpc{}with symbols and custom scale}
+  \PYG{n+nb}{\PYGZob{}}A=12,B=\PYGZhy{}5,C=4,D=0\PYG{n+nb}{\PYGZcb{}}
+  \PYG{n+nb}{\PYGZob{}}base.csv\PYG{n+nb}{\PYGZcb{}}
+\PYG{k}{\PYGZbs{}pixlarttikz}\PYG{n+na}{[symbols]}\PYG{c}{\PYGZpc{}with random symbols}
+  \PYG{n+nb}{\PYGZob{}}A=1§2§3§4,B=5§6§7§8,C=9§10§11§12,D=13§14§15§16\PYG{n+nb}{\PYGZcb{}}
+  \PYG{n+nb}{\PYGZob{}}base.csv\PYG{n+nb}{\PYGZcb{}}
+\end{MintedVerbatim}

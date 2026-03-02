@@ -1,0 +1,25 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k}{\PYGZbs{}documentclass}\PYG{n+na}{[a5paper,11pt]}\PYG{n+nb}{\PYGZob{}}article\PYG{n+nb}{\PYGZcb{}}
+\PYG{k}{\PYGZbs{}usepackage}\PYG{n+nb}{\PYGZob{}}WriteOnGrid\PYG{n+nb}{\PYGZcb{}}
+\PYG{k}{\PYGZbs{}usepackage}\PYG{n+nb}{\PYGZob{}}lipsum\PYG{n+nb}{\PYGZcb{}}
+\PYG{k}{\PYGZbs{}usepackage}\PYG{n+nb}{\PYGZob{}}frcursive\PYG{n+nb}{\PYGZcb{}}
+
+\PYG{k}{\PYGZbs{}begin}\PYG{n+nb}{\PYGZob{}}document\PYG{n+nb}{\PYGZcb{}}
+
+\PYG{k}{\PYGZbs{}thispagestyle}\PYG{n+nb}{\PYGZob{}}empty\PYG{n+nb}{\PYGZcb{}}
+
+\PYG{k}{\PYGZbs{}begin}\PYG{n+nb}{\PYGZob{}}PleinePageSeyes\PYG{n+nb}{\PYGZcb{}}[FormatPapier=A5,NumLignes,ReglureSeyes=2.5]
+	\PYG{c}{\PYGZpc{}entête}
+	\PYG{k}{\PYGZbs{}LignePapierSeyes}\PYG{n+na}{[Echelle=2,Ligne=1]}\PYG{n+nb}{\PYGZob{}}C. PIERQUET \PYG{k}{\PYGZbs{}hfill} LaTeX\PYG{n+nb}{\PYGZcb{}}
+	\PYG{c}{\PYGZpc{}titre}
+	\PYG{k}{\PYGZbs{}LignePapierSeyes}\PYG{n+na}{[Echelle=2,Ligne=2,Couleur=red]}\PYGZlt{}center\PYGZgt{}\PYG{n+nb}{\PYGZob{}}\PYG{k}{\PYGZbs{}underline}\PYG{n+nb}{\PYGZob{}}\PYG{k}{\PYGZbs{}cursive\PYGZbs{}bfseries} Devoir 1\PYG{n+nb}{\PYGZcb{}\PYGZcb{}}
+	\PYG{c}{\PYGZpc{}cadre de notes}
+	\PYG{k}{\PYGZbs{}CadreNoteSeyes}\PYG{n+na}{[2]}\PYG{n+nb}{\PYGZob{}}3\PYG{n+nb}{\PYGZcb{}}
+	\PYG{c}{\PYGZpc{}ligne pour un petit titre}
+	\PYG{k}{\PYGZbs{}LignePapierSeyes}\PYG{n+na}{[Echelle=2,Ligne=6,Couleur=green!50!black]}\PYG{n+nb}{\PYGZob{}}\PYG{k}{\PYGZbs{}sffamily\PYGZbs{}underline}\PYG{n+nb}{\PYGZob{}}Exercice 1 :\PYG{n+nb}{\PYGZcb{}\PYGZcb{}}
+	\PYG{c}{\PYGZpc{}paragraphe lipsum avec une échelle de 1.5}
+	\PYG{k}{\PYGZbs{}ParagraphePapierSeyes}\PYG{n+na}{[Ligne=7,Echelle=1.5]}\PYG{n+nb}{\PYGZob{}}\PYG{k}{\PYGZbs{}cursive\PYGZbs{}lipsum}\PYG{n+na}{[1][1\PYGZhy{}7]}\PYG{n+nb}{\PYGZcb{}}
+\PYG{k}{\PYGZbs{}end}\PYG{n+nb}{\PYGZob{}}PleinePageSeyes\PYG{n+nb}{\PYGZcb{}}
+
+\PYG{k}{\PYGZbs{}end}\PYG{n+nb}{\PYGZob{}}document\PYG{n+nb}{\PYGZcb{}}
+\end{Verbatim}

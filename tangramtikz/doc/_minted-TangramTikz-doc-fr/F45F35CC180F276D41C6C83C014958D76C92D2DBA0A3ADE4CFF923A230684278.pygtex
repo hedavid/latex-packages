@@ -1,0 +1,4 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c}{\PYGZpc{}commande autonome pour afficher le Tangram du Chat/Bateau/Kangourou, avec options par défaut}
+\PYG{k}{\PYGZbs{}TangramTikz}\PYG{n+nb}{\PYGZob{}}Chat\PYG{n+nb}{\PYGZcb{}}\PYGZti{}\PYGZti{}\PYG{k}{\PYGZbs{}TangramTikz}\PYG{n+nb}{\PYGZob{}}Bateau\PYG{n+nb}{\PYGZcb{}}\PYGZti{}\PYGZti{}\PYG{k}{\PYGZbs{}TangramTikz}\PYG{n+nb}{\PYGZob{}}Kangourou\PYG{n+nb}{\PYGZcb{}}
+\end{Verbatim}

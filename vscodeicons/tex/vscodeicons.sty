@@ -3,17 +3,33 @@
 % licence icons : MIT License, see https://github.com/tabler/tabler-icons
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{vscodeicons}[2025/11/23 v0.1.0 LaTeX vscodeicons (source v12.15.0)]
+\ProvidesPackage{vscodeicons}[2025/11/24 v0.1.1 LaTeX vscodeicons (source v12.15.0)]
 
 %====history
+% 0.1.1: bugfix with syntax
 % 0.1.0: initial version
 
 %====packages
 \RequirePackage{ifthen}
 \RequirePackage{calc}
 \RequirePackage{graphicx}
-\RequirePackage{xstring}
 \RequirePackage{simplekv}
+
+%====internal macros
+\ExplSyntaxOn
+\NewDocumentCommand\intvstestsubstr{ m m m m }%
+{
+  \tl_set:Ne \l_tmpa_tl { #1 }
+  \tl_if_in:NnTF \l_tmpa_tl { #2 } { #3 } { #4 }
+}
+
+\NewDocumentCommand\intvscutsplit{ m m m m }%
+{
+  \seq_gset_split:Nee \l_tmpa_seq { #2 } { #1 }
+  \tl_set:Ne #3 { \seq_item:Nn \l_tmpa_seq {1} }
+  \tl_set:Ne #4 { \seq_item:Nn \l_tmpa_seq {2} }
+}
+\ExplSyntaxOff
 
 %====lengths
 \newlength{\vscodeiconsDefaultTotalHeight}
@@ -65,107 +81,46 @@
 
 %====main macro
 \defKV[vscodeicon]{height=\def\vscodeiconheigth{#1},strut=\def\vscodeiconstrut{#1},dstrut=\def\vscodeicondstrut{#1}}
-
 \setKVdefault[vscodeicon]{height=dauto,default=true,filetype=false,foldertype=false,strut={X},dstrut={qX}}
 
 \NewDocumentCommand\vscodeicon{O{}D<>{}m}{%
 	\restoreKV[vscodeicon]%
 	\setKV[vscodeicon]{#1}%
-	%boolean
+	%booleans
 	\ifboolKV[vscodeicon]{filetype}{\setKV[vscodeicon]{default=false,foldertype=false}}{}%
 	\ifboolKV[vscodeicon]{foldertype}{\setKV[vscodeicon]{default=false,filetype=false}}{}%
 	%lengths
 	\ifthenelse{\equal{\vscodeiconheigth}{auto}}%
 		{%
 			\settoheight\vscodeiconsDefaultHeight{\hbox{\vscodeiconstrut}}%height of \vscodeiconstrut
-			\ifboolKV[vscodeicon]{default}%
-				{%
-					\vscodeicondefault[height=\vscodeiconsDefaultHeight,#2]{#3}%
-				}%
-				{}%
-			\ifboolKV[vscodeicon]{filetype}%
-				{%
-					\vscodeiconfiletype[height=\vscodeiconsDefaultHeight,#2]{#3}%
-				}%
-				{}%
-			\ifboolKV[vscodeicon]{foldertype}%
-				{%
-					\vscodeiconfoldertype[height=\vscodeiconsDefaultHeight,#2]{#3}%
-				}%
-				{}%
+			\ifboolKV[vscodeicon]{default}{\vscodeicondefault[height=\vscodeiconsDefaultHeight,#2]{#3}}{}%
+			\ifboolKV[vscodeicon]{filetype}{\vscodeiconfiletype[height=\vscodeiconsDefaultHeight,#2]{#3}}{}%
+			\ifboolKV[vscodeicon]{foldertype}{\vscodeiconfoldertype[height=\vscodeiconsDefaultHeight,#2]{#3}}{}%
 		}%
 		{%
 			\ifthenelse{\equal{\vscodeiconheigth}{dauto}}%
 				{%
 					\settototalheight\vscodeiconsDefaultTotalHeight{\hbox{\vscodeicondstrut}}%height of \vscodeicondstrut
 					\settodepth\vscodeiconsDefaultDepth{\hbox{\vscodeicondstrut}}%depth of \vscodeicondstrut
-					\ifboolKV[vscodeicon]{default}%
-						{%
-							\raisebox{-\vscodeiconsDefaultDepth}{%
-								\vscodeicondefault[height=\vscodeiconsDefaultTotalHeight,#2]{#3}%
-							}%
-						}%
-						{}%
-					\ifboolKV[vscodeicon]{filetype}%
-						{%
-							\raisebox{-\vscodeiconsDefaultDepth}{%
-								\vscodeiconfiletype[height=\vscodeiconsDefaultTotalHeight,#2]{#3}%
-							}%
-						}%
-						{}%
-					\ifboolKV[vscodeicon]{foldertype}%
-						{%
-							\raisebox{-\vscodeiconsDefaultDepth}{%
-								\vscodeiconfoldertype[height=\vscodeiconsDefaultTotalHeight,#2]{#3}%
-							}%
-						}%
-						{}%
+					\ifboolKV[vscodeicon]{default}{\raisebox{-\vscodeiconsDefaultDepth}{\vscodeicondefault[height=\vscodeiconsDefaultTotalHeight,#2]{#3}}}{}%
+					\ifboolKV[vscodeicon]{filetype}{\raisebox{-\vscodeiconsDefaultDepth}{\vscodeiconfiletype[height=\vscodeiconsDefaultTotalHeight,#2]{#3}}}{}%
+					\ifboolKV[vscodeicon]{foldertype}{\raisebox{-\vscodeiconsDefaultDepth}{\vscodeiconfoldertype[height=\vscodeiconsDefaultTotalHeight,#2]{#3}}}{}%
 				}%
 				{%
-					\IfSubStr{\vscodeiconheigth}{/}%
+					\intvstestsubstr{\vscodeiconheigth}{/}%
 						{%
-							\StrCut*{\vscodeiconheigth}{/}{\vscodeiconmanualheight}{\vscodeiconmanualdepth}%
+							\intvscutsplit{\vscodeiconheigth}{/}{\vscodeiconmanualheight}{\vscodeiconmanualdepth}%
 							\setlength\vscodeiconsNormalHeight{\vscodeiconmanualheight}%
 							\setlength\vscodeiconsDefaultDepth{\vscodeiconmanualdepth}%
-							\ifboolKV[vscodeicon]{default}%
-								{%
-									\raisebox{\vscodeiconsDefaultDepth}{%
-										\vscodeicondefault[height=\vscodeiconsNormalHeight,#2]{#3}%
-									}%
-								}%
-								{}%
-							\ifboolKV[vscodeicon]{filetype}%
-								{%
-									\raisebox{\vscodeiconsDefaultDepth}{%
-										\vscodeiconfiletype[height=\vscodeiconsNormalHeight,#2]{#3}%
-									}%
-								}%
-								{}%
-							\ifboolKV[vscodeicon]{foldertype}%
-								{%
-									\raisebox{\vscodeiconsDefaultDepth}{%
-										\vscodeiconfoldertype[height=\vscodeiconsNormalHeight,#2]{#3}%
-									}%
-								}%
-								{}%
+							\ifboolKV[vscodeicon]{default}{\raisebox{\vscodeiconsDefaultDepth}{\vscodeicondefault[height=\vscodeiconsNormalHeight,#2]{#3}}}{}%
+							\ifboolKV[vscodeicon]{filetype}{\raisebox{\vscodeiconsDefaultDepth}{\vscodeiconfiletype[height=\vscodeiconsNormalHeight,#2]{#3}}}{}%
+							\ifboolKV[vscodeicon]{foldertype}{\raisebox{\vscodeiconsDefaultDepth}{\vscodeiconfoldertype[height=\vscodeiconsNormalHeight,#2]{#3}}}{}%
 						}%
 						{%
 							\setlength\vscodeiconsNormalHeight{\vscodeiconheigth}%
-							\ifboolKV[vscodeicon]{default}%
-								{%
-									\vscodeicondefault[height=\vscodeiconsNormalHeight,#2]{#3}%
-								}%
-								{}%
-							\ifboolKV[vscodeicon]{filetype}%
-								{%
-									\vscodeiconfiletype[height=\vscodeiconsNormalHeight,#2]{#3}%
-								}%
-								{}%
-							\ifboolKV[vscodeicon]{foldertype}%
-								{%
-									\vscodeiconfoldertype[height=\vscodeiconsNormalHeight,#2]{#3}%
-								}%
-								{}%
+							\ifboolKV[vscodeicon]{default}{\vscodeicondefault[height=\vscodeiconsNormalHeight,#2]{#3}}{}%
+							\ifboolKV[vscodeicon]{filetype}{\vscodeiconfiletype[height=\vscodeiconsNormalHeight,#2]{#3}}{}%
+							\ifboolKV[vscodeicon]{foldertype}{\vscodeiconfoldertype[height=\vscodeiconsNormalHeight,#2]{#3}}{}%
 						}%
 				}%
 		}%

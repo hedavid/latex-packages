@@ -1,0 +1,628 @@
+%Section liste des commandes
+
+\part{Liste des commandes, par thème}
+
+\begin{noteblock}
+\cmaj{2.0.0} Cette section contient un \textit{résumé} des différentes commandes et environnements disponibles dans \ctex{ProfLycee}.
+
+Elles sont présentées de manière \textit{succincte}, mais elles sont présentées de manière \textit{détaillée} dans la suite de la documentation.
+
+Autant que peut se faire, la version \textit{alias} en \ctex{\textbackslash pfl...} est mentionnée, en sachant qu'elle reprend la syntaxe complète de la commande initiale.
+\end{noteblock}
+
+\begin{PresCodeTexPL}{listing only}
+%calculs formatés
+\pflnum(*)<type>[dec]{calcul}                      %version consolidée
+\pflnumsqrt[formatage]{intérieur de la racine}
+\pflnumfrac(*)[formatage]{calcul}
+\pflnumrad(*)[formatage]{calcul}
+\end{PresCodeTexPL}
+
+\begin{PresCodeTexPL}{listing only}
+%conversion directe entre bases
+\pflbasetobase{base initiale}{base finale}{nb}
+\end{PresCodeTexPL}
+
+\begin{PresCodeTexPL}{listing only}
+%formatage spéciaux avec sinuitx
+\pflprix[arrondi]{px}
+\pflangle[arrondi]{agl}
+\pflpcent[arrondi]{pcent}
+\end{PresCodeTexPL}
+
+\begin{PresCodeTexPL}{listing only}
+%intervalles
+\begin{RepIntervalles}[clés]<options tikz>...\end{RepIntervalles}
+\tkzIntervalle[clés]{xmin}{xmax}
+\end{PresCodeTexPL}
+
+\begin{PresCodeTexPL}{listing only}
+%Résolution approchée d'une équation f(x)=k
+\ResolutionApprochee[clés]{équation}[macro]
+\pflresolapproch
+\end{PresCodeTexPL}
+
+\begin{PresCodeTexPL}{listing only}
+%Présentation d'une solution par balayage (TVI)
+\SolutionTVI[options]{fonction}{valeur}
+\pflsoltvi
+\end{PresCodeTexPL}
+
+\begin{PresCodeTexPL}{listing only}
+%Calculer le terme d'une suite récurrente simple, toile pour une suite récurrente simple
+\CalculTermeRecurrence[options]{fonction associée}
+\pflcalcrecurr
+\ToileRecurrence[clés][options du tracé][option supplémentaire des termes]
+\pfltoilerecurr
+\end{PresCodeTexPL}
+
+\begin{PresCodeTexPL}{listing only}
+%Mise en forme de la conclusion d'un seuil
+\SolutionSeuil[options]{fonction associée}{seuil}
+\pflsolseuil
+\end{PresCodeTexPL}
+
+\begin{PresCodeTexPL}{listing only}
+%Valeur approchée d'une intégrale
+\IntegraleApprochee[clés]{fonction}{a}{b}
+\pflintegrapproch
+\CalcIntegrale(*)[prec]<nb subdiv>{expr version xint}{binf}{bsup}
+\pflvalintegr
+\end{PresCodeTexPL}
+
+\begin{PresCodeTexPL}{listing only}
+%Valeur moyenne d'une fonction
+\ValeurMoyenneIntg(*)[prec]<nb subdiv>{expr version xint}{binf}{bsup}
+\pflvalmoyintegr
+\end{PresCodeTexPL}
+
+\begin{PresCodeTexPL}{listing only}
+%forme canonique
+\FormeCanonique(*)[option]{a}{b}{c}
+\pflformcanoniq
+\end{PresCodeTexPL}
+
+\begin{PresCodeTexPL}{listing only}
+%décomposition d'une fonction homographique
+\FonctionHomographique(*){a}{b}{c}{d}
+\pflfcthomogr
+\end{PresCodeTexPL}
+
+\begin{PresCodeTexPL}{listing only}
+%max/min d'une fonction
+\DetermineMax[précision]{expression xint}{a}{b}[\tmpmax][\tmpmaxvalx]
+\pfldetmax
+\DetermineMin[précision]{expression xint}{a}{b}[\tmpmin][\tmpminvalx]
+\pfldetmin
+\end{PresCodeTexPL}
+
+%\begin{PresCodeTexPL}{listing only}
+%fenêtre de repérage en tikz et courbe
+%\GrilleTikz[options][options grille ppale][options grille second.]
+%\AxesTikz[options] \AxexyTikz[optionsOx][optionsOy]{valeursOx}{valeursOy}
+%\AxexTikz[options]{valeurs} \AxeyTikz[options]{valeurs}
+%
+%\FenetreSimpleTikz[options](opt axes)<opt axe Ox>{liste valx}<opt axe Oy>{liste valy}
+%\DeclareFonctionTikz[nom]{expr}
+%\DeclareFonctionTikzXint[nom]{expr}
+%\CourbeTikz[options]{fonction}{valxmin:valxmax}
+%\CourbeTikzXint[options tikz]{fonction xint}{deb..[pas]..fin}
+%
+%%génération du tracé d'une courbe d'interpolation, dans une commande tikz
+%\GenereSplineTikz[options]{liste}[\nomdutracé]
+%
+%%courbe d'interpolation, tangente, dans un environnement tikz
+%\SplineTikz[options]{liste}
+%\TangenteTikz[options]{liste}
+%\PtsDiscontinuite[options]{liste}
+
+\begin{PresCodeTexPL}{listing only}
+%schémas pour le signe affine/trinôme, dans un environnement tikz
+\MiniSchemaSignes(*)[clés]<options tikz>
+\pflschemasignes
+\MiniSchemaSignesTkzTab[options]{numligne}[échelle][décalage horizontal]
+\pflschemasignestkztab
+\end{PresCodeTexPL}
+
+\begin{PresCodeTexPL}{listing only}
+%intégrales et méthodes graphiques
+\IntegraleApprocheeTikz[clés]{nom_fonction}{a}{b}
+\pflintegrapprochtikz
+\end{PresCodeTexPL}
+
+\begin{PresCodeTexPL}{listing only}
+%présentation de code Python
+\begin{CodePythonLst}(*)[clés]{commandes tcbox}...\end{CodePythonLst}
+\begin{CodePythonLstAlt}(*)[clés]{commandes tcbox}...\end{CodePythonLstAlt}
+%:=librairie piton
+\begin{CodePiton}[options piton]{commandes tcbox}<option line-numbers>...\end{CodePiton}
+\begin{PitonConsole}<clés>{commandes tcbox}...\end{PitonConsole}
+%:=librairie pythontex
+\begin{CodePythontex}[clés]{commandes tcbox}...\end{CodePythontex}
+\begin{CodePythontexAlt}[clés]{commandes tcbox}...\end{CodePythontexAlt}
+\begin{ConsolePythontex}[options]{}...\end{ConsolePythontex}
+%présentation de pseudocode
+\begin{PseudoCode}(*)[clés]{commandes tcbox}...\end{PseudoCode}
+\begin{PseudoCodeAlt}(*)[largeur][clés]{commandes tcbox}...\end{PseudoCodeAlt}
+\begin{PseudoCodePiton}[clés]{commandes tcbox}<option line-numbers>...\end{PseudoCodePiton}
+
+%style Thonny
+\begin{PitonThonnyEditor}<clés>[options tcbox]{largeur}...\end{PitonThonnyEditor}
+\begin{PitonThonnyConsole}<clés>[options tcbox]{largeur}...\end{PitonThonnyConsole}
+
+\CartoucheCapytale(*)[options]{code capytale}
+\end{PresCodeTexPL}
+
+\begin{PresCodeTexPL}{listing only}
+%présentation de codes via piton (insertion de fichiers)
+\CodePitonFichier[clés]{fichier}<option line-numbers>
+\PseudoCodePitonFichier[clés]{fichier}<option line-numbers>
+\PitonThonnyEditorFichier<clés>[largeur]{fichier}
+\end{PresCodeTexPL}
+
+\begin{PresCodeTexPL}{listing only}
+%pavé et tétraèdre, dans un environnement tikz
+\PaveTikz[options]
+\TetraedreTikz[options]
+\end{PresCodeTexPL}
+
+\begin{PresCodeTexPL}{listing only}
+%cercle trigo, dans un environnement tikz
+\CercleTrigo[clés]
+\pflcercletrigo
+\end{PresCodeTexPL}
+
+\begin{PresCodeTexPL}{listing only}
+%Affichage des coordonnées d'un point (2 ou 3 coordonnées)
+\AffPoint[options de formatage](liste des coordonnées)
+%Affichage des coordonnées d'un vecteur (2 ou 3 coordonnées)
+\AffVecteur[options de formatage]<options nicematrix>(liste des coordonnées)
+\end{PresCodeTexPL}
+
+\begin{PresCodeTexPL}{listing only}
+%Avec un vecteur normal et un point
+\TrouveEqCartPlan[clés](vecteur normal)(point)
+%Avec deux vecteurs directeurs et un point
+\TrouveEqCartPlan[clés](vecteur dir1)(vecteur dir2)(point)
+%Avec trois points
+\TrouveEqCartPlan[clés](point1)(point2)(point3)
+\end{PresCodeTexPL}
+
+\begin{PresCodeTexPL}{listing only}
+%Avec un vecteur directeur et un point
+\TrouveEqParamDroite[clés](vecteur directeur)(point)
+%Avec deux points
+\TrouveEqParamDroite[clés](point1)(point2)
+\end{PresCodeTexPL}
+
+\begin{PresCodeTexPL}{listing only}
+%Avec un vecteur normal (choix par défaut) et un point
+\TrouveEqCartDroite[clés](vecteur normal)(point)
+%Avec un vecteur directeur et un point
+\TrouveEqCartDroite[clés,VectDirecteur](vecteur directeur)(point1)
+%Avec deux points
+\TrouveEqCartDroite[clés](point1)(point2)
+\end{PresCodeTexPL}
+
+\begin{PresCodeTexPL}{listing only}
+%Avec le point et le plan via vect normal + point
+\TrouveDistancePtPlan(point)(vec normal du plan)(point du plan)
+%Avec le point et le plan via vect normal + point
+\TrouveDistancePtPlan(point)(équation cartésienne)
+\end{PresCodeTexPL}
+
+\begin{PresCodeTexPL}{listing only}
+\TrouveEqSphere[clés](centre ou point n°1)(rayon ou point ou éq plan)
+\end{PresCodeTexPL}
+
+\begin{PresCodeTexPL}{listing only}
+%Avec le vecteur
+\TrouveNorme(vecteur)
+%Avec deux points
+\TrouveNorme(point 1)(point 2)
+\end{PresCodeTexPL}
+
+\begin{PresCodeTexPL}{listing only}
+%Équation réduite d'une droite
+\EquationReduite[option]{A/xa/ya,B/xb/yb}
+\pfleqreduite
+\end{PresCodeTexPL}
+
+\begin{PresCodeTexPL}{listing only}
+%Schémas de cours de géométrie dans l'espace
+\SchemaEspace(*)[clés]{type}
+\pflschemesp
+\end{PresCodeTexPL}
+
+\begin{PresCodeTexPL}{listing only}
+%paramètres d'une régression linéaire, nuage de points
+\CalculsRegLin[clés]{listeX}{listeY}
+\PointsRegLin[clés]{listeX}{listeY}
+\pflcalcreglin
+\end{PresCodeTexPL}
+
+\begin{PresCodeTexPL}{listing only}
+%stats à 2 variables, dans un environnement tikz
+\GrilleTikz[options][options grille ppale][options grille second.]
+\AxesTikz[options]
+\AxexTikz[options]{valeurs} \AxeyTikz[options]{valeurs}
+\FenetreTikz \OrigineTikz
+\FenetreSimpleTikz[options](opt axes)<opt axe Ox>{liste valx}<opt axe Oy>{liste valy}
+\NuagePointsTikz[options]{listeX}{listeY}
+\PointMoyenTikz[options]
+\CourbeTikz[options]{formule}{domaine}
+\end{PresCodeTexPL}
+
+\begin{PresCodeTexPL}{listing only}
+%paramètres d'une série discrète
+\DeterminerParamStats(*){liste}[\macromin]...[\macromax]
+\pflparamstats
+\end{PresCodeTexPL}
+
+\begin{PresCodeTexPL}{listing only}
+%boîte à moustaches, dans un environnement tikz
+\BoiteMoustaches[options]
+\BoiteMoustachesAxe[options]
+\pflboitemoustach
+\end{PresCodeTexPL}
+
+\begin{PresCodeTexPL}{listing only}
+%histogrammes
+\Histogramme(*)[options]{données}
+\pflhistogramme
+\end{PresCodeTexPL}
+
+\begin{PresCodeTexPL}{listing only}
+%courbe ECC/FCC
+\CourbeECC[clés]{liste valeurs}{liste effectifs}
+\pflcourbeecc
+
+\begin{EnvCourbeECC}[clés]{liste valeurs}{liste effectifs}...\end{EnvCourbeECC}
+\MedianeQuartilesECC{liste valeurs}{liste effectifs}
+\end{PresCodeTexPL}
+
+\begin{PresCodeTexPL}{listing only}
+%loi binomiale B(n,p)
+\CalcBinomP{n}{p}{k}
+\CalcBinomC{n}{p}{a}{b}
+\BinomP(*)[prec]{n}{p}{k}
+\BinomC(*)[prec]{n}{p}{a}{b}
+\pflbinomp
+\pflbinomc
+\end{PresCodeTexPL}
+
+\begin{PresCodeTexPL}{listing only}
+%loi de Poisson P(l)
+\CalcPoissP{l}{k}
+\CalcPoissC{l}{a}{b}
+\PoissonP(*)[prec]{l}{k}
+\PoissonC(*)[prec]{l}{a}{b}
+\pflpoissonp
+\pflpoissonc
+\end{PresCodeTexPL}
+
+\begin{PresCodeTexPL}{listing only}
+%loi géométrique G(p)
+\CalcGeomP{p}{k}
+\CalcGeomC{l}{a}{b}
+\GeomP{p}{k}
+\GeomC{l}{a}{b}
+\pflgeomp
+\pflgeomc
+\end{PresCodeTexPL}
+
+\begin{PresCodeTexPL}{listing only}
+%loi hypergéométrique H(N,n,m)
+\CalcHypergeomP{N}{n}{m}{k}
+\CalcHypergeomP{N}{n}{m}{a}{b}
+\HypergeomP{N}{n}{m}{k}
+\HypergeomC{N}{n}{m}{a}{b}
+\pflhypergeomp
+\pflhypergeomc
+\end{PresCodeTexPL}
+
+\begin{PresCodeTexPL}{listing only}
+%loi normale N(m,s)
+\CalcNormC{m}{s}{a}{b}
+\NormaleC(*)[prec]{m}{s}{a}{b}
+\pflnormalec
+\end{PresCodeTexPL}
+
+\begin{PresCodeTexPL}{listing only}
+%loi exponentielle E(l)
+\CalcExpoC{l}{a}{b}
+\ExpoC(*)[prec]{l}{a}{b}
+\pflexpoc
+\end{PresCodeTexPL}
+
+\begin{PresCodeTexPL}{listing only}
+%arbres de probas
+\ArbreProbasTikz[options]<opts tikz>{donnees}
+\pflarbreprobas
+
+\begin{EnvArbreProbasTikz}[options]<opts tikz>{donnees}...\end{EnvArbreProbasTikz}
+\end{PresCodeTexPL}
+
+\begin{PresCodeTexPL}{listing only}
+%schémas lois continues
+\LoiNormaleGraphe[options]<options tikz>{m}{s}{a}{b}
+\LoiExpoGraphe[options]<options tikz>{l}{a}{b}
+\pflnormgraph
+\pflexpograph
+\end{PresCodeTexPL}
+
+\begin{PresCodeTexPL}{listing only}
+%fonction de répartition discrète, dans une environnement tikz
+\FonctionRepartTikz[clés]{probas,borneinf,bornesup / probas,borneinf,bornesup / ...}
+\end{PresCodeTexPL}
+
+\begin{PresCodeTexPL}{listing only}
+%binomiale
+\HistogrammeBinomiale[clés]{n}{p}
+\pflhistobinom
+
+\begin{HistoBinomiale}[clés]{n}{p}...\end{HistoBinomiale}
+
+\TraceLoiNormale(*)[clés]<plage>{param1}{param2}
+\end{PresCodeTexPL}
+
+\begin{PresCodeTexPL}{listing only}
+%entier aléatoire entre a et b
+\NbAlea{a}{b}{macro}
+\pflnbalea
+\end{PresCodeTexPL}
+
+\begin{PresCodeTexPL}{listing only}
+%nombre décimal (n chiffres après la virgule) aléatoire entre a et b+1 (exclus)
+\NbAlea[n]{a}{b}{macro}
+\end{PresCodeTexPL}
+
+\begin{PresCodeTexPL}{listing only}
+%création d'un nombre aléatoire sous forme d'une macro
+\VarNbAlea{macro}{calcul}
+\pflvarnbalea
+\end{PresCodeTexPL}
+
+\begin{PresCodeTexPL}{listing only}
+%liste d'entiers aléatoires
+\TirageAleatoireEntiers[options]{macro}
+\pfltiragealeaent
+\end{PresCodeTexPL}
+
+\begin{PresCodeTexPL}{listing only}
+%liste des diviseurs
+\ListeDiviseurs(*)[option]{nombre}
+\pfllistediv
+\end{PresCodeTexPL}
+
+\begin{PresCodeTexPL}{listing only}
+%arbre des diviseurs
+\ArbreDiviseurs[options]{nombre}
+\pflarbrediv
+\end{PresCodeTexPL}
+
+\begin{PresCodeTexPL}{listing only}
+%test booléen nb premier
+\pflboolestpremier{nb}
+\pflestpremier[code si vrai][code si faux]{nb}
+\end{PresCodeTexPL}
+
+\begin{PresCodeTexPL}{listing only}
+%décomposition avec exposants en nombres premiers
+\pfldecompnb(*){nb}
+\end{PresCodeTexPL}
+
+\begin{PresCodeTexPL}{listing only}
+%arbre "avec remise"
+\ArbreChoix[clés]<options tikzpicture>{liste}
+\pflarbrechoix
+\end{PresCodeTexPL}
+
+\begin{PresCodeTexPL}{listing only}
+%arbre "sans remise"
+\ArbreChoixSansRemise[clés]<options tikzpicture>{liste}
+\pflarbrechoixssremise
+\end{PresCodeTexPL}
+
+\begin{PresCodeTexPL}{listing only}
+%factorielle
+\Factorielle(*)[clés]{n}
+\pflfacto
+
+%primorielle
+\Primorielle(*)[clés]{n}
+\pflprimor
+\end{PresCodeTexPL}
+
+\begin{PresCodeTexPL}{listing only}
+%arrangement Anp
+\Arrangement(*)[option]{p}{n}
+\pflarrang
+\end{PresCodeTexPL}
+
+\begin{PresCodeTexPL}{listing only}
+%arrangement Cnp (p parmi n)
+\Combinaison(*)[option]{p}{n}
+\pflcombin
+\end{PresCodeTexPL}
+
+\begin{PresCodeTexPL}{listing only}
+%conversions
+\ConversionEntreBases(*)[espace blocs 4 pour le binaire]{dep->arrivée}{nb}
+\pflconvbases
+
+\ConversionDecBin(*)[clés]{nombre}
+\pflconvdecbin
+
+\ConversionBinHex[clés]{nombre}
+\pflconvbinhex
+
+\ConversionHexBin[clés]{nombre}
+\pflconvhexbin
+
+\ConversionVersDec[clés]{nombre}
+\pflconvversdec
+
+\ConversionBaseDix[clés]{nombre}{base de départ}
+\pflconvdix
+
+\ConversionDepuisBaseDix[options]{nombre en base 10}{base d'arrivée}
+\pflconvdepuisdix
+\end{PresCodeTexPL}
+
+\begin{PresCodeTexPL}{listing only}
+%PGCD présenté
+\PresentationPGCD[options]{a}{b}
+\pflprespgcd
+\end{PresCodeTexPL}
+
+\begin{PresCodeTexPL}{listing only}
+%Opérations posées
+\OperationPosee[clés]{opération}
+\pflopeposee
+\end{PresCodeTexPL}
+
+\begin{PresCodeTexPL}{listing only}
+%Équation diophantienne
+\EquationDiophantienne[clés]{equation}
+\pflequadioph
+\end{PresCodeTexPL}
+
+\begin{PresCodeTexPL}{listing only}
+%division euclidienne présentée
+\DivEucl(*)[clés]{a}{b}
+\pfldiveucl
+
+%division euclidienne 'brute'
+\DivisionEucl{a}{b}
+\pflpresdiveucl
+\end{PresCodeTexPL}
+
+\begin{PresCodeTexPL}{listing only}
+%reste et quotient modulo de a par n
+\QuoMod(*){a}{n}
+\pflquomod
+
+\ResteMod(*){a}{n}
+\pflrestemod
+\end{PresCodeTexPL}
+
+\begin{PresCodeTexPL}{listing only}
+%inverse modulo
+\InverseModulo(*){a}{modulo}
+\pflinvmod
+\end{PresCodeTexPL}
+
+\begin{PresCodeTexPL}{listing only}
+%Chiffrement de César
+\ChiffrementCesar[clés]{message}
+\pflchiffrcesar
+\end{PresCodeTexPL}
+
+\begin{PresCodeTexPL}{listing only}
+%Chiffrement affine
+\ChiffrementAffine[clés]{message}
+\pflchiffraff
+\end{PresCodeTexPL}
+
+\begin{PresCodeTexPL}{listing only}
+%Chiffrement de Hill
+\ChiffrementHill[clés]{message}
+\pflchiffrhill
+\end{PresCodeTexPL}
+
+\begin{PresCodeTexPL}{listing only}
+%conversion en fraction, simplification de racine
+\ConversionFraction(*)[option]{argument}
+\SimplificationRacine{expression}
+\end{PresCodeTexPL}
+
+\begin{PresCodeTexPL}{listing only}
+%ensemble d'éléments
+\EcritureEnsemble[clés]{liste}
+\pflecritens
+\end{PresCodeTexPL}
+
+\begin{PresCodeTexPL}{listing only}
+%trinôme, trinôme aléatoire
+\EcritureTrinome[options]{a}{b}{c}
+\pflecrittrinom
+\end{PresCodeTexPL}
+
+\begin{PresCodeTexPL}{listing only}
+%mesure principale
+\MesurePrincipale[options]{angle}
+\pflmesppale
+
+%lignes trigo
+\LigneTrigo(*)[booléens]{cos/sin/tan}(angle)
+\pfllignetrig
+\end{PresCodeTexPL}
+
+\begin{PresCodeTexPL}{listing only}
+%compétences LEGT
+\CompMathsLyc[clés]{choix}
+%compétences LPRO
+\CompMathsLycPro[clés]{choix}
+\end{PresCodeTexPL}
+
+\begin{PresCodeTexPL}{listing only}
+%sudomaths
+\SudoMaths[options]{liste}
+\pflsudomaths
+
+\begin{EnvSudoMaths}[options]{grille}...\end{EnvSudoMaths}
+\end{PresCodeTexPL}
+
+\begin{PresCodeTexPL}{listing only}
+%fractales
+\FractaleTikz(*)[clés]<options tikz>
+\pflfractaltikz
+
+\EtapesFloconKoch[clés]{étapes}
+\EtapesTapisSierpinski[clés]{étapes}
+\end{PresCodeTexPL}
+
+\begin{PresCodeTexPL}{listing only}
+%chateau de cartes
+\ChateauCartes[clés]{niveau}<options tikz>
+\pflchateaucartes
+\end{PresCodeTexPL}
+
+\begin{PresCodeTexPL}{listing only}
+%allumettes, dans un environnement tikz
+\PfLAllumettes[clés]{liste départs>arrivées}
+\pflallumettes
+\end{PresCodeTexPL}
+
+\begin{PresCodeTexPL}{listing only}
+%commandes sur les dates
+\JourSelonDate(*){jj/mm/aaaa}
+\pfljourselondate
+
+\DateComplete(*){jj/mm/aaaa}
+\pfldatecomplet
+
+\NbJoursEntreDates(*){jj/mm/aaaa}{jj/mm/aaaa}[\macro]
+\pflnbjoursdates
+
+\AjoutJoursDate(*){jj/mm/aaaa}{nb}
+\pflajoutjoursdate
+\end{PresCodeTexPL}
+
+\begin{PresCodeTexPL}{listing only}
+%machine à transformer
+\MachineTransformer[clés]{e/s}<options tikz>
+\pflmachtransf
+\end{PresCodeTexPL}
+
+\begin{PresCodeTexPL}{listing only}
+%insertion de clipart, en mode inline ou non
+\InsererClipart*[options includegraphics]{clipart}
+\pflclipart
+\end{PresCodeTexPL}
+
+\begin{PresCodeTexPL}{listing only}
+%logo sans calculatrice
+\pflnocalc(*)[couleur]
+\end{PresCodeTexPL}

@@ -1,0 +1,9 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k}{\PYGZbs{}begin}\PYG{n+nb}{\PYGZob{}}GraphiqueTikz\PYG{n+nb}{\PYGZcb{}}[Xmin=\PYGZhy{}5,Xmax=5,Ymin=\PYGZhy{}2,Ymax=5]
+	\PYG{k}{\PYGZbs{}TracerAxesGrilles}\PYG{n+na}{[Elargir=2.5mm,Police=\PYGZbs{}small]}\PYG{n+nb}{\PYGZob{}}auto\PYG{n+nb}{\PYGZcb{}\PYGZob{}}auto\PYG{n+nb}{\PYGZcb{}}
+	\PYG{k}{\PYGZbs{}GenererPolynomeLagrange}\PYG{n+nb}{\PYGZob{}}\PYGZhy{}4,\PYGZhy{}3,0,2,4\PYG{n+nb}{\PYGZcb{}\PYGZob{}}\PYGZhy{}1,3.5,2,1,0\PYG{n+nb}{\PYGZcb{}}
+	\PYG{k}{\PYGZbs{}TracerCourbe}\PYG{n+na}{[Couleur=red,Nom=cf]}\PYG{n+nb}{\PYGZob{}}polylagrange(x)\PYG{n+nb}{\PYGZcb{}}
+	\PYG{k}{\PYGZbs{}MarquerPtsLagrange*}\PYG{n+na}{[Couleur=blue]}\PYG{n+nb}{\PYGZob{}}\PYGZhy{}4,\PYGZhy{}3,0,2,4\PYG{n+nb}{\PYGZcb{}\PYGZob{}}\PYGZhy{}1,3.5,2,1,0\PYG{n+nb}{\PYGZcb{}}
+	\PYG{k}{\PYGZbs{}PlacerAntecedents}\PYG{n+na}{[Couleurs=teal/cyan,Traits,Nom=PO]}\PYG{n+nb}{\PYGZob{}}cf\PYG{n+nb}{\PYGZcb{}\PYGZob{}}1.75\PYG{n+nb}{\PYGZcb{}}
+\PYG{k}{\PYGZbs{}end}\PYG{n+nb}{\PYGZob{}}GraphiqueTikz\PYG{n+nb}{\PYGZcb{}}
+\end{Verbatim}

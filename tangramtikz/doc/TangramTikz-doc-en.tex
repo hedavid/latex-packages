@@ -50,8 +50,8 @@
 \setlength{\parindent}{0pt}
 \definecolor{LightGray}{gray}{0.9}
 
-\def\TPversion{0.2.2}
-\def\TPdate{05/05/2025}
+\def\TPversion{0.2.3}
+\def\TPdate{07/12/2025}
 
 \usepackage[most]{tcolorbox}
 \usepackage{minted2}
@@ -108,7 +108,7 @@
 	\begin{tabular}{c}
 	\texttt{Cédric Pierquet}\\
 	{\ttfamily cpierquet -- at -- outlook . fr}\\
-	\texttt{\url{https://forge.apps.education.fr/pierquetcedric/packages-latex}}
+	\texttt{\url{https://github.com/cpierquet/latex-packages/tree/main/tangramtikz}}
 \end{tabular}
 \end{center}
 
@@ -521,6 +521,8 @@ The \TikZ\ style for the nodes is given below.
 		\item Man
 		\item Arrow
 		\item Triangl
+		\item Reindeer
+		\item Bell
 	\end{itemize}
 \end{multicols}}
 
@@ -802,9 +804,23 @@ The \TikZ\ style for the nodes is given below.
 \TangramTikz[ColorSolution]<scale=0.75>{Triangl}
 \end{PresentationCode}
 
+\begin{PresentationCode}{}
+\TangramTikz<scale=0.75>{Reindeer}
+\TangramTikz[Solution]<scale=0.75>{Reindeer}
+\TangramTikz[ColorSolution]<scale=0.75>{Reindeer}
+\end{PresentationCode}
+
+\begin{PresentationCode}{}
+\TangramTikz<scale=0.75>{Bell}
+\TangramTikz[Solution]<scale=0.75>{Bell}
+\TangramTikz[ColorSolution]<scale=0.75>{Bell}
+\end{PresentationCode}
+
 \newpage
 
 \part{History}
+
+\verb|v0.2.3|~:~New models
 
 \verb|v0.2.2|~:~Bugfix + new models
 

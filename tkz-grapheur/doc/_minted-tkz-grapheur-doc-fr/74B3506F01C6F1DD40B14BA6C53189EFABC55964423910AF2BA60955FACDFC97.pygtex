@@ -1,0 +1,9 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k}{\PYGZbs{}begin}\PYG{n+nb}{\PYGZob{}}GraphiqueTikz\PYG{n+nb}{\PYGZcb{}}[]
+	\PYG{k}{\PYGZbs{}TracerAxesGrilles}\PYG{n+na}{[Grads=false,Elargir=2.5mm]}\PYG{n+nb}{\PYGZob{}}auto\PYG{n+nb}{\PYGZcb{}\PYGZob{}}auto\PYG{n+nb}{\PYGZcb{}}
+	\PYG{k}{\PYGZbs{}TracerEllipse}\PYG{n+na}{[Couleur=red,Debut=0,Fin=2*pi,Nom=ellipse]}\PYG{n+nb}{\PYGZob{}}(0.5,0.75)\PYG{n+nb}{\PYGZcb{}\PYGZob{}}2\PYG{n+nb}{\PYGZcb{}\PYGZob{}}1.25\PYG{n+nb}{\PYGZcb{}}
+	\PYG{k}{\PYGZbs{}AfficherElementsEllipse}\PYG{c}{\PYGZpc{}}
+		[AffTout,CouleurPoints=olive,CouleurDroites=teal]\PYG{c}{\PYGZpc{}}
+		\PYG{n+nb}{\PYGZob{}}ellipse\PYG{n+nb}{\PYGZcb{}\PYGZob{}}(0.5,0.75)\PYG{n+nb}{\PYGZcb{}\PYGZob{}}2\PYG{n+nb}{\PYGZcb{}\PYGZob{}}1.25\PYG{n+nb}{\PYGZcb{}}
+\PYG{k}{\PYGZbs{}end}\PYG{n+nb}{\PYGZob{}}GraphiqueTikz\PYG{n+nb}{\PYGZcb{}}
+\end{Verbatim}

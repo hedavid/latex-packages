@@ -1,0 +1,4 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c}{\PYGZpc{}in the GraphiqueTikz environment}
+\PYG{k}{\PYGZbs{}SimulateMonteCarlo}\PYG{n+na}{[keys]}\PYG{n+nb}{\PYGZob{}}\PYGZlt{}function\PYGZgt{}\PYG{n+nb}{\PYGZcb{}\PYGZob{}}number of points\PYG{n+nb}{\PYGZcb{}}[\PYG{k}{\PYGZbs{}nbptsmcok}][\PYG{k}{\PYGZbs{}nbptsmcko}]
+\end{Verbatim}

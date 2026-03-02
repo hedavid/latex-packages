@@ -1,0 +1,4 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c}{\PYGZpc{}dans l\PYGZsq{}environnement GraphiqueTikz}
+\PYG{k}{\PYGZbs{}PlacerTexte}\PYG{n+na}{[clés]}\PYG{n+nb}{\PYGZob{}}(nœud ou coordonnées)\PYG{n+nb}{\PYGZcb{}\PYGZob{}}texte\PYG{n+nb}{\PYGZcb{}}
+\end{Verbatim}

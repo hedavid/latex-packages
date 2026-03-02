@@ -1,0 +1,4 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+Inline, we can give \PYG{k}{\PYGZbs{}MiniPixlArt}\PYG{n+na}{[Unit=5mm,Border]}\PYG{n+nb}{\PYGZob{}}BCGOYG,YLP.BR\PYG{n+nb}{\PYGZcb{}}\PYGZlt{}baseline=(current bounding box.center)\PYGZgt{}
+this miniPA.
+\end{Verbatim}

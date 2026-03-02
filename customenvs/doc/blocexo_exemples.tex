@@ -1,0 +1,214 @@
+% !TeX TXS-program:compile = txs:///arara
+% arara: pdflatex: {shell: no, synctex: no, interaction: batchmode}
+% arara: pdflatex: {shell: no, synctex: no, interaction: batchmode} if found('log', '(undefined references|Please rerun|Rerun to get)')
+
+\documentclass[a4paper,11pt]{article}
+\usepackage[margin=1cm]{geometry}
+\usepackage[pictos]{customenvs-exams}
+\usepackage{codehigh}
+\usepackage[versionfa=5]{fontawesomescaled}
+\usepackage{graphicx}
+\usepackage{dashrulex}
+\usepackage{openmoji}
+\usepackage{coloredbelts}
+\usepackage{pictochrono}
+%mise en page
+\usepackage{lipsum}
+\setlength{\parindent}{0pt}
+
+\begin{document}
+
+\pagestyle{empty}
+
+\part*{Styles -- Environnement BlocExo}
+
+\section{Style Global}
+
+\begin{codehigh}[language=latex/latex2]
+%définition globale des styles
+\setKVdefault[StyleGlobalBlocExo]{%
+  Libelle={Exercice\space},%
+  CouleurGlobale={},%
+  Couleur={black},%
+  CouleurBordures=darkgray,%
+  CouleurDeco=black,%
+  CouleurFondDeco={black!33},%
+  Police={\bfseries\sffamily},%
+  EpTrait={0.25mm},%
+  OffsetTrait=0.0ex
+}
+\end{codehigh}
+
+\section{Environnement local}
+
+\subsection{Style local}
+
+\begin{codehigh}[language=latex/latex2]
+%BlocExo, avec compteur 'numeroblocexo'
+
+\begin{BlocExo}[clés]{décoration}
+%corps de l'exercice
+\end{BlocExo}
+
+%les clés sont :
+%Type             = ...      (Classique ou Perso/...)
+%ComplementTitre  = ...      (juste après le libellé)
+%CodeDebut        = ...      (code exécuté avant le corps)
+%Compteur         = ...      (TF utiliser ou non le compteur)
+%Etoiles          = ...      (rajout d'étoiles après le numéro)
+%Breakable        = ...      (TF rendre la boîte breakable)
+%Trait            = ...      (plein/pointilles/dashilles/aucun/non)
+%Bordures         = ...      (normal/bulle/simple/alt/aucune/fleche)
+\end{codehigh}
+
+\subsection{Bordures 'normal'}
+
+\begin{demohigh}[language=latex/latex2]
+\begin{BlocExo}[Bordures=normal]{}
+\lipsum[1][1-3]
+\end{BlocExo}
+\end{demohigh}
+
+\subsection{Bordures 'bulle'}
+
+\begin{demohigh}[language=latex/latex2]
+\begin{BlocExo}[Bordures=bulle]{}
+\lipsum[1][1-3]
+\end{BlocExo}
+\end{demohigh}
+
+\subsection{Bordures 'simple'}
+
+\begin{demohigh}[language=latex/latex2]
+\begin{BlocExo}[Bordures=simple]{}
+\lipsum[1][1-3]
+\end{BlocExo}
+\end{demohigh}
+
+\subsection{Bordures 'alt'}
+
+\begin{demohigh}[language=latex/latex2]
+\begin{BlocExo}[Bordures=alt]{}
+\lipsum[1][1-3]
+\end{BlocExo}
+\end{demohigh}
+
+\subsection{Bordures 'fleche'}
+
+\begin{demohigh}[language=latex/latex2]
+\begin{BlocExo}[Bordures=fleche]{}
+\lipsum[1][1-3]
+\end{BlocExo}
+\end{demohigh}
+
+\subsection{Bordures 'aucune'}
+
+\begin{demohigh}[language=latex/latex2]
+\begin{BlocExo}[Bordures=aucune]{}
+\lipsum[1][1-3]
+\end{BlocExo}
+\end{demohigh}
+
+\pagebreak
+
+\section{Personnalisation(s) avancée(s)}
+
+\subsection{Exemples n°1}
+
+\setKVdefault[StyleGlobalBlocExo]{%
+	CouleurGlobale={blue!50!black},%
+	Police={\Large\bfseries\sffamily},%
+	OffsetTrait=0.5ex
+}
+
+\setKVdefault[StyleLocalBlocExo]{
+	Trait=dashilles,%
+	Bordures=fleche
+}
+
+\begin{demohigh}[language=latex/latex2]
+\setKVdefault[StyleGlobalBlocExo]{%
+  CouleurGlobale={blue!50!black},%
+  Police={\Large\bfseries\sffamily},%
+  OffsetTrait=0.5ex
+}
+\end{demohigh}
+
+\begin{demohigh}[language=latex/latex2]
+\setKVdefault[StyleLocalBlocExo]{
+  Trait=dashilles,%
+  Bordures=fleche
+}
+\end{demohigh}
+
+\begin{demohigh}[language=latex/latex2]
+\setcounter{numeroblocexo}{0}
+
+\begin{BlocExo}{(5 points)}
+\lipsum[1][1-3]
+\end{BlocExo}
+
+\begin{BlocExo}[Etoiles=1/4]{\faIconScaled{phone}}
+\lipsum[1][1-3]
+\end{BlocExo}
+
+\begin{BlocExo}{\openmoji{snake}}
+\lipsum[1][1-3]
+\end{BlocExo}
+
+\begin{BlocExo}[Type=Perso/Mon exo,Compteur=false,ComplementTitre={ super important}]{}
+\lipsum[1][1-3]
+\end{BlocExo}
+
+\begin{BlocExo}[]{\tkzpicto{dball=4}}
+\lipsum[1][1-3]
+\end{BlocExo}
+\end{demohigh}
+
+\pagebreak
+
+\subsection{Exemples n°2}
+
+\setKVdefault[StyleGlobalBlocExo]{%
+  CouleurGlobale={red!50!black},%
+  Police={\large\ttfamily}
+}
+
+\setKVdefault[StyleLocalBlocExo]{
+  Bordures=bulle
+}
+
+\begin{demohigh}[language=latex/latex2]
+\setKVdefault[StyleGlobalBlocExo]{%
+  CouleurGlobale={red!50!black},%
+  Police={\large\ttfamily}
+}
+\end{demohigh}
+
+\begin{demohigh}[language=latex/latex2]
+\setKVdefault[StyleLocalBlocExo]{
+  Bordures=bulle
+}
+\end{demohigh}
+
+\begin{demohigh}[language=latex/latex2]
+\setcounter{numeroblocexo}{0}
+
+\begin{BlocExo}{(5 points)}
+\lipsum[1][1-3]
+\end{BlocExo}
+
+\begin{BlocExo}[Etoiles=1/4]{}
+\lipsum[1][1-3]
+\end{BlocExo}
+
+\begin{BlocExo}[Type=Perso/Mon exo,Compteur=false,ComplementTitre={ super important}]{}
+\lipsum[1][1-3]
+\end{BlocExo}
+
+\begin{BlocExo}[]{~\tkzpicto[height=auto]{dball=4}}
+\lipsum[1][1-3]
+\end{BlocExo}
+\end{demohigh}
+
+\end{document}

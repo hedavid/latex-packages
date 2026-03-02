@@ -1,0 +1,8 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c}{\PYGZpc{}ellipse}
+\PYG{k}{\PYGZbs{}AfficherElementsEllipse}\PYG{n+na}{[clés]}\PYG{n+nb}{\PYGZob{}}nom courbe\PYG{n+nb}{\PYGZcb{}\PYGZob{}}centre\PYG{n+nb}{\PYGZcb{}\PYGZob{}}a\PYG{n+nb}{\PYGZcb{}\PYGZob{}}b\PYG{n+nb}{\PYGZcb{}}
+\PYG{c}{\PYGZpc{}parabole}
+\PYG{k}{\PYGZbs{}AfficherElementsParabole}\PYG{n+na}{[clés]}\PYG{n+nb}{\PYGZob{}}nom courbe\PYG{n+nb}{\PYGZcb{}\PYGZob{}}centre\PYG{n+nb}{\PYGZcb{}\PYGZob{}}p\PYG{n+nb}{\PYGZcb{}}
+\PYG{c}{\PYGZpc{}hyperbole}
+\PYG{k}{\PYGZbs{}AfficherElementsHyperbole}\PYG{n+na}{[clés]}\PYG{n+nb}{\PYGZob{}}nom courbe\PYG{n+nb}{\PYGZcb{}\PYGZob{}}centre\PYG{n+nb}{\PYGZcb{}\PYGZob{}}a\PYG{n+nb}{\PYGZcb{}\PYGZob{}}b\PYG{n+nb}{\PYGZcb{}}
+\end{Verbatim}

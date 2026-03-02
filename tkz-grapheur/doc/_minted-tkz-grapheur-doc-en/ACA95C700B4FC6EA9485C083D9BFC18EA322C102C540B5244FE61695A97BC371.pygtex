@@ -1,0 +1,5 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+in the environment
+\PYG{k}{\PYGZbs{}AddXvalues}\PYG{n+na}{[keys]}\PYG{n+nb}{\PYGZob{}}grads\PYG{n+nb}{\PYGZcb{}\PYGZob{}}formatted values\PYG{n+nb}{\PYGZcb{}}
+\PYG{k}{\PYGZbs{}AddYvalues}\PYG{n+na}{[keys]}\PYG{n+nb}{\PYGZob{}}grads\PYG{n+nb}{\PYGZcb{}\PYGZob{}}formatted values\PYG{n+nb}{\PYGZcb{}}
+\end{Verbatim}

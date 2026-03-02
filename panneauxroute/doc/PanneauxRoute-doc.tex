@@ -9,6 +9,8 @@
 \usepackage[scale=0.975]{cabin}
 \usepackage[scale=0.975]{inconsolata}
 \usepackage{PanneauxRoute}
+\usepackage{xcolor}
+\pagecolor{teal!5}
 \usepackage{soul}
 \usepackage{codehigh}
 \usepackage{fontawesome5}
@@ -36,8 +38,8 @@
 \usepackage[margin=1.5cm]{geometry}
 \setlength{\parindent}{0pt}
 
-\def\TPversion{0.1.2}
-\def\TPdate{14 septembre 2024}
+\def\TPversion{0.1.3}
+\def\TPdate{4 mai 2025}
 \usepackage{tcolorbox}
 
 
@@ -81,7 +83,7 @@
 	\begin{tabular}{c}
 	\texttt{Cédric Pierquet}\\
 	{\ttfamily c pierquet -- at -- outlook . fr}\\
-	\texttt{\url{https://github.com/cpierquet/PanneauxRoute}}
+	\texttt{\url{https://forge.apps.education.fr/pierquetcedric/packages-latex}}
 \end{tabular}
 \end{center}
 
@@ -102,16 +104,18 @@
 \vfill
 
 \hfill
-\prPassNivVap[height=4cm]~~\rotatebox{15}{\prInterdTournG[height=3cm]}~~\rotatebox{-25}{\prImpasse[height=3cm]}
+\prPassNivVap[height=3cm]~~\rotatebox{15}{\prInterdTournG[height=2cm]}~~\rotatebox{-25}{\prImpasse[height=2cm]}
 \hfill~
 
 \medskip
 
 \hfill
-\prDebAutor[scale=0.25]
+\prDebAutor[scale=0.175]
 \hfill~
 
 \vfill~
+
+\hfill{}\textsl{Merci à quark67 pour ses retours.}
 
 \pagebreak
 
@@ -123,21 +127,21 @@ L'idée est de proposer des panneaux de signalisation routière pour des documen
 
 \smallskip
 
-Les panneaux sont au format \MontreCode{pdf}, obtenu à l'aide de fichiers \MontreCode{svg}, donc au format vectoriel, avec comme sources :
+Les panneaux sont au format \MontreCode{pdf}, obtenu à l'aide de fichiers \MontreCode{svg}, donc au format vectoriel, avec comme source :
 
 \medskip
 
 \begin{itemize}
-	\item \og Annexe de l’Arrêté interministériel du 24 novembre 1967 \fg{} ;  \hfill\href{https://equipementsdelaroute.cerema.fr/version-consolidee-de-l-arrete-du-24-novembre-1967-a537.html}{[lien]}
-	\item Le travail de Bertrand Bouteilles, sur le site de geoinformations.\hfill\href{https://www.geoinformations.developpement-durable.gouv.fr/panneaux-routiers-au-format-svg-et-png-par-a2688.html}{[lien]}
-	\item les fichiers \MontreCode{svg} de base sont proposés sous licence CC BY-SA 3.0.\hfill\href{http://sig974.free.fr/?p=1520}{[lien]}
+	\item \url{https://equipementsdelaroute.cerema.fr/les-signaux-r212.html} sous licence \textsf{etalab 2.0}.
 \end{itemize}
 
 \subsection{Historique}
 
+\verb|v0.1.3|~:~~~~Nouvelle source et nouvelle licence (\textsf{etalab 2.0})
+
 \verb|v0.1.2|~:~~~~Nouveaux panneaux
 
-\verb|v0.1.1|~:~~~~Ajout du panneau B14 (80) pour la limitation de vitesse 80
+\verb|v0.1.1|~:~~~~Ajout du panneau B14 (80, version alternative) pour la limitation de vitesse 80
 
 \verb|v0.1.0|~:~~~~Version initiale
 
@@ -160,7 +164,7 @@ Chaque panneau (disponible) est disponible au format \MontreCode{pdf} (vectoriel
 
 \begin{codehigh}[language=latex/latex3,style/main=cyan!5,style/code=cyan!5]
 \AffPanneau[options graphicx]{<CodePanneau>}
-\pr<NomPanneau>[options graphicx]
+\pr<NomPanneau>[options graphicx]                   %si disponible
 \end{codehigh}
 
 \begin{demohigh}[language=latex/latex3,style/main=cyan!5,style/code=cyan!5,style/demo=cyan!5]
@@ -182,13 +186,13 @@ Par défaut (dû à \MontreCode{\textbackslash includegraphics}) les \textit{ima
 Pour les panneaux de (début/fin de) limitation de vitesse, la commande associée nécessite un argument obligatoire, et entre \MontreCode{\{...\}}, avec comme possibilités \MontreCode{15/30/50/70/90/110/130} :
 
 \begin{demohigh}[language=latex/latex3,style/main=cyan!5,style/code=cyan!5,style/demo=cyan!5]
-\prLimVites{15}\prLimVites{30}\prLimVites{50}\prLimVites{70}%
+\prLimVites{30}\prLimVites{50}\prLimVites{70}%
 \prLimVites{80}\prLimVites{90}\prLimVites{110}\prLimVites{130}
 \end{demohigh}
 
 \begin{demohigh}[language=latex/latex3,style/main=cyan!5,style/code=cyan!5,style/demo=cyan!5]
-\prFinLimVit{15}\prFinLimVit{30}\prFinLimVit{50}\prFinLimVit{70}%
-\prFinLimVit{90}\prFinLimVit{110}\prFinLimVit{130}
+\prFinLimVit{30}\prFinLimVit{50}\prFinLimVit{70}%
+\prFinLimVit{90}\prFinLimVit{110}
 \end{demohigh}
 
 \pagebreak
@@ -304,7 +308,7 @@ Pour les panneaux de (début/fin de) limitation de vitesse, la commande associé
 	B12 & \PanneauTableau{B12} & Accès interdit aux véhicules dont la hauteur, chargement compris, est supérieure [\ldots] & \fakeverb{\prInterdHaut} \\
 	B13 & \PanneauTableau{B13} & Accès interdit aux véhicules, véhicules articulés, trains doubles ou ensemble de véhicules [\ldots] & \fakeverb{\prInterdPoids} \\
 	B13a & \PanneauTableau{B13a} & Accès interdit aux véhicules pesant sur un essieu plus que le nombre indiqué & \fakeverb{\prInterdPoidsEssieu} \\
-	B14\_x & Limite de vitesse &  \PanneauTableau{B14_15}\PanneauTableau{B14_30}\PanneauTableau{B14_50}\PanneauTableau{B14_70}\PanneauTableau{B14_80}\PanneauTableau{B14_90}\PanneauTableau{B14_110}\PanneauTableau{B14_130} & \fakeverb{\prLimVites{x}}\\
+	B14\_x & Limite de vitesse &  \PanneauTableau{B14_30}\PanneauTableau{B14_50}\PanneauTableau{B14_70}\PanneauTableau{B14_80}\PanneauTableau{B14_90}\PanneauTableau{B14_110}\PanneauTableau{B14_130} & \fakeverb{\prLimVites{x}}\\
 	B15 & \PanneauTableau{B15} & Cédez le passage à la circulation venant en sens inverse & \fakeverb{\prCedezInv} \\
 	B16 & \PanneauTableau{B16} & Signaux sonores interdits & \fakeverb{\prInterdSons}  \\
 	B17 & \PanneauTableau{B17} & Interdiction aux véhicules de circuler sans maintenir entre eux un intervalle [\ldots] & \fakeverb{\prDistance} \\
@@ -347,7 +351,7 @@ Pour les panneaux de (début/fin de) limitation de vitesse, la commande associé
 \begin{longtblr}[label=none,entry=none]{width=0.95\linewidth,hlines,vlines,colspec={Q[12.5mm,m,c]Q[m,c]X[l,m]Q[m,c,35mm]},row{1}={cyan!5,font=\Large\sffamily},row{2-Z}={font=\sffamily},cell{2-Z}{Z}={font=\footnotesize}}
 	Type & Panneau & Signification & Alias \\
 	B31 & \PanneauTableau{B31} & Fin de toutes les interdictions précédemment signalées[\ldots] & \fakeverb{\prFinInterd} \\
-	B33\_x & Fin de Limite de vitesse &  \PanneauTableau{B33_15}\PanneauTableau{B33_30}\PanneauTableau{B33_50}\PanneauTableau{B33_70}\PanneauTableau{B33_90}\PanneauTableau{B33_110}\PanneauTableau{B33_130} & \fakeverb{\prFinLimVit{x}} \\
+	B33\_x & Fin de Limite de vitesse &  \PanneauTableau{B33_30}\PanneauTableau{B33_50}\PanneauTableau{B33_70}\PanneauTableau{B33_90}\PanneauTableau{B33_110} & \fakeverb{\prFinLimVit{x}} \\
 	B34 & \PanneauTableau{B34} & Fin d’interdiction de dépasser notifiée par le panneau B3 & \fakeverb{\prFinIntDepass} \\
 	B34a & \PanneauTableau{B34a} & Fin d’interdiction de dépasser notifiée par le panneau B3a & \fakeverb{\prFinIntDepassCam} \\
 	B35 & \PanneauTableau{B35} & Fin d'interdiction de l'usage de l'avertisseur sonore & \fakeverb{\prFinIntSons} \\
@@ -566,11 +570,11 @@ Pour les panneaux de (début/fin de) limitation de vitesse, la commande associé
 \begin{multicols}{3}
 	\raisebox{-0.2\height}{\prCircInterd[height=2.5ex]} : \verb+\prCircInterd+ \\
 	\raisebox{-0.2\height}{\prSensInterdit[height=2.5ex]} : \verb+\prSensInterdit+ \\
-	\raisebox{-0.2\height}{\prSensInterditJ[height=2.5ex]} : \verb+\prSensInterditJ+ \\
+	%\raisebox{-0.2\height}{\prSensInterditJ[height=2.5ex]} : \verb+\prSensInterditJ+ \\
 	\raisebox{-0.2\height}{\prInterdTournG[height=2.5ex]} : \verb+\prInterdTournG+ \\
 	\raisebox{-0.2\height}{\prInterdTournD[height=2.5ex]} : \verb+\prInterdTournD+ \\
 	\raisebox{-0.2\height}{\prInterdDemiTour[height=2.5ex]} : \verb+\prInterdDemiTour+ \\
-	\raisebox{-0.2\height}{\prInterdDepass[height=2.5ex]} : \verb+\prInterdDepass+ \\
+	%\raisebox{-0.2\height}{\prInterdDepass[height=2.5ex]} : \verb+\prInterdDepass+ \\
 	\raisebox{-0.2\height}{\prInterdVehic[height=2.5ex]} : \verb+\prInterdVehic+ \\
 	\raisebox{-0.2\height}{\prHalteDouane[height=2.5ex]} : \verb+\prHalteDouane+ \\
 	\raisebox{-0.2\height}{\prHalteGendarm[height=2.5ex]} : \verb+\prHalteGendarm+ \\
@@ -688,7 +692,7 @@ Pour les panneaux de (début/fin de) limitation de vitesse, la commande associé
 \end{multicols}
 
 \begin{multicols}{3}
-	\raisebox{-0.2\height}{\prTickPeage[height=2.5ex]} : \verb+\prTickPeage+ \\
+	%\raisebox{-0.2\height}{\prTickPeage[height=2.5ex]} : \verb+\prTickPeage+ \\
 	\raisebox{-0.2\height}{\prPaiemPeage[height=2.5ex]} : \verb+\prPaiemPeage+ \\
 	\raisebox{-0.2\height}{\prPaiemCB[height=2.5ex]} : \verb+\prPaiemCB+ \\
 	\raisebox{-0.2\height}{\prPaiemPieces[height=2.5ex]} : \verb+\prPaiemPieces+ \\

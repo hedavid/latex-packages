@@ -1,0 +1,9 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c}{\PYGZpc{}déclaration du fichier csv}
+\PYG{k}{\PYGZbs{}begin}\PYG{n+nb}{\PYGZob{}}filecontents*\PYG{n+nb}{\PYGZcb{}}[overwrite]\PYG{n+nb}{\PYGZob{}}base.csv\PYG{n+nb}{\PYGZcb{}}
+A,B,C,D
+A,B,D,C
+B,A,D,C
+C,A,B,D
+\PYG{k}{\PYGZbs{}end}\PYG{n+nb}{\PYGZob{}}filecontents*\PYG{n+nb}{\PYGZcb{}}
+\end{Verbatim}

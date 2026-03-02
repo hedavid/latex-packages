@@ -1,0 +1,5 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c}{\PYGZpc{}personal macros + individual rounding}
+\PYG{k}{\PYGZbs{}xintQUADreg}\PYG{n+na}{[coeffa=QUADRAa,coeffb=QUADRAb,coeffc=QUADRAc,round=4/3/2]}\PYG{n+nb}{\PYGZob{}}\PYG{k}{\PYGZbs{}LLX}\PYG{n+nb}{\PYGZcb{}\PYGZob{}}\PYG{k}{\PYGZbs{}LLY}\PYG{n+nb}{\PYGZcb{}}\PYG{c}{\PYGZpc{}}
+\PYG{l+s}{\PYGZdl{}}\PYG{n+nb}{a }\PYG{n+nv}{\PYGZbs{}approx}\PYG{n+nb}{ }\PYG{n+nv}{\PYGZbs{}QUADRAa}\PYG{l+s}{\PYGZdl{}}; \PYG{l+s}{\PYGZdl{}}\PYG{n+nb}{b }\PYG{n+nv}{\PYGZbs{}approx}\PYG{n+nb}{ }\PYG{n+nv}{\PYGZbs{}QUADRAb}\PYG{l+s}{\PYGZdl{}} and \PYG{l+s}{\PYGZdl{}}\PYG{n+nb}{c }\PYG{n+nv}{\PYGZbs{}approx}\PYG{n+nb}{ }\PYG{n+nv}{\PYGZbs{}QUADRAc}\PYG{l+s}{\PYGZdl{}}
+\end{Verbatim}

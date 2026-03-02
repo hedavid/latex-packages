@@ -1,0 +1,7 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+\PYG{k}{\PYGZbs{}begin}\PYG{n+nb}{\PYGZob{}}pflpitoncode\PYG{n+nb}{\PYGZcb{}}\PYG{c}{\PYGZpc{}}
+	[gobble=tabs,width=12cm,style=lightcarbon]\PYG{n+nb}{\PYGZob{}\PYGZcb{}}
+def f(x) :
+	return x**2
+\PYG{k}{\PYGZbs{}end}\PYG{n+nb}{\PYGZob{}}pflpitoncode\PYG{n+nb}{\PYGZcb{}}
+\end{MintedVerbatim}

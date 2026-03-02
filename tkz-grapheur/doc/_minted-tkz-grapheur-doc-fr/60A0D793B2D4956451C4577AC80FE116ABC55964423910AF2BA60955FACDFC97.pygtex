@@ -1,0 +1,10 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k}{\PYGZbs{}begin}\PYG{n+nb}{\PYGZob{}}GraphiqueTikz\PYG{n+nb}{\PYGZcb{}}\PYG{c}{\PYGZpc{}}
+	[x=0.75cm,y=0.75cm,Xmin=0,Xmax=10,Xgrille=1,Xgrilles=0.5,
+	Ymin=0,Ymax=8,Ygrille=1,Ygrilles=0.5]
+	\PYG{k}{\PYGZbs{}TracerAxesGrilles}\PYG{n+na}{[Elargir=2.5mm,Police=\PYGZbs{}small]}\PYG{n+nb}{\PYGZob{}}auto\PYG{n+nb}{\PYGZcb{}\PYGZob{}}auto\PYG{n+nb}{\PYGZcb{}}
+	\PYG{k}{\PYGZbs{}DefinirCourbe}\PYG{n+na}{[Couleur=red,Nom=cf,Debut=0,Fin=10,Trace]}\PYGZlt{}f\PYGZgt{}\PYG{n+nb}{\PYGZob{}}sqrt(5*x)+1\PYG{n+nb}{\PYGZcb{}}
+	\PYG{k}{\PYGZbs{}TracerCourbe}\PYG{n+na}{[Couleur=blue]}\PYG{n+nb}{\PYGZob{}}x\PYG{n+nb}{\PYGZcb{}}
+	\PYG{k}{\PYGZbs{}TracerToileRecurrence}\PYG{n+na}{[Couleur=orange,No=1,Uno=1]}\PYG{n+nb}{\PYGZob{}}f\PYG{n+nb}{\PYGZcb{}}
+\PYG{k}{\PYGZbs{}end}\PYG{n+nb}{\PYGZob{}}GraphiqueTikz\PYG{n+nb}{\PYGZcb{}}
+\end{Verbatim}

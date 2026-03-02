@@ -1,0 +1,672 @@
+% !TeX TXS-program:compile = txs:///lualatex
+
+\documentclass[tikz]{standalone}
+%\usepackage[upright]{fourier}
+\ExplSyntaxOn
+\cs_new_eq:NN \setrandomseedthm \sys_gset_rand_seed:n
+\ExplSyntaxOff
+\usepackage{scratch3}
+\usepackage{ProfLycee}
+\usepackage{pas-tableur}
+\usepackage{ProfSio}
+\usepackage{arev}
+\usepackage{bm}
+\usepackage{amsfonts,amsmath}
+\usepackage{esvect}
+\usepackage{simplekv}
+\usepackage{listofitems}
+\usepackage{JeuxCartes}
+\usetikzlibrary{angles}
+
+
+\newlength\cethememathsiconlw
+\setlength\cethememathsiconlw{0.6mm}
+
+\newcommand\intcebinomiale{%
+	\draw[->] (-0.5,0)--(3.5,0) ;
+	\draw[->] (0,-0.5)--(0,3.5) ;
+	\foreach \i/\y in {1/0.5,2/0.75,3/1,4/1.35,5/1.65,6/1.925,7/1.65,8/1.35,9/1,10/0.75,11/0.5}{%
+		\draw[line width=0.5\cethememathsiconlw,fill=blue!50!cyan] ({0.3+(\i-1)*0.25},0) rectangle++ (0.25,\y) ;
+	}
+	\draw[line width=0.75\cethememathsiconlw,red,dashed] plot[samples=250,domain=0.2:3.3] (\x,{1/(0.25*sqrt(2*pi))*exp(-((\x-1.675)^2)/(0.25*2^2))+0.75}) ;
+}
+
+\newcommand\intceconvexite{%
+	\draw[->] (-0.5,0)--(3.5,0) ;
+	\draw[->] (0,-0.5)--(0,3.5) ;
+	\draw[blue] (0.2,0.5) to[bend right=35] (3.1,3) ;
+	%\draw[blue] plot[domain=0.3:3.2,samples=100] (\x,{0.25*(\x)^2+\x+0.25}) ;
+	\draw[red] plot[domain=0.3:3.2,samples=2] (\x,0.85*\x-0.1) ;
+}
+
+\newcommand\intcecube{%
+	\draw[->] (-0.5,0)--(3.5,0) ;
+	\draw[->] (0,-0.5)--(0,3.5) ;
+	\draw[blue] plot[samples=250,domain=0:3.25] (\x,{0.3461894037958*(\x)^3-1.7953159538436*(\x)^2+3.0493715665275*\x}) ;
+}
+
+\newcommand\intcecarre{%
+	\draw[->] (-0.5,1)--(3.5,1) ;
+	\draw[->] (1.25,-0.5)--(1.25,3.5) ;
+	\draw[blue] plot[samples=250,domain=0:3] (\x,{1*(\x-1.6)^2+0}) ;
+}
+
+\newcommand\intvariations{%
+	\draw[->] (-0.5,0.75)--(3.5,0.75) ;
+	\draw[->] (0.5,-0.5)--(0.5,3.5) ;
+	\draw[blue] plot[samples=250,domain=-0.1:3.2] (\x,{0.9205692181047*(\x)^3 - 3.9399376500898*(\x)^2 + 4.0892548083564*(\x)}) ;
+}
+
+\newcommand\intprobas{%
+	\draw (1.5,1.5) node {\MainCartesJeu[Eventail,Hauteur=2.25,TypeJeu=Poker,StyleJeu=v4,EspH=0.8,EspV=0.2]{10T § VC § DT § RK § AP}} ;
+}
+
+\newcommand\intnbderive{%
+	\draw[->] (-0.5,0.75)--(3.5,0.75) ;
+	\draw[->] (0.5,-0.5)--(0.5,3.5) ;
+	\draw[blue] plot[samples=250,domain=-0.1:3.4] (\x,{0.119722321246*(\x)^4-0.5528937698461*(\x)^3+0.2774350185425*(\x)^2+1.4337817999443*(\x)+0.2219546301132}) ;
+	\draw[red] plot[samples=2,domain=-0.1:3.4] (\x,{0.8088598124753*(\x) + 0.6911401875247}) ;
+	\draw[purple,fill=white,line width=0.5\cethememathsiconlw] (1,1.5) circle[radius=0.5mm] ;
+}
+
+\newcommand\intensembles{%
+	\def\tmpradiustikzensembles{1.75}
+	\fill[blue!25] (1.5,1.5) circle[radius={1*\tmpradiustikzensembles}] ;
+	\fill[blue!35] (1.5,1.5) circle[radius={0.75*\tmpradiustikzensembles}] ;
+	\fill[blue!45] (1.5,1.5) circle[radius={0.5*\tmpradiustikzensembles}] ;
+	\fill[blue!55] (1.5,1.5) circle[radius={0.25*\tmpradiustikzensembles}] ;
+	\draw (1.5,1.5) node[font=\large] {$\mathbb{N}$} ;
+	\draw (1.5,{1.5+1.5*0.25*\tmpradiustikzensembles}) node[font=\large] {$\mathbb{Z}$} ;
+	\draw (1.5,{1.5+2.5*0.25*\tmpradiustikzensembles}) node[font=\large] {$\mathbb{Q}$} ;
+	\draw (1.5,{1.5+3.5*0.25*\tmpradiustikzensembles}) node[font=\large] {$\mathbb{R}$} ;
+}
+
+\setrandomseedthm{123456}%
+\def\tikzconcentrationnb{75}%
+\def\tmplisterandconcentrationinf{\fpeval{1.75*rand()}}%
+\def\tmplisterandconcentrationsup{\fpeval{1.75*rand()}}%
+\foreach \i in {1,...,\tikzconcentrationnb}{%
+	\xdef\tmplisterandconcentrationinf{\tmplisterandconcentrationinf,\fpeval{1.75*rand()}}%
+	\xdef\tmplisterandconcentrationsup{\tmplisterandconcentrationsup,\fpeval{1.75*rand()}}%
+}
+\greadlist*\listerandconcentrationinf{\tmplisterandconcentrationinf}
+\greadlist*\listerandconcentrationsup{\tmplisterandconcentrationsup}
+
+\newcommand\intceconcentration{%
+	\def\tmplisteconcentrationinf{(0,1.75)}%
+	\def\tmplisteconcentrationsup{(0,1.75)}%
+	\foreach \i in {1,...,\tikzconcentrationnb}{%
+		\itemtomacro\listerandconcentrationinf[\i]{\mytmpinf}%
+		\itemtomacro\listerandconcentrationsup[\i]{\mytmpsup}%
+		\xdef\tmplisteconcentrationinf{\tmplisteconcentrationinf ({\i*3.5/\tikzconcentrationnb},{\fpeval{1.75-\mytmpinf*1/(\i)}})}%
+		\xdef\tmplisteconcentrationsup{\tmplisteconcentrationsup ({\i*3.5/\tikzconcentrationnb},{\fpeval{1.75+\mytmpsup*1/(\i)}})}%
+	}
+	\draw[->] (-0.5,0)--(3.5,0) ;
+	\draw[->] (0,-0.5)--(0,3.5) ;
+	\draw[line width=0.5\cethememathsiconlw,gray,dashed] (0,1.75)--(3.5,1.75) ;
+	\draw[line width=0.75\cethememathsiconlw,blue] plot[smooth] coordinates {\tmplisteconcentrationinf} ;
+	\draw[line width=0.75\cethememathsiconlw,violet] plot[smooth] coordinates {\tmplisteconcentrationsup} ;
+}
+
+\newcommand\intceequadiff{%
+	\draw[->] (-0.5,1)--(3.5,1) ;
+	\draw[->] (1.25,-0.5)--(1.25,3.5) ;
+	%up
+	\draw[line width=0.75\cethememathsiconlw,blue!70] (-0.45,{1+6*0.1}) to[out=0,in=-150,looseness=1.1] (3.45,{1+6*0.375}) ;
+	\draw[line width=0.75\cethememathsiconlw,blue!60,looseness=1.1] (-0.45,{1+5*0.1}) to[out=0,in=-155] (3.45,{1+5*0.375}) ;
+	\draw[line width=0.75\cethememathsiconlw,blue!50,looseness=1.1] (-0.45,{1+4*0.1}) to[out=0,in=-160] (3.45,{1+4*0.375}) ;
+	\draw[line width=0.75\cethememathsiconlw,blue!40,looseness=1.1] (-0.45,{1+3*0.1}) to[out=0,in=-165] (3.45,{1+3*0.375}) ;
+	\draw[line width=0.75\cethememathsiconlw,blue!30,looseness=1.1] (-0.45,{1+2*0.1}) to[out=0,in=-170] (3.45,{1+2*0.375}) ;
+	\draw[line width=0.75\cethememathsiconlw,blue!20,looseness=1.1] (-0.45,{1+1*0.1}) to[out=0,in=-175] (3.45,{1+1*0.375}) ;
+	%down
+	\clip (-0.5,-0.5) rectangle (3.5,3.5) ;
+	\draw[line width=0.75\cethememathsiconlw,blue!70] (-0.45,{1-6*0.1}) to[out=0,in=150,looseness=1.1] (3.45,{1-6*0.375}) ;
+	\draw[line width=0.75\cethememathsiconlw,blue!60,looseness=1.1] (-0.45,{1-5*0.1}) to[out=0,in=155] (3.45,{1-5*0.375}) ;
+	\draw[line width=0.75\cethememathsiconlw,blue!50,looseness=1.1] (-0.45,{1-4*0.1}) to[out=0,in=160] (3.45,{1-4*0.375}) ;
+	\draw[line width=0.75\cethememathsiconlw,blue!40,looseness=1.1] (-0.45,{1-3*0.1}) to[out=0,in=165] (3.45,{1-3*0.375}) ;
+	\draw[line width=0.75\cethememathsiconlw,blue!30,looseness=1.1] (-0.45,{1-2*0.1}) to[out=0,in=170] (3.45,{1-2*0.375}) ;
+	\draw[line width=0.75\cethememathsiconlw,blue!20,looseness=1.1] (-0.45,{1-1*0.1}) to[out=0,in=175] (3.45,{1-1*0.375}) ;
+}
+
+\newcommand\intfcttrig{%
+	\draw[->] (-0.5,1.5)--(3.5,1.5) ;
+	\draw[->] (0,-0.5)--(0,3.5) ;
+	\draw[blue] plot[samples=250,domain=0.05:3] (\x,{sin(deg(2.75*\x))+1.5}) ;
+%	\draw[purple,fill=white,line width=0.5\cethememathsiconlw] (1,1.5) circle[radius=0.5mm] ;
+}
+
+\newcommand\intfctaff{%
+	\draw[->] (-0.5,1.5)--(3.5,1.5) ;
+	\draw[->] (1,-0.5)--(1,3.5) ;
+	\clip (-0.5,-0.35) rectangle (3.5,3.5) ;
+	\draw[blue] plot[samples=2,domain=-0.5:1.7391] (\x,{1.15*\x-0.5}) ;
+	\draw[red] plot[samples=2,domain=1.7391:3.25] (\x,{1.15*\x-0.5}) ;
+	%	\draw[purple,fill=white,line width=0.5\cethememathsiconlw] (1,1.5) circle[radius=0.5mm] ;
+}
+
+\newcommand\intintegrale{%
+	\fill[blue!50] (0.25,0) -- plot[samples=250,domain=0.25:2.75] (\x,{0.5*exp(0.5*\x)}) |- cycle ;
+	\draw[->] (-0.5,0)--(3.5,0) ;
+	\draw[->] (0,-0.5)--(0,3.5) ;
+	\draw[red] plot[samples=250,domain=-0.375:3.25] (\x,{0.5*exp(0.5*\x)}) ;
+}
+
+\newcommand\intintervalle{%
+	\draw[->] (-0.25,1.5)--(3.25,1.5) ;
+	\draw[blue,line width=2\cethememathsiconlw] (0.75,1.5)--(2.25,1.5) ;
+	\draw[blue,line width=\cethememathsiconlw] (0.75,1.5) |-++ (0.1,0.225) ;
+	\draw[blue,line width=\cethememathsiconlw] (0.75,1.5) |-++ (0.1,-0.225) ;
+	\draw[blue,line width=\cethememathsiconlw] (2.25,1.5) |-++ (-0.1,0.225) ;
+	\draw[blue,line width=\cethememathsiconlw] (2.25,1.5) |-++ (-0.1,-0.225) ;
+	\draw[blue] (0.75,{1.5+0.25}) node[above,font=\large] {$a$} ;
+	\draw[blue] (2.25,{1.5+0.25}) node[above,font=\large] {$b$} ;
+}
+
+\newcommand\intcelimfct{%
+	\draw[->] (-0.5,1)--(3.5,1) ;
+	\draw[->] (1.25,-0.5)--(1.25,3.5) ;
+	\clip (-0.5,-0.35) rectangle (3.5,3.5) ;
+	\draw[blue] plot[samples=250,domain=-0.25:1.95] (\x,{((-0.1)/(\x-2))+1.75}) ;
+	\draw[blue] plot[samples=250,domain=2.05:3.75] (\x,{((-0.1)/(\x-2))+1.75}) ;
+	\draw[red,densely dashed,line width=0.75\cethememathsiconlw] (-0.25,1.75)--(3.75,1.75) ;
+	\draw[red,densely dashed,line width=0.75\cethememathsiconlw] (2,-0.35)--(2,3.35) ;
+}
+
+\newcommand\intcelimsuite{%
+	\fill[lightgray!75] (0,{2.68-0.3}) rectangle (3.35,{2.68+0.3}) ;
+	\draw[->] (-0.5,0)--(3.5,0) ;
+	\draw[->] (0,-0.5)--(0,3.5) ;
+	\clip (-0.5,-0.35) rectangle (3.5,3.5) ;
+	\foreach \i in {0,...,8}{%
+		\filldraw[red] ({3*\i/8},{1+1.05*\i/(0.5*\i+1)}) circle[radius=0.075] ;
+	}
+}
+
+\newcommand\intcecalclitteral{%
+	\draw[line width=0.5\cethememathsiconlw] (0.25,0.5) rectangle (3,2.5) ;
+	\draw[line width=0.5\cethememathsiconlw,fill=yellow!75] (0.25,0.5) rectangle (1,1) ;
+	\draw[line width=0.5\cethememathsiconlw,fill=orange!75] (3,0.5) rectangle (1,1) ;
+	\draw[line width=0.5\cethememathsiconlw,fill=red!75] (0.25,1) rectangle (1,2.5) ;
+	\draw[line width=0.5\cethememathsiconlw,fill=teal!75] (3,2.5) rectangle (1,1) ;
+	%labels
+	\draw[line width=0.5\cethememathsiconlw,<->] (0.25,2.75)--(1,2.75) node[midway,above,font=\large] {$a$} ;
+	\draw[line width=0.5\cethememathsiconlw,<->] (1,2.75)--(3,2.75) node[midway,above,font=\large] {$b$} ;
+	\draw[line width=0.5\cethememathsiconlw,<->] (0,2.5)--(0,1) node[midway,left,font=\large] {$c$} ;
+	\draw[line width=0.5\cethememathsiconlw,<->] (0,1)--(0,0.5) node[midway,left,font=\large] {$d$} ;
+}
+
+\newcommand\intcelog{%
+	\draw[->] (-0.5,0.5)--(3.5,0.5) ;
+	\draw[->] (0,-0.5)--(0,3.5) ;
+	\clip (0,-0.35) rectangle (3.25,3.25) ;
+	\draw[blue] plot[samples=250,domain=0.25:3.25] (\x,{1.5*sqrt(\x-0.25)-0.5}) ;
+}
+
+\newcommand\intfctref{%
+	\draw[->] (-0.5,1.5)--(3.5,1.5) ;
+	\draw[->] (1.5,-0.5)--(1.5,3.5) ;
+	\clip (-0.45,-0.45) rectangle (3.45,3.45) ;
+	\draw[blue] plot[samples=250,domain=-0.3:1.4] (\x,{((-0.25)/(\x-1.5))+1.5}) ;
+	\draw[blue] plot[samples=250,domain=1.6:3.3] (\x,{((-0.25)/(\x-1.5))+1.5}) ;
+}
+
+\newcommand\inthisto{%
+	\draw[->] (-0.5,0)--(3.5,0) ;
+	\draw[->] (0,-0.5)--(0,3.5) ;
+	\foreach \i/\y in {2/1.5,3/2.5,4/3.15,5/2,6/1}{%
+		\draw[fill=blue!50!cyan] ({(\i-1)*3.4/6-0.215},0) rectangle++ (0.43,\y) ;
+	}
+}
+
+\newcommand\intdefsuite{%
+	\foreach \i in {0,...,3}{%
+		\ifnum\i<3\relax\draw[->,red] ({\i},1.5) --++ (0.825,0) ;\fi
+		\filldraw[blue] ({\i},1.5) circle[radius=0.1] node[below=4pt,font=\large] {$u_{\i}$};
+	}
+}
+
+\newcommand\intsysteme{%
+	\draw[->] (-0.5,1.5)--(3.5,1.5) ;
+	\draw[->] (1.5,-0.5)--(1.5,3.5) ;
+	\clip (-0.45,-0.45) rectangle (3.45,3.45) ;
+	\draw[red] plot[samples=2,domain=-0.5:3.5] (\x,{-0.8*\x+3.25}) ;
+	\draw[blue] plot[samples=250,domain=-0.5:3.5] (\x,{1.25*\x-0.5}) ;
+}
+
+\newcommand\intcevecteurs{%
+	\begin{scope}[yshift=-0.25cm]
+		\draw[red,->] (0,1.5)--(3,1) node[font=\large,midway,below,sloped] {$\vv{u}$} ;
+		\draw[blue,->] (0,1.5)--(2.5,3) node[font=\large,midway,above,sloped] {$\vv{v}$} ;
+		\draw[olive,->] (3,1)--(2.5,3) node[font=\large,midway,above,sloped] {$\vv{w}$} ;
+	\end{scope}
+}
+
+\newcommand\intceequation{%
+	\draw[line width=0.5\cethememathsiconlw,rounded corners=0.5\cethememathsiconlw] (1,0.5)--(2,0.5)--(1.8,0.7)--(1.2,0.7)--cycle ;
+	\draw[line width=0.5\cethememathsiconlw,rounded corners=0.5\cethememathsiconlw] (1.2,0.7) to[out=0,in=-90,looseness=0.3] (1.4,2.75) to[out=90,in=90,looseness=2.25] (1.6,2.75) to[out=-90,in=180,looseness=0.3] (1.8,0.7) ;
+	\draw[line width=0.5\cethememathsiconlw,rounded corners=0.5\cethememathsiconlw] (1.6,2.6) to[out=0,in=180] (2.35,2.55) to[out=0,in=0,looseness=2.25] (2.35,2.45) --(1.6,2.45) ;
+	\draw[line width=0.5\cethememathsiconlw,rounded corners=0.5\cethememathsiconlw] (1.4,2.6) to[out=180,in=0] (0.65,2.55) to[out=180,in=180,looseness=2.25] (0.65,2.45) --(1.4,2.45) ;
+	\draw[line width=0.5\cethememathsiconlw] (0.65,2.45)--++(0.4,-0.7) ;
+	\draw[line width=0.5\cethememathsiconlw] (0.65,2.45)--++(-0.4,-0.7) ;
+	\draw[line width=0.5\cethememathsiconlw,line join=round] (1.05,1.7) -- node[midway,above,font=\large,inner sep=2pt] {$x$} (0.25,1.7) to[bend right=60] cycle ;
+	\draw[line width=0.5\cethememathsiconlw] (2.35,2.45)--++(0.4,-0.7) ;
+	\draw[line width=0.5\cethememathsiconlw] (2.35,2.45)--++(-0.4,-0.7) ;
+	\draw[line width=0.5\cethememathsiconlw,line join=round] (2.75,1.7) -- (1.95,1.7) to[bend right=60] cycle ;
+	\def\tmplargblocbalance{0.1}
+	\draw[line width=0.5\cethememathsiconlw,rounded corners=0.25\cethememathsiconlw,fill=gray!50] ({2.35-\tmplargblocbalance},{1.7+0.05}) rectangle++ ({2*\tmplargblocbalance},{2*\tmplargblocbalance}) ;
+	\draw[line width=0.5\cethememathsiconlw,rounded corners=0.25\cethememathsiconlw,fill=gray!50] ({2.35-0.275-\tmplargblocbalance},{1.7+0.05}) rectangle++ ({2*\tmplargblocbalance},{2*\tmplargblocbalance}) ;
+	\draw[line width=0.5\cethememathsiconlw,rounded corners=0.25\cethememathsiconlw,fill=gray!50] ({2.35+0.275-\tmplargblocbalance},{1.7+0.05}) rectangle++ ({2*\tmplargblocbalance},{2*\tmplargblocbalance}) ;
+}
+
+\newcommand\intceespace{%
+	\begin{scope}[xshift=-0.3cm,yshift=-0.25cm,xscale=1.2,yscale=0.95]
+		\draw[red!75,line cap=round] (2.0686,2.3454)--(2.6506,3.0570) ;
+		\draw[line width=0.5\cethememathsiconlw,fill=blue!85,line join=round] (1.5,0.75)--(0.75,1.25)--(0.75,2.25)--(1.5,1.75)--cycle;
+		\draw[line width=0.5\cethememathsiconlw,fill=blue!50,line join=round] (1.5,0.75)--(1.5,1.75)--(2.25,2.25)--(2.25,1.25)--cycle;
+		\draw[line width=0.5\cethememathsiconlw,fill=blue!15,line join=round] (1.5,1.75)--(0.75,2.25)--(1.5,2.75)--(2.25,2.25)--cycle;
+		\draw[red!75,line cap=round] (0.3265,0.2155)--(1.1888,1.2697) ;
+	\end{scope}
+}
+
+\newcommand\intceespacecart{%
+	\begin{scope}[yshift=-0.25cm]
+		\draw[line width=0.75\cethememathsiconlw,->] (0.75,1.5)--++(0,1.5) node[font=\large,left] {$z$};
+		\draw[line width=0.75\cethememathsiconlw,->] (0.75,1.5)--++(2,-0.5) node[font=\large,below left] {$y$};
+		\draw[line width=0.75\cethememathsiconlw,->] (0.75,1.5)--++(-0.75,-0.75) node[font=\large,below] {$x$};
+		\draw[gray,line width=0.5\cethememathsiconlw,fill=gray!25,line join=round] (0,1.25)--++(1.05,1.05)--++(2,-0.5)--++(-1.05,-1.05)--cycle;
+		\draw[gray,line width=1.25\cethememathsiconlw,line join=round] (0,1.25)--++(2,-0.5)--++(1.05,1.05);
+		\draw[orange,line width=1.25\cethememathsiconlw] ({0+0.5*2+0.5*1.05},{1.25-0.5*0.5+0.5*1.05}) --++ (0,1.35) ;
+		\filldraw ({0+0.5*2+0.5*1.05},{1.25-0.5*0.5+0.5*1.05}) circle[radius=0.05] node[above right,font=\large] {$H$} ;
+		\filldraw[blue!75] ({0+0.5*2+0.5*1.05},{1.25-0.5*0.5+0.5*1.05+1.35}) circle[radius=0.1] node[above right,font=\large] {$P$} ;
+	\end{scope}
+}
+
+\newcommand\intcepbgeom{%
+	\def\inttikzangledroitthem{0.15}%
+	\draw[line width=0.5\cethememathsiconlw,red] (1.75,1.25)--++(\inttikzangledroitthem,\inttikzangledroitthem)--++(\inttikzangledroitthem,-\inttikzangledroitthem)--++(-\inttikzangledroitthem,-\inttikzangledroitthem)--cycle;
+	\draw[line width=0.75\cethememathsiconlw] (0,3)--(3,0) node[pos=0.1,above right,font=\large] {$d$} ;
+	\draw[blue,line width=0.75\cethememathsiconlw] (0.5,0)--(3,2.5) ;
+	\draw (1.75,1.25) node[above=4pt,font=\large] {$H$} ;
+	\draw[line width=0.5\cethememathsiconlw,gray,densely dashed] (2.4,1.9) --  (2.4,0.6) ;
+	\filldraw[blue] (2.4,1.9) circle[radius=0.05] node[above=0.5mm,font=\large,text=blue] {$A$} ;
+	\filldraw[black] (2.4,0.6) circle[radius=0.05] node[below=0.5mm,font=\large,text=black] {$M$} ;
+}
+
+\newcommand\intceespacevect{%
+	\begin{scope}[xshift=-0.25cm,xscale=1.15,yscale=1.1,yshift=-0.25cm]
+		\draw[gray,line width=0.5\cethememathsiconlw,fill=gray!25,line join=round] (0,1.25)--++(1.05,1.05)--++(2,-0.5)--++(-1.05,-1.05)--cycle;
+		\draw[gray,line width=1.25\cethememathsiconlw,line join=round] (0,1.25)--++(2,-0.5)--++(1.05,1.05);
+		\draw[orange,line width=1.25\cethememathsiconlw,->] ({0+0.5*2+0.5*1.05},{1.25-0.5*0.5+0.5*1.05}) --++ (0,1.35) ;
+	\end{scope}
+}
+
+\newcommand\intcedominorecurr{%
+	\begin{scope}[xshift=3.2cm,yshift=0.25cm,scale=0.9]
+		\filldraw[blue!50,rounded corners=\cethememathsiconlw] (0,0)--++(-0.75,0.5)--++(0,2)--++(0.25,0.1)--++(0.75,-0.5)--++(0,-2)--cycle;
+		\filldraw[blue,rounded corners=\cethememathsiconlw] (0,0)--++(-0.75,0.5)--++(0,2)--++(0.75,-0.5)--++(0,-2)--cycle;
+		\draw (-0.3,1.25) node[rotate=-22,font=\Large,text=white] {$\bm{u_3}$} ;
+	\end{scope}
+	\begin{scope}[xshift=2.4cm,yshift=0.25cm,scale=0.9]
+		\filldraw[green!75!black!50,rounded corners=\cethememathsiconlw] (0,0)--++(-0.75,0.5)--++(0,2)--++(0.25,0.1)--++(0.75,-0.5)--++(0,-2)--cycle;
+		\filldraw[green!75!black,rounded corners=\cethememathsiconlw] (0,0)--++(-0.75,0.5)--++(0,2)--++(0.75,-0.5)--++(0,-2)--cycle;
+		\draw (-0.3,1.25) node[rotate=-22,font=\Large,text=white] {$\bm{u_2}$} ;
+	\end{scope}
+	\begin{scope}[xshift=1.6cm,yshift=0.25cm,scale=0.9]
+		\filldraw[orange!50,rounded corners=\cethememathsiconlw] (0,0)--++(-0.75,0.5)--++(0,2)--++(0.25,0.1)--++(0.75,-0.5)--++(0,-2)--cycle;
+		\filldraw[orange,rounded corners=\cethememathsiconlw] (0,0)--++(-0.75,0.5)--++(0,2)--++(0.75,-0.5)--++(0,-2)--cycle;
+		\draw (-0.3,1.25) node[rotate=-22,font=\Large,text=white] {$\bm{u_1}$} ;
+	\end{scope}
+	\begin{scope}[xshift=0.26cm,yshift=0.25cm,scale=0.9]
+		%\filldraw[teal!50,rounded corners=\cethememathsiconlw] (0,0)--++(40:0.901)--++(50:2)--++(0.25,0.1)--++(0.75,-0.5)--++(0,-2)--cycle;
+		\filldraw[teal!50,rounded corners=\cethememathsiconlw] (0,0)--++(150:0.901)--++(60:2)--++(-10:0.175)--++(-30:0.901)--++(-120:2)--cycle;
+		\filldraw[teal,rounded corners=\cethememathsiconlw] (0,0)--++(150:0.901)--++(60:2)--++(-30:0.901)--cycle;
+		\draw (0.225,1.225) node[rotate=-27.5,font=\Large,text=white] {$\bm{u_0}$} ;
+	\end{scope}
+}
+
+\definecolor{bluepercent}{HTML}{014198}
+
+\newcommand\intcepourcentages{%
+	\def\tmppercenttheme{0.3}%
+	\fill[bluepercent!30] (0,{1.25-\tmppercenttheme}) rectangle++ (1,{2*\tmppercenttheme}) ;
+	\fill[bluepercent!60] (1,{1.25-\tmppercenttheme}) rectangle++ (1,{2*\tmppercenttheme}) ;
+	\fill[bluepercent!90] (2,{1.25-\tmppercenttheme}) rectangle++ (1,{2*\tmppercenttheme}) ;
+	\draw[rounded corners=0.5\cethememathsiconlw] (0,{1.25-\tmppercenttheme}) rectangle (3,{1.25+\tmppercenttheme}) ;
+	\draw (1.5,{1.25+2.5*\tmppercenttheme}) node[font=\large] {$+\Delta\,\% \rightarrow$} ;
+}
+
+\newcommand\intcefractions{%
+	\def\tmppercenttheme{7}%
+	\begin{scope}[xshift=1.5cm,yshift=1.5cm]
+		\fill[cyan] (0,0) -- (0:1.75) arc[start angle=0,end angle={5/7*360},radius=1.75] -- cycle ;
+		\draw[line width=0.75\cethememathsiconlw] (0,0) circle[radius=1.75] ;
+		\foreach \i in {1,...,7}{%
+			\draw[line width=0.75\cethememathsiconlw] (0,0)--({\i*360/7}:1.75) ;
+		}
+	\end{scope}
+}
+
+\newcommand\intceeqbarres{%
+	\draw[line width=0.75\cethememathsiconlw,fill=yellow!75!orange] (0,1.5) rectangle (3,0.75) node[midway,font=\large] {$28$};
+	\draw[line width=0.75\cethememathsiconlw,fill=pink!75!red] (0,1.5) rectangle (1,2.25) node[midway,font=\large] {$x$};
+	\draw[line width=0.75\cethememathsiconlw,fill=pink!75!red] (1,1.5) rectangle (2,2.25) node[midway,font=\large] {$x$};
+	\draw[line width=0.75\cethememathsiconlw,fill=violet!75] (2,1.5) rectangle (3,2.25) node[midway,font=\large] {$12$};
+}
+
+\newcommand\intcescratch{%
+	\draw (1.5,1.5) node[scale=0.675] %
+	{%
+		\begin{scratch}
+			\blockinit{Quand \greenflag est cliqué}
+			\blockpen{effacer tout}
+			\blocksound{jouer le son \ovalsound*{Meow}}
+			\blockmove{ajouter \ovalnum{5} à \ovalvariable{abscisse}}
+		\end{scratch}
+	} ;
+	\draw (3.05,3.05) node[opacity=0.75] %
+	{
+		\includegraphics[height=0.5cm]{vectorlogo-scratch-cat.pdf}
+	} ;
+}
+
+\newcommand\intcepython{%
+	\draw (1.5,1.5) node[scale=1] %
+	{%
+		\includegraphics[width=3.5cm]{pflthemepiton.pdf}
+	} ;
+	\draw (3.05,3.05) node[opacity=0.75] %
+	{
+		\includegraphics[height=0.5cm]{vectorlogo-python-icon.pdf}
+	} ;
+}
+
+\newcommand\intcetableur{%
+	\draw (1.55,1.5) node[scale=0.45] %
+	{%
+		\begin{tikzpicture}
+		\tableur*[5]{A/2cm,B/3cm,C/2cm}
+		\celtxt*[align=center]{A}{1}{$n$}
+		\celtxt*[align=center]{B}{1}{$u_n$}
+		\celtxt[align=center]{C}{1}{0.85}
+		\celtxt[align=center]{A}{2}{0}
+		\celtxt[align=center]{B}{2}{5}
+		\celtxt[align=center]{A}{3}{1}
+		\celtxt[align=center]{B}{3}{}
+		\celtxt[align=center]{A}{4}{2}
+		\celtxt[align=center]{B}{4}{}
+		\celtxt[align=center]{A}{5}{=A4+1}
+		\celtxt[align=center]{B}{5}{=C1*B4+0.1}
+		\end{tikzpicture}
+	} ;
+	\draw (3.05,3.05) node[opacity=0.75] %
+	{
+		\includegraphics[height=0.5cm]{LibreOffice_6.1_Calc_Icon.pdf}
+	} ;
+}
+
+\newcommand\intcegraphes{%
+	\draw (1.5,1.5) node[scale=0.7,transform shape] %
+	{%
+		\begin{GrapheTikz}[DimensionSommets=12pt]
+			%SOMMETS
+			\GrphPlaceSommets{(1,4)/A (3,4)/B (4,3)/C (3,2)/D (2,1)/E (0,1)/F}
+			%ARÊTES
+			\GrphTraceAretes{A/B B/D B/E C/A C/D D/A D/E E/F F/B}
+			\GrphTraceAretes<FT>{A/F}
+		\end{GrapheTikz}
+	} ;
+}
+
+\newcommand\intcecomplexes{%
+	\draw[darkgray,densely dashed] (1.5,0) node[below,font=\large] {$x$} |- (0,2) node[left,font=\large] {$y$} ;
+	\draw[red,line width=0.75\cethememathsiconlw] (0.375,0) arc[start angle=0,end angle=53.13,radius=0.375] ;
+	\draw[red] (26.565:0.62) node[inner sep=1pt] {$\varphi$} ;
+	\draw[blue,line width=0.75\cethememathsiconlw] (0,0) -- (1.5,2) node[midway,above,sloped] {$r$} ;
+	\filldraw[blue] (1.5,2) circle[fill=blue,radius=0.1] node[above,font=\large,text=violet] {$\hspace{2em}z=x+\text{i}y$} ;
+	\draw[->] (-0.5,0)--(2.75,0) node[right,font=\large,inner sep=1pt] {Re};
+	\draw[->] (0,-0.5)--(0,3) node[above,font=\large,inner sep=1pt] {Im};
+}
+
+\newcommand\intcearithm{%
+	\begin{scope}[xshift=1.5cm,yshift=1.5cm,scale=0.5,transform shape]
+		\tikzset{circlenbprem/.style={semithick,draw=red,circle,font=\bfseries\small,minimum size=0.5cm,inner sep=1pt,outer sep=1pt}}
+		\node[circlenbprem] (A2) at (1,0) {2} ;
+		\node[circlenbprem] (A3) at (1,1) {3} ;
+		\node[circlenbprem] (A5) at (-1,1) {5} ;
+		\node[circlenbprem] (A7) at (-1,-1) {7} ;
+		\node[circlenbprem] (A11) at (2,0) {\scalebox{0.75}[1]{11}} ;
+		\node[circlenbprem] (A13) at (2,2) {\scalebox{0.75}[1]{13}} ;
+		\node[circlenbprem] (A17) at (-2,2) {\scalebox{0.75}[1]{17}} ;
+		\node[circlenbprem] (A19) at (-2,0) {\scalebox{0.75}[1]{19}} ;
+		\node[circlenbprem] (A23) at (0,-2) {\scalebox{0.75}[1]{23}} ;
+		\node[circlenbprem] (A29) at (3,1) {\scalebox{0.75}[1]{29}} ;
+		\node[circlenbprem] (A31) at (3,3) {\scalebox{0.75}[1]{31}} ;
+		\node[circlenbprem] (A37) at (-3,3) {\scalebox{0.75}[1]{37}} ;
+		\node[circlenbprem] (A41) at (-3,-1) {\scalebox{0.75}[1]{41}} ;
+		\node[circlenbprem] (A43) at (-3,-3) {\scalebox{0.75}[1]{43}} ;
+		\node[circlenbprem] (A47) at (1,-3) {\scalebox{0.75}[1]{47}} ;
+		\draw[thick,blue] (0,0)--(A2)--(A3)--(A5)--(A7)-|(A11)--(A13)--(A17)--(A19)|-(A23)-|(A29)--(A31)--(A37)--(A41)--(A43)--(A47)--(2,-3) ;
+		\draw[thick,blue,densely dotted] (2,-3)--++(1,0) ;
+	\end{scope}
+%	\draw (1.5,1.5) node[] %
+%	{%
+%		\includegraphics[width=3.5cm]{Ulam_spiral_howto_primes_only.pdf}
+%	} ;
+}
+
+\newcommand\intceggb{%
+	\draw (1.5,1.5) node[] %
+	{%
+		\includegraphics[height=2.5cm]{geogebra-export.pdf}
+	} ;
+	\draw (3.05,3.05) node[opacity=0.75] %
+	{
+		\includegraphics[height=0.5cm]{vectorlogo-geogebra-icon.pdf}
+	} ;
+}
+
+\newcommand\intcetoilerecurr{%
+	\draw[->] (-0.5,0)--(3.5,0) ;
+	\draw[->] (0,-0.5)--(0,3.5) ;
+	\ToileRecurrence[Fct={sqrt(\x)+1},No=1,Uno=0.5,Nb=5,AffTermes=false][line width=0.75\cethememathsiconlw,magenta,densely dashed][]
+	\draw[blue,domain=0:3.25,samples=250] plot (\x,{sqrt(\x)+1}) ;
+	\draw[CouleurVertForet,domain=0:3.25,samples=2] plot (\x,\x) ;
+}
+
+\newcommand\intcecercletrigo{%
+	\draw (1.5,1.5) node[] %
+	{%
+		\includegraphics[height=3.5cm]{pflcercletrigo.pdf}
+	} ;
+}
+
+\newcommand\intcepythagore{%
+	\draw (1.5,1.5) node[] %
+	{%
+		\includegraphics[height=3.5cm]{puzzlepythagore.pdf}
+	} ;
+}
+
+\newcommand\intcethales{%
+	\begin{scope}[line width=0.66\cethememathsiconlw,scale=0.5,xshift=-1.05cm,yshift=0.25cm]
+		\coordinate(a)at(6,1);
+		\coordinate(b)at(1,2);
+		\coordinate(c)at(7,5);
+		\draw (a)--(b)--(c);
+		\filldraw (a) circle[radius=0.1] node[below,scale=0.75] {A};
+		\filldraw (b) circle[radius=0.1] node[left,scale=0.75] {B};
+		\filldraw (c) circle[radius=0.1] node[above,scale=0.75] {C};
+		% Les points A et B
+		\foreach \p/\i in {.2/1,.4/2,.6/3,.8/4}{
+			\coordinate (A\i) at ($(b)!\p!(c)$) ;
+			\coordinate (B\i) at ($(b)!\p!(a)$) ;
+			\filldraw[purple] (A\i) circle[radius=0.1] node[above,scale=0.75] {A\i};
+			\filldraw[purple] (B\i) circle[radius=0.1] node[below,scale=0.75] {B\i};
+		}
+		% Les segments parallèles
+		\foreach \v in {1,2,3,4}{
+			\draw[purple,densely dashed](A\v)--(B\v);}
+	\end{scope}
+}
+
+\newcommand\intceoutilsgeom{%
+	\draw (1.5,1.5) node[] %
+	{%
+		\includegraphics[height=3.5cm]{pfloutilesgeom.pdf}
+	} ;
+}
+
+\newcommand\intcenumeration{%
+	\draw (1.5,1.5) node[] %
+	{%
+		\includegraphics[height=2.5cm]{samplenum.pdf}
+	} ;
+	\draw[lightgray] ([xshift=0.3pt,yshift=0.3pt]0,1.5) node[rotate=90,font=\Large,anchor=center] {645} ;
+	\draw (0,1.5) node[rotate=90,font=\Large,anchor=center] {645} ;
+}
+
+\newcommand\intcesagitt{%
+	\draw (1.5,1.5) node[scale=0.525] %
+	{%
+		\DiagrammeSagittal[DistElem=1,DistEns=5,LargEns=1.75,Police={\Large},Epaisseur=1.5pt,NomAppli={$f$},E={a,b,c},F={A,C,H,P},PoliceLabels=\Large]{a/A,a/P,b/H,b/P,c/C}
+	} ;
+}
+
+\newcommand\intcekarnaugh{%
+	\draw (1.5,1.5) node[scale=0.75] %
+	{%
+		\begin{TableKarnaugh}[Swap,Epaisseur=1pt]
+			\KarnaughCasesAuto*{(ac)+(a*b)+(a*b*c*)+(b*c)}
+			\KarnaughBlocRegroupAuto{(c)+(a*)}
+		\end{TableKarnaugh}
+	} ;
+}
+
+\newcommand\intcetransfos{
+	\begin{scope}[xshift=-0.125cm,yshift=0.35cm,scale=0.66,line width=0.6\cethememathsiconlw,transform shape]
+		\fill[blue!25] (0,0) coordinate (0) -- (4,0) coordinate (1) -- (5,2) coordinate (a) -- cycle ;
+		\path pic[draw=black,double=gray!30,angle radius=0.75cm] {angle={1--0--a}} pic[draw=black,angle radius=0.75cm] {angle={a--1--0}};
+		\path[draw,line join=bevel] (0) -- (1) -- (a) -- cycle ;
+		\foreach \Coor in {0,1,a}{\node[circle,draw,fill=white,inner sep=1.5pt] at (\Coor) {};}
+		\begin{scope}[rotate=45,scale=0.8]
+			\fill[red!25] (0,0) coordinate (0) -- (4,0) coordinate (1) -- (5,2) coordinate (a) -- cycle ;
+			\path pic[draw=black,double=gray!30,angle radius=0.75cm] {angle={1--0--a}} pic[draw=black,angle radius=0.75cm] {angle={a--1--0}};
+			\path[draw,line join=bevel] (0) -- (1) -- (a) -- cycle ;
+			\foreach \Coor in {0,1,a}{\node[circle,draw,fill=white,inner sep=1.5pt] at (\Coor) {};}
+		\end{scope}
+	\end{scope}
+}
+
+\newcommand\intceexpo{%
+	\draw[->] (-0.5,0)--(3.5,0) ;
+	\draw[->] (1,-0.5)--(1,3.5) ;
+	\draw[red,line width=0.75\cethememathsiconlw] plot[samples=2,domain=-0.25:3.25] (\x,{\x}) ;
+	\clip (-0.45,-0.45) rectangle (3.45,3.45) ;
+	\draw[blue] plot[samples=250,domain=-0.25:3.25] (\x,{exp((\x-1))}) ;
+}
+
+\usepackage[lua]{tkz-euclide}
+
+\newcommand\intcepdtscal{%
+	\begin{scope}[xshift=0.5cm,yshift=0.75cm,scale=0.6,line width=0.5\cethememathsiconlw,line join=bevel]
+		\coordinate (O) at (0,0) ; \coordinate (A) at (25:1) ; \coordinate (K) at (25:5) ; 
+		\coordinate (B) at (115:1) ; \coordinate (C) at (58:3) ;
+		\tkzDefPointBy[projection=onto O--K](C) \tkzGetPoint{H}
+		\tkzMarkAngle[mark=none,darkgray,size=0.75](A,O,C)
+		\tkzFillAngle[mark=none,fill=blue!50,size=0.75](A,O,C)
+		\tkzMarkRightAngle[fill=red!50,size=0.35](A,O,B)
+		\draw (46.5:1) node[scale=0.85] {$\theta$} ;
+		\draw[densely dashed] (O) -- (K) ; \draw[->,blue] (O) -- (25:4) node[midway,below] {$\vv{u}$};
+		\draw[densely dashed] (O) -- (115:3) ; \draw[->,red] (O) -- (C) node[midway,above=4pt] {$\vv{v}$} ;
+		\draw[densely dotted] (C) -- (H) ;
+		\filldraw (A) circle[radius=2pt] (B) circle[radius=2pt] ;
+		\draw (O) node[below] {$O$} ; \draw (A) node[below] {$A$} ; \draw (B) node[left] {$B$} ;
+		\draw (C) node[above] {$C$} ;
+	\end{scope}
+}
+
+\newcommand\intcesolideh{%
+	\draw (1.5,1.5) node[] %
+	{%
+		\includegraphics[height=3.5cm]{sample_3d_solide.pdf}
+	} ;
+}
+
+\newcommand\intcealgo{%
+	\draw (1.5,1.5) node[] %
+	{%
+		\includegraphics[width=3.5cm]{cepseudocode.pdf}
+	} ;
+	\draw (3.05,3.05) node[opacity=0.75] %
+	{
+		\includegraphics[height=0.5cm]{AlgoBoxLogo.pdf}
+	} ;
+}
+
+\newcommand\intcecalco{%
+	\draw (1.5,1.5) node[rotate=2.5] %
+	{%
+		\includegraphics[width=3.5cm]{nwks.pdf}
+	} ;
+}
+
+\newcommand\intcegendarmes{%
+	\begin{scope}[xscale=0.25]
+		\draw[->] (-2,0)--(14,0) ;
+		\draw[->] (0,-0.5)--(0,3.5) ;
+		\clip (-2,-0.5) rectangle (14,3.5) ;
+		\draw[xshift=-2.5cm,line width=0.75\cethememathsiconlw,red] plot[samples=250,domain=1:16.5] (\x,{0.75*((\x+sin(\x r))/(\x-sin(\x r)))+0.5}) ;
+		\draw[xshift=-2.5cm,line width=0.75\cethememathsiconlw,blue] plot[samples=250,domain=0:16.5] (\x,{0.75*((\x-1)/(\x+1))+0.5}) ;
+		\draw[xshift=-2.5cm,line width=0.75\cethememathsiconlw,green!50!black] plot[samples=250,domain=1.5:16.5] (\x,{0.75*((\x+1)/(\x-1))+0.5}) ;
+	\end{scope}
+	%	\foreach \i/\y in {1/0.5,2/0.75,3/1,4/1.35,5/1.65,6/1.925,7/1.65,8/1.35,9/1,10/0.75,11/0.5}{%
+		%		\draw[line width=0.5\cethememathsiconlw,fill=blue!50!cyan] ({0.3+(\i-1)*0.25},0) rectangle++ (0.25,\y) ;
+		%	}
+	%	\draw[line width=0.75\cethememathsiconlw,red,dashed] plot[samples=250,domain=0.2:3.3] (\x,{1/(0.25*sqrt(2*pi))*exp(-((\x-1.675)^2)/(0.25*2^2))+0.75}) ;
+}
+
+\defKV[cethememathsicon]{lw=\setlength\cethememathsiconlw{#1}}
+\setKVdefault[cethememathsicon]{border=true,help=true,lw=0.5mm,no border=false}
+
+\NewDocumentCommand\cethememathsicon{ O{} m }{%
+	\restoreKV[cethememathsicon]%
+	\setKV[cethememathsicon]{#1}%
+	\begin{tikzpicture}[line width=\cethememathsiconlw,>=latex]
+		\ifboolKV[cethememathsicon]{no border}%
+			{\clip (-0.51,-0.51) rectangle (3.51,3.51) ;}%
+			{\clip (-0.75,-0.75) rectangle (3.75,3.75) ;}%
+		%borders
+		\ifboolKV[cethememathsicon]{border}%
+			{\draw[line width=0.5\cethememathsiconlw] ([xshift=0.25\cethememathsiconlw,yshift=0.25\cethememathsiconlw]-0.75,-0.75) rectangle ([xshift=-0.25\cethememathsiconlw,yshift=-0.25\cethememathsiconlw]3.75,3.75) ;}%
+			{}%
+		\ifboolKV[cethememathsicon]{help}%
+			{\draw[line width=0.5\cethememathsiconlw,lightgray] (-0.5,-0.5) rectangle (3.5,3.5) ;}%
+			{}%
+		\ifboolKV[cethememathsicon]{no border}%
+			{\useasboundingbox (-0.51,-0.51) rectangle (3.51,3.51) ;}%
+			{\useasboundingbox (-0.75,-0.75) rectangle (3.75,3.75) ;}%
+		%icon
+		#2
+	\end{tikzpicture}
+}
+
+\begin{document}
+
+\setKVdefault[cethememathsicon]{lw=0.65mm}
+
+\foreach \type in {\intcebinomiale,\intceconvexite,\intcecube,\intcecarre,\intvariations,\intprobas,\intnbderive,\intensembles,\intceconcentration,\intceequadiff,\intfcttrig,\intfctaff,\intintegrale,\intintervalle,\intcelimfct,\intcelimsuite,\intcecalclitteral,\intcelog,\intfctref,\inthisto,\intdefsuite,\intsysteme,\intcevecteurs,\intceequation,\intceespace,\intceespacecart,\intcepbgeom,\intceespacevect,\intcedominorecurr,\intcepourcentages,\intcefractions,\intceeqbarres,\intcescratch,\intcepython,\intcetableur,\intcegraphes,\intcearithm,\intceggb,\intcetoilerecurr,\intcecercletrigo,\intcepythagore,\intcethales,\intceoutilsgeom,\intcenumeration,\intcetransfos,\intcesagitt,\intcekarnaugh,\intceexpo,\intcepdtscal,\intcesolideh,\intcealgo,\intcecalco,\intcegendarmes}{%
+	\cethememathsicon[border=true,help=true]{\type}
+	\cethememathsicon[border=true,help=false]{\type}
+	\cethememathsicon[border=false,help=true]{\type}
+	\cethememathsicon[border=false,help=false]{\type}
+	\cethememathsicon[border=false,help=false,no border=true]{\type}
+}
+
+%\def\type{\intcecalculatrice}
+%\cethememathsicon[border=true,help=true]{\type}
+%\cethememathsicon[border=true,help=false]{\type}
+%\cethememathsicon[border=false,help=true]{\type}
+%\cethememathsicon[border=false,help=false]{\type}
+%\cethememathsicon[border=false,help=false,no border=true]{\type}
+
+\end{document}

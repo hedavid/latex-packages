@@ -1,0 +1,5 @@
+$x \in \tkzinterval[]{4;\dfrac{100}{7}} \cup \tkzinterval[open right]{\dfrac{1}{2};\sqrt{7}}$.\hfill
+$x \in \tkzinterval[open]{4;\dfrac{100}{7}} \cup \tkzinterval[open right]{\dfrac{1}{2};\sqrt{7}}$.\hfill\null
+
+\hfill$x \in \tkzinterval[open right]{4;\dfrac{100}{7}} \cup \tkzinterval[open right]{\dfrac{1}{2};\sqrt{7}}$.\hfill
+$x \in \tkzinterval[open left]{4;\dfrac{100}{7}} \cup \tkzinterval[open right]{\dfrac{1}{2};\sqrt{7}}$.

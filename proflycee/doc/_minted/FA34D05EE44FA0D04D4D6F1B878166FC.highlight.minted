@@ -1,0 +1,17 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+\PYG{k}{\PYGZbs{}pflchoicetreenorepl}\PYGZlt{}tikz options\PYGZgt{}\PYG{n+nb}{\PYGZob{}}list\PYG{n+nb}{\PYGZcb{}}
+\PYG{k}{\PYGZbs{}ArbreChoixSansRemise}\PYG{n+na}{[clés]}\PYGZlt{}options tikz\PYGZgt{}\PYG{n+nb}{\PYGZob{}}liste\PYG{n+nb}{\PYGZcb{}}
+\PYG{k}{\PYGZbs{}pflarbrechoixssremise}\PYG{n+na}{[\PYGZlt{}clés\PYGZgt{}]}\PYGZlt{}options tikz\PYGZgt{}\PYG{n+nb}{\PYGZob{}}liste\PYG{n+nb}{\PYGZcb{}}
+
+\PYG{c}{\PYGZpc{} \PYGZhy{}\PYGZhy{}\PYGZhy{} [keys/clés] \PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}}
+\PYG{c}{\PYGZpc{} level sep    = EspaceNiveaux   = 2.25}
+\PYG{c}{\PYGZpc{} child sep    = EspaceFeuilles  = 0.5}
+\PYG{c}{\PYGZpc{} scale        = Echelle         = 1}
+\PYG{c}{\PYGZpc{} repeat       = Repet           = \PYGZob{}\PYGZcb{}}
+\PYG{c}{\PYGZpc{} help         = Notice          = \PYGZob{}\PYGZcb{}}
+\PYG{c}{\PYGZpc{} help rules   = TraitsNotice    = false}
+\PYG{c}{\PYGZpc{} level color  = CouleursNiveaux = black}
+\PYG{c}{\PYGZpc{} show results = AffResultats    = false}
+\PYG{c}{\PYGZpc{} result sep   = SepResultats    = \PYGZob{}\PYGZcb{}}
+\PYG{c}{\PYGZpc{} \PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}}
+\end{MintedVerbatim}

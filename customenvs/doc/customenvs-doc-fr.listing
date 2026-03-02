@@ -1,0 +1,8 @@
+%sans les boîtes
+\fittexttobox{TÉLÉPHONE}{2cm}{1cm}\\
+\fittexttobox{\bfseries\sffamily TÉLÉPHONE}{7cm}{1cm}\\
+\fittexttobox{TÉLÉPHONE}{3cm}{1cm}\\
+\fittexttobox{\ttfamily TÉLÉPHONE}{3cm}{1cm}\\
+\fittexttobox{TÉLÉPHONE}{2cm}{2cm}\\
+\fittexttobox{COMPLIMENTS}{10cm}{3.5cm}\\
+\fittexttobox{COMPLIMENTS}{14cm}{1.25cm}

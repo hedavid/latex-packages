@@ -1,0 +1,8 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+\PYG{k}{\PYGZbs{}begin}\PYG{n+nb}{\PYGZob{}}tikzpicture\PYG{n+nb}{\PYGZcb{}}
+  \PYG{k}{\PYGZbs{}tkzTabInit}\PYG{n+na}{[lgt=3,espcl=2.5]}\PYG{c}{\PYGZpc{}}
+    \PYG{n+nb}{\PYGZob{}}\PYG{l+s}{\PYGZdl{}}\PYG{n+nb}{x}\PYG{l+s}{\PYGZdl{}}/1,\PYG{l+s}{\PYGZdl{}}\PYG{n+nb}{f\PYGZsq{}\PYGZsq{}}\PYG{o}{(}\PYG{n+nb}{x}\PYG{o}{)}\PYG{l+s}{\PYGZdl{}}/1,Convexity\PYG{k}{\PYGZbs{}\PYGZbs{}}of \PYG{l+s}{\PYGZdl{}}\PYG{n+nb}{f}\PYG{l+s}{\PYGZdl{}}/2\PYG{n+nb}{\PYGZcb{}\PYGZob{}}\PYG{l+s}{\PYGZdl{}}\PYG{l+m}{0}\PYG{l+s}{\PYGZdl{}},\PYG{l+s}{\PYGZdl{}}\PYG{l+m}{1}\PYG{l+s}{\PYGZdl{}},\PYG{l+s}{\PYGZdl{}}\PYG{l+m}{3}\PYG{l+s}{\PYGZdl{}},\PYG{l+s}{\PYGZdl{}}\PYG{l+m}{5}\PYG{l+s}{\PYGZdl{}}\PYG{n+nb}{\PYGZcb{}}
+  \PYG{k}{\PYGZbs{}tkzTabLine}\PYG{n+nb}{\PYGZob{}},+,z,\PYGZhy{},z,+,\PYG{n+nb}{\PYGZcb{}}
+  \PYG{k}{\PYGZbs{}pfltkztabcvx}\PYG{n+nb}{\PYGZob{}}2\PYG{n+nb}{\PYGZcb{}\PYGZob{}},cvx,i*,ccv,i*,cvx,\PYG{n+nb}{\PYGZcb{}}
+\PYG{k}{\PYGZbs{}end}\PYG{n+nb}{\PYGZob{}}tikzpicture\PYG{n+nb}{\PYGZcb{}}
+\end{MintedVerbatim}

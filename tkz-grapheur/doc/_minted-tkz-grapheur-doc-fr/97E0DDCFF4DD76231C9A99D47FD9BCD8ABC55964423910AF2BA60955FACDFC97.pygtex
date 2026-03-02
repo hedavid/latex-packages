@@ -1,0 +1,22 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k}{\PYGZbs{}def\PYGZbs{}LISTEXX}\PYG{n+nb}{\PYGZob{}}0,50,100,140\PYG{n+nb}{\PYGZcb{}}\PYG{k}{\PYGZbs{}def\PYGZbs{}LISTEYY}\PYG{n+nb}{\PYGZob{}}275,290,315,350\PYG{n+nb}{\PYGZcb{}}\PYG{c}{\PYGZpc{}}
+ListeX := \PYG{k}{\PYGZbs{}LISTEXX\PYGZbs{}\PYGZbs{}}
+ListeY := \PYG{k}{\PYGZbs{}LISTEYY}
+
+\PYG{k}{\PYGZbs{}begin}\PYG{n+nb}{\PYGZob{}}GraphiqueTikz\PYG{n+nb}{\PYGZcb{}}
+	[x=0.05cm,y=0.04cm,Xmin=0,Xmax=160,Xgrille=20,Xgrilles=10,
+	Origy=250,Ymin=250,Ymax=400,Ygrille=25,Ygrilles=5]
+	\PYG{c}{\PYGZpc{}préparation de la fenêtre}
+	\PYG{k}{\PYGZbs{}TracerAxesGrilles}\PYG{n+na}{[Elargir=2.5mm,Police=\PYGZbs{}footnotesize]}\PYG{n+nb}{\PYGZob{}}auto\PYG{n+nb}{\PYGZcb{}\PYGZob{}}auto\PYG{n+nb}{\PYGZcb{}}
+	\PYG{c}{\PYGZpc{}nuage de points}
+	\PYG{k}{\PYGZbs{}TracerNuage}\PYG{n+na}{[Style=o,CouleurNuage=red]}\PYG{n+nb}{\PYGZob{}}\PYG{k}{\PYGZbs{}LISTEXX}\PYG{n+nb}{\PYGZcb{}\PYGZob{}}\PYG{k}{\PYGZbs{}LISTEYY}\PYG{n+nb}{\PYGZcb{}}
+	\PYG{c}{\PYGZpc{}ajustement expoffset}
+	\PYG{k}{\PYGZbs{}TracerAjustement}\PYG{n+na}{[Couleur=blue,Nom=ajust]}\PYGZlt{}ajust\PYGZgt{}\PYG{n+nb}{\PYGZob{}}expoff=250\PYG{n+nb}{\PYGZcb{}\PYGZob{}}\PYG{k}{\PYGZbs{}LISTEXX}\PYG{n+nb}{\PYGZcb{}\PYGZob{}}\PYG{k}{\PYGZbs{}LISTEYY}\PYG{n+nb}{\PYGZcb{}}
+	\PYG{c}{\PYGZpc{}exploitations}
+	\PYG{k}{\PYGZbs{}PlacerImages}\PYG{n+na}{[Couleurs=cyan/magenta,Traits]}\PYG{n+nb}{\PYGZob{}}ajust\PYG{n+nb}{\PYGZcb{}\PYGZob{}}80\PYG{n+nb}{\PYGZcb{}}
+	\PYG{k}{\PYGZbs{}PlacerAntecedents}\PYG{n+na}{[Style=x,Couleurs=blue/green!50!black,Traits]}\PYG{n+nb}{\PYGZob{}}ajust\PYG{n+nb}{\PYGZcb{}\PYGZob{}}325\PYG{n+nb}{\PYGZcb{}}
+\PYG{k}{\PYGZbs{}end}\PYG{n+nb}{\PYGZob{}}GraphiqueTikz\PYG{n+nb}{\PYGZcb{}}
+
+\PYG{k}{\PYGZbs{}xintexpoffreg}\PYG{n+na}{[offset=250,round=3/1]}\PYG{n+nb}{\PYGZob{}}\PYG{k}{\PYGZbs{}LISTEXX}\PYG{n+nb}{\PYGZcb{}\PYGZob{}}\PYG{k}{\PYGZbs{}LISTEYY}\PYG{n+nb}{\PYGZcb{}}\PYG{c}{\PYGZpc{}}
+On obtient \PYG{l+s}{\PYGZdl{}}\PYG{n+nb}{y}\PYG{o}{=}\PYG{l+m}{250}\PYG{o}{+}\PYG{n+nv}{\PYGZbs{}num}\PYG{n+nb}{\PYGZob{}}\PYG{n+nv}{\PYGZbs{}expregoffb}\PYG{n+nb}{\PYGZcb{}}\PYG{n+nv}{\PYGZbs{}text}\PYG{n+nb}{\PYGZob{}e\PYGZcb{}\PYGZca{}\PYGZob{}}\PYG{n+nv}{\PYGZbs{}num}\PYG{n+nb}{\PYGZob{}}\PYG{n+nv}{\PYGZbs{}expregoffa}\PYG{n+nb}{\PYGZcb{}x\PYGZcb{}}\PYG{l+s}{\PYGZdl{}}
+\end{Verbatim}

@@ -1,0 +1,11 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+\PYG{k}{\PYGZbs{}begin}\PYG{n+nb}{\PYGZob{}}pflpythoncodelst\PYG{n+nb}{\PYGZcb{}}*[width=0.75\PYG{k}{\PYGZbs{}linewidth}]\PYG{n+nb}{\PYGZob{}}flush right\PYG{n+nb}{\PYGZcb{}}
+nb = int(input(\PYGZdq{}n = \PYGZdq{}))
+if (nb \PYG{c}{\PYGZpc{}7 == 0) :}
+	print(f\PYGZdq{}\PYG{n+nb}{\PYGZob{}}nb\PYG{n+nb}{\PYGZcb{}} is ok\PYGZdq{})
+\PYGZsh{}endif
+
+def f(x) :
+	return x**2
+\PYG{k}{\PYGZbs{}end}\PYG{n+nb}{\PYGZob{}}pflpythoncodelst\PYG{n+nb}{\PYGZcb{}}
+\end{MintedVerbatim}

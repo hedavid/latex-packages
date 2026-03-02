@@ -1,0 +1,4 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c}{\PYGZpc{}dans l\PYGZsq{}environnement GraphiqueTikz}
+\PYG{k}{\PYGZbs{}TracerIntegrale}\PYG{n+na}{[clés]}\PYGZlt{}options spécifiques\PYGZgt{}\PYG{n+nb}{\PYGZob{}}objet1\PYG{n+nb}{\PYGZcb{}}[objet2]\PYG{n+nb}{\PYGZob{}}A\PYG{n+nb}{\PYGZcb{}\PYGZob{}}B\PYG{n+nb}{\PYGZcb{}}
+\end{Verbatim}

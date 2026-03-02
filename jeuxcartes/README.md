@@ -13,7 +13,7 @@ The package is available on [CTAN](https://ctan.org/pkg/jeuxcartes) and can be i
 - **Graphically**: open the *MiKTeX Console*, go to *Packages*, search for `JeuxCartes` and click *Install*.
 - **Command line**:
   ```
-  miktex packages install JeuxCartes
+  mpm.exe --install JeuxCartes
   ```
 
 ### Via TeX Live / tlmgr

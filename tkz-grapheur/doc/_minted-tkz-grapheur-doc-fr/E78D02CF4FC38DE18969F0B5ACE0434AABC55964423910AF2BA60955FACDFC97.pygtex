@@ -1,0 +1,9 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c}{\PYGZpc{}style des points (courbe / nuage /labels / montecarlo)}
+\PYG{k}{\PYGZbs{}tikzset}\PYG{n+nb}{\PYGZob{}}pflpoint/.style=\PYG{n+nb}{\PYGZob{}}line width=0.95pt\PYG{n+nb}{\PYGZcb{}\PYGZcb{}}
+\PYG{k}{\PYGZbs{}tikzset}\PYG{n+nb}{\PYGZob{}}pflpointc/.style=\PYG{n+nb}{\PYGZob{}}radius=1.75pt\PYG{n+nb}{\PYGZcb{}\PYGZcb{}}
+\PYG{k}{\PYGZbs{}tikzset}\PYG{n+nb}{\PYGZob{}}pflpointnuage/.style=\PYG{n+nb}{\PYGZob{}}radius=1.75pt\PYG{n+nb}{\PYGZcb{}\PYGZcb{}}
+\PYG{k}{\PYGZbs{}tikzset}\PYG{n+nb}{\PYGZob{}}pflpointmc/.style=\PYG{n+nb}{\PYGZob{}}radius=0.875pt\PYG{n+nb}{\PYGZcb{}\PYGZcb{}}
+\PYG{k}{\PYGZbs{}tikzset}\PYG{n+nb}{\PYGZob{}}pflnoeud/.style=\PYG{n+nb}{\PYGZob{}\PYGZcb{}\PYGZcb{}} \PYG{c}{\PYGZpc{}pour les inner sep par exemple :\PYGZhy{})}
+\PYG{k}{\PYGZbs{}tikzset}\PYG{n+nb}{\PYGZob{}}pflcourbediscont/.style=\PYG{n+nb}{\PYGZob{}}line width=1.1pt\PYG{n+nb}{\PYGZcb{}\PYGZcb{}}
+\end{Verbatim}

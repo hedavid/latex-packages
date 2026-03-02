@@ -1,0 +1,9 @@
+\babel@toc {french}{}\relax 
+\contentsline {section}{\numberline {1}Le sous-package customenvs-exams}{2}{section.1}%
+\contentsline {subsection}{\numberline {1.1}Idées}{2}{subsection.1.1}%
+\contentsline {subsection}{\numberline {1.2}Commande de titre(s)}{2}{subsection.1.2}%
+\contentsline {subsection}{\numberline {1.3}Environnement (boîte) d'exercice(s)}{3}{subsection.1.3}%
+\contentsline {subsection}{\numberline {1.4}Réponses à un QCM}{3}{subsection.1.4}%
+\contentsline {subsection}{\numberline {1.5}Environnement complet 'Automatismes'}{5}{subsection.1.5}%
+\contentsline {subsection}{\numberline {1.6}Environnement complet 'Automatismes' via fichier externe}{7}{subsection.1.6}%
+\contentsline {section}{\numberline {2}Historique}{8}{section.2}%

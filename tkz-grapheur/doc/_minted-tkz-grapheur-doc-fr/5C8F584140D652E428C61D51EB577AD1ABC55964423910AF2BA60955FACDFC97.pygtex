@@ -1,0 +1,9 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k}{\PYGZbs{}begin}\PYG{n+nb}{\PYGZob{}}GraphiqueTikz\PYG{n+nb}{\PYGZcb{}}[Xmin=\PYGZhy{}1.5,Xmax=1.5,Ymin=\PYGZhy{}1.5,Ymax=1.5]
+	\PYG{k}{\PYGZbs{}TracerAxesGrilles}\PYG{n+nb}{\PYGZob{}\PYGZcb{}\PYGZob{}\PYGZcb{}}
+	\PYG{c}{\PYGZpc{} Cercle}
+	\PYG{k}{\PYGZbs{}TracerCourbeParam}\PYG{n+na}{[Couleur=blue,Debut=0,Fin=6.28]}\PYG{n+nb}{\PYGZob{}}cos(t)\PYG{n+nb}{\PYGZcb{}\PYGZob{}}sin(t)\PYG{n+nb}{\PYGZcb{}}
+	\PYG{c}{\PYGZpc{} Lissajous}
+	\PYG{k}{\PYGZbs{}TracerCourbeParam}\PYG{n+na}{[Couleur=red,Debut=0,Fin=6.28]}\PYG{n+nb}{\PYGZob{}}cos(2*t)\PYG{n+nb}{\PYGZcb{}\PYGZob{}}sin(3*t)\PYG{n+nb}{\PYGZcb{}}
+\PYG{k}{\PYGZbs{}end}\PYG{n+nb}{\PYGZob{}}GraphiqueTikz\PYG{n+nb}{\PYGZcb{}}
+\end{Verbatim}

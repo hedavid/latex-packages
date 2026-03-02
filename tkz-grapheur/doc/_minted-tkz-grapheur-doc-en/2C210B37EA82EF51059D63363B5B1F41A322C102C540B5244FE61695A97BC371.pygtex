@@ -1,0 +1,6 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c}{\PYGZpc{}in the GraphiqueTikz environment}
+\PYG{k}{\PYGZbs{}GetXcoord}\PYG{n+nb}{\PYGZob{}}node\PYG{n+nb}{\PYGZcb{}}[\PYG{k}{\PYGZbs{}macrox}]
+\PYG{k}{\PYGZbs{}GetYcoord}\PYG{n+nb}{\PYGZob{}}node\PYG{n+nb}{\PYGZcb{}}[\PYG{k}{\PYGZbs{}macroy}]
+\PYG{k}{\PYGZbs{}GetXYcoord}\PYG{n+nb}{\PYGZob{}}node\PYG{n+nb}{\PYGZcb{}}[\PYG{k}{\PYGZbs{}macrox}][\PYG{k}{\PYGZbs{}macroy}]
+\end{Verbatim}

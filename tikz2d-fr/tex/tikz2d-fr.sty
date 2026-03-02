@@ -1,27 +1,56 @@
 % Author     : C. Pierquet
-% licence    : Released under the LaTeX Project Public License v1.3c
-% or later, see http://www.latex-project.org/lppl.txt
+% licence    : Released under the LaTeX Project Public License v1.3c or later, see http://www.latex-project.org/lppl.txt
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{tikz2d-fr}[2023/05/28 0.1.1 Petites aides pour l'utilisation de TikZ 2D]
+\ProvidesPackage{tikz2d-fr}[2025/04/23 0.1.3 Petites aides pour l'utilisation de TikZ 2D]
+%0.1.3	Ajout d'un style alternatif pour la mainlevée
+%0.1.2	Ajout d'une commande pour l'orthogone de Lill
 %0.1.1	Ajout de [TaillePolice] + Commandes Point(s) par transformations (trans / rotat / sym)
 %0.1.0	Version initiale
 
 %------Packages utiles
 \RequirePackage{tikz,pgffor}
+\RequirePackage{tkz-euclide}
 \RequirePackage{xstring}
 \RequirePackage{xintexpr}
 \RequirePackage{simplekv}
 \RequirePackage{listofitems}
 %------Librairies tikz
 \usetikzlibrary{calc}
-\usetikzlibrary{decorations,decorations.pathmorphing}
+\usetikzlibrary{decorations,decorations.pathmorphing,patterns}
+\usetikzlibrary{babel}
 
 %------Style main levée (avant dans ProfLycee)
 \tikzset{%
 	mainlevee/.style args={#1et#2}{decorate,decoration={random steps,segment length=#1,amplitude=#2}},
 	mainlevee/.default={5mm et 0.6pt}
 }
+
+%------Style main levée (simulé, alternative)
+%------https://tex.stackexchange.com/questions/39296/simulating-hand-drawn-lines/445690#445690 CC BY-SA 4.0
+\pgfset{
+  /pgf/decoration/randomness/.initial=2,
+  /pgf/decoration/wavelength/.initial=100
+}
+\pgfdeclaredecoration{tikzsketch}{init}{
+  \state{init}[width=0pt,next state=draw,persistent precomputation={
+    \pgfmathsetmacro\pgf@lib@dec@sketch@t0
+  }]{}
+  \state{draw}[width=\pgfdecorationsegmentlength,
+  auto corner on length=\pgfdecorationsegmentlength,
+  persistent precomputation={
+    \pgfmathsetmacro\pgf@lib@dec@sketch@t{mod(\pgf@lib@dec@sketch@t+pow(\pgfkeysvalueof{/pgf/decoration/randomness},rand),\pgfkeysvalueof{/pgf/decoration/wavelength})}
+  }]{
+    \pgfmathparse{sin(2*\pgf@lib@dec@sketch@t*pi/\pgfkeysvalueof{/pgf/decoration/wavelength} r)}
+    \pgfpathlineto{\pgfqpoint{\pgfdecorationsegmentlength}{\pgfmathresult\pgfdecorationsegmentamplitude}}
+  }
+  \state{final}{}
+}
+\tikzset{%
+	mainleveealt/.style args={#1et#2}{decorate,decoration={tikzsketch,segment length=#1,amplitude=#2}},
+	mainleveealt/.default={0.5pt et 0.5pt}
+}
+%\tikzset{mainleveealt/.style={decorate,decoration={stylomainlevee}}}
 
 %------Points
 %%------Commandes internes pour les nœuds et points
@@ -285,6 +314,244 @@
 				\ImagePoint[#2]{\formule}%
 			}%
 	}%
+}
+
+%====Orthogone de Lill
+\ExplSyntaxOn
+	\NewDocumentCommand\ConvertirPtToUnit{ m } { \dim_to_decimal_in_unit:nn { #1 } { 1 cm } }
+\ExplSyntaxOff
+
+\defKV[OrthogLill]{%
+	Echelle=\def\tmpLillEchelle{#1},%
+	Arrondis=\def\tmpLillRound{#1}
+}
+\setKVdefault[OrthogLill]{%
+	GrilleX=1,%
+	GrilleY=1,%
+	Echelle=1,%
+	Coeffs=false,%
+	Arrondis={}
+}
+
+\NewDocumentEnvironment{EnvOrthoLill}{ O{} m m m }
+{%
+	\restoreKV[OrthogLill]%
+	\setKV[OrthogLill]{#1}%
+	\def\tmpLillCoeffa{#2}%
+	\def\tmpLillCoeffb{#3}%
+	\def\tmpLillCoeffc{#4}%
+	\IfStrEq{\tmpLillRound}{}%
+		{%
+			\xdef\PremSol{\xintfloateval{min((-(#3)-sqrt((#3)^2-4*(#2)*(#4)))/(2*(#2)),(-(#3)+sqrt((#3)^2-4*(#2)*(#4)))/(2*(#2)))}}%
+			\xdef\DeuxSol{\xintfloateval{max((-(#3)-sqrt((#3)^2-4*(#2)*(#4)))/(2*(#2)),(-(#3)+sqrt((#3)^2-4*(#2)*(#4)))/(2*(#2)))}}%
+		}%
+		{%
+			\xdef\PremSol{\xintfloateval{round(min((-(#3)-sqrt((#3)^2-4*(#2)*(#4)))/(2*(#2)),(-(#3)+sqrt((#3)^2-4*(#2)*(#4)))/(2*(#2))),\tmpLillRound)}}%
+			\xdef\DeuxSol{\xintfloateval{round(max((-(#3)-sqrt((#3)^2-4*(#2)*(#4)))/(2*(#2)),(-(#3)+sqrt((#3)^2-4*(#2)*(#4)))/(2*(#2))),\tmpLillRound)}}%
+		}%
+	\xintifboolexpr{#2 > 0 }%
+		{%
+			\def\tmpLillCentreX{\xintfloateval{-(\tmpLillCoeffb)/2}}%
+		}%
+		{%
+			\def\tmpLillCentreX{\xintfloateval{(\tmpLillCoeffb)/2}}%
+		}%
+	\def\tmpLillCentreY{\xintfloateval{(\tmpLillCoeffa-(\tmpLillCoeffc))/2}}%
+	\def\tmpLillRayon{\xintfloateval{0.5*sqrt((\tmpLillCoeffb)^2+((\tmpLillCoeffa)-(\tmpLillCoeffc))^2)}}%
+	\def\tmpLillMinX{\xintfloateval{min(\tmpLillCentreX-\tmpLillRayon,\PremSol,\DeuxSol)}}%
+	\def\tmpLillMaxX{\xintfloateval{max(\tmpLillCentreX+\tmpLillRayon,\PremSol,\DeuxSol)}}%
+	\def\tmpLillLargX{\xintfloateval{\tmpLillMaxX-\tmpLillMinX}}%
+	\def\tmpLillMinY{\xintfloateval{\tmpLillCentreY-\tmpLillRayon}}%
+	\def\tmpLillMaxY{\xintfloateval{max(\tmpLillCentreY+\tmpLillRayon,1)}}%
+	\def\tmpLillLargY{\xintfloateval{\tmpLillMaxY-\tmpLillMinY}}%
+	\begin{tikzpicture}[scale=\tmpLillEchelle]
+		\begin{scope}
+			\clip ({\tmpLillMinX-0.05*\tmpLillLargX},{\tmpLillMinY-0.05*\tmpLillLargY}) rectangle ({\tmpLillMaxX+0.05*\tmpLillLargX},{\tmpLillMaxY+0.05*\tmpLillLargY}) ;
+			\draw[thin,lightgray,xstep={\useKV[OrthogLill]{GrilleX}},ystep={\useKV[OrthogLill]{GrilleY}}] ({\tmpLillMinX-0.05*\tmpLillLargX},{\tmpLillMinY-0.05*\tmpLillLargY}) grid ({\tmpLillMaxX+0.05*\tmpLillLargX},{\tmpLillMaxY+0.05*\tmpLillLargY}) ;
+			\draw[thick] ({\tmpLillMinX-0.05*\tmpLillLargX},0) --({\tmpLillMaxX+0.05*\tmpLillLargX},0) ;
+			\foreach \x in {0,{\useKV[OrthogLill]{GrilleX}},...,\tmpLillMaxX}{%
+				\draw[thick] (\x,{2.25pt/\tmpLillEchelle})--++(0,{-4.5pt/\tmpLillEchelle}) ;
+			}
+			\foreach \x in {0,{-\useKV[OrthogLill]{GrilleX}},...,\tmpLillMinX}{%
+				\draw[thick] (\x,{2.25pt/\tmpLillEchelle})--++(0,{-4.5pt/\tmpLillEchelle}) ;
+			}
+			\coordinate (A) at (0,0) ;
+			\xintifboolexpr{#2 > 0}%
+				{%
+					\coordinate (B) at ($(A)+(90:{\tmpLillCoeffa})$) ;
+					\coordinate (C) at ($(B)+(180:{\tmpLillCoeffb})$) ;
+					\coordinate (D) at ($(C)+(270:{\tmpLillCoeffc})$) ;
+				}%
+				{%
+					\coordinate (B) at ($(A)+(90:{\tmpLillCoeffa})$) ;
+					\coordinate (C) at ($(B)+(180:{-\tmpLillCoeffb})$) ;
+					\coordinate (D) at ($(C)+(270:{\tmpLillCoeffc})$) ;
+				}%
+			\tkzDefCircle[diameter](A,D)\tkzGetPoint{M}
+			\xintifboolexpr{(#3)^2-4*(#2)*(#4) >= 0 }%
+				{%si on a des solutions
+					\tkzInterLC(B,C)(M,D)\tkzGetPoints{a}{b}
+					\draw[red,thick,densely dotted] ({\tmpLillMinX-0.05*\tmpLillLargX},{#2})--({\tmpLillMaxX+0.05*\tmpLillLargX},{#2}) ;
+					\tkzDrawSegments[thick,darkgray,densely dotted](a,D b,D)
+					\tkzDrawSegments[thick,lightgray,densely dotted](A,D)
+					\tkzDrawCircle[thick,blue,dashed](M,D)
+					\tkzMarkRightAngle[thick,darkgray,size=\fpeval{0.25/\tmpLillEchelle}](A,a,D)
+					\tkzMarkRightAngle[thick,darkgray,size=\fpeval{0.25/\tmpLillEchelle}](D,b,A)
+				}%
+				{}%
+		\end{scope}
+		%solutions
+		\xintifboolexpr{(#3)^2-4*(#2)*(#4) >= 0 }%
+			{%
+				\xintifboolexpr{#2 > 0}%
+					{%
+						\coordinate (S1) at ({\PremSol},{1}) ;
+						\coordinate (S2) at ({\DeuxSol},{1}) ;
+						\draw[thick,orange,densely dashed] ({\tmpLillMinX-0.05*\tmpLillLargX},1)--({\tmpLillMaxX+0.05*\tmpLillLargX},1) ;
+					}%
+					{%
+						\coordinate (S1) at ({\PremSol},{-1}) ;
+						\coordinate (S2) at ({\DeuxSol},{-1}) ;
+						\draw[thick,orange,densely dashed] ({\tmpLillMinX-0.05*\tmpLillLargX},-1)--({\tmpLillMaxX+0.05*\tmpLillLargX},-1) ;
+					}%
+				\xintifboolexpr{ abs(#2) < 1}%
+					{%
+						\tkzDrawSegments[thick,darkgray,densely dotted](A,S1 A,S2)
+						
+					}%
+					{%
+						\tkzDrawSegments[thick,darkgray,densely dotted](a,A b,A)
+					}%
+				\xintifboolexpr{#2 > 0}%
+					{%
+						\draw[thick,orange,->,>=latex] let \p1 = (S1) in (S1) -- ({\x1},0) node[below,font=\tiny] {$\PremSol$} ;
+						\draw[thick,orange,->,>=latex] let \p1 = (S2) in (S2) -- ({\x1},0) node[below,font=\tiny] {$\DeuxSol$} ;
+					}%
+					{%
+						\draw[thick,orange,->,>=latex] let \p1 = (S1) in (S1) -- ({\x1},0) node[above,font=\tiny] {$\PremSol$} ;
+						\draw[thick,orange,->,>=latex] let \p1 = (S2) in (S2) -- ({\x1},0) node[above,font=\tiny] {$\DeuxSol$} ;
+					}%
+				\tkzDrawPoints(S1,S2)
+			}%
+			{}%
+		\draw (A) node[below left,inner sep=1.25pt,font=\small,draw=none,fill=white] {0} ;
+		\draw ({\useKV[OrthogLill]{GrilleX}},{-2.25pt/\tmpLillEchelle}) node[below,font=\footnotesize,inner sep=1.75pt,draw=none,fill=white] {\useKV[OrthogLill]{GrilleX}} ;
+		\draw[red,thick,->,>=latex] (A)--(B)  \ifboolKV[OrthogLill]{Coeffs}{node[draw,semithick,font=\tiny,inner sep=1.75pt,fill=white,sloped,midway] {$\tmpLillCoeffa\vec{\jmath}$}}{} ;
+		\draw[red,thick,->,>=latex] (B)--(C)  \ifboolKV[OrthogLill]{Coeffs}{node[draw,semithick,font=\tiny,inner sep=1.75pt,fill=white,sloped,midway] {$\xintifboolexpr{#2>0}{-(\tmpLillCoeffb)}{\tmpLillCoeffb}\vec{\imath}$}}{} ;
+		\draw[red,thick,->,>=latex] (C)--(D)  \ifboolKV[OrthogLill]{Coeffs}{node[draw,semithick,font=\tiny,inner sep=1.75pt,fill=white,sloped,midway] {$-(\tmpLillCoeffc)\vec{\jmath}$}}{} ;
+}%
+{%
+	\end{tikzpicture}%
+}%
+
+\NewDocumentCommand\OrthogoneLill{ O{} m m m }{%
+	\restoreKV[OrthogLill]%
+	\setKV[OrthogLill]{#1}%
+	\def\tmpLillCoeffa{#2}%
+	\def\tmpLillCoeffb{#3}%
+	\def\tmpLillCoeffc{#4}%
+	\xintifboolexpr{(#3)^2-4*(#2)*(#4) >= 0 'and' (#3)*(#4) != 0}%
+		{%
+			%extraction des solutions
+			\IfStrEq{\tmpLillRound}{}%
+				{%
+					\xdef\PremSol{\xintfloateval{min((-(#3)-sqrt((#3)^2-4*(#2)*(#4)))/(2*(#2)),(-(#3)+sqrt((#3)^2-4*(#2)*(#4)))/(2*(#2)))}}%
+					\xdef\DeuxSol{\xintfloateval{max((-(#3)-sqrt((#3)^2-4*(#2)*(#4)))/(2*(#2)),(-(#3)+sqrt((#3)^2-4*(#2)*(#4)))/(2*(#2)))}}%
+				}%
+				{%
+					\xdef\PremSol{\xintfloateval{round(min((-(#3)-sqrt((#3)^2-4*(#2)*(#4)))/(2*(#2)),(-(#3)+sqrt((#3)^2-4*(#2)*(#4)))/(2*(#2))),\tmpLillRound)}}%
+					\xdef\DeuxSol{\xintfloateval{round(max((-(#3)-sqrt((#3)^2-4*(#2)*(#4)))/(2*(#2)),(-(#3)+sqrt((#3)^2-4*(#2)*(#4)))/(2*(#2))),\tmpLillRound)}}%
+				}%
+			%le cas a<0
+			\xintifboolexpr{#2 > 0 }%
+				{%
+					\def\tmpLillCentreX{\xintfloateval{-(\tmpLillCoeffb)/2}}%
+				}%
+				{%
+					\def\tmpLillCentreX{\xintfloateval{(\tmpLillCoeffb)/2}}%
+				}%
+			\def\tmpLillCentreY{\xintfloateval{(\tmpLillCoeffa-(\tmpLillCoeffc))/2}}%
+			\def\tmpLillRayon{\xintfloateval{0.5*sqrt((\tmpLillCoeffb)^2+((\tmpLillCoeffa)-(\tmpLillCoeffc))^2)}}%
+			\def\tmpLillMinX{\xintfloateval{min(\tmpLillCentreX-\tmpLillRayon,\PremSol,\DeuxSol)}}%
+			\def\tmpLillMaxX{\xintfloateval{max(\tmpLillCentreX+\tmpLillRayon,\PremSol,\DeuxSol)}}%
+			\def\tmpLillLargX{\xintfloateval{\tmpLillMaxX-\tmpLillMinX}}%
+			\def\tmpLillMinY{\xintfloateval{\tmpLillCentreY-\tmpLillRayon}}%
+			\def\tmpLillMaxY{\xintfloateval{max(\tmpLillCentreY+\tmpLillRayon,1)}}%
+			\def\tmpLillLargY{\xintfloateval{\tmpLillMaxY-\tmpLillMinY}}%
+			\begin{tikzpicture}[scale=\tmpLillEchelle]
+				\begin{scope}
+					\clip ({\tmpLillMinX-0.05*\tmpLillLargX},{\tmpLillMinY-0.05*\tmpLillLargY}) rectangle ({\tmpLillMaxX+0.05*\tmpLillLargX},{\tmpLillMaxY+0.05*\tmpLillLargY}) ;
+					\draw[thin,lightgray,xstep={\useKV[OrthogLill]{GrilleX}},ystep={\useKV[OrthogLill]{GrilleY}}] ({\tmpLillMinX-0.05*\tmpLillLargX},{\tmpLillMinY-0.05*\tmpLillLargY}) grid ({\tmpLillMaxX+0.05*\tmpLillLargX},{\tmpLillMaxY+0.05*\tmpLillLargY}) ;
+					\draw[thick] ({\tmpLillMinX-0.05*\tmpLillLargX},0) --({\tmpLillMaxX+0.05*\tmpLillLargX},0) ;
+					\foreach \x in {0,{\useKV[OrthogLill]{GrilleX}},...,\tmpLillMaxX}{%
+						\draw[thick] (\x,{2.25pt/\tmpLillEchelle})--++(0,{-4.5pt/\tmpLillEchelle}) ;
+					}
+					\foreach \x in {0,{-\useKV[OrthogLill]{GrilleX}},...,\tmpLillMinX}{%
+						\draw[thick] (\x,{2.25pt/\tmpLillEchelle})--++(0,{-4.5pt/\tmpLillEchelle}) ;
+					}
+					\coordinate (A) at (0,0) ;
+					\xintifboolexpr{#2 > 0}%
+						{%
+							\coordinate (B) at ($(A)+(90:{\tmpLillCoeffa})$) ;
+							\coordinate (C) at ($(B)+(180:{\tmpLillCoeffb})$) ;
+							\coordinate (D) at ($(C)+(270:{\tmpLillCoeffc})$) ;
+						}%
+						{%
+							\coordinate (B) at ($(A)+(90:{\tmpLillCoeffa})$) ;
+							\coordinate (C) at ($(B)+(180:{-\tmpLillCoeffb})$) ;
+							\coordinate (D) at ($(C)+(270:{\tmpLillCoeffc})$) ;
+						}%
+					\tkzDefCircle[diameter](A,D)\tkzGetPoint{M}
+					\tkzInterLC(B,C)(M,D)\tkzGetPoints{a}{b}
+					%tracés
+					\draw[red,thick,densely dotted] ({\tmpLillMinX-0.05*\tmpLillLargX},{#2})--({\tmpLillMaxX+0.05*\tmpLillLargX},{#2}) ;
+					\tkzDrawSegments[thick,darkgray,densely dotted](a,D b,D)
+					\tkzDrawSegments[thick,lightgray,densely dotted](A,D)
+					\tkzDrawCircle[thick,blue,dashed](M,D)
+					\tkzMarkRightAngle[thick,darkgray,size=\fpeval{0.25/\tmpLillEchelle}](A,a,D)
+					\tkzMarkRightAngle[thick,darkgray,size=\fpeval{0.25/\tmpLillEchelle}](D,b,A)
+					%les solutions
+				\end{scope}
+				%solutions
+				\xintifboolexpr{#2 > 0}%
+					{%
+						\coordinate (S1) at ({\PremSol},{1}) ;
+						\coordinate (S2) at ({\DeuxSol},{1}) ;
+						\draw[thick,orange,densely dashed] ({\tmpLillMinX-0.05*\tmpLillLargX},1)--({\tmpLillMaxX+0.05*\tmpLillLargX},1) ;
+					}%
+					{%
+						\coordinate (S1) at ({\PremSol},{-1}) ;
+						\coordinate (S2) at ({\DeuxSol},{-1}) ;
+						\draw[thick,orange,densely dashed] ({\tmpLillMinX-0.05*\tmpLillLargX},-1)--({\tmpLillMaxX+0.05*\tmpLillLargX},-1) ;
+					}%
+				\xintifboolexpr{ abs(#2) < 1}%
+					{%
+						\tkzDrawSegments[thick,darkgray,densely dotted](A,S1 A,S2)
+						
+					}%
+					{%
+						\tkzDrawSegments[thick,darkgray,densely dotted](a,A b,A)
+					}%
+				\xintifboolexpr{#2 > 0}%
+					{%
+						\draw[thick,orange,->,>=latex] let \p1 = (S1) in (S1) -- ({\x1},0) node[below,font=\tiny] {$\PremSol$} ;
+						\draw[thick,orange,->,>=latex] let \p1 = (S2) in (S2) -- ({\x1},0) node[below,font=\tiny] {$\DeuxSol$} ;
+					}%
+					{%
+						\draw[thick,orange,->,>=latex] let \p1 = (S1) in (S1) -- ({\x1},0) node[above,font=\tiny] {$\PremSol$} ;
+						\draw[thick,orange,->,>=latex] let \p1 = (S2) in (S2) -- ({\x1},0) node[above,font=\tiny] {$\DeuxSol$} ;
+					}%
+				\draw (A) node[below left,inner sep=1.25pt,font=\small,draw=none,fill=white] {0} ;
+				\tkzDrawPoints(S1,S2)
+				\draw ({\useKV[OrthogLill]{GrilleX}},{-2.25pt/\tmpLillEchelle}) node[below,font=\footnotesize,inner sep=1.75pt,draw=none,fill=white] {\useKV[OrthogLill]{GrilleX}} ;
+				\draw[red,thick,->,>=latex] (A)--(B)  \ifboolKV[OrthogLill]{Coeffs}{node[draw,semithick,font=\tiny,inner sep=1.75pt,fill=white,sloped,midway] {$\tmpLillCoeffa\vec{\jmath}$}}{} ;
+				\draw[red,thick,->,>=latex] (B)--(C)  \ifboolKV[OrthogLill]{Coeffs}{node[draw,semithick,font=\tiny,inner sep=1.75pt,fill=white,sloped,midway] {$\xintifboolexpr{#2>0}{-(\tmpLillCoeffb)}{\tmpLillCoeffb}\vec{\imath}$}}{} ;
+				\draw[red,thick,->,>=latex] (C)--(D)  \ifboolKV[OrthogLill]{Coeffs}{node[draw,semithick,font=\tiny,inner sep=1.75pt,fill=white,sloped,midway] {$-(\tmpLillCoeffc)\vec{\jmath}$}}{} ;
+			\end{tikzpicture}%
+		}%
+		{%
+			Pas de construction possible.%
+		}%
 }
 
 \endinput

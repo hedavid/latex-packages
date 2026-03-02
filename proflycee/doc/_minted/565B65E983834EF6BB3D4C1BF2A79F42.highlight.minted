@@ -1,0 +1,23 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+\PYG{k}{\PYGZbs{}begin}\PYG{n+nb}{\PYGZob{}}pflpitoncode\PYG{n+nb}{\PYGZcb{}}[\PYGZlt{}keys\PYGZgt{}]\PYG{n+nb}{\PYGZob{}}tcbox options\PYG{n+nb}{\PYGZcb{}} ... \PYG{k}{\PYGZbs{}end}\PYG{n+nb}{\PYGZob{}}pflpitoncode\PYG{n+nb}{\PYGZcb{}}
+\PYG{k}{\PYGZbs{}begin}\PYG{n+nb}{\PYGZob{}}CodePiton\PYG{n+nb}{\PYGZcb{}}[\PYGZlt{}clés\PYGZgt{}]\PYG{n+nb}{\PYGZob{}}options tcbox\PYG{n+nb}{\PYGZcb{}}    ... \PYG{k}{\PYGZbs{}end}\PYG{n+nb}{\PYGZob{}}CodePiton\PYG{n+nb}{\PYGZcb{}}
+\PYG{k}{\PYGZbs{}pflpitoncodefile}\PYG{n+na}{[\PYGZlt{}keys\PYGZgt{}]}\PYG{n+nb}{\PYGZob{}}tcbox options\PYG{n+nb}{\PYGZcb{}}
+\PYG{k}{\PYGZbs{}CodePitonFichier}\PYG{n+na}{[\PYGZlt{}clés\PYGZgt{}]}\PYG{n+nb}{\PYGZob{}}options tcbox\PYG{n+nb}{\PYGZcb{}}
+
+\PYG{c}{\PYGZpc{} \PYGZhy{}\PYGZhy{}\PYGZhy{} [keys/clés] \PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}}
+\PYG{c}{\PYGZpc{} width        = Largeur        = \PYGZbs{}linewidth}
+\PYG{c}{\PYGZpc{} align        = Alignement     = center}
+\PYG{c}{\PYGZpc{} lines        = Lignes         = true}
+\PYG{c}{\PYGZpc{} gobble       = Gobble         = \PYGZob{}\PYGZcb{}}
+\PYG{c}{\PYGZpc{} font size    = TaillePolice   = \PYGZbs{}footnotesize}
+\PYG{c}{\PYGZpc{} watermark    = Filigrane      = false}
+\PYG{c}{\PYGZpc{} style        = Style          = classic/modern/(light)carbon/tab}
+\PYG{c}{\PYGZpc{} border       = Cadre          = true}
+\PYG{c}{\PYGZpc{} title bar    = BarreTitre     = true}
+\PYG{c}{\PYGZpc{} title        = Titre          = ...}
+\PYG{c}{\PYGZpc{} vsep         = EspacementV    = 0.5\PYGZbs{}baselineskip}
+\PYG{c}{\PYGZpc{} num color    = CouleurNombres = \PYGZob{}orange!75!black\PYGZcb{}}
+\PYG{c}{\PYGZpc{} color        = Couleur        = red}
+\PYG{c}{\PYGZpc{} carbon icons = IconesCarbon   = ...}
+\PYG{c}{\PYGZpc{} \PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}}
+\end{MintedVerbatim}

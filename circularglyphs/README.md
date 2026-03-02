@@ -13,7 +13,7 @@ The package is available on [CTAN](https://ctan.org/pkg/circularglyphs) and can 
 - **Graphically**: open the *MiKTeX Console*, go to *Packages*, search for `circularglyphs` and click *Install*.
 - **Command line**:
   ```
-  miktex packages install circularglyphs
+  mpm.exe --install circularglyphs
   ```
 
 ### Via TeX Live / tlmgr
@@ -52,7 +52,6 @@ If you want the latest version directly from this repository:
 
 ## Credits
 
-| | |
 |---|---|
 | **Circular Glyphs alphabet** | [Irolan](https://www.deviantart.com/irolan/art/Circular-Glyphs-479352599) on DeviantArt |
 
@@ -60,7 +59,7 @@ If you want the latest version directly from this repository:
 
 ## Author & License
 
-| | |
+|||
 |---|---|
 | **Author** | Cédric Pierquet |
 | **Email** | cpierquet@outlook.fr |

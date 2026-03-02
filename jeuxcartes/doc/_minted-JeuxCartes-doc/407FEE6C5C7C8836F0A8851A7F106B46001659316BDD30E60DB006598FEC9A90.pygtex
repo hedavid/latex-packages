@@ -1,0 +1,31 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k}{\PYGZbs{}textbf}\PYG{n+nb}{\PYGZob{}}\PYG{k}{\PYGZbs{}large} Saisie de mains : \PYG{n+nb}{\PYGZcb{}}\PYG{k}{\PYGZbs{}\PYGZbs{}}
+\PYG{k}{\PYGZbs{}MainMiniCartesJeu}\PYG{n+nb}{\PYGZob{}}7.K § A.P § D.T § V.K § 10.C § C.T § JO.N\PYG{n+nb}{\PYGZcb{}} et\PYGZti{}
+\PYG{k}{\PYGZbs{}MainMiniCartesJeu}\PYG{n+nb}{\PYGZob{}}Exc § 1.AT § C.C § 8.T § 2.K § 5.AT § 2.AT § D.P § 7.T § 10.C § 19.AT § V.P\PYG{n+nb}{\PYGZcb{}}\PYG{k}{\PYGZbs{}\PYGZbs{}}
+
+\PYG{k}{\PYGZbs{}textbf}\PYG{n+nb}{\PYGZob{}}\PYG{k}{\PYGZbs{}large} Poker : \PYG{n+nb}{\PYGZcb{}}\PYG{k}{\PYGZbs{}\PYGZbs{}}
+\PYG{k}{\PYGZbs{}MainMiniCartesJeuAleatoire}\PYG{n+nb}{\PYGZob{}}5\PYG{n+nb}{\PYGZcb{}} ou \PYG{k}{\PYGZbs{}MainMiniCartesJeuAleatoire}\PYG{n+nb}{\PYGZob{}}5\PYG{n+nb}{\PYGZcb{}} ou \PYG{k}{\PYGZbs{}MainMiniCartesJeuAleatoire}\PYG{n+nb}{\PYGZob{}}5\PYG{n+nb}{\PYGZcb{}} ou \PYG{k}{\PYGZbs{}MainMiniCartesJeuAleatoire}\PYG{n+nb}{\PYGZob{}}5\PYG{n+nb}{\PYGZcb{}}.\PYG{k}{\PYGZbs{}\PYGZbs{}}
+
+\PYG{k}{\PYGZbs{}textbf}\PYG{n+nb}{\PYGZob{}}\PYG{k}{\PYGZbs{}large} Poker [en] : \PYG{n+nb}{\PYGZcb{}}\PYG{k}{\PYGZbs{}\PYGZbs{}}
+\PYG{k}{\PYGZbs{}MainMiniCartesJeuAleatoire}\PYG{n+na}{[TypeJeu=PokerEN]}\PYG{n+nb}{\PYGZob{}}5\PYG{n+nb}{\PYGZcb{}} ou \PYG{k}{\PYGZbs{}MainMiniCartesJeuAleatoire}\PYG{n+na}{[TypeJeu=PokerEN]}\PYG{n+nb}{\PYGZob{}}5\PYG{n+nb}{\PYGZcb{}} ou \PYG{k}{\PYGZbs{}MainMiniCartesJeuAleatoire}\PYG{n+na}{[TypeJeu=PokerEN]}\PYG{n+nb}{\PYGZob{}}5\PYG{n+nb}{\PYGZcb{}} ou \PYG{k}{\PYGZbs{}MainMiniCartesJeuAleatoire}\PYG{n+na}{[TypeJeu=PokerEN]}\PYG{n+nb}{\PYGZob{}}5\PYG{n+nb}{\PYGZcb{}}.\PYG{k}{\PYGZbs{}\PYGZbs{}}
+
+\PYG{k}{\PYGZbs{}textbf}\PYG{n+nb}{\PYGZob{}}\PYG{k}{\PYGZbs{}large} Belote :\PYG{n+nb}{\PYGZcb{}}\PYG{k}{\PYGZbs{}\PYGZbs{}}
+\PYG{k}{\PYGZbs{}MainMiniCartesJeuAleatoire}\PYG{n+na}{[TypeJeu=Belote]}\PYG{n+nb}{\PYGZob{}}8\PYG{n+nb}{\PYGZcb{}} ou \PYG{k}{\PYGZbs{}MainMiniCartesJeuAleatoire}\PYG{n+na}{[TypeJeu=Belote]}\PYG{n+nb}{\PYGZob{}}8\PYG{n+nb}{\PYGZcb{}} ou \PYG{k}{\PYGZbs{}MainMiniCartesJeuAleatoire}\PYG{n+na}{[TypeJeu=Belote]}\PYG{n+nb}{\PYGZob{}}8\PYG{n+nb}{\PYGZcb{}}.\PYG{k}{\PYGZbs{}\PYGZbs{}}
+
+\PYG{k}{\PYGZbs{}textbf}\PYG{n+nb}{\PYGZob{}}\PYG{k}{\PYGZbs{}large} Belote [en] :\PYG{n+nb}{\PYGZcb{}}\PYG{k}{\PYGZbs{}\PYGZbs{}}
+\PYG{k}{\PYGZbs{}MainMiniCartesJeuAleatoire}\PYG{n+na}{[TypeJeu=BeloteEN]}\PYG{n+nb}{\PYGZob{}}8\PYG{n+nb}{\PYGZcb{}} ou \PYG{k}{\PYGZbs{}MainMiniCartesJeuAleatoire}\PYG{n+na}{[TypeJeu=BeloteEN]}\PYG{n+nb}{\PYGZob{}}8\PYG{n+nb}{\PYGZcb{}} ou \PYG{k}{\PYGZbs{}MainMiniCartesJeuAleatoire}\PYG{n+na}{[TypeJeu=BeloteEN]}\PYG{n+nb}{\PYGZob{}}8\PYG{n+nb}{\PYGZcb{}}.\PYG{k}{\PYGZbs{}\PYGZbs{}}
+
+\PYG{k}{\PYGZbs{}textbf}\PYG{n+nb}{\PYGZob{}}\PYG{k}{\PYGZbs{}large} Bataille : \PYG{n+nb}{\PYGZcb{}}\PYG{k}{\PYGZbs{}\PYGZbs{}}
+\PYG{k}{\PYGZbs{}MainMiniCartesJeuAleatoire}\PYG{n+na}{[TypeJeu=Bataille]}\PYG{n+nb}{\PYGZob{}}12\PYG{n+nb}{\PYGZcb{}} ou \PYG{k}{\PYGZbs{}MainMiniCartesJeuAleatoire}\PYG{n+na}{[TypeJeu=Bataille]}\PYG{n+nb}{\PYGZob{}}12\PYG{n+nb}{\PYGZcb{}}.\PYG{k}{\PYGZbs{}\PYGZbs{}}
+
+\PYG{k}{\PYGZbs{}textbf}\PYG{n+nb}{\PYGZob{}}\PYG{k}{\PYGZbs{}large} Tarot : \PYG{n+nb}{\PYGZcb{}}\PYG{k}{\PYGZbs{}\PYGZbs{}}
+\PYG{k}{\PYGZbs{}MainMiniCartesJeuAleatoire}\PYG{n+na}{[TypeJeu=Tarot]}\PYG{n+nb}{\PYGZob{}}10\PYG{n+nb}{\PYGZcb{}} ou \PYG{k}{\PYGZbs{}MainMiniCartesJeuAleatoire}\PYG{n+na}{[TypeJeu=Tarot]}\PYG{n+nb}{\PYGZob{}}10\PYG{n+nb}{\PYGZcb{}}.\PYG{k}{\PYGZbs{}\PYGZbs{}}
+
+\PYG{k}{\PYGZbs{}textbf}\PYG{n+nb}{\PYGZob{}}\PYG{k}{\PYGZbs{}large} Rami : \PYG{n+nb}{\PYGZcb{}}\PYG{k}{\PYGZbs{}\PYGZbs{}}
+\PYG{k}{\PYGZbs{}MainMiniCartesJeuAleatoire}\PYG{n+na}{[TypeJeu=Rami]}\PYG{n+nb}{\PYGZob{}}15\PYG{n+nb}{\PYGZcb{}} ou\PYG{k}{\PYGZbs{}\PYGZbs{}}
+\PYG{k}{\PYGZbs{}MainMiniCartesJeuAleatoire}\PYG{n+na}{[TypeJeu=Rami]}\PYG{n+nb}{\PYGZob{}}14\PYG{n+nb}{\PYGZcb{}}.\PYG{k}{\PYGZbs{}\PYGZbs{}}
+
+\PYG{k}{\PYGZbs{}textbf}\PYG{n+nb}{\PYGZob{}}\PYG{k}{\PYGZbs{}large} Rami [en] : \PYG{n+nb}{\PYGZcb{}}\PYG{k}{\PYGZbs{}\PYGZbs{}}
+\PYG{k}{\PYGZbs{}MainMiniCartesJeuAleatoire}\PYG{n+na}{[TypeJeu=RamiEN]}\PYG{n+nb}{\PYGZob{}}15\PYG{n+nb}{\PYGZcb{}} ou\PYG{k}{\PYGZbs{}\PYGZbs{}}
+\PYG{k}{\PYGZbs{}MainMiniCartesJeuAleatoire}\PYG{n+na}{[TypeJeu=RamiEN]}\PYG{n+nb}{\PYGZob{}}14\PYG{n+nb}{\PYGZcb{}}.
+\end{Verbatim}

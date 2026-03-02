@@ -13,7 +13,7 @@ The package is available on [CTAN](https://ctan.org/pkg/customenvs) and can be i
 - **Graphically**: open the *MiKTeX Console*, go to *Packages*, search for `customenvs` and click *Install*.
 - **Command line**:
   ```
-  miktex packages install customenvs
+  mpm.exe --install customenvs
   ```
 
 ### Via TeX Live / tlmgr
@@ -29,7 +29,7 @@ tlmgr install customenvs
 If you want the latest version directly from this repository:
 
 1. Download the repository (click *Code > Download ZIP*, or clone it).
-2. Place `customenvs.sty` in a directory where LaTeX can find it, for example:
+2. Place all `*.sty` and `*.pdf` files in a directory where LaTeX can find it, for example:
    - **TeX Live / Linux**: `~/texmf/tex/latex/customenvs/`
    - **MiKTeX / Windows**: `C:\Users\<user>\AppData\Roaming\MiKTeX\tex\latex\customenvs\`
    - **macOS (MacTeX)**: `~/Library/texmf/tex/latex/customenvs/`

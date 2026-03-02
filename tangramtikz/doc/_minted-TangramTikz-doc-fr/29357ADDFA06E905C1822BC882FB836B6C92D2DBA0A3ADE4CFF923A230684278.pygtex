@@ -1,0 +1,14 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c}{\PYGZpc{}environnement, avec clés en français, et placement des pièces}
+\PYG{k}{\PYGZbs{}begin}\PYG{n+nb}{\PYGZob{}}EnvTangramTikz\PYG{n+nb}{\PYGZcb{}}[clés]\PYGZlt{}options tikz\PYGZgt{}
+	\PYG{c}{\PYGZpc{}placement des pièces}
+	\PYG{k}{\PYGZbs{}PieceTangram}\PYG{n+na}{[clés]}\PYGZlt{}options pic\PYGZgt{}(decalH,decalV)\PYG{n+nb}{\PYGZob{}}TangGrandTri\PYG{n+nb}{\PYGZcb{}}
+	\PYG{k}{\PYGZbs{}PieceTangram}\PYG{n+na}{[clés]}\PYGZlt{}options pic\PYGZgt{}(decalH,decalV)\PYG{n+nb}{\PYGZob{}}TangGrandTri\PYG{n+nb}{\PYGZcb{}}
+	\PYG{k}{\PYGZbs{}PieceTangram}\PYG{n+na}{[clés]}\PYGZlt{}options pic\PYGZgt{}(decalH,decalV)\PYG{n+nb}{\PYGZob{}}TangMoyTri\PYG{n+nb}{\PYGZcb{}}
+	\PYG{k}{\PYGZbs{}PieceTangram}\PYG{n+na}{[clés]}\PYGZlt{}options pic\PYGZgt{}(decalH,decalV)\PYG{n+nb}{\PYGZob{}}TangPetTri\PYG{n+nb}{\PYGZcb{}}
+	\PYG{k}{\PYGZbs{}PieceTangram}\PYG{n+na}{[clés]}\PYGZlt{}options pic\PYGZgt{}(decalH,decalV)\PYG{n+nb}{\PYGZob{}}TangPetTri\PYG{n+nb}{\PYGZcb{}}
+	\PYG{k}{\PYGZbs{}PieceTangram}\PYG{n+na}{[clés]}\PYGZlt{}options pic\PYGZgt{}(decalH,decalV)\PYG{n+nb}{\PYGZob{}}TangCar\PYG{n+nb}{\PYGZcb{}}
+	\PYG{k}{\PYGZbs{}PieceTangram}\PYG{n+na}{[clés]}\PYGZlt{}options pic\PYGZgt{}(decalH,decalV)\PYG{n+nb}{\PYGZob{}}TangPara\PYG{n+nb}{\PYGZcb{}}
+	\PYG{c}{\PYGZpc{}\PYGZbs{}filldraw[black] (0,0) circle[radius=4pt] ; \PYGZpc{}repère pour les pièces}
+\PYG{k}{\PYGZbs{}end}\PYG{n+nb}{\PYGZob{}}EnvTangramTikz\PYG{n+nb}{\PYGZcb{}}
+\end{Verbatim}

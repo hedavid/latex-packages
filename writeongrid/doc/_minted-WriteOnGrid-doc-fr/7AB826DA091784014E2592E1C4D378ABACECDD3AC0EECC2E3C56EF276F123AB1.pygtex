@@ -1,0 +1,8 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k}{\PYGZbs{}begin}\PYG{n+nb}{\PYGZob{}}EnvQuadrillage\PYG{n+nb}{\PYGZcb{}}[NbCarreaux=22x4,Marge=2,Elargir=2/3,Grille=Seyes]
+	\PYG{k}{\PYGZbs{}EcrireLigne}\PYG{n+na}{[Echelle=1.5]}\PYG{n+nb}{\PYGZob{}}\PYG{k}{\PYGZbs{}textcolor}\PYG{n+nb}{\PYGZob{}}red\PYG{n+nb}{\PYGZcb{}\PYGZob{}}mon texte rouge, un peu agrandi, sur la ligne 1\PYG{k}{\PYGZbs{}ldots}\PYG{n+nb}{\PYGZcb{}\PYGZcb{}}
+	\PYG{k}{\PYGZbs{}EcrireLigne}\PYG{n+na}{[Echelle=1.15,DecalH=1]}\PYG{n+nb}{\PYGZob{}}\PYG{l+s}{\PYGZdl{}}\PYG{o}{(}\PYG{l+m}{1}\PYG{o}{+}\PYG{n+nb}{x}\PYG{o}{)}\PYG{n+nb}{\PYGZca{}}\PYG{l+m}{2}\PYG{o}{=}\PYG{l+m}{1}\PYG{o}{+}\PYG{l+m}{2}\PYG{n+nb}{x}\PYG{o}{+}\PYG{n+nb}{x\PYGZca{}}\PYG{l+m}{2}\PYG{l+s}{\PYGZdl{}} sur la l2, avec un décal de 1 en plus\PYG{k}{\PYGZbs{}ldots}\PYG{n+nb}{\PYGZcb{}}
+	\PYG{k}{\PYGZbs{}EcrireLigne}\PYG{n+na}{[DecalH=\PYGZhy{}1.75]}\PYG{n+nb}{\PYGZob{}}\PYG{k}{\PYGZbs{}textcolor}\PYG{n+nb}{\PYGZob{}}blue\PYG{n+nb}{\PYGZcb{}\PYGZob{}}mon texte bleu, remis un peu à gauche, sur la ligne 3\PYG{k}{\PYGZbs{}ldots}\PYG{n+nb}{\PYGZcb{}\PYGZcb{}}
+\PYG{k}{\PYGZbs{}end}\PYG{n+nb}{\PYGZob{}}EnvQuadrillage\PYG{n+nb}{\PYGZcb{}}
+
+\end{Verbatim}

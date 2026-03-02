@@ -1,0 +1,10 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c}{\PYGZpc{}codes simples et sans ambiguïté}
+\PYG{c}{\PYGZpc{}une case vide sera codée par \PYGZhy{}}
+\PYG{k}{\PYGZbs{}PixelArtTikz}\PYG{n+na}{[Codes=123469,Style=\PYGZbs{}ttfamily,Unite=0.35]}\PYG{n+nb}{\PYGZob{}}test1.csv\PYG{n+nb}{\PYGZcb{}}
+\PYGZti{}\PYGZti{}
+\PYG{k}{\PYGZbs{}PixelArtTikz}\PYG{n+na}{[Codes=123469,Couleurs=\PYGZob{}red,brown,yellow,black,blue,white\PYGZcb{},Correction,Unite=0.35]}\PYG{n+nb}{\PYGZob{}}test1.csv\PYG{n+nb}{\PYGZcb{}}
+\PYGZti{}\PYGZti{}
+\PYG{k}{\PYGZbs{}PixelArtTikz}\PYG{n+na}{[Codes=123469,Couleurs=\PYGZob{}red,brown,yellow,black,blue,white\PYGZcb{},Correction,Unite=0.35,BordCases=false]}\PYG{c}{\PYGZpc{}}
+	\PYG{n+nb}{\PYGZob{}}test1.csv\PYG{n+nb}{\PYGZcb{}}
+\end{Verbatim}

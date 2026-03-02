@@ -1,0 +1,3 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k}{\PYGZbs{}AfficherVoisinage}\PYG{n+na}{[clés]}\PYGZlt{}courbe\PYGZgt{}\PYG{n+nb}{\PYGZob{}}val x/y\PYG{n+nb}{\PYGZcb{}\PYGZob{}}epsilon\PYG{n+nb}{\PYGZcb{}}
+\end{Verbatim}

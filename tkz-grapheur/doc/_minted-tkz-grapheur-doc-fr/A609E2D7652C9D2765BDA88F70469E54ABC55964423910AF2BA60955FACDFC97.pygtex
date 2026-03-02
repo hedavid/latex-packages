@@ -1,0 +1,5 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c}{\PYGZpc{}dans l\PYGZsq{}environnement GraphiqueTikz}
+\PYG{k}{\PYGZbs{}DefinirLoiNormale}\PYG{n+na}{[clés]}\PYGZlt{}nom fct\PYGZgt{}\PYG{n+nb}{\PYGZob{}}mu\PYG{n+nb}{\PYGZcb{}\PYGZob{}}sigma\PYG{n+nb}{\PYGZcb{}}
+\PYG{k}{\PYGZbs{}TracerLoiNormale}\PYG{n+na}{[clés]}\PYG{n+nb}{\PYGZob{}}fct(x)\PYG{n+nb}{\PYGZcb{}}
+\end{Verbatim}

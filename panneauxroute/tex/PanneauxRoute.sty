@@ -1,13 +1,13 @@
 % Author.........: C. Pierquet
 % licence........: Released under the LaTeX Project Public License v1.3c or later, see http://www.latex-project.org/lppl.txt
-% Sources........: https://www.geoinformations.developpement-durable.gouv.fr/panneaux-routiers-au-format-svg-et-png-par-a2688.html
-%                : https://equipementsdelaroute.cerema.fr/version-consolidee-de-l-arrete-du-24-novembre-1967-a537.html
-%                : Licence CC BY-SA 3.0 for svg source (http://sig974.free.fr/?p=1520)
+% Source.........: https://equipementsdelaroute.cerema.fr/les-signaux-r212.html
+%                : Licence etalab 2.0 (https://www.etalab.gouv.fr/wp-content/uploads/2017/04/ETALAB-Licence-Ouverte-v2.0.pdf)
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{PanneauxRoute}[2024/09/14 v0.1.2 Panneaux de signalisation fr]
+\ProvidesPackage{PanneauxRoute}[2025/05/04 v0.1.3 Panneaux de signalisation fr]
 
 %------Historique
+% 0.1.3		Changement de sources + licence etalab 2.0
 % 0.1.2		Ajout des panneaux divers
 % 0.1.1		Ajout du panneau B14 (80)
 % 0.1.0		Version initiale
@@ -20,7 +20,7 @@
 	\IfFileExists{PanneauRoute#2.pdf}{\includegraphics[#1]{PanneauRoute#2.pdf}}{}%
 }
 
-%----Aliases
+%----Aliases PanneauxA (OK v2)
 \NewDocumentCommand\prVirDroit{ O{height=1.15cm} }{\AffPanneau[#1]{A1a}}
 \NewDocumentCommand\prVirGauche{ O{height=1.15cm} }{\AffPanneau[#1]{A1b}}
 \NewDocumentCommand\prVirsDroit{ O{height=1.15cm} }{\AffPanneau[#1]{A1c}}
@@ -39,6 +39,7 @@
 \NewDocumentCommand\prPietons{ O{height=1.15cm} }{\AffPanneau[#1]{A13b}}
 \NewDocumentCommand\prDanger{ O{height=1.15cm} }{\AffPanneau[#1]{A14}}
 \NewDocumentCommand\prAnimaux{ O{height=1.15cm} }{\AffPanneau[#1]{A15a1}}
+\NewDocumentCommand\prAnimauxO{ O{height=1.15cm} }{\AffPanneau[#1]{A15a2}}
 \NewDocumentCommand\prAnimauxSauv{ O{height=1.15cm} }{\AffPanneau[#1]{A15b}}
 \NewDocumentCommand\prCavaliers{ O{height=1.15cm} }{\AffPanneau[#1]{A15c}}
 \NewDocumentCommand\prDescente{ O{height=1.15cm} }{\AffPanneau[#1]{A16}}
@@ -50,6 +51,7 @@
 \NewDocumentCommand\prAvions{ O{height=1.15cm} }{\AffPanneau[#1]{A23}}
 \NewDocumentCommand\prVent{ O{height=1.15cm} }{\AffPanneau[#1]{A24}}
 
+%----Aliases PanneauxAB (OK v2)
 \NewDocumentCommand\prIntersect{ O{height=1.15cm} }{\AffPanneau[#1]{AB1}}
 \NewDocumentCommand\prIntersectPrio{ O{height=1.15cm} }{\AffPanneau[#1]{AB2}}
 \NewDocumentCommand\prCedez{ O{height=1.15cm} }{\AffPanneau[#1]{AB3a}}
@@ -60,9 +62,10 @@
 \NewDocumentCommand\prFinRoutePrio{ O{height=1.15cm} }{\AffPanneau[#1]{AB7}}
 \NewDocumentCommand\prRondPoint{ O{height=1.15cm} }{\AffPanneau[#1]{AB25}}
 
+%----Aliases PanneauxAK (OK v2)
 \NewDocumentCommand\prDosAneTemp{ O{height=1.15cm} }{\AffPanneau[#1]{AK2}}
-\NewDocumentCommand\prChaussGlissTemp{ O{height=1.15cm} }{\AffPanneau[#1]{AK4}}
 \NewDocumentCommand\prChausRetTemp{ O{height=1.15cm} }{\AffPanneau[#1]{AK3}}
+\NewDocumentCommand\prChaussGlissTemp{ O{height=1.15cm} }{\AffPanneau[#1]{AK4}}
 \NewDocumentCommand\prTravauxTemp{ O{height=1.15cm} }{\AffPanneau[#1]{AK5}}
 \NewDocumentCommand\prDangerTemp{ O{height=1.15cm} }{\AffPanneau[#1]{AK14}}
 \NewDocumentCommand\prFeuxTemp{ O{height=1.15cm} }{\AffPanneau[#1]{AK17}}
@@ -71,14 +74,15 @@
 \NewDocumentCommand\prAccidentTemp{ O{height=1.15cm} }{\AffPanneau[#1]{AK31}}
 \NewDocumentCommand\prBrouillardTemp{ O{height=1.15cm} }{\AffPanneau[#1]{AK32}}
 
+%----Aliases PanneauxB (OK v2)
 \NewDocumentCommand\prCircInterd{ O{height=1.15cm} }{\AffPanneau[#1]{B0}}
 \NewDocumentCommand\prSensInterdit{ O{height=1.15cm} }{\AffPanneau[#1]{B1}}
-\NewDocumentCommand\prSensInterditJ{ O{height=1.15cm} }{\AffPanneau[#1]{B1j}}
+%\NewDocumentCommand\prSensInterditJ{ O{height=1.15cm} }{\AffPanneau[#1]{B1j}}
 \NewDocumentCommand\prInterdTournG{ O{height=1.15cm} }{\AffPanneau[#1]{B2a}}
 \NewDocumentCommand\prInterdTournD{ O{height=1.15cm} }{\AffPanneau[#1]{B2b}}
 \NewDocumentCommand\prInterdDemiTour{ O{height=1.15cm} }{\AffPanneau[#1]{B2c}}
-\NewDocumentCommand\prInterdDepass{ O{height=1.15cm} }{\AffPanneau[#1]{B31}}
-\NewDocumentCommand\prInterdVehic{ O{height=1.15cm} }{\AffPanneau[#1]{B3a}}
+\NewDocumentCommand\prInterdVehic{ O{height=1.15cm} }{\AffPanneau[#1]{B3}}
+\NewDocumentCommand\prInterdVehicCam{ O{height=1.15cm} }{\AffPanneau[#1]{B3a}}
 \NewDocumentCommand\prHalteDouane{ O{height=1.15cm} }{\AffPanneau[#1]{B4}}
 \NewDocumentCommand\prHalteGendarm{ O{height=1.15cm} }{\AffPanneau[#1]{B5a}}
 \NewDocumentCommand\prHaltePolice{ O{height=1.15cm} }{\AffPanneau[#1]{B5b}}
@@ -107,11 +111,10 @@
 \NewDocumentCommand\prLimVites{ O{height=1.15cm} m }{\AffPanneau[#1]{B14_#2}}
 \NewDocumentCommand\prCedezInv{ O{height=1.15cm} }{\AffPanneau[#1]{B15}}
 \NewDocumentCommand\prInterdSons{ O{height=1.15cm} }{\AffPanneau[#1]{B16}}
-\NewDocumentCommand\prDistance{ O{height=1.15cm} }{\AffPanneau[#1]{B17}}
+\NewDocumentCommand\prDistance{ O{height=1.15cm} }{\AffPanneau[#1]{B17-100m}}
 \NewDocumentCommand\prExplos{ O{height=1.15cm} }{\AffPanneau[#1]{B18a}}
 \NewDocumentCommand\prPollu{ O{height=1.15cm} }{\AffPanneau[#1]{B18b}}
 \NewDocumentCommand\prDangereuses{ O{height=1.15cm} }{\AffPanneau[#1]{B18c}}
-
 \NewDocumentCommand\prObliAvDroite{ O{height=1.15cm} }{\AffPanneau[#1]{B21-1}}
 \NewDocumentCommand\prObliAvGauche{ O{height=1.15cm} }{\AffPanneau[#1]{B21-2}}
 \NewDocumentCommand\prContournDroite{ O{height=1.15cm} }{\AffPanneau[#1]{B21a1}}
@@ -125,32 +128,33 @@
 \NewDocumentCommand\prObliCycles{ O{height=1.15cm} }{\AffPanneau[#1]{B22a}}
 \NewDocumentCommand\prObliPietons{ O{height=1.15cm} }{\AffPanneau[#1]{B22b}}
 \NewDocumentCommand\prObliCavaliers{ O{height=1.15cm} }{\AffPanneau[#1]{B22c}}
-\NewDocumentCommand\prObliVitesse{ O{height=1.15cm} }{\AffPanneau[#1]{B25}}
+\NewDocumentCommand\prObliVitesse{ O{height=1.15cm} }{\AffPanneau[#1]{B25-30}}
 \NewDocumentCommand\prObliChaines{ O{height=1.15cm} }{\AffPanneau[#1]{B26}}
 \NewDocumentCommand\prObliBus{ O{height=1.15cm} }{\AffPanneau[#1]{B27a}}
 \NewDocumentCommand\prObliTrams{ O{height=1.15cm} }{\AffPanneau[#1]{B27b}}
-
 \NewDocumentCommand\prFinInterd{ O{height=1.15cm} }{\AffPanneau[#1]{B31}}
 \NewDocumentCommand\prFinLimVit{ O{height=1.15cm} m }{\AffPanneau[#1]{B33_#2}}
 \NewDocumentCommand\prFinIntDepass{ O{height=1.15cm} }{\AffPanneau[#1]{B34}}
 \NewDocumentCommand\prFinIntDepassCam{ O{height=1.15cm} }{\AffPanneau[#1]{B34a}}
 \NewDocumentCommand\prFinIntSons{ O{height=1.15cm} }{\AffPanneau[#1]{B35}}
-
 \NewDocumentCommand\prFinPisteOblCycl{ O{height=1.15cm} }{\AffPanneau[#1]{B40}}
 \NewDocumentCommand\prFinChemPiet{ O{height=1.15cm} }{\AffPanneau[#1]{B41}}
 \NewDocumentCommand\prFinChemCav{ O{height=1.15cm} }{\AffPanneau[#1]{B42}}
 \NewDocumentCommand\prFinVitObli{ O{height=1.15cm} }{\AffPanneau[#1]{B43}}
 \NewDocumentCommand\prFinChaines{ O{height=1.15cm} }{\AffPanneau[#1]{B44}}
 \NewDocumentCommand\prFinVoieBus{ O{height=1.15cm} }{\AffPanneau[#1]{B45a}}
+\NewDocumentCommand\prFinAllumFeux{ O{height=1.15cm} }{\AffPanneau[#1]{B49-ex1}}
 
+%----Aliases PanneauxC (OK v2)
 \NewDocumentCommand\prParking{ O{height=1.15cm} }{\AffPanneau[#1]{C1a}}
 \NewDocumentCommand\prParkDisq{ O{height=1.15cm} }{\AffPanneau[#1]{C1b}}
 \NewDocumentCommand\prParkPay{ O{height=1.15cm} }{\AffPanneau[#1]{C1c}}
 \NewDocumentCommand\prIncendie{ O{height=1.15cm} }{\AffPanneau[#1]{C3}}
-\NewDocumentCommand\prVitConseil{ O{height=1.15cm} }{\AffPanneau[#1]{C4a}}
-\NewDocumentCommand\prFinVitConseil{ O{height=1.15cm} }{\AffPanneau[#1]{C4b}}
+\NewDocumentCommand\prVitConseil{ O{height=1.15cm} }{\AffPanneau[#1]{C4a_30}}
+\NewDocumentCommand\prFinVitConseil{ O{height=1.15cm} }{\AffPanneau[#1]{C4b_30}}
 \NewDocumentCommand\prTaxis{ O{height=1.15cm} }{\AffPanneau[#1]{C5}}
-\NewDocumentCommand\prArretBus{ O{height=1.15cm} }{\AffPanneau[#1]{B49}}
+\NewDocumentCommand\prArretBus{ O{height=1.15cm} }{\AffPanneau[#1]{C6}}
+\NewDocumentCommand\prArretTram{ O{height=1.15cm} }{\AffPanneau[#1]{C7}}
 \NewDocumentCommand\prArretUrg{ O{height=1.15cm} }{\AffPanneau[#1]{C8}}
 \NewDocumentCommand\prCircSensUniq{ O{height=1.15cm} }{\AffPanneau[#1]{C12}}
 \NewDocumentCommand\prImpasse{ O{height=1.15cm} }{\AffPanneau[#1]{C13a}}
@@ -159,28 +163,26 @@
 \NewDocumentCommand\prPassPietons{ O{height=1.15cm} }{\AffPanneau[#1]{C20a}}
 \NewDocumentCommand\prTravTrams{ O{height=1.15cm} }{\AffPanneau[#1]{C20c}}
 \NewDocumentCommand\prStatCarav{ O{height=1.15cm} }{\AffPanneau[#1]{C23}}
-\NewDocumentCommand\prVoiesAffA{ O{height=1.15cm} }{\AffPanneau[#1]{C24a1}}
-\NewDocumentCommand\prVoiesAffB{ O{height=1.15cm} }{\AffPanneau[#1]{C24a4}}
-\NewDocumentCommand\prVoiesAffC{ O{height=1.15cm} }{\AffPanneau[#1]{C24b1}}
-\NewDocumentCommand\prVoiesAffD{ O{height=1.15cm} }{\AffPanneau[#1]{C24b2}}
-\NewDocumentCommand\prVoiesAffE{ O{height=1.15cm} }{\AffPanneau[#1]{C24c1}}
-\NewDocumentCommand\prVoiesAffF{ O{height=1.15cm} }{\AffPanneau[#1]{C24c2}}
+\NewDocumentCommand\prVoiesAffA{ O{height=1.15cm} }{\AffPanneau[#1]{C24a_ex1}}
+\NewDocumentCommand\prVoiesAffB{ O{height=1.15cm} }{\AffPanneau[#1]{C24a_ex2}}
+\NewDocumentCommand\prVoiesAffC{ O{height=1.15cm} }{\AffPanneau[#1]{C24b_ex1}}
+\NewDocumentCommand\prVoiesAffD{ O{height=1.15cm} }{\AffPanneau[#1]{C24b_ex2}}
+\NewDocumentCommand\prVoiesAffE{ O{height=1.15cm} }{\AffPanneau[#1]{C24c_ex1}}
+\NewDocumentCommand\prVoiesAffF{ O{height=1.15cm} }{\AffPanneau[#1]{C24c_ex2}}
 \NewDocumentCommand\prVitFront{ O{height=1.15cm} }{\AffPanneau[#1]{C25a}}
 \NewDocumentCommand\prVitAutor{ O{height=1.15cm} }{\AffPanneau[#1]{C25b}}
 \NewDocumentCommand\prDetresseD{ O{height=1.15cm} }{\AffPanneau[#1]{C26a}}
 \NewDocumentCommand\prDetresseG{ O{height=1.15cm} }{\AffPanneau[#1]{C26b}}
 \NewDocumentCommand\prChausseSur{ O{height=1.15cm} }{\AffPanneau[#1]{C27}}
-\NewDocumentCommand\prReducVoieA{ O{height=1.15cm} }{\AffPanneau[#1]{C28a}}
-\NewDocumentCommand\prReducVoieB{ O{height=1.15cm} }{\AffPanneau[#1]{C28b}}
+\NewDocumentCommand\prReducVoieA{ O{height=1.15cm} }{\AffPanneau[#1]{C28_ex1}}
+\NewDocumentCommand\prReducVoieB{ O{height=1.15cm} }{\AffPanneau[#1]{C28_ex2}}
 \NewDocumentCommand\prCreneauDepas{ O{height=1.15cm} }{\AffPanneau[#1]{C29b}}
 \NewDocumentCommand\prFinCreneauDepas{ O{height=1.15cm} }{\AffPanneau[#1]{C30}}
-
-\NewDocumentCommand\prTickPeage{ O{height=1.15cm} }{\AffPanneau[#1]{B49}}
 \NewDocumentCommand\prPaiemPeage{ O{height=1.15cm} }{\AffPanneau[#1]{C64a}}
 \NewDocumentCommand\prPaiemCB{ O{height=1.15cm} }{\AffPanneau[#1]{C64b}}
-\NewDocumentCommand\prPaiemPieces{ O{height=1.15cm} }{\AffPanneau[#1]{C64c}}
-\NewDocumentCommand\prPaiemPiecBil{ O{height=1.15cm} }{\AffPanneau[#1]{C64d1}}
-\NewDocumentCommand\prPaiemTelepeage{ O{height=1.15cm} }{\AffPanneau[#1]{C64d2}}
+\NewDocumentCommand\prPaiemPieces{ O{height=1.15cm} }{\AffPanneau[#1]{C64c1}}
+\NewDocumentCommand\prPaiemPiecBil{ O{height=1.15cm} }{\AffPanneau[#1]{C64d_ex1}}
+\NewDocumentCommand\prPaiemTelepeage{ O{height=1.15cm} }{\AffPanneau[#1]{C64d_ex2}}
 \NewDocumentCommand\prRouteRegl{ O{height=1.15cm} }{\AffPanneau[#1]{C107}}
 \NewDocumentCommand\prFinRouteRegl{ O{height=1.15cm} }{\AffPanneau[#1]{C108}}
 \NewDocumentCommand\prEntrTunnel{ O{height=1.15cm} }{\AffPanneau[#1]{C111}}
@@ -192,6 +194,7 @@
 \NewDocumentCommand\prDebAutor{ O{height=1.15cm} }{\AffPanneau[#1]{C207}}
 \NewDocumentCommand\prFinAutor{ O{height=1.15cm} }{\AffPanneau[#1]{C208}}
 
+%----Aliases PanneauxCE
 \NewDocumentCommand\prPosteSecours{ O{height=1.15cm} }{\AffPanneau[#1]{CE1}}
 \NewDocumentCommand\prPosteSecUrg{ O{height=1.15cm} }{\AffPanneau[#1]{CE2a}}
 \NewDocumentCommand\prCabineTel{ O{height=1.15cm} }{\AffPanneau[#1]{CE2b}}

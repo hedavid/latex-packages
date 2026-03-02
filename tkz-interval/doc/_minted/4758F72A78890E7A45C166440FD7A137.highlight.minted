@@ -1,0 +1,5 @@
+\begin{MintedVerbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
+\PYG{k}{\PYGZbs{}setlength\PYGZbs{}tkzintervhoriz}\PYG{n+nb}{\PYGZob{}}6pt\PYG{n+nb}{\PYGZcb{}}
+\PYG{k}{\PYGZbs{}setlength\PYGZbs{}tkzintervwidth}\PYG{n+nb}{\PYGZob{}}0.95pt\PYG{n+nb}{\PYGZcb{}}
+\PYG{k}{\PYGZbs{}setKVdefault}\PYG{n+na}{[tkzinterv]}\PYG{n+nb}{\PYGZob{}}hsep=0.5,vsep=1mm\PYG{n+nb}{\PYGZcb{}}
+\end{MintedVerbatim}

@@ -1,0 +1,224 @@
+% !TeX TXS-program:compile = txs:///pdflatex
+
+\documentclass{article}
+\usepackage[margin=1cm,a4paper]{geometry}
+\usepackage{customenvs-mathpictos}
+
+\usepackage{tikz}
+\usepackage{longtable}
+\usepackage{xintexpr}
+\usepackage{fancybox}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\pagecolor{teal!5}
+\setlength\parindent{0pt}
+
+\newcommand\tikzvalign[2]{%
+	\begin{tikzpicture}
+		\useasboundingbox (0,0) rectangle (1in,1in) ;
+		\draw (0.5in,0.5in) node[text width=1in,align=center] {\texttt{#2}\\~\\{\tiny \texttt{(pages #1-\inteval{#1+4})}}} ; ;
+	\end{tikzpicture}
+}
+
+\begin{document}
+
+\pagestyle{empty}
+
+\part*{Sub-package customenvs-mathpictos (0.1c)}
+
+\section{French version}
+
+Inspiré d'un travail de \textsf{Vincent Le Gruiec} (\url{https://www.vmaths.fr}).
+
+\medskip
+
+\textsf{[fr]} : \verb|\cemaththemeicon[includegraphics options]{bordures=...,fond=TF,couleur fond=...}{type}|
+
+\def\tmpcptxint{1}
+
+\begin{longtable}{|c|c|c|c|c|c|}
+	\cline{2-6}
+	\multicolumn{1}{c}{} & \multicolumn{5}{|c|}{\textbf{\texttt{bordures=}}} \\ \hline
+	\textbf{\texttt{type}} & \texttt{aucune} {\footnotesize (défault)} & \texttt{11} & \texttt{10} & \texttt{01} & \texttt{00} \\ \hline
+	%test génération
+	\xintFor* #1 in {\xintCSVtoList{%
+			binomiale,%
+			convexite,%
+			fctcube,%
+			fctcarre,%
+			variations,%
+			probas,%
+			nbderive,%
+			ensembles,%
+			lgn,%
+			equadiff,%
+			fcttrigo,%
+			fctaffine,%
+			integration,%
+			intervalles,%
+			limitesfct,%
+			limitessuite,%
+			calclitteral,%
+			fctlog,%
+			fctinv,%
+			histogramme,%
+			defsuites,%
+			systemes,%
+			chasles,%
+			equations,%
+			espace,%
+			espaceproj,%
+			pbgeom,%
+			espacevect,%
+			recurrence,%
+			pourcentages,%
+			fractions,%
+			eqbarres,%
+			scratch,%
+			python,%
+			tableur,%
+			graphes,%
+			arithm,%
+			geogebra,%
+			toilerecur,%
+			cercletrigo,%
+			pythagore,%
+			thales,%
+			outilsgeom,%
+			numeration,%
+			transfo,%
+			applis,%
+			booleen,%
+			fctexpo,%
+			pdtscal,%
+			solide,%
+			algo,%
+			nwks,%
+			gendarmes,%
+			pixelart,%
+			venn,%
+			arbrebin,%
+			matrices,%
+			thmvalmoy,%
+			pascal,%
+			addposee,%
+			arbrecalc,%
+			sohcahtoa,%
+			fibonnaci,%
+			quatreops,%
+			reglin,%
+			moustaches,%
+			fractale,%
+			binaire,%
+			patterns
+		}}\do{%
+		\tikzvalign{\tmpcptxint}{#1}&
+		\raisebox{-\depth}{\cemaththemeicon[height=1in]{bordures=aucune}{#1}}&
+		\raisebox{-\depth}{\cemaththemeicon[height=1in]{bordures=11}{#1}}&
+		\raisebox{-\depth}{\cemaththemeicon[height=1in]{bordures=10}{#1}}&
+		\raisebox{-\depth}{\cemaththemeicon[height=1in]{bordures=01}{#1}}&
+		\raisebox{-\depth}{\cemaththemeicon[height=1in]{bordures=00}{#1}}\xdef\tmpcptxint{\inteval{\tmpcptxint+5}}\\ \hline
+	}
+\end{longtable}
+
+\pagebreak
+
+\section{English version}
+
+Inspired by a worf of \textsf{Vincent Le Gruiec} (\url{https://www.vmaths.fr}).
+
+\medskip
+
+\textsf{[en]} : \verb|\cemaththemeicon[includegraphics options]{borders=...,bg=TF,colback=...}{type}|
+
+\def\tmpcptxint{1}
+
+\begin{longtable}{|c|c|c|c|c|c|}
+	\cline{2-6}
+	\multicolumn{1}{c}{} & \multicolumn{5}{|c|}{\textbf{\texttt{borders=}}} \\ \hline
+	\textbf{\texttt{type}} & \texttt{none} {\footnotesize (default)} & \texttt{11} & \texttt{10} & \texttt{01} & \texttt{00} \\ \hline
+	%test génération
+	\xintFor* #1 in {\xintCSVtoList{%
+			binom,%
+			convexity,%
+			cubicfct,%
+			quadfct,%
+			variations,%
+			probas,%
+			derivnb,%
+			sets,%
+			lln,%
+			diffeq,%
+			trigfct,%
+			affinfct,%
+			integration,%
+			intervals,%
+			fctlim,%
+			seqlim,%
+			littcalc,%
+			logfct,%
+			invfct,%
+			histogram,%
+			seqdef,%
+			systems,%
+			chasles,%
+			equations,%
+			space,%
+			projspac,%
+			geompb,%
+			vectspace,%
+			recurrence,%
+			percentages,%
+			fractions,%
+			bareq,%
+			scratch,%
+			python,%
+			spreadsheet,%
+			graphs,%
+			arithmetic,%
+			geogebra,%
+			cabweb,%
+			trigcircle,%
+			pythagora,%
+			thales,%
+			geomtools,%
+			numeration,%
+			transform,%
+			applications,%
+			boolean,%
+			expfct,%
+			dotproduct,%
+			solid,%
+			algorithm,%
+			nwks,%
+			squeezethm,%
+			pixlart,%
+			venn,%
+			bintree,%
+			matrix,%
+			meanvaluethm,%
+			pascal,%
+			arithmop,%
+			bincalctree,%
+			sohcahtoa,%
+			fibonnaci,%
+			fourops,%
+			linreg,%
+			boxplot,%
+			fractal,%
+			binary,%
+			patterns
+	}}\do{%
+		\tikzvalign{\tmpcptxint}{#1}&
+		\raisebox{-\depth}{\cemaththemeicon[height=1in]{borders=aucune}{#1}}&
+		\raisebox{-\depth}{\cemaththemeicon[height=1in]{borders=11}{#1}}&
+		\raisebox{-\depth}{\cemaththemeicon[height=1in]{borders=10}{#1}}&
+		\raisebox{-\depth}{\cemaththemeicon[height=1in]{borders=01}{#1}}&
+		\raisebox{-\depth}{\cemaththemeicon[height=1in]{borders=00}{#1}}\xdef\tmpcptxint{\inteval{\tmpcptxint+5}}\\ \hline
+	}
+\end{longtable}
+
+
+
+
+\end{document}

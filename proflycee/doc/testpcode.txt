@@ -1,0 +1,9 @@
+Algorithme : calcul mental
+Variables  : nb1, nb2, resultat_saisi
+
+Début
+	nb1 ← randint (1, 10)
+	nb2 ← randint (1, 10)
+	Afficher(nb1 , " * ", nb2 , " = ? ")
+	...
+Fin

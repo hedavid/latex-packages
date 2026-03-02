@@ -1,0 +1,17 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k}{\PYGZbs{}begin}\PYG{n+nb}{\PYGZob{}}GraphiqueTikz\PYG{n+nb}{\PYGZcb{}}\PYG{c}{\PYGZpc{}}
+		[x=6cm,y=3cm,Xmin=\PYGZhy{}1.25,Xmax=1.25,Ymin=\PYGZhy{}0.5,Ymax=2,
+		Xgrille=0.125,Xgrilles=1,Ygrille=0.25,Ygrilles=0.25]
+	\PYG{k}{\PYGZbs{}TracerAxesGrilles}\PYG{n+na}{[Elargir=2.5mm,Police=\PYGZbs{}footnotesize]}\PYG{c}{\PYGZpc{}}
+		\PYG{n+nb}{\PYGZob{}}\PYGZhy{}1.25,\PYGZhy{}1,...,1.25\PYG{n+nb}{\PYGZcb{}}\PYG{c}{\PYGZpc{}}
+		\PYG{n+nb}{\PYGZob{}}auto\PYG{n+nb}{\PYGZcb{}}
+	\PYG{k}{\PYGZbs{}GenererPolynomeLagrange}\PYG{c}{\PYGZpc{}}
+		\PYG{n+nb}{\PYGZob{}}seq(i,i=\PYGZhy{}1..[0.2]..1)\PYG{n+nb}{\PYGZcb{}}               \PYG{c}{\PYGZpc{}langage xint :\PYGZhy{})}
+		\PYG{n+nb}{\PYGZob{}}seq(1/(1+25*i\PYG{n+nb}{\PYGZca{}}2),i=\PYGZhy{}1..[0.2]..1)\PYG{n+nb}{\PYGZcb{}}    \PYG{c}{\PYGZpc{}langage xint :\PYGZhy{})}
+	\PYG{k}{\PYGZbs{}TracerCourbe}\PYG{n+na}{[Couleur=lime]}\PYG{n+nb}{\PYGZob{}}1/(25*x\PYG{n+nb}{\PYGZca{}}2+1)\PYG{n+nb}{\PYGZcb{}}
+	\PYG{k}{\PYGZbs{}TracerCourbe}\PYG{n+na}{[Couleur=red,RestreindreY]}\PYG{n+nb}{\PYGZob{}}polylagrange(x)\PYG{n+nb}{\PYGZcb{}}
+	\PYG{k}{\PYGZbs{}MarquerPtsLagrange*}\PYG{n+na}{[Couleur=blue]}\PYG{c}{\PYGZpc{}}
+		\PYG{n+nb}{\PYGZob{}}\PYGZhy{}1,\PYGZhy{}0.8,\PYGZhy{}0.6,\PYGZhy{}0.4,\PYGZhy{}0.2,0,0.2,0.4,0.6,0.8,1\PYG{n+nb}{\PYGZcb{}}\PYG{c}{\PYGZpc{}}
+		\PYG{n+nb}{\PYGZob{}}0.038,0.058,0.1,0.2,0.5,1.0,0.5,0.2,0.1,0.058,0.038\PYG{n+nb}{\PYGZcb{}}
+\PYG{k}{\PYGZbs{}end}\PYG{n+nb}{\PYGZob{}}GraphiqueTikz\PYG{n+nb}{\PYGZcb{}}
+\end{Verbatim}

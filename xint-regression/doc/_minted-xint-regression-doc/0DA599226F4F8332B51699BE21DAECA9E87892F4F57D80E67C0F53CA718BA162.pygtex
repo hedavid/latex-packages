@@ -1,0 +1,4 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k}{\PYGZbs{}def\PYGZbs{}LLX}\PYG{n+nb}{\PYGZob{}}0,1,2,3,4,5,6\PYG{n+nb}{\PYGZcb{}}\PYG{c}{\PYGZpc{}}
+\PYG{k}{\PYGZbs{}def\PYGZbs{}LLY}\PYG{n+nb}{\PYGZob{}}1,2,4.5,7,8.5,9.2,9.6\PYG{n+nb}{\PYGZcb{}}\PYG{c}{\PYGZpc{}}
+\end{Verbatim}

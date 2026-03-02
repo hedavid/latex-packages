@@ -1,0 +1,10 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c}{\PYGZpc{}papiers millimétrés avec couleurs prédéfinies}
+
+\PYG{k}{\PYGZbs{}AffQuadrillage}\PYG{n+na}{[Grille=Milli,NbCarreaux=9x2]}\PYGZlt{}\PYG{k}{\PYGZbs{}CoulMilli}\PYGZgt{}
+\PYG{k}{\PYGZbs{}AffQuadrillage}\PYG{n+na}{[Grille=Milli,NbCarreaux=9x2]}\PYGZlt{}\PYG{k}{\PYGZbs{}CoulMilliGris}\PYGZgt{}
+\PYG{k}{\PYGZbs{}AffQuadrillage}\PYG{n+na}{[Grille=Milli,NbCarreaux=9x2]}\PYGZlt{}\PYG{k}{\PYGZbs{}CoulMilliBleu}\PYGZgt{}
+\PYG{k}{\PYGZbs{}AffQuadrillage}\PYG{n+na}{[Grille=Milli,NbCarreaux=9x2]}\PYGZlt{}\PYG{k}{\PYGZbs{}CoulMilliVert}\PYGZgt{}
+\PYG{k}{\PYGZbs{}AffQuadrillage}\PYG{n+na}{[Grille=Milli,NbCarreaux=9x2]}\PYGZlt{}\PYG{k}{\PYGZbs{}CoulMilliChaud}\PYGZgt{}
+\PYG{k}{\PYGZbs{}AffQuadrillage}\PYG{n+na}{[Grille=Milli,NbCarreaux=9x2]}\PYGZlt{}\PYG{k}{\PYGZbs{}CoulMilliContraste}\PYGZgt{}
+\end{Verbatim}

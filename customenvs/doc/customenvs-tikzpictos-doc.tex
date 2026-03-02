@@ -43,8 +43,8 @@
 \usepackage[margin=2cm]{geometry}
 \setlength{\parindent}{0pt}
 
-\def\TPversion{0.20a}
-\def\TPdate{24/09/2025}
+\def\TPversion{0.20c}
+\def\TPdate{19/11/2025}
 \usepackage{tcolorbox}
 
 \sethlcolor{lightgray!25}
@@ -869,9 +869,75 @@ toptxtfont=\bfseries\sffamily,bottomtxtfont=\ttfamily
 {\Huge (q\tkzspidercabweb{dauto}M)}
 \end{demohigh}
 
+\subsection{Donut}
+
+\begin{codehigh}[language=latex/latex2]
+\tkzdonut[keys]<tikz options>{height/auto/dauto}
+
+%keys:
+%rescale        = 1
+%strut          = {M}
+%dstrut         = {(qM)}
+%main color     = tkzdonutpastry
+%deco color     = tkzdonutjelly
+%decorations    = true
+%bw             = false
+\end{codehigh}
+
+\begin{demohigh}[language=latex/latex2]
+\tkzdonut{2cm}\tkzdonut[bw]{2cm}
+
+{\Huge (q\tkzdonut{dauto}M)}
+\end{demohigh}
+
+\subsection{Pollball}
+
+\begin{codehigh}[language=latex/latex2]
+\tkzpoolball[keys]<tikz options>{height/auto/dauto}
+
+%keys:
+%font           = font=\sffamily
+%rescale        = 1
+%strut          = {M}
+%dstrut         = {(qM)}
+%color          = red
+%number         = {}
+%xscale         = 1 (for label !)
+%rotate         = 0
+\end{codehigh}
+
+\begin{demohigh}[language=latex/latex2]
+\tkzpoolball{2cm}\tkzpoolball[color=teal,number=4]{2cm}
+
+{\Huge (q\tkzpoolball[color=violet,number=14,xscale=0.75,rotate=60]{dauto}M)}
+\end{demohigh}
+
+\subsection{Exclamation}
+
+\begin{codehigh}[language=latex/latex2]
+\tkzexcla[keys]<tikz options>{height/auto/dauto}
+
+%keys:
+%rescale        = 1
+strut           = {M}
+dstrut          = {(qM)}
+\end{codehigh}
+
+\begin{demohigh}[language=latex/latex2]
+\tkzexcla{2cm}\tkzexcla<teal>{2cm}
+
+{\Huge (q\tkzexcla<violet>{dauto}\tkzexcla[rescale=0.75]<pink>{dauto}M)}
+
+{\Huge\sffamily (q\tkzexcla<blue>{auto}M)}
+\end{demohigh}
+
 \pagebreak
 
 \section{History}
+
+\verb|v0.20c|:~Excalamation + Bugfixes
+
+\verb|v0.20b|:~Donut + Poolball
 
 \verb|v0.20a|:~TriDim picto + KawaiiHamster + SpiderCabWeb
 

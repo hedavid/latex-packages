@@ -49,8 +49,8 @@
 \setlength{\parindent}{0pt}
 \definecolor{LightGray}{gray}{0.9}
 
-\def\TPversion{0.2.2}
-\def\TPdate{5 mai 2025}
+\def\TPversion{0.2.3}
+\def\TPdate{07 décembre 2025}
 
 \usepackage[most]{tcolorbox}
 \usepackage{minted2}
@@ -105,7 +105,7 @@
 	\begin{tabular}{c}
 	\texttt{Cédric Pierquet}\\
 	{\ttfamily c pierquet -- at -- outlook . fr}\\
-	\texttt{\url{https://forge.apps.education.fr/pierquetcedric/packages-latex}}
+	\texttt{\url{https://github.com/cpierquet/latex-packages/tree/main/tangramtikz}}
 \end{tabular}
 \end{center}
 
@@ -522,6 +522,8 @@ Le style des labels est donné (et peut-être redéfini) par le code suivant.
 		\item Cavalier
 		\item Fleche
 		\item Triangle
+		\item Renne
+		\item Cloche
 	\end{itemize}
 \end{multicols}}
 
@@ -803,9 +805,23 @@ Le style des labels est donné (et peut-être redéfini) par le code suivant.
 \TangramTikz[CorrectionCouleur]<scale=0.75>{Triangle}
 \end{PresentationCode}
 
+\begin{PresentationCode}{}
+\TangramTikz<scale=0.75>{Renne}
+\TangramTikz[Correction]<scale=0.75>{Renne}
+\TangramTikz[CorrectionCouleur]<scale=0.75>{Renne}
+\end{PresentationCode}
+
+\begin{PresentationCode}{}
+\TangramTikz<scale=0.75>{Cloche}
+\TangramTikz[Correction]<scale=0.75>{Cloche}
+\TangramTikz[CorrectionCouleur]<scale=0.75>{Cloche}
+\end{PresentationCode}
+
 \newpage
 
 \part{Historique}
+
+\verb|v0.2.3|~:~Nouveaux modèles
 
 \verb|v0.2.2|~:~Bugfix et nouveaux modèles
 

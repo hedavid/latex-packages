@@ -1,0 +1,12 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c}{\PYGZpc{}find intersection of two [name path] objects defined}
+\PYG{k}{\PYGZbs{}findintersectionspgf}\PYG{n+na}{[nodename baises]}\PYG{n+nb}{\PYGZob{}}object1\PYG{n+nb}{\PYGZcb{}\PYGZob{}}object2\PYG{n+nb}{\PYGZcb{}}[\PYG{k}{\PYGZbs{}myt}]
+\PYG{c}{\PYGZpc{}global extraction of coordinates}
+\PYG{k}{\PYGZbs{}gextractxnodepgf}\PYG{n+nb}{\PYGZob{}}node\PYG{n+nb}{\PYGZcb{}}[\PYG{k}{\PYGZbs{}myxcoord}]
+\PYG{k}{\PYGZbs{}gextractynodepgf}\PYG{n+nb}{\PYGZob{}}node\PYG{n+nb}{\PYGZcb{}}[\PYG{k}{\PYGZbs{}myycoord}]
+\PYG{k}{\PYGZbs{}gextractxynodepgf}\PYG{n+nb}{\PYGZob{}}node\PYG{n+nb}{\PYGZcb{}}[\PYG{k}{\PYGZbs{}myxcoord}][\PYG{k}{\PYGZbs{}myycoord}]
+\PYG{c}{\PYGZpc{}area between curves}
+\PYG{k}{\PYGZbs{}fillbetweencurvespgf}\PYG{n+na}{[tikz options]}\PYG{n+nb}{\PYGZob{}}curve1\PYG{n+nb}{\PYGZcb{}\PYGZob{}}curve2\PYG{n+nb}{\PYGZcb{}}\PYGZlt{}soft domain options\PYGZgt{}
+\PYG{c}{\PYGZpc{}cubic splines}
+\PYG{k}{\PYGZbs{}addplotspline}(*)[tikz options]\PYGZlt{}coeffs\PYGZgt{}\PYG{n+nb}{\PYGZob{}}list of points\PYG{n+nb}{\PYGZcb{}}[\PYG{k}{\PYGZbs{}myspline}]
+\end{Verbatim}

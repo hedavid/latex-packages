@@ -1,0 +1,7 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k}{\PYGZbs{}TablCouleursPixelArt}(*)[clés]\PYG{n+nb}{\PYGZob{}}\PYG{c}{\PYGZpc{}}
+	données1,\PYG{c}{\PYGZpc{}}
+	données2,\PYG{c}{\PYGZpc{}}
+	...
+\PYG{n+nb}{\PYGZcb{}}
+\end{Verbatim}

@@ -1,0 +1,12 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c}{\PYGZpc{}18x4 grands carreaux, sans dépassement, couleurs adaptées, sans marge/barre}
+\PYG{k}{\PYGZbs{}AffQuadrillage}\PYG{n+na}{[NbCarreaux=16x4,Grille=Seyes,ReglureSeyes=2.5,AffBarre=false]}\PYGZlt{}\PYG{k}{\PYGZbs{}CoulSeyes}\PYGZgt{}
+
+\PYG{c}{\PYGZpc{}36x8 petits carreaux, avec débordements 3/3, couleur PapierGris}
+\PYG{k}{\PYGZbs{}AffQuadrillage}\PYG{n+na}{[NbCarreaux=36x6,Elargir=3/3]}\PYGZlt{}PapierGris\PYGZgt{}
+
+\PYG{c}{\PYGZpc{}12x3 lignes \PYGZdq{}Ruled\PYGZdq{}, sans débordements, couleur Ruled, centré, avec marge}
+\PYG{k}{\PYGZbs{}begin}\PYG{n+nb}{\PYGZob{}}center\PYG{n+nb}{\PYGZcb{}}
+	\PYG{k}{\PYGZbs{}AffQuadrillage}\PYG{n+na}{[NbCarreaux=12x3,Elargir=2/2,Grille=Ruled,Marge=2]}\PYGZlt{}\PYG{k}{\PYGZbs{}CoulRuled}\PYGZgt{}
+\PYG{k}{\PYGZbs{}end}\PYG{n+nb}{\PYGZob{}}center\PYG{n+nb}{\PYGZcb{}}
+\end{Verbatim}

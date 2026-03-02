@@ -1,0 +1,6 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k}{\PYGZbs{}begin}\PYG{n+nb}{\PYGZob{}}GraphTikz\PYG{n+nb}{\PYGZcb{}}[x=1cm,y=1cm,Xmin=0,Xmax=5,Ymin=0,Ymax=1]
+	\PYG{k}{\PYGZbs{}DrawAxisGrids}\PYG{n+na}{[Enlarge=2.5mm]}\PYG{n+nb}{\PYGZob{}}auto\PYG{n+nb}{\PYGZcb{}\PYGZob{}}auto\PYG{n+nb}{\PYGZcb{}}
+	\PYG{k}{\PYGZbs{}DrawTxt}\PYG{n+na}{[Color=red,Font=\PYGZbs{}LARGE,Position=right]}\PYG{n+nb}{\PYGZob{}}(1.5,0.5)\PYG{n+nb}{\PYGZcb{}\PYGZob{}}curve \PYG{l+s}{\PYGZdl{}}\PYG{n+nb}{C\PYGZus{}}\PYG{l+m}{1}\PYG{l+s}{\PYGZdl{}}\PYG{n+nb}{\PYGZcb{}}
+\PYG{k}{\PYGZbs{}end}\PYG{n+nb}{\PYGZob{}}GraphTikz\PYG{n+nb}{\PYGZcb{}}
+\end{Verbatim}

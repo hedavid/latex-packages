@@ -1,0 +1,9 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c}{\PYGZpc{}environnement francisé, avec clés en français pour préparer la grille}
+\PYG{c}{\PYGZpc{}commandes pour placer ou passer une ligne}
+
+\PYG{k}{\PYGZbs{}begin}\PYG{n+nb}{\PYGZob{}}EnvQuadrillage\PYG{n+nb}{\PYGZcb{}}[clés]\PYGZlt{}couleur(s)\PYGZgt{}
+	\PYG{k}{\PYGZbs{}EcrireLigne}\PYG{n+na}{[clés]}\PYGZlt{}alignement\PYGZgt{}\PYG{n+nb}{\PYGZob{}}texte\PYG{n+nb}{\PYGZcb{}}
+	\PYG{k}{\PYGZbs{}PasseLigne}
+\PYG{k}{\PYGZbs{}end}\PYG{n+nb}{\PYGZob{}}EnvQuadrillage\PYG{n+nb}{\PYGZcb{}}
+\end{Verbatim}

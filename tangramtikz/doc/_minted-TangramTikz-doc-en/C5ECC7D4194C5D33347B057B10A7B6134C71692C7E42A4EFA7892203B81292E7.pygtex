@@ -1,0 +1,4 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c}{\PYGZpc{}commande autonome pour afficher une aide type \PYGZsq{}mtt\PYGZsq{}}
+\PYG{k}{\PYGZbs{}TangramTikzHelp}\PYG{n+na}{[keys]}\PYGZlt{}tikz options\PYGZgt{}
+\end{Verbatim}

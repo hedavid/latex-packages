@@ -1,0 +1,14 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k}{\PYGZbs{}begin}\PYG{n+nb}{\PYGZob{}}GraphiqueTikz\PYG{n+nb}{\PYGZcb{}}[x=0.8cm,y=1cm,Xmin=\PYGZhy{}7,Xmax=4,Ymin=\PYGZhy{}3,Ymax=5]
+	\PYG{k}{\PYGZbs{}TracerAxesGrilles}\PYG{n+na}{[Grads=false,Elargir=2.5mm]}\PYG{n+nb}{\PYGZob{}\PYGZcb{}\PYGZob{}\PYGZcb{}}
+	\PYG{k}{\PYGZbs{}DefinirListeInterpo}\PYG{c}{\PYGZpc{}}
+		\PYG{n+nb}{\PYGZob{}}(\PYGZhy{}6,\PYGZhy{}2)(\PYGZhy{}5,4)(\PYGZhy{}2,\PYGZhy{}1)(1,2)(3,\PYGZhy{}2)\PYG{n+nb}{\PYGZcb{}}\PYG{c}{\PYGZpc{}}
+		[\PYG{k}{\PYGZbs{}interpoA}]
+	\PYG{k}{\PYGZbs{}DefinirCourbeInterpo}\PYG{c}{\PYGZpc{}}
+		[Nom=interpotest,Couleur=blue,Trace]\PYG{n+nb}{\PYGZob{}}\PYG{k}{\PYGZbs{}interpoA}\PYG{n+nb}{\PYGZcb{}}
+	\PYG{c}{\PYGZpc{}dérivée}
+	\PYG{k}{\PYGZbs{}TracerDerivee}\PYG{c}{\PYGZpc{}}
+		[Couleur=red,Spline,Debut=\PYGZhy{}6,Fin=3,StyleTrace=dotted,h=0.05]\PYG{c}{\PYGZpc{}}
+		\PYG{n+nb}{\PYGZob{}}interpotest\PYG{n+nb}{\PYGZcb{}}
+\PYG{k}{\PYGZbs{}end}\PYG{n+nb}{\PYGZob{}}GraphiqueTikz\PYG{n+nb}{\PYGZcb{}}
+\end{Verbatim}
