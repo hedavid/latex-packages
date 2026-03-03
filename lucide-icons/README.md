@@ -28,7 +28,7 @@ tlmgr install lucide-icons
 
 If you want the latest version directly from this repository:
 
-1. Download the repository (click *Code > Download ZIP*, or clone it).
+1. Download the [repository](https://github.com/cpierquet/latex-packages/tree/main/lucide-icons) (click *Code > Download ZIP*, or clone it).
 2. Place `lucide-icons.sty` and `lucide-icons-all.pdf` in a directory where LaTeX can find it, for example:
    - **TeX Live / Linux**: `~/texmf/tex/latex/lucide-icons/`
    - **MiKTeX / Windows**: `C:\Users\<user>\AppData\Roaming\MiKTeX\tex\latex\lucide-icons\`
@@ -43,8 +43,6 @@ If you want the latest version directly from this repository:
 
 ```latex
 \usepackage{lucide-icons}
-
-% Example: 
 ```
 
 ---

@@ -1,7 +1,0 @@
-\begin{Verbatim}[commandchars=\\\{\}]
-\PYG{c}{\PYGZpc{}environment, with keys to prepare the grid}
-
-\PYG{k}{\PYGZbs{}begin}\PYG{n+nb}{\PYGZob{}}EnvGrid\PYG{n+nb}{\PYGZcb{}}[keys]\PYGZlt{}color\PYGZgt{}
-	...
-\PYG{k}{\PYGZbs{}end}\PYG{n+nb}{\PYGZob{}}EnvGrid\PYG{n+nb}{\PYGZcb{}}
-\end{Verbatim}

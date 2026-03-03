@@ -1,5 +1,0 @@
-\tikzbrickfigurine%
-  [figure name=myfigurine]%
-  <remember picture>
-  {4.5in}%
-

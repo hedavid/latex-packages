@@ -1,8 +1,0 @@
-\begin{Verbatim}[commandchars=\\\{\}]
-\PYG{k}{\PYGZbs{}begin}\PYG{n+nb}{\PYGZob{}}EnvGrid\PYG{n+nb}{\PYGZcb{}}[NumSquares=16x4,Margin=2,Grid=Ruled]\PYGZlt{}\PYG{k}{\PYGZbs{}ColRuled}\PYGZgt{}
-	\PYG{k}{\PYGZbs{}WriteLine}\PYG{n+na}{[Scale=1.5]}\PYG{n+nb}{\PYGZob{}}\PYG{k}{\PYGZbs{}textcolor}\PYG{n+nb}{\PYGZob{}}red\PYG{n+nb}{\PYGZcb{}\PYGZob{}}red text on line 1\PYG{k}{\PYGZbs{}ldots}\PYG{n+nb}{\PYGZcb{}\PYGZcb{}}
-	\PYG{k}{\PYGZbs{}WriteLine}\PYG{n+na}{[Scale=1.15,OffsetH=1]}\PYG{n+nb}{\PYGZob{}}\PYG{l+s}{\PYGZdl{}}\PYG{o}{(}\PYG{l+m}{1}\PYG{o}{+}\PYG{n+nb}{x}\PYG{o}{)}\PYG{n+nb}{\PYGZca{}}\PYG{l+m}{2}\PYG{o}{=}\PYG{l+m}{1}\PYG{o}{+}\PYG{l+m}{2}\PYG{n+nb}{x}\PYG{o}{+}\PYG{n+nb}{x\PYGZca{}}\PYG{l+m}{2}\PYG{l+s}{\PYGZdl{}} on line 2, with 1\PYGZhy{}square offset\PYG{k}{\PYGZbs{}ldots}\PYG{n+nb}{\PYGZcb{}}
-	\PYG{k}{\PYGZbs{}WriteLine}\PYG{n+na}{[OffsetH=\PYGZhy{}1]}\PYG{n+nb}{\PYGZob{}}\PYG{k}{\PYGZbs{}textcolor}\PYG{n+nb}{\PYGZob{}}blue\PYG{n+nb}{\PYGZcb{}\PYGZob{}}blue text, back to left, on line 3\PYG{k}{\PYGZbs{}ldots}\PYG{n+nb}{\PYGZcb{}\PYGZcb{}}
-\PYG{k}{\PYGZbs{}end}\PYG{n+nb}{\PYGZob{}}EnvGrid\PYG{n+nb}{\PYGZcb{}}
-
-\end{Verbatim}

@@ -1,9 +1,0 @@
-\begin{Verbatim}[commandchars=\\\{\}]
-\PYG{k}{\PYGZbs{}definecolor}\PYG{n+nb}{\PYGZob{}}TyrianPurple\PYG{n+nb}{\PYGZcb{}\PYGZob{}}rgb\PYG{n+nb}{\PYGZcb{}\PYGZob{}}0.4,0.01,0.24\PYG{n+nb}{\PYGZcb{}}
-\PYG{k}{\PYGZbs{}definecolor}\PYG{n+nb}{\PYGZob{}}PapierRose\PYG{n+nb}{\PYGZcb{}\PYGZob{}}HTML\PYG{n+nb}{\PYGZcb{}\PYGZob{}}E6B8E6\PYG{n+nb}{\PYGZcb{}}
-\PYG{k}{\PYGZbs{}definecolor}\PYG{n+nb}{\PYGZob{}}PapierGris\PYG{n+nb}{\PYGZcb{}\PYGZob{}}HTML\PYG{n+nb}{\PYGZcb{}\PYGZob{}}D7E2EE\PYG{n+nb}{\PYGZcb{}}
-\PYG{c}{\PYGZpc{}Colors for Seyes}
-\PYG{k}{\PYGZbs{}def\PYGZbs{}ColSeyes}\PYG{n+nb}{\PYGZob{}}PapierRose/PapierGris\PYG{n+nb}{\PYGZcb{}}
-\PYG{c}{\PYGZpc{}Colors for Ruled}
-\PYG{k}{\PYGZbs{}def\PYGZbs{}ColRuled}\PYG{n+nb}{\PYGZob{}}PapierGris/TyrianPurple\PYG{n+nb}{\PYGZcb{}}
-\end{Verbatim}

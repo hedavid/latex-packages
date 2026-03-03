@@ -1,5 +1,0 @@
-\begin{Verbatim}[commandchars=\\\{\}]
-\PYG{c}{\PYGZpc{}in the GraphiqueTikz environment}
-\PYG{k}{\PYGZbs{}DefineCurve}\PYG{n+na}{[keys]}\PYGZlt{}fct name\PYGZgt{}\PYG{n+nb}{\PYGZob{}}xint formula\PYG{n+nb}{\PYGZcb{}}
-\PYG{k}{\PYGZbs{}DrawCurve}\PYG{n+na}{[keys]}\PYG{n+nb}{\PYGZob{}}xint formula\PYG{n+nb}{\PYGZcb{}}
-\end{Verbatim}

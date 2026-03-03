@@ -1,9 +1,0 @@
-\begin{Verbatim}[commandchars=\\\{\}]
-\PYG{c}{\PYGZpc{}simple codes}
-\PYG{c}{\PYGZpc{}empty case with \PYGZhy{}}
-\PYG{k}{\PYGZbs{}PixlArtTikz}\PYG{n+na}{[Codes=123469,Style=\PYGZbs{}ttfamily,Unit=0.35]}\PYG{n+nb}{\PYGZob{}}test1.csv\PYG{n+nb}{\PYGZcb{}}
-\PYGZti{}\PYGZti{}
-\PYG{k}{\PYGZbs{}PixlArtTikz}\PYG{n+na}{[Codes=123469,Colors=\PYGZob{}red,brown,yellow,black,blue,white\PYGZcb{},Correction,Unit=0.35]}\PYG{n+nb}{\PYGZob{}}test1.csv\PYG{n+nb}{\PYGZcb{}}
-\PYGZti{}\PYGZti{}
-\PYG{k}{\PYGZbs{}PixlArtTikz}\PYG{n+na}{[Codes=123469,Colors=\PYGZob{}red,brown,yellow,black,blue,white\PYGZcb{},Correction,Unit=0.35,Border=false]}\PYG{n+nb}{\PYGZob{}}test1.csv\PYG{n+nb}{\PYGZcb{}}
-\end{Verbatim}

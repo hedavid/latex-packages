@@ -28,7 +28,7 @@ tlmgr install tkz-interval
 
 If you want the latest version directly from this repository:
 
-1. Download the repository (click *Code > Download ZIP*, or clone it).
+1. Download the [repository ](https://github.com/cpierquet/latex-packages/tree/main/tkz-interval) (click *Code > Download ZIP*, or clone it).
 2. Place `tkz-interval.sty` in a directory where LaTeX can find it, for example:
    - **TeX Live / Linux**: `~/texmf/tex/latex/tkz-interval/`
    - **MiKTeX / Windows**: `C:\Users\<user>\AppData\Roaming\MiKTeX\tex\latex\tkz-interval\`
@@ -43,8 +43,6 @@ If you want the latest version directly from this repository:
 
 ```latex
 \usepackage{tkz-interval}
-
-% Example: display an interval bracket\n\Intervalle[...]{a}{b}
 ```
 
 ---

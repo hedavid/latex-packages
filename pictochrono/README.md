@@ -28,7 +28,7 @@ tlmgr install pictochrono
 
 If you want the latest version directly from this repository:
 
-1. Download the repository (click *Code > Download ZIP*, or clone it).
+1. Download the [repository](https://github.com/cpierquet/latex-packages/tree/main/pictochrono) (click *Code > Download ZIP*, or clone it).
 2. Place `pictochrono.sty` in a directory where LaTeX can find it, for example:
    - **TeX Live / Linux**: `~/texmf/tex/latex/pictochrono/`
    - **MiKTeX / Windows**: `C:\Users\<user>\AppData\Roaming\MiKTeX\tex\latex\pictochrono\`
@@ -43,8 +43,6 @@ If you want the latest version directly from this repository:
 
 ```latex
 \usepackage{pictochrono}
-
-% Example: insert a 5-minute chronometer pictogram\n\PictoChronos{5}
 ```
 
 ---

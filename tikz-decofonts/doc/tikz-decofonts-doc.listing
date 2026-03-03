@@ -1,8 +1,0 @@
-%green lines for visualizing manual height
-{\tikz\draw[thick,green] (0,0)--(0,1.75cm);}%
-\tkzletterblock%
-  [height=1.75cm,hstretch=1.25,font=\Huge\ttfamily,spacestretch=0.5]%
-  {%
-    D/yellow/black,E/white/black,*//,C/orange/black,O/teal/white%
-  }%
-{\tikz\draw[thick,green] (0,0)--(0,1.75cm);}%

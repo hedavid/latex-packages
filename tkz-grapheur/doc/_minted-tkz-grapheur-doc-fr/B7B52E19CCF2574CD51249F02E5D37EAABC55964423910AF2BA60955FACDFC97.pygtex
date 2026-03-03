@@ -1,6 +1,0 @@
-\begin{Verbatim}[commandchars=\\\{\}]
-\PYG{c}{\PYGZpc{}styles grilles/axes}
-\PYG{k}{\PYGZbs{}tikzset}\PYG{n+nb}{\PYGZob{}}pflgrillep/.style=\PYG{n+nb}{\PYGZob{}}thin,lightgray\PYG{n+nb}{\PYGZcb{}\PYGZcb{}}
-\PYG{k}{\PYGZbs{}tikzset}\PYG{n+nb}{\PYGZob{}}pflgrilles/.style=\PYG{n+nb}{\PYGZob{}}very thin,lightgray\PYG{n+nb}{\PYGZcb{}\PYGZcb{}}
-\PYG{k}{\PYGZbs{}tikzset}\PYG{n+nb}{\PYGZob{}}pflaxes/.style=\PYG{n+nb}{\PYGZob{}}line width=0.8pt,\PYGZhy{}\PYGZgt{},\PYGZgt{}=latex\PYG{n+nb}{\PYGZcb{}\PYGZcb{}}
-\end{Verbatim}

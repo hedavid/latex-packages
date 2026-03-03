@@ -28,7 +28,7 @@ tlmgr install CreationBoites
 
 If you want the latest version directly from this repository:
 
-1. Download the repository (click *Code > Download ZIP*, or clone it).
+1. Download the [repository](https://github.com/cpierquet/latex-packages/tree/main/creationboites) (click *Code > Download ZIP*, or clone it).
 2. Place `CreationBoites.sty` in a directory where LaTeX can find it, for example:
    - **TeX Live / Linux**: `~/texmf/tex/latex/CreationBoites/`
    - **MiKTeX / Windows**: `C:\Users\<user>\AppData\Roaming\MiKTeX\tex\latex\CreationBoites\`
@@ -43,9 +43,6 @@ If you want the latest version directly from this repository:
 
 ```latex
 \usepackage{CreationBoites}
-
-% Example: create a custom box
-\CreationBoite[blue]{BoiteDeDemo}{CompteurBoiteDemo}{\faIcons}{Boîte Démo/Boîtes Démos}
 ```
 
 ---

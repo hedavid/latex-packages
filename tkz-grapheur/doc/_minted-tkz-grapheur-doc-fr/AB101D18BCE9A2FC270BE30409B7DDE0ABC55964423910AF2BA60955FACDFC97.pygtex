@@ -1,7 +1,0 @@
-\begin{Verbatim}[commandchars=\\\{\}]
-\PYG{k}{\PYGZbs{}begin}\PYG{n+nb}{\PYGZob{}}GraphiqueTikz\PYG{n+nb}{\PYGZcb{}}\PYG{c}{\PYGZpc{}}
-	[x=0.9cm,y=0.425cm,Xmin=4,Xmax=20,Origx=4,
-	Ymin=40,Ymax=56,Ygrille=2,Ygrilles=1,Origy=40]
-	\PYGZlt{}AffCadre\PYGZgt{}
-\PYG{k}{\PYGZbs{}end}\PYG{n+nb}{\PYGZob{}}GraphiqueTikz\PYG{n+nb}{\PYGZcb{}}
-\end{Verbatim}

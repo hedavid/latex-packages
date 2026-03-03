@@ -1,5 +1,0 @@
-\begin{Verbatim}[commandchars=\\\{\}]
-\PYG{c}{\PYGZpc{}in the GraphiqueTikz environment}
-\PYG{k}{\PYGZbs{}DefineInterpoCurve}\PYG{n+na}{[keys]}\PYG{n+nb}{\PYGZob{}}list of support points\PYG{n+nb}{\PYGZcb{}}
-\PYG{k}{\PYGZbs{}DrawInterpoCurve}\PYG{n+na}{[keys]}\PYG{n+nb}{\PYGZob{}}list of support points\PYG{n+nb}{\PYGZcb{}}
-\end{Verbatim}

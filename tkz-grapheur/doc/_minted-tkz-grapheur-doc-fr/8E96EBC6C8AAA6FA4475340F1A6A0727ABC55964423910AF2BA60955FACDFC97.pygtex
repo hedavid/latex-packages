@@ -1,5 +1,0 @@
-\begin{Verbatim}[commandchars=\\\{\}]
-\PYG{c}{\PYGZpc{}style des constructions récurrence}
-\PYG{k}{\PYGZbs{}tikzset}\PYG{n+nb}{\PYGZob{}}pfltraitrec/.style=\PYG{n+nb}{\PYGZob{}}line width=0.8pt\PYG{n+nb}{\PYGZcb{}\PYGZcb{}}
-\PYG{k}{\PYGZbs{}tikzset}\PYG{n+nb}{\PYGZob{}}pfltraitrecpointill/.style=\PYG{n+nb}{\PYGZob{}}pfltraitrec,densely dashed\PYG{n+nb}{\PYGZcb{}\PYGZcb{}}
-\end{Verbatim}

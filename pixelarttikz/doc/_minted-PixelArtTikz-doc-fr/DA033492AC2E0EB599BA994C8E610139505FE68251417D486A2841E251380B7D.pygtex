@@ -1,5 +1,0 @@
-\begin{Verbatim}[commandchars=\\\{\}]
-\PYG{k}{\PYGZbs{}begin}\PYG{n+nb}{\PYGZob{}}EnvPixelArtTikz\PYG{n+nb}{\PYGZcb{}}[clés]\PYGZlt{}options tikz\PYGZgt{}\PYG{n+nb}{\PYGZob{}}fichier.csv\PYG{n+nb}{\PYGZcb{}}
-	\PYG{c}{\PYGZpc{}code(s) tikz qui seront au\PYGZhy{}dessus du PixelArt}
-\PYG{k}{\PYGZbs{}end}\PYG{n+nb}{\PYGZob{}}EnvPixelArtTikz\PYG{n+nb}{\PYGZcb{}}
-\end{Verbatim}

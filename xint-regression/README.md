@@ -28,7 +28,7 @@ tlmgr install xint-regression
 
 If you want the latest version directly from this repository:
 
-1. Download the repository (click *Code > Download ZIP*, or clone it).
+1. Download the [repository](https://github.com/cpierquet/latex-packages/tree/main/xint-regression) (click *Code > Download ZIP*, or clone it).
 2. Place `xint-regression.sty` in a directory where LaTeX can find it, for example:
    - **TeX Live / Linux**: `~/texmf/tex/latex/xint-regression/`
    - **MiKTeX / Windows**: `C:\Users\<user>\AppData\Roaming\MiKTeX\tex\latex\xint-regression\`
@@ -43,8 +43,6 @@ If you want the latest version directly from this repository:
 
 ```latex
 \usepackage{xint-regression}
-
-% Example: compute a linear regression\n\RegressionLineaire{...}
 ```
 
 ---

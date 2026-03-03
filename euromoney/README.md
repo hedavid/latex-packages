@@ -28,7 +28,7 @@ tlmgr install euromoney
 
 If you want the latest version directly from this repository:
 
-1. Download the repository (click *Code > Download ZIP*, or clone it).
+1. Download the [repository](https://github.com/cpierquet/latex-packages/tree/main/euromoney) (click *Code > Download ZIP*, or clone it).
 2. Place `euromoney.sty` in a directory where LaTeX can find it, for example:
    - **TeX Live / Linux**: `~/texmf/tex/latex/euromoney/`
    - **MiKTeX / Windows**: `C:\Users\<user>\AppData\Roaming\MiKTeX\tex\latex\euromoney\`
@@ -43,9 +43,6 @@ If you want the latest version directly from this repository:
 
 ```latex
 \usepackage{euromoney}
-
-% Example: insert multiple coins
-\EuroCoins[Style=full]{2+1+0.5+0.2+0.1+0.05+0.02+0.01}
 ```
 
 ---

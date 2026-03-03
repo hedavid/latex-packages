@@ -1,7 +1,0 @@
-\begin{MintedVerbatim}[commandchars=\\\{\}]
-\PYG{k}{\PYGZbs{}pflnum}\PYG{n+nb}{\PYGZob{}}2\PYG{n+nb}{\PYGZca{}}12+1\PYG{n+nb}{\PYGZcb{}} |
-\PYG{k}{\PYGZbs{}pflnum*}\PYG{n+nb}{\PYGZob{}}4096/(12+1)\PYG{n+nb}{\PYGZcb{}} |
-\PYG{k}{\PYGZbs{}pflnum*}\PYG{n+na}{[4]}\PYG{n+nb}{\PYGZob{}}4096/(12+1)\PYG{n+nb}{\PYGZcb{}} |
-\PYG{k}{\PYGZbs{}pflnum*}\PYG{n+na}{[5]}\PYG{n+nb}{\PYGZob{}}sqrt(1+exp(9.75))\PYG{n+nb}{\PYGZcb{}} |
-\PYG{k}{\PYGZbs{}pflnumfrac}\PYG{n+nb}{\PYGZob{}}74+1/5\PYG{n+nb}{\PYGZcb{}} \PYG{k}{\PYGZbs{}pflnumfrac}\PYG{n+na}{[d]}\PYG{n+nb}{\PYGZob{}}74+1/5\PYG{n+nb}{\PYGZcb{}}
-\end{MintedVerbatim}

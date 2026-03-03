@@ -1,6 +1,0 @@
-\begin{MintedVerbatim}[commandchars=\\\{\}]
-\PYG{l+s}{\PYGZdl{}}\PYG{n+nv}{\PYGZbs{}pflcartplaneq}\PYG{o}{(}\PYG{l+m}{1}\PYG{n+nb}{;}\PYG{l+m}{2}\PYG{n+nb}{;}\PYG{l+m}{3}\PYG{o}{)(}\PYG{l+m}{4}\PYG{n+nb}{,}\PYG{l+m}{5}\PYG{n+nb}{,}\PYG{l+m}{6}\PYG{o}{)}\PYG{l+s}{\PYGZdl{}}\PYG{k}{\PYGZbs{}\PYGZbs{}}
-\PYG{l+s}{\PYGZdl{}}\PYG{n+nv}{\PYGZbs{}pflcartplaneq}\PYG{o}{(}\PYG{l+m}{1}\PYG{o}{/}\PYG{l+m}{2}\PYG{n+nb}{;}\PYG{l+m}{2}\PYG{o}{/}\PYG{l+m}{3}\PYG{n+nb}{;}\PYG{l+m}{3}\PYG{o}{/}\PYG{l+m}{5}\PYG{o}{)(}\PYG{l+m}{4}\PYG{n+nb}{,}\PYG{l+m}{5}\PYG{n+nb}{,}\PYG{l+m}{6}\PYG{o}{)}\PYG{l+s}{\PYGZdl{}} or
-\PYG{l+s}{\PYGZdl{}}\PYG{n+nv}{\PYGZbs{}pflcartplaneq}\PYG{o}{[}\PYG{n+nb}{simpl coeffs}\PYG{o}{](}\PYG{l+m}{1}\PYG{o}{/}\PYG{l+m}{2}\PYG{n+nb}{;}\PYG{l+m}{2}\PYG{o}{/}\PYG{l+m}{3}\PYG{n+nb}{;}\PYG{l+m}{3}\PYG{o}{/}\PYG{l+m}{5}\PYG{o}{)(}\PYG{l+m}{4}\PYG{n+nb}{,}\PYG{l+m}{5}\PYG{n+nb}{,}\PYG{l+m}{6}\PYG{o}{)}\PYG{l+s}{\PYGZdl{}}\PYG{k}{\PYGZbs{}\PYGZbs{}}
-\PYG{l+s}{\PYGZdl{}}\PYG{n+nv}{\PYGZbs{}pflcartplaneq}\PYG{o}{(}\PYG{l+m}{2}\PYG{n+nb}{,}\PYG{l+m}{0}\PYG{n+nb}{,}\PYG{l+m}{1}\PYG{o}{)(}\PYG{l+m}{3}\PYG{n+nb}{,}\PYG{l+m}{1}\PYG{n+nb}{,}\PYG{l+m}{1}\PYG{o}{)(}\PYG{l+m}{1}\PYG{n+nb}{,}\PYG{o}{\PYGZhy{}}\PYG{l+m}{2}\PYG{n+nb}{,}\PYG{l+m}{0}\PYG{o}{)}\PYG{l+s}{\PYGZdl{}}
-\end{MintedVerbatim}

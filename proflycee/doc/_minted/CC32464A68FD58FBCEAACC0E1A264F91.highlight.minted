@@ -1,9 +1,0 @@
-\begin{MintedVerbatim}[commandchars=\\\{\}]
-\PYG{k}{\PYGZbs{}pflcalcintegral}(*)[prec]\PYGZlt{}num of subdiv\PYGZgt{}\PYG{n+nb}{\PYGZob{}}fct\PYG{n+nb}{\PYGZcb{}\PYGZob{}}a\PYG{n+nb}{\PYGZcb{}\PYGZob{}}b\PYG{n+nb}{\PYGZcb{}}
-\PYG{k}{\PYGZbs{}CalcIntegrale}(*)[prec]\PYGZlt{}num of subdiv\PYGZgt{}\PYG{n+nb}{\PYGZob{}}fct\PYG{n+nb}{\PYGZcb{}\PYGZob{}}a\PYG{n+nb}{\PYGZcb{}\PYGZob{}}b\PYG{n+nb}{\PYGZcb{}}
-\PYG{k}{\PYGZbs{}pflvalintegr}(*)[prec]\PYGZlt{}nb de subdiv\PYGZgt{}\PYG{n+nb}{\PYGZob{}}fct\PYG{n+nb}{\PYGZcb{}\PYGZob{}}a\PYG{n+nb}{\PYGZcb{}\PYGZob{}}b\PYG{n+nb}{\PYGZcb{}}
-
-\PYG{c}{\PYGZpc{} \PYGZhy{}\PYGZhy{}\PYGZhy{} (starred) \PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}}
-\PYG{c}{\PYGZpc{} * for siunitx output}
-\PYG{c}{\PYGZpc{} \PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}}
-\end{MintedVerbatim}

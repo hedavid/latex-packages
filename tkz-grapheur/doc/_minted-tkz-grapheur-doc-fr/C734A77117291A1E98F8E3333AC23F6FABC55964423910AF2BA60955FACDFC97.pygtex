@@ -1,6 +1,0 @@
-\begin{Verbatim}[commandchars=\\\{\}]
-\PYG{k}{\PYGZbs{}begin}\PYG{n+nb}{\PYGZob{}}GraphiqueTikz\PYG{n+nb}{\PYGZcb{}}[x=1cm,y=1cm,Xmin=0,Xmax=5,Ymin=0,Ymax=1]
-	\PYG{k}{\PYGZbs{}TracerAxesGrilles}\PYG{n+na}{[Elargir=2.5mm]}\PYG{n+nb}{\PYGZob{}}auto\PYG{n+nb}{\PYGZcb{}\PYGZob{}}auto\PYG{n+nb}{\PYGZcb{}}
-	\PYG{k}{\PYGZbs{}PlacerTexte}\PYG{n+na}{[Couleur=red,Police=\PYGZbs{}LARGE,Position=right]}\PYG{n+nb}{\PYGZob{}}(1.5,0.5)\PYG{n+nb}{\PYGZcb{}\PYGZob{}}courbe \PYG{l+s}{\PYGZdl{}}\PYG{n+nb}{C\PYGZus{}}\PYG{l+m}{1}\PYG{l+s}{\PYGZdl{}}\PYG{n+nb}{\PYGZcb{}}
-\PYG{k}{\PYGZbs{}end}\PYG{n+nb}{\PYGZob{}}GraphiqueTikz\PYG{n+nb}{\PYGZcb{}}
-\end{Verbatim}

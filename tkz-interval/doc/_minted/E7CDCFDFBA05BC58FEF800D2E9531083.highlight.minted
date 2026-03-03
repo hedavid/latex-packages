@@ -1,4 +1,0 @@
-\begin{MintedVerbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
-\PYG{k}{\PYGZbs{}tkzinterval}\PYG{n+na}{[type,keys]}\PYG{n+nb}{\PYGZob{}}lower limit ; upper limit\PYG{n+nb}{\PYGZcb{}}
-\PYG{c}{\PYGZpc{}type can be open / open left / open right (closed by default)}
-\end{MintedVerbatim}

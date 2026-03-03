@@ -1,9 +1,0 @@
-\begin{Verbatim}[commandchars=\\\{\}]
-En mode normal, \PYG{k}{\PYGZbs{}AffCarteJeu}\PYG{n+nb}{\PYGZob{}}VP\PYG{n+nb}{\PYGZcb{}} ou \PYG{k}{\PYGZbs{}AffCarteJeu}\PYG{n+na}{[AlignementV=0]}\PYG{n+nb}{\PYGZob{}}Dos\PYG{n+nb}{\PYGZcb{}} ou
-\PYG{k}{\PYGZbs{}AffCarteJeu}\PYG{n+na}{[AlignementV=1]}\PYG{n+nb}{\PYGZob{}}10K\PYG{n+nb}{\PYGZcb{}} ou \PYG{k}{\PYGZbs{}AffCarteJeu}\PYG{n+na}{[TypeJeu=Tarot,AlignementV=0.33,Rotation=25]}\PYG{n+nb}{\PYGZob{}}10AT\PYG{n+nb}{\PYGZcb{}}.\PYG{k}{\PYGZbs{}\PYGZbs{}} \PYG{k}{\PYGZbs{}\PYGZbs{}}
-En mode \PYG{k}{\PYGZbs{}TikZ}, \PYG{k}{\PYGZbs{}AffCarteJeu}\PYG{n+na}{[Hauteur=2,Tikz]}\PYG{n+nb}{\PYGZob{}}VP\PYG{n+nb}{\PYGZcb{}}
-ou \PYG{k}{\PYGZbs{}AffCarteJeu}\PYG{n+na}{[Hauteur=2,AlignementV=0,Tikz]}\PYG{n+nb}{\PYGZob{}}AC\PYG{n+nb}{\PYGZcb{}}
-ou \PYG{k}{\PYGZbs{}AffCarteJeu}\PYG{n+na}{[Hauteur=2,AlignementV=1,Tikz]}\PYG{n+nb}{\PYGZob{}}10K\PYG{n+nb}{\PYGZcb{}}
-ou \PYG{k}{\PYGZbs{}AffCarteJeu}\PYG{n+na}{[Hauteur=2,TypeJeu=Tarot,AlignementV=0.33,Rotation=\PYGZhy{}25]}\PYG{n+nb}{\PYGZob{}}10AT\PYG{n+nb}{\PYGZcb{}}.\PYG{k}{\PYGZbs{}\PYGZbs{}} \PYG{k}{\PYGZbs{}\PYGZbs{}}
-On obtient la main \PYG{k}{\PYGZbs{}AffCartesJeu}\PYG{n+na}{[Hauteur=2,TypeJeu=Uno,EspH=1.25mm]}\PYG{n+nb}{\PYGZob{}}9B § 8R § P2J § P4 § 0J § CSR § PTJ\PYG{n+nb}{\PYGZcb{}}.
-\end{Verbatim}

@@ -1,3 +1,0 @@
-\begin{MintedVerbatim}[commandchars=\\\{\}]
-\PYG{k}{\PYGZbs{}CalcIntegrale}\PYG{n+nb}{\PYGZob{}}80*x*exp(\PYGZhy{}0.2*x)\PYG{n+nb}{\PYGZcb{}\PYGZob{}}1\PYG{n+nb}{\PYGZcb{}\PYGZob{}}20\PYG{n+nb}{\PYGZcb{}}
-\end{MintedVerbatim}

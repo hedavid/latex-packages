@@ -1,5 +1,0 @@
-$x \in \tkzinterval[FF]{4;\dfrac{100}{7}} \cup \tkzinterval[FO]{\dfrac{1}{2};\sqrt{7}}$.\hfill
-$x \in \tkzinterval[OO]{4;\dfrac{100}{7}} \cup \tkzinterval[FO]{\dfrac{1}{2};\sqrt{7}}$.\hfill\null
-
-\hfill$x \in \tkzinterval[FO]{4;\dfrac{100}{7}} \cup \tkzinterval[FO]{\dfrac{1}{2};\sqrt{7}}$.\hfill
-$x \in \tkzinterval[OF]{4;\dfrac{100}{7}} \cup \tkzinterval[FO]{\dfrac{1}{2};\sqrt{7}}$.

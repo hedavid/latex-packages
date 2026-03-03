@@ -1,4 +1,0 @@
-\begin{Verbatim}[commandchars=\\\{\}]
-\PYG{c}{\PYGZpc{}in the GraphiqueTikz environment}
-\PYG{k}{\PYGZbs{}FindIntersections}\PYG{n+na}{[keys]}\PYG{n+nb}{\PYGZob{}}curve1\PYG{n+nb}{\PYGZcb{}\PYGZob{}}curve2\PYG{n+nb}{\PYGZcb{}}
-\end{Verbatim}

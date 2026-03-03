@@ -1,8 +1,0 @@
-\begin{Verbatim}[commandchars=\\\{\}]
-\PYG{k}{\PYGZbs{}begin}\PYG{n+nb}{\PYGZob{}}GraphiqueTikz\PYG{n+nb}{\PYGZcb{}}[Ymin=\PYGZhy{}1,Ymax=1.5]
-	\PYG{k}{\PYGZbs{}TracerAxesGrilles}\PYG{n+nb}{\PYGZob{}\PYGZcb{}\PYGZob{}\PYGZcb{}}
-	\PYG{k}{\PYGZbs{}DefinirCourbe}\PYG{n+na}{[Trace,Couleur=blue]}\PYGZlt{}f\PYGZgt{}\PYG{n+nb}{\PYGZob{}}x*exp(\PYGZhy{}x\PYG{n+nb}{\PYGZca{}}2/2)\PYG{n+nb}{\PYGZcb{}}
-	\PYG{k}{\PYGZbs{}TracerDerivee}\PYG{n+na}{[Couleur=red,StyleTrace=dashed]}\PYG{n+nb}{\PYGZob{}}f\PYG{n+nb}{\PYGZcb{}}
-	\PYG{k}{\PYGZbs{}TracerPrimitive}\PYG{n+na}{[Couleur=violet,StyleTrace=dotted]}\PYG{n+nb}{\PYGZob{}}f\PYG{n+nb}{\PYGZcb{}\PYGZob{}}0\PYG{n+nb}{\PYGZcb{}\PYGZob{}}0\PYG{n+nb}{\PYGZcb{}}
-\PYG{k}{\PYGZbs{}end}\PYG{n+nb}{\PYGZob{}}GraphiqueTikz\PYG{n+nb}{\PYGZcb{}}
-\end{Verbatim}

@@ -28,7 +28,7 @@ tlmgr install circularglyphs
 
 If you want the latest version directly from this repository:
 
-1. Download the repository (click *Code > Download ZIP*, or clone it).
+1. Download the on [repository](https://github.com/cpierquet/latex-packages/tree/main/circularglyphs) (click *Code > Download ZIP*, or clone it).
 2. Place `circularglyphs.sty` in a directory where LaTeX can find it, for example:
    - **TeX Live / Linux**: `~/texmf/tex/latex/circularglyphs/`
    - **MiKTeX / Windows**: `C:\Users\<user>\AppData\Roaming\MiKTeX\tex\latex\circularglyphs\`
@@ -43,15 +43,13 @@ If you want the latest version directly from this repository:
 
 ```latex
 \usepackage{circularglyphs}
-
-% Example: render a word in circular glyphs
-\CircGlyph[Inline]{ABCDEFG}
 ```
 
 ---
 
 ## Credits
 
+|||
 |---|---|
 | **Circular Glyphs alphabet** | [Irolan](https://www.deviantart.com/irolan/art/Circular-Glyphs-479352599) on DeviantArt |
 

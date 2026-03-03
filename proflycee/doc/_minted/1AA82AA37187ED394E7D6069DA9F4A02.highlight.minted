@@ -1,6 +1,0 @@
-\begin{MintedVerbatim}[commandchars=\\\{\}]
-\PYG{k}{\PYGZbs{}pflapproxsol}\PYG{n+na}{[var=t,interval=\PYGZhy{}1:2,prec=4]}\PYG{n+nb}{\PYGZob{}}3*t*exp(\PYGZhy{}0.5*t+1)=5.365\PYG{n+nb}{\PYGZcb{}}[SolA]\PYG{c}{\PYGZpc{}}
-\PYG{l+s}{\PYGZdl{}}\PYG{n+nb}{t\PYGZus{}}\PYG{l+m}{1}\PYG{n+nb}{ }\PYG{n+nv}{\PYGZbs{}approx}\PYG{n+nb}{ }\PYG{n+nv}{\PYGZbs{}num}\PYG{o}{[}\PYG{n+nb}{minimum}\PYG{o}{\PYGZhy{}}\PYG{n+nb}{decimal}\PYG{o}{\PYGZhy{}}\PYG{n+nb}{digits}\PYG{o}{=}\PYG{l+m}{4}\PYG{o}{]}\PYG{n+nb}{\PYGZob{}}\PYG{n+nv}{\PYGZbs{}SolAd}\PYG{n+nb}{\PYGZcb{}}\PYG{l+s}{\PYGZdl{}}\PYG{k}{\PYGZbs{}\PYGZbs{}}
-\PYG{l+s}{\PYGZdl{}}\PYG{n+nb}{t\PYGZus{}}\PYG{l+m}{1}\PYG{n+nb}{ }\PYG{n+nv}{\PYGZbs{}approx}\PYG{n+nb}{ }\PYG{n+nv}{\PYGZbs{}num}\PYG{o}{[}\PYG{n+nb}{minimum}\PYG{o}{\PYGZhy{}}\PYG{n+nb}{decimal}\PYG{o}{\PYGZhy{}}\PYG{n+nb}{digits}\PYG{o}{=}\PYG{l+m}{4}\PYG{o}{]}\PYG{n+nb}{\PYGZob{}}\PYG{n+nv}{\PYGZbs{}SolAe}\PYG{n+nb}{\PYGZcb{}}\PYG{l+s}{\PYGZdl{}}\PYG{k}{\PYGZbs{}\PYGZbs{}}
-\PYG{l+s}{\PYGZdl{}}\PYG{n+nb}{t\PYGZus{}}\PYG{l+m}{1}\PYG{n+nb}{ }\PYG{n+nv}{\PYGZbs{}approx}\PYG{n+nb}{ }\PYG{n+nv}{\PYGZbs{}num}\PYG{o}{[}\PYG{n+nb}{minimum}\PYG{o}{\PYGZhy{}}\PYG{n+nb}{decimal}\PYG{o}{\PYGZhy{}}\PYG{n+nb}{digits}\PYG{o}{=}\PYG{l+m}{4}\PYG{o}{]}\PYG{n+nb}{\PYGZob{}}\PYG{n+nv}{\PYGZbs{}SolAa}\PYG{n+nb}{\PYGZcb{}}\PYG{l+s}{\PYGZdl{}}
-\end{MintedVerbatim}

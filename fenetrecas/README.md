@@ -28,7 +28,7 @@ tlmgr install FenetreCas
 
 If you want the latest version directly from this repository:
 
-1. Download the repository (click *Code > Download ZIP*, or clone it).
+1. Download the [repository](https://github.com/cpierquet/latex-packages/tree/main/fenetrecas) (click *Code > Download ZIP*, or clone it).
 2. Place `FenetreCas.sty` in a directory where LaTeX can find it, for example:
    - **TeX Live / Linux**: `~/texmf/tex/latex/FenetreCas/`
    - **MiKTeX / Windows**: `C:\Users\<user>\AppData\Roaming\MiKTeX\tex\latex\FenetreCas\`
@@ -43,9 +43,6 @@ If you want the latest version directly from this repository:
 
 ```latex
 \usepackage{FenetreCas}
-
-% Example: display an Xcas-like window
-\LigneCalculsGeogebra{\sffamily g(x)=4/(1+e\textasciicircum(-k x))}{$\rightarrow$ \: $\mathsf{g(x)=\dfrac{4}{e^{-kx}+1}}$}
 ```
 
 ---

@@ -1,9 +1,0 @@
-\begin{Verbatim}[commandchars=\\\{\}]
-\PYG{k}{\PYGZbs{}pagestyle}\PYG{n+nb}{\PYGZob{}}empty\PYG{n+nb}{\PYGZcb{}}
-
-\PYG{k}{\PYGZbs{}begin}\PYG{n+nb}{\PYGZob{}}PleinePageCinqCinq\PYG{n+nb}{\PYGZcb{}}[options]
-	\PYG{k}{\PYGZbs{}LignePapierCinqCinq}\PYG{n+na}{[options]}\PYGZlt{}alignement\PYGZgt{}(ajustement)\PYG{n+nb}{\PYGZob{}}texte\PYG{n+nb}{\PYGZcb{}}
-	\PYG{k}{\PYGZbs{}CadreNoteCinqCinq}\PYG{n+na}{[hauteur]}\PYG{n+nb}{\PYGZob{}}numligne\PYG{n+nb}{\PYGZcb{}}
-	\PYG{k}{\PYGZbs{}ParagraphePapierCinqCinq}\PYG{n+na}{[options]}\PYGZlt{}alignement\PYGZgt{}(ajustement)\PYG{n+nb}{\PYGZob{}}texte\PYG{n+nb}{\PYGZcb{}}
-\PYG{k}{\PYGZbs{}end}\PYG{n+nb}{\PYGZob{}}PleinePageSeyes\PYG{n+nb}{\PYGZcb{}}
-\end{Verbatim}

@@ -1,6 +1,0 @@
-\begin{Verbatim}[commandchars=\\\{\}]
-\PYG{c}{\PYGZpc{}découpage par blocs de taille 8x8}
-\PYG{k}{\PYGZbs{}AideGrillePixelArtTikz}\PYG{n+nb}{\PYGZob{}}PAkoala.csv\PYG{n+nb}{\PYGZcb{}\PYGZob{}}8x8\PYG{n+nb}{\PYGZcb{}}
-\PYGZti{}\PYGZti{}
-\PYG{k}{\PYGZbs{}PixelArtTikz}\PYG{n+na}{[Correction,Unite=0.125,Codes=ABCDEFGHI,Couleurs=\PYGZob{}\PYGZbs{}listcoulkoala\PYGZcb{},Decoupage=8x8]}\PYG{n+nb}{\PYGZob{}}PAkoala.csv\PYG{n+nb}{\PYGZcb{}}
-\end{Verbatim}

@@ -1,6 +1,0 @@
-\begin{Verbatim}[commandchars=\\\{\}]
-\PYG{c}{\PYGZpc{}bloc 2/4 pour un découpage 4+4}
-\PYG{k}{\PYGZbs{}PixelArtTikzBloc}\PYG{n+na}{[Unite=0.35,Codes=ABCDEFGHI]}\PYG{n+nb}{\PYGZob{}}PAkoala.csv\PYG{n+nb}{\PYGZcb{}\PYGZob{}}4+4\PYG{n+nb}{\PYGZcb{}\PYGZob{}}2/4\PYG{n+nb}{\PYGZcb{}}
-\PYGZti{}\PYGZti{}
-\PYG{k}{\PYGZbs{}PixelArtTikzBloc}\PYG{n+na}{[Unite=0.35,Codes=ABCDEFGHI,Correction,Couleurs=\PYGZob{}\PYGZbs{}listcoulkoala\PYGZcb{}]}\PYG{n+nb}{\PYGZob{}}PAkoala.csv\PYG{n+nb}{\PYGZcb{}\PYGZob{}}4+4\PYG{n+nb}{\PYGZcb{}\PYGZob{}}2/4\PYG{n+nb}{\PYGZcb{}}
-\end{Verbatim}

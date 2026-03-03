@@ -1,4 +1,0 @@
-\begin{MintedVerbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
-\PYG{k}{\PYGZbs{}setlength\PYGZbs{}tkzintervhoriz}\PYG{n+nb}{\PYGZob{}}5pt\PYG{n+nb}{\PYGZcb{}}
-\PYG{k}{\PYGZbs{}setlength\PYGZbs{}tkzintervwidth}\PYG{n+nb}{\PYGZob{}}0.9pt\PYG{n+nb}{\PYGZcb{}}
-\end{MintedVerbatim}

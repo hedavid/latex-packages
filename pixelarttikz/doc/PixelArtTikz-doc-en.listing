@@ -1,9 +1,0 @@
-%reading of csv (koala)
-\readdtcsv{PAkoala.csv}{DTkoala}
-
-%full pixelart
-\dtpixlarttikz[Correction,Unite=0.125,Codes=ABCDEFGHI,Couleurs={\listcoulkoala},Decoupage=8x8]{DTkoala}
-
-%cut pixelart (french keys for the moment...)
-\dtpixlarttikzblock[Unite=0.125,Correction,Codes=ABCDEFGHI,Couleurs={\listcoulkoala}]%
-	{DTkoala}{8x8}{1/1}

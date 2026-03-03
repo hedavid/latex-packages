@@ -1,9 +1,0 @@
-\begin{Verbatim}[commandchars=\\\{\}]
-\PYG{c}{\PYGZpc{}dimensions fixées (hors graduations)}
-\PYG{k}{\PYGZbs{}begin}\PYG{n+nb}{\PYGZob{}}GraphiqueTikz\PYG{n+nb}{\PYGZcb{}}\PYG{c}{\PYGZpc{}}
-		[Xgrille=10,Xgrilles=5,Ygrille=50,Ygrilles=25]
-		\PYG{c}{\PYGZpc{}Xgrille(s) et/ou Ygrille(s) dans ce cas}
-		\PYGZlt{}Xmin=0,Xmax=100,Ymin=0,Ymax=250,Taille=\PYG{n+nb}{\PYGZob{}}10cm/5cm\PYG{n+nb}{\PYGZcb{}}\PYGZgt{}
-	\PYG{k}{\PYGZbs{}TracerAxesGrilles}\PYG{n+na}{[]}\PYG{n+nb}{\PYGZob{}}auto\PYG{n+nb}{\PYGZcb{}\PYGZob{}}auto\PYG{n+nb}{\PYGZcb{}}
-\PYG{k}{\PYGZbs{}end}\PYG{n+nb}{\PYGZob{}}GraphiqueTikz\PYG{n+nb}{\PYGZcb{}}
-\end{Verbatim}

@@ -28,7 +28,7 @@ tlmgr install couleurs-fr
 
 If you want the latest version directly from this repository:
 
-1. Download the repository (click *Code > Download ZIP*, or clone it).
+1. Download the [repository](https://github.com/cpierquet/latex-packages/tree/main/couleurs-fr) (click *Code > Download ZIP*, or clone it).
 2. Place `couleurs-fr.sty` in a directory where LaTeX can find it, for example:
    - **TeX Live / Linux**: `~/texmf/tex/latex/couleurs-fr/`
    - **MiKTeX / Windows**: `C:\Users\<user>\AppData\Roaming\MiKTeX\tex\latex\couleurs-fr\`
@@ -43,9 +43,6 @@ If you want the latest version directly from this repository:
 
 ```latex
 \usepackage{couleurs-fr}
-
-% Example: use a French colour name
-\textcolor{RougeTomate}{Mon texte en rouge tomate}
 ```
 
 ---

@@ -1,8 +1,0 @@
-\begin{Verbatim}[commandchars=\\\{\}]
-...
-	\PYG{c}{\PYGZpc{}pour saisir les lignes, une par une}
-	\PYG{k}{\PYGZbs{}EcrireLigne}\PYG{n+na}{[clés]}\PYGZlt{}alignement\PYGZgt{}\PYG{n+nb}{\PYGZob{}}texte\PYG{n+nb}{\PYGZcb{}}
-	\PYG{c}{\PYGZpc{}pour passer la ligne}
-	\PYG{k}{\PYGZbs{}PasseLigne}
-...
-\end{Verbatim}

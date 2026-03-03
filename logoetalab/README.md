@@ -28,8 +28,8 @@ tlmgr install logoetalab
 
 If you want the latest version directly from this repository:
 
-1. Download the repository (click *Code > Download ZIP*, or clone it).
-2. Place `logoetalab.sty` in a directory where LaTeX can find it, for example:
+1. Download the [repository](https://github.com/cpierquet/latex-packages/tree/main/logoetalab) (click *Code > Download ZIP*, or clone it).
+2. Place `logoetalab.sty` and `*.pdf` files in a directory where LaTeX can find it, for example:
    - **TeX Live / Linux**: `~/texmf/tex/latex/logoetalab/`
    - **MiKTeX / Windows**: `C:\Users\<user>\AppData\Roaming\MiKTeX\tex\latex\logoetalab\`
    - **macOS (MacTeX)**: `~/Library/texmf/tex/latex/logoetalab/`
@@ -43,9 +43,6 @@ If you want the latest version directly from this repository:
 
 ```latex
 \usepackage{logoetalab}
-
-% Example: display the horizontal logo
-\includegraphics[height=5cm]{LogoLicenceOuverte-Gris-V.pdf}
 ```
 
 ---

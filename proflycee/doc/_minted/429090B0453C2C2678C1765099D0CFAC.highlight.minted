@@ -1,7 +1,0 @@
-\begin{MintedVerbatim}[commandchars=\\\{\}]
-\PYG{k}{\PYGZbs{}def\PYGZbs{}listedonnees}\PYG{c}{\PYGZpc{}}
-\PYG{n+nb}{\PYGZob{}}0.7426,0.7429,0.7435,0.7448,0.7456,0.7478,\PYG{c}{\PYGZpc{}}
-	0.7478,0.748,0.7487,0.7494,0.7494,0.7496\PYG{n+nb}{\PYGZcb{}}
-\PYG{k}{\PYGZbs{}pflparamstats}\PYG{n+nb}{\PYGZob{}}\PYG{k}{\PYGZbs{}listedonnees}\PYG{n+nb}{\PYGZcb{}}
-\PYG{k}{\PYGZbs{}monmin}/\PYG{k}{\PYGZbs{}monquartileun}/\PYG{k}{\PYGZbs{}mamediane}/\PYG{k}{\PYGZbs{}monquartiletrois}/\PYG{k}{\PYGZbs{}monmax}
-\end{MintedVerbatim}

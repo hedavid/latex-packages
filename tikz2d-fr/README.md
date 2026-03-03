@@ -28,7 +28,7 @@ tlmgr install tikz2d-fr
 
 If you want the latest version directly from this repository:
 
-1. Download the repository (click *Code > Download ZIP*, or clone it).
+1. Download the [repository](https://github.com/cpierquet/latex-packages/tree/main/tikz2d-fr) (click *Code > Download ZIP*, or clone it).
 2. Place `tikz2d-fr.sty` in a directory where LaTeX can find it, for example:
    - **TeX Live / Linux**: `~/texmf/tex/latex/tikz2d-fr/`
    - **MiKTeX / Windows**: `C:\Users\<user>\AppData\Roaming\MiKTeX\tex\latex\tikz2d-fr\`
@@ -43,8 +43,6 @@ If you want the latest version directly from this repository:
 
 ```latex
 \usepackage{tikz2d-fr}
-
-% Example: define and mark points\n\DefinirPoints{A/1/2, B/3/4}\n\MarquerPoints{A,B}
 ```
 
 ---

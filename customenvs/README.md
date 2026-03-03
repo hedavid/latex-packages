@@ -28,7 +28,7 @@ tlmgr install customenvs
 
 If you want the latest version directly from this repository:
 
-1. Download the repository (click *Code > Download ZIP*, or clone it).
+1. Download the [repository](https://github.com/cpierquet/latex-packages/tree/main/customenvs) (click *Code > Download ZIP*, or clone it).
 2. Place all `*.sty` and `*.pdf` files in a directory where LaTeX can find it, for example:
    - **TeX Live / Linux**: `~/texmf/tex/latex/customenvs/`
    - **MiKTeX / Windows**: `C:\Users\<user>\AppData\Roaming\MiKTeX\tex\latex\customenvs\`
@@ -43,11 +43,6 @@ If you want the latest version directly from this repository:
 
 ```latex
 \usepackage{customenvs}
-
-% Example: a multiple-choice question environment
-\begin{QCM}
-  ...
-\end{QCM}
 ```
 
 ---

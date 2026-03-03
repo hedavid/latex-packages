@@ -1,9 +1,0 @@
-\begin{Verbatim}[commandchars=\\\{\}]
-\PYG{c}{\PYGZpc{}environment, with keys to prepare the grid}
-\PYG{c}{\PYGZpc{}commands to write or pass a line}
-
-\PYG{k}{\PYGZbs{}begin}\PYG{n+nb}{\PYGZob{}}EnvGrid\PYG{n+nb}{\PYGZcb{}}[keys]\PYGZlt{}color\PYGZgt{}
-	\PYG{k}{\PYGZbs{}WriteLine}\PYG{n+na}{[keys]}\PYGZlt{}alignment\PYGZgt{}\PYG{n+nb}{\PYGZob{}}text\PYG{n+nb}{\PYGZcb{}}
-	\PYG{k}{\PYGZbs{}PassLine}
-\PYG{k}{\PYGZbs{}end}\PYG{n+nb}{\PYGZob{}}EnvGrid\PYG{n+nb}{\PYGZcb{}}
-\end{Verbatim}

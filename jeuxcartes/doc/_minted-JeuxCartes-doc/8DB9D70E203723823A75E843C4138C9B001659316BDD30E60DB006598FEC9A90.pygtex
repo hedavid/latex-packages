@@ -1,8 +1,0 @@
-\begin{Verbatim}[commandchars=\\\{\}]
-\PYG{k}{\PYGZbs{}AffCarteJeu}\PYG{n+nb}{\PYGZob{}}VP\PYG{n+nb}{\PYGZcb{}}\PYG{k}{\PYGZbs{}AffCarteJeu}\PYG{n+nb}{\PYGZob{}}10K\PYG{n+nb}{\PYGZcb{}}\PYG{k}{\PYGZbs{}AffCarteJeu}\PYG{n+nb}{\PYGZob{}}AC\PYG{n+nb}{\PYGZcb{}}\PYG{k}{\PYGZbs{}AffCarteJeu}\PYG{n+nb}{\PYGZob{}}Dos\PYG{n+nb}{\PYGZcb{}}\PYG{k}{\PYGZbs{}AffCarteJeu}\PYG{n+nb}{\PYGZob{}}DT\PYG{n+nb}{\PYGZcb{}}\PYG{k}{\PYGZbs{}\PYGZbs{}} \PYG{k}{\PYGZbs{}\PYGZbs{}}
-\PYG{k}{\PYGZbs{}AffCarteJeu}\PYG{n+na}{[TypeJeu=Tarot]}\PYG{n+nb}{\PYGZob{}}VP\PYG{n+nb}{\PYGZcb{}}\PYG{k}{\PYGZbs{}AffCarteJeu}\PYG{n+na}{[TypeJeu=Tarot]}\PYG{n+nb}{\PYGZob{}}Dos\PYG{n+nb}{\PYGZcb{}}\PYG{c}{\PYGZpc{}}
-\PYG{k}{\PYGZbs{}AffCarteJeu}\PYG{n+na}{[TypeJeu=Tarot]}\PYG{n+nb}{\PYGZob{}}Exc\PYG{n+nb}{\PYGZcb{}}\PYG{k}{\PYGZbs{}AffCarteJeu}\PYG{n+na}{[TypeJeu=Tarot]}\PYG{n+nb}{\PYGZob{}}1AT\PYG{n+nb}{\PYGZcb{}}\PYG{c}{\PYGZpc{}}
-\PYG{k}{\PYGZbs{}AffCarteJeu}\PYG{n+na}{[TypeJeu=Tarot]}\PYG{n+nb}{\PYGZob{}}10K\PYG{n+nb}{\PYGZcb{}}\PYG{k}{\PYGZbs{}AffCarteJeu}\PYG{n+na}{[TypeJeu=Tarot]}\PYG{n+nb}{\PYGZob{}}null\PYG{n+nb}{\PYGZcb{}}\PYG{c}{\PYGZpc{}}
-\PYG{k}{\PYGZbs{}AffCarteJeu}\PYG{n+na}{[TypeJeu=Tarot]}\PYG{n+nb}{\PYGZob{}}18AT\PYG{n+nb}{\PYGZcb{}}\PYG{k}{\PYGZbs{}\PYGZbs{}} \PYG{k}{\PYGZbs{}\PYGZbs{}}
-\PYG{k}{\PYGZbs{}AffCartesJeu}\PYG{n+na}{[TypeJeu=Uno]}\PYG{n+nb}{\PYGZob{}}P4 § PTR § Dos § Coul § 7B § 8V\PYG{n+nb}{\PYGZcb{}}
-\end{Verbatim}

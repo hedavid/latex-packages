@@ -28,8 +28,8 @@ tlmgr install JeuxCartes
 
 If you want the latest version directly from this repository:
 
-1. Download the repository (click *Code > Download ZIP*, or clone it).
-2. Place `JeuxCartes.sty` in a directory where LaTeX can find it, for example:
+1. Download the [repository](https://github.com/cpierquet/latex-packages/tree/main/jeuxcartes) (click *Code > Download ZIP*, or clone it).
+2. Place `JeuxCartes.sty` and all `*.pdf` and `*.png` files in a directory where LaTeX can find it, for example:
    - **TeX Live / Linux**: `~/texmf/tex/latex/JeuxCartes/`
    - **MiKTeX / Windows**: `C:\Users\<user>\AppData\Roaming\MiKTeX\tex\latex\JeuxCartes\`
    - **macOS (MacTeX)**: `~/Library/texmf/tex/latex/JeuxCartes/`
@@ -43,9 +43,6 @@ If you want the latest version directly from this repository:
 
 ```latex
 \usepackage{JeuxCartes}
-
-% Example: 
-\MainCartesJeu[Eventail,EspH=0,EspV=0.1]{7K § 8P § DT § AC}
 ```
 
 ---

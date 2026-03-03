@@ -1,7 +1,0 @@
-\begin{MintedVerbatim}[commandchars=\\\{\}]
-\PYG{k}{\PYGZbs{}pfldetmin}\PYG{n+na}{[0.001]}\PYG{c}{\PYGZpc{}}
-  \PYG{n+nb}{\PYGZob{}}log(exp(\PYGZhy{}x)+1)+0.25*x\PYG{n+nb}{\PYGZcb{}\PYGZob{}}1\PYG{n+nb}{\PYGZcb{}\PYGZob{}}1.2\PYG{n+nb}{\PYGZcb{}}\PYG{c}{\PYGZpc{}}
-  [\PYG{k}{\PYGZbs{}mymin}]\PYG{c}{\PYGZpc{}}
-  [\PYG{k}{\PYGZbs{}myminx}]\PYG{c}{\PYGZpc{}}
-\PYG{k}{\PYGZbs{}mymin\PYGZbs{}} in \PYG{k}{\PYGZbs{}myminx}
-\end{MintedVerbatim}

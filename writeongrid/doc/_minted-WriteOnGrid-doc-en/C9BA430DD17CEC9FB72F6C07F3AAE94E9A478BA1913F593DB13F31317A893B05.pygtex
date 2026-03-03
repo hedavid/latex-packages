@@ -1,5 +1,0 @@
-\begin{Verbatim}[commandchars=\\\{\}]
-\PYG{c}{\PYGZpc{}command, with keys to prepare the grid}
-
-\PYG{k}{\PYGZbs{}DispGrid}\PYG{n+na}{[keys]}\PYGZlt{}color\PYGZgt{}
-\end{Verbatim}

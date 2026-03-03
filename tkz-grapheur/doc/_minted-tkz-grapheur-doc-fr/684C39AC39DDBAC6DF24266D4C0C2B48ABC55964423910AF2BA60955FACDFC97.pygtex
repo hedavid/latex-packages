@@ -1,7 +1,0 @@
-\begin{Verbatim}[commandchars=\\\{\}]
-\PYG{k}{\PYGZbs{}begin}\PYG{n+nb}{\PYGZob{}}GraphiqueTikz\PYG{n+nb}{\PYGZcb{}}[Xmin=0,Xmax=12,Ymin=0,Ymax=3]
-	\PYG{k}{\PYGZbs{}TracerAxesGrilles}\PYG{n+na}{[Elargir=2.5mm]}\PYG{n+nb}{\PYGZob{}}auto\PYG{n+nb}{\PYGZcb{}\PYGZob{}}auto\PYG{n+nb}{\PYGZcb{}}
-	\PYG{k}{\PYGZbs{}TracerNuageSuite}\PYG{n+na}{[CouleurNuage=blue,Fin=10]}\PYG{n+nb}{\PYGZob{}}sqrt(n)+1\PYG{n+nb}{\PYGZcb{}}
-	\PYG{k}{\PYGZbs{}TracerNuageSuite*}\PYG{n+na}{[CouleurNuage=red,Style=x,Fin=10]}\PYG{n+nb}{\PYGZob{}}0.8\PYG{n+nb}{\PYGZca{}}n*2\PYG{n+nb}{\PYGZcb{}}
-\PYG{k}{\PYGZbs{}end}\PYG{n+nb}{\PYGZob{}}GraphiqueTikz\PYG{n+nb}{\PYGZcb{}}
-\end{Verbatim}

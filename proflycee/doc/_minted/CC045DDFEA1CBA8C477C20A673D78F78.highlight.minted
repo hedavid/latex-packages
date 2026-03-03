@@ -1,9 +1,0 @@
-\begin{MintedVerbatim}[commandchars=\\\{\}]
-\PYG{k}{\PYGZbs{}begin}\PYG{n+nb}{\PYGZob{}}pflpitonthonnyconsole\PYG{n+nb}{\PYGZcb{}}[consolename=\PYG{n+nb}{\PYGZob{}}python 3.8.10\PYG{n+nb}{\PYGZcb{}},width=12cm]\PYG{n+nb}{\PYGZob{}\PYGZcb{}}
-\PYGZsh{}Run script.py
-from random import randint
-nb1 = randint(1,100000)
-nb2= randint(1,100000)
-print(nb1, nb2)
-\PYG{k}{\PYGZbs{}end}\PYG{n+nb}{\PYGZob{}}pflpitonthonnyconsole\PYG{n+nb}{\PYGZcb{}}
-\end{MintedVerbatim}

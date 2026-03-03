@@ -1,4 +1,0 @@
-\begin{Verbatim}[commandchars=\\\{\}]
-\PYG{c}{\PYGZpc{}commande autonome pour afficher un Tangram}
-\PYG{k}{\PYGZbs{}TangramTikz}\PYG{n+na}{[clés]}\PYGZlt{}options tikz\PYGZgt{}\PYG{n+nb}{\PYGZob{}}nom\PYG{n+nb}{\PYGZus{}}du\PYG{n+nb}{\PYGZus{}}tangram\PYG{n+nb}{\PYGZcb{}}
-\end{Verbatim}

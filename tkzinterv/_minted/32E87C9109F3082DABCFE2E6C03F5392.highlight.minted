@@ -1,3 +1,0 @@
-\begin{MintedVerbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
-\PYG{k}{\PYGZbs{}setKVdefault}\PYG{n+na}{[tkzinterv]}\PYG{n+nb}{\PYGZob{}}clé1 = nouvelle valeur par défaut,...\PYG{n+nb}{\PYGZcb{}}
-\end{MintedVerbatim}

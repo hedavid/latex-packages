@@ -1,6 +1,0 @@
-\begin{MintedVerbatim}[commandchars=\\\{\}]
-\PYG{k}{\PYGZbs{}pflbasetobase}\PYG{n+nb}{\PYGZob{}}10\PYG{n+nb}{\PYGZcb{}\PYGZob{}}2\PYG{n+nb}{\PYGZcb{}\PYGZob{}}27\PYG{n+nb}{\PYGZcb{}} |         \PYG{c}{\PYGZpc{} 10 \PYGZhy{}\PYGZgt{} 2}
-\PYG{k}{\PYGZbs{}pflbasetobase}\PYG{n+nb}{\PYGZob{}}10\PYG{n+nb}{\PYGZcb{}\PYGZob{}}16\PYG{n+nb}{\PYGZcb{}\PYGZob{}}456\PYG{n+nb}{\PYGZcb{}} |       \PYG{c}{\PYGZpc{} 10 \PYGZhy{}\PYGZgt{} 16}
-\PYG{k}{\PYGZbs{}pflbasetobase}\PYG{n+nb}{\PYGZob{}}2\PYG{n+nb}{\PYGZcb{}\PYGZob{}}16\PYG{n+nb}{\PYGZcb{}\PYGZob{}}10011111\PYG{n+nb}{\PYGZcb{}} |   \PYG{c}{\PYGZpc{} 2  \PYGZhy{}\PYGZgt{} 16}
-\PYG{k}{\PYGZbs{}pflbasetobase}\PYG{n+nb}{\PYGZob{}}16\PYG{n+nb}{\PYGZcb{}\PYGZob{}}7\PYG{n+nb}{\PYGZcb{}\PYGZob{}}AB5F\PYG{n+nb}{\PYGZcb{}}         \PYG{c}{\PYGZpc{} 16 \PYGZhy{}\PYGZgt{} 7}
-\end{MintedVerbatim}

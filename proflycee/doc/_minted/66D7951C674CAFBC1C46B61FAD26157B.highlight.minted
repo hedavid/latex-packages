@@ -1,3 +1,0 @@
-\begin{MintedVerbatim}[commandchars=\\\{\}]
-\PYG{k}{\PYGZbs{}pflcalcrecurr}\PYG{n+na}{[prec=6,first n=0,first un=50,final n=20]}\PYG{n+nb}{\PYGZob{}}1/(x+2)\PYG{n+nb}{\PYGZcb{}}
-\end{MintedVerbatim}

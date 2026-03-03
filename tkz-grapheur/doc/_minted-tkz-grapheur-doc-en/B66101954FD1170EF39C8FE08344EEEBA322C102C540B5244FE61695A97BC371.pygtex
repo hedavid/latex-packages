@@ -1,4 +1,0 @@
-\begin{Verbatim}[commandchars=\\\{\}]
-\PYG{c}{\PYGZpc{}in the GraphiqueTikz environment}
-\PYG{k}{\PYGZbs{}DrawIntegral}\PYG{n+na}{[keys]}\PYGZlt{}specific options\PYGZgt{}\PYG{n+nb}{\PYGZob{}}object1\PYG{n+nb}{\PYGZcb{}}[object2]\PYG{n+nb}{\PYGZob{}}A\PYG{n+nb}{\PYGZcb{}\PYGZob{}}B\PYG{n+nb}{\PYGZcb{}}
-\end{Verbatim}

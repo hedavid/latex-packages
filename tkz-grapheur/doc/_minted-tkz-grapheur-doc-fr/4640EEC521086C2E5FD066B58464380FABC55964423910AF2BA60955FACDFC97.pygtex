@@ -1,9 +1,0 @@
-\begin{Verbatim}[commandchars=\\\{\}]
-\PYG{k}{\PYGZbs{}begin}\PYG{n+nb}{\PYGZob{}}GraphiqueTikz\PYG{n+nb}{\PYGZcb{}}[Xmin=0,Xmax=4,Ymin=\PYGZhy{}1,Ymax=4]
-	\PYG{k}{\PYGZbs{}TracerAxesGrilles}\PYG{n+na}{[Elargir=2.5mm]}\PYG{n+nb}{\PYGZob{}}auto\PYG{n+nb}{\PYGZcb{}\PYGZob{}}auto\PYG{n+nb}{\PYGZcb{}}
-	\PYG{k}{\PYGZbs{}DefinirCourbe}\PYG{n+na}{[Nom=cf, Trace, Couleur=red]}\PYGZlt{}f\PYGZgt{}\PYG{n+nb}{\PYGZob{}}2+2*sin(2*x)*exp(\PYGZhy{}x/2)\PYG{n+nb}{\PYGZcb{}}
-	\PYG{k}{\PYGZbs{}AfficherVoisinage}\PYG{c}{\PYGZpc{}}
-		[TypeLimite=\PYG{n+nb}{\PYGZob{}}L en a\PYG{n+nb}{\PYGZcb{}}, LimiteEn=2]\PYG{c}{\PYGZpc{}}
-		\PYGZlt{}cf\PYGZgt{}\PYG{n+nb}{\PYGZob{}}\PYG{k}{\PYGZbs{}xintfloateval}\PYG{n+nb}{\PYGZob{}}f(2)\PYG{n+nb}{\PYGZcb{}\PYGZcb{}\PYGZob{}}0.5\PYG{n+nb}{\PYGZcb{}}
-\PYG{k}{\PYGZbs{}end}\PYG{n+nb}{\PYGZob{}}GraphiqueTikz\PYG{n+nb}{\PYGZcb{}}
-\end{Verbatim}

@@ -1,3 +1,0 @@
-\begin{MintedVerbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
-\PYG{k}{\PYGZbs{}usepackage}\PYG{n+na}{[legacy]}\PYG{n+nb}{\PYGZob{}}pixelarttikz\PYGZhy{}l3\PYG{n+nb}{\PYGZcb{}}   \PYG{c}{\PYGZpc{}with latex2e version of package and macros}
-\end{MintedVerbatim}

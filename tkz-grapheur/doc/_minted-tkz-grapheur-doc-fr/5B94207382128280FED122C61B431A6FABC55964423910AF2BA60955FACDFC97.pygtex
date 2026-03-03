@@ -1,5 +1,0 @@
-\begin{Verbatim}[commandchars=\\\{\}]
-\PYG{c}{\PYGZpc{}dans l\PYGZsq{}environnement GraphiqueTikz}
-\PYG{k}{\PYGZbs{}GenererPolynomeLagrange}\PYG{n+na}{[nom fonction]}\PYG{n+nb}{\PYGZob{}}liste X\PYG{n+nb}{\PYGZcb{}\PYGZob{}}liste Y\PYG{n+nb}{\PYGZcb{}}
-\PYG{k}{\PYGZbs{}TracerCourbe}\PYG{n+na}{[clés]}\PYG{n+nb}{\PYGZob{}}f(x)\PYG{n+nb}{\PYGZcb{}}
-\end{Verbatim}

@@ -28,7 +28,7 @@ tlmgr install tikz-triminos
 
 If you want the latest version directly from this repository:
 
-1. Download the repository (click *Code > Download ZIP*, or clone it).
+1. Download the [repository](https://github.com/cpierquet/latex-packages/tree/main/tikz-triminos) (click *Code > Download ZIP*, or clone it).
 2. Place `tikz-triminos.sty` in a directory where LaTeX can find it, for example:
    - **TeX Live / Linux**: `~/texmf/tex/latex/tikz-triminos/`
    - **MiKTeX / Windows**: `C:\Users\<user>\AppData\Roaming\MiKTeX\tex\latex\tikz-triminos\`
@@ -43,8 +43,6 @@ If you want the latest version directly from this repository:
 
 ```latex
 \usepackage{tikz-triminos}
-
-% Example: display a trimino\n\Trimino[...]{}
 ```
 
 ---

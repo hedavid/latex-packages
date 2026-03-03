@@ -1,5 +1,0 @@
-\begin{Verbatim}[commandchars=\\\{\}]
-\PYG{c}{\PYGZpc{}in the GraphiqueTikz environment}
-\PYG{k}{\PYGZbs{}FindMax}\PYG{n+na}{[keys]}\PYG{n+nb}{\PYGZob{}}object\PYG{n+nb}{\PYGZcb{}}[node created]
-\PYG{k}{\PYGZbs{}FindMin}\PYG{n+na}{[keys]}\PYG{n+nb}{\PYGZob{}}object\PYG{n+nb}{\PYGZcb{}}[node created]
-\end{Verbatim}

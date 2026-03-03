@@ -1,4 +1,0 @@
-\begin{MintedVerbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
-Let\PYGZsq{}s consider the interval \PYG{l+s}{\PYGZdl{}}\PYG{n+nb}{I}\PYG{o}{=}\PYG{n+nv}{\PYGZbs{}tkzinterval}\PYG{o}{[}\PYG{n+nb}{open right,overlap}\PYG{o}{=}\PYG{n+nb}{r}\PYG{o}{]}\PYG{n+nb}{\PYGZob{}}\PYG{n+nv}{\PYGZbs{}IntervtestA}\PYG{n+nb}{\PYGZcb{}}\PYG{l+s}{\PYGZdl{}}.\PYG{k}{\PYGZbs{}par}
-Let\PYGZsq{}s consider the interval \PYG{l+s}{\PYGZdl{}}\PYG{n+nb}{I}\PYG{o}{=}\PYG{n+nv}{\PYGZbs{}tkzinterval}\PYG{o}{[}\PYG{n+nb}{open right,overlap}\PYG{o}{=}\PYG{n+nb}{none}\PYG{o}{]}\PYG{n+nb}{\PYGZob{}}\PYG{n+nv}{\PYGZbs{}IntervtestA}\PYG{n+nb}{\PYGZcb{}}\PYG{l+s}{\PYGZdl{}}.
-\end{MintedVerbatim}

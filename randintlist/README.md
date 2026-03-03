@@ -28,7 +28,7 @@ tlmgr install randintlist
 
 If you want the latest version directly from this repository:
 
-1. Download the repository (click *Code > Download ZIP*, or clone it).
+1. Download the [repository](https://github.com/cpierquet/latex-packages/tree/main/randintlist) (click *Code > Download ZIP*, or clone it).
 2. Place `randintlist.sty` in a directory where LaTeX can find it, for example:
    - **TeX Live / Linux**: `~/texmf/tex/latex/randintlist/`
    - **MiKTeX / Windows**: `C:\Users\<user>\AppData\Roaming\MiKTeX\tex\latex\randintlist\`
@@ -43,8 +43,6 @@ If you want the latest version directly from this repository:
 
 ```latex
 \usepackage{randintlist}
-
-% Example: generate a list of 5 random integers between 1 and 10\n\RandIntList{5}{1}{10}
 ```
 
 ---

@@ -1,7 +1,0 @@
-\begin{Verbatim}[commandchars=\\\{\}]
-\PYG{c}{\PYGZpc{}default output}
-\PYG{k}{\PYGZbs{}xintPOWreg}\PYG{n+nb}{\PYGZob{}}\PYG{k}{\PYGZbs{}LLX}\PYG{n+nb}{\PYGZcb{}\PYGZob{}}\PYG{k}{\PYGZbs{}LLY}\PYG{n+nb}{\PYGZcb{}}\PYG{c}{\PYGZpc{}}
-\PYG{l+s}{\PYGZdl{}}\PYG{n+nb}{a }\PYG{n+nv}{\PYGZbs{}approx}\PYG{n+nb}{ }\PYG{n+nv}{\PYGZbs{}powrega}\PYG{l+s}{\PYGZdl{}} and \PYG{l+s}{\PYGZdl{}}\PYG{n+nb}{b }\PYG{n+nv}{\PYGZbs{}approx}\PYG{n+nb}{ }\PYG{n+nv}{\PYGZbs{}powregb}\PYG{l+s}{\PYGZdl{}}
-
-\PYG{l+s}{\PYGZdl{}}\PYG{n+nb}{r\PYGZca{}}\PYG{l+m}{2}\PYG{n+nb}{ }\PYG{n+nv}{\PYGZbs{}approx}\PYG{n+nb}{ }\PYG{n+nv}{\PYGZbs{}powregrr}\PYG{l+s}{\PYGZdl{}}
-\end{Verbatim}

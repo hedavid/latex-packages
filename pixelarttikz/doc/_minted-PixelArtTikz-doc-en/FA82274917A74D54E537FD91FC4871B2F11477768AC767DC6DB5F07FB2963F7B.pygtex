@@ -1,8 +1,0 @@
-\begin{Verbatim}[commandchars=\\\{\}]
-\PYG{c}{\PYGZpc{}classic version}
-\PYG{k}{\PYGZbs{}PixlArtTikzCylindric}[\PYG{c}{\PYGZpc{}}
-Width=4,Center=1,Codes=VNGOJ,
-Colors=\PYG{n+nb}{\PYGZob{}}purple!50,black,green,orange,yellow\PYG{n+nb}{\PYGZcb{}},
-Swap,Style=\PYG{k}{\PYGZbs{}ttfamily\PYGZbs{}scriptsize}]\PYG{c}{\PYGZpc{}}
-\PYG{n+nb}{\PYGZob{}}PAsorciere.csv\PYG{n+nb}{\PYGZcb{}}
-\end{Verbatim}

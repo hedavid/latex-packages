@@ -1,5 +1,0 @@
-\begin{MintedVerbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
-\PYG{k}{\PYGZbs{}setlength\PYGZbs{}tkzintervhoriz}\PYG{n+nb}{\PYGZob{}}1.75mm\PYG{n+nb}{\PYGZcb{}}    \PYG{c}{\PYGZpc{}largeurs des traits H}
-\PYG{k}{\PYGZbs{}setlength\PYGZbs{}tkzintervwidth}\PYG{n+nb}{\PYGZob{}}0.65mm\PYG{n+nb}{\PYGZcb{}}    \PYG{c}{\PYGZpc{}épaisseur}
-\PYG{k}{\PYGZbs{}setKVdefault}\PYG{n+na}{[tkzinterv]}\PYG{n+nb}{\PYGZob{}}hsep=1\PYG{n+nb}{\PYGZcb{}}     \PYG{c}{\PYGZpc{}espacement horizontal}
-\end{MintedVerbatim}

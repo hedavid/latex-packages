@@ -1,5 +1,0 @@
-\begin{Verbatim}[commandchars=\\\{\}]
-\PYG{c}{\PYGZpc{}dans l\PYGZsq{}environnement GraphiqueTikz}
-\PYG{k}{\PYGZbs{}TracerDroite}\PYG{n+na}{[clés]}\PYG{n+nb}{\PYGZob{}}point ou nœud\PYG{n+nb}{\PYGZcb{}\PYGZob{}}point ou noeud ou pente\PYG{n+nb}{\PYGZcb{}}
-\PYG{k}{\PYGZbs{}TracerAsymptote}\PYG{n+na}{[clés]}\PYG{n+nb}{\PYGZob{}}abscisse\PYG{n+nb}{\PYGZcb{}}
-\end{Verbatim}

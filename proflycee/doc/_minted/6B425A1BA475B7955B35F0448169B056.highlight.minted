@@ -1,6 +1,0 @@
-\begin{MintedVerbatim}[commandchars=\\\{\}]
-\PYG{c}{\PYGZpc{}center + point}
-\PYG{l+s}{\PYGZdl{}}\PYG{n+nv}{\PYGZbs{}pfleqsphere}\PYG{o}{(}\PYG{l+m}{3}\PYG{n+nb}{,}\PYG{l+m}{1}\PYG{n+nb}{,}\PYG{l+m}{4}\PYG{o}{)(}\PYG{l+m}{0}\PYG{n+nb}{,}\PYG{l+m}{0}\PYG{n+nb}{,}\PYG{l+m}{0}\PYG{o}{)}\PYG{l+s}{\PYGZdl{}}\PYG{k}{\PYGZbs{}\PYGZbs{}}
-\PYG{l+s}{\PYGZdl{}}\PYG{n+nv}{\PYGZbs{}pfleqsphere}\PYG{o}{[}\PYG{n+nb}{expand}\PYG{o}{=}\PYG{n+nb}{false}\PYG{o}{](}\PYG{l+m}{3}\PYG{n+nb}{,}\PYG{l+m}{1}\PYG{n+nb}{,}\PYG{l+m}{4}\PYG{o}{)(}\PYG{l+m}{0}\PYG{n+nb}{,}\PYG{l+m}{0}\PYG{n+nb}{,}\PYG{l+m}{0}\PYG{o}{)}\PYG{l+s}{\PYGZdl{}}\PYG{k}{\PYGZbs{}\PYGZbs{}}
-\PYG{l+s}{\PYGZdl{}}\PYG{n+nv}{\PYGZbs{}pfleqsphere}\PYG{o}{[}\PYG{n+nb}{sort}\PYG{o}{=}\PYG{n+nb}{false}\PYG{o}{](}\PYG{l+m}{3}\PYG{n+nb}{,}\PYG{l+m}{1}\PYG{n+nb}{,}\PYG{l+m}{4}\PYG{o}{)(}\PYG{l+m}{0}\PYG{n+nb}{,}\PYG{l+m}{0}\PYG{n+nb}{,}\PYG{l+m}{0}\PYG{o}{)}\PYG{l+s}{\PYGZdl{}}
-\end{MintedVerbatim}

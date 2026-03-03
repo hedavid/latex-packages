@@ -1,7 +1,0 @@
-\begin{MintedVerbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
-\PYG{k}{\PYGZbs{}pixlarttikz}\PYG{c}{\PYGZpc{}}
-  [keys]\PYG{c}{\PYGZpc{}}
-  \PYGZlt{}tikzpicture options\PYGZgt{}\PYG{c}{\PYGZpc{}}
-  \PYG{n+nb}{\PYGZob{}}letters association\PYG{n+nb}{\PYGZcb{}}\PYG{c}{\PYGZpc{}}
-  \PYG{n+nb}{\PYGZob{}}file.csv\PYG{n+nb}{\PYGZcb{}}
-\end{MintedVerbatim}

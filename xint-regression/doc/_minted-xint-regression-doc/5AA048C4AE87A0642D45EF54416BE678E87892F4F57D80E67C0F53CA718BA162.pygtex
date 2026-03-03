@@ -1,7 +1,0 @@
-\begin{Verbatim}[commandchars=\\\{\}]
-\PYG{c}{\PYGZpc{}C+b*e\PYGZca{}(ax)}
-\PYG{k}{\PYGZbs{}def\PYGZbs{}LLX}\PYG{n+nb}{\PYGZob{}}0,50,100,140\PYG{n+nb}{\PYGZcb{}}\PYG{c}{\PYGZpc{}}
-\PYG{k}{\PYGZbs{}def\PYGZbs{}LLY}\PYG{n+nb}{\PYGZob{}}275,290,315,350\PYG{n+nb}{\PYGZcb{}}\PYG{c}{\PYGZpc{}}
-\PYG{k}{\PYGZbs{}xintEXPOFFreg}\PYG{n+na}{[offset=250]}\PYG{n+nb}{\PYGZob{}}\PYG{k}{\PYGZbs{}LLX}\PYG{n+nb}{\PYGZcb{}\PYGZob{}}\PYG{k}{\PYGZbs{}LLY}\PYG{n+nb}{\PYGZcb{}}
-\PYG{l+s}{\PYGZdl{}}\PYG{n+nb}{a }\PYG{n+nv}{\PYGZbs{}approx}\PYG{n+nb}{ }\PYG{n+nv}{\PYGZbs{}expregoffa}\PYG{l+s}{\PYGZdl{}} and \PYG{l+s}{\PYGZdl{}}\PYG{n+nb}{b }\PYG{n+nv}{\PYGZbs{}approx}\PYG{n+nb}{ }\PYG{n+nv}{\PYGZbs{}expregoffb}\PYG{l+s}{\PYGZdl{}} and \PYG{l+s}{\PYGZdl{}}\PYG{n+nb}{r\PYGZca{}}\PYG{l+m}{2}\PYG{n+nb}{ }\PYG{n+nv}{\PYGZbs{}approx}\PYG{n+nb}{ }\PYG{n+nv}{\PYGZbs{}expregoffrr}\PYG{l+s}{\PYGZdl{}}
-\end{Verbatim}

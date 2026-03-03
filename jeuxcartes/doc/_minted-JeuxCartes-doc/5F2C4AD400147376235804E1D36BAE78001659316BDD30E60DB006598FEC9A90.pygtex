@@ -1,5 +1,0 @@
-\begin{Verbatim}[commandchars=\\\{\}]
-\PYG{k}{\PYGZbs{}MainMiniCartesJeu}\PYG{n+na}{[\PYGZlt{}options\PYGZgt{}]}\PYG{n+nb}{\PYGZob{}}\PYGZlt{}liste de cartes\PYGZgt{}\PYG{n+nb}{\PYGZcb{}}
-
-\PYG{k}{\PYGZbs{}MainMiniCartesJeuAleatoire}\PYG{n+na}{[\PYGZlt{}options\PYGZgt{}]}\PYG{n+nb}{\PYGZob{}}\PYGZlt{}nb cartes\PYGZgt{}\PYG{n+nb}{\PYGZcb{}}
-\end{Verbatim}

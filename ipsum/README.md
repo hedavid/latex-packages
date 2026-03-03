@@ -28,7 +28,7 @@ tlmgr install ipsum
 
 If you want the latest version directly from this repository:
 
-1. Download the repository (click *Code > Download ZIP*, or clone it).
+1. Download the [repository](https://github.com/cpierquet/latex-packages/tree/main/ipsum) (click *Code > Download ZIP*, or clone it).
 2. Place `ipsum.sty` in a directory where LaTeX can find it, for example:
    - **TeX Live / Linux**: `~/texmf/tex/latex/ipsum/`
    - **MiKTeX / Windows**: `C:\Users\<user>\AppData\Roaming\MiKTeX\tex\latex\ipsum\`
@@ -42,10 +42,6 @@ If you want the latest version directly from this repository:
 ## Quick start
 
 ```latex
-\usepackage{ipsum}
-
-% Example: insert a Lorem Ipsum paragraph in French
-\ipsum<Lang=...,Type=...>[range]
 ```
 
 ---
