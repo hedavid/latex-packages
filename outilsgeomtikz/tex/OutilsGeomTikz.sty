@@ -2,7 +2,8 @@
 % licence........: Released under the LaTeX Project Public License v1.3c or later, see http://www.latex-project.org/lppl.txt
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{OutilsGeomTikz}[2025/08/04 v0.1.7 Outils geometriques en TikZ]
+\ProvidesPackage{OutilsGeomTikz}[2026/03/07 v0.1.8 Outils geometriques en TikZ]
+% 0.1.8		Correction d'un dysfonctionnement avec la clé [Origine=...]
 % 0.1.7		Clé pour ne pas afficher les graduations (tks Cyril I. ^^ pour l'idée)
 % 0.1.6		Correction de bugs avec pdflatex + amélioration de la gestion des rotations/échelles des labels (tks Cyril I. ^^)
 % 0.1.5		Modification de la graduation intérieure pour les rapporteurs 180°
@@ -19,6 +20,22 @@
 \RequirePackage{nicefrac}
 %librairies tikz
 \usetikzlibrary{calc,positioning}
+
+%--------Retire les parenthèses extérieures si présentes
+\ExplSyntaxOn
+\NewDocumentCommand\ogtcleanparen{ m m }{%
+      \tl_set:Nx \l_tmpa_tl { #1 }
+      \str_if_eq:eeTF { \tl_head:N \l_tmpa_tl } { ( }
+        {
+          \tl_set:Nx \l_tmpa_tl { \tl_tail:N \l_tmpa_tl }
+          \tl_reverse:N \l_tmpa_tl
+          \tl_set:Nx \l_tmpa_tl { \tl_tail:N \l_tmpa_tl }
+          \tl_reverse:N \l_tmpa_tl
+        }
+        { }
+      \xdef #2 { \tl_use:N \l_tmpa_tl }
+}
+\ExplSyntaxOff
 
 %--------Crayon
 % inspiration(s) de https://tex.stackexchange.com/questions/147389/symbols-of-pencil-ruler-and-compass
@@ -41,8 +58,9 @@
 \NewDocumentCommand\tkzCrayon{ O{} }{%
 	\useKVdefault[CrayonGeom]%
 	\setKV[CrayonGeom]{#1}%
+	\ogtcleanparen{\PENposOrigin}{\PENposOriginClean}%
 	\xdef\PENlongueur{\fpeval{max(2.5,\PENlongueur)}}%valeurs mini
-	\begin{scope}[shift={(\PENposOrigin)},rotate=\PENangle,scale=\PENechelle]
+	\begin{scope}[shift={(\PENposOriginClean)},rotate=\PENangle,scale=\PENechelle]
 		\fill[\PENcouleur!75] (-0.2,{\PENlongueur-0.3}) -- (0.2,{\PENlongueur-0.3}) -- (0.2,0.8) --(0.1,0.65) -- (0,0.8) -- (-0.1,0.66) -- (-0.2,0.8) -- cycle;
 		\draw[color=white,line width={\PENechelle*1pt}] (0,{\PENlongueur-0.3}) -- (0,0.6);
 		\fill[black] (-0.2,{\PENlongueur-0.6}) -- (0,{\PENlongueur-0.65}) -- (0.2,{\PENlongueur-0.6}) -- (0.2,{\PENlongueur-0.12}) arc(30:150:0.23);
@@ -84,6 +102,7 @@
 \NewDocumentCommand{\tkzRegle}{ O{} }{%
 	\useKVdefault[RegleGeom]%
 	\setKV[RegleGeom]{#1}%
+	\ogtcleanparen{\REGLposOrigin}{\REGLposOriginClean}%
 	%la clé [AfficheTraits]%
 	\ifboolKV[RegleGeom]{AfficheTraits}%
 		{}%
@@ -98,7 +117,7 @@
 		}{}%
 	\xdef\REGLlongueur{\fpeval{max(3,\REGLlongueur)}}%valeurs mini
 	\xdef\REGLlargeur{\fpeval{max(1.5,\REGLlargeur)}}
-	\begin{scope}[shift={(\REGLposOrigin)},rotate=\REGLangle,scale=\REGLechelle,transform shape]
+	\begin{scope}[shift={(\REGLposOriginClean)},rotate=\REGLangle,scale=\REGLechelle,transform shape]
 		\ifboolKV[RegleGeom]{Fond}
 			{%
 				\begin{scope}
@@ -163,6 +182,7 @@
 \NewDocumentCommand{\tkzRegleRepere}{ O{} }{%
 	\useKVdefault[RegleRepereGeom]%
 	\setKV[RegleRepereGeom]{#1}%
+	\ogtcleanparen{\REGLREPposOrigin}{\REGLREPposOriginClean}%
 	%la clé [AfficheTraits]%
 	\ifboolKV[RegleRepereGeom]{AfficheTraits}%
 		{}%
@@ -177,7 +197,7 @@
 			\pgfmathanglebetweenpoints{\pgfpointanchor{\REGLREPposOrigin}{center}}{\pgfpointanchor{\tmppointdeux}{center}}%
 			\edef\REGLREPangle{\pgfmathresult}%
 		}{}%
-	\begin{scope}[shift={(\REGLREPposOrigin)},rotate=\REGLREPangle,scale=\REGLREPechelle,transform shape]
+	\begin{scope}[shift={(\REGLREPposOriginClean)},rotate=\REGLREPangle,scale=\REGLREPechelle,transform shape]
 		%bases de la règle-repère
 		\ifboolKV[RegleRepereGeom]{Fond}%
 			{\draw[draw=none,fill=\REGLREPcouleurfond!10!white,fill opacity=\REGLREPopac,rounded corners] (-0.5,0) rectangle++ ({\REGLREPlongueur+1},{-\REGLREPlargeur}) ;}%
@@ -245,6 +265,7 @@
 \NewDocumentCommand{\tkzRequerre}{ O{} }{%
 	\useKVdefault[RequerreGeom]%
 	\setKV[RequerreGeom]{#1}%
+	\ogtcleanparen{\REQposOrigin}{\REQposOriginClean}%
 	%la clé [AfficheTraits]%
 	\ifboolKV[RequerreGeom]{AfficheTraits}%
 		{}%
@@ -259,7 +280,7 @@
 			\pgfmathanglebetweenpoints{\pgfpointanchor{\REQposOrigin}{center}}{\pgfpointanchor{\tmppointdeux}{center}}%
 			\edef\REQangle{\pgfmathresult}%
 		}{}%
-	\begin{scope}[shift={(\REQposOrigin)},rotate=\REQangle,scale=\REQechelle,transform shape]
+	\begin{scope}[shift={(\REQposOriginClean)},rotate=\REQangle,scale=\REQechelle,transform shape]
 		\ifboolKV[RequerreGeom]{Fond}
 			{
 				\fill[draw=none,rounded corners,fill=\REQcouleurfond!10!white,fill opacity=\REQopac] ({-\REQlongueur*0.5},0) rectangle ({\REQlongueur*0.5},{-\REQlargeur}) ;
@@ -324,6 +345,7 @@
 \NewDocumentCommand{\tkzEquerre}{ O{} }{%
 	\useKVdefault[EquerreGeom]%
 	\setKV[EquerreGeom]{#1}%
+	\ogtcleanparen{\EQposOrigin}{\EQposOriginClean}%
 	\xdef\EQlongueur{\fpeval{max(4.5,\EQlongueur)}}%valeurs mini
 	\def\EQlargeur{\fpeval{\EQlongueur*tand(30)}}%
 	%la clé [AfficheTraits]%
@@ -345,7 +367,7 @@
 					\edef\EQangle{\fpeval{\pgfmathresult-90}}%
 				}%
 		}{}%
-	\begin{scope}[shift={(\EQposOrigin)},rotate=\EQangle,scale=\EQechelle,transform shape]
+	\begin{scope}[shift={(\EQposOriginClean)},rotate=\EQangle,scale=\EQechelle,transform shape]
 	%---
 		\ifboolKV[EquerreGeom]{Fond}
 			{%
@@ -432,13 +454,14 @@
 \NewDocumentCommand{\tkzRapporteur}{ O{} }{%
 	\useKVdefault[RapporteurGeom]%
 	\setKV[RapporteurGeom]{#1}%
+	\ogtcleanparen{\RAPPposOrigin}{\RAPPposOriginClean}%
 	%la clé [AfficheTraits]%
 	\ifboolKV[RapporteurGeom]{AfficheTraits}%
 		{}%
 		{%
 			\setKV[RapporteurGeom]{AfficheAngles=false}%
 		}%
-	\begin{scope}[shift={(\RAPPposOrigin)},rotate=\RAPPangle,scale=\RAPPechelle,transform shape]
+	\begin{scope}[shift={(\RAPPposOriginClean)},rotate=\RAPPangle,scale=\RAPPechelle,transform shape]
 		\ifboolKV[RapporteurGeom]{Complet}
 			{
 			%fond
@@ -566,7 +589,8 @@
 \NewDocumentCommand{\tkzPourcenteur}{ O{} }{%
 	\useKVdefault[Pourcenteur]%
 	\setKV[Pourcenteur]{#1}%
-	\begin{scope}[shift={(\POURCposOrigin)},rotate=\POURCangle,scale=\POURCechelle,transform shape]
+	\ogtcleanparen{\POURCposOrigin}{\POURCposOriginClean}%
+	\begin{scope}[shift={(\POURCposOriginClean)},rotate=\POURCangle,scale=\POURCechelle,transform shape]
 	\ifboolKV[Pourcenteur]{Fond}
 		{%
 			\fill[draw=none,fill=\POURCcouleurfond!10!white,fill opacity=\POURCopac] (0,0) circle[radius=3] ;
@@ -646,6 +670,7 @@
 \NewDocumentCommand{\tkzRappEquerre}{ O{} }{%
 	\useKVdefault[RapporteurEquerreGeom]%
 	\setKV[RapporteurEquerreGeom]{#1}%
+	\ogtcleanparen{\RAPPEQposOrigin}{\RAPPEQposOriginClean}%
 	\xdef\RAPPEQlargeur{\fpeval{max(3,\RAPPEQlargeur)}}%valeurs mini
 	\IfSubStr{\RAPPEQangle}{auto/}%
 		{%
@@ -653,7 +678,7 @@
 			\pgfmathanglebetweenpoints{\pgfpointanchor{\RAPPEQposOrigin}{center}}{\pgfpointanchor{\tmppointdeux}{center}}%
 			\edef\RAPPEQangle{\pgfmathresult}%
 		}{}%
-	\begin{scope}[shift={(\RAPPEQposOrigin)},rotate=\RAPPEQangle,scale=\RAPPEQechelle,transform shape]
+	\begin{scope}[shift={(\RAPPEQposOriginClean)},rotate=\RAPPEQangle,scale=\RAPPEQechelle,transform shape]
 		%fond
 		\ifboolKV[RapporteurEquerreGeom]{Fond}
 			{%
@@ -854,7 +879,8 @@
 \NewDocumentCommand{\tkzMiniEquerre}{ O{} }{%
 	\useKVdefault[MiniEquerreGeom]%
 	\setKV[MiniEquerreGeom]{#1}%
-	\begin{scope}[shift={(\MiniEQposOrigin)},rotate=\MiniEQangle,scale=\MiniEQechelle]
+	\ogtcleanparen{\MiniEQposOrigin}{\MiniEQposOriginClean}%
+	\begin{scope}[shift={(\MiniEQposOriginClean)},rotate=\MiniEQangle,scale=\MiniEQechelle]
 		\ifboolKV[MiniEquerreGeom]{Ombre}%
 			{%
 			\begin{scope}
@@ -891,7 +917,8 @@
 \NewDocumentCommand{\tkzMiniRegle}{ O{} }{%
 	\useKVdefault[MiniRegleGeom]%
 	\setKV[MiniRegleGeom]{#1}%
-	\begin{scope}[shift={(\MiniREGLposOrigin)},rotate=\MiniREGLangle,scale=\MiniREGLechelle]
+	\ogtcleanparen{\MiniREGLposOrigin}{\MiniREGLposOriginClean}%
+	\begin{scope}[shift={(\MiniREGLposOriginClean)},rotate=\MiniREGLangle,scale=\MiniREGLechelle]
 		\ifboolKV[MiniRegleGeom]{Ombre}%
 			{\filldraw[draw=none,fill=\MiniREGLcouleur!10] (0,0) rectangle (2,-2.5pt) ;}{}%
 		\draw[semithick,\MiniREGLcouleur] (0,0)--(2,0)--(2,-0.3)--(0,-0.3)--cycle ;
