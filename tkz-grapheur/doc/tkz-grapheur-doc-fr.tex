@@ -35,8 +35,8 @@
 \hypersetup{pdfborder=0 0 0}
 \usepackage[margin=2cm]{geometry}
 \setlength{\parindent}{0pt}
-\def\TPversion{0.30b}
-\def\TPdate{26/02/2026}
+\def\TPversion{0.30c}
+\def\TPdate{12/03/2026}
 \usepackage{soul}
 \usepackage{codehigh}
 \usepackage{tabularray}
@@ -1819,9 +1819,19 @@ Les clés disponibles sont les mêmes que pour la définition des courbes, avec 
 
 \pagebreak
 
-\section{Commandes spécifiques des fonctions de densité}
+\section{Commandes spécifiques des lois de probabillités}
 
-\subsection{Loi normale}\label{loinormale}
+\subsection{Lois continues}
+
+\subsubsection{Aires sous les courbes continues}\label{loiinteg}
+Pour toutes les lois continues (normale, exponentielle, Student, Fischer), il est possible de colorer une aire sous la courbe via la commande \MontreCode{\textbackslash RepresenterProbaContinue}, alias de \MontreCode{\textbackslash TracerIntegrale}.
+
+\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5,listing only}
+%dans l'environnement GraphiqueTikz
+\RepresenterProbaContinue[clés]{fct(x)}{a}{b}
+\end{tcblisting}
+
+\subsubsection{Loi normale}\label{loinormale}
 
 L'idée est de proposer de quoi travailler avec des lois normales.
 
@@ -1859,9 +1869,40 @@ Les \MontreCode{[clés]}, optionnelles, disponibles sont :
 \end{GraphiqueTikz}
 \end{tcblisting}
 
+\subsubsection{Loi exponentielle}\label{loiexpo}
+
+La loi exponentielle de paramètre $\lambda$ est définie sur $[0\,;+\infty[$. La densité est $f(x) = \lambda e^{-\lambda x}$.
+
+\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5,listing only}
+%dans l'environnement GraphiqueTikz
+\DefinirLoiExpo[clés]<nom fct>{lambda}
+\TracerLoiExpo[clés]{fct(x)}
+\end{tcblisting}
+
+Le premier argument, optionnel et entre \MontreCode{[...]} propose les clés suivantes pour \MontreCode{\textbackslash DefinirLoiExpo} :
+
+\begin{itemize}
+	\item \MontreCode{Nom} : nom du tracé (\MontreCode{expo} par défaut) ;
+	\item \MontreCode{Debut} : borne inférieure (\MontreCode{0} par défaut) ;
+	\item \MontreCode{Fin} : borne supérieure (\MontreCode{\textbackslash pflxmax} par défaut) ;
+	\item \MontreCode{Pas} : pas du tracé (déterminé automatiquement).
+\end{itemize}
+
+\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5}
+\begin{GraphiqueTikz}%
+		[Xgrille=2,Xgrilles=1,Ygrille=0.05,Ygrilles=0.025]%
+		<Xmin=0,Xmax=20,Ymin=0,Ymax=0.15,Taille={10cm/5cm}>
+	\TracerAxesGrilles[Elargir=2.5mm,Dernier,Derriere]{}{}
+	\DefinirLoiExponentielle[]<fdexpo>{0.125}
+	\RepresenterProbaContinue[Couleurs=cyan]{fdexpo(x)}{2}{10}
+	\TracerLoiExponentielle[Couleur=orange!75!black]{fdexpo(x)}
+	\TracerAxesGrilles[Elargir=2.5mm,Dernier,Devant]{auto}{auto}
+\end{GraphiqueTikz}
+\end{tcblisting}
+
 \pagebreak
 
-\subsection{Loi du khi deux}\label{loikhideux}
+\subsubsection{Loi du khi deux}\label{loikhideux}
 
 L'idée est de proposer de quoi travailler avec des lois normales.
 
@@ -1902,7 +1943,73 @@ Les \MontreCode{[clés]}, optionnelles, disponibles sont :
 \end{GraphiqueTikz}
 \end{tcblisting}
 
-\subsection{Histogramme pour une loi binomiale}\label{histobinom}
+\subsubsection{Loi de Student}\label{loistudent}
+
+La loi de Student à $\nu$ degrés de liberté est une loi continue, symétrique, dont la densité fait intervenir la fonction $\Gamma$.
+
+\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5,listing only}
+%dans l'environnement GraphiqueTikz
+\DefinirLoiStudent[clés]<nom fct>{nu}
+\TracerLoiStudent[clés]{fct(x)}
+\end{tcblisting}
+
+Le premier argument, optionnel et entre \MontreCode{[...]} propose les clés suivantes pour \MontreCode{\textbackslash DefinirLoiStudent} :
+
+\begin{itemize}
+	\item \MontreCode{Nom} : nom du tracé (\MontreCode{student} par défaut) ;
+	\item \MontreCode{Debut}, \MontreCode{Fin} : bornes de définition (\MontreCode{\textbackslash pflxmin}, \MontreCode{\textbackslash pflxmax} par défaut) ;
+	\item \MontreCode{Pas} : pas du tracé (déterminé automatiquement).
+\end{itemize}
+
+À noter que la fenêtre est à adapter en fonction de $\nu$ — typiquement $x \in [-4\,;\,4]$ et $y \in [0\,;\,0.40]$ pour $\nu=5$.
+
+\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5}
+%avec mise en évidence d'une proba/intégrale
+\begin{GraphiqueTikz}%
+		[Xgrille=1,Xgrilles=0.5,Ygrille=0.1,Ygrilles=0.05]%
+		<Xmin=-5,Xmax=5,Ymin=0,Ymax=0.35,Taille={10cm/5cm}>
+	\TracerAxesGrilles[Elargir=2.5mm,Dernier,Derriere]{}{}
+	\DefinirLoiStudent[]<fdstudent>{1}
+	\RepresenterProbaContinue[Couleurs=cyan]{fdstudent(x)}{-3}{2}
+	\TracerLoiStudent[Couleur=orange!75!black]{fdstudent(x)}
+	\TracerAxesGrilles[Elargir=2.5mm,Dernier,Devant]{auto}{auto}
+\end{GraphiqueTikz}
+\end{tcblisting}
+
+\subsubsection{Loi de Fischer}\label{loifischer}
+
+La loi de Fischer à $(d_1;d_2)$ degrés de liberté est définie sur $]0;+\infty[$. La fenêtre est à adapter en conséquence — typiquement $x \in [0;6]$ pour $F_{5;10}$.
+
+\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5,listing only}
+%dans l'environnement GraphiqueTikz
+\DefinirLoiFischer[clés]<nom fct>{d1}{d2}
+\TracerLoiFischer[clés]{fct(x)}
+\end{tcblisting}
+
+Le premier argument, optionnel et entre \MontreCode{[...]} propose les clés suivantes pour \MontreCode{\textbackslash DefinirLoiFischer} :
+
+\begin{itemize}
+	\item \MontreCode{Nom} : nom du tracé (\MontreCode{fischer} par défaut) ;
+	\item \MontreCode{Debut} : borne inférieure — forcée à $\max(0.001, \text{Debut})$ pour éviter la singularité en 0 ;
+	\item \MontreCode{Fin} : borne supérieure (\MontreCode{\textbackslash pflxmax} par défaut) ;
+	\item \MontreCode{Pas} : pas du tracé (déterminé automatiquement).
+\end{itemize}
+
+\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5}
+\begin{GraphiqueTikz}%
+		[Xgrille=1,Xgrilles=0.5,Ygrille=0.1,Ygrilles=0.05]%
+		<Xmin=0,Xmax=5,Ymin=0,Ymax=0.8,Taille={10cm/5cm}>
+	\TracerAxesGrilles[Elargir=2.5mm,Dernier,Derriere]{}{}
+	\DefinirLoiFischer[]<fdfischer>{5}{10}
+	\RepresenterProbaContinue[Couleurs=cyan]{fdfischer(x)}{1}{3}
+	\TracerLoiFischer[Couleur=orange!75!black]{fdfischer(x)}
+	\TracerAxesGrilles[Elargir=2.5mm,Dernier,Devant]{auto}{auto}
+\end{GraphiqueTikz}
+\end{tcblisting}
+
+\subsection{Lois discrètes}
+
+\subsubsection{Loi binomiale}\label{histobinom}
 
 Il est également possible (d'une manière moins explicite que dans \MontreCode{ProfLycee}) de représenter l'histogramme d'une loi binomiale (\MontreCode{ProfLycee} permet de déterminer les unités automatiquement, ici elles doivent être précisées et connues).
 
@@ -1916,12 +2023,13 @@ Il est également possible de rajouter la loi normale \og associée \fg.
 Le premier argument, optionnel et entre \MontreCode{[...]} propose les clés suivantes :
 
 \begin{itemize}
-
+	\item \MontreCode{CouleurTraits} : couleur des traits/bâtons (\MontreCode{black} par défaut) ;
 	\item \MontreCode{Plage} : plage, sous la forme \MontreCode{a-b} du coloriage éventuel ;
 	\item \MontreCode{CouleurPlage} : couleur de la plage éventuelle ;
 	\item \MontreCode{ClipX} : restriction de l'axe Ox, sous la forme \MontreCode{a-b} ;
 	\item \MontreCode{AffNormale} : booléen (\MontreCode{true} par défaut) pour rajouter la loi normale ;
-	\item \MontreCode{CouleurNormale} : couleur pour la loi normale.
+	\item \MontreCode{CouleurNormale} : couleur pour la loi normale ;
+	\item \MontreCode{Style} : style de représentation, \MontreCode{histo} (rectangles, par défaut) ou \MontreCode{batons} (segments verticaux).
 \end{itemize}
 
 Les arguments obligatoires et entre \MontreCode{\{...\}} permettent de spécifier les paramètres de la loi binomiale.
@@ -1938,6 +2046,16 @@ Les arguments obligatoires et entre \MontreCode{\{...\}} permettent de spécifie
 
 \begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5}
 %les unités ont été déterminées au préalable...
+\begin{GraphiqueTikz}[x=0.2cm,y=50cm,Origx=-0.5,Xmin=-0.5,Xmax=50.5,
+	Xgrille=5,Xgrilles=1,Ymin=0,Ymax=0.12,Ygrille=0.01,Ygrilles=0.001]
+	\TracerAxesGrilles[Elargir=2.5mm,Police=\small,Grille=false]%
+		{0,5,...,50}{auto}
+	\TracerHistoBinomiale[Style=batons]{50}{0.4}
+\end{GraphiqueTikz}
+\end{tcblisting}
+
+\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5}
+%les unités ont été déterminées au préalable...
 \begin{GraphiqueTikz}[x=0.5cm,y=100cm,Origx=14.5,Xmin=14.5,Xmax=35.5,
 	Xgrille=5,Xgrilles=1,Ymin=0,Ymax=0.09,Ygrille=0.01,Ygrilles=0.001]
 	\TracerAxesGrilles[Elargir=2.5mm,Police=\small,Grille=false]%
@@ -1945,6 +2063,105 @@ Les arguments obligatoires et entre \MontreCode{\{...\}} permettent de spécifie
 	\TracerHistoBinomiale%
 		[ClipX=15-35,Plage=18-25,CouleurPlage=teal,AffNormale,CouleurNormale=red]%
 		{1000}{0.02}
+\end{GraphiqueTikz}
+\end{tcblisting}
+
+\subsubsection{Loi de Poisson}\label{loipoisson}
+La loi de Poisson peut être représentée de façon similaire à la loi binomiale. La borne supérieure de représentation est déterminée automatiquement en fonction de $\lambda$.
+
+\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5,listing only}
+%dans l'environnement GraphiqueTikz
+\TracerLoiPoisson[clés]<nom fct>{lambda}
+\end{tcblisting}
+
+Le premier argument, optionnel et entre \MontreCode{[...]} propose les clés suivantes :
+
+\begin{itemize}
+	\item \MontreCode{Plage} : plage, sous la forme \MontreCode{a-b} du coloriage éventuel ;
+	\item \MontreCode{CouleurPlage} : couleur de la plage éventuelle ;
+	\item \MontreCode{CouleurTraits} : couleur des traits/bâtons (\MontreCode{black} par défaut) ;
+	\item \MontreCode{Style} : style de représentation, \MontreCode{histo} (par défaut) ou \MontreCode{batons} ;
+	\item \MontreCode{ClipX} : restriction de l'axe Ox, sous la forme \MontreCode{a-b} ;
+	\item \MontreCode{Nmax} : borne supérieure de représentation (déterminée automatiquement par défaut).
+\end{itemize}
+
+\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5}
+\begin{GraphiqueTikz}%
+		[x=0.75cm,y=20cm,Xgrille=1,Ygrille=0.05,Xmin=-1,Xmax=15,Ymin=0,Ymax=0.20]
+	\TracerAxesGrilles[Elargir=2.5mm,Dernier]{auto}{auto}
+	\TracerLoiPoisson[Style=histo,Plage=3-7,CouleurPlage=cyan,AffNormale]{5}
+\end{GraphiqueTikz}
+\end{tcblisting}
+
+\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5}
+\begin{GraphiqueTikz}%
+		[x=0.75cm,y=20cm,Xgrille=1,Ygrille=0.05,Xmin=-1,Xmax=15,Ymin=0,Ymax=0.20]
+	\TracerAxesGrilles[Elargir=2.5mm,Dernier]{auto}{auto}
+	\TracerLoiPoisson[CouleurTraits=blue!50!black,Style=batons, Plage=3-7,CouleurPlage=orange,AffNormale]{5}
+\end{GraphiqueTikz}
+\end{tcblisting}
+
+\subsubsection{Loi géométrique}\label{loigeo}
+La loi géométrique modélise le rang du premier succès dans une suite d'épreuves de Bernoulli indépendantes. La borne supérieure est déterminée automatiquement.
+
+\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5,listing only}
+%dans l'environnement GraphiqueTikz
+\TracerLoiGeo[clés]{p}
+\end{tcblisting}
+
+Le premier argument, optionnel et entre \MontreCode{[...]} propose les clés suivantes :
+
+\begin{itemize}
+	\item \MontreCode{Plage} : plage, sous la forme \MontreCode{a-b} du coloriage éventuel ;
+	\item \MontreCode{CouleurPlage} : couleur de la plage éventuelle ;
+	\item \MontreCode{CouleurTraits} : couleur des traits/bâtons (\MontreCode{black} par défaut) ;
+	\item \MontreCode{Style} : style de représentation, \MontreCode{histo} (par défaut) ou \MontreCode{batons} ;
+	\item \MontreCode{AffExpo} : booléen (\MontreCode{false} par défaut) pour superposer la loi exponentielle associée (de paramètre $\lambda = -\ln(1-p)$) ;
+	\item \MontreCode{CouleurExpo} : couleur de la loi exponentielle associée.
+\end{itemize}
+
+\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5}
+\begin{GraphiqueTikz}[y=10cm,Xgrille=1,Ygrille=0.05,Xmin=0,Xmax=13,Ymin=0,Ymax=0.35]
+	\TracerAxesGrilles[Elargir=2.5mm,Dernier]{auto}{auto}
+	\TracerLoiGeo[Style=histo,Plage=*-3,CouleurPlage=cyan, Nmax=12,CouleurTraits=blue!50!black,AffExpo]{0.3}
+\end{GraphiqueTikz}
+\end{tcblisting}
+
+\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5}
+\begin{GraphiqueTikz}[y=10cm,Xgrille=1,Ygrille=0.05,Xmin=0,Xmax=13,Ymin=0,Ymax=0.35]
+	\TracerAxesGrilles[Elargir=2.5mm,Dernier]{auto}{auto}
+	\TracerLoiGeo[Style=batons,Plage=*-3,CouleurPlage=cyan, Nmax=12,CouleurTraits=blue!50!black,AffExpo]{0.3}
+\end{GraphiqueTikz}
+\end{tcblisting}
+
+\subsubsection{Loi hypergéométrique}\label{loihypergeo}
+
+\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5,listing only}
+%dans l'environnement GraphiqueTikz
+%N=population totale  K=succès dans population  n=taille tirage
+\TracerLoiHyperGeo[clés]<nom fct normale>{N}{K}{n}
+\end{tcblisting}
+
+Le premier argument, optionnel et entre \MontreCode{[...]} propose les clés suivantes :
+
+\begin{itemize}
+	\item \MontreCode{Plage} : plage, sous la forme \MontreCode{a-b} du coloriage éventuel ;
+	\item \MontreCode{CouleurPlage} : couleur de la plage éventuelle ;
+	\item \MontreCode{CouleurTraits} : couleur des traits/bâtons (\MontreCode{black} par défaut) ;
+	\item \MontreCode{Style} : style de représentation, \MontreCode{histo} (par défaut) ou \MontreCode{batons} ;
+	\item \MontreCode{AffNormale} : booléen (\MontreCode{false} par défaut) pour superposer la loi normale associée ;
+	\item \MontreCode{CouleurNormale} : couleur pour la loi normale.
+\end{itemize}
+
+Les bornes de représentation sont déterminées automatiquement : $k_{\min} = \max(0;n+K-N)$ et $k_{\max} = \min(n;K)$.
+
+\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5}
+\begin{GraphiqueTikz}%
+		[x=1.5cm,y=10cm,Xgrille=1,Ygrille=0.1,Ygrilles=0.05, Xmin=-1,Xmax=8,Ymin=0,Ymax=0.40]
+	\TracerAxesGrilles[Elargir=2.5mm,Dernier]{auto}{auto}
+	\TracerLoiHyperGeo%
+		[Style=batons,Plage=2-4,CouleurPlage=cyan,CouleurTraits=blue!50!black,AffNormale]%
+		{20}{8}{6}
 \end{GraphiqueTikz}
 \end{tcblisting}
 
@@ -2036,7 +2253,9 @@ Les deux derniers arguments, obligatoires, correspondent aux bornes de l'intégr
 	\DefinirListeSpline{-6.5/0/2.5§-2/4/0§3.75/0/-1}[\lstsplineB]
 	\DefinirCourbeSpline[Nom=splinered]{\lstsplineB}
 	\TracerCourbeSpline[Couleur=red]{\lstsplineB}
-	\RepresenterMethodeIntegrale[Methode=RectanglesMilieu,Spline,Couleur=teal]<splinered>{-5}{1.25}
+	\RepresenterMethodeIntegrale%
+		[Methode=RectanglesMilieu,Spline,Couleur=teal]%
+		<splinered>{-5}{1.25}
 \end{GraphiqueTikz}
 \end{tcblisting}
 
@@ -2619,6 +2838,584 @@ Les \MontreCode{Clés} disponibles pour les éléments caractéristiques sont :
 
 \pagebreak
 
+\subsection{Transformations}
+
+\subsubsection{Translation}\label{transform}
+
+Il est possible de tracer la courbe translatée $x \mapsto f(x-a)+b$ d'une fonction, d'un spline ou d'une interpolation.
+
+\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5,listing only}
+%avec une formule xint
+\TracerTransformee[clés]{nom_fct}{a}{b}
+%avec un spline cubique
+\TracerTransformee[Spline,clés]{liste_spline}{a}{b}
+%avec une interpolation
+\TracerTransformee[Interpo,clés]{liste_interpo}{a}{b}
+\end{tcblisting}
+
+Les \MontreCode{Clés} disponibles sont :
+
+\begin{itemize}
+	\item \MontreCode{Couleur=...} : couleur du tracé (\MontreCode{black} par défaut) ;
+	\item \MontreCode{StyleTrace=...} : style \TikZ\ supplémentaire ;
+	\item \MontreCode{Nom=...} : nom du \textit{path} pour réutilisation ;
+	\item \MontreCode{Debut=.../Fin=...} : bornes du tracé (\MontreCode{\textbackslash pflxmin}/\MontreCode{\textbackslash pflxmax} par défaut) ;
+	\item \MontreCode{Pas=...} : pas du tracé (calculé automatiquement) ;
+	\item \MontreCode{Clip=true/false} : clipping sur la fenêtre (\MontreCode{true} par défaut) ;
+	\item \MontreCode{Spline=true/false} : mode spline cubique (\MontreCode{false} par défaut) ;
+	\item \MontreCode{Interpo=true/false} : mode interpolation (\MontreCode{false} par défaut) ;
+	\item \MontreCode{Alt=true/false} : mode alternatif pour les splines (\MontreCode{false} par défaut) ;
+	\item \MontreCode{Coeffs=...} : coefficient(s) de lissage pour les splines (\MontreCode{3} par défaut) ;
+	\item \MontreCode{Tension=...} : tension pour les interpolations (\MontreCode{0.5} par défaut).
+\end{itemize}
+
+\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5}
+\begin{GraphiqueTikz}[x=1cm,y=0.5cm,Xmin=-3,Xmax=5,Ymin=-3,Ymax=9]
+	\TracerAxesGrilles[Elargir=2.5mm]{auto}{auto}
+	\DefinirCourbe[Nom=cf,Trace,Couleur=blue]<f>{x^2}
+	\TracerTransformee[Couleur=red,Nom=cg]{f}{2}{1}       %f(x-2)+1
+	\TracerTransformee[Couleur=orange,Nom=ch]{f}{-1}{-2}  %f(x+1)-2
+\end{GraphiqueTikz}
+\end{tcblisting}
+
+\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5}
+\def\LISTESPLINE{-4/1/0 § -1/-2/0 § 2/2/0}
+\begin{GraphiqueTikz}[x=0.9cm,y=1cm,Xmin=-5,Xmax=6,Ymin=-3,Ymax=5]
+	\TracerAxesGrilles[Elargir=2.5mm]{auto}{auto}
+	% courbe originale
+	\DefinirCourbeSpline[Trace,Couleur=olive]{\LISTESPLINE}
+	% courbe transformée f(x-2)+1
+	\TracerTransformee[Spline,Couleur=red]{\LISTESPLINE}{2}{1}
+\end{GraphiqueTikz}
+\end{tcblisting}
+
+\subsubsection{Réflexion}\label{transformfreflex}
+
+Il est possible de tracer la courbe symétrique d'une fonction, d'un spline ou d'une interpolation par rapport aux axes $Ox$, $Oy$ ou à la droite $y=x$ (réciproque).
+
+\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5,listing only}
+%avec une formule xint
+\TracerReflexion[clés]{nom_fct}
+%avec un spline cubique
+\TracerReflexion[Spline,clés]{liste_spline}
+%avec une interpolation
+\TracerReflexion[Interpo,clés]{liste_interpo}
+\end{tcblisting}
+
+Les \MontreCode{Clés} disponibles sont :
+
+\begin{itemize}
+	\item \MontreCode{Axe=x/y/yx} : axe de symétrie --- \MontreCode{x} pour $-f(x)$, \MontreCode{y} pour $f(-x)$, \MontreCode{yx} pour la réciproque (\MontreCode{x} par défaut) ;
+	\item \MontreCode{Couleur=...} : couleur du tracé (\MontreCode{black} par défaut) ;
+	\item \MontreCode{StyleTrace=...} : style \TikZ\ supplémentaire ;
+	\item \MontreCode{Nom=...} : nom du \textit{path} pour réutilisation ;
+	\item \MontreCode{Debut=.../Fin=...} : bornes du tracé (paramètre $t$ pour \MontreCode{Axe=yx}) ;
+	\item \MontreCode{Clip=true/false} : clipping sur la fenêtre (\MontreCode{true} par défaut) ;
+	\item \MontreCode{Spline=true/false} : mode spline cubique (\MontreCode{false} par défaut) ;
+	\item \MontreCode{Interpo=true/false} : mode interpolation (\MontreCode{false} par défaut) ;
+	\item \MontreCode{Alt=true/false} : mode alternatif pour les splines (\MontreCode{false} par défaut) ;
+	\item \MontreCode{Coeffs=...} : coefficient(s) de lissage pour les splines (\MontreCode{3} par défaut) ;
+	\item \MontreCode{Tension=...} : tension pour les interpolations (\MontreCode{0.5} par défaut).
+\end{itemize}
+
+\medskip
+
+\textbf{Remarque :} pour \MontreCode{Axe=yx} avec \MontreCode{Spline} ou \MontreCode{Interpo}, la symétrie est correcte uniquement si les unités $x$ et $y$ sont égales. Un avertissement est émis dans le \texttt{log} sinon.
+
+\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5}
+\begin{GraphiqueTikz}[x=1cm,y=1cm,Xmin=-4,Xmax=4,Ymin=-4,Ymax=4]
+	\TracerAxesGrilles[Elargir=2.5mm]{auto}{auto}
+	\DefinirCourbe[Nom=cf,Trace,Couleur=black]<f>{x^3/4-0.5}
+	\TracerReflexion[Axe=x,Couleur=red]{f}
+	\TracerReflexion[Axe=y,Couleur=blue]{f}
+	\TracerCourbe[Couleur=teal,StyleTrace=dashed]{x}
+	\TracerReflexion[Axe=yx,Couleur=olive,Debut=-4,Fin=4]{f}
+\end{GraphiqueTikz}
+\end{tcblisting}
+
+\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5}
+\def\LISTESPLINE{-3/2/0 § 0.5/-2/0 § 2.75/1/1}
+\begin{GraphiqueTikz}[x=1cm,y=1cm,Xmin=-4,Xmax=4,Ymin=-4,Ymax=4]
+	\TracerAxesGrilles[Elargir=2.5mm]{auto}{auto}
+	\DefinirCourbeSpline[Trace,Couleur=black]{\LISTESPLINE}
+	\TracerReflexion[Axe=x,Spline,Couleur=red]{\LISTESPLINE}
+	\TracerReflexion[Axe=y,Spline,Couleur=blue]{\LISTESPLINE}
+	\TracerCourbe[Couleur=teal,StyleTrace=dashed]{x}
+	\TracerReflexion[Axe=yx,Spline,Couleur=olive]{\LISTESPLINE}
+\end{GraphiqueTikz}
+\end{tcblisting}
+
+\pagebreak
+
+\subsection{Taylor}\label{taylor}
+
+Il est possible de tracer le polynôme de Taylor (ou de Maclaurin) d'ordre $N$ d'une fonction en un point $a$, calculé par différences finies centrées.
+
+\textbf{Remarque :} cette commande est uniquement disponible pour les fonctions définies via une expression \MontreCode{xint} (pas de spline ni d'interpolation).
+
+\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5,listing only}
+%tracé direct
+\TracerTaylor[clés]{nom_fct}{a}
+%définition + tracé optionnel (Trace=true)
+\DefinirTaylor[clés]<nom_taylor>{nom_fct}{a}
+\end{tcblisting}
+
+Les \MontreCode{Clés} disponibles sont :
+
+\begin{itemize}
+	\item \MontreCode{Ordre=...} : degré $N$ du polynôme (\MontreCode{5} par défaut) ;
+	\item \MontreCode{h=...} : pas de dérivation numérique (\MontreCode{0.01} par défaut) ;
+	\item \MontreCode{Couleur=...} : couleur du tracé (\MontreCode{black} par défaut) ;
+	\item \MontreCode{StyleTrace=...} : style \TikZ\ supplémentaire ;
+	\item \MontreCode{Nom=...} : nom du \textit{path} pour réutilisation ;
+	\item \MontreCode{Debut=.../Fin=...} : bornes du tracé (\MontreCode{\textbackslash pflxmin}/\MontreCode{\textbackslash pflxmax} par défaut) ;
+	\item \MontreCode{Pas=...} : pas du tracé (calculé automatiquement) ;
+	\item \MontreCode{Clip=true/false} : clipping sur la fenêtre (\MontreCode{true} par défaut) ;
+	\item \MontreCode{Trace=true/false} : tracé immédiat pour \MontreCode{\textbackslash DefinirTaylor} (\MontreCode{false} par défaut).
+\end{itemize}
+
+\medskip
+
+\textbf{Remarque :} les valeurs du polynôme sont automatiquement bornées entre \MontreCode{\textbackslash pflMinoffsetV} et \MontreCode{\textbackslash pflMaxoffsetV} pour éviter les débordements \TikZ\ hors de la fenêtre, notamment pour les ordres élevés hors du rayon de convergence. Pour $N > 7$, les erreurs numériques peuvent devenir significatives.
+
+\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5}
+%sin(x) autour de 0, ordres 1, 3, 5, 7
+\begin{GraphiqueTikz}[x=1cm,y=1cm,Xmin=-5,Xmax=5,Ymin=-3,Ymax=3]
+	\TracerAxesGrilles[Elargir=2.5mm]{auto}{auto}
+	\DefinirCourbe[Trace,Couleur=black]<f>{sin(x)}
+	\TracerTaylor[Ordre=1,Couleur=red]{f}{0}
+	\TracerTaylor[Ordre=3,Couleur=orange]{f}{0}
+	\TracerTaylor[Ordre=5,Couleur=green!60!black]{f}{0}
+	\TracerTaylor[Ordre=7,Couleur=blue]{f}{0}
+\end{GraphiqueTikz}
+\end{tcblisting}
+
+\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5}
+%ln(x) autour de 1 — rayon de convergence = 1
+\begin{GraphiqueTikz}[x=1.5cm,y=1.5cm,Xmin=-1,Xmax=4,Ymin=-3,Ymax=3]
+	\TracerAxesGrilles[Elargir=2.5mm]{auto}{auto}
+	\TracerCourbe[Couleur=black,Epaisseur=1.5pt,Debut=0.05]{ln(x)}
+	\TracerTaylor[Ordre=1,Couleur=red,Debut=0.1,Fin=4]{ln}{1}
+	\TracerTaylor[Ordre=2,Couleur=orange,Debut=0.1,Fin=4]{ln}{1}
+	\TracerTaylor[Ordre=3,Couleur=green!60!black,Debut=0.1,Fin=4]{ln}{1}
+	\TracerTaylor[Ordre=5,Couleur=blue,Debut=0.1,Fin=4]{ln}{1}
+\end{GraphiqueTikz}
+\end{tcblisting}
+
+\pagebreak
+
+\section{Commandes numériques}\label{outilnums}
+
+\subsection{Introduction}
+
+En marge des commandes graphiques, des commandes numériques ont été intégrées au package \MontreCode{tkz-grapheur}.
+
+Les résultats obtenus sont \textit{bruts}, afin de pouvoir être réutilisés (arrondis, formatage) ultérieurement.
+
+\smallskip
+
+Les commandes présentées dans cette section sont des \textit{moteurs de calcul numérique} utilisables dans et hors de l'environnement \MontreCode{GraphiqueTikz}.
+
+Elles stockent leurs résultats dans des macros et/ou les affichent directement. La convention est :
+
+\begin{itemize}
+	\item sans étoile \MontreCode{\textbackslash commande\{...\}} : affiche le résultat ;
+	\item avec étoile \MontreCode{\textbackslash commande*\{...\}[\textbackslash macro]} : stocke le résultat dans \MontreCode{\textbackslash macro} (défaut : \MontreCode{\textbackslash mycalcres}).
+\end{itemize}
+
+\subsection{Analyse}
+
+\subsubsection{Maximum, minimum}
+
+\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5,listing only}
+\tkzgCalcMax[precision]{expr}{deb}{fin}[\macromax][\macroxmax]
+\tkzgCalcMax[precision]{expr}{deb}{fin}[\macromin][\macroxmin]
+\end{tcblisting}
+
+\begin{itemize}
+	\item \MontreCode{[précision]} : précision décimale.
+\end{itemize}
+
+\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5}
+\tkzgCalcMax{80*x*exp(-0.2*x)}{3}{10}\tmpmax\ en \tmpmaxvalx
+\end{tcblisting}
+
+\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5}
+\tkzgCalcMin[0.001]
+  {log(exp(-x)+1)+0.25*x}{1}{1.2}
+  [\MonMin]
+  [\MonMinX]
+\MonMin\ en \MonMinX
+\end{tcblisting}
+
+\subsubsection{Taux d'accroissement, nombre dérivée}
+
+\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5,listing only}
+\tkzgTauxAccroiss*{expression}{a}{h}[\macro]
+
+\tkzgDeriveeNum*[précision]<gd>{expr}{a}[\macro]
+\end{tcblisting}
+
+\begin{itemize}
+	\item \MontreCode{[précision]} : précision décimale.
+\end{itemize}
+
+\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5}
+% entre 2 et 2 + 0.5, avec f(x)=x^2
+\tkzgTauxAccroiss{x**2}{2}{0.5}
+\end{tcblisting}
+
+\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5}
+% en x=3 : f'(3) = 6
+\tkzgDeriveeNum{x^2}{3}           % symétrique → 6.000...
+\tkzgDeriveeNum<d>{x^2}{3}        % droite → 6.0001...
+\tkzgDeriveeNum<g>{x^2}{3}        % gauche → 5.9999...
+
+% en x=0 (borne gauche) : utiliser <d>
+\tkzgDeriveeNum<d>{x^2}{0}        % → 0.0001...
+
+% f(x) = sin(x), f'(0) = 1
+\tkzgDeriveeNum{sin(x)}{0}        % → 1.000...
+\end{tcblisting}
+
+\subsubsection{Intégrale numérique (méthode de Simpson)}
+
+\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5,listing only}
+\tkzgCalcIntegrale[N]{expression}{a}{b}
+\tkzgCalcIntegrale*[N]{expression}{a}{b}[\macro]
+\end{tcblisting}
+
+\begin{itemize}
+	\item \MontreCode{[N]} : nombre de subdivisions (\MontreCode{50} par défaut).
+\end{itemize}
+
+\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5}
+$\displaystyle\int_0^{\pi} \sin(x)\,\mathrm{d}x \approx \tkzgCalcIntegrale{sin(x)}{0}{pi}$
+
+\tkzgCalcIntegrale*{sin(x)}{0}{pi}[\monres]
+$\displaystyle\int_0^{\pi} \sin(x)\,\mathrm{d}x \approx \monres$
+\end{tcblisting}
+
+\subsubsection{Résolution approchée par dichotomie}
+
+\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5,listing only}
+\tkzgResolApproch[precision]{equation}{a:b}
+\tkzgResolApproch*[precision]{equation}{a:b}[\macro]
+
+%avec vérification TVI (f(a)*f(b)<0)
+\tkzgResolApprochTVI[precision]{equation}{a:b}
+\tkzgResolApprochTVI*[precision]{equation}{a:b}[\macro]
+\end{tcblisting}
+
+\begin{itemize}
+	\item \MontreCode{[precision]} : précision en valeur absolue (\MontreCode{0.001} par défaut) ;
+	\item \MontreCode{\{equation\}} : équation de la forme \MontreCode{f(x)=valeur} ou simplement \MontreCode{f(x)} (résolution $=0$) ;
+	\item \MontreCode{\{a:b\}} : intervalle de recherche.
+\end{itemize}
+
+La version \MontreCode{TVI} vérifie que $f(a) \times f(b)<0$ avant de lancer la dichotomie — si ce n'est pas le cas, la macro retourne \MontreCode{???}.
+
+\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5}
+%résolution de e^x = 3 sur [0;2]
+$x \approx \tkzgResolApproch{exp(x)=3}{0:2}$
+
+%stockage
+\tkzgResolApproch*{exp(x)=3}{0:2}[\monx]
+$x \approx \monx$
+\end{tcblisting}
+
+\subsubsection{Seuil d'une suite récurrente}
+
+\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5,listing only}
+\tkzgCalcSeuilSuite[Nmax]{f(x)}{n0}{u0}{signe}{seuil}
+\tkzgCalcSeuilSuite*[Nmax]{f(x)}{n0}{u0}{signe}{seuil}[\macro]
+\end{tcblisting}
+
+\begin{itemize}
+	\item \MontreCode{\{f(x)\}} : relation de récurrence $u_{n+1} = f(u_n)$ ;
+	\item \MontreCode{\{n0\}}, \MontreCode{u0} : rang et valeur initiaux ;
+	\item \MontreCode{\{signe\}} : condition d'arrêt parmi \MontreCode{>}, \MontreCode{<}, \MontreCode{>=}, \MontreCode{<=} ;
+	\item \MontreCode{\{seuil\}} : valeur seuil à atteindre ;
+	\item \MontreCode{[Nmax]} : nombre maximal d'itérations (\MontreCode{1000} par défaut) — sécurité anti-boucle infinie.
+\end{itemize}
+
+\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5}
+%premier n tel que 1.05^n > 2
+\tkzgCalcSeuilSuite*{1.05*x}{0}{1}{>}{2}[\monrang]
+$n_0 = \monrang$
+\end{tcblisting}
+
+\subsection{Probabilités}
+
+\subsubsection{Lois discrètes}
+
+\textbf{-- Loi binomiale}
+
+\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5,listing only}
+%P(X=k)
+\tkzgCalcBinomP{n}{p}{k}
+\tkzgCalcBinomP*{n}{p}{k}[\macro]
+
+%P(a<=X<=b)  (a/b = * => borne naturelle, 0 ou n)
+\tkzgCalcBinomC{n}{p}{a}{b}
+\tkzgCalcBinomC*{n}{p}{a}{b}[\macro]
+\end{tcblisting}
+
+\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5}
+% X -> B(10 ; 0.3)
+$P(X=3) \approx \tkzgCalcBinomP{10}{0.3}{3}$
+
+$P(X \leqslant 4) \approx \tkzgCalcBinomC{10}{0.3}{*}{4}$
+
+$P(2 \leqslant X \leqslant 5) \approx \tkzgCalcBinomC{10}{0.3}{2}{5}$
+\end{tcblisting}
+
+\textbf{-- Loi de Poisson}
+
+\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5,listing only}
+%P(X=k)
+\tkzgCalcPoissP{lambda}{k}
+\tkzgCalcPoissP*{lambda}{k}[\macro]
+
+%P(a<=X<=b)
+\tkzgCalcPoissC{lambda}{a}{b}
+\tkzgCalcPoissC*{lambda}{a}{b}[\macro]
+\end{tcblisting}
+
+\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5}
+% Y -> P(5)
+$P(Y=3) \approx \tkzgCalcPoissP{5}{3}$
+
+$P(Y \geqslant 2) \approx \tkzgCalcPoissC{5}{2}{*}$
+\end{tcblisting}
+
+\textbf{-- Loi géométrique}
+
+\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5,listing only}
+%P(X=k)
+\tkzgCalcGeomP{p}{k}
+\tkzgCalcGeomP*{p}{k}[\macro]
+
+%P(a<=X<=b)
+\tkzgCalcGeomC{p}{a}{b}
+\tkzgCalcGeomC*{p}{a}{b}[\macro]
+\end{tcblisting}
+
+\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5}
+% T -> G(0.3)
+$P(T=4) \approx \tkzgCalcGeomP{0.3}{4}$
+
+$P(T \leqslant 5) \approx \tkzgCalcGeomC{0.3}{*}{5}$
+\end{tcblisting}
+
+\textbf{-- Loi hypergéométrique}
+
+\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5,listing only}
+%P(X=k)   N=population  n=tirage  m=succès dans population
+
+\tkzgCalcHypergeomP{N}{n}{m}{k}
+\tkzgCalcHypergeomP*{N}{n}{m}{k}[\macro]
+
+%P(a<=X<=b)
+\tkzgCalcHypergeomC{N}{n}{m}{a}{b}
+\tkzgCalcHypergeomC*{N}{n}{m}{a}{b}[\macro]
+\end{tcblisting}
+
+\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5}
+% W -> H(50,10,6)
+$P(W=3) \approx \tkzgCalcHypergeomP{50}{6}{10}{3}$
+
+$P(1 \leqslant W \leqslant 4) \approx \tkzgCalcHypergeomC{50}{6}{10}{1}{4}$
+\end{tcblisting}
+
+\subsubsection{Lois continues}
+
+\textbf{-- Loi normale}
+
+\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5,listing only}
+%P(a<=X<=b)  (a/b = * => borne infinie)
+\tkzgCalcNormC{mu}{sigma}{a}{b}
+\tkzgCalcNormC*{mu}{sigma}{a}{b}[\macro]
+\end{tcblisting}
+
+\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5}
+% X -> N(100 ; 10)
+$P(X \leqslant 115) \approx \tkzgCalcNormC{100}{10}{*}{115}$
+
+$P(90 \leqslant X \leqslant 110) \approx \tkzgCalcNormC{100}{10}{90}{110}$
+
+$P(X \geqslant 120) \approx \tkzgCalcNormC{100}{10}{120}{*}$
+\end{tcblisting}
+
+\textbf{-- Loi exponentielle}
+
+\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5,listing only}
+%P(a<=X<=b)  (a/b = * => 0 pour a, +inf approché pour b)
+\tkzgCalcExpoC{lambda}{a}{b}
+\tkzgCalcExpoC*{lambda}{a}{b}[\macro]
+\end{tcblisting}
+
+\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5}
+% Z -> Exp(0.1)
+$P(Z \geqslant 5) \approx \tkzgCalcExpoC{0.1}{5}{*}$
+
+$P(3 \leqslant Z \leqslant 8) \approx \tkzgCalcExpoC{0.1}{3}{8}$
+\end{tcblisting}
+
+\textbf{-- Loi de Student}
+
+\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5,listing only}
+%P(a<=T_nu<=b)  [N] = subdivisions Simpson (50 par défaut)
+\tkzgCalcStudentC[N]{nu}{a}{b}
+\tkzgCalcStudentC*[N]{nu}{a}{b}[\macro]
+\end{tcblisting}
+
+\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5}
+% T -> Student(5)
+$P(-2 \leqslant T \leqslant 2) \approx \tkzgCalcStudentC{5}{-2}{2}$
+
+$P(T \geqslant 1.5) \approx \tkzgCalcStudentC{5}{1.5}{*}$
+\end{tcblisting}
+
+\textbf{-- Loi de Fischer}
+
+\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5,listing only}
+%P(a<=F_{d1,d2}<=b)  attention : a > 0 !
+\tkzgCalcFischerC[N]{d1}{d2}{a}{b}
+\tkzgCalcFischerC*[N]{d1}{d2}{a}{b}[\macro]
+\end{tcblisting}
+
+\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5}
+% F -> Fischer(5,10)
+$P(1 \leqslant F \leqslant 3) \approx \tkzgCalcFischerC{5}{10}{1}{3}$
+\end{tcblisting}
+
+\subsubsection{Quantiles}
+
+\textbf{-- Loi normale}
+
+\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5,listing only}
+%P(X<=k)=p
+\tkzgQuantileNormal{mu}{sigma}{p}
+\tkzgQuantileNormal*{mu}{sigma}{p}[\macro]
+
+%P(X>k)=p
+\tkzgQuantileNormalSup{mu}{sigma}{p}
+\tkzgQuantileNormalSup*{mu}{sigma}{p}[\macro]
+
+%P(mu-h<X<mu+h)=p  -> retourne h
+\tkzgQuantileNormalCentre{mu}{sigma}{p}
+\tkzgQuantileNormalCentre*{mu}{sigma}{p}[\macro]
+\end{tcblisting}
+
+\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5}
+% X -> N(100 ; 10)
+$k$ tel que $P(X \leqslant k)=0{,}95$ :
+$k \approx \tkzgQuantileNormal{100}{10}{0.95}$
+
+$k$ tel que $P(X > k)=0{,}05$ :
+$k \approx \tkzgQuantileNormalSup{100}{10}{0.05}$
+
+$h$ tel que $P(100-h \leqslant X \leqslant 100+h)=0{,}95$ :
+$h \approx \tkzgQuantileNormalCentre{100}{10}{0.95}$
+\end{tcblisting}
+
+\textbf{-- Loi binomiale}
+
+\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5,listing only}
+%plus petit k tel que P(X<=k)>=p
+\tkzgQuantileBinom{n}{p}{seuil}
+\tkzgQuantileBinom*{n}{p}{seuil}[\macro]
+
+%plus grand k tel que P(X>=k)>=p
+\tkzgQuantileBinomSup{n}{p}{seuil}
+\tkzgQuantileBinomSup*{n}{p}{seuil}[\macro]
+\end{tcblisting}
+
+\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5}
+% X -> B(20 ; 0.3)
+plus petit $k$ tel que $P(X \leqslant k) \geqslant 0{,}95$ :
+$k = \tkzgQuantileBinom{20}{0.3}{0.95}$
+
+plus grand $k$ tel que $P(X \geqslant k) \geqslant 0{,}05$ :
+$k = \tkzgQuantileBinomSup{20}{0.3}{0.05}$
+\end{tcblisting}
+
+\subsubsection{Intervalles de fluctuation et de confiance}
+
+\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5,listing only}
+%intervalle de fluctuation : p=proportion théorique, n=taille échantillon
+\tkzgCalcIntFluctu<seuil>[niveau]{p}{n}[\borneinf][\bornesup]
+\tkzgCalcIntFluctu*<seuil>[niveau]{p}{n}[\borneinf][\bornesup]
+
+%intervalle de confiance : f=fréquence observée, n=taille échantillon
+\tkzgCalcIntConf<seuil>[niveau]{f}{n}[\borneinf][\bornesup]
+\tkzgCalcIntConf*<seuil>[niveau]{f}{n}[\borneinf][\bornesup]
+\end{tcblisting}
+
+\begin{itemize}
+	\item \MontreCode{<seuil>} : niveau de probabilité parmi \MontreCode{90}, \MontreCode{95} (défaut), \MontreCode{99}, ou \MontreCode{val} ;
+	\item \MontreCode{[niveau]} : niveau scolaire parmi \MontreCode{2de} et \MontreCode{Term} ;
+	\item \MontreCode{\textbackslash borneinf}, \MontreCode{\textbackslash bornesup} : macros de stockage des bornes (défaut : \MontreCode{\textbackslash myborneinf}, \MontreCode{\textbackslash mybornesup}).
+\end{itemize}
+
+\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5}
+%IF à 95% niveau Term, p=0.6, n=500
+\tkzgCalcIntFluctu*{0.6}{500}[\myif][\myifs]
+$I_f = [\myif;\myifs]$
+
+%IC à 95% niveau Term, f=0.63, n=500
+\tkzgCalcIntConf*{0.63}{500}[\myic][\myics]
+$I_c = [\myic;\myics]$
+\end{tcblisting}
+
+\subsection{Statistiques}
+
+\subsubsection{Paramètres statistiques}
+
+\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5,listing only}
+%liste simple
+\tkzgCalcParamStats{liste}[min][Q1][mediane][Q3][max]
+
+%liste avec effectifs (valeur/effectif, séparateur .)
+\tkzgCalcParamStats*{liste}[min][Q1][mediane][Q3][max]
+\end{tcblisting}
+
+Des résultats sont également stockés automatiquement dans :
+
+\begin{itemize}
+	\item \MontreCode{\textbackslash mamoyenne} : moyenne ;
+	\item \MontreCode{\textbackslash monecarttype} : écart-type.
+\end{itemize}
+
+\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5}
+\tkzgCalcParamStats{2,5,3,8,4,7,6,1,9,5}
+Min : \monmin, Q1 : \monquartileun, Médiane : \mamediane,
+Q3 : \monquartiletrois, Max : \monmax,
+Moyenne : \mamoyenne, Écart-type : \monecarttype
+\end{tcblisting}
+
+\subsubsection{Moyenne et écart-type}
+
+\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5,listing only}
+%liste simple
+\tkzgCalcMoyEctype{liste}[\moyenne][\ecarttype]
+
+%liste avec effectifs
+\tkzgCalcMoyEctype*{liste}[\moyenne][\ecarttype]
+\end{tcblisting}
+
+\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5}
+\tkzgCalcMoyEctype{2,5,3,8,4,7,6,1,9,5}[\mamoy][\monect]
+Moyenne : \mamoy, Écart-type : \monect
+
+%avec effectifs : valeur/effectif
+\tkzgCalcMoyEctype*{10/3,20/5,30/2}[\mamoy][\monect]
+Moyenne : \mamoy, Écart-type : \monect
+\end{tcblisting}
+
+\pagebreak
+
 \section{Codes source des exemples de la page d'accueil}
 
 \begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5}
@@ -2818,6 +3615,8 @@ $\begin{cases}
 	\lstcmd{def interpo~~~~}{\DefinirCourbeInterpo}{deftracinterpo}
 	\lstcmd{tracé interpo~~}{\TracerCourbeInterpo}{deftracinterpo}
 	\lstcmd{interp Lagrange}{\GenererPolynomeLagrange}{lagrangeinterpo}
+	\lstcmd{def Taylor~~~~~}{\DefinirTaylor}{taylor}
+	\lstcmd{tracé Taylor~~~}{\TracerTaylor}{taylor}
 	\lstcmd{def spline~~~~~}{\DefinirCourbeSpline}{deftracfctspline}
 	\lstcmd{tracé spline~~~}{\TracerCourbeSpline}{deftracfctspline}
 	\lstcmd{tracé droite~~~}{\TracerDroite}{tracdroite}
@@ -2847,6 +3646,8 @@ $\begin{cases}
 	\lstcmd{dérivée~~~~~~~~}{\TracerDerivee}{derivprimit}
 	\lstcmd{inég. linéaire~}{\InegaliteLineaire}{ineglin}
 	\lstcmd{primitive~~~~~~}{\TracerPrimitive}{derivprimit}
+	\lstcmd{transform refl~}{\TracerReflexion}{transformfreflex}
+	\lstcmd{transform~~~~~~}{\TracerTransformee}{transform}
 \end{description}
 
 \subsection{Intégrales, probabilités, statistiques}
@@ -2857,9 +3658,19 @@ $\begin{cases}
 	\lstcmd{Monte-Carlo~~~~}{\SimulerMonteCarlo}{montecarlo}
 	\lstcmd{loi normale~~~~}{\DefinirLoiNormale}{loinormale}
 	\lstcmd{loi normale~~~~}{\TracerLoiNormale}{loinormale}
+	\lstcmd{loi expo~~~~~~~}{\DefinirLoiExpo}{loiexpo}
+	\lstcmd{loi expo~~~~~~~}{\TracerLoiExpo}{loiexpo}
 	\lstcmd{loi khideux~~~~}{\DefinirLoiKhiDeux}{loikhideux}
 	\lstcmd{loi khideux~~~~}{\TracerLoiKhiDeux}{loikhideux}
 	\lstcmd{loi binom~~~~~~}{\TracerHistoBinomiale}{histobinom}
+	\lstcmd{loi Poisson~~~~}{\TracerLoiPoisson}{loipoisson}
+	\lstcmd{loi géom~~~~~~~}{\TracerLoiGeo}{loigeo}
+	\lstcmd{loi hypergéo~~~}{\TracerLoiHyperGeo}{loihypergeo}
+	\lstcmd{loi Student~~~~}{\DefinirLoiStudent}{loistudent}
+	\lstcmd{loi Student~~~~}{\TracerLoiStudent}{loistudent}
+	\lstcmd{loi Fischer~~~~}{\DefinirLoiFischer}{loifischer}
+	\lstcmd{loi Fischer~~~~}{\TracerLoiFischer}{loifischer}
+	\lstcmd{aire continue~~}{\RepresenterProbaContinue}{loiinteg}
 	\lstcmd{courbe ECC~~~~~}{\TracerCourbeECC}{cbeECC}
 	\lstcmd{stats 2 var~~~~}{\TracerNuage}{nuage}
 	\lstcmd{regressions~~~~}{\TracerAjustement}{regressions}
@@ -2894,6 +3705,7 @@ $\begin{cases}
 	\lstcmd{voisinages~~~~~}{\AfficherVoisinage}{voisinages}
 	\lstcmd{arrondi~~~~~~~~}{\ArrondirNum}{numarrond}
 	\lstcmd{nb aléat~~~~~~~}{\ChoisirNbAlea}{nbalea}
+	\lstcmd{outils num~~~~~}{\tkzgCalcXXXXX}{outilnums}
 \end{description}
 
 \newpage
@@ -3020,13 +3832,16 @@ Les solutions de $f(x)=66$ sont d'environ \ArrondirNum*[0]{\xMonItscA} \&\ \Arro
 
 {\footnotesize \begin{quote}
 \begin{verbatim}
+0.30c : Refonte du fonctionnement avec séparation commandes [en/fr]
+-----   Transformations, Taylor (expérimental)
+-----   Ajout de lois de probabilités (continues + discrètes)
+-----   Outils numériques
 0.30b : Dérivée/primitive (expérimental)
 -----   Nuage suites
 -----   Courbes paramétrées, polaires
 -----   Voisinages (expérimental)
 -----   Valeurs interdites (expérimental)
 -----   Coniques (expérimental)
-0.30b : Dérivée/primitive (expérimental) + paramétriques + polaires
 0.30a : Création des nœuds (fenêtre + axes)
 0.2.9 : Ajout de thèmes de couleurs pour les grilles
 0.2.7 : Possibilité de spécifier les dimensions du graphique (en test)

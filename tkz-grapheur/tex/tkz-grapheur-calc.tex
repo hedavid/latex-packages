@@ -1,0 +1,588 @@
+% tkz-grapheur-fr.tex
+% Copyright 2026 Cédric Pierquet
+% Released under the LaTeX Project Public License v1.3c or later, see http://www.latex-project.org/lppl.txt
+% macros [calc] de tkz-grapheur-fr
+
+%===intégrale 'brute'
+\NewDocumentCommand\tkzgCalcIntegrale{ s O{50} m m m O{\mycalcres} }{%
+  \xintdeffloatfunc varfct(x) := #3 ;%
+  \xdef\TmpNmU{\xinteval{(#2)-1}}%
+  \xdef#6{\xintFloatToDecimal{\xintfloateval{((#5)-(#4))/(6*(#2))*(2*add(varfct((#4)+i*((#5)-(#4))/(#2)),i=1..\TmpNmU)+varfct(#4)+varfct(#5)+4*add(varfct((#4)+(i+0.5)*((#5)-(#4))/(#2)), i=0..\TmpNmU))}}}%
+  \IfBooleanF{#1}{#6}%
+}
+\NewCommandCopy\tkzgCalcIntegral\tkzgCalcIntegrale
+
+%===val moy 'brute'
+\NewDocumentCommand\tkzgCalcValeurMoyIntg{ s O{50} m m m O{\mycalcres} }{%
+  \xintdeffloatfunc varfct(x) := #3 ;%
+  \xdef\TmpNmU{\xinteval{(#2)-1}}%
+  \xdef#6{\xintFloatToDecimal{\xintfloateval{(1)/(6*(#2))*(2*add(varfct(#4+i*(#5-(#4))/(#2)),i=1..\TmpNmU)+varfct(#4)+varfct(#5)+4*add(varfct(#4+(i+0.5)*(#5-(#4))/(#2)), i=0..\TmpNmU))}}}%
+  \IfBooleanF{#1}{#6}%
+}
+\NewCommandCopy\tkzgCalcAverageIntegral\tkzgCalcValeurMoyIntg
+
+%====solution approchée par dichotomie (version TVI)
+\NewDocumentCommand\tkzgResolApprochTVI{ s O{0.001} m m O{\mycalcres} }{%
+  %2=précision chiffres après virgule,3=equation,4=intervalle,5=macro
+  %extraction fonction + valeur
+  \IfSubStr{#3}{=}%on coupe mmb gauche / mmb droit
+    {\StrCut{#3}{=}{\tkzgSolDiFCT}{\tkzgSolDiVal}}%
+    {\xdef\tkzgSolDiFCT{#3}\xdef\tkzgSolDiVal{0}}%
+  %création des variables temporaires
+  \xintdeffloatfunc tkzgdichotovarfct(x) := \tkzgSolDiFCT ;%
+  \StrCut{#4}{:}{\tkzgvarvala}{\tkzgvarvalb}%
+  \xdef\tkzgvarstep{\fpeval{0.1*(#2)}}%un chiffre en plus :-)
+  %test de validité
+  \xintifboolexpr{\xintLt{\xintfloateval{tkzgdichotovarfct(\tkzgvarvala)*tkzgdichotovarfct(\tkzgvarvalb)}}{0} == 1}%
+    {%
+      %boucles
+      \whiledo{\xintGt{\xintfloateval{\tkzgvarvalb-\tkzgvarvala-\tkzgvarstep}}{0} = 1}%
+      {%
+        \xdef\tkzgvarvalm{\xintfloateval{(\tkzgvarvala+\tkzgvarvalb)*0.5}}%
+        \xintifboolexpr{\xintGt{\xintfloateval{(tkzgdichotovarfct(\tkzgvarvala)-\tkzgSolDiVal)*(tkzgdichotovarfct(\tkzgvarvalm)-\tkzgSolDiVal)}}{0}==1}%
+          {\xdef\tkzgvarvala{\fpeval{\tkzgvarvalm}}}%
+          {\xdef\tkzgvarvalb{\fpeval{\tkzgvarvalm}}}%
+      }%
+      \xdef#5{\xintFloatToDecimal{\xintfloateval{(\tkzgvarvala+\tkzgvarvalb)*0.5}}}%
+    }%
+    {%
+      \xdef#5{???}%
+    }%
+  \IfBooleanF{#1}{#5}%
+}
+\NewCommandCopy\tkzgApproxSolIVT\tkzgResolApprochTVI
+
+%====solution approchée par dichotomie (version 'brute')
+\NewDocumentCommand\tkzgResolApproch{ s O{0.001} m m O{\mycalcres} }{%
+  %2=précision chiffres après virgule,3=equation,4=intervalle,5=macro
+  %extraction fonction + valeur
+  \IfSubStr{#3}{=}%on coupe mmb gauche / mmb droit
+    {\StrCut{#3}{=}{\tkzgSolDiFCT}{\tkzgSolDiVal}}%
+    {\xdef\tkzgSolDiFCT{#3}\xdef\tkzgSolDiVal{0}}%
+  %création des variables temporaires
+  \xintdeffloatfunc tkzgdichotovarfct(x) := \tkzgSolDiFCT ;%
+  \StrCut{#4}{:}{\tkzgvarvala}{\tkzgvarvalb}%
+  \xdef\tkzgvarstep{\fpeval{0.1*(#2)}}%un chiffre en plus :-)
+  %boucles
+  \whiledo{\xintGt{\xintfloateval{\tkzgvarvalb-\tkzgvarvala-\tkzgvarstep}}{0} = 1}%
+    {%
+      \xdef\tkzgvarvalm{\xintfloateval{(\tkzgvarvala+\tkzgvarvalb)*0.5}}%
+      \xintifboolexpr{\xintGt{\xintfloateval{(tkzgdichotovarfct(\tkzgvarvala)-\tkzgSolDiVal)*(tkzgdichotovarfct(\tkzgvarvalm)-\tkzgSolDiVal)}}{0}==1}%
+        {\xdef\tkzgvarvala{\fpeval{\tkzgvarvalm}}}%
+        {\xdef\tkzgvarvalb{\fpeval{\tkzgvarvalm}}}%
+    }%
+  \xdef#5{\xintFloatToDecimal{\xintfloateval{(\tkzgvarvala+\tkzgvarvalb)*0.5}}}%
+  \IfBooleanF{#1}{#5}%
+}
+\NewCommandCopy\tkzgApproxSol\tkzgResolApproch
+
+%====taux d'accroissement
+\NewDocumentCommand\tkzgTauxAccroiss{ s m m m O{\mycalcres} }{%fct+a+h+macro
+  %next
+  \xintdeffloatfunc tkzvaraccroisfct(x) := #2 ;%
+  \xdef#5{\xintFloatToDecimal{\xintfloateval{(tkzvaraccroisfct(#3+#4)-tkzvaraccroisfct(#3))/(#4)}}}%
+  \IfBooleanF{#1}{#5}%
+}
+\NewCommandCopy\tkzgGrowthRate\tkzgTauxAccroiss
+
+\NewDocumentCommand\tkzgDeriveeNum{ s O{0.0001} D<>{gd} m m O{\mycalcres} }{%
+  % #2=h  #3=type(gd/g/d)  #4=f(x)  #5=a  #6=macro
+  \xintdeffloatfunc tkzgvarderfct(x) := #4 ;%
+  \IfSubStr{#3}{gd}%
+    {\xdef#6{\xintFloatToDecimal{\xintfloateval{(tkzgvarderfct(#5+#2)-tkzgvarderfct(#5-#2))/(2*(#2))}}}}%
+    {\IfSubStr{#3}{g}%
+      {\xdef#6{\xintFloatToDecimal{\xintfloateval{(tkzgvarderfct(#5)-tkzgvarderfct(#5-#2))/(#2)}}}}%
+      {\xdef#6{\xintFloatToDecimal{\xintfloateval{(tkzgvarderfct(#5+#2)-tkzgvarderfct(#5))/(#2)}}}}%
+    }%
+  \IfBooleanF{#1}{#6}%
+}
+
+%====probas .: utiles idée de https://tex.stackexchange.com/questions/355574/im-searching-for-a-table-with-cdf-of-standard-normal-distribution :.
+\xintdeffloatvar tkzga_1,tkzga_2,tkzga_3,tkzga_4,tkzga_5,tkzga_6 := 0.0705230784,0.0422820123,0.0092705272,0.0001520143,0.0002765672,0.0000430638;
+\xintdeffloatvar tkzgrac2inv := sqrt(2)/2 ;
+\xintdeffloatfunc tkzgerfc(x) := ((((((tkzga_6*x+tkzga_5)*x+tkzga_4)*x+tkzga_3)*x+tkzga_2)*x+tkzga_1)*x+1)**-16 ; %uniquement pour x positif,fin de définition de erfc(x)
+\xintdeffloatfunc tkzgPhi(z) := (z>=0)?{1 - 0.5 * tkzgerfc(tkzgrac2inv * z)}{0.5 * tkzgerfc(-tkzgrac2inv * z)};
+\xintdeffloatfunc tkzggamma(x) :=
+  (x==0.5)?{sqrt(pi)}{%
+  (x==1)?{1}{%
+  (x==1.5)?{sqrt(pi)/2}{%
+  (x==2)?{1}{%
+  (x==2.5)?{3*sqrt(pi)/4}{%
+  (x==3)?{2}{%
+  (x==3.5)?{15*sqrt(pi)/8}{%
+  (x==4)?{6}{%
+  (x==4.5)?{105*sqrt(pi)/16}{%
+  (x==5)?{24}{%
+  (x-1)*tkzggamma(x-1)}}}}}}}}}} ;
+  
+%Binomiale P(X=k)
+\NewDocumentCommand\tkzgCalcBinomP{ s m m m O{\mycalcres} }{%
+  % #2=n  #3=p  #4=k  #5=macro
+  \xdef#5{\xintFloatToDecimal{\xintfloateval{binomial(#2,#4)*(#3)^(#4)*(1-(#3))^((#2)-(#4))}}}%
+  \IfBooleanF{#1}{#5}%
+}
+%Binomiale P(a<=X<=b)
+\NewDocumentCommand\tkzgCalcBinomC{ s m m m m O{\mycalcres} }{%
+  % #2=n  #3=p  #4=a  #5=b  #6=macro
+  \xdef\BorneInf{#4}\xdef\BorneSup{#5}%
+  \ifthenelse{\equal{#4}{*}}{\def\BorneInf{0}}{}%
+  \ifthenelse{\equal{#5}{*}}{\xdef\BorneSup{\fpeval{#2}}}{}%
+  \xdef#6{\xintFloatToDecimal{\xintfloateval{add(binomial(#2,i)*(#3)^i*(1-(#3))^((#2)-i),i=\BorneInf..\BorneSup)}}}%
+  \IfBooleanF{#1}{#6}%
+}
+%Géométrique P(X=k)
+\NewDocumentCommand\tkzgCalcGeomP{ s m m O{\mycalcres} }{%
+  % #2=p  #3=k  #4=macro
+  \xdef#4{\xintFloatToDecimal{\xintfloateval{(1-(#2))^((#3)-1)*(#2)}}}%
+  \IfBooleanF{#1}{#4}%
+}
+%Géométrique P(a<=X<=b)
+\NewDocumentCommand\tkzgCalcGeomC{ s m m m O{\mycalcres} }{%
+  % #2=p  #3=a  #4=b  #5=macro
+  \xdef\BorneInf{#3}\xdef\BorneSup{#4}%
+  \ifthenelse{\equal{#3}{*}}{\def\BorneInf{1}}{}%
+  \ifthenelse{\equal{#4}{*}}{\def\BorneSup{\fpeval{trunc(1/(#2)*10,0)}}}{}%
+  \xdef#5{\xintFloatToDecimal{\xintfloateval{add((1-(#2))^(i-1)*(#2),i=\BorneInf..\BorneSup)}}}%
+  \IfBooleanF{#1}{#5}%
+}
+%Hypergéométrique P(X=k)
+\NewDocumentCommand\tkzgCalcHypergeomP{ s m m m m O{\mycalcres} }{%
+  % #2=N  #3=n  #4=m  #5=k  #6=macro
+  \xdef#6{\xintFloatToDecimal{\xintfloateval{binomial(#4,#5)*binomial(#2-(#4),#3-(#5))/binomial(#2,#3)}}}%
+  \IfBooleanF{#1}{#6}%
+}
+%Hypergéométrique P(a<=X<=b)
+\NewDocumentCommand\tkzgCalcHypergeomC{ s m m m m m O{\mycalcres} }{%
+  % #2=N  #3=n  #4=m  #5=a  #6=b  #7=macro
+  \def\BorneInf{#5}\def\BorneSup{#6}%
+  \ifthenelse{\equal{#5}{*}}{\def\BorneInf{0}}{}%
+  \ifthenelse{\equal{#6}{*}}{\def\BorneSup{\fpeval{#2}}}{}%
+  \xdef#7{\xintFloatToDecimal{\xintfloateval{add(binomial(#4,i)*binomial(#2-(#4),(#3)-i)/binomial(#2,#3),i=\BorneInf..\BorneSup)}}}%
+  \IfBooleanF{#1}{#7}%
+}
+%Poisson P(X=k)
+\NewDocumentCommand\tkzgCalcPoissP{ s m m O{\mycalcres} }{%
+  % #2=λ  #3=k  #4=macro
+  \xdef#4{\xintFloatToDecimal{\xintfloateval{exp(-(#2))*(#2)^(#3)/factorial(#3)}}}%
+  \IfBooleanF{#1}{#4}%
+}
+%Poisson P(a<=X<=b)
+\NewDocumentCommand\tkzgCalcPoissC{ s m m m O{\mycalcres} }{%
+  % #2=λ  #3=a  #4=b  #5=macro
+  \def\BorneInf{#3}\def\BorneSup{#4}%
+  \ifthenelse{\equal{#3}{*}}{\def\BorneInf{0}}{}%
+  \ifthenelse{\equal{#4}{*}}{\def\BorneSup{\fpeval{trunc(10*#2,0)}}}{}%
+  \xdef#5{\xintFloatToDecimal{\xintfloateval{add(exp(-(#2))*(#2)^i/factorial(i),i=\BorneInf..\BorneSup)}}}%
+  \IfBooleanF{#1}{#5}%
+}
+%Normale P(a<=X<=b)
+\NewDocumentCommand\tkzgCalcNormC{ s m m m m O{\mycalcres} }{%
+  % #2=μ  #3=σ  #4=a  #5=b  #6=macro
+  \def\BorneInf{#4}\def\BorneSup{#5}%
+  \ifthenelse{\equal{#4}{*}}{\def\BorneInf{\fpeval{#5-10*(#3)}}}{}%
+  \ifthenelse{\equal{#5}{*}}{\def\BorneSup{\fpeval{#4+10*(#3)}}}{}%
+  \xdef#6{\xintFloatToDecimal{\xintfloateval{tkzgPhi((\BorneSup-(#2))/(#3))-tkzgPhi((\BorneInf-(#2))/(#3))}}}%
+  \IfBooleanF{#1}{#6}%
+}
+%Exponentielle P(a<=X<=b)
+\NewDocumentCommand\tkzgCalcExpoC{ s m m m O{\mycalcres} }{%
+  % #2=λ  #3=a  #4=b  #5=macro
+  \def\BorneInf{#3}\def\BorneSup{#4}%
+  \ifthenelse{\equal{#3}{*}}{\def\BorneInf{0}}{}%
+  \ifthenelse{\equal{#4}{*}}{\def\BorneSup{\fpeval{100/(#2)}}}{}%
+  \xdef#5{\xintFloatToDecimal{\xintfloateval{exp(-(#2)*(\BorneInf))-exp(-(#2)*(\BorneSup))}}}%
+  \IfBooleanF{#1}{#5}%
+}
+%Student : P(a <= T_ν <= b)
+\NewDocumentCommand\tkzgCalcStudentC{ s O{50} m m m O{\mycalcres} }{%
+  % #2=subdivisions  #3=ν  #4=a  #5=b  #6=macro
+  \xintdeffloatfunc tkzgstudentfct(x) :=
+    tkzggamma((#3+1)/2)/(sqrt(#3*pi)*tkzggamma(#3/2))
+    *(1+(x)^2/(#3))^(-((#3+1)/2)) ;%
+  \def\BorneInf{#4}\def\BorneSup{#5}%
+  \ifthenelse{\equal{#4}{*}}{\def\BorneInf{\xintfloateval{-10*sqrt(#3)}}}{}%
+  \ifthenelse{\equal{#5}{*}}{\def\BorneSup{\xintfloateval{10*sqrt(#3)}}}{}%
+  \xdef\TmpNmU{\xinteval{(#2)-1}}%
+  \xdef#6{\xintFloatToDecimal{\xintfloateval{%
+    ((\BorneSup)-(\BorneInf))/(6*(#2))*(%
+      2*add(tkzgstudentfct((\BorneInf)+i*((\BorneSup)-(\BorneInf))/(#2)),i=1..\TmpNmU)%
+      +tkzgstudentfct(\BorneInf)+tkzgstudentfct(\BorneSup)%
+      +4*add(tkzgstudentfct((\BorneInf)+(i+0.5)*((\BorneSup)-(\BorneInf))/(#2)),i=0..\TmpNmU)%
+    )}}}%
+  \IfBooleanF{#1}{#6}%
+}
+%Fischer : P(a <= F_{d1,d2} <= b)
+\NewDocumentCommand\tkzgCalcFischerC{ s O{50} m m m m O{\mycalcres} }{%
+  % #2=subdivisions  #3=d1  #4=d2  #5=a  #6=b  #7=macro
+  \xintdeffloatfunc tkzgfischerfct(x) :=
+    (tkzggamma((#3+#4)/2)/(tkzggamma(#3/2)*tkzggamma(#4/2)))
+    *(#3/#4)^(#3/2)*(x)^(#3/2-1)
+    *(1+(#3)*(x)/(#4))^(-((#3+#4)/2)) ;%
+  \def\BorneInf{#5}\def\BorneSup{#6}%
+  \ifthenelse{\equal{#5}{*}}{\def\BorneInf{0.001}}{}%
+  \ifthenelse{\equal{#6}{*}}{\def\BorneSup{\xintfloateval{(#4)/(#4-2)*10}}}{}%
+  \xdef\TmpNmU{\xinteval{(#2)-1}}%
+  \xdef#7{\xintFloatToDecimal{\xintfloateval{%
+    ((\BorneSup)-(\BorneInf))/(6*(#2))*(%
+      2*add(tkzgfischerfct((\BorneInf)+i*((\BorneSup)-(\BorneInf))/(#2)),i=1..\TmpNmU)%
+      +tkzgfischerfct(\BorneInf)+tkzgfischerfct(\BorneSup)%
+      +4*add(tkzgfischerfct((\BorneInf)+(i+0.5)*((\BorneSup)-(\BorneInf))/(#2)),i=0..\TmpNmU)%
+    )}}}%
+  \IfBooleanF{#1}{#7}%
+}
+%aliases EN
+\NewCommandCopy\tkzgCalcBinomialP\tkzgCalcBinomP
+\NewCommandCopy\tkzgCalcBinomialC\tkzgCalcBinomC
+\NewCommandCopy\tkzgCalcGeometricP\tkzgCalcGeomP
+\NewCommandCopy\tkzgCalcGeometricC\tkzgCalcGeomC
+\NewCommandCopy\tkzgCalcHypergeometricP\tkzgCalcHypergeomP
+\NewCommandCopy\tkzgCalcHypergeometricC\tkzgCalcHypergeomC
+\NewCommandCopy\tkzgCalcPoissonP\tkzgCalcPoissP
+\NewCommandCopy\tkzgCalcPoissonC\tkzgCalcPoissC
+\NewCommandCopy\tkzgCalcNormalC\tkzgCalcNormC
+\NewCommandCopy\tkzgCalcExponentialC\tkzgCalcExpoC
+\NewCommandCopy\tkzgCalcStudentProba\tkzgCalcStudentC
+\NewCommandCopy\tkzgCalcFischerProba\tkzgCalcFischerC
+
+%====inversions normale
+%P(X <= k) = p
+\NewDocumentCommand\tkzgQuantileNormal{ s m m m O{\mycalcres} }{%
+  % #2=μ  #3=σ  #4=p  #5=macro
+  \tkzgResolApproch*[0.0001]{tkzgPhi(x)=#4}{-8:8}[\tkzgtmpquantile]%
+  \xdef#5{\xintFloatToDecimal{\xintfloateval{(#2)+(#3)*\tkzgtmpquantile}}}%
+  \IfBooleanF{#1}{#5}%
+}
+%P(X > k) = p
+\NewDocumentCommand\tkzgQuantileNormalSup{ s m m m O{\mycalcres} }{%
+  % #2=μ  #3=σ  #4=p  #5=macro
+  % P(X>k)=p ↔ P(X<=k)=1-p
+	\xdef\tmpnewseuil{\fpeval{1-(#4)}}%
+  \tkzgResolApproch*[0.0001]{tkzgPhi(x)=\tmpnewseuil}{-8:8}[\tkzgtmpquantile]%
+  \xdef#5{\xintFloatToDecimal{\xintfloateval{(#2)+(#3)*\tkzgtmpquantile}}}%
+  \IfBooleanF{#1}{#5}%
+}
+%P(μ-h < X < μ+h) = p  →  retourne h
+\NewDocumentCommand\tkzgQuantileNormalCentre{ s m m m O{\mycalcres} }{%
+  % #2=μ  #3=σ  #4=p  #5=macro
+  % par symétrie : Φ(h/σ) = (1+p)/2
+  \tkzgResolApproch*[0.0001]{tkzgPhi(x)=(1+(#4))/2}{0:8}[\tkzgtmpquantile]%
+  \xdef#5{\xintFloatToDecimal{\xintfloateval{(#3)*\tkzgtmpquantile}}}%
+  \IfBooleanF{#1}{#5}%
+}
+
+%====inversions binomiales
+%P(X <= k) >= p  →  plus petit k entier vérifiant la condition
+\NewDocumentCommand\tkzgQuantileBinom{ s m m m O{\mycalcres} }{%
+  % #2=n  #3=p  #4=seuil  #5=macro
+  \xdef\tkzgtmpbinomk{0}%
+  \xdef\tkzgtmpbinomcum{\xintfloateval{binomial(#2,0)*(#3)^0*(1-(#3))^(#2)}}%
+  \whiledo{\xintGt{\xintfloateval{\tkzgtmpbinomcum}}{#4} = 0}{%
+    \xdef\tkzgtmpbinomk{\inteval{\tkzgtmpbinomk+1}}%
+    \xdef\tkzgtmpbinomcum{\xintfloateval{\tkzgtmpbinomcum+binomial(#2,\tkzgtmpbinomk)*(#3)^(\tkzgtmpbinomk)*(1-(#3))^((#2)-\tkzgtmpbinomk)}}%
+  }%
+  \xdef#5{\tkzgtmpbinomk}%
+  \IfBooleanF{#1}{#5}%
+}
+%P(X >= k) >= p  →  plus grand k entier vérifiant la condition
+\NewDocumentCommand\tkzgQuantileBinomSup{ s m m m O{\mycalcres} }{%
+  % #2=n  #3=p  #4=seuil  #5=macro
+  % P(X>=k)>=p ↔ P(X<=k-1)<=1-p → on cherche le plus grand k
+  \xdef\tkzgtmpbinomk{#2}%
+  \xdef\tkzgtmpbinomcum{\xintfloateval{binomial(#2,#2)*(#3)^(#2)*(1-(#3))^0}}%
+  \whiledo{\xintGt{\xintfloateval{\tkzgtmpbinomcum}}{#4} = 0}{%
+    \xdef\tkzgtmpbinomk{\inteval{\tkzgtmpbinomk-1}}%
+    \xdef\tkzgtmpbinomcum{\xintfloateval{\tkzgtmpbinomcum+binomial(#2,\tkzgtmpbinomk)*(#3)^(\tkzgtmpbinomk)*(1-(#3))^((#2)-\tkzgtmpbinomk)}}%
+  }%
+  \xdef#5{\tkzgtmpbinomk}%
+  \IfBooleanF{#1}{#5}%
+}
+%aliases EN
+\NewCommandCopy\tkzgNormalQuantile\tkzgQuantileNormal
+\NewCommandCopy\tkzgNormalQuantileSup\tkzgQuantileNormalSup
+\NewCommandCopy\tkzgNormalQuantileCenter\tkzgQuantileNormalCentre
+\NewCommandCopy\tkzgBinomialQuantile\tkzgQuantileBinom
+\NewCommandCopy\tkzgBinomialQuantileSup\tkzgQuantileBinomSup
+
+%====calcul terme récurrence
+\NewDocumentCommand\tkzgCalcTermeRecurrence{ s m m m m O{\mycalcres} }{%
+  % #2=f(x)  #3=n0  #4=un0  #5=n  #6=macro
+  \xintdeffloatfunc tkzgvarfct(x) := #2 ;%
+  \xdef\tkzgvartmp{\fpeval{#4}}%
+  \foreach \i in {#3,...,#5}%
+    {\xdef\tkzgvartmp{\xintfloateval{tkzgvarfct(\tkzgvartmp)}}}%
+  \xdef#6{\xintFloatToDecimal{\xintfloateval{\tkzgvartmp}}}%
+  \IfBooleanF{#1}{#6}%
+}
+\NewCommandCopy\tkzgCalcRecurr\tkzgCalcTermeRecurrence
+
+%====calcul seuil
+\NewDocumentCommand\tkzgCalcSeuilSuite{ s m m m m m O{\mycalcres} }{%
+  % #2=f(x)  #3=n0  #4=un0  #5=signe  #6=seuil  #7=macro
+  \xintdeffloatfunc tkzgvarfct(x) := #2 ;%
+  \xdef\tkzgvartmp{\fpeval{#4}}%
+  \def\tkzgtmpcount{1}%
+  \def\tkzgtmpmaxiter{10000}% sécurité
+  %symbole de comparaison inversé et boucle
+  \IfEq{#5}{>}%
+    {%
+      \whiledo{\xintLtorEq{\tkzgvartmp}{#6} = 1 \AND \xintLt{\tkzgtmpcount}{\tkzgtmpmaxiter} = 1}%
+        {%
+          \xdef\tkzgvartmp{\xintfloateval{tkzgvarfct(\tkzgvartmp)}}%
+          \xdef\tkzgtmpcount{\inteval{\tkzgtmpcount+1}}%
+        }%
+    }{}%
+  \IfEq{#5}{<}%
+    {%
+      \whiledo{\xintGtorEq{\tkzgvartmp}{#6} = 1 \AND \xintLt{\tkzgtmpcount}{\tkzgtmpmaxiter} = 1}%
+        {%
+          \xdef\tkzgvartmp{\xintfloateval{tkzgvarfct(\tkzgvartmp)}}%
+          \xdef\tkzgtmpcount{\inteval{\tkzgtmpcount+1}}%
+        }%
+    }{}%
+  \IfEq{#5}{>=}%
+    {%
+      \whiledo{\xintLt{\tkzgvartmp}{#6} = 1 \AND \xintLt{\tkzgtmpcount}{\tkzgtmpmaxiter} = 1}%
+        {%
+          \xdef\tkzgvartmp{\xintfloateval{tkzgvarfct(\tkzgvartmp)}}%
+          \xdef\tkzgtmpcount{\inteval{\tkzgtmpcount+1}}%
+        }%
+    }{}%
+  \IfEq{#5}{<=}%
+    {%
+      \whiledo{\xintGt{\tkzgvartmp}{#6} = 1 \AND \xintLt{\tkzgtmpcount}{\tkzgtmpmaxiter} = 1}%
+        {%
+          \xdef\tkzgvartmp{\xintfloateval{tkzgvarfct(\tkzgvartmp)}}%
+          \xdef\tkzgtmpcount{\inteval{\tkzgtmpcount+1}}%
+        }%
+    }{}%
+  \xintifboolexpr{\xintGtorEq{\tkzgtmpcount}{\tkzgtmpmaxiter} == 1}%
+    {\xdef#7{???}}% pas de solution trouvée
+    {\xdef#7{\inteval{\tkzgtmpcount}}}%
+  %\xdef#7{\inteval{\tkzgtmpcount}}%
+  \IfBooleanF{#1}{#7}%
+}
+\NewCommandCopy\tkzgCalcThreshold\tkzgCalcSeuilSuite
+
+%====paramètres statistiques, avec commalists-tools
+\RequirePackage{commalists-tools}
+
+\NewDocumentCommand\tkzgCalcParamStats{ s m O{\monmin} O{\monquartileun} O{\mamediane} O{\monquartiletrois} O{\monmax} }{%
+  %traitement de la liste, *=effectifs
+  \IfBooleanTF{#1}%
+    {%
+      \setsepchar[.]{,./}%
+      \readlist*\tkzglisteTdonneesregroup{#2}%
+      \def\tkzgTMPLST{}%
+      \foreach \i in {1,...,\tkzglisteTdonneesregrouplen}{%
+        \itemtomacro\tkzglisteTdonneesregroup[\i,1]\tkzgmyelt%
+        \itemtomacro\tkzglisteTdonneesregroup[\i,2]\tkzgmynbelt%
+        \foreach \j in {1,...,\tkzgmynbelt}{%
+          \xintifboolexpr{ \i*\j == 1}%
+            {%
+              \xdef\tkzgTMPLST{\tkzgmyelt}%
+            }%
+            {%
+              \xdef\tkzgTMPLST{\tkzgTMPLST,\tkzgmyelt}%
+            }%
+        }%
+      }%
+    }%
+    {%
+      \xdef\tkzgTMPLST{#2}%
+      \sortasclist{\tkzgTMPLST}%
+    }%
+  \definemylist{\tkzgTMPLST}{\tkzglisteTdonneesregroup}%
+  \lenofdeflist{tkzglisteTdonneesregroup}[\tkzgnbdonnees]%
+  %médiane
+  \xintifboolexpr{ \xintiiRem{\tkzgnbdonnees}{2} == 0 }%
+    {%
+      \xdef\tkzgtmpranga{\xintfloateval{\tkzgnbdonnees/2}}%\tmpranga
+      \xdef\tkzgtmprangb{\xintfloateval{\tkzgnbdonnees/2+1}}%\tmprangb
+      \getvaluefromdeflist{tkzglisteTdonneesregroup}{\tkzgtmpranga}[\tkzgmyvala]%
+      \getvaluefromdeflist{tkzglisteTdonneesregroup}{\tkzgtmprangb}[\tkzgmyvalb]%
+      \xdef#5{\xintfloateval{(\tkzgmyvala+\tkzgmyvalb)/2}}%
+    }%
+    {%
+      \xdef\tkzgtmprang{\xintfloateval{(\tkzgnbdonnees+1)/2}}%
+      \getvaluefromdeflist{tkzglisteTdonneesregroup}{\tkzgtmprang}[#5]%
+    }%
+  %quartileun
+  \xdef\tkzgtmprangqa{\xintfloateval{ceil(0.25*\tkzgnbdonnees)}}%\tmpranga
+  \getvaluefromdeflist{tkzglisteTdonneesregroup}{\tkzgtmprangqa}[#4]%
+  %quartiletrois
+  \xdef\tkzgtmprangqc{\xintfloateval{ceil(0.75*\tkzgnbdonnees)}}%\tmpranga
+  \getvaluefromdeflist{tkzglisteTdonneesregroup}{\tkzgtmprangqc}[#6]%
+  %min/max
+  \minoflist{\tkzgTMPLST}[#3]%
+  \maxoflist{\tkzgTMPLST}[#7]%
+  %moyenne
+  \meanofdeflist{tkzglisteTdonneesregroup}[\mamoyenne]%
+  %écart-type
+  \xdef\monecarttype{0}%
+  \foreach \i in {1,...,\tkzgnbdonnees}{%
+      \getvaluefromdeflist{tkzglisteTdonneesregroup}{\i}[\tkzgmyval]%
+      \xdef\monecarttype{\xintfloateval{\monecarttype+(\tkzgmyval-\mamoyenne)^2}}%
+  }%
+  \xdef\monecarttype{\xintfloateval{sqrt(\monecarttype/\tkzgnbdonnees)}}%
+}
+
+\NewDocumentCommand\tkzgCalcMoyEctype{ s m O{\mamoyenne} O{\monecarttype} }{%
+  %traitement de la liste, *=effectifs
+  \IfBooleanTF{#1}%
+    {%
+      \setsepchar[.]{,./}%
+      \readlist*\tkzglisteTdonneesregroup{#2}%
+      \def\tkzgTMPLST{}%
+      \foreach \i in {1,...,\tkzglisteTdonneesregrouplen}{%
+        \itemtomacro\tkzglisteTdonneesregroup[\i,1]\tkzgmyelt%
+        \itemtomacro\tkzglisteTdonneesregroup[\i,2]\tkzgmynbelt%
+        \foreach \j in {1,...,\tkzgmynbelt}{%
+          \xintifboolexpr{ \i*\j == 1}%
+            {%
+              \xdef\tkzgTMPLST{\tkzgmyelt}%
+            }%
+            {%
+              \xdef\tkzgTMPLST{\tkzgTMPLST,\tkzgmyelt}%
+            }%
+        }%
+      }%
+    }%
+    {%
+      \xdef\tkzgTMPLST{#2}%
+      \sortasclist{\tkzgTMPLST}%
+    }%
+  \definemylist{\tkzgTMPLST}{\tkzglisteTdonneesregroup}%
+  \lenofdeflist{tkzglisteTdonneesregroup}[\tkzgnbdonnees]%
+  %moyenne
+  \meanofdeflist{tkzglisteTdonneesregroup}[#3]%
+  %écart-type
+  \xdef#4{0}%
+  \foreach \i in {1,...,\tkzgnbdonnees}{%
+      \getvaluefromdeflist{tkzglisteTdonneesregroup}{\i}[\tkzgmyval]%
+      \xdef#4{\xintfloateval{#4+(\tkzgmyval-(#3))^2}}%
+  }%
+  \xdef#4{\xintfloateval{sqrt(#4/\tkzgnbdonnees)}}%
+}
+\NewCommandCopy\tkzgCalcMeanStdDev\tkzgCalcMoyEctype
+
+%====intervalle de fluctuation/confiance
+\NewDocumentCommand\tkzgCalcIntFluctu{ s O{Term} D<>{95} m m O{\myborneinf} O{\mybornesup} }{%
+  % #2=proba(90/95/99)  #3=niveau(2de/Term)  #4=p  #5=n  #6=borne inf  #7=borne sup
+  \IfStrEqCase{#3}{%
+    {90}{\def\ualpha{1.64}}%
+    {95}{\def\ualpha{1.96}}%
+    {99}{\def\ualpha{2.58}}%
+  }[% cas non standard → calcul via Phi
+    {\tkzgQuantileNormalCentre*{0}{1}{0.#3}[\ualpha]}%
+  ]%
+  \IfStrEqCase{#2}{%
+    {2de}{%
+      \xdef#6{\fpeval{max(#4-1/sqrt(#5),0)}}%
+      \xdef#7{\fpeval{min(#4+1/sqrt(#5),1)}}%
+    }%
+    {Term}{%
+      \xdef#6{\fpeval{max(#4-\ualpha*sqrt(#4*(1-(#4)))/sqrt(#5),0)}}%
+      \xdef#7{\fpeval{min(#4+\ualpha*sqrt(#4*(1-(#4)))/sqrt(#5),1)}}%
+    }%
+  }%
+  \IfBooleanF{#1}{[#6;#7]}%
+}
+\NewDocumentCommand\tkzgCalcIntConf{ s O{Term} D<>{95} m m O{\myborneinf} O{\mybornesup} }{%
+  % #2=proba(90/95/99)  #3=niveau(2de/Term)  #4=f  #5=n  #6=borne inf  #7=borne sup
+  \IfStrEqCase{#3}{%
+    {90}{\def\ualpha{1.64}}%
+    {95}{\def\ualpha{1.96}}%
+    {99}{\def\ualpha{2.58}}%
+  }[% cas non standard → calcul via Phi
+    {\tkzgQuantileNormalCentre*{0}{1}{0.#3}[\ualpha]}%
+  ]%
+  \IfStrEqCase{#2}{%
+    {2de}{%
+      \xdef#6{\fpeval{max(#4-1/sqrt(#5),0)}}%
+      \xdef#7{\fpeval{min(#4+1/sqrt(#5),1)}}%
+    }%
+    {Term}{%
+      \xdef#6{\fpeval{max(#4-\ualpha*sqrt(#4*(1-(#4)))/sqrt(#5),0)}}%
+      \xdef#7{\fpeval{min(#4+\ualpha*sqrt(#4*(1-(#4)))/sqrt(#5),1)}}%
+    }%
+  }%
+  \IfBooleanF{#1}{[#6\,;\,#7]}%
+}
+\NewCommandCopy\tkzgCalcFluctInterval\tkzgCalcIntFluctu
+\NewCommandCopy\tkzgCalcConfInterval\tkzgCalcIntConf
+
+%----max/min
+\NewDocumentCommand\tkzgCalcMax{ O{0.01} m m m O{\tmpmax} O{\tmpmaxvalx} }{%
+  \xdef#5{\xintfloateval{max(seq(#2,x=#3..[#1]..#4,#4))}}%
+  \xdef#6{\xintfloateval{first(seq((#2 == #5)?{x}{},x=#3..[#1]..#4,#4))}}%
+}
+\NewDocumentCommand\tkzgCalcMin{ O{0.01} m m m O{\tmpmin} O{\tmpminvalx} }{%
+  \xdef#5{\xintfloateval{min(seq(#2,x=#3..[#1]..#4,#4))}}%
+  \xdef#6{\xintfloateval{first(seq((#2 == #5)?{x}{},x=#3..[#1]..#4,#4))}}%
+}
+\NewCommandCopy\tkzgCalcMaximum\tkzgCalcMax
+\NewCommandCopy\tkzgCalcMinimum\tkzgCalcMin
+
+%====SOMMES DE SUITES
+%somme générale : sum_{k=deb}^{fin} f(k)
+\NewDocumentCommand\tkzgCalcSommeSuite{ s m m m O{\mycalcres} }{%
+	% #2=expr(k)  #3=deb  #4=fin  #5=macro
+	\xdef#5{\xintFloatToDecimal{\xintfloateval{add(#2,k=#3..#4)}}}%
+	\IfBooleanF{#1}{#5}%
+}
+%somme récurrente : up + u(p+1) + ... + un
+\NewDocumentCommand\tkzgCalcSommeSuiteRecurr{ s m m m m O{\mycalcres} }{%
+	% #2=f(x)  #3=p  #4=up  #5=n  #6=macro
+	\xintdeffloatfunc tkzgvarrecurrfct(x) := #2 ;%
+	\xdef\tkzgtmprecurr{\xintfloateval{#4}}%
+	\xdef\tkzgtmpsom{\xintfloateval{#4}}%
+	\foreach \i in {#3,...,\inteval{#5-1}}{%
+		\xdef\tkzgtmprecurr{\xintfloateval{tkzgvarrecurrfct(\tkzgtmprecurr)}}%
+		\xdef\tkzgtmpsom{\xintfloateval{\tkzgtmpsom+\tkzgtmprecurr}}%
+	}%
+	\xdef#6{\xintFloatToDecimal{\tkzgtmpsom}}%
+	\IfBooleanF{#1}{#6}%
+}
+%suite arithmétique : ( up = a // r )
+\NewDocumentCommand\tkzgCalcSommeArithm{ s m m m m O{\mycalcres} }{%
+	% #2=p  #3=a  #4=r  #5=n  #6=macro
+	% S = (#5-(#2)+1) * (up + un) / 2
+	\xdef#6{\xintFloatToDecimal{\xintfloateval{(#5-(#2)+1)*( #3 + (#3)+(#5-(#2))*(#4) ) / 2}}}%
+	\IfBooleanF{#1}{#6}%
+}
+%suite géométrique : ( up = a // q )
+\NewDocumentCommand\tkzgCalcSommeGeo{ s m m m m O{\mycalcres} }{%
+	% #2=p  #3=a  #4=q  #5=n  #6=macro
+	% S = u_p * (1 - q^(n-p+1)) / (1 - q)
+	\xdef#6{\xintFloatToDecimal{\xintfloateval{(#3)*(1-(#4)^((#5)-(#2)+1))/(1-(#4))}}}%
+	\IfBooleanF{#1}{#6}%
+}
+\NewCommandCopy\tkzgCalcSeriesSum\tkzgCalcSommeSuite
+\NewCommandCopy\tkzgCalcRecurrSeriesSum\tkzgCalcSommeSuiteRecurr
+\NewCommandCopy\tkzgCalcArithmSum\tkzgCalcSommeArithm
+\NewCommandCopy\tkzgCalcGeoSum\tkzgCalcSommeGeo
+
+%====TAUX
+%évolution
+\NewDocumentCommand\tkzgCalcTauxEvol{ s m m O{\mycalcres} }{%
+  % #2=VA  #3=VD  #4=macro
+  \xdef#4{\xintFloatToDecimal{\xintfloateval{((#2)-(#3))/(#3)}}}%
+  \IfBooleanF{#1}{#4}%
+}
+%réciproque
+\NewDocumentCommand\tkzgCalcTauxReciproque{ s m O{\mycalcres} }{%
+  % #2=t  #3=macro
+  \xdef#3{\xintFloatToDecimal{\xintfloateval{1/(1+(#2))-1}}}%
+  \IfBooleanF{#1}{#3}%
+}
+%moyen sur n périodes
+\NewDocumentCommand\tkzgCalcTauxMoyen{ s m m O{\mycalcres} }{%
+  % #2=t global  #3=n  #4=macro
+  \xdef#4{\xintFloatToDecimal{\xintfloateval{(1+(#2))^(1/(#3))-1}}}%
+  \IfBooleanF{#1}{#4}%
+}
+\NewCommandCopy\tkzgCalcGrowthRate\tkzgCalcTauxEvol
+\NewCommandCopy\tkzgCalcReciprocalRate\tkzgCalcTauxReciproque
+\NewCommandCopy\tkzgCalcAverageRate\tkzgCalcTauxMoyen
+
+\endinput
