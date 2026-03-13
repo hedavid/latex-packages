@@ -2,7 +2,7 @@
 % licence........: Released under the LaTeX Project Public License v1.3c or later, see http://www.latex-project.org/lppl.txt
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{OutilsGeomTikz}[2026/03/07 v0.1.8 Outils geometriques en TikZ]
+\ProvidesPackage{OutilsGeomTikz}[2026/03/12 v0.1.8 Outils geometriques en TikZ]
 % 0.1.8		Correction d'un dysfonctionnement avec la clé [Origine=...]
 % 0.1.7		Clé pour ne pas afficher les graduations (tks Cyril I. ^^ pour l'idée)
 % 0.1.6		Correction de bugs avec pdflatex + amélioration de la gestion des rotations/échelles des labels (tks Cyril I. ^^)
@@ -24,7 +24,7 @@
 %--------Retire les parenthèses extérieures si présentes
 \ExplSyntaxOn
 \NewDocumentCommand\ogtcleanparen{ m m }{%
-      \tl_set:Nx \l_tmpa_tl { #1 }
+      \tl_set:Ne \l_tmpa_tl { #1 }
       \str_if_eq:eeTF { \tl_head:N \l_tmpa_tl } { ( }
         {
           \tl_set:Nx \l_tmpa_tl { \tl_tail:N \l_tmpa_tl }
