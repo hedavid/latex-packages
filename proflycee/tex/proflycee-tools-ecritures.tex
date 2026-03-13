@@ -1,5 +1,5 @@
 % proflycee-tools-ecritures.tex
-% Copyright 2023-2025 Cédric Pierquet
+% Copyright 2023-2026 Cédric Pierquet
 % Released under the LaTeX Project Public License v1.3c or later, see http://www.latex-project.org/lppl.txt
 
 %===PACKAGE
@@ -13,35 +13,36 @@
 %===UNITÉS
 
 \NewDocumentCommand\pflprix{ o m }{%
+  \xdef\tmparg{\xintfloateval{#2}}%
   \IfValueTF{#1}%
     {%
-      \num[round-mode=places,round-precision=#1]{#2}\,\text{€}%
+      \num[round-mode=places,round-precision=#1]{\tmparg}\,\text{€}%
     }%
     {%
-      \num{#2}\,\text{€}%
+      \num{\tmparg}\,\text{€}%
     }%
 }
 \NewCommandCopy\pflprice\pflprix
 
 \NewDocumentCommand\pflangle{ o m }{%
+  \xdef\tmparg{\xintfloateval{#2}}%
   \IfValueTF{#1}%
     {%
-      \num[round-mode=places,round-precision=#1]{#2}\text{\textdegree}%
+      \num[round-mode=places,round-precision=#1]{\tmparg}\text{\textdegree}%
     }%
     {%
-      \num{#2}\text{\textdegree}%
+      \num{\tmparg}\text{\textdegree}%
     }%
 }
 \NewCommandCopy\pflangl\pflangle
 
-\NewDocumentCommand\pflpcent{ o m }{%
-  \IfValueTF{#1}%
-  {%
-    \num[round-mode=places,round-precision=#1]{#2}\,\%%
-  }%
-  {%
-    \num{#2}\,\%%
-  }%
+\NewDocumentCommand\pflpcent{ s o m }{%
+  \xdef\tmparg{\xintfloateval{#3}}%
+  \IfBooleanT{#1}%
+  {\xintifboolexpr{ \tmparg >= 0 }{+}{}}%
+  \IfValueTF{#2}%
+  {\num[round-mode=places,round-precision=#2]{\tmparg}\,\%}%
+  {\num{\tmparg}\,\%}%
 }
 
 %===ENSEMBLES CLASSIQUES
