@@ -1,0 +1,236 @@
+% tkz-grapheur-lua.tex
+% Copyright 2026 Cédric Pierquet
+% Released under the LaTeX Project Public License v1.3c or later, see http://www.latex-project.org/lppl.txt
+% macros base [lua] de tkz-grapheur
+
+%====COURBES IMPLICITES
+\newlength\pflthickimpl
+\tikzset{pflcourbeimplicit/.style={only marks,mark=*}}
+
+\defKV[GraphiqueTikzImplicite]{%
+  CoeffPasAuto=\def\pflcoeffpasimpl{#1},step stretch=\def\pflcoeffpasimpl{#1},%
+  Pas=\def\pflpasimpl{#1},step=\def\pflpasimpl{#1},%
+  Couleur=\def\pflcouleurbimpl{#1},color=\def\pflcouleurbimpl{#1},%
+  Epaisseur=\setlength\pflthickimpl{#1},thick=\setlength\pflthickimpl{#1},%
+  Precision=\def\pflprecisiimpl{#1},prec=\def\pflprecisiimpl{#1},%
+  Tolerance=\def\pfltoleranceimplic{#1},tolerance=\def\pfltoleranceimplic{#1}
+}
+\setKVdefault[GraphiqueTikzImplicite]{%
+  CoeffPasAuto=1,step stretch=1,%
+  Pas=auto,step=auto,%
+  Couleur=black,color=black,%
+  Epaisseur=0.2875pt,thick=0.2875pt,%
+  Precision=8,precision=8,%
+  Tolerance=1e-10,tolerance=1e-10,%
+  lua=true
+}
+
+\NewDocumentCommand\TracerCourbeImplicite{ O{} m }{%with jfbu part of code for xint version !
+  % #1 = clés (Pas, Couleur, etc)
+  % #2 = expression f(x,y) (= 0 implicite)
+  \restoreKV[GraphiqueTikzImplicite]%
+  \setKV[GraphiqueTikzImplicite]{#1}%
+  \ifboolKV[GraphiqueTikzImplicite]{lua}%
+  {%
+    \ifluatex
+    \IfStrEq{\pflpasimpl}{auto}%
+    {%
+      \pgfmathsetmacro{\pfl@pasx}{\pgfmath@tonumber{\pflthickimpl} * 0.5 * (\pflcoeffpasimpl) / \pgfmath@tonumber{\pgf@xx}}%
+      \pgfmathsetmacro{\pfl@pasy}{\pgfmath@tonumber{\pflthickimpl} * 0.5 * (\pflcoeffpasimpl) / \pgfmath@tonumber{\pgf@yy}}%
+    }%
+    {%
+      \def\pfl@pasx{\pflpasimpl}%
+      \def\pflpasyimplcalc{\pflpasimpl}%
+    }%
+    \edef\tmplistepts{\directlua{tex.sprint(pfl.marching_squares("\luaescapestring{#2}",\pflxmin,\pflxmax,\pflymin,\pflymax,\pfl@pasx,\pfl@pasy,\pfltoleranceimplic))}}%
+    \begin{scope}
+        \clip (\pflxmin,\pflymin) rectangle (\pflxmax,\pflymax);
+        \draw[\pflcouleurbimpl] plot[mark size=\pflthickimpl,pflcourbeimplicit] coordinates {\tmplistepts};
+    \end{scope}%
+    \else
+      \PackageWarning{tkz-grapheur}{.: LuaLaTeX not detected, \TracerCourbeImplicite\space with [lua=false] key only available :.}
+    \fi
+  }%
+  {%
+  % open a scope limiting group
+  \begingroup
+  % configure xint to work with less digits
+  \xintSetDigits*{\pflprecisiimpl}%
+  % définition fonction xint à 2 variables
+  \xintdeffloatfunc pflimplicitefct(x,y) = #2 ;%
+  %calcul auto du pas
+  \IfStrEq{\pflpasimpl}{auto}%
+  {%
+    \pgfmathsetmacro{\pflpasximplcalc}{\pgfmath@tonumber{\pflthickimpl} * \pflcoeffpasimpl * 1.414 / \pgfmath@tonumber{\pgf@xx}}%
+    \pgfmathsetmacro{\pflpasyimplcalc}{\pgfmath@tonumber{\pflthickimpl} * \pflcoeffpasimpl * 1.414 / \pgfmath@tonumber{\pgf@yy}}%
+  }%
+  {%
+    \def\pflpasximplcalc{\pflpasimpl}%
+    \def\pflpasyimplcalc{\pflpasimpl}%
+  }%
+  \def\tmplisteptsh{}%
+  \def\tmplisteptsv{}%
+  \def\tmplisteptsp{}%
+  % double boucle marching squares
+  \edef\tmpxcoords{\xintfloateval{\pflxmin..[\pflpasximplcalc]..\pflxmax}}%
+  \edef\tmpycoords{\xintfloateval{\pflymin..[\pflpasyimplcalc]..\pflymax}}%
+  % attention ensemble de définition ??...
+  \def\tmpj{0}%
+  % precompute values of function on left vertical border
+  \xintFor ##2 in {\tmpycoords}\do{%
+    \expandafter\edef\csname tmp_value_\tmpj\endcsname{\xintfloateval{pflimplicitefct(\pflxmin,##2)}}%
+    \edef\tmpj{\the\numexpr\tmpj+1}%
+    \xintifForLast{% one more
+      \expandafter\edef\csname tmp_value_\tmpj\endcsname{\xintfloateval{pflimplicitefct(\pflxmin,##2+\pflpasyimplcalc)}}%
+    }{}%
+  }%
+  \xintFor ##1 in {\tmpxcoords}\do{%
+    \edef\tmpC{\csname tmp_value_0\endcsname}%
+    \def\tmpj{0}%
+    \xintFor ##2 in {\tmpycoords}\do{%
+      % évaluer les 3 coins et préparer en même temps la prochaine colonne pré-calculée
+      \let\tmpA\tmpC
+      \edef\tmpB{\xintfloateval{pflimplicitefct(##1+\pflpasximplcalc,##2)}}%
+      % mettre à jour pour la prochaine fois, oui c'est rusé
+      \expandafter\let\csname tmp_value_\tmpj\endcsname\tmpB
+      \edef\tmpj{\the\numexpr\tmpj+1}%
+      % là on est encore avec la colonne en cours, déjà calculée
+      \edef\tmpC{\csname tmp_value_\tmpj\endcsname}%
+      % changement de signe horizontal
+      \xintifboolexpr{sgn(\tmpA)*sgn(\tmpB) < 0}%
+        {%
+          \xdef\tmplisteptsh{\tmplisteptsh (\xintfloateval{##1-(\tmpA)*\pflpasximplcalc/(\tmpB-\tmpA)},##2)}%
+        }{}%
+      % changement de signe vertical
+      \xintifboolexpr{sgn(\tmpA)*sgn(\tmpC) < 0}%
+        {%
+          \xdef\tmplisteptsv{\tmplisteptsv (##1,\xintfloateval{##2-(\tmpA)*\pflpasyimplcalc/(\tmpC-\tmpA)})}%
+        }{}%
+      % si pas de changement de signe détecté → test zéro exact
+      \xintifboolexpr{(sgn(\tmpA)*sgn(\tmpB) >= 0) && (sgn(\tmpA)*sgn(\tmpC) >= 0) && (abs(\tmpA) < \pfltoleranceimplic)}%
+        {%
+          \xdef\tmplisteptsp{\tmplisteptsp (##1,##2)}%
+        }{}%
+      % le dernier coup il faut en calculer un de plus
+      \xintifForLast{%
+        \expandafter\edef\csname tmp_value_\tmpj\endcsname{\xintfloateval{pflimplicitefct(##1+\pflpasximplcalc,##2+\pflpasyimplcalc)}}%
+      }{}%
+    }%
+  }%
+  \begin{scope}
+    \clip (\pflxmin,\pflymin) rectangle (\pflxmax,\pflymax) ;
+    \IfEq{\tmplisteptsp}{}{}%
+      {%
+        \draw[\pflcouleurbimpl] plot[pflcourbeimplicit] coordinates {\tmplisteptsp} ;%
+      }%
+    \IfEq{\tmplisteptsh}{}{}%
+      {%
+        \draw[\pflcouleurbimpl] plot[pflcourbeimplicit] coordinates {\tmplisteptsh} ;%
+      }%
+    \IfEq{\tmplisteptsv}{}{}%
+      {%
+        \draw[\pflcouleurbimpl] plot[pflcourbeimplicit] coordinates {\tmplisteptsv} ;%
+      }%
+  \end{scope}%
+  \endgroup%
+  }%
+}
+\NewCommandCopy\PlotImplicitCurve\TracerCourbeImplicite
+
+\ifluatex
+\RequirePackage{luacode}
+\begin{luacode*}
+pfl = pfl or {}
+
+function pfl.expr_to_func(expr_str)
+    -- Traduction expression LaTeX → Lua
+    local e = expr_str
+    e = e:gsub("%^",    "^")        -- déjà ok en Lua
+    e = e:gsub("sin%(", "math.sin(")
+    e = e:gsub("cos%(", "math.cos(")
+    e = e:gsub("tan%(", "math.tan(")
+    e = e:gsub("exp%(", "math.exp(")
+    e = e:gsub("sqrt%(","math.sqrt(")
+    e = e:gsub("log%(", "math.log(")
+    e = e:gsub("abs%(", "math.abs(")
+    e = e:gsub("pi",    tostring(math.pi))
+    e = e:gsub("%*%*", "^")   -- ajouter cette ligne dans expr_to_func !
+    -- Compilation dynamique
+    local fstr = "local x,y = ...; return " .. e
+    local f, err = load(fstr)
+    if not f then
+        texio.write_nl("! pfl.expr_to_func : " .. tostring(err))
+        return nil
+    end
+    return f
+end
+
+function pfl.marching_squares(expr_str, xmin, xmax, ymin, ymax, pasx, pasy, eps)
+    eps = eps or 1e-12
+    local f = pfl.expr_to_func(expr_str)
+    if not f then return "" end
+
+    local ni = math.floor((xmax - xmin) / pasx)
+    local nj = math.floor((ymax - ymin) / pasy)
+
+    -- Phase 1 : tableau complet F[i][j]
+    local F = {}
+    local xs = {}
+    local ys = {}
+    for i = 0, ni do
+        xs[i] = xmin + i * pasx
+        F[i]  = {}
+    end
+    for j = 0, nj do
+        ys[j] = ymin + j * pasy
+    end
+    for i = 0, ni do
+        for j = 0, nj do
+            F[i][j] = f(xs[i], ys[j])
+        end
+    end
+
+    -- Phase 2 : marching squares
+    local pts = {}
+    for i = 0, ni - 1 do
+        for j = 0, nj - 1 do
+            local A = F[i  ][j  ]
+            local B = F[i+1][j  ]
+            local C = F[i  ][j+1]
+            local D = F[i+1][j+1]
+            local xi  = xs[i]
+            local xip = xs[i+1]
+            local yj  = ys[j]
+            local yjp = ys[j+1]
+            -- Arête A→B
+            if A * B < 0 then
+                pts[#pts+1] = string.format("(%.3f,%.3g)",
+                    xi - A * pasx / (B - A), yj)
+            end
+            -- Arête A→C
+            if A * C < 0 then
+                pts[#pts+1] = string.format("(%.3f,%.3g)",
+                    xi, yj - A * pasy / (C - A))
+            end
+            -- Arête C→D
+            -- if C * D < 0 then
+            --    pts[#pts+1] = string.format("(%.6f,%.6g)",
+            --        xi - C * pasx / (D - C), yjp)
+            -- end
+            -- Arête B→D
+            -- if B * D < 0 then
+            --     pts[#pts+1] = string.format("(%.6f,%.6g)",
+            --         xip, yj - B * pasy / (D - B))
+            -- end
+            -- Zéro exact
+            if A*B >= 0 and A*C >= 0 and math.abs(A) < eps then
+                pts[#pts+1] = string.format("(%.6f,%.6g)", xi, yj)
+            end
+        end
+    end
+    return table.concat(pts, " ")
+end
+\end{luacode*}
+\fi
+
+\endinput

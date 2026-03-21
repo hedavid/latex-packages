@@ -270,12 +270,12 @@
     }%
   %thèmes personnalisés
   \IfStrEqCase{\pflgraphthem}{%
-    {standard}{\tikzset{pflgrillep/.style={line width=0.75pt,pflgrillepdefault!75}}\tikzset{pflgrilles/.style={line width=0.25pt,pflgrillesdefault}}\tikzset{pflgrillei/.style={line width=0.5pt,pflgrilleidefault}}}%
-    {gris}{\tikzset{pflgrillep/.style={line width=0.75pt,pflgrillepgray!75}}\tikzset{pflgrilles/.style={line width=0.25pt,pflgrillesgray}}\tikzset{pflgrillei/.style={line width=0.5pt,pflgrilleigray}}}%
-    {bleu}{\tikzset{pflgrillep/.style={line width=0.75pt,pflgrillepblue!75}}\tikzset{pflgrilles/.style={line width=0.25pt,pflgrillesblue}}\tikzset{pflgrillei/.style={line width=0.5pt,pflgrilleiblue}}}%
-    {vert}{\tikzset{pflgrillep/.style={line width=0.75pt,pflgrillepgreen!75}}\tikzset{pflgrilles/.style={line width=0.25pt,pflgrillesgreen}}\tikzset{pflgrillei/.style={line width=0.5pt,pflgrilleigreen}}}%
-    {chaud}{\tikzset{pflgrillep/.style={line width=0.75pt,pflgrillepwarm!75}}\tikzset{pflgrilles/.style={line width=0.25pt,pflgrilleswarm}}\tikzset{pflgrillei/.style={line width=0.5pt,pflgrilleiwarm}}}%
-    {contraste}{\tikzset{pflgrillep/.style={line width=0.75pt,pflgrillepcontrast!75}}\tikzset{pflgrilles/.style={line width=0.25pt,pflgrillescontrast}}\tikzset{pflgrillei/.style={line width=0.5pt,pflgrilleicontrast}}}%
+    {standard}{\tikzset{pflgrillep/.style={line width=\pflthickgridp,pflgrillepdefault!75}}\tikzset{pflgrilles/.style={line width=\pflthickgrids,pflgrillesdefault}}\tikzset{pflgrillei/.style={line width=\pflthickgridi,pflgrilleidefault}}}%
+    {gris}{\tikzset{pflgrillep/.style={line width=\pflthickgridp,pflgrillepgray!75}}\tikzset{pflgrilles/.style={line width=\pflthickgrids,pflgrillesgray}}\tikzset{pflgrillei/.style={line width=\pflthickgridi,pflgrilleigray}}}%
+    {bleu}{\tikzset{pflgrillep/.style={line width=\pflthickgridp,pflgrillepblue!75}}\tikzset{pflgrilles/.style={line width=\pflthickgrids,pflgrillesblue}}\tikzset{pflgrillei/.style={line width=\pflthickgridi,pflgrilleiblue}}}%
+    {vert}{\tikzset{pflgrillep/.style={line width=\pflthickgridp,pflgrillepgreen!75}}\tikzset{pflgrilles/.style={line width=\pflthickgrids,pflgrillesgreen}}\tikzset{pflgrillei/.style={line width=\pflthickgridi,pflgrilleigreen}}}%
+    {chaud}{\tikzset{pflgrillep/.style={line width=\pflthickgridp,pflgrillepwarm!75}}\tikzset{pflgrilles/.style={line width=\pflthickgrids,pflgrilleswarm}}\tikzset{pflgrillei/.style={line width=\pflthickgridi,pflgrilleiwarm}}}%
+    {contraste}{\tikzset{pflgrillep/.style={line width=\pflthickgridp,pflgrillepcontrast!75}}\tikzset{pflgrilles/.style={line width=\pflthickgrids,pflgrillescontrast}}\tikzset{pflgrillei/.style={line width=\pflthickgridi,pflgrilleicontrast}}}%
   }%
   %unités x/y pour des calculs de coordonnées
   \TikZUnites
@@ -339,7 +339,8 @@
   Dernier=false,%
   Derriere=false,%
   Devant=false,%
-  Fleches=true
+  Fleches=true,%
+  Puissance=true
 }
 
 \NewDocumentCommand\FormatterValeurAxex{ m m }{%
@@ -540,7 +541,8 @@
   Taillex=2pt,%
   Tailleo=1.75pt,%
   Style=o,%
-  Traits=false
+  Traits=false,%
+  ModeTransfo={}
 }
 \NewDocumentCommand\MarquerPts{ s O{} D<>{\normalfont\normalsize} m }{%
   %étoilée = sans label
@@ -624,6 +626,32 @@
             }%
         }%
         {}%
+      \IfStrEq{\pflstylepoints}{ggb}%
+        {%
+          \IfSubStr{\pflcouleurpoints}{/}%
+            {%
+              \StrCut{\pflcouleurpoints}{/}{\pflcouleurpointsA}{\pflcouleurpointsB}%
+              \foreach \Point/\Label/\Pos in {#4} {%
+                \ifboolKV[GraphiqueTikzMarkPoints]{Traits}%
+                  {%
+                    \draw[{\useKV[GraphiqueTikzMarkPoints]{Couleur}},pfltraitantec] let \p1 = \Point in ({\x1},{\pflOy}) |- ({\pflOx},{\y1}) ;
+                  }%
+                  {}%
+                \draw[pflpointggb,\pflcouleurpointsA,fill=\pflcouleurpointsB] \Point circle[radius={\useKV[GraphiqueTikzMarkPoints]{Tailleo}}] ;
+              }%
+            }%
+            {%
+              \foreach \Point/\Label/\Pos in {#4} {%
+                \ifboolKV[GraphiqueTikzMarkPoints]{Traits}%
+                  {%
+                    \draw[{\useKV[GraphiqueTikzMarkPoints]{Couleur}},pfltraitantec] let \p1 = \Point in ({\x1},{\pflOy}) |- ({\pflOx},{\y1}) ;
+                  }%
+                  {}%
+                \filldraw[\pflcouleurpoints] \Point circle[radius={\useKV[GraphiqueTikzMarkPoints]{Tailleo}}] ;
+              }%
+            }%
+        }%
+        {}%
     }%
     {%avec label
       \IfStrEq{\pflstylepoints}{x}%
@@ -686,6 +714,32 @@
                   }%
                   {}%
                 \draw[pfltrait,\pflcouleurpointsA,fill=\pflcouleurpointsB] \Point circle[radius={\useKV[GraphiqueTikzMarkPoints]{Tailleo}}] node[pflnoeud,\Pos,font=#3] {\Label} ;
+              }%
+            }%
+            {%
+              \foreach \Point/\Label/\Pos in {#4} {%
+                \ifboolKV[GraphiqueTikzMarkPoints]{Traits}%
+                  {%
+                    \draw[{\useKV[GraphiqueTikzMarkPoints]{Couleur}},pfltraitantec] let \p1 = \Point in ({\x1},{\pflOy}) |- ({\pflOx},{\y1}) ;
+                  }%
+                  {}%
+                \filldraw[\pflcouleurpoints] \Point circle[radius={\useKV[GraphiqueTikzMarkPoints]{Tailleo}}] node[pflnoeud,\Pos,font=#3] {\Label} ;
+              }%
+            }%
+        }%
+        {}%
+      \IfStrEq{\pflstylepoints}{ggb}%
+        {%
+          \IfSubStr{\pflcouleurpoints}{/}%
+            {%
+              \StrCut{\pflcouleurpoints}{/}{\pflcouleurpointsA}{\pflcouleurpointsB}%
+              \foreach \Point/\Label/\Pos in {#4} {%
+                \ifboolKV[GraphiqueTikzMarkPoints]{Traits}%
+                  {%
+                    \draw[{\useKV[GraphiqueTikzMarkPoints]{Couleur}},pfltraitantec] let \p1 = \Point in ({\x1},{\pflOy}) |- ({\pflOx},{\y1}) ;
+                  }%
+                  {}%
+                \draw[pflpointggb,\pflcouleurpointsA,fill=\pflcouleurpointsB] \Point circle[radius={\useKV[GraphiqueTikzMarkPoints]{Tailleo}}] node[pflnoeud,\Pos,font=#3] {\Label} ;
               }%
             }%
             {%
@@ -803,7 +857,8 @@
   h={},%
   Spline=false,%
   ValeursInterdites={},%
-  Sens=V
+  Sens=V,%
+  DefGlobale=false
 }
 
 \NewDocumentCommand\DefinirFonction{ O{} D<>{f} m }{%old version
@@ -844,7 +899,9 @@
 \NewDocumentCommand\DefinirCourbe{ O{} D<>{f} m }{%
   \restoreKV[GraphiqueTikzCourbe]%
   \setKV[GraphiqueTikzCourbe]{#1}%
+  \ifboolKV[GraphiqueTikzCourbe]{DefGlobale}{\xintglobaldefstrue}{}%
   \xintdeffloatfunc #2(x) := #3 ;
+  \ifboolKV[GraphiqueTikzCourbe]{DefGlobale}{\xintglobaldefsfalse}{}%
   %test dimension too large
   \xdef\pfloffsetV{\xintfloateval{((\pflymax)-(\pflymin))/20}}%
   \xdef\pflMinoffsetV{\xintfloateval{(\pflymin)-(\pfloffsetV)}}%
@@ -2222,7 +2279,8 @@
 
 %===INTERSECTION & ANTÉCÉDENTS
 \defKV[GraphiqueTikzIntersect]{%
-  Nom=\def\pflintercurves{#1}
+  Nom=\def\pflintercurves{#1},%
+  ListeRes=\def\pflinterlistres{#1}
 }
 \setKVdefault[GraphiqueTikzIntersect]{%
   Nom=S,
@@ -2230,7 +2288,8 @@
   Couleur=black,
   AffDroite=false,%
   Traits=false,%
-  Style=o
+  Style=o,%
+  ListeRes={}
 }
 
 \NewDocumentCommand\TrouverIntersections{ O{} m m D<>{\myt} }{%
@@ -2253,6 +2312,21 @@
         }%
     }%
     {}%
+  \IfStrEq{\pflinterlistres}{}%
+    {}%
+    {%
+      \xdef\tkzgtmplistabsc{}%
+      \xintifboolexpr{#4 == 0}{}%
+      {%
+        \foreach \i in {1,...,#4}{%
+          \RecupererAbscisse{(\pflintercurves-\i)}[\tmpabsi]%
+          \xintifboolexpr{\i == 1}%
+            {\xdef\tkzgtmplistabsc{\tmpabsi}}%
+            {\xdef\tkzgtmplistabsc{\tkzgtmplistabsc,\tmpabsi}}%
+        }%
+      }%
+      \expandafter\xdef\csname\pflinterlistres\endcsname{\tkzgtmplistabsc}%
+    }%
 }
 
 \NewDocumentCommand\TrouverAntecedents{ O{} m m D<>{\myantec} }{%
@@ -2268,6 +2342,21 @@
         \path[draw=none,pflcourbe,name path=tmpanteced] ({\pflxmin},{#3})--({\pflxmax},{#3}) ;
       }%
     \path[name intersections={of=#2 and tmpanteced,name=\pflintercurves,total=\t}] \pgfextra{\xdef#4{\t}};
+    \IfStrEq{\pflinterlistres}{}%
+      {}%
+      {%
+        \xdef\tkzgtmplistabsc{}%
+        \xintifboolexpr{#4 == 0}{}%
+        {%
+          \foreach \i in {1,...,#4}{%
+            \RecupererAbscisse{(\pflintercurves-\i)}[\tmpabsi]%
+            \xintifboolexpr{\i == 1}%
+              {\xdef\tkzgtmplistabsc{\tmpabsi}}%
+              {\xdef\tkzgtmplistabsc{\tkzgtmplistabsc,\tmpabsi}}%
+          }%
+        }%
+        \expandafter\xdef\csname\pflinterlistres\endcsname{\tkzgtmplistabsc}%
+      }%
     \ifboolKV[GraphiqueTikzIntersect]{Aff}%
       {%
         \xintifboolexpr{#4 == 0}{}%
@@ -2731,7 +2820,8 @@
   NomPara=\def\pflnameregquad{#1},
   Debut=\def\pflreglinmin{#1},
   Fin=\def\pflreglinmax{#1},%
-  TaillePts=\def\pflreglintaillepts{#1}
+  TaillePts=\def\pflreglintaillepts{#1},%
+  ModeTransfo=\def\pflreglinmode{#1}
 }
 \setKVdefault[GraphiqueTikzRegLin]{
   CouleurNuage=black,
@@ -2745,7 +2835,8 @@
   TracerDroite=false,%
   TracerParabole=false,%
   Style=o,%
-  TaillePts=1.75pt
+  TaillePts=1.75pt,%
+  ModeTransfo={lin}
 }
 
 \NewDocumentCommand\TracerNuageSuite{ s O{} m }{%
@@ -4861,38 +4952,38 @@
     {%
       \xintFor* ##1 in {\xintSeq{\tkzGraphPoissonColorMin}{\tkzGraphPoissonColorMax}}\do{%
         \xdef\tkztmpYYY{\xintfloateval{exp(-(#3))*(#3)^(##1)/factorial(##1)}}%
-		%
-		\IfStrEq{\tkzGraphPoissonStyle}{batons}%
-		{%
-		  \draw[pflbarresprobas,\tkzGraphPoissonColPlage] ({##1},{\pflymin}) -- ({##1},{\tkztmpYYY-\pflymin}) ;
-		  
-		}%
-		{%
-		  \draw[draw=none,fill=\tkzGraphPoissonColPlage,fill opacity=0.5] ({##1-0.5},{\pflymin}) rectangle++ (1,{\tkztmpYYY-\pflymin}) ;
-		}%
-		%
+    %
+    \IfStrEq{\tkzGraphPoissonStyle}{batons}%
+    {%
+      \draw[pflbarresprobas,\tkzGraphPoissonColPlage] ({##1},{\pflymin}) -- ({##1},{\tkztmpYYY-\pflymin}) ;
+      
+    }%
+    {%
+      \draw[draw=none,fill=\tkzGraphPoissonColPlage,fill opacity=0.5] ({##1-0.5},{\pflymin}) rectangle++ (1,{\tkztmpYYY-\pflymin}) ;
+    }%
+    %
       }%
     }%
   % tracé
   \xintFor* ##1 in {\xintSeq{\tkzGraphPoissonXmin}{\tkzGraphPoissonXmax}}\do{%
     \xdef\tkztmpYYY{\xintfloateval{exp(-(#3))*(#3)^(##1)/factorial(##1)}}%
-	\IfStrEq{\tkzGraphPoissonStyle}{batons}%
-	{%
-		\IfStrEq{\tkzGraphPoissonPlage}{}%si plage, on colorie tout
-			{%
-				\draw[pflbarresprobas,\tkzGraphPoissonColTraits] ({##1},{\pflymin}) -- ({##1},{\tkztmpYYY-\pflymin}) ;
-			}%
-			{%
-				\xintifboolexpr{\tkzGraphPoissonColorMin <= ##1 <= \tkzGraphPoissonColorMax}%
-					{}%
-					{%
-						\draw[pflbarresprobas,\tkzGraphPoissonColTraits] ({##1},{\pflymin}) -- ({##1},{\tkztmpYYY-\pflymin}) ;
-					}%
-			}%
-	}%
-	{%
-		\draw[pfltrait,\tkzGraphPoissonColTraits] ({##1-0.5},{\pflymin}) rectangle++ (1,{\tkztmpYYY-\pflymin}) ;
-	}%
+  \IfStrEq{\tkzGraphPoissonStyle}{batons}%
+  {%
+    \IfStrEq{\tkzGraphPoissonPlage}{}%si plage, on colorie tout
+      {%
+        \draw[pflbarresprobas,\tkzGraphPoissonColTraits] ({##1},{\pflymin}) -- ({##1},{\tkztmpYYY-\pflymin}) ;
+      }%
+      {%
+        \xintifboolexpr{\tkzGraphPoissonColorMin <= ##1 <= \tkzGraphPoissonColorMax}%
+          {}%
+          {%
+            \draw[pflbarresprobas,\tkzGraphPoissonColTraits] ({##1},{\pflymin}) -- ({##1},{\tkztmpYYY-\pflymin}) ;
+          }%
+      }%
+  }%
+  {%
+    \draw[pfltrait,\tkzGraphPoissonColTraits] ({##1-0.5},{\pflymin}) rectangle++ (1,{\tkztmpYYY-\pflymin}) ;
+  }%
   }%
   % approximation normale : N(λ, √λ) (why not !)
   \ifboolKV[tkzHistoPoisson]{AffNormale}%
@@ -5197,6 +5288,1123 @@
 }
 \NewCommandCopy\TracerLoiBinomiale\TracerHistoBinomiale
 
+%====RACINES ET LISTE D'ABSCISSES
+\NewDocumentCommand\TrouverRacines{ O{} m D<>{\myracines} }{%
+  % wrapper de \TrouverAntecedents avec y=0 (zéros de la fonction)
+  % #1 = clés (Nom, Aff, Traits, Couleur, AffDroite, Style)
+  % #2 = nom de la courbe
+  % #3 = macro stockant le nb de racines (défaut \myracines)
+  \TrouverAntecedents[#1]{#2}{0}<#3>%
+}
+
+\NewDocumentCommand\PlacerRacines{ O{} m }{%
+  % wrapper de \PlacerAntecedents avec y=Oy (zéros de la fonction)
+  % #1 = clés (Traits, Couleurs, Nom, Style)
+  % #2 = nom de la courbe
+  \PlacerAntecedents[#1]{#2}{0}%
+}
+
+\NewDocumentCommand\CreerListeAbscisses{ m m O{mylistabs} }{%
+  % #1 = préfixe des nœuds (ex: R, S, A...) sans \
+  % #2 = nb de nœuds
+  % #3 = nom de la macro de sortie (ex: mesracines) sans \
+  \xdef\tkzgtmplistabsc{}%
+  \xintifboolexpr{#2 == 0}{}%
+    {%
+      \foreach \i in {1,...,#2}{%
+        \RecupererAbscisse{(#1-\i)}[\tmpabsi]%
+        \xintifboolexpr{\i == 1}%
+          {\xdef\tkzgtmplistabsc{\tmpabsi}}%
+          {\xdef\tkzgtmplistabsc{\tkzgtmplistabsc,\tmpabsi}}%
+      }%
+    }%
+  \expandafter\xdef\csname#3\endcsname{\tkzgtmplistabsc}%
+}
+
+%====GÉNÉRATION DE FONCTIONS HORS ENVIRONNEMENT
+\NewDocumentCommand\GenererFonction{ s D<>{f} m }{%
+  % #2 = nom fonction xint
+  % #3 = expression
+  \IfBooleanT{#1}{\xintglobaldefstrue}%
+  \xintdeffloatfunc #2(x) = #3 ;%
+  \IfBooleanT{#1}{\xintglobaldefsfalse}%
+}
+
+\NewDocumentCommand\GenererFamilleFonctions{ s D<>{f} m m m }{%
+  % #2 = nom famille (namespace)
+  % #3 = expression avec n comme paramètre xint
+  % #4 = indice début
+  % #5 = indice fin
+  \IfBooleanT{#1}{\xintglobaldefstrue}%
+  % 1/ fonction à 2 variables
+  \xintdeffloatfunc #2(x,n) = #3 ;%
+  % 2/ spécialisation → fonctions à 1 variable
+  \xintFor* ##1 in {\xintSeq{#4}{#5}} \do {%
+    \xintdeffloatfunc #2_##1(x) = #2(x,##1) ;%
+  }%
+  \IfBooleanT{#1}{\xintglobaldefsfalse}%
+  % stockage
+  \expandafter\xdef\csname pflnb@#2\endcsname{\inteval{(#5)-(#4)+1}}%
+  \expandafter\xdef\csname pfldeb@#2\endcsname{#4}%
+  \expandafter\xdef\csname pflfin@#2\endcsname{#5}%
+}
+
+%====FAMILLES DE COURBES (indexées sur N)
+\defKV[GraphiqueTikzFamille]{%
+  Couleur=\def\pflfamcouleur{#1},%
+  Couleurs=\def\pflfamcouleurs{#1},%
+  CouleurBase=\def\pflfamcouleurbase{#1},%
+  Debut=\def\pflfamdebut{#1},%
+  Fin=\def\pflfamfin{#1},%
+  Pas=\def\pflfampas{#1}
+}
+\setKVdefault[GraphiqueTikzFamille]{%
+  Couleur=black,%
+  Couleurs={},%
+  CouleurBase={},%
+  Debut={\pflxmin},%
+  Fin={\pflxmax},%
+  Pas={},%
+  Trace=false,%
+  Clip=true,%
+  RestreindreY=false,%
+  DefGlobale=false
+}
+
+\NewDocumentCommand\DefinirFamilleCourbes{ O{} D<>{f} m m m }{%
+  \restoreKV[GraphiqueTikzFamille]%
+  \setKV[GraphiqueTikzFamille]{#1}%
+  % offsets
+  \xdef\pfloffsetV{\xintfloateval{((\pflymax)-(\pflymin))/20}}%
+  \xdef\pflMinoffsetV{\xintfloateval{(\pflymin)-(\pfloffsetV)}}%
+  \xdef\pflMaxoffsetV{\xintfloateval{(\pflymax)+(\pfloffsetV)}}%
+  % nb courbes
+  \xdef\tmpnbfam{\inteval{(#5)-(#4)+1}}%
+  % lecture couleurs hors boucle
+  \IfEq{\pflfamcouleurs}{}%
+    {}%
+    {\setsepchar{,}\readlist*\tmplistecouleurs{\pflfamcouleurs}}%
+  % 1/ fonction 2 variables
+  \ifboolKV[GraphiqueTikzFamille]{DefGlobale}{\xintglobaldefstrue}{}%
+  \xintdeffloatfunc #2(x,n) = #3 ;%
+  % 2/ boucle
+  \xdef\tmpi{0}%
+  \xintFor* ##1 in {\xintSeq{#4}{#5}} \do {%
+    \xdef\tmpi{\inteval{\tmpi+1}}%
+    % fonction xint à 1 variable
+    \xintdeffloatfunc #2_##1(x) = #2(x,##1) ;%
+    % couleur courante
+    \IfEq{\pflfamcouleurs}{}%
+      {%
+        \IfEq{\pflfamcouleurbase}{}%
+          {\def\tmpcoulcourante{\pflfamcouleur}}%
+          {%
+            \xdef\tmpopac{\xintfloateval{%
+              round(30+\tmpi/\tmpnbfam*70,0)}}%
+            \edef\tmpcoulcourante{\pflfamcouleurbase!\tmpopac}%
+          }%
+      }%
+      {\itemtomacro\tmplistecouleurs[\tmpi]\tmpcoulcourante}%
+    % nom du name path courant
+    \edef\pflnamecurve{famille-#2-\tmpi}%
+    % pas
+    \xdef\pflstepcurve{\xintfloateval{%
+      ((\pflfamfin)-(\pflfamdebut))/100}}%
+    % bifurcation VI/noVI
+    \IfStrEq{\pflvalsinterdites}{}%
+      {%si pas de VI
+        \ifboolKV[GraphiqueTikzFamille]{Clip}%
+          {\begin{scope}\clip ({\pflxmin},{\pflymin}) rectangle ({\pflxmax},{\pflymax});}{}%
+        \ifboolKV[GraphiqueTikzFamille]{Trace}%
+          {%
+            \ifboolKV[GraphiqueTikzFamille]{RestreindreY}%
+              {%
+                \path[draw,pflcourbe,\pflstylecurve,\tmpcoulcourante,%
+                  name path global=\pflnamecurve]
+                  plot[smooth] coordinates {%
+                  \xintthecoords\xintfloatexpr
+                  seq((x,min(max(#2_##1(x),\pflMinoffsetV),\pflMaxoffsetV)),%
+                    x={\pflfamdebut}..[\pflstepcurve]..{\pflfamfin},%
+                    {\pflfamfin})
+                  \relax
+                };%
+              }%
+              {%
+                \path[draw,pflcourbe,\pflstylecurve,\tmpcoulcourante,%
+                  name path global=\pflnamecurve]
+                  plot[smooth] coordinates {%
+                  \xintthecoords\xintfloatexpr
+                  seq((x,#2_##1(x)),%
+                    x={\pflfamdebut}..[\pflstepcurve]..{\pflfamfin},%
+                    {\pflfamfin})
+                  \relax
+                };%
+              }%
+          }%
+          {%
+            \ifboolKV[GraphiqueTikzFamille]{RestreindreY}%
+              {%
+                \path[draw=none,pflcourbe,\pflstylecurve,\tmpcoulcourante,%
+                  name path global=\pflnamecurve]
+                  plot[smooth] coordinates {%
+                  \xintthecoords\xintfloatexpr
+                  seq((x,min(max(#2_##1(x),\pflMinoffsetV),\pflMaxoffsetV)),%
+                    x={\pflfamdebut}..[\pflstepcurve]..{\pflfamfin},%
+                    {\pflfamfin})
+                  \relax
+                };%
+              }%
+              {%
+                \path[draw=none,pflcourbe,\pflstylecurve,\tmpcoulcourante,%
+                  name path global=\pflnamecurve]
+                  plot[smooth] coordinates {%
+                  \xintthecoords\xintfloatexpr
+                  seq((x,#2_##1(x)),%
+                    x={\pflfamdebut}..[\pflstepcurve]..{\pflfamfin},%
+                    {\pflfamfin})
+                  \relax
+                };%
+              }%
+          }%
+        \ifboolKV[GraphiqueTikzFamille]{Clip}{\end{scope}}{}%
+      }%
+      {%sinon, VI
+        \xdef\pflstepcurve{\xintfloateval{%
+          ((\pflfamfin)-(\pflfamdebut))/250}}%
+        \xdef\pfllistebornes{\pflfamdebut}%
+        \foreach \i in \pflvalsinterdites{%
+          \xdef\pfllistebornes{\pfllistebornes,%
+            \xintfloateval{\i-(\pflstepcurve)},%
+            \xintfloateval{\i+(\pflstepcurve)}}%
+        }%
+        \xdef\pfllistebornes{\pfllistebornes,\pflfamfin}%
+        \setsepchar{,}%
+        \readlist*\tkzintlistebornes{\pfllistebornes}%
+        \xdef\tkzgrphnbbranches{\fpeval{\tkzintlisteborneslen/2}}%
+        \ifboolKV[GraphiqueTikzFamille]{Clip}%
+          {\begin{scope}\clip ({\pflxmin},{\pflymin}) rectangle ({\pflxmax},{\pflymax});}{}%
+        \ifboolKV[GraphiqueTikzFamille]{Trace}%
+          {%
+            \path[draw,pflcourbe,\pflstylecurve,\tmpcoulcourante,%
+              name path global=\pflnamecurve]
+              \foreach \ib [evaluate=\ib as \ibdeb using {int(2*\ib-1)},%
+                evaluate=\ib as \ibfin using {int(2*\ib)}]%
+                in {1,...,\tkzgrphnbbranches}{%
+                plot[smooth] coordinates {%
+                  \xintthecoords\xintfloatexpr
+                  seq((x,min(max(#2_##1(x),\pflMinoffsetV),\pflMaxoffsetV)),%
+                    x={\tkzintlistebornes[\ibdeb]}..[\pflstepcurve]..%
+                    {\tkzintlistebornes[\ibfin]},%
+                    {\tkzintlistebornes[\ibfin]})
+                  \relax}
+              } ;%
+          }%
+          {%
+            \path[draw=none,pflcourbe,\pflstylecurve,\tmpcoulcourante,%
+              name path global=\pflnamecurve]
+              \foreach \ib [evaluate=\ib as \ibdeb using {int(2*\ib-1)},%
+                evaluate=\ib as \ibfin using {int(2*\ib)}]%
+                in {1,...,\tkzgrphnbbranches}{%
+                plot[smooth] coordinates {%
+                  \xintthecoords\xintfloatexpr
+                  seq((x,min(max(#2_##1(x),\pflMinoffsetV),\pflMaxoffsetV)),%
+                    x={\tkzintlistebornes[\ibdeb]}..[\pflstepcurve]..%
+                    {\tkzintlistebornes[\ibfin]},%
+                    {\tkzintlistebornes[\ibfin]})
+                  \relax}
+              } ;%
+          }%
+        \ifboolKV[GraphiqueTikzFamille]{Clip}{\end{scope}}{}%
+      }%
+  }%
+  \ifboolKV[GraphiqueTikzFamille]{DefGlobale}{\xintglobaldefsfalse}{}%
+  % stockage
+  \expandafter\xdef\csname pflnb@#2\endcsname{\tmpnbfam}%
+  \expandafter\xdef\csname pfldeb@#2\endcsname{#4}%
+  \expandafter\xdef\csname pflfin@#2\endcsname{#5}%
+}
+
+\NewDocumentCommand\TracerFamilleCourbes{ O{} m }{%
+  \restoreKV[GraphiqueTikzFamille]%
+  \setKV[GraphiqueTikzFamille]{#1}%
+  \edef\tmpdeb{\csname pfldeb@#2\endcsname}%
+  \edef\tmpfin{\csname pflfin@#2\endcsname}%
+  \edef\tmpnb{\csname pflnb@#2\endcsname}%
+  % offsets
+  \xdef\pfloffsetV{\xintfloateval{((\pflymax)-(\pflymin))/20}}%
+  \xdef\pflMinoffsetV{\xintfloateval{(\pflymin)-(\pfloffsetV)}}%
+  \xdef\pflMaxoffsetV{\xintfloateval{(\pflymax)+(\pfloffsetV)}}%
+  % lecture couleurs hors boucle
+  \IfEq{\pflfamcouleurs}{}%
+    {}%
+    {\setsepchar{,}\readlist*\tmplistecouleurs{\pflfamcouleurs}}%
+  % boucle
+  \xdef\tmpi{0}%
+  \xintFor* ##1 in {\xintSeq{\tmpdeb}{\tmpfin}} \do {%
+    \xdef\tmpi{\inteval{\tmpi+1}}%
+    % couleur courante
+    \IfEq{\pflfamcouleurs}{}%
+      {%
+        \IfEq{\pflfamcouleurbase}{}%
+          {\def\tmpcoulcourante{\pflfamcouleur}}%
+          {%
+            \xdef\tmpopac{\xintfloateval{%
+              round(30+\tmpi/\tmpnb*70,0)}}%
+            \edef\tmpcoulcourante{\pflfamcouleurbase!\tmpopac}%
+          }%
+      }%
+      {\itemtomacro\tmplistecouleurs[\tmpi]\tmpcoulcourante}%
+    % pas
+    \xdef\pflstepcurve{\xintfloateval{%
+      ((\pflfamfin)-(\pflfamdebut))/100}}%
+    % bifurcation VI/noVI
+    \IfStrEq{\pflvalsinterdites}{}%
+      {%
+        \ifboolKV[GraphiqueTikzFamille]{Clip}%
+          {\begin{scope}\clip ({\pflxmin},{\pflymin}) rectangle ({\pflxmax},{\pflymax});}{}%
+        \ifboolKV[GraphiqueTikzFamille]{RestreindreY}%
+          {%
+            \draw[pflcourbe,\pflstylecurve,\tmpcoulcourante]
+              plot[smooth] coordinates {%
+              \xintthecoords\xintfloatexpr
+              seq((x,min(max(#2_##1(x),\pflMinoffsetV),\pflMaxoffsetV)),%
+                x={\pflfamdebut}..[\pflstepcurve]..{\pflfamfin},%
+                {\pflfamfin})
+              \relax
+            };%
+          }%
+          {%
+            \draw[pflcourbe,\pflstylecurve,\tmpcoulcourante]
+              plot[smooth] coordinates {%
+              \xintthecoords\xintfloatexpr
+              seq((x,#2_##1(x)),%
+                x={\pflfamdebut}..[\pflstepcurve]..{\pflfamfin},%
+                {\pflfamfin})
+              \relax
+            };%
+          }%
+        \ifboolKV[GraphiqueTikzFamille]{Clip}{\end{scope}}{}%
+      }%
+      {%sinon VI
+        \xdef\pflstepcurve{\xintfloateval{%
+          ((\pflfamfin)-(\pflfamdebut))/250}}%
+        \xdef\pfllistebornes{\pflfamdebut}%
+        \foreach \i in \pflvalsinterdites{%
+          \xdef\pfllistebornes{\pfllistebornes,%
+            \xintfloateval{\i-(\pflstepcurve)},%
+            \xintfloateval{\i+(\pflstepcurve)}}%
+        }%
+        \xdef\pfllistebornes{\pfllistebornes,\pflfamfin}%
+        \setsepchar{,}%
+        \readlist*\tkzintlistebornes{\pfllistebornes}%
+        \xdef\tkzgrphnbbranches{\fpeval{\tkzintlisteborneslen/2}}%
+        \ifboolKV[GraphiqueTikzFamille]{Clip}%
+          {\begin{scope}\clip ({\pflxmin},{\pflymin}) rectangle ({\pflxmax},{\pflymax});}{}%
+        \draw[pflcourbe,\pflstylecurve,\tmpcoulcourante]
+          \foreach \ib [evaluate=\ib as \ibdeb using {int(2*\ib-1)},%
+            evaluate=\ib as \ibfin using {int(2*\ib)}]%
+            in {1,...,\tkzgrphnbbranches}{%
+            plot[smooth] coordinates {%
+              \xintthecoords\xintfloatexpr
+              seq((x,min(max(#2_##1(x),\pflMinoffsetV),\pflMaxoffsetV)),%
+                x={\tkzintlistebornes[\ibdeb]}..[\pflstepcurve]..%
+                {\tkzintlistebornes[\ibfin]},%
+                {\tkzintlistebornes[\ibfin]})
+              \relax}
+          } ;%
+        \ifboolKV[GraphiqueTikzFamille]{Clip}{\end{scope}}{}%
+      }%
+  }%
+}
+
+%====SEMILOG - LOGLOG
+\NewDocumentEnvironment{GraphiqueTikzSemiLog}{ O{} D<>{} }%
+%1 = options tikz, classiques
+%2 = clés spécifiques
+{%
+  \restoreKV[GraphiqueTikz]%
+  \setKV[GraphiqueTikz]{#2}%
+  %l'environnement
+  \IfStrEq{\pflgraphdims}{}%
+    {%
+      \begin{tikzpicture}[#1]%
+    }%
+    {%
+      \StrCut{\pflgraphdims}{/}{\pfltmpwidth}{\pfltmpheight}%
+      \setlength\pflglobalwidth{\fpeval{(\pfltmpwidth)/(\pflxmaxtmp-\pflxmintmp)}pt}%\the\pflglobalwidth+%
+      \setlength\pflglobalheight{\fpeval{(\pfltmpheight)/(\pflymaxtmp-\pflymintmp)}pt}%\the\pflglobalheight%
+      \begin{tikzpicture}[x=\pflglobalwidth,y=\pflglobalheight,Xmin=\pflxmintmp,Xmax=\pflxmaxtmp,Ymin=\pflymintmp,Ymax=\pflymaxtmp,#1]%
+    }%
+    %translationY
+    % valeurs réelles → exposants
+    \xdef\pflslogexpomin{\xintfloateval{log10(\pflymin)}}%
+    \xdef\pflslogexpomax{\xintfloateval{log10(\pflymax)}}%
+    % nb décades
+    \xdef\pflymax{\xintfloateval{log10(\pflymax)-log10(\pflymin)}}%
+    \xdef\pflymin{0}%
+    \xdef\pflOy{0}%
+    %thèmes personnalisés
+    \IfStrEqCase{\pflgraphthem}{%
+      {standard}{\tikzset{pflgrillep/.style={line width=\pflthickgridp,pflgrillepdefault!75}}\tikzset{pflgrillei/.style={line width=\pflthickgrids,pflgrillesdefault}}\tikzset{pflgrilles/.style={line width=\pflthickgridi,pflgrilleidefault}}}%
+      {gris}{\tikzset{pflgrillep/.style={line width=\pflthickgridp,pflgrillepgray!75}}\tikzset{pflgrillei/.style={line width\pflthickgrids,pflgrillesgray}}\tikzset{pflgrilles/.style={line width=\pflthickgridi,pflgrilleigray}}}%
+      {bleu}{\tikzset{pflgrillep/.style={line width=\pflthickgridp,pflgrillepblue!75}}\tikzset{pflgrillei/.style={line width=\pflthickgrids,pflgrillesblue}}\tikzset{pflgrilles/.style={line width=\pflthickgridi,pflgrilleiblue}}}%
+      {vert}{\tikzset{pflgrillep/.style={line width=\pflthickgridp,pflgrillepgreen!75}}\tikzset{pflgrillei/.style={line width=\pflthickgrids,pflgrillesgreen}}\tikzset{pflgrilles/.style={line width=\pflthickgridi,pflgrilleigreen}}}%
+      {chaud}{\tikzset{pflgrillep/.style={line width=\pflthickgridp,pflgrillepwarm!75}}\tikzset{pflgrillei/.style={line width=\pflthickgrids,pflgrilleswarm}}\tikzset{pflgrilles/.style={line width=\pflthickgridi,pflgrilleiwarm}}}%
+      {contraste}{\tikzset{pflgrillep/.style={line width=\pflthickgridp,pflgrillepcontrast!75}}\tikzset{pflgrillei/.style={line width=\pflthickgrids,pflgrillescontrast}}\tikzset{pflgrilles/.style={line width=\pflthickgridi,pflgrilleicontrast}}}%
+    }%
+    %unités x/y pour des calculs de coordonnées
+    \TikZUnites
+    %noeuds fenêtre + axes
+    \IfStrEq{\pflgraphnom}{}%
+      {%
+        \coordinate (graphe-ne) at ({\pflxmax},{\pflymax}) ;
+        \coordinate (graphe-nw) at ({\pflxmin},{\pflymax}) ;
+        \coordinate (graphe-se) at ({\pflxmax},{\pflymin}) ;
+        \coordinate (graphe-sw) at ({\pflxmin},{\pflymin}) ;
+        \coordinate (graphe-n) at ($(graphe-ne)!0.5!(graphe-nw)$) ;
+        \coordinate (graphe-e) at ($(graphe-ne)!0.5!(graphe-se)$) ;
+        \coordinate (graphe-s) at ($(graphe-se)!0.5!(graphe-sw)$) ;
+        \coordinate (graphe-w) at ($(graphe-sw)!0.5!(graphe-nw)$) ;
+        \coordinate (graphe-c) at ($(graphe-sw)!0.5!(graphe-ne)$) ;
+        \coordinate (axeox-w) at ({\pflxmin},{\pflOy}) ;
+        \coordinate (axeox-e) at ({\pflxmax},{\pflOy}) ;
+        \coordinate (axeoy-s) at ({\pflOx},{\pflymin}) ;
+        \coordinate (axeoy-n) at ({\pflOx},{\pflymax}) ;
+        \coordinate (axes-orig) at ({\pflOx},{\pflOy}) ;
+      }%
+      {%
+        \coordinate (\pflgraphnom-graphe-ne) at ({\pflxmax},{\pflymax}) ;
+        \coordinate (\pflgraphnom-graphe-nw) at ({\pflxmin},{\pflymax}) ;
+        \coordinate (\pflgraphnom-graphe-se) at ({\pflxmax},{\pflymin}) ;
+        \coordinate (\pflgraphnom-graphe-sw) at ({\pflxmin},{\pflymin}) ;
+        \coordinate (\pflgraphnom-graphe-n) at ($(\pflgraphnom-graphe-ne)!0.5!(\pflgraphnom-graphe-nw)$) ;
+        \coordinate (\pflgraphnom-graphe-e) at ($(\pflgraphnom-graphe-ne)!0.5!(\pflgraphnom-graphe-se)$) ;
+        \coordinate (\pflgraphnom-graphe-s) at ($(\pflgraphnom-graphe-se)!0.5!(\pflgraphnom-graphe-sw)$) ;
+        \coordinate (\pflgraphnom-graphe-w) at ($(\pflgraphnom-graphe-sw)!0.5!(\pflgraphnom-graphe-nw)$) ;
+        \coordinate (\pflgraphnom-graphe-c) at ($(\pflgraphnom-graphe-sw)!0.5!(\pflgraphnom-graphe-ne)$) ;
+        \coordinate (\pflgraphnom-axeox-w) at ({\pflxmin},{\pflOy}) ;
+        \coordinate (\pflgraphnom-axeox-e) at ({\pflxmax},{\pflOy}) ;
+        \coordinate (\pflgraphnom-axeoy-s) at ({\pflOx},{\pflymin}) ;
+        \coordinate (\pflgraphnom-axeoy-n) at ({\pflOx},{\pflymax}) ;
+        \coordinate (\pflgraphnom-axes-orig) at ({\pflOx},{\pflOy}) ;
+      }%
+    %noeuds utiles pour les calculs
+    \coordinate (bbxTop) at (current bounding box.north) ;
+    \coordinate (bbxBottom) at (current bounding box.south) ;
+    \ifboolKV[GraphiqueTikz]{AffCadre}{\draw[pflcadre] ({\pflxmin},{\pflymin}) rectangle ({\pflxmax},{\pflymax}) ;}{}%
+    %back to normal
+}%
+{%
+    \end{tikzpicture}%
+}
+
+\NewDocumentCommand\TracerAxesGrillesSemiLog{ s O{} m }{%
+  % #1 = étoile (masquer origine)
+  % #2 = clés
+  % #3 = valeurs X, les Y sont faites automatiquement
+  \restoreKV[GraphiqueTikzAxes]%
+  \setKV[GraphiqueTikzAxes]{#2}%
+  % nœuds axes élargis
+  \IfStrEq{\pflgraphnom}{}%
+  {%
+    \coordinate (axeox-ee) at ([xshift={\useKV[GraphiqueTikzAxes]{Elargir}}]{\pflxmax},{\pflOy}) ;
+    \coordinate (axeoy-nn) at ([yshift={\useKV[GraphiqueTikzAxes]{Elargir}}]{\pflOx},{\pflymax}) ;
+  }%
+  {%
+    \coordinate (\pflgraphnom-axeox-ee) at ([xshift={\useKV[GraphiqueTikzAxes]{Elargir}}]{\pflxmax},{\pflOy}) ;
+    \coordinate (\pflgraphnom-axeoy-nn) at ([yshift={\useKV[GraphiqueTikzAxes]{Elargir}}]{\pflOx},{\pflymax}) ;
+  }%
+  % cas particuliers
+  \ifboolKV[GraphiqueTikzAxes]{Derriere}{\setKV[GraphiqueTikzAxes]{Grads=false}}{}%
+  \ifboolKV[GraphiqueTikzAxes]{Devant}{\setKV[GraphiqueTikzAxes]{Grille=false}}{}%
+  % format axe X
+  \IfSubStr{\pflformataxes}{/}%
+  {\StrCut{\pflformataxes}{/}{\pflformataxex}{\pflformataxey}}%
+  {\xdef\pflformataxex{\pflformataxes}\xdef\pflformataxey{\pflformataxes}}%
+  % grille
+  \ifboolKV[GraphiqueTikzAxes]{Grille}%
+  {%
+    % sous-décades Y
+    \foreach \n in {0,...,\inteval{\pflymax-1}}{%
+      \foreach \k in {2,3,4,5,6,7,8,9}{%
+        \xdef\tmpsousdec{\xintfloateval{\n+log10(\k)}}%
+        \draw[pflgrilles] ({\pflxmin},{\tmpsousdec})--({\pflxmax},{\tmpsousdec}) ;%
+      }%
+    }%
+    % grille X
+    \draw[pflgrilles,xstep=\pflgrillexs,ystep=99]
+    ({\pflxmin},{\pflymin}) grid ({\pflxmax},{\pflymax}) ;%
+    \draw[pflgrillep,xstep=\pflgrillex,ystep=99]
+    ({\pflxmin},{\pflymin}) grid ({\pflxmax},{\pflymax}) ;%
+    % décades Y
+    \foreach \n in {0,...,\pflymax}{%
+      \draw[pflgrillep] ({\pflxmin},{\n})--({\pflxmax},{\n}) ;%
+    }%
+    \ifboolKV[GraphiqueTikzAxes]{Dernier}%
+    {%
+      \draw[pflgrillep] ({\pflxmin},{\pflymax})--({\pflxmax},{\pflymax}) ;
+      \draw[pflgrillep] ({\pflxmax},{\pflymin})--({\pflxmax},{\pflymax}) ;
+    }%
+    {}%
+  }%
+  {}%
+  % axes
+  \ifboolKV[GraphiqueTikzAxes]{Fleches}%
+  {%
+    \draw[pflaxes] ({\pflxmin},{0})--([xshift={\useKV[GraphiqueTikzAxes]{Elargir}}]{\pflxmax},{0}) ;
+    \draw[pflaxes] ({\pflOx},{0})--([yshift={\useKV[GraphiqueTikzAxes]{Elargir}}]{\pflOx},{\pflymax}) ;
+  }%
+  {%
+    \draw[pflaxessansfleche] ({\pflxmin},{0})--([xshift={\useKV[GraphiqueTikzAxes]{Elargir}}]{\pflxmax},{0}) ;
+    \draw[pflaxessansfleche] ({\pflOx},{0})--([yshift={\useKV[GraphiqueTikzAxes]{Elargir}}]{\pflOx},{\pflymax}) ;
+  }%
+  % valeurs X — gestion auto
+  \IfEq{#3}{auto}%
+  {%
+    \xdef\tmprangexvalues{\xintfloateval{seq(i,i=\pflxmin..[\pflgrillex]..\pflxmax)}}%
+    \StrDel{\tmprangexvalues}{ }[\tmprangexvalues]%
+    \xdef\pflformataxex{num}%
+  }%
+  {\xdef\tmprangexvalues{#3}}%
+  % graduations X
+  \draw[pfltrait] ([yshift=\pflthickgrad]{\pflxmin},{0})--++(0,{-2\pflthickgrad}) ;
+  \foreach \x in \tmprangexvalues{%
+    \draw[pfltrait] ([yshift=\pflthickgrad]{\x},{0})--++(0,{-2\pflthickgrad}) ;%
+  }%
+  % graduations Y
+  \foreach \n in {0,...,\pflymax}{%
+    \xdef\tmpexpo{\inteval{\n+\pflslogexpomin}}%
+    \draw[pfltrait] ([xshift=\pflthickgrad]{\pflxmin},{\n})--++({-2\pflthickgrad},0) ;%
+  }%
+  \ifboolKV[GraphiqueTikzAxes]{Grads}%
+  {%
+    % labels X
+    \foreach \x in \tmprangexvalues{%
+      \IfBooleanTF{#1}%
+      {\xintifboolexpr{\x == \pflOx}{}%
+        {\draw ([yshift={-\pflthickgrad}]{\x},{0}) node[pflnoeud,below,font={\useKV[GraphiqueTikzAxes]{Police}}] {\FormatterValeurAxex{\pflformataxex}{\x}} ;}}%
+      {\draw ([yshift={-\pflthickgrad}]{\x},{0}) node[pflnoeud,below,font={\useKV[GraphiqueTikzAxes]{Police}}] {\FormatterValeurAxex{\pflformataxex}{\x}} ;}%
+    }%
+    % labels Y —> $10^n$
+    \foreach \n in {0,...,\pflymax}{%
+      \xdef\tmpexpo{\inteval{\n+\pflslogexpomin}}%
+      \draw ([xshift={-\pflthickgrad}]{\pflxmin},{\n}) node[left,pflnoeud,font={\useKV[GraphiqueTikzAxes]{Police}}] { \ifboolKV[GraphiqueTikzAxes]{Puissance}{$10^{\tmpexpo}$}{\num{\xintfloateval{10^(\tmpexpo)}}} } ;
+    }%
+  }%
+  {}%
+}
+
+\NewDocumentEnvironment{GraphiqueTikzLogLog}{ O{} D<>{} }%
+{%
+  \restoreKV[GraphiqueTikz]%
+  \setKV[GraphiqueTikz]{#2}%
+  \IfStrEq{\pflgraphdims}{}%
+    {\begin{tikzpicture}[#1]}%
+    {%
+      \StrCut{\pflgraphdims}{/}{\pfltmpwidth}{\pfltmpheight}%
+      \setlength\pflglobalwidth{\fpeval{(\pfltmpwidth)/(\pflxmaxtmp-\pflxmintmp)}pt}%
+      \setlength\pflglobalheight{\fpeval{(\pfltmpheight)/(\pflymaxtmp-\pflymintmp)}pt}%
+      \begin{tikzpicture}[x=\pflglobalwidth,y=\pflglobalheight,%
+        Xmin=\pflxmintmp,Xmax=\pflxmaxtmp,Ymin=\pflymintmp,Ymax=\pflymaxtmp,#1]%
+    }%
+    % translation X ET Y
+    \xdef\pflslogexpominx{\xintfloateval{log10(\pflxmin)}}%
+    \xdef\pflslogexpomaxx{\xintfloateval{log10(\pflxmax)}}%
+    \xdef\pflxmax{\xintfloateval{log10(\pflxmax)-log10(\pflxmin)}}%
+    \xdef\pflxmin{0}%
+    \xdef\pflslogexpomin{\xintfloateval{log10(\pflymin)}}%
+    \xdef\pflslogexpomax{\xintfloateval{log10(\pflymax)}}%
+    \xdef\pflymax{\xintfloateval{log10(\pflymax)-log10(\pflymin)}}%
+    \xdef\pflymin{0}%
+    \xdef\pflOx{0}\xdef\pflOy{0}%
+    %thèmes personnalisés
+    \IfStrEqCase{\pflgraphthem}{%
+      {standard}{\tikzset{pflgrillep/.style={line width=\pflthickgridp,pflgrillepdefault!75}}\tikzset{pflgrillei/.style={line width=\pflthickgrids,pflgrillesdefault}}\tikzset{pflgrilles/.style={line width=\pflthickgridi,pflgrilleidefault}}}%
+      {gris}{\tikzset{pflgrillep/.style={line width=\pflthickgridp,pflgrillepgray!75}}\tikzset{pflgrillei/.style={line width\pflthickgrids,pflgrillesgray}}\tikzset{pflgrilles/.style={line width=\pflthickgridi,pflgrilleigray}}}%
+      {bleu}{\tikzset{pflgrillep/.style={line width=\pflthickgridp,pflgrillepblue!75}}\tikzset{pflgrillei/.style={line width=\pflthickgrids,pflgrillesblue}}\tikzset{pflgrilles/.style={line width=\pflthickgridi,pflgrilleiblue}}}%
+      {vert}{\tikzset{pflgrillep/.style={line width=\pflthickgridp,pflgrillepgreen!75}}\tikzset{pflgrillei/.style={line width=\pflthickgrids,pflgrillesgreen}}\tikzset{pflgrilles/.style={line width=\pflthickgridi,pflgrilleigreen}}}%
+      {chaud}{\tikzset{pflgrillep/.style={line width=\pflthickgridp,pflgrillepwarm!75}}\tikzset{pflgrillei/.style={line width=\pflthickgrids,pflgrilleswarm}}\tikzset{pflgrilles/.style={line width=\pflthickgridi,pflgrilleiwarm}}}%
+      {contraste}{\tikzset{pflgrillep/.style={line width=\pflthickgridp,pflgrillepcontrast!75}}\tikzset{pflgrillei/.style={line width=\pflthickgrids,pflgrillescontrast}}\tikzset{pflgrilles/.style={line width=\pflthickgridi,pflgrilleicontrast}}}%
+    }%
+      %unités x/y pour des calculs de coordonnées
+      \TikZUnites
+      %noeuds fenêtre + axes
+      \IfStrEq{\pflgraphnom}{}%
+      {%
+        \coordinate (graphe-ne) at ({\pflxmax},{\pflymax}) ;
+        \coordinate (graphe-nw) at ({\pflxmin},{\pflymax}) ;
+        \coordinate (graphe-se) at ({\pflxmax},{\pflymin}) ;
+        \coordinate (graphe-sw) at ({\pflxmin},{\pflymin}) ;
+        \coordinate (graphe-n) at ($(graphe-ne)!0.5!(graphe-nw)$) ;
+        \coordinate (graphe-e) at ($(graphe-ne)!0.5!(graphe-se)$) ;
+        \coordinate (graphe-s) at ($(graphe-se)!0.5!(graphe-sw)$) ;
+        \coordinate (graphe-w) at ($(graphe-sw)!0.5!(graphe-nw)$) ;
+        \coordinate (graphe-c) at ($(graphe-sw)!0.5!(graphe-ne)$) ;
+        \coordinate (axeox-w) at ({\pflxmin},{\pflOy}) ;
+        \coordinate (axeox-e) at ({\pflxmax},{\pflOy}) ;
+        \coordinate (axeoy-s) at ({\pflOx},{\pflymin}) ;
+        \coordinate (axeoy-n) at ({\pflOx},{\pflymax}) ;
+        \coordinate (axes-orig) at ({\pflOx},{\pflOy}) ;
+      }%
+      {%
+        \coordinate (\pflgraphnom-graphe-ne) at ({\pflxmax},{\pflymax}) ;
+        \coordinate (\pflgraphnom-graphe-nw) at ({\pflxmin},{\pflymax}) ;
+        \coordinate (\pflgraphnom-graphe-se) at ({\pflxmax},{\pflymin}) ;
+        \coordinate (\pflgraphnom-graphe-sw) at ({\pflxmin},{\pflymin}) ;
+        \coordinate (\pflgraphnom-graphe-n) at ($(\pflgraphnom-graphe-ne)!0.5!(\pflgraphnom-graphe-nw)$) ;
+        \coordinate (\pflgraphnom-graphe-e) at ($(\pflgraphnom-graphe-ne)!0.5!(\pflgraphnom-graphe-se)$) ;
+        \coordinate (\pflgraphnom-graphe-s) at ($(\pflgraphnom-graphe-se)!0.5!(\pflgraphnom-graphe-sw)$) ;
+        \coordinate (\pflgraphnom-graphe-w) at ($(\pflgraphnom-graphe-sw)!0.5!(\pflgraphnom-graphe-nw)$) ;
+        \coordinate (\pflgraphnom-graphe-c) at ($(\pflgraphnom-graphe-sw)!0.5!(\pflgraphnom-graphe-ne)$) ;
+        \coordinate (\pflgraphnom-axeox-w) at ({\pflxmin},{\pflOy}) ;
+        \coordinate (\pflgraphnom-axeox-e) at ({\pflxmax},{\pflOy}) ;
+        \coordinate (\pflgraphnom-axeoy-s) at ({\pflOx},{\pflymin}) ;
+        \coordinate (\pflgraphnom-axeoy-n) at ({\pflOx},{\pflymax}) ;
+        \coordinate (\pflgraphnom-axes-orig) at ({\pflOx},{\pflOy}) ;
+      }%
+      %noeuds utiles pour les calculs
+      \coordinate (bbxTop) at (current bounding box.north) ;
+      \coordinate (bbxBottom) at (current bounding box.south) ;
+      \ifboolKV[GraphiqueTikz]{AffCadre}{\draw[pflcadre] ({\pflxmin},{\pflymin}) rectangle ({\pflxmax},{\pflymax}) ;}{}%
+      %back to normal
+}
+{%
+  \end{tikzpicture}%
+}
+  
+\NewDocumentCommand\TracerAxesGrillesLogLog{ s O{} }{%
+  % pas d'argument X — les deux axes sont automatiques
+  \restoreKV[GraphiqueTikzAxes]%
+  \setKV[GraphiqueTikzAxes]{#2}%
+  \ifboolKV[GraphiqueTikzAxes]{Grille}%
+  {%
+    % sous-décades X
+    \foreach \n in {0,...,\inteval{\pflxmax-1}}{%
+      \foreach \k in {2,3,4,5,6,7,8,9}{%
+        \xdef\tmpsousdecx{\xintfloateval{\n+log10(\k)}}%
+        \draw[pflgrilles] ({\tmpsousdecx},{\pflymin})--({\tmpsousdecx},{\pflymax}) ;%
+      }%
+    }%
+    % sous-décades Y
+    \foreach \n in {0,...,\inteval{\pflymax-1}}{%
+      \foreach \k in {2,3,4,5,6,7,8,9}{%
+        \xdef\tmpsousdecy{\xintfloateval{\n+log10(\k)}}%
+        \draw[pflgrilles] ({\pflxmin},{\tmpsousdecy})--({\pflxmax},{\tmpsousdecy}) ;%
+      }%
+    }%
+    % décades X et Y
+    \foreach \n in {0,...,\pflxmax}{%
+      \draw[pflgrillep] ({\n},{\pflymin})--({\n},{\pflymax}) ;%
+    }%
+    \foreach \n in {0,...,\pflymax}{%
+      \draw[pflgrillep] ({\pflxmin},{\n})--({\pflxmax},{\n}) ;%
+    }%
+  }%
+  {}%
+  % axes
+  \ifboolKV[GraphiqueTikzAxes]{Fleches}%
+  {%
+    \draw[pflaxes] ({0},{0})--([xshift={\useKV[GraphiqueTikzAxes]{Elargir}}]{\pflxmax},{0}) ;
+    \draw[pflaxes] ({0},{0})--([yshift={\useKV[GraphiqueTikzAxes]{Elargir}}]{0},{\pflymax}) ;
+  }%
+  {%
+    \draw[pflaxessansfleche] ({0},{0})--([xshift={\useKV[GraphiqueTikzAxes]{Elargir}}]{\pflxmax},{0}) ;
+    \draw[pflaxessansfleche] ({0},{0})--([yshift={\useKV[GraphiqueTikzAxes]{Elargir}}]{0},{\pflymax}) ;
+  }%
+  \ifboolKV[GraphiqueTikzAxes]{Grads}%
+  {%
+    % labels X — $10^n$
+    \foreach \n in {0,...,\pflxmax}{%
+      \xdef\tmpexpox{\inteval{\n+\pflslogexpominx}}%
+      \draw[pfltrait] ([yshift={\pflthickgrad}]{\n},{0})--++(0,{-2\pflthickgrad}) ;%
+      \draw ([yshift={-\pflthickgrad}]{\n},{0})  node[pflnoeud,below,font={\useKV[GraphiqueTikzAxes]{Police}}] { \ifboolKV[GraphiqueTikzAxes]{Puissance}{$10^{\tmpexpox}$}{\num{\xintfloateval{10^(\tmpexpox)}}} } ;
+    }%
+    % labels Y — $10^n$
+    \foreach \n in {0,...,\pflymax}{%
+      \xdef\tmpexpo{\inteval{\n+\pflslogexpomin}}%
+      \draw[pfltrait] ([xshift={\pflthickgrad}]{0},{\n})--++({-2\pflthickgrad},0) ;%
+      \draw ([xshift={-\pflthickgrad}]{0},{\n}) node[left,pflnoeud,font={\useKV[GraphiqueTikzAxes]{Police}}] { \ifboolKV[GraphiqueTikzAxes]{Puissance}{$10^{\tmpexpo}$}{\num{\xintfloateval{10^(\tmpexpo)}}} } ;
+    }%
+  }%
+  {}%
+}
+
+\NewDocumentCommand\TracerCourbeSemiLog{ O{} m }{%
+  % protection : si f(x) <= 0 → on renvoie une valeur hors fenêtre
+  \TracerCourbe[RestreindreY,#1]{log10(#2)-(\pflslogexpomin)}%
+}
+
+\NewDocumentCommand\TracerCourbeLogLog{ O{} m }{%
+  % définition avec x réel → f(10^(x+expominx))
+  \xintdeffloatfunc pfltmploglogfct(x) = #2 ;%
+  \TracerCourbe[RestreindreY,#1]{log10(pfltmploglogfct(10^(x+\pflslogexpominx)))-(\pflslogexpomin)}%
+}
+
+\NewDocumentCommand\TracerNuageSemiLog{ O{} D<>{d} m m }{%
+  \setsepchar{,}%
+  \readlist*\LX{#3}%
+  \readlist*\LY{#4}%
+  \foreach \i in {1,...,\LXlen}{%
+    \itemtomacro\LX[\i]\tmpmavalx%
+    \itemtomacro\LY[\i]\tmpmavaly%
+    % transformation y → log10(y) - expomin
+    \xdef\tmpmavalytrans{\xintfloateval{log10(\tmpmavaly)-(\pflslogexpomin)}}%
+    \MarquerPts*[#1]{(\tmpmavalx,\tmpmavalytrans)}%
+  }%
+}
+
+\NewDocumentCommand\TracerNuageLogLog{ O{} D<>{d} m m }{%
+  \setsepchar{,}%
+  \readlist*\LX{#3}%
+  \readlist*\LY{#4}%
+  \foreach \i in {1,...,\LXlen}{%
+    \itemtomacro\LX[\i]\tmpmavalx%
+    \itemtomacro\LY[\i]\tmpmavaly%
+    % transformation x ET y
+    \xdef\tmpmavalxtrans{\xintfloateval{log10(\tmpmavalx)-(\pflslogexpominx)}}%
+    \xdef\tmpmavalytrans{\xintfloateval{log10(\tmpmavaly)-(\pflslogexpomin)}}%
+    \MarquerPts*[#1]{(\tmpmavalxtrans,\tmpmavalytrans)}%
+  }%
+}
+
+%====LECTURE CSV ET TRACÉ
+\defKV[GraphiqueTikzCSV]{%
+  Separateur=\def\pflcsvsep{#1},%
+  MaxLignes=\def\pflcsvmaxlignes{#1},%
+  ModeTransfo=\def\pflcsvmode{#1}%
+}
+\setKVdefault[GraphiqueTikzCSV]{%
+  Separateur=semicolon,%
+  MaxLignes=100000,%
+  ModeTransfo=lin%
+}
+
+\NewDocumentCommand\CreerListesDepuisCSV{ O{} m m m m m }{%
+  % #1 = clés (Separateur, MaxLignes)
+  % #2 = fichier csv
+  % #3 = nom colonne X
+  % #4 = nom colonne Y
+  % #5 = nom macro liste X (sans \)
+  % #6 = nom macro liste Y (sans \)
+  \@ifpackageloaded{csvsimple}%
+    {%
+      \restoreKV[GraphiqueTikzCSV]%
+      \setKV[GraphiqueTikzCSV]{#1}%
+      \xdef\tmpcsvlistX{}%
+      \xdef\tmpcsvlistY{}%
+      \xdef\tmpcsvcompteur{0}%
+      \csvreader[head to column names,separator=\pflcsvsep]{#2}{}%
+      {%
+        \xintifboolexpr{\tmpcsvcompteur < \pflcsvmaxlignes}%
+          {%
+            \xdef\tmpvalX{\csname#3\endcsname}%
+            \xdef\tmpvalY{\csname#4\endcsname}%
+            \xdef\tmpcsvlistX{\tmpcsvlistX\ifx\tmpcsvlistX\empty\else,\fi\tmpvalX}%
+            \xdef\tmpcsvlistY{\tmpcsvlistY\ifx\tmpcsvlistY\empty\else,\fi\tmpvalY}%
+            \xdef\tmpcsvcompteur{\inteval{\tmpcsvcompteur+1}}%
+          }{}%
+      }%
+      \expandafter\xdef\csname#5\endcsname{\tmpcsvlistX}%
+      \expandafter\xdef\csname#6\endcsname{\tmpcsvlistY}%
+    }%
+    {%
+      \PackageWarning{tkz-grapheur}%
+        {csvsimple not loaded .: \CreerListesDepuisCSV or \CreateListsFromCSV not available :.}%
+    }%
+}
+\NewCommandCopy\CreateListsFromCSV\CreerListesDepuisCSV
+
+\NewDocumentCommand\TracerNuageDepuisCSV{ O{} D<>{} m m m }{%
+  % #1 = clés CSV (Mode, Separateur, MaxLignes)
+  % #2 = clés points pour \MarquerPts
+  % #3 = fichier csv
+  % #4 = nom colonne X
+  % #5 = nom colonne Y
+  \@ifpackageloaded{csvsimple}%
+  {%
+    \restoreKV[GraphiqueTikzCSV]%
+    \setKV[GraphiqueTikzCSV]{#1}%
+    \xdef\tmpcsvcompteur{0}%
+    \csvreader[%
+    head to column names,%
+    separator=\pflcsvsep%
+    ]{#3}{}%
+    {%
+      \xintifboolexpr{\tmpcsvcompteur < \pflcsvmaxlignes}%
+      {%
+        \IfStrEqCase{\pflcsvmode}{%
+          {lin}{%
+            \xdef\tmpvalX{\csname#4\endcsname}%
+            \xdef\tmpvalY{\csname#5\endcsname}%
+            \MarquerPts*[#2]{(\tmpvalX,\tmpvalY)}%
+            \xdef\tmpcsvcompteur{\inteval{\tmpcsvcompteur+1}}%
+          }%
+          {xlog}{%
+            \xintifboolexpr{\csname#4\endcsname > 0}%
+            {%
+              \xdef\tmpvalX{\xintfloateval{log10(\csname#4\endcsname)}}%
+              \xdef\tmpvalY{\csname#5\endcsname}%
+              \MarquerPts*[#2]{(\tmpvalX,\tmpvalY)}%
+              \xdef\tmpcsvcompteur{\inteval{\tmpcsvcompteur+1}}%
+            }{}%
+          }%
+          {ylog}{%
+            \xintifboolexpr{\csname#5\endcsname > 0}%
+            {%
+              \xdef\tmpvalX{\csname#4\endcsname}%
+              \xdef\tmpvalY{\xintfloateval{log10(\csname#5\endcsname)}}%
+              \MarquerPts*[#2]{(\tmpvalX,\tmpvalY)}%
+              \xdef\tmpcsvcompteur{\inteval{\tmpcsvcompteur+1}}%
+            }{}%
+          }%
+          {xylog}{%
+            \xintifboolexpr{%
+              \csname#4\endcsname > 0 && \csname#5\endcsname > 0}%
+            {%
+              \xdef\tmpvalX{\xintfloateval{log10(\csname#4\endcsname)}}%
+              \xdef\tmpvalY{\xintfloateval{log10(\csname#5\endcsname)}}%
+              \MarquerPts*[#2]{(\tmpvalX,\tmpvalY)}%
+              \xdef\tmpcsvcompteur{\inteval{\tmpcsvcompteur+1}}%
+            }{}%
+          }%
+          {semilogy}{%
+            \xintifboolexpr{\csname#5\endcsname > 0}%
+            {%
+              \xdef\tmpvalX{\csname#4\endcsname}%
+              \xdef\tmpvalY{\xintfloateval{log10(\csname#5\endcsname)-\pflslogexpomin}}%
+              \MarquerPts*[#2]{(\tmpvalX,\tmpvalY)}%
+              \xdef\tmpcsvcompteur{\inteval{\tmpcsvcompteur+1}}%
+            }{}%
+          }%
+          {semilogx}{%
+            \xintifboolexpr{\csname#4\endcsname > 0}%
+            {%
+              \xdef\tmpvalX{\xintfloateval{log10(\csname#4\endcsname)-\pflslogexpominx}}%
+              \xdef\tmpvalY{\csname#5\endcsname}%
+              \MarquerPts*[#2]{(\tmpvalX,\tmpvalY)}%
+              \xdef\tmpcsvcompteur{\inteval{\tmpcsvcompteur+1}}%
+            }{}%
+          }%
+          {loglog}{%
+            \xintifboolexpr{%
+              \csname#4\endcsname > 0 && \csname#5\endcsname > 0}%
+            {%
+              \xdef\tmpvalX{\xintfloateval{log10(\csname#4\endcsname)-\pflslogexpominx}}%
+              \xdef\tmpvalY{\xintfloateval{log10(\csname#5\endcsname)-\pflslogexpomin}}%
+              \MarquerPts*[#2]{(\tmpvalX,\tmpvalY)}%
+              \xdef\tmpcsvcompteur{\inteval{\tmpcsvcompteur+1}}%
+            }{}%
+          }%
+        {lnx}{%
+          \xintifboolexpr{\csname#4\endcsname > 0}%
+          {\xdef\tmpvalX{\xintfloateval{ln(\csname#4\endcsname)}}%
+           \xdef\tmpvalY{\csname#5\endcsname}%
+           \MarquerPts*[#2]{(\tmpvalX,\tmpvalY)}%
+           \xdef\tmpcsvcompteur{\inteval{\tmpcsvcompteur+1}}}{}%
+        }%
+        {lny}{%
+          \xintifboolexpr{\csname#5\endcsname > 0}%
+          {\xdef\tmpvalX{\csname#4\endcsname}%
+           \xdef\tmpvalY{\xintfloateval{ln(\csname#5\endcsname)}}%
+           \MarquerPts*[#2]{(\tmpvalX,\tmpvalY)}%
+           \xdef\tmpcsvcompteur{\inteval{\tmpcsvcompteur+1}}}{}%
+        }%
+        {lnxy}{%
+          \xintifboolexpr{\csname#4\endcsname > 0 && \csname#5\endcsname > 0}%
+          {\xdef\tmpvalX{\xintfloateval{ln(\csname#4\endcsname)}}%
+           \xdef\tmpvalY{\xintfloateval{ln(\csname#5\endcsname)}}%
+           \MarquerPts*[#2]{(\tmpvalX,\tmpvalY)}%
+           \xdef\tmpcsvcompteur{\inteval{\tmpcsvcompteur+1}}}{}%
+        }%
+        {log10x}{%
+          \xintifboolexpr{\csname#4\endcsname > 0}%
+          {\xdef\tmpvalX{\xintfloateval{log10(\csname#4\endcsname)}}%
+           \xdef\tmpvalY{\csname#5\endcsname}%
+           \MarquerPts*[#2]{(\tmpvalX,\tmpvalY)}%
+           \xdef\tmpcsvcompteur{\inteval{\tmpcsvcompteur+1}}}{}%
+        }%
+        {log10y}{%
+          \xintifboolexpr{\csname#5\endcsname > 0}%
+          {\xdef\tmpvalX{\csname#4\endcsname}%
+           \xdef\tmpvalY{\xintfloateval{log10(\csname#5\endcsname)}}%
+           \MarquerPts*[#2]{(\tmpvalX,\tmpvalY)}%
+           \xdef\tmpcsvcompteur{\inteval{\tmpcsvcompteur+1}}}{}%
+        }%
+        {log10xy}{%
+          \xintifboolexpr{\csname#4\endcsname > 0 && \csname#5\endcsname > 0}%
+          {\xdef\tmpvalX{\xintfloateval{log10(\csname#4\endcsname)}}%
+           \xdef\tmpvalY{\xintfloateval{log10(\csname#5\endcsname)}}%
+           \MarquerPts*[#2]{(\tmpvalX,\tmpvalY)}%
+           \xdef\tmpcsvcompteur{\inteval{\tmpcsvcompteur+1}}}{}%
+        }%
+        {expx}{%
+          \xdef\tmpvalX{\xintfloateval{exp(\csname#4\endcsname)}}%
+          \xdef\tmpvalY{\csname#5\endcsname}%
+          \MarquerPts*[#2]{(\tmpvalX,\tmpvalY)}%
+          \xdef\tmpcsvcompteur{\inteval{\tmpcsvcompteur+1}}%
+        }%
+        {expy}{%
+          \xdef\tmpvalX{\csname#4\endcsname}%
+          \xdef\tmpvalY{\xintfloateval{exp(\csname#5\endcsname)}}%
+          \MarquerPts*[#2]{(\tmpvalX,\tmpvalY)}%
+          \xdef\tmpcsvcompteur{\inteval{\tmpcsvcompteur+1}}%
+        }%
+        {expxy}{%
+          \xdef\tmpvalX{\xintfloateval{exp(\csname#4\endcsname)}}%
+          \xdef\tmpvalY{\xintfloateval{exp(\csname#5\endcsname)}}%
+          \MarquerPts*[#2]{(\tmpvalX,\tmpvalY)}%
+          \xdef\tmpcsvcompteur{\inteval{\tmpcsvcompteur+1}}%
+        }%
+        {invx}{%
+          \xintifboolexpr{\csname#4\endcsname != 0}%
+          {\xdef\tmpvalX{\xintfloateval{1/(\csname#4\endcsname)}}%
+           \xdef\tmpvalY{\csname#5\endcsname}%
+           \MarquerPts*[#2]{(\tmpvalX,\tmpvalY)}%
+           \xdef\tmpcsvcompteur{\inteval{\tmpcsvcompteur+1}}}{}%
+        }%
+        {invy}{%
+          \xintifboolexpr{\csname#5\endcsname != 0}%
+          {\xdef\tmpvalX{\csname#4\endcsname}%
+           \xdef\tmpvalY{\xintfloateval{1/(\csname#5\endcsname)}}%
+           \MarquerPts*[#2]{(\tmpvalX,\tmpvalY)}%
+           \xdef\tmpcsvcompteur{\inteval{\tmpcsvcompteur+1}}}{}%
+        }%
+        {invxy}{%
+          \xintifboolexpr{\csname#4\endcsname != 0 && \csname#5\endcsname != 0}%
+          {\xdef\tmpvalX{\xintfloateval{1/(\csname#4\endcsname)}}%
+           \xdef\tmpvalY{\xintfloateval{1/(\csname#5\endcsname)}}%
+           \MarquerPts*[#2]{(\tmpvalX,\tmpvalY)}%
+           \xdef\tmpcsvcompteur{\inteval{\tmpcsvcompteur+1}}}{}%
+        }%
+        {sqrtx}{%
+          \xintifboolexpr{\csname#4\endcsname >= 0}%
+          {\xdef\tmpvalX{\xintfloateval{sqrt(\csname#4\endcsname)}}%
+           \xdef\tmpvalY{\csname#5\endcsname}%
+           \MarquerPts*[#2]{(\tmpvalX,\tmpvalY)}%
+           \xdef\tmpcsvcompteur{\inteval{\tmpcsvcompteur+1}}}{}%
+        }%
+        {sqrty}{%
+          \xintifboolexpr{\csname#5\endcsname >= 0}%
+          {\xdef\tmpvalX{\csname#4\endcsname}%
+           \xdef\tmpvalY{\xintfloateval{sqrt(\csname#5\endcsname)}}%
+           \MarquerPts*[#2]{(\tmpvalX,\tmpvalY)}%
+           \xdef\tmpcsvcompteur{\inteval{\tmpcsvcompteur+1}}}{}%
+        }%
+        {sqrtxy}{%
+          \xintifboolexpr{\csname#4\endcsname >= 0 && \csname#5\endcsname >= 0}%
+          {\xdef\tmpvalX{\xintfloateval{sqrt(\csname#4\endcsname)}}%
+           \xdef\tmpvalY{\xintfloateval{sqrt(\csname#5\endcsname)}}%
+           \MarquerPts*[#2]{(\tmpvalX,\tmpvalY)}%
+           \xdef\tmpcsvcompteur{\inteval{\tmpcsvcompteur+1}}}{}%
+        }%
+        {carrex}{%
+          \xdef\tmpvalX{\xintfloateval{(\csname#4\endcsname)^2}}%
+          \xdef\tmpvalY{\csname#5\endcsname}%
+          \MarquerPts*[#2]{(\tmpvalX,\tmpvalY)}%
+          \xdef\tmpcsvcompteur{\inteval{\tmpcsvcompteur+1}}%
+        }%
+        {carrey}{%
+          \xdef\tmpvalX{\csname#4\endcsname}%
+          \xdef\tmpvalY{\xintfloateval{(\csname#5\endcsname)^2}}%
+          \MarquerPts*[#2]{(\tmpvalX,\tmpvalY)}%
+          \xdef\tmpcsvcompteur{\inteval{\tmpcsvcompteur+1}}%
+        }%
+        {carrexy}{%
+          \xdef\tmpvalX{\xintfloateval{(\csname#4\endcsname)^2}}%
+          \xdef\tmpvalY{\xintfloateval{(\csname#5\endcsname)^2}}%
+          \MarquerPts*[#2]{(\tmpvalX,\tmpvalY)}%
+          \xdef\tmpcsvcompteur{\inteval{\tmpcsvcompteur+1}}%
+        }%
+        }%
+      }%
+      {}%
+    }%
+  }%
+  {%
+    \PackageWarning{tkz-grapheur}%
+    {csvsimple not loaded .: \TracerNuageDepuisCSV or \PlotFromCSV not available :.}%
+  }%
+}
+\NewCommandCopy\PlotFromCSV\TracerNuageDepuisCSV
 %\makeatother
+
+\NewDocumentCommand\TracerNuagePoints{ O{} m m }{%
+  % #1 = clés GraphiqueTikzRegLin (dont ModeTransfo)
+  % #2 = liste X
+  % #3 = liste Y
+  \restoreKV[GraphiqueTikzRegLin]%
+  \setKV[GraphiqueTikzRegLin]{#1}%
+  \setsepchar{,}%
+  \readlist*\tmpLX{#2}%
+  \readlist*\tmpLY{#3}%
+  \foreach \i in {1,...,\tmpLXlen}{%
+    \itemtomacro\tmpLX[\i]\tmpmavalx%
+    \itemtomacro\tmpLY[\i]\tmpmavaly%
+    \IfStrEqCase{\pflreglinmode}{%
+      {lin}{%
+        \MarquerPts*[#1]{(\tmpmavalx,\tmpmavaly)}%
+      }%
+      {xlog}{%
+        \xintifboolexpr{\tmpmavalx > 0}%
+          {%
+            \xdef\tmpvalX{\xintfloateval{log10(\tmpmavalx)}}%
+            \MarquerPts*[#1]{(\tmpvalX,\tmpmavaly)}%
+          }{}%
+      }%
+      {ylog}{%
+        \xintifboolexpr{\tmpmavaly > 0}%
+          {%
+            \xdef\tmpvalY{\xintfloateval{log10(\tmpmavaly)}}%
+            \MarquerPts*[#1]{(\tmpmavalx,\tmpvalY)}%
+          }{}%
+      }%
+      {xylog}{%
+        \xintifboolexpr{\tmpmavalx > 0 && \tmpmavaly > 0}%
+          {%
+            \xdef\tmpvalX{\xintfloateval{log10(\tmpmavalx)}}%
+            \xdef\tmpvalY{\xintfloateval{log10(\tmpmavaly)}}%
+            \MarquerPts*[#1]{(\tmpvalX,\tmpvalY)}%
+          }{}%
+      }%
+      {semilogy}{%
+        \xintifboolexpr{\tmpmavaly > 0}%
+          {%
+            \xdef\tmpvalY{\xintfloateval{log10(\tmpmavaly)-\pflslogexpomin}}%
+            \MarquerPts*[#1]{(\tmpmavalx,\tmpvalY)}%
+          }{}%
+      }%
+      {semilogx}{%
+        \xintifboolexpr{\tmpmavalx > 0}%
+          {%
+            \xdef\tmpvalX{\xintfloateval{log10(\tmpmavalx)-\pflslogexpominx}}%
+            \MarquerPts*[#1]{(\tmpvalX,\tmpmavaly)}%
+          }{}%
+      }%
+      {loglog}{%
+        \xintifboolexpr{\tmpmavalx > 0 && \tmpmavaly > 0}%
+          {%
+            \xdef\tmpvalX{\xintfloateval{log10(\tmpmavalx)-\pflslogexpominx}}%
+            \xdef\tmpvalY{\xintfloateval{log10(\tmpmavaly)-\pflslogexpomin}}%
+            \MarquerPts*[#1]{(\tmpvalX,\tmpvalY)}%
+          }{}%
+      }%
+      {lnx}{%
+        \xintifboolexpr{\tmpmavalx > 0}%
+        {%
+        \xdef\tmpvalX{\xintfloateval{ln(\tmpmavalx)}}%
+        \MarquerPts*[#1]{(\tmpvalX,\tmpmavaly)}%
+        }{}%
+      }%
+      {lny}{%
+        \xintifboolexpr{\tmpmavaly > 0}%
+        {%
+        \xdef\tmpvalY{\xintfloateval{ln(\tmpmavaly)}}%
+        \MarquerPts*[#1]{(\tmpmavalx,\tmpvalY)}%
+        }{}%
+      }%
+      {lnxy}{%
+        \xintifboolexpr{\tmpmavalx > 0 && \tmpmavaly > 0}%
+        {%
+        \xdef\tmpvalX{\xintfloateval{ln(\tmpmavalx)}}%
+        \xdef\tmpvalY{\xintfloateval{ln(\tmpmavaly)}}%
+        \MarquerPts*[#1]{(\tmpvalX,\tmpvalY)}%
+        }{}%
+      }%
+      {log10x}{%
+        \xintifboolexpr{\tmpmavalx > 0}%
+        {%
+        \xdef\tmpvalX{\xintfloateval{log10(\tmpmavalx)}}%
+        \MarquerPts*[#1]{(\tmpvalX,\tmpmavaly)}%
+        }{}%
+      }%
+      {log10y}{%
+        \xintifboolexpr{\tmpmavaly > 0}%
+        {%
+        \xdef\tmpvalY{\xintfloateval{log10(\tmpmavaly)}}%
+        \MarquerPts*[#1]{(\tmpmavalx,\tmpvalY)}%
+        }{}%
+      }%
+      {log10xy}{%
+        \xintifboolexpr{\tmpmavalx > 0 && \tmpmavaly > 0}%
+        {%
+        \xdef\tmpvalX{\xintfloateval{log10(\tmpmavalx)}}%
+        \xdef\tmpvalY{\xintfloateval{log10(\tmpmavaly)}}%
+        \MarquerPts*[#1]{(\tmpvalX,\tmpvalY)}%
+        }{}%
+      }%
+      {expx}{%
+        \xdef\tmpvalX{\xintfloateval{exp(\tmpmavalx)}}%
+        \MarquerPts*[#1]{(\tmpvalX,\tmpmavaly)}%
+      }%
+      {expy}{%
+        \xdef\tmpvalY{\xintfloateval{exp(\tmpmavaly)}}%
+        \MarquerPts*[#1]{(\tmpmavalx,\tmpvalY)}%
+      }%
+      {expxy}{%
+        \xdef\tmpvalX{\xintfloateval{exp(\tmpmavalx)}}%
+        \xdef\tmpvalY{\xintfloateval{exp(\tmpmavaly)}}%
+        \MarquerPts*[#1]{(\tmpvalX,\tmpvalY)}%
+      }%
+      {invx}{%
+        \xintifboolexpr{\tmpmavalx != 0}%
+        {%
+        \xdef\tmpvalX{\xintfloateval{1/(\tmpmavalx)}}%
+        \MarquerPts*[#1]{(\tmpvalX,\tmpmavaly)}%
+        }{}%
+      }%
+      {invy}{%
+        \xintifboolexpr{\tmpmavaly != 0}%
+        {%
+        \xdef\tmpvalY{\xintfloateval{1/(\tmpmavaly)}}%
+        \MarquerPts*[#1]{(\tmpmavalx,\tmpvalY)}%
+        }{}%
+      }%
+      {invxy}{%
+        \xintifboolexpr{\tmpmavalx != 0 && \tmpmavaly != 0}%
+        {%
+        \xdef\tmpvalX{\xintfloateval{1/(\tmpmavalx)}}%
+        \xdef\tmpvalY{\xintfloateval{1/(\tmpmavaly)}}%
+        \MarquerPts*[#1]{(\tmpvalX,\tmpvalY)}%
+        }{}%
+      }%
+      {sqrtx}{%
+        \xintifboolexpr{\tmpmavalx >= 0}%
+        {%
+        \xdef\tmpvalX{\xintfloateval{sqrt(\tmpmavalx)}}%
+        \MarquerPts*[#1]{(\tmpvalX,\tmpmavaly)}%
+        }{}%
+      }%
+      {sqrty}{%
+        \xintifboolexpr{\tmpmavaly >= 0}%
+        {%
+        \xdef\tmpvalY{\xintfloateval{sqrt(\tmpmavaly)}}%
+        \MarquerPts*[#1]{(\tmpmavalx,\tmpvalY)}%
+        }{}%
+      }%
+      {sqrtxy}{%
+        \xintifboolexpr{\tmpmavalx >= 0 && \tmpmavaly >= 0}%
+        {%
+        \xdef\tmpvalX{\xintfloateval{sqrt(\tmpmavalx)}}%
+        \xdef\tmpvalY{\xintfloateval{sqrt(\tmpmavaly)}}%
+        \MarquerPts*[#1]{(\tmpvalX,\tmpvalY)}%
+        }{}%
+      }%
+      {carrex}{%
+        \xdef\tmpvalX{\xintfloateval{(\tmpmavalx)^2}}%
+        \MarquerPts*[#1]{(\tmpvalX,\tmpmavaly)}%
+      }%
+      {carrey}{%
+        \xdef\tmpvalY{\xintfloateval{(\tmpmavaly)^2}}%
+        \MarquerPts*[#1]{(\tmpmavalx,\tmpvalY)}%
+      }%
+      {carrexy}{%
+        \xdef\tmpvalX{\xintfloateval{(\tmpmavalx)^2}}%
+        \xdef\tmpvalY{\xintfloateval{(\tmpmavaly)^2}}%
+        \MarquerPts*[#1]{(\tmpvalX,\tmpvalY)}%
+      }%
+    }%
+  }%
+}
+\NewCommandCopy\PlotPoints\TracerNuagePoints
 
 \endinput

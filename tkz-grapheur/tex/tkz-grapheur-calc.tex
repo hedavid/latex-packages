@@ -256,7 +256,7 @@
 \NewDocumentCommand\tkzgQuantileNormalSup{ s m m m O{\mycalcres} }{%
   % #2=μ  #3=σ  #4=p  #5=macro
   % P(X>k)=p ↔ P(X<=k)=1-p
-	\xdef\tmpnewseuil{\fpeval{1-(#4)}}%
+  \xdef\tmpnewseuil{\fpeval{1-(#4)}}%
   \tkzgResolApproch*[0.0001]{tkzgPhi(x)=\tmpnewseuil}{-8:8}[\tkzgtmpquantile]%
   \xdef#5{\xintFloatToDecimal{\xintfloateval{(#2)+(#3)*\tkzgtmpquantile}}}%
   \IfBooleanF{#1}{#5}%
@@ -526,36 +526,36 @@
 %====SOMMES DE SUITES
 %somme générale : sum_{k=deb}^{fin} f(k)
 \NewDocumentCommand\tkzgCalcSommeSuite{ s m m m O{\mycalcres} }{%
-	% #2=expr(k)  #3=deb  #4=fin  #5=macro
-	\xdef#5{\xintFloatToDecimal{\xintfloateval{add(#2,k=#3..#4)}}}%
-	\IfBooleanF{#1}{#5}%
+  % #2=expr(k)  #3=deb  #4=fin  #5=macro
+  \xdef#5{\xintFloatToDecimal{\xintfloateval{add(#2,k=#3..#4)}}}%
+  \IfBooleanF{#1}{#5}%
 }
 %somme récurrente : up + u(p+1) + ... + un
 \NewDocumentCommand\tkzgCalcSommeSuiteRecurr{ s m m m m O{\mycalcres} }{%
-	% #2=f(x)  #3=p  #4=up  #5=n  #6=macro
-	\xintdeffloatfunc tkzgvarrecurrfct(x) := #2 ;%
-	\xdef\tkzgtmprecurr{\xintfloateval{#4}}%
-	\xdef\tkzgtmpsom{\xintfloateval{#4}}%
-	\foreach \i in {#3,...,\inteval{#5-1}}{%
-		\xdef\tkzgtmprecurr{\xintfloateval{tkzgvarrecurrfct(\tkzgtmprecurr)}}%
-		\xdef\tkzgtmpsom{\xintfloateval{\tkzgtmpsom+\tkzgtmprecurr}}%
-	}%
-	\xdef#6{\xintFloatToDecimal{\tkzgtmpsom}}%
-	\IfBooleanF{#1}{#6}%
+  % #2=f(x)  #3=p  #4=up  #5=n  #6=macro
+  \xintdeffloatfunc tkzgvarrecurrfct(x) := #2 ;%
+  \xdef\tkzgtmprecurr{\xintfloateval{#4}}%
+  \xdef\tkzgtmpsom{\xintfloateval{#4}}%
+  \foreach \i in {#3,...,\inteval{#5-1}}{%
+    \xdef\tkzgtmprecurr{\xintfloateval{tkzgvarrecurrfct(\tkzgtmprecurr)}}%
+    \xdef\tkzgtmpsom{\xintfloateval{\tkzgtmpsom+\tkzgtmprecurr}}%
+  }%
+  \xdef#6{\xintFloatToDecimal{\tkzgtmpsom}}%
+  \IfBooleanF{#1}{#6}%
 }
 %suite arithmétique : ( up = a // r )
 \NewDocumentCommand\tkzgCalcSommeArithm{ s m m m m O{\mycalcres} }{%
-	% #2=p  #3=a  #4=r  #5=n  #6=macro
-	% S = (#5-(#2)+1) * (up + un) / 2
-	\xdef#6{\xintFloatToDecimal{\xintfloateval{(#5-(#2)+1)*( #3 + (#3)+(#5-(#2))*(#4) ) / 2}}}%
-	\IfBooleanF{#1}{#6}%
+  % #2=p  #3=a  #4=r  #5=n  #6=macro
+  % S = (#5-(#2)+1) * (up + un) / 2
+  \xdef#6{\xintFloatToDecimal{\xintfloateval{(#5-(#2)+1)*( #3 + (#3)+(#5-(#2))*(#4) ) / 2}}}%
+  \IfBooleanF{#1}{#6}%
 }
 %suite géométrique : ( up = a // q )
 \NewDocumentCommand\tkzgCalcSommeGeo{ s m m m m O{\mycalcres} }{%
-	% #2=p  #3=a  #4=q  #5=n  #6=macro
-	% S = u_p * (1 - q^(n-p+1)) / (1 - q)
-	\xdef#6{\xintFloatToDecimal{\xintfloateval{(#3)*(1-(#4)^((#5)-(#2)+1))/(1-(#4))}}}%
-	\IfBooleanF{#1}{#6}%
+  % #2=p  #3=a  #4=q  #5=n  #6=macro
+  % S = u_p * (1 - q^(n-p+1)) / (1 - q)
+  \xdef#6{\xintFloatToDecimal{\xintfloateval{(#3)*(1-(#4)^((#5)-(#2)+1))/(1-(#4))}}}%
+  \IfBooleanF{#1}{#6}%
 }
 \NewCommandCopy\tkzgCalcSeriesSum\tkzgCalcSommeSuite
 \NewCommandCopy\tkzgCalcRecurrSeriesSum\tkzgCalcSommeSuiteRecurr
@@ -584,5 +584,106 @@
 \NewCommandCopy\tkzgCalcGrowthRate\tkzgCalcTauxEvol
 \NewCommandCopy\tkzgCalcReciprocalRate\tkzgCalcTauxReciproque
 \NewCommandCopy\tkzgCalcAverageRate\tkzgCalcTauxMoyen
+
+%====PIPELINE LISTE CSV
+\NewDocumentCommand\tkzgCalcLenList{ s m O{\mylen} }{%
+  % #2 = liste CSV
+  % #3 = macro de sortie (défaut \mylen)
+  \ifx#2\empty
+    \xdef#3{0}%
+  \else%
+    \xdef#3{\xintNthElt{0}{\xintCSVtoList{#2}}}%
+  \fi%
+  \IfBooleanF{#1}{#3}%
+}
+\NewDocumentCommand\tkzgCalcEltList{ s m m O{\myelt} }{%
+  % #2 = liste CSV
+  % #3 = index (positif depuis début, négatif depuis fin)
+  % #4 = macro de sortie (défaut \myelt)
+  \xdef#4{\xintNthElt{#3}{\xintCSVtoList{#2}}}%
+  \IfBooleanF{#1}{#4}%
+}
+\NewCommandCopy\tkzgCalcLgList\tkzgCalcLenList
+
+%====TABLEAU DE VALEURS
+\defKV[GraphiqueTikzTableau]{%
+  Arrondi=\def\pfltvalarrondi{#1},round=\def\pfltvalarrondi{#1},%
+  NomFct=\def\pfltvalfct{#1},fct name=\def\pfltvalfct{#1},%
+  NomVar=\def\pfltvalvar{#1},var name=\def\pfltvalvar{#1},%
+  Presentation=\def\pfltvalpresent{#1},pres=\def\pfltvalpresent{#1}
+}
+\setKVdefault[GraphiqueTikzTableau]{%
+  Arrondi=2,%
+  Expr=false,%
+  NomFct=f,%
+  NomVar=x,%
+  Presentation=H%
+}
+
+%====TABLEAU DE VALEURS
+\NewDocumentCommand\CalcTableauValeurs{ s O{} D<>{f} m O{montabval} }{%
+  % #1 = étoile → disposition verticale
+  % #2 = clés (Arrondi...)
+  % #3 = nom/expr fonction xint
+  % #4 = liste des valeurs
+  % #5 = macro de sortie (défaut \pfltablignes)
+  \restoreKV[GraphiqueTikzTableau]%
+  \setKV[GraphiqueTikzTableau]{#2}%
+  %bifurcation fonction / expr
+  \ifboolKV[GraphiqueTikzTableau]{Expr}%
+    {\xintdeffloatfunc pfltmptvfct(x) = #3 ; \xdef\pfltvatlmlfct{\pfltvalfct}}%
+    {\xintdeffloatfunc pfltmptvfct(x) = #3(x) ; \xdef\pfltvatlmlfct{#3}}%
+  % comptage colonnes/lignes
+  \xdef\pfltvalnbcols{0}%
+  \foreach \x in {#4}{\xdef\pfltvalnbcols{\inteval{\pfltvalnbcols+1}}}%
+  \IfBooleanTF{#1}%
+  {%version verticale  x | f(x)
+    \xdef\tmp@bodytbl{$\pfltvalvar$ & $\pfltvatlmlfct(\pfltvalvar)$}%
+    \foreach \x in {#4}{%
+      \xdef\tmpcalc{\xintFloatToDecimal{\xintfloateval{pfltmptvfct(\x)}}}%
+      \xdef\tmp@bodytbl{\tmp@bodytbl \\ $\num{\x}$ & $\ArrondirNum[\pfltvalarrondi]{\tmpcalc}$}%
+    }%
+    \xdef\tmp@bodytbl{\tmp@bodytbl \\}%
+    \xdef\pfltvalnblignes{\pfltvalnbcols}%
+    \xdef\pfltvalnbcols{2}%
+  }%
+  {%version horizontale
+    \xdef\tmp@bodytbl{$\pfltvalvar$}%
+    \foreach \x in {#4}{\xdef\tmp@bodytbl{\tmp@bodytbl & $\num{\x}$}}%
+    \xdef\tmp@bodytbl{\tmp@bodytbl \\ $\pfltvatlmlfct(\pfltvalvar)$}%
+    \foreach \x in {#4}{%
+      \xdef\tmpcalc{\xintFloatToDecimal{\xintfloateval{pfltmptvfct(\x)}}}%
+      \xdef\tmp@bodytbl{\tmp@bodytbl & $\ArrondirNum[\pfltvalarrondi]{\tmpcalc}$}%
+    }%
+    \xdef\tmp@bodytbl{\tmp@bodytbl \\}%
+  }%
+  % stockage
+  \expandafter\xdef\csname#5\endcsname{\tmp@bodytbl}% body
+  \expandafter\xdef\csname#5nbvals\endcsname{\pfltvalnbcols}%
+}
+\NewCommandCopy\CalcValuesTable\CalcTableauValeurs
+
+\NewDocumentCommand\ConstruireTableauValeurs{ O{} D<>{} m m }{%
+  % #1 = clés (Arrondi...)
+  % #2 = options tblr
+  % #3 = nom/expr fonction xint
+  % #4 = liste des valeurs
+  \@ifpackageloaded{tabularray}%
+    {%
+      \restoreKV[GraphiqueTikzTableau]%
+      \setKV[GraphiqueTikzTableau]{#1}%
+      \IfStrEq{\pfltvalpresent}{H}%
+        {\CalcTableauValeurs[#1]<#3>{#4}[tmpinttblval]}%
+        {\CalcTableauValeurs*[#1]<#3>{#4}[tmpinttblval]}%
+      \xdef\tdvnbvals{\tmpinttblvalnbvals}%
+      \begin{tblr}[expand=\tmpinttblval]{#2}
+        \tmpinttblval
+      \end{tblr}%
+    }%
+    {%
+      \PackageWarning{tkz-grapheur}{tabularray not loaded .: \BuildValuesTable or \ConstruireTableauValeurs not available :.}%
+    }%
+}
+\NewCommandCopy\BuildValuesTable\ConstruireTableauValeurs
 
 \endinput

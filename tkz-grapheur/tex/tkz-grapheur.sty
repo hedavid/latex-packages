@@ -2,9 +2,17 @@
 % licence    : Released under the LaTeX Project Public License v1.3c or later, see http://www.latex-project.org/lppl.txt
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{tkz-grapheur}[2026/03/12 0.30c Des outils en TikZ pour travailler comme avec un grapheur]
-
+\ProvidesPackage{tkz-grapheur}[2026/03/20 0.30d Des outils en TikZ pour travailler comme avec un grapheur]
+\def\tkzgrapheurversion{0.30d}
 %====HISTORIQUE
+% v 0.30d  Ajout de commandes pour gérer les listes de solutions/antécédents
+% -------  Modification mineure des styles de Theme (choix des épaisseurs)
+% -------  Famille de courbes (expérimental)
+% -------  Tableau de valeurs (expérimental)
+% -------  Graphiques en semi-log ou log-log (expérimental)
+% -------  Définition globales de fonctions (hors environnement ou via clé [DefGlobale])
+% -------  Nuage de points via lecture CSV (expérimental)
+% -------  Courbe implicite (lua) (très expérimental)
 % v 0.30c  Refonte du fonctionnement avec séparation commandes [en/fr]
 % -------  Transformations, Taylor (expérimental)
 % -------  Ajout de lois de probabilités (continues + discrètes)
@@ -97,6 +105,14 @@
   \usetikzlibrary{babel}
 \fi
 
+%====EPAISSEURS GRILLE <THEME>
+\newlength\pflthickgridp
+\newlength\pflthickgridi
+\newlength\pflthickgrids
+\setlength\pflthickgridp{0.65pt}
+\setlength\pflthickgridi{0.5pt}
+\setlength\pflthickgrids{0.35pt}
+
 %====STYLES DE BASE (PARTAGÉS - FR)
 \tikzset{pflnoeud/.style={}}
 \tikzset{pflpoint/.style={line width=0.95pt}}
@@ -106,6 +122,7 @@
 \tikzset{pflcadre/.style={line width=0.8pt,gray}}
 \tikzset{pflcourbe/.style={line width=1.05pt}}
 \tikzset{pflcourbediscont/.style={line width=1.1pt}}
+\tikzset{pflpointggb/.style={line width=0.4pt}}
 \tikzset{pfltrait/.style={line width=0.8pt}}
 \tikzset{pflbarresprobas/.style={line width=1.5pt}}
 \tikzset{pflflecheg/.style={<-,>=latex}}
@@ -507,5 +524,8 @@
 
 %====INPUT calculs
 \input{tkz-grapheur-calc.tex}
+
+%====INPUT lua
+\input{tkz-grapheur-lua.tex}
 
 \endinput

@@ -1,6 +1,6 @@
 % !TeX TXS-program:compile = txs:///arara
 % arara: pdflatex: {shell: yes, synctex: no, interaction: batchmode}
-% arara: pdflatex: {shell: yes, synctex: no, interaction: batchmode}
+% arara: pdflatex: {shell: yes, synctex: no, interaction: batchmode} if found('log', '(undefined references|Please rerun|Rerun to get)')
 % arara: pdflatex: {shell: yes, synctex: no, interaction: batchmode} if found('log', '(undefined references|Please rerun|Rerun to get)')
 
 \documentclass[11pt,a4paper]{ltxdoc}
@@ -8,6 +8,7 @@
 \usepackage[T1]{fontenc}
 \usepackage{amssymb}
 \usepackage{tkz-grapheur}
+\usetikzlibrary{fit,backgrounds}
 \pgfplotsset{compat=newest}
 \usepackage{alphalph}
 \usepackage{amsmath}
@@ -17,6 +18,10 @@
 \usepackage{hyperref}
 \usepackage{nicefrac}
 \usepackage{fontawesome5}
+%utile pour certaines macros, pas de bug si nons chargés, mais pas de rendu
+\usepackage{tabularray}
+\usepackage{csvsimple}
+%back to normal
 \usepackage{tcolorbox}
 \usepackage{minted2}
 \tcbuselibrary{skins,minted}
@@ -35,8 +40,8 @@
 \hypersetup{pdfborder=0 0 0}
 \usepackage[margin=2cm]{geometry}
 \setlength{\parindent}{0pt}
-\def\TPversion{0.30c}
-\def\TPdate{12/03/2026}
+\def\TPversion{\tkzgrapheurversion}
+\def\TPdate{20/03/2026}
 \usepackage{soul}
 \usepackage{codehigh}
 \usepackage{tabularray}
@@ -195,29 +200,118 @@ Concernant le fonctionnement global :
 
 \subsection{Fonctionnement global}
 
-Pour schématiser, il \textit{suffit} :
+Pour schématiser le fonctionnement global du package :
 
-\smallskip
+\begin{center}
+	\begin{tikzpicture}[
+		every node/.style={font=\small\sffamily},
+		tuile/.style={draw,rounded corners=6pt,minimum width=9cm,
+			minimum height=1.1cm,align=center,line width=0.4pt},
+		tuileext/.style={draw,rounded corners=6pt,minimum width=5cm,%
+			minimum height=1.1cm,align=center,line width=0.4pt},
+		fleche/.style={->,>=latex,line width=1pt},
+		flechetiret/.style={->,>=latex,line width=1pt},
+		flechedouble/.style={<->,>=latex,line width=1pt}
+		]
+		
+		%-- Zone DANS l'environnement
+		\node[tuile,fill=teal!15,draw=teal!60] (fenetre) at (0,0)
+		{\textbf{1. Fenêtre graphique}\\
+			{\footnotesize\color{gray}Unités en dur ou via les dimensions}};
+		
+		\node[tuile,fill=teal!15,draw=teal!60] (axes) at (0,-1.5)
+		{\textbf{2. Axes, grilles, graduations}\\
+			{\footnotesize\color{gray}\texttt{\textbackslash TracerAxesGrilles} — \texttt{[Derriere]} pour intégrales}};
+		
+		\node[tuile,fill=teal!15,draw=teal!60] (courbes) at (0,-3)
+		{\textbf{3. Définir/Tracer courbes et points}\\
+			{\footnotesize\color{gray}\texttt{\textbackslash DefinirCourbe} — \texttt{\textbackslash TracerCourbe} — \ldots }};
+		
+		\node[tuile,fill=teal!15,draw=teal!60] (exploit) at (0,-4.5)
+		{\textbf{4. Exploitation(s) graphique(s)}\\
+			{\footnotesize\color{gray}Dérivée, intégrale, image, antécédent, intersection, extrema\ldots}};
+		
+		\node[tuile,fill=teal!15,draw=teal!60] (recup) at (0,-6)
+		{\textbf{5. Récupération de coordonnées}\\
+			{\footnotesize\color{gray}\texttt{\textbackslash RecupererAbscisse} — \texttt{\textbackslash CreerListeAbscisses}}};
+		
+		\node[tuile,fill=teal!15,draw=teal!60] (axesdevant) at (0,-7.5)
+		{\textbf{6. (Optionnel) Axes, grilles, graduations}\\
+			{\footnotesize\color{gray}\texttt{\textbackslash TracerAxesGrilles} — \texttt{[Devant]} pour une surimpression}};
+		
+		%-- cadre environnement
+		\begin{scope}[on background layer]
+			\node[draw=teal!60,fill=teal!5,rounded corners=8pt,
+			fit=(fenetre)(axes)(courbes)(exploit)(recup)(axesdevant),
+			inner sep=12pt,line width=0.5pt] (envbox) {} ;
+		\end{scope}
+		\node[font=\small\sffamily\bfseries,text=teal!70!black]
+		at (envbox.north) [above=2pt]
+		{\texttt{\textbackslash begin\{GraphiqueTikz\}\ldots\textbackslash end\{GraphiqueTikz\}}};
+		
+		%-- flèches dans l'environnement
+		\draw[fleche,teal!60] (fenetre) -- (axes);
+		\draw[fleche,teal!60] (axes) -- (courbes);
+		\draw[fleche,teal!60] (courbes) -- (exploit);
+		\draw[fleche,teal!60] (exploit) -- (recup);
+		\draw[fleche,teal!60,densely dashed] (recup) -- (axesdevant);
+		
+		%-- Zone HORS environnement
+		\node[tuileext,fill=orange!15,draw=orange!60] (genfct) at (9,0)
+		{\textbf{Définir fonctions}\\
+			{\footnotesize\color{gray}Réutilisables globalement}};
+		
+		\node[tuileext,fill=orange!15,draw=orange!60] (calcnum) at (9,-2)
+		{\textbf{Calculs numériques}\\
+			{\footnotesize\color{gray}Dérivée, intégrale, solutions, \ldots}};
+		
+		\node[tuileext,fill=orange!15,draw=orange!60] (exploitres) at (9,-4)
+		{\textbf{Exploitation des résultats}\\
+			{\footnotesize\color{gray}Rédaction, conclusion, \ldots}};
+		
+		%-- cadre hors environnement
+		\begin{scope}[on background layer]
+			\node[draw=orange!60,fill=orange!5,rounded corners=8pt,
+			fit=(genfct)(calcnum)(exploitres),
+			inner sep=12pt,line width=0.5pt] (horsbox) {} ;
+		\end{scope}
+		\node[font=\small\sffamily\bfseries,text=orange!70!black]
+		at (horsbox.north) [above=2pt] {Hors environnement};
+		
+		%-- flèches entre zones
+		\draw[flechedouble,gray!70] (genfct.west) -- +(-0.8,0)
+		|- (courbes.east) ;
+		\draw[flechedouble,gray!70] (genfct.west) -- +(-0.8,0)
+		|- (calcnum.west) ;
+		\draw[flechetiret,gray!70] (recup.east) -- +(0.8,0)
+		|- (exploitres.west) ;
+		
+	\end{tikzpicture}
+\end{center}
 
-\begin{itemize}
-	\item de déclarer les paramètres de la fenêtre graphique ;
-	\item d'afficher grille/axes/graduations ;
-	\item de déclarer les fonctions ou les courbes d'interpolation ;
-	\item de déclarer éventuellement des points particuliers ;
-	\item de placer un nuage de points.
-\end{itemize}
-
-\smallskip
-
-Il sera ensuite possible :
-
-\begin{itemize}
-	\item de tracer des courbes ;
-	\item de déterminer graphiquement des images ou des antécédents ;
-	\item de rajouter des éléments de dérivation (tangentes) ou d'intégration (domaine) ;
-	\item de tracer une droite d'ajustement linéaire ou la courbe d'un autre ajustement ;
-	\item \dots
-\end{itemize}
+%Pour schématiser, il \textit{suffit} :
+%
+%\smallskip
+%
+%\begin{itemize}
+%	\item de déclarer les paramètres de la fenêtre graphique ;
+%	\item d'afficher grille/axes/graduations ;
+%	\item de déclarer les fonctions ou les courbes d'interpolation ;
+%	\item de déclarer éventuellement des points particuliers ;
+%	\item de placer un nuage de points.
+%\end{itemize}
+%
+%\smallskip
+%
+%Il sera ensuite possible :
+%
+%\begin{itemize}
+%	\item de tracer des courbes ;
+%	\item de déterminer graphiquement des images ou des antécédents ;
+%	\item de rajouter des éléments de dérivation (tangentes) ou d'intégration (domaine) ;
+%	\item de tracer une droite d'ajustement linéaire ou la courbe d'un autre ajustement ;
+%	\item \dots
+%\end{itemize}
 
 \subsection{Packages utilisés, et options du package}
 
@@ -274,6 +368,45 @@ Il est possible, dû aux calculs (multiples) effectués en interne, que le temps
 \smallskip
 
 La précision des résultats (de détermination) semble être aux environs de $10^{-4}$, ce qui devrait normalement garantir des tracés et lectures \textit{satisfaisantes}. Il est quand même conseillé d'être prudent quant aux résultats obtenus et ceux attendus.
+
+\subsection{Architecture du package}
+
+Afin de faciliter la maintenance et l'évolution du package, les commandes sont organisées en trois fichiers distincts, chargés automatiquement par \MontreCode{tkz-grapheur.sty} : les commandes graphiques en français et en anglais d'une part, les macros de calcul d'autre part.
+
+\begin{center}
+	\begin{tikzpicture}[
+	every node/.style={font=\footnotesize\sffamily},
+	boite/.style={draw,rounded corners=4pt,minimum width=3cm,minimum height=1.2cm,
+		align=center,line width=0.5pt},
+	fleche/.style={->,>=latex,line width=0.6pt},
+	flechetiret/.style={<-,>=latex,line width=0.6pt,dashed}
+	]
+	%-- nœuds
+	\node[boite,fill=violet!15,draw=violet!60] (sty) at (0,0)
+	{\textbf{tkz-grapheur.sty}\\{\footnotesize\color{gray}chargement + styles + options}};
+	\node[boite,fill=teal!15,draw=teal!60] (fr) at (-6,-4)
+	{\textbf{tkz-grapheur-fr.tex}\\{\footnotesize\color{gray}commandes FR}};
+	\node[boite,fill=teal!15,draw=teal!60] (en) at (-2,-4)
+	{\textbf{tkz-grapheur-en.tex}\\{\footnotesize\color{gray}commandes EN}};
+	\node[boite,fill=orange!15,draw=orange!60] (calc) at (2,-4)
+	{\textbf{tkz-grapheur-calc.tex}\\{\footnotesize\color{gray}macros calculatoires}};
+	\node[boite,fill=orange!15,draw=orange!60] (lua) at (6,-4)
+	{\textbf{tkz-grapheur-lua.tex}\\{\footnotesize\color{gray}macros LUA}};
+	%-- flèches \input
+	\draw[fleche] (sty) -- node[fill=white,inner sep=1pt,font=\scriptsize\ttfamily,pos=0.5]  {\textbackslash input} (fr);
+	\draw[fleche] (sty) -- node[fill=white,inner sep=1pt,font=\scriptsize\ttfamily,pos=0.5] {\textbackslash input} (en);
+	\draw[fleche] (sty) -- node[fill=white,inner sep=1pt,font=\scriptsize\ttfamily,pos=0.5] {\textbackslash input} (calc);
+	\draw[fleche] (sty) -- node[fill=white,inner sep=1pt,font=\scriptsize\ttfamily,pos=0.5] {\textbackslash input} (lua);
+	%-- flèches utilisation
+	\draw[flechetiret] (fr)  to[bend right=20] (calc);
+	\draw[flechetiret] (en) -- (calc);
+	%-- légende
+	\matrix[below right,font=\footnotesize\sffamily] at ($(fr.south west)+(0,-0.375)$) {
+		%\draw[fleche]       (0,0) -- (0.6,0); & \node[right]{~~\texttt{\textbackslash input} direct}; \\[4pt]
+		\draw[flechetiret]  (0,0) -- (0.75,0); & \node[right]{utilise des macros}; \\
+	};
+\end{tikzpicture}
+\end{center}
 
 \pagebreak
 
@@ -580,32 +713,40 @@ Il existe de plus 6 thèmes prédéfinis de couleurs pour les grilles, parmi :
 \end{tcblisting}
 
 \begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5,text only}
-\begin{GraphiqueTikz}[x=0.9cm,y=0.9cm]<Theme=standard,Milli>
+\begin{GraphiqueTikz}[x=0.9cm,y=0.9cm,Xmin=-1,Ymin=-1]<Theme=standard,Milli>
 	\TracerAxesGrilles[Elargir=2.5mm,Police=\small,Grille Intermediaire]{auto}{auto}
 	\PlacerTexte[Position=above,Police=\large\ttfamily]{([yshift=2.5mm]0,\pflymax)}{Theme=standard}
 \end{GraphiqueTikz}
-\begin{GraphiqueTikz}[x=0.9cm,y=0.9cm]<Theme=gris,Milli>
+\begin{GraphiqueTikz}[x=0.9cm,y=0.9cm,Xmin=-1,Ymin=-1]<Theme=gris,Milli>
 	\TracerAxesGrilles[Elargir=2.5mm,Police=\small,Grille Intermediaire]{auto}{auto}
 	\PlacerTexte[Position=above,Police=\large\ttfamily]{([yshift=2.5mm]0,\pflymax)}{Theme=gris}
 \end{GraphiqueTikz}
 
-\begin{GraphiqueTikz}[x=0.9cm,y=0.9cm]<Theme=bleu,Milli>
+\begin{GraphiqueTikz}[x=0.9cm,y=0.9cm,Xmin=-1,Ymin=-1]<Theme=bleu,Milli>
 	\TracerAxesGrilles[Elargir=2.5mm,Police=\small,Grille Intermediaire]{auto}{auto}
 	\PlacerTexte[Position=above,Police=\large\ttfamily]{([yshift=2.5mm]0,\pflymax)}{Theme=bleu}
 \end{GraphiqueTikz}
-\begin{GraphiqueTikz}[x=0.9cm,y=0.9cm]<Theme=vert,Milli>
+\begin{GraphiqueTikz}[x=0.9cm,y=0.9cm,Xmin=-1,Ymin=-1]<Theme=vert,Milli>
 	\TracerAxesGrilles[Elargir=2.5mm,Police=\small,Grille Intermediaire]{auto}{auto}
 	\PlacerTexte[Position=above,Police=\large\ttfamily]{([yshift=2.5mm]0,\pflymax)}{Theme=vert}
 \end{GraphiqueTikz}
 
-\begin{GraphiqueTikz}[x=0.9cm,y=0.9cm]<Theme=chaud,Milli>
+\begin{GraphiqueTikz}[x=0.9cm,y=0.9cm,Xmin=-1,Ymin=-1]<Theme=chaud,Milli>
 	\TracerAxesGrilles[Elargir=2.5mm,Police=\small,Grille Intermediaire]{auto}{auto}
 	\PlacerTexte[Position=above,Police=\large\ttfamily]{([yshift=2.5mm]0,\pflymax)}{Theme=chaud}
 \end{GraphiqueTikz}
-\begin{GraphiqueTikz}[x=0.9cm,y=0.9cm]<Theme=contraste,Milli>
+\begin{GraphiqueTikz}[x=0.9cm,y=0.9cm,Xmin=-1,Ymin=-1]<Theme=contraste,Milli>
 	\TracerAxesGrilles[Elargir=2.5mm,Police=\small,Grille Intermediaire]{auto}{auto}
 	\PlacerTexte[Position=above,Police=\large\ttfamily]{([yshift=2.5mm]0,\pflymax)}{Theme=contraste}
 \end{GraphiqueTikz}
+\end{tcblisting}
+
+Les épaisseurs des traits pour ce type de grille sont données (et modifiables) via :
+
+\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5,listing only}
+\setlength\pflthickgridp{0.65pt}    %épaisseur grille principale
+\setlength\pflthickgridi{0.5pt}     %épaisseur grille intermédiaire
+\setlength\pflthickgrids{0.35pt}    %épaisseur grille secondaire
 \end{tcblisting}
 
 \pagebreak
@@ -709,6 +850,55 @@ Les nœuds créés seront de ce fait accessibles via \MontreCode{(<nomfigure>-gr
 
 \section{Commandes spécifiques de définitions}
 
+\subsection{Création de fonctions hors environnement}\label{genererfct}
+
+Ces commandes permettent de définir des fonctions \textsf{xint} accessibles
+en dehors d'un environnement \MontreCode{GraphiqueTikz}, notamment pour
+les calculs numériques ou les exercices sans graphique.
+
+La version étoilée force une définition \textbf{globale}.
+
+\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5,listing only}
+%fonction simple
+\GenererFonction<nom>{expr}
+
+%fonction globale (version étoilée) si besoin
+\GenererFonction*<nom>{expr}
+\end{tcblisting}
+
+\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5}
+%définition hors environnement
+\GenererFonction<f>{x^2+2*x-3}
+
+%calculs sans graphique
+$f(2) = \xintfloateval{f(2)}$
+
+\tkzgCalcIntegrale*{f(x)}{0}{3}[\monres]
+$\displaystyle\int_0^3 f(x)\,dx \approx \monres$
+
+\tkzgResolApproch*{f(x)=0}{-5:0}[\myzero]
+La racine négative est $x \approx \myzero$.
+\end{tcblisting}
+
+\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5,listing only}
+%famille de fonctions
+\GenererFamilleFonctions<nom famille>{expr, avec paramètre n}{début n}{fin n}
+
+%famille globale (version étoilée)
+\GenererFamilleFonctions*<nom famille>{expr, avec paramètre n}{début n}{fin n}
+\end{tcblisting}
+
+\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5}
+%définition hors environnement
+\GenererFamilleFonctions<parab>{n*x^2}{1}{4}
+
+%calculs sur un membre de la famille
+$f_2(3) = \xintfloateval{parab_2(3)}$
+
+\tkzgCalcIntegrale*{parab_3(x)}{0}{2}[\monres]
+$\displaystyle\int_0^2 f_3(x)\,dx \approx \monres$
+\end{tcblisting}
+
 \subsection{Tracer une droite}\label{tracdroite}
 
 L'idée est de proposer une commande pour tracer une droite, à partir :
@@ -753,7 +943,9 @@ Les \MontreCode{[clés]}, optionnelles, disponibles sont :
 
 \pagebreak
 
-\subsection{Définir une fonction, tracer la courbe d'une fonction}\label{deftracfct}
+\subsection{Gestion de fonctions, de courbes}
+
+\subsubsection{Définir une fonction, tracer la courbe d'une fonction}\label{deftracfct}
 
 L'idée est de définir une fonction, pour réutilisation ultérieure. Cette commande \textit{crée} la fonction, sans la tracer, car dans certains cas des éléments devront être tracés au préalable.
 
@@ -778,7 +970,10 @@ Les \MontreCode{[clés]} pour la définition ou le tracé, optionnelles, disponi
 	\item \MontreCode{Couleur} : couleur du tracé (\MontreCode{black} par défaut) ;
 	\item \MontreCode{Pas} : pas du tracé (il est déterminé \textit{automatiquement} au départ mais peut être modifié) ;
 	\item \MontreCode{StyleTrace} : style du tracé (\MontreCode{vide} par défaut) ;
-	\item \MontreCode{Trace} : booléen pour tracer également la courbe (\MontreCode{false} par défaut).
+	\item \MontreCode{Trace} : booléen pour tracer également la courbe (\MontreCode{false} par défaut) ;
+	\item \MontreCode{DefGlobale} : booléen (\MontreCode{false} par défaut) 
+	pour rendre la définition de la fonction \textsf{xint} globale, 
+	accessible après l'environnement \MontreCode{GraphiqueTikz}.
 \end{itemize}
 
 \begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5}
@@ -797,7 +992,7 @@ Les \MontreCode{[clés]} pour la définition ou le tracé, optionnelles, disponi
 
 \pagebreak
 
-\subsection{Définir/tracer une courbe d'interpolation (simple)}\label{deftracinterpo}
+\subsubsection{Définir/tracer une courbe d'interpolation (simple)}\label{deftracinterpo}
 
 Il est également possible de définir une courbe via des points supports, donc une courbe d'interpolation simple.
 
@@ -835,7 +1030,7 @@ L'argument obligatoire permet quant à lui de spécifier la liste des points sup
 
 \newpage
 
-\subsection{Définir/tracer une courbe d'interpolation (Hermite)}\label{deftracfctspline}
+\subsubsection{Définir/tracer une courbe d'interpolation (Hermite)}\label{deftracfctspline}
 
 Il est également possible de définir une courbe via des points supports, donc une courbe d'interpolation avec contrôle de la dérivée.
 
@@ -883,7 +1078,7 @@ L'argument obligatoire permet quant à lui de spécifier la liste des points sup
 \end{GraphiqueTikz}
 \end{tcblisting}
 
-\subsection{Définir/tracer une courbe d'interpolation (Lagrange)}\label{lagrangeinterpo}
+\subsubsection{Définir/tracer une courbe d'interpolation (Lagrange)}\label{lagrangeinterpo}
 
 Il est également possible de définir une courbe d'interpolation de Lagrange (merci à \textit{JF Burnol} pour son aide !).
 
@@ -939,7 +1134,9 @@ Une commande spécifique de placements des points est également disponible, afi
 
 \pagebreak
 
-\subsection{Définir des points sous forme de nœuds}\label{defpts}
+\subsection{Gestion de points}
+
+\subsubsection{Définir des points sous forme de nœuds}\label{defpts}
 
 La seconde idée est de travailler avec des nœuds \TikZ, qui pourront être utiles pour des tracés de tangentes, des représentations d'intégrales$\ldots$
 
@@ -998,7 +1195,7 @@ Le premier argument obligatoire est l'\textit{objet} considéré (nom de la cour
 
 \pagebreak
 
-\subsection{Marquage de points}\label{markpts}
+\subsubsection{Marquage de points}\label{markpts}
 
 L'idée est de proposer de quoi marquer des points avec un style particulier.
 
@@ -1029,11 +1226,11 @@ Les \MontreCode{[clés]}, optionnelles, disponibles sont :
 \begin{GraphiqueTikz}[x=1.5cm,y=1.5cm,Ymin=-2]
 	\TracerAxesGrilles[Elargir=2.5mm]{auto}{auto}
 	\DefinirPts{A/1.75,-1.25}\MarquerPts[Couleur=pink]{(A)/A/below} %rond (par défaut)
-	\MarquerPts[Couleur=teal]{(1,1)/M/below}
+	\MarquerPts[Style=ggb,Couleur=darkgray/teal]{(1,1)/M/below}
 	\MarquerPts[Couleur=red,Style=x]{(1.25,1)/$A$/below} %croix
 	\MarquerPts[Couleur=orange,Style=+]<\small\sffamily>{(1.5,1)/K/below} %plus
 	\MarquerPts[Couleur=blue,Style=c]{(1.75,1)/P/below} %carré
-	\MarquerPts[Couleur=gray,Style=d]{(2,1)/P/below} %diamant
+	\MarquerPts[Couleur=gray,Style=d]{(2,1)/Q/below} %diamant
 	\MarquerPts*[Couleur=orange/yellow]{(2,2),(2.5,2.25)} %rond bicolore
 	\MarquerPts*[Style=+,Couleur=red]{(1,2)}
 	\MarquerPts*[Style=x,Couleur=blue]{(2.25,1)}
@@ -1061,7 +1258,7 @@ Les \MontreCode{[clés]}, optionnelles, disponibles sont :
 \end{GraphiqueTikz}
 \end{tcblisting}
 
-\subsection{Marquer des points de discontinuité}\label{ptsdiscont}
+\subsubsection{Marquer des points de discontinuité}\label{ptsdiscont}
 
 Il est possible de marquer des points de discontinuité, mais c'est commande est \textit{déconnectée} des commandes de tracé de courbes/splines.
 
@@ -1182,7 +1379,9 @@ Le premier argument obligatoire, permet de spécifier :
 
 \pagebreak
 
-\subsection{Détermination d'antécédents}\label{defanteced}
+\subsection{Antécédents}
+
+\subsubsection{Détermination d'antécédents}\label{defanteced}
 
 Il est possible de déterminer graphiquement les antécédents d'un réel donné.
 
@@ -1190,7 +1389,8 @@ La fonction/courbe utilisée doit avoir été déclarée précédemment pour que
 
 \begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5,listing only}
 %dans l'environnement GraphiqueTikz
-\TrouverAntecedents[clés]{courbe}{k}
+\TrouverAntecedents[clés]{courbe}{k}<\myantec>
+\TrouverRacines[clés]{courbe}<\myantec>
 \end{tcblisting}
 
 Les \MontreCode{[clés]}, optionnelles, disponibles sont :
@@ -1199,6 +1399,7 @@ Les \MontreCode{[clés]}, optionnelles, disponibles sont :
 
 \begin{itemize}
 	\item \MontreCode{Nom} : base du nom des \textbf{nœuds} intersection (\MontreCode{S} par défaut, ce qui donnera \textsf{S-1}, \textsf{S-2}, etc) ;
+	\item \MontreCode{ListeRes} : permet (si non vide) de créer une macro contenant les différentes solutions ;
 	\item \MontreCode{Aff} : booleen pour afficher les points (\MontreCode{true} par défaut) ;
 	\item \MontreCode{Couleur} : couleur des points (\MontreCode{black} par défaut) ;
 	\item \MontreCode{AffDroite} : booleen pour afficher la droite horizontale (\MontreCode{false} par défaut).
@@ -1212,33 +1413,40 @@ Le premier argument obligatoire, permet de spécifier le \textbf{nom} de la cour
 
 Le second argument obligatoire, permet de spécifier la valeur à atteindre.
 
+\smallskip
+
+Le dernier argument, optionnel, permet de stocker le nombre d'antécédents.
+
+\medskip
+
+À noter que \MontreCode{ListeRes} (nom de la \textbf{macro} dans laquelle sera stockée
+la liste CSV des abscisses des intersections) via \MontreCode{ListeRes=mesracines}, permet de créer
+la macro \verb|\mesracines| exploitable ensuite via
+\MontreCode{\textbackslash tkzgCalcElementListe},
+\MontreCode{\textbackslash tkzgCalcLongueurListe} ou
+\MontreCode{\textbackslash xintFor*}.
+
 \begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5}
 \begin{GraphiqueTikz}%
 	[x=0.9cm,y=0.425cm,Xmin=4,Xmax=20,Origx=4,
-	Ymin=40,Ymax=56,Ygrille=2,Ygrilles=1,Origy=40]
-	\TracerAxesGrilles[Elargir=2.5mm,Police=\small]{4,5,...,20}{40,42,...,56}
+	Ymin=46,Ymax=56,Ygrille=2,Ygrilles=1,Origy=46]
+	\TracerAxesGrilles[Elargir=2.5mm,Police=\small]{4,5,...,20}{46,48,...,56}
 	%définition de la fonction + tracé de la courbe
 	\DefinirCourbe[Nom=cf,Debut=5,Fin=19,Trace,Couleur=red]<f>{-2*x+3+24*log(2*x)}
 	%antécédents
-	\TrouverAntecedents[Couleur=teal,AffDroite,Aff]{cf}{53}
+	\TrouverAntecedents%
+		[Couleur=teal,AffDroite,Aff,ListeRes=listesols]%
+		{cf}{53}<\nbsols>
 	%les deux antécédents sont aux nœuds (S-1) et (S-2)
 \end{GraphiqueTikz}
-\end{tcblisting}
 
-%Les \MontreCode{[clés]}, optionnelles, disponibles sont :
-%
-%\smallskip
-%
-%\begin{itemize}
-%	\item \MontreCode{Nom} : base du nom des \textbf{nœuds} intersection (\MontreCode{S} par défaut, ce qui donnera \textsf{S-1}, \textsf{S-2}, etc) ;
-%	\item \MontreCode{Aff} : booleen pour afficher les points (\MontreCode{true} par défaut) ;
-%	\item \MontreCode{Couleur} : couleur des points (\MontreCode{black} par défaut) ;
-%	\item \MontreCode{AffDroite} : booleen pour afficher la droite horizontale (\MontreCode{false} par défaut).
-%\end{itemize}
+Il y a donc \nbsols\ solutions, qui sont 
+$\left\lbrace \listesols\right\rbrace$.
+\end{tcblisting}
 
 \pagebreak
 
-\subsection{Construction d'antécédents}\label{tracanteced}
+\subsubsection{Construction d'antécédents}\label{tracanteced}
 
 Il est possible de construire graphiquement les antécédents d'un réel donné.
 
@@ -1296,7 +1504,7 @@ Il est également possible de déterminer (sous forme de nœuds) les éventuels 
 
 \begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5,listing only}
 %dans l'environnement GraphiqueTikz
-\TrouverIntersections[clés]{courbe1}{courbe2}
+\TrouverIntersections[clés]{courbe1}{courbe2}<\myt>
 \end{tcblisting}
 
 Les \MontreCode{[clés]}, optionnelles, disponibles sont :
@@ -1305,6 +1513,7 @@ Les \MontreCode{[clés]}, optionnelles, disponibles sont :
 
 \begin{itemize}
 	\item \MontreCode{Nom} : base du nom des \textbf{nœuds} intersection (\MontreCode{S} par défaut, ce qui donnera \textsf{S-1}, \textsf{S-2}, etc) ;
+	\item \MontreCode{ListeRes} : permet (si non vide) de créer une macro contenant les différentes solutions ;
 	\item \MontreCode{Aff} : booléen pour afficher les points (\MontreCode{true} par défaut) ;
 	\item \MontreCode{Couleur} : couleur des points (\MontreCode{black} par défaut).
 \end{itemize}
@@ -1316,6 +1525,19 @@ Le premier argument obligatoire, permet de spécifier le \textbf{nom} de la prem
 \smallskip
 
 Le premier argument obligatoire, permet de spécifier le \textbf{nom} de la seconde courbe.
+
+\smallskip
+
+Le dernier argument, optionnel, permet de stocker le nombre d'antécédents.
+
+\medskip
+
+À noter que \MontreCode{ListeRes} (nom de la \textbf{macro} dans laquelle sera stockée
+la liste CSV des abscisses des intersections) via \MontreCode{ListeRes=mesracines}, permet de créer
+la macro \verb|\mesracines| exploitable ensuite via
+\MontreCode{\textbackslash tkzgCalcElementListe},
+\MontreCode{\textbackslash tkzgCalcLongueurListe} ou
+\MontreCode{\textbackslash xintFor*}.
 
 \begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5}
 \begin{GraphiqueTikz}%
@@ -1600,7 +1822,9 @@ Le dernier argument obligatoire est le point de travail (version abscisse ou nœ
 
 \pagebreak
 
-\subsection{Nuage de points d'une suite}\label{nuagesuite}
+\subsection{Suites}
+
+\subsubsection{Nuage de points d'une suite}\label{nuagesuite}
 
 Il est possible de représenter les premiers termes d'une suite sous forme de nuage de points.
 
@@ -1633,7 +1857,7 @@ Les clés disponibles sont :
 
 \pagebreak
 
-\subsection{Suites récurrentes et toiles}\label{toilerecurr}
+\subsubsection{Suites récurrentes et toiles}\label{toilerecurr}
 
 L'idée est d'obtenir une commande pour tracer la \og toile \fg{} permettant d'obtenir -- graphiquement -- les termes d'une suite récurrente définie par une relation $u_{n+1}=f(u_n)$.
 
@@ -3004,6 +3228,395 @@ Les \MontreCode{Clés} disponibles sont :
 
 \pagebreak
 
+\subsection{Familles de courbes}\label{famcourbes}
+
+\begin{itemize}
+	\item Les commandes de familles de courbes sont \textbf{expérimentales}
+	et leur syntaxe pourra évoluer dans les versions futures.
+	\item Le paramètre de la famille est noté \MontreCode{n} dans
+	l'expression — il sera substitué par chaque valeur entière de
+	l'intervalle \MontreCode{\{début n\}\{fin n\}}.
+\end{itemize}
+
+\subsubsection{Définition et tracé dans l'environnement}
+
+\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5,listing only}
+\DefinirFamilleCourbes[clés]<nom>{expr avec n}{début}{fin}
+\end{tcblisting}
+
+\begin{itemize}
+	\item \MontreCode{<nom>} : nom de la famille, utilisé comme
+	base des fonctions \textsf{xint} (\MontreCode{nom\_1},
+	\MontreCode{nom\_2}...) et des \emph{name paths}
+	(\MontreCode{famille-nom-1}, \MontreCode{famille-nom-2}...) ;
+	\item \MontreCode{\{expr\}} : expression avec \MontreCode{n}
+	comme paramètre entier ;
+	\item \MontreCode{\{début\}\{fin\}} : bornes entières de l'intervalle ;
+	\item \MontreCode{Trace} : booléen pour tracer les courbes
+	(\MontreCode{false} par défaut) ;
+	\item \MontreCode{Couleurs} : liste CSV de couleurs explicites ;
+	\item \MontreCode{CouleurBase} : couleur de base pour un dégradé
+	automatique ;
+	\item \MontreCode{Couleur} : couleur unique pour toutes les courbes
+	(\MontreCode{black} par défaut) ;
+	\item \MontreCode{Debut}/\MontreCode{Fin} : bornes de tracé
+	(valeurs de l'environnement par défaut) ;
+	\item \MontreCode{DefGlobale} : booléen pour rendre les fonctions
+	\textsf{xint} globales (\MontreCode{false} par défaut).
+\end{itemize}
+
+\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5}
+\begin{GraphiqueTikz}[x=1.5cm,y=0.75cm,Xmin=-3,Xmax=3,Ymin=-1,Ymax=10]
+	\TracerAxesGrilles{auto}{auto}
+	% famille n*x^2 pour n=1..4, couleurs explicites
+	\DefinirFamilleCourbes%
+		[Trace,Couleurs={blue,red,green,orange}]%
+		<parab>{n*x^2}{1}{4}
+	% exploitable dans l'environnement
+	\TrouverAntecedents[Traits,Couleur=red]{famille-parab-2}{4}
+	\TracerTangente[Couleur=blue]{parab_3}{1.5}
+\end{GraphiqueTikz}
+\end{tcblisting}
+
+\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5}
+\begin{GraphiqueTikz}[x=1.5cm,y=0.5cm,Xmin=-2,Xmax=3,Ymin=-1,Ymax=8]
+	\TracerAxesGrilles{auto}{auto}
+	% famille exp(n*x) avec dégradé automatique
+	\DefinirFamilleCourbes%
+		[Trace,CouleurBase=red,RestreindreY]%
+		<expo>{exp(n*x)}{1}{4}
+\end{GraphiqueTikz}
+\end{tcblisting}
+
+\subsubsection{Fonctionnement hors/dans environnement}
+
+\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5,listing only}
+%hors environnement → fonctions xint globales
+\GenererFamilleFonctions<parab>{n*x^2}{1}{4}
+
+%dans environnement → tracé uniquement
+\TracerFamilleCourbes[clés]<parab>
+\end{tcblisting}
+
+\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5}
+\begin{GraphiqueTikz}[x=1.5cm,y=0.75cm,Xmin=-3,Xmax=3,Ymin=-1,Ymax=10]
+	\TracerAxesGrilles{auto}{auto}
+	\DefinirFamilleCourbes[Trace,Couleurs={blue,red,green,orange},DefGlobale]%
+		<parab>{n*x^2}{1}{4}
+	\TrouverAntecedents[Traits,Couleur=red]{famille-parab-2}{4}
+\end{GraphiqueTikz}
+
+%après — fonctions accessibles globalement
+$f_2(3) = \xintfloateval{parab_2(3)}$
+
+\tkzgCalcIntegrale*{parab_2(x)}{0}{2}[\monres]
+$\displaystyle\int_0^2 f_2(x)\,\text{d}x \approx \monres$
+\end{tcblisting}
+
+\pagebreak
+
+\subsection{Graphiques semi-logarithmiques et log-log (expérimental)}\label{loglog}
+
+\subsubsection{Environnements}
+
+\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5,listing only}
+% semi-log (axe Y logarithmique)
+\begin{GraphiqueTikzSemiLog}[...]<...>
+	\TracerAxesGrillesSemiLog[clés]{valeurs X}
+	\TracerCourbeSemiLog[clés]{expression}
+	\TracerNuageSemiLog[clés]{liste X}{liste Y}
+\end{GraphiqueTikzSemiLog}
+
+% log-log (deux axes logarithmiques)
+\begin{GraphiqueTikzLogLog}[...]<...>
+	\TracerAxesGrillesLogLog[clés]
+	\TracerCourbeLogLog[clés]{expression}
+	\TracerNuageLogLog[clés]{liste X}{liste Y}
+\end{GraphiqueTikzLogLog}
+\end{tcblisting}
+
+\begin{itemize}
+	\item \MontreCode{Ymin}/\MontreCode{Ymax} : valeurs réelles
+	(ex: \MontreCode{Ymin=0.01,Ymax=1000}) qui \textbf{doivent} être des
+	puissances de 10 ;
+	\item \MontreCode{Puissance} : booléen (\MontreCode{true} par défaut) qui affiche \MontreCode{$10^n$} sur l'axe \texttt{Y}, sinon la valeur décimale.
+\end{itemize}
+
+\subsubsection{Exemples}
+
+\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5}
+\begin{GraphiqueTikzSemiLog}%
+		[x=1.5cm,y=1.5cm,Xmin=0,Xmax=8,Ymin=0.001,Ymax=100,Xgrille=1,Xgrilles=0.5]%
+		<Theme=bleu>
+	\TracerAxesGrillesSemiLog[Elargir=2.5mm]{0,...,8}
+\end{GraphiqueTikzSemiLog}
+\end{tcblisting}
+
+\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5}
+\begin{GraphiqueTikzLogLog}%
+		[x=1.5cm,y=1.5cm,Xmin=0.01,Xmax=1000,Ymin=0.1,Ymax=1000]<Theme=chaud>
+	\TracerAxesGrillesLogLog[Elargir=2.5mm]
+\end{GraphiqueTikzLogLog}
+\end{tcblisting}
+
+\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5}
+\begin{GraphiqueTikzSemiLog}%
+		[x=1cm,y=1cm,Xmin=0,Xmax=8,Ymin=0.1,Ymax=10000,Xgrille=1,Xgrilles=0.5]
+	\TracerAxesGrillesSemiLog{auto}
+	% f(x) = 10^(x/4) → droite en semi-log
+	\TracerCourbeSemiLog[Couleur=blue]{10^(x/4)}
+	% g(x) = exp(x) 
+	\TracerCourbeSemiLog[Couleur=red]{exp(x)}
+	% h(x) = x^2+1
+	\TracerCourbeSemiLog[Couleur=green]{x^2+1}
+\end{GraphiqueTikzSemiLog}
+\end{tcblisting}
+
+\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5}
+\begin{GraphiqueTikzLogLog}%
+		[x=1.5cm,y=1.5cm,Xmin=0.01,Xmax=1000,Ymin=0.1,Ymax=10000]<Theme=vert>
+	\TracerAxesGrillesLogLog
+	% f(x) = x^2 → droite de pente 2 en log-log
+	\TracerCourbeLogLog[Couleur=blue]{x^2}
+	% g(x) = x^(0.5) → droite de pente 0.5
+	\TracerCourbeLogLog[Couleur=red]{sqrt(x)}
+	% h(x) = x^3 → droite de pente 3
+	\TracerCourbeLogLog[Couleur=green]{x^3}
+\end{GraphiqueTikzLogLog}
+\end{tcblisting}
+
+\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5}
+\begin{GraphiqueTikzSemiLog}%
+		[x=1.5cm,y=1.5cm,Xmin=0,Xmax=8,Ymin=1,Ymax=1000,Xgrille=1,Xgrilles=0.5]
+	\TracerAxesGrillesSemiLog[Elargir=2.5mm,Puissance=false]{auto}
+	% courbe théorique
+	\TracerCourbeSemiLog[Couleur=blue]{2*10^(0.3*x)}
+	% nuage de points (avec un peu de bruit)
+	\TracerNuageSemiLog
+	{0,1,2,3,4,5,6,7,8}%
+	{2.2, 3.8, 8.1, 14.9, 33.2, 61.8, 128.4, 248.7, 498.3}
+\end{GraphiqueTikzSemiLog}
+\end{tcblisting}
+
+\pagebreak
+
+\subsection{Nuages de points avec transformation}\label{nuagetransfo}
+
+Les commandes suivantes permettent de tracer un nuage de points en appliquant
+une transformation aux données avant le tracé — utile pour la linéarisation
+de modèles non linéaires.
+
+\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5,listing only}
+\TracerNuagePoints[ModeTransfo=...,Clés points]{liste X}{liste Y}
+\end{tcblisting}
+
+\begin{itemize}
+  \item \MontreCode{ModeTransfo} : transformation appliquée aux données
+  avant le tracé (\MontreCode{lin} par défaut) ;
+  \item \MontreCode{[Clés points]} : clés passées à \MontreCode{\textbackslash MarquerPts} (style, couleur...).
+\end{itemize}
+
+\begin{tcolorbox}[colframe=orange,colback=orange!5]
+Les modes \MontreCode{semilogx}, \MontreCode{semilogy} et \MontreCode{loglog} nécessitent d'être dans un environnement \MontreCode{GraphiqueTikzSemiLog} ou \MontreCode{GraphiqueTikzLogLog}
+: les variables de translation \MontreCode{\textbackslash pflslogexpomin} et \MontreCode{\textbackslash pflslogexpominx} doivent être définies.
+\end{tcolorbox}
+
+Le tableau suivant récapitule les modes disponibles~:
+
+\begin{center}
+\begin{tblr}{colspec={Q[l,m]Q[c,m]Q[c,m]},hlines,row{1}={bg=gray!25,font=\bfseries}}
+  Mode & X tracé & Y tracé \\
+  \texttt{lin} & $x$ & $y$ \\
+  \texttt{lnx} / \texttt{lny} / \texttt{lnxy} & $\ln(x)$ & $\ln(y)$ \\
+  \texttt{log10x} / \texttt{log10y} / \texttt{log10xy} & $\log_{10}(x)$ & $\log_{10}(y)$ \\
+  \texttt{expx} / \texttt{expy} / \texttt{expxy} & $\text{e}^x$ & $\text{e}^y$ \\
+  \texttt{invx} / \texttt{invy} / \texttt{invxy} & $1/x$ & $1/y$ \\
+  \texttt{sqrtx} / \texttt{sqrty} / \texttt{sqrtxy} & $\sqrt{x}$ & $\sqrt{y}$ \\
+  \texttt{carrex} / \texttt{carrey} / \texttt{carrexy} & $x^2$ & $y^2$ \\
+  \texttt{semilogx} / \texttt{semilogy} & \SetCell[c=2]{c}{$\log_{10}$ + translation (SemiLog)} \\
+  \texttt{loglog} & \SetCell[c=2]{c}{$\log_{10}$ + translation (LogLog)} \\
+\end{tblr}
+\end{center}
+
+\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5}
+\def\listeX{15,20,25,30,35,40}
+\def\listeY{44.4,27.0,16.3,10.0,6.2,3.5}
+
+%nuage brut
+\begin{GraphiqueTikz}%
+    [x=0.3cm,y=0.1cm,Origx=10,Xmin=10,Xmax=45,%
+    Ymin=0,Ymax=50,Xgrille=5,Ygrille=10,Ygrilles=10]
+  \TracerAxesGrilles{auto}{auto}
+  \TracerNuagePoints[Style=x,Couleur=blue]{\listeX}{\listeY}
+\end{GraphiqueTikz}
+
+%nuage transformé z=ln(y)
+\begin{GraphiqueTikz}%
+    [x=0.3cm,y=1cm,Origx=10,Xmin=10,Xmax=45,Ymin=0,Ymax=5,Xgrille=5,Ygrille=1]
+  \TracerAxesGrilles{auto}{auto}
+  \TracerNuagePoints[ModeTransfo=lny,Style=x,Couleur=red]{\listeX}{\listeY}
+\end{GraphiqueTikz}
+\end{tcblisting}
+
+\pagebreak
+
+\subsection{Lecture de fichiers CSV}\label{csv}
+
+\begin{tcolorbox}[colframe=orange,colback=orange!5]
+Ces commandes nécessitent le chargement préalable de \MontreCode{csvsimple}, un avertissement est émis sinon.
+\end{tcolorbox}
+
+\subsubsection{Tracer directement depuis un CSV}
+
+\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5,listing only}
+%usepackage{csvsimple}
+\TracerNuageDepuisCSV[Clés]<Clés points>{fichier.csv}{colX}{colY}
+\end{tcblisting}
+
+\begin{itemize}
+  \item \MontreCode{ModeTransfo} : même modes que \MontreCode{\textbackslash TracerNuagePoints} (\MontreCode{lin} par défaut) ;
+  \item \MontreCode{Separateur} : séparateur CSV (\MontreCode{semicolon} par défaut) ;
+  \item \MontreCode{MaxLignes} : nombre maximum de lignes traitées (\MontreCode{100000} par défaut) — utile pour limiter le temps de compilation ;
+  \item \MontreCode{<Clés points>} : clés passées à \MontreCode{\textbackslash MarquerPts}.
+\end{itemize}
+
+\begin{filecontents*}{datatestgrapheur.csv}
+n;x;y
+1;10;245
+2;20;189
+3;30;142
+4;40;98
+5;50;67
+6;60;45
+7;70;31
+8;80;21
+9;90;14
+10;100;9
+\end{filecontents*}
+
+\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5,listing only}
+\begin{filecontents*}{datatestgrapheur.csv}
+n;x;y
+1;10;245
+2;20;189
+3;30;142
+4;40;98
+5;50;67
+6;60;45
+7;70;31
+8;80;21
+9;90;14
+10;100;9
+\end{filecontents*}
+\end{tcblisting}
+
+\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5}
+%nuage brut
+\begin{GraphiqueTikz}%
+		[x=0.08cm,y=0.02cm,Xmin=0,Xmax=110,%
+		Ymin=0,Ymax=250,Xgrille=10,Xgrilles=10,Ygrille=50,Ygrilles=50]
+	\TracerAxesGrilles{auto}{auto}
+	\TracerNuageDepuisCSV<Style=x,Couleur=blue>{datatestgrapheur.csv}{x}{y}
+\end{GraphiqueTikz}
+\end{tcblisting}
+
+\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5}
+% nuage transformé lny
+\begin{GraphiqueTikz}%
+		[x=0.08cm,y=0.833cm,Xmin=0,Xmax=110,Ymin=0,Ymax=6,Xgrille=10,Xgrilles=10,Ygrilles=1]
+	\TracerAxesGrilles*{auto}{auto}
+	\TracerNuageDepuisCSV%
+		[ModeTransfo=lny]%
+		<Style=x,Couleur=red>{datatestgrapheur.csv}{x}{y}
+\end{GraphiqueTikz}
+\end{tcblisting}
+
+\subsubsection{Créer des listes depuis un CSV}
+
+Si l'on préfère stocker les données dans des macros avant de les utiliser~:
+
+\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5,listing only}
+\CreerListesDepuisCSV[clés]{fichier.csv}{colX}{colY}{nomMacroX}{nomMacroY}
+\end{tcblisting}
+
+\begin{itemize}
+  \item \MontreCode{\{nomMacroX\}/\{nomMacroY\}} : noms des macros de sortie (sans \textbackslash), qui créent \MontreCode{\textbackslash nomMacroX} et \MontreCode{\textbackslash nomMacroY} ;
+  \item mêmes clés \MontreCode{ModeTransfo}, \MontreCode{Separateur}, \MontreCode{MaxLignes} que \MontreCode{\textbackslash TracerNuageDepuisCSV}.
+\end{itemize}
+
+\pagebreak
+
+\subsection{Courbes implicites (LuaLaTeX)}\label{implicit}
+
+\subsubsection{Principe}
+
+La commande \MontreCode{\textbackslash TracerCourbeImplicite} permet de tracer une courbe définie implicitement par $f(x,y)=0$, en utilisant l'algorithme des \textit{marching squares} : le repère est découpé en une grille de cellules, et pour chaque cellule, on détecte les changements de signe de $f$ sur les arêtes par interpolation linéaire.
+
+\smallskip
+
+\textbf{Prérequis :} cette commande nécessite une compilation en \hologo{LuaLaTeX} (\MontreCode{luacode} est chargé par \MontreCode{tkz-grapheur}).
+
+\smallskip
+
+{\scriptsize\faBomb}~Cette commande est \textit{alpha}-expérimentale, donc beaucoup de prudence sur son utilisation :
+
+\begin{itemize}
+	\item pas de gestion des valeurs interdites\ldots
+	\item possibilité de \textit{bruit} suivant la précision des calculs et de la tolérance\ldots
+	\item temps de compilation qui peut être elevé pour des \textit{grands} graphique\ldots
+\end{itemize}
+
+\subsubsection{Syntaxe}
+
+\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5,listing only}
+\TracerCourbeImplicite[clés]{expression f(x,y)}
+\end{tcblisting}
+
+Les \MontreCode{<clés>} disponibles sont :
+
+\begin{itemize}
+	\item \MontreCode{Pas} : pas de la grille — \MontreCode{auto} pour un calcul automatique depuis l'épaisseur, sinon une valeur numérique (\MontreCode{0.05} par exemple) ; défaut \MontreCode{auto} ;
+	\item \MontreCode{CoeffPasAuto} : coefficient multiplicateur du pas automatique ; défaut \MontreCode{1} ;
+	\item \MontreCode{Couleur} : couleur du tracé ; défaut \MontreCode{black} ;
+	\item \MontreCode{Epaisseur} : épaisseur des points de la courbe ; défaut \MontreCode{0.2875pt} ;
+	\item \MontreCode{Tolerance} : seuil de détection des zéros exacts ; défaut \MontreCode{1e-10}.
+\end{itemize}
+
+L'expression \MontreCode{f(x,y)} est saisie avec la syntaxe habituelle : \MontreCode{x\^{}2+y\^{}2-1} pour $x^2+y^2-1=0$, \MontreCode{sin(x+y)-cos(x*y)} etc. Les fonctions disponibles sont \MontreCode{sin}, \MontreCode{cos}, \MontreCode{tan}, \MontreCode{exp}, \MontreCode{sqrt}, \MontreCode{log}, \MontreCode{abs} ainsi que les constantes \MontreCode{pi} et \MontreCode{e}.
+
+\subsubsection{Exemples}
+
+\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5,listing only}
+\begin{GraphiqueTikz}[Xmin=-5,Xmax=5,Ymin=-5,Ymax=5]
+	\TracerAxesGrilles{}{}
+	\TracerCourbeImplicite%
+		[Couleur=violet,CoeffPasAuto=2]%
+		{sin(x+y)-cos(x*y)+1}
+\end{GraphiqueTikz}
+\end{tcblisting}
+
+\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5,text only}
+\hfill%
+\includegraphics{tkz-grapheur-implicit-ex1.pdf}%
+\hfill\null
+\end{tcblisting}
+
+\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5,listing only}
+\begin{GraphiqueTikz}%
+		[x=1.5cm,y=1.5cm,Xmin=-2,Xmax=2,Ymin=-2,Ymax=2]
+	\TracerAxesGrilles{}{}
+	\TracerCourbeImplicite[Couleur=blue]{x*y^2+2*x^3*y^3-y-1}
+\end{GraphiqueTikz}
+\end{tcblisting}
+
+\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5,text only}
+\hfill%
+\includegraphics{tkz-grapheur-implicit-ex2.pdf}%
+\hfill\null
+\end{tcblisting}
+
+\pagebreak
+
 \section{Commandes numériques}\label{outilnums}
 
 \subsection{Introduction}
@@ -3414,6 +4027,161 @@ Moyenne : \mamoy, Écart-type : \monect
 Moyenne : \mamoy, Écart-type : \monect
 \end{tcblisting}
 
+\subsection{Sommes de termes de suites}
+
+\subsubsection{Somme générale}
+
+\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5,listing only}
+\tkzgCalcSommeSuite{expr(k)}{deb}{fin}
+\tkzgCalcSommeSuite*{expr(k)}{deb}{fin}[\macro]
+\end{tcblisting}
+
+\begin{itemize}
+	\item \MontreCode{\{expr(k)\}} : expression du terme général en fonction de \MontreCode{k} ;
+	\item \MontreCode{\{deb\}}, \MontreCode{\{fin\}} : bornes inférieure et supérieure de la somme.
+\end{itemize}
+
+\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5}
+%somme des 10 premiers entiers
+$\displaystyle\sum_{k=1}^{10} k = \tkzgCalcSommeSuite{k}{1}{10}$
+
+%somme avec stockage
+\tkzgCalcSommeSuite*{k^2}{1}{5}[\monres]
+$\displaystyle\sum_{k=1}^{5} k^2 = \monres$
+\end{tcblisting}
+
+\subsubsection{Somme d'une suite arithmétique}
+
+\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5,listing only}
+\tkzgCalcSommeArithm{p}{a}{r}{n}
+\tkzgCalcSommeArithm*{p}{a}{r}{n}[\macro]
+\end{tcblisting}
+
+\begin{itemize}
+	\item \MontreCode{\{p\}} : rang initial ;
+	\item \MontreCode{\{a\}} : valeur initiale $u_p$ ;
+	\item \MontreCode{\{r\}} : raison ;
+	\item \MontreCode{\{n\}} : rang final.
+\end{itemize}
+
+\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5}
+%u0=3, raison=2, somme de u0 à u10
+$S = \tkzgCalcSommeArithm{0}{3}{2}{10}$
+
+\tkzgCalcSommeArithm*{0}{3}{2}{10}[\monres]
+$S = \monres$
+\end{tcblisting}
+
+\subsubsection{Somme d'une suite géométrique}
+
+\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5,listing only}
+\tkzgCalcSommeGeo{p}{a}{q}{n}
+\tkzgCalcSommeGeo*{p}{a}{q}{n}[\macro]
+\end{tcblisting}
+
+\begin{itemize}
+	\item \MontreCode{\{p\}} : rang initial ;
+	\item \MontreCode{\{a\}} : valeur initiale $u_p$ ;
+	\item \MontreCode{\{q\}} : raison ;
+	\item \MontreCode{\{n\}} : rang final.
+\end{itemize}
+
+\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5}
+%u0=1, raison=0.5, somme de u0 à u8
+$S = \tkzgCalcSommeGeo{0}{1}{0.5}{8}$
+
+\tkzgCalcSommeGeo*{0}{1}{0.5}{8}[\monres]
+$S = \monres$
+\end{tcblisting}
+
+\subsubsection{Somme d'une suite récurrente}
+
+\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5,listing only}
+\tkzgCalcSommeSuiteRecurr{f(x)}{p}{up}{n}
+\tkzgCalcSommeSuiteRecurr*{f(x)}{p}{up}{n}[\macro]
+\end{tcblisting}
+
+\begin{itemize}
+	\item \MontreCode{\{f(x)\}} : relation de récurrence $u_{n+1}=f(u_n)$ ;
+	\item \MontreCode{\{p\}}, \MontreCode{\{up\}} : rang et valeur initiaux ;
+	\item \MontreCode{\{n\}} : rang final.
+\end{itemize}
+
+\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5}
+%u0=100, un+1=1.03*un, somme de u0 à u5
+$S = \tkzgCalcSommeSuiteRecurr{1.03*x}{0}{100}{5}$
+
+\tkzgCalcSommeSuiteRecurr*{1.03*x}{0}{100}{5}[\monres]
+$S \approx \monres$
+\end{tcblisting}
+
+\subsection{Taux d'évolution}
+
+\subsubsection{Taux d'évolution}
+
+\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5,listing only}
+\tkzgCalcTauxEvol{VA}{VD}
+\tkzgCalcTauxEvol*{VA}{VD}[\macro]
+\end{tcblisting}
+
+\begin{itemize}
+	\item \MontreCode{\{VA\}} : valeur d'arrivée ;
+	\item \MontreCode{\{VD\}} : valeur de départ.
+\end{itemize}
+
+Le résultat est le taux $t = \dfrac{V_A - V_D}{V_D}$, exprimé sous forme décimale.
+
+\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5}
+%passage de 80 à 92
+$t = \tkzgCalcTauxEvol{92}{80}$
+
+\tkzgCalcTauxEvol*{92}{80}[\montaux]
+$t \approx \num{\montaux}$
+\end{tcblisting}
+
+\subsubsection{Taux réciproque}
+
+\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5,listing only}
+\tkzgCalcTauxReciproque{t}
+\tkzgCalcTauxReciproque*{t}[\macro]
+\end{tcblisting}
+
+\begin{itemize}
+	\item \MontreCode{\{t\}} : taux d'évolution (sous forme décimale).
+\end{itemize}
+
+Le résultat est le taux réciproque $t' = \dfrac{1}{1+t} - 1$.
+
+\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5}
+%taux réciproque d'une augmentation de 15%
+$t' = \tkzgCalcTauxReciproque{0.15}$
+
+\tkzgCalcTauxReciproque*{0.15}[\treciproque]
+$t' \approx \num{\treciproque}$
+\end{tcblisting}
+
+\subsubsection{Taux moyen}
+
+\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5,listing only}
+\tkzgCalcTauxMoyen{t}{n}
+\tkzgCalcTauxMoyen*{t}{n}[\macro]
+\end{tcblisting}
+
+\begin{itemize}
+	\item \MontreCode{\{t\}} : taux global d'évolution (sous forme décimale) ;
+	\item \MontreCode{\{n\}} : nombre de périodes.
+\end{itemize}
+
+Le résultat est le taux moyen $t_m = (1+t)^{1/n} - 1$.
+
+\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5}
+%taux moyen d'une augmentation globale de 30% sur 5 ans
+$t_m = \tkzgCalcTauxMoyen{0.30}{5}$
+
+\tkzgCalcTauxMoyen*{0.30}{5}[\tmoy]
+$t_m \approx \num{\tmoy}$
+\end{tcblisting}
+
 \pagebreak
 
 \section{Codes source des exemples de la page d'accueil}
@@ -3514,6 +4282,33 @@ La commande \MontreCode{\textbackslash ArrondirNum} permet de formater, grâce a
 \ArrondirNum[3]{log(10)}\\
 \end{tcblisting}
 
+\subsection{Gestion de listes}\label{gestlistes}
+
+Les commandes suivantes permettent de travailler sur les listes \textsf{CSV} générées automatiquement via la clé \MontreCode{ListeRes} ou manuellement via
+\MontreCode{\textbackslash CreerListeAbscisses}.
+
+\begin{description}
+	\item[\textbackslash\texttt{CreerListeAbscisses\{préfixe\}\{nb\}\{nom\}}]
+	Construit une liste CSV des abscisses des nœuds \textsf{préfixe-1},
+	\textsf{préfixe-2}, \ldots, \textsf{préfixe-nb}, et la stocke dans la macro \verb|\nom|. Si \MontreCode{nb} vaut \MontreCode{0}, la macro est laissée vide sans erreur.
+	\item[\textbackslash\texttt{tkzgCalcLongueurListe{*}\{liste\}{[macro]}}]
+	Retourne le nombre d'éléments de la liste CSV \MontreCode{liste}.
+	La version étoilée stocke le résultat dans \MontreCode{macro} sans
+	l'afficher~; la version normale affiche également le résultat.
+	\item[\textbackslash\texttt{tkzgCalcElementListe{*}\{liste\}\{index\}{[macro]}}]
+	Retourne l'élément d'index \MontreCode{index} de la liste CSV
+	\MontreCode{liste}. L'index peut être positif (depuis le début) ou négatif
+	(depuis la fin)~: \MontreCode{-1} désigne ainsi le dernier élément.
+	La version étoilée stocke sans afficher.
+\end{description}
+
+Ces trois commandes s'articulent naturellement avec les itérateurs de
+\textsf{xint}, notamment \MontreCode{\textbackslash xintFor*} et
+\MontreCode{\textbackslash xintNthElt}, pour parcourir ou exploiter les
+listes générées.
+
+\pagebreak
+
 \subsection{Nombre aléatoire sous contraintes}\label{nbalea}
 
 L'idée de cette deuxième commande est de pouvoir déterminer un nombre aléatoire :
@@ -3591,6 +4386,127 @@ $\begin{cases}
 
 \newpage
 
+\subsection{Tableaux de valeurs}\label{tabval}
+
+Les commandes suivantes permettent de générer un tableau de valeurs
+pour une fonction \textsf{xint}, avec un choix de présentation
+horizontale ou verticale.
+
+\begin{itemize}
+	\item \MontreCode{\textbackslash CalcTableauValeurs} génère uniquement
+	le \textit{corps} du tableau, stocké dans une macro — l'utilisateur
+	gère ensuite la mise en forme avec son environnement préféré
+	(\MontreCode{tblr}, \MontreCode{NiceTabular}, \MontreCode{tabular}...) ;
+	\item \MontreCode{\textbackslash ConstruireTableauValeurs} fait tout
+	en un avec \MontreCode{tabularray} (nécessite de ce fait
+	\MontreCode{\textbackslash usepackage\{tabularray\}} !).
+\end{itemize}
+
+\subsubsection{Génération du corps}
+
+\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5,listing only}
+%horizontal (défaut)
+\CalcTableauValeurs[clés]<nom/expr>{valeurs}{nomMacro}
+
+%vertical (version étoilée)
+\CalcTableauValeurs*[clés]<nom/expr>{valeurs}{nomMacro}
+\end{tcblisting}
+
+\begin{itemize}
+	\item \MontreCode{<nom/expr>} : nom de fonction \textsf{xint}
+	(défaut) ou expression directe si \MontreCode{Expr=true} ;
+	\item \MontreCode{\{valeurs\}} : liste des valeurs de \MontreCode{x}
+	(syntaxe \MontreCode{\textbackslash foreach} :
+	\MontreCode{\{-2,-1,0,1,2\}} ou \MontreCode{\{-2,-1,...,2\}}) ;
+	\item \MontreCode{\{nomMacro\}} : nom de la macro de sortie
+	(sans \textbackslash) — crée \MontreCode{\textbackslash nomMacro}
+	(le body) et \MontreCode{\textbackslash nomMacronbvals}
+	(le nombre de colonnes/lignes) ;
+	\item \MontreCode{Arrondi} : précision de l'arrondi
+	(\MontreCode{2} par défaut) ;
+	\item \MontreCode{NomFct} : label de la fonction dans le tableau
+	(\MontreCode{f} par défaut) ;
+	\item \MontreCode{NomVar} : label de la variable dans le tableau
+	(\MontreCode{x} par défaut) ;
+	\item \MontreCode{Expr} : booléen (\MontreCode{false} par défaut)
+	— si \MontreCode{true}, \MontreCode{<...>} est une expression
+	directe avec \MontreCode{x} comme variable.
+\end{itemize}
+
+\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5}
+%usepackage{tabularray}
+\GenererFonction<f>{x^2+1}
+
+%horizontal
+\CalcTableauValeurs[Arrondi=1]<f>{-2,-1,0,1,2}[montab]
+
+\begin{tblr}%
+	[expand=\montab]%
+	{%
+		colspec={*{\montabnbvals}{c}},hlines,%
+		row{1}={bg=gray!25,font=\bfseries}%
+	}
+	\montab
+\end{tblr}
+\end{tcblisting}
+
+\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5}
+%vertical + expression directe
+\CalcTableauValeurs*%
+	[Expr,NomFct=g,NomVar=t]%
+	<x^2+1>{0,1,2,3}[montabv]
+
+\begin{tblr}%
+	[expand=\montabv]%
+	{%
+		colspec={*{2}{c}},hlines,%
+		row{1}={bg=blue!15,font=\bfseries}%
+	}
+	\montabv
+\end{tblr}
+\end{tcblisting}
+
+\subsubsection{Tableau complet avec \textsf{tabularray}}
+
+\begin{tcolorbox}[colframe=orange,colback=orange!5]
+Cette commande nécessite le chargement préalable de
+\MontreCode{tabularray} — un avertissement est émis sinon.
+\end{tcolorbox}
+
+\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5,listing only}
+%horizontal (défaut, Presentation=H)
+\ConstruireTableauValeurs[clés]<options tblr>{nom/expr}{valeurs}
+
+%vertical (Presentation=V)
+\ConstruireTableauValeurs[clés,Presentation=V]<options tblr>{nom/expr}{valeurs}
+\end{tcblisting}
+
+\begin{itemize}
+	\item \MontreCode{[clés]} : mêmes clés que
+	\MontreCode{\textbackslash CalcTableauValeurs} ;
+	\item \MontreCode{<options tblr>} : options passées directement à l'environnement ;
+	\item \MontreCode{Presentation} : \MontreCode{H} (horizontal, défaut) ou \MontreCode{V} (vertical) ;
+	\item \MontreCode{\textbackslash tdvnbvals} : macro exposée contenant le nombre de colonnes — utile pour \MontreCode{colspec}.
+\end{itemize}
+
+\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5}
+\GenererFonction<f>{x^2+1}
+
+%horizontal
+\ConstruireTableauValeurs%
+	[Arrondi=2]%
+	<colspec={*{\tdvnbvals}{c}},hlines,row{1}={bg=gray!25,font=\bfseries}>%
+	{f}{-2,-1,0,1,2}
+
+%vertical
+\ConstruireTableauValeurs%
+	[Arrondi=2,Presentation=V]%
+	<colspec={*{2}{c}},hlines,row{1}={bg=gray!25,font=\bfseries}>%
+	{f}{0,0.5,...,2}
+\end{tcblisting}
+
+\newpage
+
 \section{Liste des commandes}
 
 \NewDocumentCommand\lstcmd{ m m m }{%
@@ -3605,11 +4521,13 @@ $\begin{cases}
 	\lstcmd{ax/gril pol~~~~}{\TracerAxesGrillePol}{courbespolaires}
 	\lstcmd{aj val axes X~~}{\RajouterValeursAxeX}{ajoutvals}
 	\lstcmd{aj val axes Y~~}{\RajouterValeursAxeY}{ajoutvals}
+	\lstcmd{semilog loglog~}{}{loglog}
 \end{description}
 
 \subsection{Courbes, suites}
 
 \begin{description}[noitemsep]
+	\lstcmd{def formule~~~~}{\GenererFonction}{genererfct}
 	\lstcmd{def fonction~~~}{\DefinirCourbe}{deftracfct}
 	\lstcmd{tracé courbe~~~}{\TracerCourbe}{deftracfct}
 	\lstcmd{def interpo~~~~}{\DefinirCourbeInterpo}{deftracinterpo}
@@ -3624,6 +4542,8 @@ $\begin{cases}
 	\lstcmd{tangente~~~~~~~}{\TracerTangente}{tgte}
 	\lstcmd{nuage suite~~~~}{\TracerNuageSuite}{nuagesuite}
 	\lstcmd{toile récurr~~~}{\TracerToileRecurrence}{toilerecurr}
+	\lstcmd{déf fam cbes~~~}{\DefinirFamilleCourbes}{famcourbes}
+	\lstcmd{trace famille~~}{\TracerFamilleCourbes}{famcourbes}
 \end{description}
 
 \subsection{Outils graphiques}
@@ -3674,6 +4594,7 @@ $\begin{cases}
 	\lstcmd{courbe ECC~~~~~}{\TracerCourbeECC}{cbeECC}
 	\lstcmd{stats 2 var~~~~}{\TracerNuage}{nuage}
 	\lstcmd{regressions~~~~}{\TracerAjustement}{regressions}
+	\lstcmd{nuage transfo~~}{\TracerNuagePoints}{nuagetransfo}
 \end{description}
 
 \subsection{Courbes polaires, paramétriques}
@@ -3705,7 +4626,11 @@ $\begin{cases}
 	\lstcmd{voisinages~~~~~}{\AfficherVoisinage}{voisinages}
 	\lstcmd{arrondi~~~~~~~~}{\ArrondirNum}{numarrond}
 	\lstcmd{nb aléat~~~~~~~}{\ChoisirNbAlea}{nbalea}
-	\lstcmd{outils num~~~~~}{\tkzgCalcXXXXX}{outilnums}
+	\lstcmd{gestion listes~}{}{gestlistes}
+	\lstcmd{outils num~~~~~}{}{outilnums}
+	\lstcmd{tab valeurs~~~~}{\ConstruireTableauValeurs}{tabval}
+	\lstcmd{gestion csv~~~~}{\CreerListesDepuisCSV}{csv}
+	\lstcmd{cbe implicite~~}{\TracerCourbeImplicite}{implicit}
 \end{description}
 
 \newpage
@@ -3832,6 +4757,14 @@ Les solutions de $f(x)=66$ sont d'environ \ArrondirNum*[0]{\xMonItscA} \&\ \Arro
 
 {\footnotesize \begin{quote}
 \begin{verbatim}
+0.30d : Ajout d'une clé pour créer une liste d'abscisse + exploitation de listes
+-----   Famille de courbes (expérimental)
+-----   Définition globales de fonctions (hors environnement ou via clé [DefGlobale])
+-----   Tableau de valeurs (expérimental)
+-----   Graphiques semi-log ou log-log (expérimental)
+-----   Nuage de points avec transformations et/ou par csv (expérimental)
+-----   Macros de calculs pour des évolutions en %, des sommes de suites
+-----   Courbe implicite (très expérimental, lua)
 0.30c : Refonte du fonctionnement avec séparation commandes [en/fr]
 -----   Transformations, Taylor (expérimental)
 -----   Ajout de lois de probabilités (continues + discrètes)
