@@ -2,9 +2,10 @@
 % licence    : Released under the LaTeX Project Public License v1.3c or later, see http://www.latex-project.org/lppl.txt
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesExplPackage{commalists-tools-l3}{2026-02-20}{0.20a}{Basic operations for numeral comma separated lists}
+\ProvidesExplPackage{commalists-tools-l3}{2026-03-24}{0.20b}{Basic operations for numeral comma separated lists}
 
 %------History
+% 0.20b  Extract element with cyclic version of list
 % 0.20a  New commands (sublist / transform / slice / merge / intersection / ...)
 % 0.1.9  Improvements with latex3 (tks to ankaa3908)
 % 0.1.8  Get index 
@@ -14,7 +15,8 @@
 %------Variables
 \clist_new:N \l__commalists_var_clist
 \clist_new:N \l__commalists_varb_clist
-\fp_new:N \l__commalists_tmpa_fp
+\int_new:N   \l__commalists_tmpc_int
+\fp_new:N    \l__commalists_tmpa_fp
 
 %------Show list
 \NewDocumentCommand\ctshowlist{ O { , } m }
@@ -327,6 +329,51 @@
     \tl_gset:Ne #4 { \clist_item:Nn \l__commalists_var_clist { #3 } }
   }
 }
+
+\NewDocumentCommand\ctgetvaluefromcycllist{ s m m O { \resmyelt } }
+  % #1 = star (just printing)
+  % #2 = list
+  % #3 = index
+  % #4 = output macro (default \resmyelt)
+{
+    \clist_set:Ne \l__commalists_var_clist { #2 }
+    \int_set:Nn \l_tmpa_int { \clist_count:N \l__commalists_var_clist }
+    %\int_set:Ne \l_tmpb_int { #3 }
+    \int_set:Nn \l_tmpb_int { \int_eval:n { #3 } }
+    % test indice 0
+    \int_compare:nNnTF { \l_tmpb_int } = { 0 }
+      {
+        \msg_warning:nn { commalist-tools } { index-zero }
+        \tl_gset:Nn #4 { }
+      }
+      {
+        % modulo positif
+        \int_compare:nNnTF { \l_tmpb_int } > { 0 }
+          { \int_set:Nn \l_tmpb_int { \l_tmpb_int - 1 } }
+          { }
+        \int_set:Nn \l__commalists_tmpc_int
+          { \int_mod:nn { \l_tmpb_int } { \l_tmpa_int } }
+        \int_compare:nNnT { \l__commalists_tmpc_int } < { 0 }
+          { \int_add:Nn \l__commalists_tmpc_int { \l_tmpa_int } }
+        \int_add:Nn \l__commalists_tmpc_int { 1 }
+        % récupération
+        \IfBooleanTF { #1 }
+          {
+            \clist_item:Nn \l__commalists_var_clist { \l__commalists_tmpc_int } 
+          }
+          {
+            \tl_gset:Ne #4 
+              {
+                \clist_item:Nn 
+                  \l__commalists_var_clist 
+                  { \l__commalists_tmpc_int }
+              }
+          }
+      }
+}
+% message d'erreur
+\msg_new:nnn { commalist-tools } { index-zero }
+  { ctgetvaluefromcycllist:~index~0~not~available }
 
 \NewDocumentCommand\ctgetindexfromlist{ s m m O { \resmyindex } }
 % #1 = star (just printing)

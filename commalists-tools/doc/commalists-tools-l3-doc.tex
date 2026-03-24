@@ -28,8 +28,8 @@
 \hypersetup{pdfborder=0 0 0}
 \usepackage[margin=2cm]{geometry}
 \setlength{\parindent}{0pt}
-\def\TPversion{0.20a}
-\def\TPdate{20/02/2026}
+\def\TPversion{0.20b}
+\def\TPdate{24/03/2026}
 \usepackage{tcolorbox}
 \usepackage{pgffor}
 \tcbuselibrary{breakable,skins,hooks,listingsutf8}
@@ -80,7 +80,7 @@
 		keywordstyle={\color{violet}},%
 		classoffset=2,%
 		alsoletter={-},%
-		morekeywords={\ctshowlist,\ctsortasclist,\ctsortdeslist,\ctaddvalinlist,\ctremovevalinlist,\ctboolvalinlist,\cttestifvalinlist,\ctcountvalinlist,\ctminoflist,\ctmaxoflist,\ctmeanoflist,\ctsumoflist,\ctprodoflist,\ctreverselist,\ctgetvaluefromlist,\ctlenoflist,\ctgetindexfromlist,\ctsublist,\ctslicelist,\cttransformlist,\ctuniqlist,\ctintersectlists,\ctmergelists,\ctdifflist,\ctsymdifflist},%
+		morekeywords={\ctshowlist,\ctsortasclist,\ctsortdeslist,\ctaddvalinlist,\ctremovevalinlist,\ctboolvalinlist,\cttestifvalinlist,\ctcountvalinlist,\ctminoflist,\ctmaxoflist,\ctmeanoflist,\ctsumoflist,\ctprodoflist,\ctreverselist,\ctgetvaluefromlist,\ctlenoflist,\ctgetindexfromlist,\ctsublist,\ctslicelist,\cttransformlist,\ctuniqlist,\ctintersectlists,\ctmergelists,\ctdifflist,\ctsymdifflist,\ctgetvaluefromcycllist},%
 		keywordstyle={\color{green!50!black}},%
 		classoffset=3,%
 		morekeywords={asc,des},%
@@ -363,6 +363,21 @@ The sum is \mysum\ and the prod is \myprod
 \ctgetvaluefromlist*{\listtmp}{4}\par\smallskip
 %storing
 \ctgetvaluefromlist{\listtmp}{-1}[\mylastelt]The last element is \mylastelt
+\end{DemoCode}
+
+\begin{DemoCode}{listing only}
+%extract value (cyclic list), only printing
+\ctgetvaluefromcycllist*{list}{index}
+%extract value (cyclic list) and storing into macro (\myelt by default)
+\ctgetvaluefromcycllist{list}{index}[\macro]
+\end{DemoCode}
+
+\begin{DemoCode}{}
+%extract value (cyclic list), only printing
+\def\listtmp{A,B,C,D,E,F}%
+\ctgetvaluefromcycllist*{\listtmp}{10}\par\smallskip
+%storing
+\ctgetvaluefromcycllist{\listtmp}{-10}[\myelt]\myelt
 \end{DemoCode}
 
 \begin{DemoCode}{listing only}
@@ -747,6 +762,8 @@ The sum is \mysum\ and the prod is \myprod
 \pagebreak
 
 \section{History}
+
+\texttt{0.20b: Extract element with cyclic version of list}
 
 \texttt{0.20a: Sub-list extraction + transform list + merge/intersection + improvements}
 

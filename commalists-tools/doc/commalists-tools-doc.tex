@@ -27,8 +27,8 @@
 \hypersetup{pdfborder=0 0 0}
 \usepackage[margin=2cm]{geometry}
 \setlength{\parindent}{0pt}
-\def\TPversion{0.20a}
-\def\TPdate{20/02/2026}
+\def\TPversion{0.20b}
+\def\TPdate{24/03/2026}
 \usepackage{tcolorbox}
 \usepackage{pgffor}
 \tcbuselibrary{breakable,skins,hooks,listingsutf8}
@@ -49,7 +49,7 @@
 	keywordstyle={\color{violet}},%
 	classoffset=2,%
 	alsoletter={-},%
-	morekeywords={\sortasclist,\sortdeslist,\addvalinlist,\removevalinlist,\boolvalinlist,\testifvalinlist,\countvalinlist,\minoflist,\maxoflist,\meanoflist,\sumoflist,\prodoflist,\reverselist,\getvaluefromlist,\lenoflist,\getvaluefromlist,\definemylist,\countvalindeflist,\lenofdeflist,\meanofdeflist,\sumofdeflist,\prodofdeflist,\getvaluefromdeflist},%
+	morekeywords={\sortasclist,\sortdeslist,\addvalinlist,\removevalinlist,\boolvalinlist,\testifvalinlist,\countvalinlist,\minoflist,\maxoflist,\meanoflist,\sumoflist,\prodoflist,\reverselist,\getvaluefromlist,\lenoflist,\getvaluefromlist,\definemylist,\countvalindeflist,\lenofdeflist,\meanofdeflist,\sumofdeflist,\prodofdeflist,\getvaluefromdeflist,\getvaluefromcycllist,\getvaluefromcycldeflist},%
 	keywordstyle={\color{green!50!black}},%
 	classoffset=3,%
 	morekeywords={},%
@@ -79,7 +79,7 @@
 		keywordstyle={\color{violet}},%
 		classoffset=2,%
 		alsoletter={-},%
-		morekeywords={\sortasclist,\sortdeslist,\addvalinlist,\removevalinlist,\boolvalinlist,\testifvalinlist,\countvalinlist,\minoflist,\maxoflist,\meanoflist,\sumoflist,\prodoflist,\reverselist,\getvaluefromlist,\lenoflist,\getvaluefromlist,\definemylist,\countvalindeflist,\lenofdeflist,\meanofdeflist,\sumofdeflist,\prodofdeflist,\getvaluefromdeflist},%
+		morekeywords={\sortasclist,\sortdeslist,\addvalinlist,\removevalinlist,\boolvalinlist,\testifvalinlist,\countvalinlist,\minoflist,\maxoflist,\meanoflist,\sumoflist,\prodoflist,\reverselist,\getvaluefromlist,\lenoflist,\getvaluefromlist,\definemylist,\countvalindeflist,\lenofdeflist,\meanofdeflist,\sumofdeflist,\prodofdeflist,\getvaluefromdeflist,\getvaluefromcycllist,\getvaluefromcycldeflist},%
 		keywordstyle={\color{green!50!black}},%
 		classoffset=3,%
 		morekeywords={},%
@@ -328,12 +328,27 @@ The sum is \mysum\ and the prod is \myprod
 \getvaluefromlist{list}{index}[\macro]
 \end{DemoCode}
 
+\begin{DemoCode}{listing only}
+%extract value (cyclic list), only printing
+\getvaluefromcycllist*{list}{index}
+%extract value (cyclic list) and storing into macro (\myelt by default)
+\getvaluefromcycllist{list}{index}[\macro]
+\end{DemoCode}
+
 \begin{DemoCode}{}
 %extract value, only printing
 \def\listtmp{1,2,3,6,3,1,5,7,3}%
 \getvaluefromlist*{\listtmp}{4}\par\smallskip
 %storing
 \getvaluefromlist{\listtmp}{-1}[\mylastelt]The last element is \mylastelt
+\end{DemoCode}
+
+\begin{DemoCode}{}
+%extract value (cyclic list), only printing
+\def\listtmp{A,B,C,D,E,F}%
+\getvaluefromcycllist*{\listtmp}{10}\par\smallskip
+%storing
+\getvaluefromcycllist{\listtmp}{-10}[\myelt]\myelt
 \end{DemoCode}
 
 \begin{DemoCode}{}
@@ -450,6 +465,7 @@ In order to speed up the process, it's possible to "define" a list (processed wi
 \sumofdeflist(*){processed list, without \ !}[\macro]
 \prodofdeflist(*){processed list, without \ !}[\macro]
 \getvaluefromdeflist(*){processed list, without \ !}{index}[\macro]
+\getvaluefromcycldeflist(*){processed list, without \ !}{index}[\macro]
 \end{DemoCode}
 
 \begin{DemoCode}{}
@@ -459,6 +475,7 @@ In order to speed up the process, it's possible to "define" a list (processed wi
 %Specific macros
 \lenofdeflist*{mydeflist}\\
 \getvaluefromdeflist*{mydeflist}{5}\\
+\getvaluefromcycldeflist*{mydeflist}{22}\\
 \countvalindeflist*{9}{mydeflist}\\
 \meanofdeflist*{mydeflist}\\
 \sumofdeflist*{mydeflist}\\
@@ -470,6 +487,8 @@ If the list needs to be "modified" (add, remove, reverse) the best is to use ind
 \pagebreak
 
 \section{History}
+
+\texttt{0.20b: Extract element with cyclic list}
 
 \texttt{0.20a: Improvements in L3 version of package}
 

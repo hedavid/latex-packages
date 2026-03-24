@@ -2,9 +2,10 @@
 % licence    : Released under the LaTeX Project Public License v1.3c or later, see http://www.latex-project.org/lppl.txt
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{commalists-tools}[2026/02/20 0.20a Basic operations for numeral comma separated lists]
+\ProvidesPackage{commalists-tools}[2026/03/24 0.20b Basic operations for numeral comma separated lists]
 
 %------History
+% 0.20b	update l2/l3 version with element form cyclic list !
 % 0.20a	same version number for both (legacy & l3) versions
 % 0.1.7	Improvements with l3 package
 % 0.1.6	L3 version of package
@@ -262,9 +263,50 @@
 }
 
 \NewDocumentCommand\getvaluefromdeflist{ s m m O{\resmyelt} }{%
-	%\readlist*\tmpreadlist{#2}%
 	\xdef#4{\csname#2\endcsname[#3]}%
 	\IfBooleanT{#1}{#4}%
+}
+
+\newcommand\ctintmod[3][\ctintmodres]{%
+  \xdef#1{\fpeval{trunc(#2 - (#3)*trunc((#2)/(#3),0), 0)}}%
+  \ifnum#1<0\relax%
+    \xdef#1{\inteval{#1 + (#3)}}%
+  \fi%
+}
+\NewDocumentCommand\getvaluefromcycllist{ s m m O{\resmyelt} }{%
+  \setsepchar{,}%
+  \readlist*\tmpreadlist{#2}%
+  \xdef\tmpargcycllist{\fpeval{round(#3,0)}}%
+  \ifnum\tmpargcycllist=0\relax%
+    \def#4{}%
+    \PackageWarning{commalists-tools}{getvaluefromcycllist .: index 0 not available :.}%
+  \else%
+    \ifnum\tmpargcycllist>0\relax%
+      \ctintmod{#3-1}{\tmpreadlistlen}%
+    \else%
+      \ctintmod{#3}{\tmpreadlistlen}%
+    \fi%
+    \xdef\cttmpidx{\inteval{\ctintmodres+1}}%
+    \itemtomacro\tmpreadlist[\cttmpidx]{#4}%
+  \fi%
+  \IfBooleanT{#1}{#4}%
+}
+
+\NewDocumentCommand\getvaluefromcycldeflist{ s m m O{\resmyelt} }{%
+  \xdef\tmpargcycllist{\fpeval{round(#3,0)}}%
+  \ifnum\tmpargcycllist=0\relax%
+    \def#4{}%
+    \PackageWarning{commalists-tools}{getvaluefromcycldeflist .: index 0 not available :.}%
+  \else%
+    \ifnum\tmpargcycllist>0\relax%
+      \ctintmod{#3-1}{\csname#2len\endcsname}%
+    \else%
+      \ctintmod{#3}{\csname#2len\endcsname}%
+    \fi%
+    \xdef\cttmpidx{\inteval{\ctintmodres+1}}%
+    \xdef#4{\csname#2\endcsname[\cttmpidx]}%
+  \fi%
+  \IfBooleanT{#1}{#4}%
 }
 
 \NewDocumentCommand\lenoflist{ s m O{\resmylen} }{%
@@ -275,7 +317,6 @@
 }
 
 \NewDocumentCommand\lenofdeflist{ s m O{\resmylen} }{%
-	%\readlist*\tmpreadlist{#2}%
 	\xdef#3{\csname#2len\endcsname}%
 	\IfBooleanT{#1}{#3}%
 }
