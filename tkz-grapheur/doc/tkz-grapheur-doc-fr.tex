@@ -41,7 +41,7 @@
 \usepackage[margin=2cm]{geometry}
 \setlength{\parindent}{0pt}
 \def\TPversion{\tkzgrapheurversion}
-\def\TPdate{20/03/2026}
+\def\TPdate{24/03/2026}
 \usepackage{soul}
 \usepackage{codehigh}
 \usepackage{tabularray}
@@ -376,7 +376,7 @@ Afin de faciliter la maintenance et l'évolution du package, les commandes sont 
 \begin{center}
 	\begin{tikzpicture}[
 	every node/.style={font=\footnotesize\sffamily},
-	boite/.style={draw,rounded corners=4pt,minimum width=3cm,minimum height=1.2cm,
+	boite/.style={draw,rounded corners=4pt,minimum width=3.25cm,minimum height=1.2cm,
 		align=center,line width=0.5pt},
 	fleche/.style={->,>=latex,line width=0.6pt},
 	flechetiret/.style={<-,>=latex,line width=0.6pt,dashed}
@@ -389,8 +389,8 @@ Afin de faciliter la maintenance et l'évolution du package, les commandes sont 
 	\node[boite,fill=teal!15,draw=teal!60] (en) at (-2,-4)
 	{\textbf{tkz-grapheur-en.tex}\\{\footnotesize\color{gray}commandes EN}};
 	\node[boite,fill=orange!15,draw=orange!60] (calc) at (2,-4)
-	{\textbf{tkz-grapheur-calc.tex}\\{\footnotesize\color{gray}macros calculatoires}};
-	\node[boite,fill=orange!15,draw=orange!60] (lua) at (6,-4)
+	{\textbf{tkz-grapheur-calc.tex}\\\textbf{tkz-grapheur-macros.tex}};
+	\node[boite,fill=olive!15,draw=olive!60] (lua) at (6,-4)
 	{\textbf{tkz-grapheur-lua.tex}\\{\footnotesize\color{gray}macros LUA}};
 	%-- flèches \input
 	\draw[fleche] (sty) -- node[fill=white,inner sep=1pt,font=\scriptsize\ttfamily,pos=0.5]  {\textbackslash input} (fr);
@@ -576,7 +576,13 @@ Ce sera bien évidemment plus parlant avec les éléments graphiques rajoutés !
 
 Il est également possible (c'est en test) de spécifier les dimensions du graphique, en laissant le code déterminer les bonnes unités.
 
-Dans ce cas, les clés et arguments diffèrent légèrement, notamment via les clés \MontreCode{<Taille=larg/haut>} ainsi que les clés \MontreCode{<Xmin=...,Ymin=...,Xmax=...,Ymax=...>} :
+\smallskip
+
+Les paramètres des axes et de la grille peuvent (et doivent) dans ce cas être spécifiés dans l'argument entre \MontreCode{<...>}.
+
+\smallskip
+
+Dans ce cas, les clés et arguments diffèrent légèrement, notamment via les clés \MontreCode{<Taille=larg/haut>} ou \MontreCode{<Largeur=...,XYratio=...>} ou \MontreCode{<Hauteur=...,XYratio=...>}.
 
 \begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5}
 %dimensions fixées (hors graduations)
@@ -588,7 +594,15 @@ Dans ce cas, les clés et arguments diffèrent légèrement, notamment via les c
 \end{GraphiqueTikz}
 \end{tcblisting}
 
+Il est également possible de spécifier une \MontreCode{<Largeur>} et /ou une \MontreCode{<Hauteur>} et/ou un \MontreCode{<XYratio>} :
 
+\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5}
+%largeur + ratio 0.5
+\begin{GraphiqueTikz}%
+		<Xmin=0,Xmax=10,Ymin=0,Ymax=5,Largeur=12cm,XYratio=0.5>
+	\TracerAxesGrilles{auto}{auto}
+\end{GraphiqueTikz}
+\end{tcblisting}
 
 \pagebreak
 
@@ -2866,7 +2880,7 @@ Dans ce cas, l'intégralité de la courbe est tracée/stockée, avec une gestion
 
 \smallskip
 
-Une nouvelle clé, \MontreCode{[ValeursInterdites={...}]}, fait donc son apparition pour la définition ou le tracé d'une courbe.
+Une nouvelle clé, \MontreCode{[ValeursInterdites={...}]}, fait donc son apparition pour la définition ou le tracé d'une courbe, ainsi que la clé \MontreCode{[DeltaVI=...]} qui permet de paramétrer le \textit{delta} autour des asymptotes (\MontreCode{auto} par défaut).
 
 \begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5}
 \begin{GraphiqueTikz}[x=0.75cm,y=0.75cm,Xmin=-5,Xmax=5,Ymin=-5,Ymax=5]
@@ -3612,6 +3626,34 @@ L'expression \MontreCode{f(x,y)} est saisie avec la syntaxe habituelle : \Montre
 \begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5,text only}
 \hfill%
 \includegraphics{tkz-grapheur-implicit-ex2.pdf}%
+\hfill\null
+\end{tcblisting}
+
+\subsubsection{Courbes de niveaux}
+
+En complément de la commande précédente, une commande de tracé de lignes de niveau est proposé, sous la forme $f(x,y)=k$, sur la même base.
+
+À noter qu'une clé \MontreCode{[Couleurs=...]} a été rajoutée pour permettre de proposer une liste (qui sera traitée comme cyclique) de couleurs.
+
+\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5,listing only}
+\TracerLignesNiveau[clés]{expression f(x,y)}{valeurs de k}
+\end{tcblisting}
+
+\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5,listing only}
+\begin{GraphiqueTikz}%
+		[x=1.2cm,y=1.2cm,Xmin=-3,Xmax=3,Ymin=-3,Ymax=3]
+	\TracerAxesGrilles{auto}{auto}
+	% sin(x)*cos(y) = k  →  lignes de niveau d'une surface ondulée
+	\TracerLignesNiveau%
+		[Couleurs={blue!80,blue!50,cyan,teal,green!60!black}]%
+		{sin(x)*cos(y)}%
+		{-0.8,-0.6,-0.4,-0.2,0,0.2,0.4,0.6,0.8}
+\end{GraphiqueTikz}
+\end{tcblisting}
+
+\begin{tcblisting}{listing engine=minted,minted language=latex,colframe=lightgray,colback=lightgray!5,text only}
+\hfill%
+\includegraphics{tkz-grapheur-cbesniv.pdf}%
 \hfill\null
 \end{tcblisting}
 
@@ -4757,6 +4799,9 @@ Les solutions de $f(x)=66$ sont d'environ \ArrondirNum*[0]{\xMonItscA} \&\ \Arro
 
 {\footnotesize \begin{quote}
 \begin{verbatim}
+0.30e : Meilleure gestion de la taille du graphique
+-----   Améliorations dans les valeurs interdites
+-----   Courbe de niveaux (expérimental)
 0.30d : Ajout d'une clé pour créer une liste d'abscisse + exploitation de listes
 -----   Famille de courbes (expérimental)
 -----   Définition globales de fonctions (hors environnement ou via clé [DefGlobale])
