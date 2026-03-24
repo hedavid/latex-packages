@@ -235,8 +235,19 @@
   Ymin=\def\pflymintmp{#1},%
   Ymax=\def\pflymaxtmp{#1},%
   Taille=\def\pflgraphdims{#1},%
+  Largeur=\def\pflgraphwidth{#1},%
+  Hauteur=\def\pflgraphheight{#1},%
   Theme=\def\pflgraphthem{#1},%
-  NomFigure=\def\pflgraphnom{#1}
+  NomFigure=\def\pflgraphnom{#1},%
+  XYratio=\def\pflgraphratio{#1},%
+  Origx=\def\pflOxtmp{#1},%
+  Origy=\def\pflOytmp{#1},%
+  Xgrille=\def\pflgrillextmp{#1},%
+  Xgrillei=\def\pflgrillexitmp{#1},%
+  Xgrilles=\def\pflgrillexstmp{#1},%
+  Ygrille=\def\pflgrilleytmp{#1},%
+  Ygrillei=\def\pflgrilleyitmp{#1},%
+  Ygrilles=\def\pflgrilleystmp{#1}%
 }
 \setKVdefault[GraphiqueTikz]{%
   AffCadre=false,%
@@ -246,10 +257,24 @@
   Ymin=-3,%
   Ymax=3,%
   Taille={},%
+  Largeur={},%
+  Hauteur={},%
   Theme={},
   Milli=false,%
-  NomFigure={}
+  NomFigure={},%
+  XYratio={1},%
+  Origx={0},%
+  Origy={0},%
+  Xgrille={1},%
+  Xgrillei={1},%
+  Xgrilles={0.5},%
+  Ygrille={1},%
+  Ygrillei={1},%
+  Ygrilles={0.5}%
 }
+
+\newlength\tmptkzgheight
+\newlength\tmptkzgwidth
 
 \NewDocumentEnvironment{GraphiqueTikz}{ O{} D<>{} }%
 %1 = options tikz, classiques
@@ -259,15 +284,55 @@
   \setKV[GraphiqueTikz]{#2}%
   %l'environnement
   \IfStrEq{\pflgraphdims}{}%
-    {%
-      \begin{tikzpicture}[#1]%
-    }%
-    {%
-      \StrCut{\pflgraphdims}{/}{\pfltmpwidth}{\pfltmpheight}%
-      \setlength\pflglobalwidth{\fpeval{(\pfltmpwidth)/(\pflxmaxtmp-\pflxmintmp)}pt}%\the\pflglobalwidth+%
-      \setlength\pflglobalheight{\fpeval{(\pfltmpheight)/(\pflymaxtmp-\pflymintmp)}pt}%\the\pflglobalheight%
-      \begin{tikzpicture}[x=\pflglobalwidth,y=\pflglobalheight,Xmin=\pflxmintmp,Xmax=\pflxmaxtmp,Ymin=\pflymintmp,Ymax=\pflymaxtmp,#1]%
-    }%
+  {%pas de Taille
+    \IfStrEq{\pflgraphwidth}{}%
+      {%pas de Largeur
+        \IfStrEq{\pflgraphheight}{}%
+          {%rien du tout → classique
+            \begin{tikzpicture}[#1]%
+          }%
+          {%Hauteur seule + XYratio obligatoire
+            \setlength\tmptkzgheight{\pflgraphheight}%
+            \setlength\pflglobalheight{\fpeval{(\tmptkzgheight)/(\pflymaxtmp-\pflymintmp)}pt}%
+            \setlength\pflglobalwidth{\fpeval{1/(\pflgraphratio)}\pflglobalheight}%
+            \begin{tikzpicture}[x=\pflglobalwidth,y=\pflglobalheight,
+                Xmin=\pflxmintmp,Xmax=\pflxmaxtmp,
+                Ymin=\pflymintmp,Ymax=\pflymaxtmp,
+                Xgrille=\pflgrillextmp,Xgrillei=\pflgrillexitmp,Xgrilles=\pflgrillexstmp,
+                Ygrille=\pflgrilleytmp,Ygrillei=\pflgrilleyitmp,Ygrilles=\pflgrilleystmp,
+                Origx=\pflOxtmp,Origy=\pflOytmp,#1]%
+          }%
+      }%
+      {%Largeur seule
+        \setlength\tmptkzgwidth{\pflgraphwidth}%
+        \setlength\pflglobalwidth{\fpeval{(\tmptkzgwidth)/(\pflxmaxtmp-\pflxmintmp)}pt}%
+        \IfStrEq{\pflgraphheight}{}%
+          {%Largeur + XYratio
+            \setlength\pflglobalheight{\fpeval{\pflgraphratio}\pflglobalwidth}%
+          }%
+          {%Largeur + Hauteur explicites
+            \setlength\tmptkzgheight{\pflgraphheight}%
+            \setlength\pflglobalheight{\fpeval{(\tmptkzgheight)/(\pflymaxtmp-\pflymintmp)}pt}%
+          }%
+        \begin{tikzpicture}[x=\pflglobalwidth,y=\pflglobalheight,
+            Xmin=\pflxmintmp,Xmax=\pflxmaxtmp,
+            Ymin=\pflymintmp,Ymax=\pflymaxtmp,
+            Xgrille=\pflgrillextmp,Xgrillei=\pflgrillexitmp,Xgrilles=\pflgrillexstmp,
+            Ygrille=\pflgrilleytmp,Ygrillei=\pflgrilleyitmp,Ygrilles=\pflgrilleystmp,
+            Origx=\pflOxtmp,Origy=\pflOytmp,#1]%
+      }%
+  }%
+  {%Taille=w/h → priorité absolue
+    \StrCut{\pflgraphdims}{/}{\pfltmpwidth}{\pfltmpheight}%
+    \setlength\pflglobalwidth{\fpeval{(\pfltmpwidth)/(\pflxmaxtmp-\pflxmintmp)}pt}%
+    \setlength\pflglobalheight{\fpeval{(\pfltmpheight)/(\pflymaxtmp-\pflymintmp)}pt}%
+    \begin{tikzpicture}[x=\pflglobalwidth,y=\pflglobalheight,
+        Xmin=\pflxmintmp,Xmax=\pflxmaxtmp,
+        Ymin=\pflymintmp,Ymax=\pflymaxtmp,
+        Xgrille=\pflgrillextmp,Xgrillei=\pflgrillexitmp,Xgrilles=\pflgrillexstmp,
+        Ygrille=\pflgrilleytmp,Ygrillei=\pflgrilleyitmp,Ygrilles=\pflgrilleystmp,
+        Origx=\pflOxtmp,Origy=\pflOytmp,#1]%
+  }%
   %thèmes personnalisés
   \IfStrEqCase{\pflgraphthem}{%
     {standard}{\tikzset{pflgrillep/.style={line width=\pflthickgridp,pflgrillepdefault!75}}\tikzset{pflgrilles/.style={line width=\pflthickgrids,pflgrillesdefault}}\tikzset{pflgrillei/.style={line width=\pflthickgridi,pflgrilleidefault}}}%
@@ -277,7 +342,7 @@
     {chaud}{\tikzset{pflgrillep/.style={line width=\pflthickgridp,pflgrillepwarm!75}}\tikzset{pflgrilles/.style={line width=\pflthickgrids,pflgrilleswarm}}\tikzset{pflgrillei/.style={line width=\pflthickgridi,pflgrilleiwarm}}}%
     {contraste}{\tikzset{pflgrillep/.style={line width=\pflthickgridp,pflgrillepcontrast!75}}\tikzset{pflgrilles/.style={line width=\pflthickgrids,pflgrillescontrast}}\tikzset{pflgrillei/.style={line width=\pflthickgridi,pflgrilleicontrast}}}%
   }%
-  %unités x/y pour des calculs de coordonnées
+  %unités x/y pour des calculs de coordonnées (dommage vu que dans certains cas on les connais déjà :-/)
   \TikZUnites
   %noeuds fenêtre + axes
   \IfStrEq{\pflgraphnom}{}%
@@ -487,7 +552,13 @@
           }%
         }%
     }%
-    {}%
+    {
+      \ifboolKV[GraphiqueTikzAxes]{Origine}%
+        {%
+          \draw ({\pflOx},{\pflOy}) node[pflnoeud,below left,font={\useKV[GraphiqueTikzAxes]{Police}}] {\FormatterValeurAxex{\pflformataxex}{\pflOx}} ;
+        }%
+        {}%
+    }%
 }
 
 \NewDocumentCommand\TracerAxesGrillePol{ O{} m m }{%
@@ -838,6 +909,7 @@
   Pas=\def\pflstepcurve{#1},%
   Nom=\def\pflnamecurve{#1},%
   StyleTrace=\def\pflstylecurve{#1},%
+  DeltaVI=\def\pfldeltavi{#1},%
   h=\def\pflhderiv{#1},%
   ValeursInterdites=\def\pflvalsinterdites{#1},%
   Sens=\def\pflsensparab{#1}
@@ -855,6 +927,7 @@
   RestreindreY=false,%
   Restreindre=false,%
   h={},%
+  DeltaVI={auto},%
   Spline=false,%
   ValeursInterdites={},%
   Sens=V,%
@@ -872,6 +945,7 @@
         \xdef\pflstepcurve{\xintfloateval{((\useKV[GraphiqueTikzCourbe]{Fin})-(\useKV[GraphiqueTikzCourbe]{Debut}))/100}}%
       }%
       {%
+        
         \xdef\pflstepcurve{\xintfloateval{((\useKV[GraphiqueTikzCourbe]{Fin})-(\useKV[GraphiqueTikzCourbe]{Debut}))/250}}%
       }%
   }%
@@ -953,11 +1027,17 @@
       \ifboolKV[GraphiqueTikzCourbe]{Clip}{\end{scope}}{}
     }%
     {%sinon, VI, code spécifique
+      \IfStrEq{\pfldeltavi}{auto}%
+       {%
+         \xdef\pfldeltavi{\xintfloateval{((\useKV[GraphiqueTikzCourbe]{Fin})-(\useKV[GraphiqueTikzCourbe]{Debut}))/250}}%
+       }%
+       {}%
       \xdef\pflstepcurve{\xintfloateval{((\useKV[GraphiqueTikzCourbe]{Fin})-(\useKV[GraphiqueTikzCourbe]{Debut}))/250}}%
       %génération des branches, si VI
       \xdef\pfllistebornes{\useKV[GraphiqueTikzCourbe]{Debut}}%
       \foreach \i in \pflvalsinterdites {%
-        \xdef\pfllistebornes{\pfllistebornes,\xintfloateval{\i-(\pflstepcurve)},\xintfloateval{\i+(\pflstepcurve)}}%
+        %\xdef\pfllistebornes{\pfllistebornes,\xintfloateval{\i-(\pflstepcurve)},\xintfloateval{\i+(\pflstepcurve)}}%\pfldeltavi
+        \xdef\pfllistebornes{\pfllistebornes,\xintfloateval{\i-(\pfldeltavi)},\xintfloateval{\i+(\pfldeltavi)}}%
       }%
       \xdef\pfllistebornes{\pfllistebornes,\useKV[GraphiqueTikzCourbe]{Fin}}%
       \setsepchar{,}%
@@ -1038,11 +1118,17 @@
       \ifboolKV[GraphiqueTikzCourbe]{Clip}{\end{scope}}{}
     }%
     {%sinon, VI, code spécifique
+      \IfStrEq{\pfldeltavi}{auto}%
+       {%
+         \xdef\pfldeltavi{\xintfloateval{((\useKV[GraphiqueTikzCourbe]{Fin})-(\useKV[GraphiqueTikzCourbe]{Debut}))/250}}%
+       }%
+       {}%
       \xdef\pflstepcurve{\xintfloateval{((\useKV[GraphiqueTikzCourbe]{Fin})-(\useKV[GraphiqueTikzCourbe]{Debut}))/250}}%
       %génération des branches, si VI
       \xdef\pfllistebornes{\useKV[GraphiqueTikzCourbe]{Debut}}%
       \foreach \i in \pflvalsinterdites {%
-        \xdef\pfllistebornes{\pfllistebornes,\xintfloateval{\i-(\pflstepcurve)},\xintfloateval{\i+(\pflstepcurve)}}%
+        %\xdef\pfllistebornes{\pfllistebornes,\xintfloateval{\i-(\pflstepcurve)},\xintfloateval{\i+(\pflstepcurve)}}%\pfldeltavi
+        \xdef\pfllistebornes{\pfllistebornes,\xintfloateval{\i-(\pfldeltavi)},\xintfloateval{\i+(\pfldeltavi)}}%
       }%
       \xdef\pfllistebornes{\pfllistebornes,\useKV[GraphiqueTikzCourbe]{Fin}}%
       \setsepchar{,}%

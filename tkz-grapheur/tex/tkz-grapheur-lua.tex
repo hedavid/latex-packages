@@ -137,15 +137,194 @@
 }
 \NewCommandCopy\PlotImplicitCurve\TracerCourbeImplicite
 
+\defKV[GraphiqueTikzNiveau]{%
+  Couleur=\def\pflniveaucouleur{#1},%
+  Couleurs=\def\pflniveaucouleurs{#1},%
+  Pas=\def\pflniveaupas{#1},%
+  Epaisseur=\setlength\pflthickimpl{#1}%
+}
+\setKVdefault[GraphiqueTikzNiveau]{%
+  Couleur=black,%
+  Couleurs={},%
+  Pas=auto,%
+  Epaisseur=0.2875pt%
+}
+
+% \NewDocumentCommand\TracerLignesNiveau{ O{} m m }{%
+  % % #1 = clés
+  % % #2 = expression f(x,y)
+  % \restoreKV[GraphiqueTikzNiveau]%
+  % \setKV[GraphiqueTikzNiveau]{#1}%
+  % % Boucle sur les valeurs
+  % \foreach \elt [count=\i from 1] in {#3}{%
+    % \IfStrEq{\pflniveaucouleurs}{}%
+      % {%
+        % \edef\pflcoulcourante{\pflniveaucouleur}%
+      % }%
+      % {%
+        % \setsepchar{,}%
+        % \readlist*\pfllistecouleurs{\pflniveaucouleurs}%
+        % %Couleur cyclique si moins de couleurs que de niveaux
+        % \pgfmathtruncatemacro{\pflcolidx}{mod(\i-1,\pfllistecouleurslen)+1}%
+        % \itemtomacro\pfllistecouleurs[\pflcolidx]{\pflcoulcourante}%
+      % }%
+    % \TracerCourbeImplicite[lua,Couleur=\pflcoulcourante,Pas=\pflniveaupas,Epaisseur=\pflthickimpl]{#2 - (\elt)}%
+  % }
+% }
+% \NewCommandCopy\PlotLevelCurves\TracerLignesNiveau
+
+\NewDocumentCommand\TracerLignesNiveau{ O{} m m }{%
+  % #1 = clés
+  % #2 = expression f(x,y)
+  % #3 = liste des valeurs k
+  \restoreKV[GraphiqueTikzNiveau]%
+  \setKV[GraphiqueTikzNiveau]{#1}%
+  % calcul du pas
+  \IfStrEq{\pflniveaupas}{auto}{%
+    \pgfmathsetmacro{\pfl@pasx}{\pgfmath@tonumber{\pflthickimpl}*0.5/\pgfmath@tonumber{\pgf@xx}}%
+    \pgfmathsetmacro{\pfl@pasy}{\pgfmath@tonumber{\pflthickimpl}*0.5/\pgfmath@tonumber{\pgf@yy}}%
+  }{%
+    \pgfmathsetmacro{\pfl@pasx}{\pflniveaupas}%
+    \pgfmathsetmacro{\pfl@pasy}{\pflniveaupas}%
+  }%
+  % Appel Lua unique → grille calculée une seule fois !
+  \directlua{
+    pfl._niveau_pts = pfl.level_curves(
+      "\luaescapestring{#2}",
+      "\luaescapestring{#3}",
+      \pflxmin, \pflxmax, \pflymin, \pflymax,
+      \pfl@pasx, \pfl@pasy
+    )
+  }%
+  % Boucle tracé uniquement
+  \foreach \elt [count=\i from 1] in {#3}{%
+    \IfStrEq{\pflniveaucouleurs}{}%
+      {\edef\pflcoulcourante{\pflniveaucouleur}}%
+      {%
+        \setsepchar{,}%
+        \readlist*\pfllistecouleurs{\pflniveaucouleurs}%
+        \itemcycltomacro\pfllistecouleurs[\i]{\pflcoulcourante}%
+		%\pgfmathtruncatemacro{\pflcolidx}{mod(\i-1,\pfllistecouleurslen)+1}%
+        %\itemtomacro\pfllistecouleurs[\pflcolidx]{\pflcoulcourante}%
+      }%
+    \edef\pflkpts{\directlua{tex.sprint(pfl._niveau_pts[\i] or "")}}%
+    \begin{scope}
+      \clip (\pflxmin,\pflymin) rectangle (\pflxmax,\pflymax);
+      \draw[\pflcoulcourante]
+        plot[mark size=\pflthickimpl,pflcourbeimplicit]
+        coordinates {\pflkpts};
+    \end{scope}%
+  }%
+}%
+\NewCommandCopy\PlotLevelCurves\TracerLignesNiveau
+
 \ifluatex
 \RequirePackage{luacode}
+% \begin{luacode*}
+% pfl = pfl or {}
+
+% function pfl.expr_to_func(expr_str)
+    % -- Traduction expression LaTeX → Lua
+	% -- texio.write_nl("=== expr reçue : " .. expr_str)
+    % local e = expr_str
+    % e = e:gsub("%^",    "^")
+    % e = e:gsub("sin%(", "math.sin(")
+    % e = e:gsub("cos%(", "math.cos(")
+    % e = e:gsub("tan%(", "math.tan(")
+    % e = e:gsub("exp%(", "math.exp(")
+    % e = e:gsub("sqrt%(","math.sqrt(")
+    % e = e:gsub("log%(", "math.log(")
+    % e = e:gsub("abs%(", "math.abs(")
+    % e = e:gsub("pi",    tostring(math.pi))
+    % e = e:gsub("%*%*",  "^")
+    % -- Compilation dynamique
+	% -- texio.write_nl("=== expr traduite : " .. e)
+    % local fstr = "local x,y = ...; return " .. e
+	% -- texio.write_nl("=== fstr : " .. fstr)
+    % local f, err = load(fstr)
+    % if not f then
+        % texio.write_nl("! pfl.expr_to_func : " .. tostring(err))
+        % return nil
+    % end
+    % return f
+% end
+
+% function pfl.marching_squares(expr_str, xmin, xmax, ymin, ymax, pasx, pasy, eps)
+    % eps = eps or 1e-12
+    % local f = pfl.expr_to_func(expr_str)
+    % if not f then return "" end
+
+    % local ni = math.floor((xmax - xmin) / pasx)
+    % local nj = math.floor((ymax - ymin) / pasy)
+
+    % -- Phase 1 : tableau complet F[i][j]
+    % local F = {}
+    % local xs = {}
+    % local ys = {}
+    % for i = 0, ni do
+        % xs[i] = xmin + i * pasx
+        % F[i]  = {}
+    % end
+    % for j = 0, nj do
+        % ys[j] = ymin + j * pasy
+    % end
+    % for i = 0, ni do
+        % for j = 0, nj do
+            % F[i][j] = f(xs[i], ys[j])
+        % end
+    % end
+
+    % -- Phase 2 : marching squares
+    % local pts = {}
+    % for i = 0, ni - 1 do
+        % for j = 0, nj - 1 do
+            % local A = F[i  ][j  ]
+            % local B = F[i+1][j  ]
+            % local C = F[i  ][j+1]
+            % local D = F[i+1][j+1]
+            % local xi  = xs[i]
+            % local xip = xs[i+1]
+            % local yj  = ys[j]
+            % local yjp = ys[j+1]
+            % -- Arête A→B
+            % if A * B < 0 then
+                % pts[#pts+1] = string.format("(%.3f,%.3g)",
+                    % xi - A * pasx / (B - A), yj)
+            % end
+            % -- Arête A→C
+            % if A * C < 0 then
+                % pts[#pts+1] = string.format("(%.3f,%.3g)",
+                    % xi, yj - A * pasy / (C - A))
+            % end
+            % -- Arête C→D
+            % -- if C * D < 0 then
+            % --    pts[#pts+1] = string.format("(%.6f,%.6g)",
+            % --        xi - C * pasx / (D - C), yjp)
+            % -- end
+            % -- Arête B→D
+            % -- if B * D < 0 then
+            % --     pts[#pts+1] = string.format("(%.6f,%.6g)",
+            % --         xip, yj - B * pasy / (D - B))
+            % -- end
+            % -- Zéro exact
+            % if A*B >= 0 and A*C >= 0 and math.abs(A) < eps then
+                % pts[#pts+1] = string.format("(%.6f,%.6g)", xi, yj)
+            % end
+        % end
+    % end
+    % local result = table.concat(pts, " ")
+    % if result == "" then
+        % return string.format("(%.6f,%.6f)", xmin - 1, ymin - 1)
+    % end
+    % return result
+% end
+% \end{luacode*}
 \begin{luacode*}
 pfl = pfl or {}
 
 function pfl.expr_to_func(expr_str)
-    -- Traduction expression LaTeX → Lua
     local e = expr_str
-    e = e:gsub("%^",    "^")        -- déjà ok en Lua
+    e = e:gsub("%^",    "^")
     e = e:gsub("sin%(", "math.sin(")
     e = e:gsub("cos%(", "math.cos(")
     e = e:gsub("tan%(", "math.tan(")
@@ -154,8 +333,7 @@ function pfl.expr_to_func(expr_str)
     e = e:gsub("log%(", "math.log(")
     e = e:gsub("abs%(", "math.abs(")
     e = e:gsub("pi",    tostring(math.pi))
-    e = e:gsub("%*%*", "^")   -- ajouter cette ligne dans expr_to_func !
-    -- Compilation dynamique
+    e = e:gsub("%*%*",  "^")
     local fstr = "local x,y = ...; return " .. e
     local f, err = load(fstr)
     if not f then
@@ -169,66 +347,82 @@ function pfl.marching_squares(expr_str, xmin, xmax, ymin, ymax, pasx, pasy, eps)
     eps = eps or 1e-12
     local f = pfl.expr_to_func(expr_str)
     if not f then return "" end
-
     local ni = math.floor((xmax - xmin) / pasx)
     local nj = math.floor((ymax - ymin) / pasy)
-
-    -- Phase 1 : tableau complet F[i][j]
-    local F = {}
-    local xs = {}
-    local ys = {}
+    local F, xs, ys = {}, {}, {}
+    for i = 0, ni do xs[i] = xmin + i*pasx ; F[i] = {} end
+    for j = 0, nj do ys[j] = ymin + j*pasy end
     for i = 0, ni do
-        xs[i] = xmin + i * pasx
-        F[i]  = {}
+        for j = 0, nj do F[i][j] = f(xs[i], ys[j]) end
     end
-    for j = 0, nj do
-        ys[j] = ymin + j * pasy
-    end
-    for i = 0, ni do
-        for j = 0, nj do
-            F[i][j] = f(xs[i], ys[j])
-        end
-    end
-
-    -- Phase 2 : marching squares
     local pts = {}
-    for i = 0, ni - 1 do
-        for j = 0, nj - 1 do
-            local A = F[i  ][j  ]
-            local B = F[i+1][j  ]
-            local C = F[i  ][j+1]
-            local D = F[i+1][j+1]
-            local xi  = xs[i]
-            local xip = xs[i+1]
-            local yj  = ys[j]
-            local yjp = ys[j+1]
-            -- Arête A→B
-            if A * B < 0 then
+    for i = 0, ni-1 do
+        for j = 0, nj-1 do
+            local A,B,C = F[i][j],F[i+1][j],F[i][j+1]
+            local xi,yj = xs[i],ys[j]
+            if A*B < 0 then
                 pts[#pts+1] = string.format("(%.3f,%.3g)",
-                    xi - A * pasx / (B - A), yj)
+                    xi-A*pasx/(B-A), yj)
             end
-            -- Arête A→C
-            if A * C < 0 then
+            if A*C < 0 then
                 pts[#pts+1] = string.format("(%.3f,%.3g)",
-                    xi, yj - A * pasy / (C - A))
+                    xi, yj-A*pasy/(C-A))
             end
-            -- Arête C→D
-            -- if C * D < 0 then
-            --    pts[#pts+1] = string.format("(%.6f,%.6g)",
-            --        xi - C * pasx / (D - C), yjp)
-            -- end
-            -- Arête B→D
-            -- if B * D < 0 then
-            --     pts[#pts+1] = string.format("(%.6f,%.6g)",
-            --         xip, yj - B * pasy / (D - B))
-            -- end
-            -- Zéro exact
             if A*B >= 0 and A*C >= 0 and math.abs(A) < eps then
                 pts[#pts+1] = string.format("(%.6f,%.6g)", xi, yj)
             end
         end
     end
-    return table.concat(pts, " ")
+    local result = table.concat(pts, " ")
+    if result == "" then
+        return string.format("(%.6f,%.6f)", xmin-1, ymin-1)
+    end
+    return result
+end
+
+function pfl.level_curves(expr_str, valeurs_str, xmin, xmax, ymin, ymax, pasx, pasy, eps)
+    eps = eps or 1e-12
+    local f = pfl.expr_to_func(expr_str)
+    if not f then return {} end
+    local ni = math.floor((xmax - xmin) / pasx)
+    local nj = math.floor((ymax - ymin) / pasy)
+    local F, xs, ys = {}, {}, {}
+    for i = 0, ni do xs[i] = xmin + i*pasx ; F[i] = {} end
+    for j = 0, nj do ys[j] = ymin + j*pasy end
+    for i = 0, ni do
+        for j = 0, nj do F[i][j] = f(xs[i], ys[j]) end
+    end
+    local valeurs = {}
+    for k in valeurs_str:gmatch("[^,]+") do
+        valeurs[#valeurs+1] = tonumber(k)
+    end
+    local resultats = {}
+    for _, k in ipairs(valeurs) do
+        local pts = {}
+        for i = 0, ni-1 do
+            for j = 0, nj-1 do
+                local A,B,C = F[i][j]-k,F[i+1][j]-k,F[i][j+1]-k
+                local xi,yj = xs[i],ys[j]
+                if A*B < 0 then
+                    pts[#pts+1] = string.format("(%.3f,%.3g)",
+                        xi-A*pasx/(B-A), yj)
+                end
+                if A*C < 0 then
+                    pts[#pts+1] = string.format("(%.3f,%.3g)",
+                        xi, yj-A*pasy/(C-A))
+                end
+                if A*B >= 0 and A*C >= 0 and math.abs(A) < eps then
+                    pts[#pts+1] = string.format("(%.6f,%.6g)", xi, yj)
+                end
+            end
+        end
+        local result = table.concat(pts, " ")
+        if result == "" then
+            result = string.format("(%.6f,%.6f)", xmin-1, ymin-1)
+        end
+        resultats[#resultats+1] = result
+    end
+    return resultats
 end
 \end{luacode*}
 \fi
