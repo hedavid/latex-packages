@@ -41,7 +41,7 @@
 \usepackage[margin=2cm]{geometry}
 \setlength{\parindent}{0pt}
 \def\TPversion{\tkzgrapheurversion}
-\def\TPdate{24/03/2026}
+\def\TPdate{31/03/2026}
 \usepackage{soul}
 \usepackage{codehigh}
 \usepackage{tabularray}
@@ -213,32 +213,32 @@ Pour schématiser le fonctionnement global du package :
 		flechetiret/.style={->,>=latex,line width=1pt},
 		flechedouble/.style={<->,>=latex,line width=1pt}
 		]
-		
+
 		%-- Zone DANS l'environnement
 		\node[tuile,fill=teal!15,draw=teal!60] (fenetre) at (0,0)
 		{\textbf{1. Fenêtre graphique}\\
 			{\footnotesize\color{gray}Unités en dur ou via les dimensions}};
-		
+
 		\node[tuile,fill=teal!15,draw=teal!60] (axes) at (0,-1.5)
 		{\textbf{2. Axes, grilles, graduations}\\
 			{\footnotesize\color{gray}\texttt{\textbackslash TracerAxesGrilles} — \texttt{[Derriere]} pour intégrales}};
-		
+
 		\node[tuile,fill=teal!15,draw=teal!60] (courbes) at (0,-3)
 		{\textbf{3. Définir/Tracer courbes et points}\\
 			{\footnotesize\color{gray}\texttt{\textbackslash DefinirCourbe} — \texttt{\textbackslash TracerCourbe} — \ldots }};
-		
+
 		\node[tuile,fill=teal!15,draw=teal!60] (exploit) at (0,-4.5)
 		{\textbf{4. Exploitation(s) graphique(s)}\\
 			{\footnotesize\color{gray}Dérivée, intégrale, image, antécédent, intersection, extrema\ldots}};
-		
+
 		\node[tuile,fill=teal!15,draw=teal!60] (recup) at (0,-6)
 		{\textbf{5. Récupération de coordonnées}\\
 			{\footnotesize\color{gray}\texttt{\textbackslash RecupererAbscisse} — \texttt{\textbackslash CreerListeAbscisses}}};
-		
+
 		\node[tuile,fill=teal!15,draw=teal!60] (axesdevant) at (0,-7.5)
 		{\textbf{6. (Optionnel) Axes, grilles, graduations}\\
 			{\footnotesize\color{gray}\texttt{\textbackslash TracerAxesGrilles} — \texttt{[Devant]} pour une surimpression}};
-		
+
 		%-- cadre environnement
 		\begin{scope}[on background layer]
 			\node[draw=teal!60,fill=teal!5,rounded corners=8pt,
@@ -248,27 +248,27 @@ Pour schématiser le fonctionnement global du package :
 		\node[font=\small\sffamily\bfseries,text=teal!70!black]
 		at (envbox.north) [above=2pt]
 		{\texttt{\textbackslash begin\{GraphiqueTikz\}\ldots\textbackslash end\{GraphiqueTikz\}}};
-		
+
 		%-- flèches dans l'environnement
 		\draw[fleche,teal!60] (fenetre) -- (axes);
 		\draw[fleche,teal!60] (axes) -- (courbes);
 		\draw[fleche,teal!60] (courbes) -- (exploit);
 		\draw[fleche,teal!60] (exploit) -- (recup);
 		\draw[fleche,teal!60,densely dashed] (recup) -- (axesdevant);
-		
+
 		%-- Zone HORS environnement
 		\node[tuileext,fill=orange!15,draw=orange!60] (genfct) at (9,0)
 		{\textbf{Définir fonctions}\\
 			{\footnotesize\color{gray}Réutilisables globalement}};
-		
+
 		\node[tuileext,fill=orange!15,draw=orange!60] (calcnum) at (9,-2)
 		{\textbf{Calculs numériques}\\
 			{\footnotesize\color{gray}Dérivée, intégrale, solutions, \ldots}};
-		
+
 		\node[tuileext,fill=orange!15,draw=orange!60] (exploitres) at (9,-4)
 		{\textbf{Exploitation des résultats}\\
 			{\footnotesize\color{gray}Rédaction, conclusion, \ldots}};
-		
+
 		%-- cadre hors environnement
 		\begin{scope}[on background layer]
 			\node[draw=orange!60,fill=orange!5,rounded corners=8pt,
@@ -277,7 +277,7 @@ Pour schématiser le fonctionnement global du package :
 		\end{scope}
 		\node[font=\small\sffamily\bfseries,text=orange!70!black]
 		at (horsbox.north) [above=2pt] {Hors environnement};
-		
+
 		%-- flèches entre zones
 		\draw[flechedouble,gray!70] (genfct.west) -- +(-0.8,0)
 		|- (courbes.east) ;
@@ -285,7 +285,7 @@ Pour schématiser le fonctionnement global du package :
 		|- (calcnum.west) ;
 		\draw[flechetiret,gray!70] (recup.east) -- +(0.8,0)
 		|- (exploitres.west) ;
-		
+
 	\end{tikzpicture}
 \end{center}
 
@@ -985,8 +985,8 @@ Les \MontreCode{[clés]} pour la définition ou le tracé, optionnelles, disponi
 	\item \MontreCode{Pas} : pas du tracé (il est déterminé \textit{automatiquement} au départ mais peut être modifié) ;
 	\item \MontreCode{StyleTrace} : style du tracé (\MontreCode{vide} par défaut) ;
 	\item \MontreCode{Trace} : booléen pour tracer également la courbe (\MontreCode{false} par défaut) ;
-	\item \MontreCode{DefGlobale} : booléen (\MontreCode{false} par défaut) 
-	pour rendre la définition de la fonction \textsf{xint} globale, 
+	\item \MontreCode{DefGlobale} : booléen (\MontreCode{false} par défaut)
+	pour rendre la définition de la fonction \textsf{xint} globale,
 	accessible après l'environnement \MontreCode{GraphiqueTikz}.
 \end{itemize}
 
@@ -1454,7 +1454,7 @@ la macro \verb|\mesracines| exploitable ensuite via
 	%les deux antécédents sont aux nœuds (S-1) et (S-2)
 \end{GraphiqueTikz}
 
-Il y a donc \nbsols\ solutions, qui sont 
+Il y a donc \nbsols\ solutions, qui sont
 $\left\lbrace \listesols\right\rbrace$.
 \end{tcblisting}
 
@@ -3379,7 +3379,7 @@ $\displaystyle\int_0^2 f_2(x)\,\text{d}x \approx \monres$
 	\TracerAxesGrillesSemiLog{auto}
 	% f(x) = 10^(x/4) → droite en semi-log
 	\TracerCourbeSemiLog[Couleur=blue]{10^(x/4)}
-	% g(x) = exp(x) 
+	% g(x) = exp(x)
 	\TracerCourbeSemiLog[Couleur=red]{exp(x)}
 	% h(x) = x^2+1
 	\TracerCourbeSemiLog[Couleur=green]{x^2+1}
