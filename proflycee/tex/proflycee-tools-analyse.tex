@@ -1,9 +1,10 @@
 % proflycee-tools-analyse.tex
-% Copyright 2023-2025 Cédric Pierquet
+% Copyright 2023-2026 Cédric Pierquet
 % Released under the LaTeX Project Public License v1.3c or later, see http://www.latex-project.org/lppl.txt
 
 %===trad fr/en ok
 %===correction d'un bug sur la raacine carrée... le cas où ça fait 1 !
+%===modif style signes +/- dans les minischémas
 
 %%------SimplFrac nouvelle version latex3
 \ExplSyntaxOn
@@ -92,6 +93,12 @@
 \ExplSyntaxOff
 
 %%------AideTds
+\newcommand\tkzTabAideVI[2][red]{%
+  \foreach \nbval/\labval in {#2}{%
+    \draw (N\nbval1) node[text=#1,font=\tiny,above=0pt,inner sep=0.5pt] {\labval} ;
+  }
+}
+
 \defKV[aidetds]{%
   Code=\def\tdsparam{#1},code=\def\tdsparam{#1},%
   Couleur=\def\tdscouleur{#1},color=\def\tdscouleur{#1},%
@@ -117,15 +124,19 @@
   % #5 = racine
   \IfBooleanTF{#1}%si étoile := droite qui descend
     {%
-      \def\possgnavant{above right}\def\possgnapres{below left}\def\sgnavant{\strut+}\def\sgnapres{\strut-}%
+      %\def\possgnavant{above right}\def\possgnapres{below left}\def\sgnavant{\strut+}\def\sgnapres{\strut-}%
+      \def\possgnavant{above right}\def\possgnapres{below left}\def\sgnavant{\pflfacplus}\def\sgnapres{\pflfacminus}%
       \draw[thick,#2] ({-0.5*#3},{0.5*#4})--({0.5*#3},{-0.5*#4});
     }
     {%
-      \def\possgnavant{below right}\def\possgnapres{above left}\def\sgnavant{\strut-}\def\sgnapres{\strut+}%
+      %\def\possgnavant{below right}\def\possgnapres{above left}\def\sgnavant{\strut-}\def\sgnapres{\strut+}%
+	  \def\possgnavant{below right}\def\possgnapres{above left}\def\sgnavant{\pflfacminus}\def\sgnapres{\pflfacplus}%
       \draw[thick,#2] ({-0.5*#3},{-0.5*#4})--({0.5*#3},{0.5*#4});
     }
-  \draw[#2] ({-0.5*#3},0) node[inner sep=0pt,\possgnavant=1pt,font=\scriptsize] {\textcircled{$\sgnavant$}};
-  \draw[#2] ({0.5*#3},0) node[inner sep=0pt,\possgnapres=1pt,font=\scriptsize] {\textcircled{$\sgnapres$}};
+  %\draw[#2] ({-0.5*#3},0) node[inner sep=0pt,\possgnavant=1pt,font=\scriptsize] {\textcircled{$\sgnavant$}};
+  %\draw[#2] ({0.5*#3},0) node[inner sep=0pt,\possgnapres=1pt,font=\scriptsize] {\textcircled{$\sgnapres$}};
+  \draw[#2] ({-0.5*#3},0) node[inner sep=0pt,\possgnavant=1pt,font=\scriptsize] {\sgnavant};
+  \draw[#2] ({0.5*#3},0) node[inner sep=0pt,\possgnapres=1pt,font=\scriptsize] {\sgnapres};
   \draw[#2] (0,0) node[inner sep=0pt,above=3pt,font=\scriptsize] {$\strut#5$} ;
   \filldraw[#2] (0,0) circle[radius=2pt] ;
 }
@@ -142,7 +153,7 @@
     {%sinon := expo 'croissante'
       \draw[thick,#2] ({-0.5*#3},{-0.325*#4}) to[out=1,in=-105] ({0.5*#3},{0.5*#4});
     }
-  \draw[#2] ({0},{0}) node[inner sep=0pt,above=0pt,font=\scriptsize] {\textcircled{$+$}};.
+  \draw[#2] ({0},{0}) node[inner sep=0pt,above=0pt,font=\scriptsize] {\pflfacplus};.
 }
 
 \NewDocumentCommand\schematdsexposol{ s m m m o }{%pour les expos avec solution (interne)
@@ -155,15 +166,15 @@
     {%
       \draw[thick,#2] ({-0.35*#3},{0.5*#4}) to[out=-75,in=179] ($({0.5*#3},{-0.325*#4})+(2mm,0)$) ;
       \filldraw[#2] ({-0.1925*#3},0) circle[radius=2pt] ;
-      \draw[#2] ({0.5*#3},{-0.1625*#4}) node[inner sep=0pt,left=2pt,font=\scriptsize] {\textcircled{$-$}} ;
-      \draw[#2] ({-0.5*#3},{0.25*#4}) node[inner sep=0pt,right=1pt,font=\scriptsize] {\textcircled{$+$}} ;
+      \draw[#2] ({0.5*#3},{-0.1625*#4}) node[inner sep=0pt,left=2pt,font=\scriptsize] {\pflfacminus} ;
+      \draw[#2] ({-0.5*#3},{0.25*#4}) node[inner sep=0pt,right=1pt,font=\scriptsize] {\pflfacplus} ;
       \draw[#2] ({-0.1925*#3},0) node[inner sep=0pt,below left=1pt,font=\scriptsize] {$\strut#5$} ;
     }
     {%sinon := expo 'croissante'
       \draw[thick,#2] ({-0.5*#3},{-0.325*#4}) to[out=1,in=-105] ({0.35*#3},{0.5*#4});
       \filldraw[#2] ({0.1925*#3},0) circle[radius=2pt] ;
-      \draw[#2] ({0.5*#3},{0.25*#4}) node[inner sep=0pt,left=1pt,font=\scriptsize] {\textcircled{$+$}} ;
-      \draw[#2] ({-0.5*#3},{-0.1625*#4}) node[inner sep=0pt,right=2pt,font=\scriptsize] {\textcircled{$-$}} ;
+      \draw[#2] ({0.5*#3},{0.25*#4}) node[inner sep=0pt,left=1pt,font=\scriptsize] {\pflfacplus} ;
+      \draw[#2] ({-0.5*#3},{-0.1625*#4}) node[inner sep=0pt,right=2pt,font=\scriptsize] {\pflfacminus} ;
       \draw[#2] ({0.1925*#3},0) node[inner sep=0pt,above left=1pt,font=\scriptsize] {$\strut#5$} ;
     }
 }
@@ -188,8 +199,8 @@
     {%sinon := ln 'croissante'
       \draw[thick,#2] ({-0.35*#3},{-0.5*#4}) to[out=75,in=-175] ($({0.5*#3},{0.45*#4})+(2mm,0)$) ;
       \filldraw[#2] ({-0.1975*#3},0) circle[radius=2pt] ;
-      \draw[#2] ({-0.5*#3},{-0.25*#4}) node[inner sep=0pt,right=1pt,font=\scriptsize] {\textcircled{$-$}} ;
-      \draw[#2] ({0.5*#3},{0.5*0.425*#4}) node[inner sep=0pt,left=1pt,font=\scriptsize] {\textcircled{$+$}} ;
+      \draw[#2] ({-0.5*#3},{-0.25*#4}) node[inner sep=0pt,right=1pt,font=\scriptsize] {\pflfacminus} ;
+      \draw[#2] ({0.5*#3},{0.5*0.425*#4}) node[inner sep=0pt,left=1pt,font=\scriptsize] {\pflfacplus} ;
       \draw[#2] ({-0.1925*#3},0) node[inner sep=0pt,above left=1pt,font=\scriptsize] {$\strut#5$} ;
     }
 }
@@ -208,9 +219,9 @@
     %\StrCut{#6}{/}{\xun}{\xdeux}
     %\restoreexpandmode
     \draw[thick,#2] ({-0.375*#3},{0.5*#4}) parabola bend (0,{-0.5*#4}) ({0.375*#3},{0.5*#4}) ;
-    \draw[#2] ({-0.5*#3},0) node[above right=1pt,inner sep=0pt,font=\scriptsize] {\textcircled{$\strut+$}};
-    \draw[#2] ({0.5*#3},0) node[above left=1pt,inner sep=0pt,font=\scriptsize] {\textcircled{$\strut+$}};
-    \draw[#2] (0,0) node[below=1pt,inner sep=0pt,font=\scriptsize] {\textcircled{$\strut-$}};
+    \draw[#2] ({-0.5*#3},0) node[above right=1pt,inner sep=0pt,font=\scriptsize] {\pflfacplus};
+    \draw[#2] ({0.5*#3},0) node[above left=1pt,inner sep=0pt,font=\scriptsize] {\pflfacplus};
+    \draw[#2] (0,0) node[below=1pt,inner sep=0pt,font=\scriptsize] {\pflfacminus};
     \filldraw[#2] ({0.2625*#3},0) circle[radius=2pt] node[below right=1pt,inner sep=0pt,font=\scriptsize] {$\strut\xdeux$};
     \filldraw[#2] ({-0.2625*#3},0) circle[radius=2pt] node[below left=1pt,inner sep=0pt,font=\scriptsize] {$\strut\xun$};%
   }
@@ -222,9 +233,9 @@
 %    \StrCut{#6}{/}{\xun}{\xdeux}
 %    \restoreexpandmode
     \draw[thick,#2] ({-0.375*#3},{-0.5*#4}) parabola bend (0,{0.5*#4}) ({0.375*#3},{-0.5*#4}) ;
-    \draw[#2] ({-0.5*#3},0) node[below right=1pt,inner sep=0pt,font=\scriptsize] {\textcircled{$\strut-$}};
-    \draw[#2] ({0.5*#3},0) node[below left=1pt,inner sep=0pt,font=\scriptsize] {\textcircled{$\strut-$}};
-    \draw[#2] (0,0) node[above=1pt,inner sep=0pt,font=\scriptsize] {\textcircled{$\strut+$}};
+    \draw[#2] ({-0.5*#3},0) node[below right=1pt,inner sep=0pt,font=\scriptsize] {\pflfacminus};
+    \draw[#2] ({0.5*#3},0) node[below left=1pt,inner sep=0pt,font=\scriptsize] {\pflfacminus};
+    \draw[#2] (0,0) node[above=1pt,inner sep=0pt,font=\scriptsize] {\pflfacplus};
     \filldraw[#2] ({0.2625*#3},0) circle[radius=2pt] node[above right=1pt,inner sep=0pt,font=\scriptsize] {$\strut\xdeux$};
     \filldraw[#2] ({-0.2625*#3},0) circle[radius=2pt] node[above left=1pt,inner sep=0pt,font=\scriptsize] {$\strut\xun$};%
   }
@@ -233,26 +244,26 @@
   {%
     \draw[thick,#2] ({-0.375*#3},{0.5*#4}) parabola bend (0,0) ({0.375*#3},{0.5*#4}) ;
     \filldraw[#2] (0,0) circle[radius=2pt] node[below=3pt,inner sep=1pt,font=\scriptsize] {$#6$};
-    \draw[#2] (0,0) node[above=3pt,inner sep=0pt,font=\scriptsize] {\textcircled{$\strut+$}};
+    \draw[#2] (0,0) node[above=3pt,inner sep=0pt,font=\scriptsize] {\pflfacplus};
   }
   {}
   \xintifboolexpr{ #1 < 0 'and' #5 == 1 } %a>0 et delta=0
   {%
     \draw[thick,#2] ({-0.375*#3},{-0.5*#4}) parabola bend (0,0) ({0.375*#3},{-0.5*#4}) ;
     \filldraw[#2] (0,0) circle[radius=2pt] node[above=3pt,inner sep=0pt,font=\scriptsize] {$#6$};
-    \draw[#2] (0,0) node[below=3pt,inner sep=0pt,font=\scriptsize] {\textcircled{$\strut-$}};
+    \draw[#2] (0,0) node[below=3pt,inner sep=0pt,font=\scriptsize] {\pflfacminus};
   }
   {}
   \xintifboolexpr{ #1 > 0 'and' #5 == 0 } %a>0 et delta<0
   {%
     \draw[thick,#2] ({-0.375*#3},{0.5*#4}) parabola bend (0,{0.075*#4}) ({0.375*#3},{0.5*#4}) ;
-    \draw[#2] (0,{0.075*#4}) node[above=2pt,inner sep=0pt,font=\scriptsize] {\textcircled{$\strut+$}};
+    \draw[#2] (0,{0.075*#4}) node[above=2pt,inner sep=0pt,font=\scriptsize] {\pflfacplus};
   }
   {}
   \xintifboolexpr{ #1 < 0 'and' #5 == 0 } %a>0 et delta<0
   {%
     \draw[thick,#2] ({-0.375*#3},{-0.5*#4}) parabola bend (0,{-0.075*#4}) ({0.375*#3},{-0.5*#4}) ;
-    \draw[#2] (0,{-0.075*#4}) node[below=2pt,inner sep=0pt,font=\scriptsize] {\textcircled{$\strut-$}};
+    \draw[#2] (0,{-0.075*#4}) node[below=2pt,inner sep=0pt,font=\scriptsize] {\pflfacminus};
   }
   {}
 }
@@ -366,7 +377,7 @@
   %#2 = numligne
   %#3 = échelle
   %#4 = décalage
-  %\shorthandoff{:}\shorthandoff{!} %bizzzzzzzzare
+  %\shorthandoff{:}\shorthandoff{!} %bizzzzzzzzare, non c'est babel !!!!!
   %\NoAutoSpacing
   \coordinate (ZZZ) at ($(T2#2)!.5!(T2\the\numexpr#2+1\relax)$) ;
   %\shorthandon{:}\shorthandon{!}
@@ -374,6 +385,7 @@
 }
 \NewCommandCopy\pflschemasignestkztab\MiniSchemaSignesTkzTab
 \NewCommandCopy\pflminisignplottkztab\MiniSchemaSignesTkzTab
+\NewCommandCopy\tkzTabMiniSignes\MiniSchemaSignesTkzTab
 
 %%------TVISOLUTION
 \defKV[dichoto]{%

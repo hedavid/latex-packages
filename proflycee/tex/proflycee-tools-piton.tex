@@ -1,9 +1,9 @@
 % proflycee-tools-piton.tex
-% Copyright 2023-2025  Cédric Pierquet
+% Copyright 2023-2026  Cédric Pierquet
 % Released under the LaTeX Project Public License v1.3c or later, see http://www.latex-project.org/lppl.txt
 
 %===trad fr/en ok (environnements aussi, dupliqués...)
-
+%4.00f  Couleurs fond piton 
 %3.12f  Légères modif piton [bottom + bg-color]
 %3.12e  Oubli d'une clé pitonconsole...
 %3.12b  Modifs pour piton (semblent ok)...
@@ -43,7 +43,8 @@
   CouleurNombres=\def\CODPITcolnb{#1},num color=\def\CODPITcolnb{#1},%
   Gobble=\def\CODPITgobble{#1},gobble=\def\CODPITgobble{#1},%
   Couleur=\def\CODPITcolor{#1},color=\def\CODPITcolor{#1},%
-  IconesCarbon=\def\CODPITicocarbon{#1},carbon icons=\def\CODPITicocarbon{#1}
+  IconesCarbon=\def\CODPITicocarbon{#1},carbon icons=\def\CODPITicocarbon{#1},%
+  CouleurFond=\colorlet{CODPITcoulfond}{#1},colback=\colorlet{CODPITcoulfond}{#1}
 }
 
 \setKVdefault[envpiton]{%
@@ -60,7 +61,8 @@
   EspacementV=0.5\baselineskip,vsep=0.5\baselineskip,%
   CouleurNombres={orange!75!black},num color={orange!75!black},%
   Couleur=red,color=red,%
-  IconesCarbon={\textcolor{red}{\pflfaclone}\;\textcolor{orange}{\pflfaclone}\;\textcolor{greensilicon}{\pflfaclone}},carbon icons={\textcolor{red}{\pflfaclone}\;\textcolor{orange}{\pflfaclone}\;\textcolor{greensilicon}{\pflfaclone}}
+  IconesCarbon={\textcolor{red}{\pflfaclone}\;\textcolor{orange}{\pflfaclone}\;\textcolor{greensilicon}{\pflfaclone}},carbon icons={\textcolor{red}{\pflfaclone}\;\textcolor{orange}{\pflfaclone}\;\textcolor{greensilicon}{\pflfaclone}},%
+  CouleurFond=white,colback=white
 }
 
 %==Style Moderne
@@ -87,7 +89,7 @@
   enhanced,boxrule=0.75pt,colframe=darkgray!50!black,%
   sharp corners,top=0mm,bottom=\pflpitontcboxbottom,left=0.4em,right=5mm,%
   before skip=\CODPITespV,after skip=\CODPITespV,%
-  colback=white
+  colback=CODPITcoulfond
   }
 }
 
@@ -166,7 +168,8 @@
   Style=\def\CODPITPCstyle{#1},style=\def\CODPITPCstyle{#1},%
   Titre=\def\CODPITPCtitre{#1},title=\def\CODPITPCtitre{#1},%
   EspacementV=\def\CODPITPCespV{#1},vsep=\def\CODPITPCespV{#1},%
-  Gobble=\def\CODPITPCgobble{#1},gobble=\def\CODPITPCgobble{#1}
+  Gobble=\def\CODPITPCgobble{#1},gobble=\def\CODPITPCgobble{#1},%
+  CouleurFond=\colorlet{CODPITcoulfond}{#1},colback=\colorlet{CODPITcoulfond}{#1}
 }
 
 \setKVdefault[envpcpiton]{%
@@ -181,7 +184,8 @@
   BarreTitre=true,title bar=true,%
   Titre={{\scriptsize\pflfapseudocode}\enspace \labelpseudocode},title={{\scriptsize\pflfapseudocode}\enspace \labelpseudocode},%
   EspacementV=0.5\baselineskip,vsep=0.5\baselineskip,%
-  Couleurs=true,color=true
+  Couleurs=true,color=true,%
+  CouleurFond=white,colback=white
 }
 
 %==Style Moderne
@@ -207,7 +211,7 @@
   enhanced,boxrule=0.75pt,colframe=darkgray!50!black,%
   sharp corners,top=0mm,bottom=\pflpitontcboxbottom,left=0.4em,right=5mm,%
   before skip=\CODPITPCespV,after skip=\CODPITPCespV,%
-  colback=white
+  colback=CODPITcoulfond
   }
 }
 
@@ -987,7 +991,7 @@
 
 %======CONSOLE PYLUATEX (package à charger manuellement !!)
 \tcbset{consolepylua/.style={%base de la boîte
-  enhanced,colback=white,colframe=CouleurVertForet,sharp corners,boxrule=1pt,%
+  enhanced,colback=CODPITcoulfond,colframe=CouleurVertForet,sharp corners,boxrule=1pt,%
   top=1mm,bottom=\pflpitonconsoletcboxbottom,left=0.5mm,right=3mm,fontupper=\footnotesize,%test 3.12e
   before skip=\CODPITstrechbefaft\baselineskip,after skip=\CODPITstrechbefaft\baselineskip,%
   }
@@ -996,8 +1000,8 @@
 \tcbset{consolepyluatexlogo/.style={%avec logo python
   consolepylua,%
   overlay={%
-    \draw ([yshift=0.5pt]frame.south) node[CouleurVertForet!50!black,fill=white,font=\scriptsize\ttfamily,inner ysep=1pt] {\scalebox{0.8}[0.8]{\pflfapython} \labelconsolepythonfin\ \scalebox{0.8}[0.8]{\pflfapython}} ;
-    \draw ([yshift=-0.5pt]frame.north) node[CouleurVertForet!50!black,fill=white,font=\scriptsize\ttfamily,inner ysep=1pt] {\scalebox{0.8}[0.8]{\pflfapython} \labelconsolepythondebut\ \scalebox{0.8}[0.8]{\pflfapython}} ;
+    \draw ([yshift=0.5pt]frame.south) node[CouleurVertForet!50!black,fill=CODPITcoulfond,font=\scriptsize\ttfamily,inner ysep=1pt] {\scalebox{0.8}[0.8]{\pflfapython} \labelconsolepythonfin\ \scalebox{0.8}[0.8]{\pflfapython}} ;
+    \draw ([yshift=-0.5pt]frame.north) node[CouleurVertForet!50!black,fill=CODPITcoulfond,font=\scriptsize\ttfamily,inner ysep=1pt] {\scalebox{0.8}[0.8]{\pflfapython} \labelconsolepythondebut\ \scalebox{0.8}[0.8]{\pflfapython}} ;
     }
   }
 }
@@ -1005,14 +1009,14 @@
 \tcbset{consolepyluatex/.style={%sans logo python
   consolepylua,%
   overlay={%
-    \draw ([yshift=0.5pt]frame.south) node[CouleurVertForet!50!black,fill=white,font=\scriptsize\ttfamily,inner ysep=1pt] {\labelconsolepythonfin} ;
-    \draw ([yshift=-0.5pt]frame.north) node[CouleurVertForet!50!black,fill=white,font=\scriptsize\ttfamily,inner ysep=1pt] {\labelconsolepythondebut} ;
+    \draw ([yshift=0.5pt]frame.south) node[CouleurVertForet!50!black,fill=CODPITcoulfond,font=\scriptsize\ttfamily,inner ysep=1pt] {\labelconsolepythonfin} ;
+    \draw ([yshift=-0.5pt]frame.north) node[CouleurVertForet!50!black,fill=CODPITcoulfond,font=\scriptsize\ttfamily,inner ysep=1pt] {\labelconsolepythondebut} ;
     }
   }
 }
 
 \tcbset{consolepyluaalt/.style={%base de la boîte
-  enhanced,colback=white,colframe=CouleurVertForet,rounded corners,arc=0.25\tmppitonconsoleheighttitles,boxrule=1pt,%
+  enhanced,colback=CODPITcoulfond,colframe=CouleurVertForet,rounded corners,arc=0.25\tmppitonconsoleheighttitles,boxrule=1pt,%
   left=0.5mm,right=3mm,fontupper=\footnotesize,%test 3.12e,top=1mm,bottom=\pflpitonconsoletcboxbottom,
   before skip=\CODPITstrechbefaft\baselineskip,after skip=\CODPITstrechbefaft\baselineskip,%
   }
@@ -1047,7 +1051,8 @@
   Largeur=\setlength\ConsPyluaLarg{#1},width=\setlength\ConsPyluaLarg{#1},%
   Alignement=\def\ConsPyluaAlign{#1},align=\def\ConsPyluaAlign{#1},%
   CouleurNombres=\def\CODPITcolnb{#1},num color=\def\CODPITcolnb{#1},%
-  CoeffAvantApres=\def\CODPITstrechbefaft{#1},beforeafter sep=\def\CODPITstrechbefaft{#1}
+  CoeffAvantApres=\def\CODPITstrechbefaft{#1},beforeafter sep=\def\CODPITstrechbefaft{#1},%
+  CouleurFond=\colorlet{CODPITcoulfond}{#1},colback=\colorlet{CODPITcoulfond}{#1}
 }
 \setKVdefault[consolepyluatex]{%
   Logo=true,logo=true,%
@@ -1055,7 +1060,8 @@
   Alignement={flush left},align={flush left},%
   CouleurNombres={orange!75!black},num color={orange!75!black},%
   CoeffAvantApres=0.75,beforeafter sep=0.75,%
-  AltStyle=false
+  AltStyle=false,%
+  CouleurFond=white,colback=white
 }
 
 \newlength\tmppitonconsoleheighttitles
@@ -1183,7 +1189,8 @@
   IntroConsole=\def\thonnypitonintroconsole{#1},console intro=\def\thonnypitonintroconsole{#1},%
   Gobble=\def\thonnypitongobble{#1},gobble=\def\thonnypitongobble{#1},%
   CouleurNombres=\def\CODPITcolnb{#1},num color=\def\CODPITcolnb{#1},%
-  Largeur=\setlength\LargeurThonny{#1},width=\setlength\LargeurThonny{#1}
+  Largeur=\setlength\LargeurThonny{#1},width=\setlength\LargeurThonny{#1},%
+  CouleurFond=\colorlet{CODPITcoulfond}{#1},colback=\colorlet{CODPITcoulfond}{#1}
 }
 
 \setKVdefault[pitonthonny]{%
@@ -1192,7 +1199,8 @@
   IntroConsole={Python 3.11.6 /usr/bin/python},console intro={Python 3.11.6 /usr/bin/python},%
   Gobble={},gobble={},%
   CouleurNombres={orange!75!black},num color={orange!75!black},%
-  Largeur=\linewidth,width=\linewidth
+  Largeur=\linewidth,width=\linewidth,%
+  CouleurFond=white,colback=white
 }
 
 \NewPitonEnvironment{PitonThonnyEditor}{O{}mD<>{}}%semble OK avec syntaxe v2...

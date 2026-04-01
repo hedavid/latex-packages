@@ -29,7 +29,7 @@ tlmgr install ProfLycee
 If you want the latest version directly from this repository:
 
 1. Download the [repository](https://github.com/cpierquet/latex-packages/tree/main/proflycee) (click *Code > Download ZIP*, or clone it).
-2. Place `ProfLycee.sty` and all other files (`*.tex` and `*.pdf`) in a directory where LaTeX can find it, for example:
+2. Place `ProfLycee.sty` and all other files (`*.sty`, `*.tex` and `*.pdf`) in a directory where LaTeX can find it, for example:
    - **TeX Live / Linux**: `~/texmf/tex/latex/ProfLycee/`
    - **MiKTeX / Windows**: `C:\Users\<user>\AppData\Roaming\MiKTeX\tex\latex\ProfLycee\`
    - **macOS (MacTeX)**: `~/Library/texmf/tex/latex/ProfLycee/`

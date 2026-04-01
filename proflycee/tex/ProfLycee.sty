@@ -5,7 +5,8 @@
 % code
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{ProfLycee}[2026/03/12 4.00e Aide pour l'utilisation de LaTeX en lycee]
+\ProvidesPackage{ProfLycee}[2026/03/24 4.00f Aide pour l'utilisation de LaTeX en lycee]
+% 4.00f  Modification du style des +/- pour les schémas signes (fa)
 % 4.00e  Correction de bugs mineurs
 % 4.00d  Gestion des pages de garde
 % 4.00c  Travail sur les décompositions en facteurs premiers
@@ -181,6 +182,8 @@
 \def\pflfapcode{}
 \def\pflfaclone{}
 \def\pflfapython{}
+\def\pflfacplus{+}
+\def\pflfacminus{-}
 
 \@ifpackageloaded{fontawesome5}%
   {%
@@ -189,6 +192,8 @@
     \def\pflfapcode{\faCode}%
     \def\pflfaclone{\faClone}%
     \def\pflfapython{\faPython}%
+    \def\pflfacplus{\faPlusSquare[regular]}%
+    \def\pflfacminus{\faMinusSquare[regular]}%
   }%
   {}
 \@ifpackageloaded{fontawesome6}
@@ -197,6 +202,8 @@
     \def\pflfapseudocode{\faFileCode}%
     \def\pflfapcode{\faCode}%
     \def\pflfapython{\faPython}%
+    \def\pflfacplus{\faSquarePlus[regular]}%
+    \def\pflfacminus{\faSquareMinus[regular]}%
   }%
   {}%
 \@ifpackageloaded{fontawesome7}%
@@ -205,6 +212,8 @@
     \def\pflfapseudocode{\faFileCode}%
     \def\pflfapcode{\faCode}%
     \def\pflfapython{\faPython}%
+    \def\pflfacplus{\faSquarePlus[regular]}%
+    \def\pflfacminus{\faSquareMinus[regular]}%
   }%
   {}%
 
