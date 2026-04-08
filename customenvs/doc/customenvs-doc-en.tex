@@ -35,8 +35,8 @@
 \usepackage[margin=1.5cm]{geometry}
 \setlength{\parindent}{0pt}
 
-\def\TPversion{0.42f}
-\def\TPdate{17/01/2026}
+\def\TPversion{0.43a}
+\def\TPdate{08/04/2026}
 \usepackage{tcolorbox}
 \sethlcolor{lightgray!25}
 \NewDocumentCommand\MontreCode{ m }{%
@@ -64,9 +64,9 @@
 				{\Large or small patches.} \\
 			\end{tabular}
 			\renewcommand\arraystretch{1}
-			
+
 			\medskip
-			
+
 			{\small \texttt{Version \TPversion{} -- \TPdate}}
 		\end{center}
 	\end{tcolorbox}
@@ -77,9 +77,9 @@
 \begin{minipage}{0.85\linewidth}
 	\begin{tcolorbox}[colframe=teal,colback=teal!10,halign=center,fontupper=\footnotesize]
 		\texttt{\url{https://github.com/cpierquet/latex-packages/tree/main/customenvs}}
-		
+
 		~
-		
+
 		\texttt{\url{https://forge.apps.education.fr/pierquetcedric/packages-latex}}
 	\end{tcolorbox}
 \end{minipage}
@@ -114,6 +114,8 @@
 \vfill
 
 \section{History}
+
+\verb|v0.43a|:~~~New mathpictos
 
 \verb|v0.42f|:~~~New box \textit{notebook}
 
@@ -489,7 +491,7 @@ Controls are done:
 \end{demohigh}
 
 \begin{demohigh}[language=latex/latex3,style/main=teal!25,style/code=teal!25]
-%items picked 
+%items picked
 \ListItemsChoice{\mylistofitems}{ListItems}(1,4,3,8,2)
 \end{demohigh}
 
@@ -505,7 +507,7 @@ Controls are done:
 {\mylistofitemsb}{ListItemsB}
 
 \begin{codehigh}[language=latex/latex3,style/main=teal!25,style/code=teal!25]
-%items picked 
+%items picked
 \ListItemsChoice[Type=item]{\mylistofitemsb}{ListItemsB}(7,2,1,5,3)<label=$--$>
 \end{codehigh}
 
@@ -542,9 +544,9 @@ Available \MontreCode{keys} are:
 	\item \MontreCode{FontCateg}: font for the categories;
 	\item \MontreCode{FontBlock}: font for the skills;
 	\item \MontreCode{Colors}: list of category's colors
-	
+
 	\MontreCode{BgCateg1/FgCateg1,BgCateg1/FgCateg1,...}
-	
+
 	(if \MontreCode{FgCateg1} est missing, \MontreCode{black} is used)
 	\item \MontreCode{BlockWidth}: width of skill's block;
 	\item \MontreCode{Scale}: global scale
@@ -613,7 +615,7 @@ Available \MontreCode{keys} are:
 	\item \MontreCode{Font}: global font; \MontreCode{\textbackslash bfseries\textbackslash sffamily} by default
 	\item \MontreCode{ShowLegend}: boolean for the legend;  \MontreCode{false} by default;
 	\item \MontreCode{Colors}: colors for boxes;
-	
+
 	\hfill\MontreCode{colorNS1,colorNS2,colorNS3,colorNS4,colorNS5} by default;
 	\item \MontreCode{ScaleSymbols}: scale H/V of labels;  \MontreCode{1.25,1.65} by default;
 	\item \MontreCode{Colbg}: background color for select box;  \MontreCode{white} by default.
@@ -1087,13 +1089,13 @@ Test n°3 (4 points)
 \begin{demohigh}[language=latex/latex3,style/main=teal!25,style/code=teal!25]
 %with
 \sffamily\Large
-\halignmakebox[l]{Exercise 1}{Exercise 1,Evaluation 2,Test n°3} 
+\halignmakebox[l]{Exercise 1}{Exercise 1,Evaluation 2,Test n°3}
 (\halignmakebox[r]{10}{10,8,4} points)
 
-\halignmakebox[l]{Evaluation 2}{Exercise 1,Evaluation 2,Test n°3} 
+\halignmakebox[l]{Evaluation 2}{Exercise 1,Evaluation 2,Test n°3}
 (\halignmakebox[r]{8}{10,8,4} points)
 
-\halignmakebox[l]{Test n°3}{Exercise 1,Evaluation 2,Test n°3} 
+\halignmakebox[l]{Test n°3}{Exercise 1,Evaluation 2,Test n°3}
 (\halignmakebox[r]{4}{10,8,4} points)
 \end{demohigh}
 
