@@ -34,8 +34,8 @@
 \usepackage[margin=1.5cm]{geometry}
 \setlength{\parindent}{0pt}
 
-\def\TPversion{0.1.4}
-\def\TPdate{29 juillet 2025}
+\def\TPversion{0.1.5}
+\def\TPdate{7 avril 2026}
 \def\HtRet{0.45}\def\LgRect{1.5}
 \usepackage{tcolorbox}
 
@@ -68,6 +68,8 @@
 	\hl{\vphantom{\texttt{pf}}\texttt{#1}}%
 }
 
+\def\rayondemodisque{1.5}
+
 \usepackage{babel}
 
 \begin{document}
@@ -86,9 +88,9 @@
 				{\LARGE Des couleurs de \texttt{xcolor},} \\
 				{\LARGE en version francisées.} \\
 			\end{tabular}
-			
+
 			\medskip
-			
+
 			{\small \texttt{Version \TPversion{} -- \TPdate}}
 		\end{center}
 	\end{tcolorbox}
@@ -106,10 +108,6 @@
 \begin{minipage}{0.85\linewidth}
 	\begin{tcolorbox}[colframe=teal,colback=teal!10,halign=center,fontupper=\footnotesize]
 		\texttt{\url{https://github.com/cpierquet/latex-packages/tree/main/couleurs-fr}}
-		
-		~
-		
-		\texttt{\url{https://forge.apps.education.fr/pierquetcedric/packages-latex}}
 	\end{tcolorbox}
 \end{minipage}
 \end{center}
@@ -132,31 +130,35 @@
 
 \hfill
 \begin{tikzpicture}
-	\draw[ultra thick,fill=JauneMimosa] (0,0) circle[radius=2] node[midway,text=black,font=\LARGE\ttfamily] {JauneMimosa} ;
+	\draw[ultra thick,fill=JauneMimosa] (0,0) circle[radius=\rayondemodisque] node[midway,text=black,font=\large\ttfamily] {JauneMimosa} ;
 \end{tikzpicture}
 ~~~~
 \begin{tikzpicture}
-	\draw[ultra thick,fill=BleuCiel] (0,0) circle[radius=2] node[midway,text=black,font=\LARGE\ttfamily] {BleuCiel} ;
+	\draw[ultra thick,fill=BleuCiel] (0,0) circle[radius=\rayondemodisque] node[midway,text=black,font=\large\ttfamily] {BleuCiel} ;
 \end{tikzpicture}
 ~~~~
 \begin{tikzpicture}
-	\draw[ultra thick,fill=Carotte] (0,0) circle[radius=2] node[midway,text=black,font=\LARGE\ttfamily] {Carotte} ;
+	\draw[ultra thick,fill=Carotte] (0,0) circle[radius=\rayondemodisque] node[midway,text=black,font=\large\ttfamily] {Carotte} ;
 \end{tikzpicture}
 \hfill~
 
-\hfill
-\begin{tikzpicture}
-	\draw[ultra thick,fill=VertMer] (0,0) circle[radius=2] node[midway,text=white,font=\LARGE\ttfamily] {VertMer} ;
-\end{tikzpicture}
-~~~~
-\begin{tikzpicture}
-	\draw[ultra thick,fill=Mure] (0,0) circle[radius=2] node[midway,text=white,font=\LARGE\ttfamily] {Mure} ;
-\end{tikzpicture}
-\hfill~
+\vspace*{-0.5\baselineskip}
 
 \hfill
 \begin{tikzpicture}
-	\draw[ultra thick,fill=Noisette] (0,0) circle[radius=2] node[midway,text=white,font=\LARGE\ttfamily] {Noisette} ;
+	\draw[ultra thick,fill=VertMer] (0,0) circle[radius=\rayondemodisque] node[midway,text=white,font=\large\ttfamily] {VertMer} ;
+\end{tikzpicture}
+~~~~
+\begin{tikzpicture}
+	\draw[ultra thick,fill=Mure] (0,0) circle[radius=\rayondemodisque] node[midway,text=white,font=\large\ttfamily] {Mure} ;
+\end{tikzpicture}
+\hfill~
+
+\vspace*{-0.5\baselineskip}
+
+\hfill
+\begin{tikzpicture}
+	\draw[ultra thick,fill=Noisette] (0,0) circle[radius=\rayondemodisque] node[midway,text=white,font=\large\ttfamily] {Noisette} ;
 \end{tikzpicture}
 \hfill~
 
@@ -211,7 +213,11 @@ Pour éviter des éventuelles confusions avec d'autres couleurs précédemment d
 ...
 \end{codehigh}
 
+\pagebreak
+
 \subsection{Historique}
+
+\verb|v0.1.5|~:~~~~Couleur de texte en fonction d'une couleur de fond + couleur complémentaire
 
 \verb|v0.1.4|~:~~~~Correction de doublons (merci à \textsf{quark67})
 
@@ -224,8 +230,6 @@ Pour éviter des éventuelles confusions avec d'autres couleurs précédemment d
 \verb|v0.1.1|~:~~~~Ajout de couleurs venant de Wikipédia (\href{https://fr.wikipedia.org/wiki/Liste_de_noms_de_couleur}{[lien]})
 
 \verb|v0.1.0|~:~~~~Version initiale
-
-\vspace*{15mm}
 
 \pagebreak
 
@@ -1652,5 +1656,61 @@ Pour des soucis de compatibilité avec d'autres couleurs prédéfinies, les coul
 	\MontreCouleurFLEX{Base-900}{}
 	\MontreCouleurFLEX{Base-950}{}
 \end{multicols}
+
+\pagebreak
+
+\section{Génération de couleurs}
+
+\subsection{Générer une couleur de texte en fonction d'une couleur de fond}
+
+L'idée est de proposer une macro \textit{simpliste} pour générer une couleur de texte en fonction d'une couleur de fond.
+
+\begin{codehigh}[language=latex/latex3,style/main=BleuAlice,style/code=BleuAlice]
+\gencoultxtcontrast{couleur}[couleurtexte]
+%stocke, dans couleurtexte, black ou white
+\end{codehigh}
+
+\begin{demohigh}[language=latex/latex3,style/main=BleuAlice,style/code=BleuAlice]
+\NewDocumentCommand\textecolore{ mm }{%
+  \gencoultxtcontrast{#1}[couleurtexte]%
+  \colorbox{#1}{\textcolor{couleurtexte}{\strut\texttt{\textbf{#2}}}}%
+}
+%
+\textecolore{yellow}{Texte sur yellow}\\
+\textecolore{blue}{Texte sur blue}\\
+\textecolore{red!50!black}{Texte sur red!50!black}\\
+\textecolore{violet}{Texte sur violet}\\
+\textecolore{pink}{Texte sur pink}\\
+\textecolore{teal}{Texte sur teal}\\
+\textecolore{Abricot}{Texte sur Abricot}\\
+\textecolore{Cacao}{Texte sur Cacao}\\
+\textecolore{CitronVertFonce}{Texte sur CitronVertFonce}
+\end{demohigh}
+
+\pagebreak
+
+\subsection{Générer une couleur complémentaire}
+
+L'idée est de proposer une macro \textit{simpliste} pour générer une couleur complémentaire (au sens TSL)
+
+\begin{codehigh}[language=latex/latex3,style/main=BleuAlice,style/code=BleuAlice]
+\gencoulcompl{couleur}[couleurcomplementaire]
+\end{codehigh}
+
+\begin{demohigh}[language=latex/latex3,style/main=BleuAlice,style/code=BleuAlice]
+\NewDocumentCommand\textecomplementaire { m m }
+{
+  \gencoulcompl{#1}
+  \colorbox{#1}{\textcolor{couleurcomplementaire}{\strut\texttt{\textbf{#2}}}}
+}
+%
+\textecomplementaire{red}{rouge}\\
+\textecomplementaire{blue!70}{blue!70}\\
+\textecomplementaire{green!60}{green!60}\\
+\textecomplementaire{orange}{orange}\\
+\textecomplementaire{yellow!80}{yellow80}\\
+\textecomplementaire{Noisette}{Noisette}\\
+\textecomplementaire{VertMerFonce}{VertMerFonce}
+\end{demohigh}
 
 \end{document}
