@@ -2,9 +2,12 @@
 % licence    : Released under the LaTeX Project Public License v1.3c or later, see http://www.latex-project.org/lppl.txt
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{tkz-grapheur}[2026/03/31 0.30e Des outils en TikZ pour travailler comme avec un grapheur]
-\def\tkzgrapheurversion{0.30e}
+\ProvidesPackage{tkz-grapheur}[2026/04/12 0.30f Des outils en TikZ pour travailler comme avec un grapheur]
+\def\tkzgrapheurversion{0.30f}
+\def\tkzgrapheurdateversion{12/04/2026}
+\def\tkzgrapheurdatefrversion{12 avril 2026}
 %====HISTORIQUE
+% v 0.30f  Correction d'un bug avec les courbes implicites + représentations stats
 % v 0.30e  Possibilité de paramétrer la fenêtre via Hauteur ou Largeur + XYratio
 % -------  Améliorations dans les valeurs interdites
 % -------  Courbe de niveaux (expérimental)
@@ -127,7 +130,11 @@
 \tikzset{pflcourbediscont/.style={line width=1.1pt}}
 \tikzset{pflpointggb/.style={line width=0.4pt}}
 \tikzset{pfltrait/.style={line width=0.8pt}}
+\tikzset{pfltraitcamembert/.style={line width=0.7pt}}
+\tikzset{pfllegendetitre/.style={above}}
+\tikzset{pfllegendelabels/.style={font=\small}}
 \tikzset{pflbarresprobas/.style={line width=1.5pt}}
+\tikzset{pfllabeleffectifs/.style={font=\small,inner sep=1mm}}
 \tikzset{pflflecheg/.style={<-,>=latex}}
 \tikzset{pflfleched/.style={->,>=latex}}
 \tikzset{pflflechegd/.style={<->,>=latex}}

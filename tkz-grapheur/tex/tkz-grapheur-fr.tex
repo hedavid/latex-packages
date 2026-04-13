@@ -405,7 +405,8 @@
   Derriere=false,%
   Devant=false,%
   Fleches=true,%
-  Puissance=true
+  Puissance=true,%
+  AxeOy=true
 }
 
 \NewDocumentCommand\FormatterValeurAxex{ m m }{%
@@ -500,11 +501,19 @@
   \ifboolKV[GraphiqueTikzAxes]{Fleches}%
     {%
       \draw[pflaxes] ({\pflxmin},{\pflOy}) -- ([xshift={\useKV[GraphiqueTikzAxes]{Elargir}}]{\pflxmax},{\pflOy}) ;
-      \draw[pflaxes] ({\pflOx},{\pflymin}) -- ([yshift={\useKV[GraphiqueTikzAxes]{Elargir}}]{\pflOx},{\pflymax}) ;
+      \ifboolKV[GraphiqueTikzAxes]{AxeOy}%
+        {%
+          \draw[pflaxes] ({\pflOx},{\pflymin}) -- ([yshift={\useKV[GraphiqueTikzAxes]{Elargir}}]{\pflOx},{\pflymax}) ;
+        }%
+        {}%
     }%
     {%
       \draw[pflaxessansfleche] ({\pflxmin},{\pflOy}) -- ([xshift={\useKV[GraphiqueTikzAxes]{Elargir}}]{\pflxmax},{\pflOy}) ;
-      \draw[pflaxessansfleche] ({\pflOx},{\pflymin}) -- ([yshift={\useKV[GraphiqueTikzAxes]{Elargir}}]{\pflOx},{\pflymax}) ;
+      \ifboolKV[GraphiqueTikzAxes]{AxeOy}%
+        {%
+          \draw[pflaxessansfleche] ({\pflOx},{\pflymin}) -- ([yshift={\useKV[GraphiqueTikzAxes]{Elargir}}]{\pflOx},{\pflymax}) ;
+        }%
+        {}%
     }%
   \IfEq{#3}{auto}%
     {%
@@ -523,7 +532,11 @@
       \xdef\tmprangeyvalues{#5}%
     }%
   \foreach \x in \tmprangexvalues {\draw[pfltrait] ([yshift=\pflthickgrad]{\x},{\pflOy})--++(0,{-2\pflthickgrad}) ;}
-  \foreach \y in \tmprangeyvalues {\draw[pfltrait] ([xshift=\pflthickgrad]{\pflOx},{\y})--++({-2\pflthickgrad},0) ;}
+  \ifboolKV[GraphiqueTikzAxes]{AxeOy}%
+    {%
+      \foreach \y in \tmprangeyvalues {\draw[pfltrait] ([xshift=\pflthickgrad]{\pflOx},{\y})--++({-2\pflthickgrad},0) ;}
+    }%
+    {}%
   \ifboolKV[GraphiqueTikzAxes]{Grads}%
     {%
       %origine
@@ -542,15 +555,19 @@
             \draw ([yshift={-\pflthickgrad}]{\x},{\pflOy}) node[pflnoeud,below,font={\useKV[GraphiqueTikzAxes]{Police}}] {\FormatterValeurAxex{\pflformataxex}{\x}} ;
           }%
         }%
-      \foreach \y in \tmprangeyvalues {%
-        \IfBooleanTF{#1}%
-          {%
-            \xintifboolexpr{\y == \pflOy}{}{\draw ([xshift={-\pflthickgrad}]{\pflOx},{\y}) node[pflnoeud,left,font={\useKV[GraphiqueTikzAxes]{Police}}] {\FormatterValeurAxey{\pflformataxey}{\y}} ;}
-          }%
-          {%
-            \draw ([xshift={-\pflthickgrad}]{\pflOx},{\y}) node[pflnoeud,left,font={\useKV[GraphiqueTikzAxes]{Police}}] {\FormatterValeurAxey{\pflformataxey}{\y}} ;
-          }%
+      \ifboolKV[GraphiqueTikzAxes]{AxeOy}%
+        {%
+          \foreach \y in \tmprangeyvalues {%
+            \IfBooleanTF{#1}%
+              {%
+                \xintifboolexpr{\y == \pflOy}{}{\draw ([xshift={-\pflthickgrad}]{\pflOx},{\y}) node[pflnoeud,left,font={\useKV[GraphiqueTikzAxes]{Police}}] {\FormatterValeurAxey{\pflformataxey}{\y}} ;}
+              }%
+              {%
+                \draw ([xshift={-\pflthickgrad}]{\pflOx},{\y}) node[pflnoeud,left,font={\useKV[GraphiqueTikzAxes]{Police}}] {\FormatterValeurAxey{\pflformataxey}{\y}} ;
+              }%
+            }%
         }%
+        {}%
     }%
     {
       \ifboolKV[GraphiqueTikzAxes]{Origine}%
@@ -6492,5 +6509,520 @@
   }%
 }
 \NewCommandCopy\PlotPoints\TracerNuagePoints
+
+%====DIAGRAMME EN BÂTONS (données statistiques quelconques)
+\defKV[tkzDiagBatons]{%
+  CouleurTraits=\def\tkzDiagBatCouleurTraits{#1},%
+  Couleurs=\def\tkzDiagBatCouleurs{#1},%
+  Style=\def\tkzDiagBatStyle{#1},%
+  Largeur=\def\tkzDiagBatLargeur{#1},%
+  Arrondi=\def\tkzDiagBatArrondi{#1},%
+  CouleurValeurs=\def\tkzDiagBatColVal{#1}%
+}
+\setKVdefault[tkzDiagBatons]{%
+  CouleurTraits=black,%
+  Couleurs={black},%
+  Style=batons,%
+  Largeur=0.8,%
+  AffValeurs=false,%
+  Arrondi=0,%
+  CouleurValeurs=black%
+}
+
+\NewDocumentCommand\TracerDiagrammeBatons{ O{} m }{%
+  % #1 = clés
+  % #2 = série : x1/y1,x2/y2,...
+  \restoreKV[tkzDiagBatons]%
+  \setKV[tkzDiagBatons]{#1}%
+  % lecture de la liste de couleurs (cyclique)
+  \setsepchar{,}%
+  \readlist*\tkzDiagBatListeCoul{\tkzDiagBatCouleurs}%
+  % lecture des données
+  \setsepchar[.]{,./}%
+  \readlist*\tkzDiagBatListe{#2}%
+  % demi-largeur pour le style histo
+  \xdef\tkzDiagBatDemiLarg{\xintfloateval{\tkzDiagBatLargeur/2}}%
+  % tracé barre par barre
+  \foreach \i in {1,...,\tkzDiagBatListelen}{%
+    \itemtomacro\tkzDiagBatListe[\i,1]\tkzDiagBatX%
+    \itemtomacro\tkzDiagBatListe[\i,2]\tkzDiagBatY%
+    % couleur cyclique selon l'indice
+    \itemcycltomacro\tkzDiagBatListeCoul[\i]\tkzDiagBatCoulCour%
+    % coordonnées pré-calculées pour le style histo
+    \xdef\tkzDiagBatXmin{\xintfloateval{\tkzDiagBatX-\tkzDiagBatDemiLarg}}%
+    \xdef\tkzDiagBatHauteur{\xintfloateval{\tkzDiagBatY-\pflymin}}%
+    % tracé : bâton ou rectangle
+    \IfStrEq{\tkzDiagBatStyle}{batons}%
+      {%
+        \draw[pflbarresprobas,\tkzDiagBatCoulCour]%
+          ({\tkzDiagBatX},{\pflymin}) -- ({\tkzDiagBatX},{\tkzDiagBatY}) ;%
+      }%
+      {%
+        \draw[pfltrait,\tkzDiagBatCouleurTraits,fill=\tkzDiagBatCoulCour,fill opacity=0.5]%
+          ({\tkzDiagBatXmin},{\pflymin})%
+          rectangle++ ({\tkzDiagBatLargeur},{\tkzDiagBatHauteur}) ;%
+      }%
+    % affichage de la valeur au-dessus de la barre
+    \ifboolKV[tkzDiagBatons]{AffValeurs}%
+      {%
+        \node[\tkzDiagBatColVal,pfllabeleffectifs,above]%
+          at ({\tkzDiagBatX},{\tkzDiagBatY})%
+          {\num{\tkzDiagBatY}} ;%
+      }%
+      {}%
+  }%
+}
+
+%====HISTOGRAMME (données statistiques quelconques, classes régulières ou non)
+\defKV[tkzHistoStat]{%
+  CouleurTraits=\def\tkzHistoStatCouleurtraits{#1},%
+  Couleurs=\def\tkzHistoStatCouleurs{#1},%
+  CouleurValeurs=\def\tkzHistoStatColVal{#1},%
+  PosValeurs=\def\tkzHistoStatPosVal{#1}%
+}
+\setKVdefault[tkzHistoStat]{%
+  CouleurTraits=black,%
+  Couleurs={black},%
+  Densite=false,%
+  AffValeurs=false,%
+  CouleurValeurs=black,%
+  PosValeurs=above%
+}
+
+\NewDocumentCommand\TracerHistogramme{ O{} m }{%
+  % #1 = clés
+  % #2 = données : bi1/bs1/eff1,bi2/bs2/eff2,...
+  \restoreKV[tkzHistoStat]%
+  \setKV[tkzHistoStat]{#1}%
+  % lecture de la liste de couleurs (cyclique)
+  \setsepchar{,}%
+  \readlist*\tkzHistoStatListeCoul{\tkzHistoStatCouleurs}%
+  % lecture des données
+  \setsepchar[.]{,./}%
+  \readlist*\tkzHistoStatListe{#2}%
+  % tracé classe par classe
+  \foreach \i in {1,...,\tkzHistoStatListelen}{%
+    \itemtomacro\tkzHistoStatListe[\i,1]\tkzHistoStatBI%
+    \itemtomacro\tkzHistoStatListe[\i,2]\tkzHistoStatBS%
+    \itemtomacro\tkzHistoStatListe[\i,3]\tkzHistoStatEff%
+    % couleur cyclique selon l'indice
+    \itemcycltomacro\tkzHistoStatListeCoul[\i]\tkzHistoStatCoulCour%
+    % hauteur : effectif brut ou densité = effectif / amplitude
+    \ifboolKV[tkzHistoStat]{Densite}%
+      {%
+        \xdef\tkzHistoStatH{%
+          \xintfloateval{(\tkzHistoStatEff)/((\tkzHistoStatBS)-(\tkzHistoStatBI))}}%
+      }%
+      {\xdef\tkzHistoStatH{\tkzHistoStatEff}}%
+    % hauteur du rectangle dans le repère
+    \xdef\tkzHistoStatHrect{\xintfloateval{\tkzHistoStatH-(\pflymin)}}%
+    % tracé du rectangle
+    \draw[pfltrait,\tkzHistoStatCouleurtraits,fill=\tkzHistoStatCoulCour,fill opacity=0.5]%
+      ({\tkzHistoStatBI},{\pflymin})%
+      rectangle++ ({\tkzHistoStatBS-(\tkzHistoStatBI)},{\tkzHistoStatHrect}) ;%
+    % affichage de la valeur
+    \ifboolKV[tkzHistoStat]{AffValeurs}%
+      {%
+        \xdef\tkzHistoStatMilieu{\xintfloateval{(\tkzHistoStatBI+(\tkzHistoStatBS))/2}}%
+        \node[\tkzHistoStatPosVal,\tkzHistoStatColVal,pfllabeleffectifs]%
+          at ({\tkzHistoStatMilieu},{\tkzHistoStatH})%
+          {\num{\tkzHistoStatEff}} ;%
+      }%
+      {}%
+  }%
+}
+
+%====CARREAU DE RÉFÉRENCE POUR HISTOGRAMME EN DENSITÉ
+\defKV[tkzCarrDensite]{%
+  Couleur=\def\tkzCarrCouleur{#1},%
+  CouleurBordure=\def\tkzCarrColBord{#1},%
+  Opacite=\def\tkzCarrOpacite{#1},%
+  Police=\def\tkzCarrPolice{#1},%
+  Legende=\def\tkzCarrLegende{#1}
+}
+\setKVdefault[tkzCarrDensite]{%
+  Couleur=gray,%
+  CouleurBordure=black,%
+  Opacite=0.5,%
+  Police=\normalsize\normalfont,%
+  Legende={}
+}
+
+\NewDocumentCommand\PlaceCarreauHistoDensite{ O{} m m m m }{%
+  % #1 = clés
+  % #2 = x coin bas-gauche  (unités du repère)
+  % #3 = y coin bas-gauche  (unités du repère)
+  % #4 = largeur            (unités x → amplitude)
+  % #5 = hauteur            (unités y → densité)
+  % aire = #4 × #5 = effectif correspondant
+  \restoreKV[tkzCarrDensite]%
+  \setKV[tkzCarrDensite]{#1}%
+  % calcul de l'effectif représenté par ce carreau
+  \xdef\tkzCarrAire{\xintfloateval{(#4)*(#5)}}%
+  % label : fourni ou calculé automatiquement
+  \IfStrEq{\tkzCarrLegende}{}%
+    {\def\tkzCarrLabel{$\equiv \num{\tkzCarrAire}$ individu(s)}}%
+    {\def\tkzCarrLabel{\tkzCarrLegende}}%
+  % tracé du carreau
+  \draw[pfltrait,\tkzCarrColBord,fill=\tkzCarrCouleur,fill opacity=\tkzCarrOpacite]%
+    ({#2},{#3}) rectangle++ ({#4},{#5}) ;
+  % label positionné au milieu
+  \node[font=\tkzCarrPolice]%
+    at ({(#2)+0.5*(#4)},{(#3)+0.5*(#5)}) {\tkzCarrLabel} ;%
+}
+
+%====BOÎTE À MOUSTACHES
+\defKV[tkzBoiteMoustaches]{%
+  Couleur=\def\tkzBaMCouleur{#1},%
+  CouleurPointilles=\def\tkzBaMCouleurTraits{#1},%
+  Elevation=\def\tkzBaMElevation{#1},%
+  Hauteur=\def\tkzBaMHauteur{#1},%
+  Moyenne=\def\tkzBaMMoyenne{#1},%
+  Remplissage=\def\tkzBaMRemplissage{#1},%
+  Arrondi=\def\tkzBaMArrondi{#1}%
+}
+\setKVdefault[tkzBoiteMoustaches]{%
+  Couleur=black,%
+  CouleurPointilles=black,%
+  Elevation=0,%
+  Hauteur=1,%
+  AffMoyenne=false,%
+  Moyenne=0,%
+  Pointilles=false,%
+  Valeurs=false,%
+  Remplissage=white,%
+  Arrondi=0,%
+  Regroup=false
+}
+
+% macro interne : dessin à partir de 5 params déjà extraits
+\NewDocumentCommand\tkzg@bam@draw{ m m m m m m }{%
+  % #1=clés  #2=min  #3=Q1  #4=med  #5=Q3  #6=max
+  \xdef\tkzBaMbas{\xintfloateval{\tkzBaMElevation-(\tkzBaMHauteur)/2}}%
+  \xdef\tkzBaMhaut{\xintfloateval{\tkzBaMElevation+(\tkzBaMHauteur)/2}}%
+  % pointillés vers l'axe Ox, en sous-impression ;-)
+  \ifboolKV[tkzBoiteMoustaches]{Pointilles}%
+    {%
+      \draw[pfltraitantec,\tkzBaMCouleurTraits]%
+        ({#2},{\tkzBaMbas}) -- ({#2},{\pflOy})%
+        ({#3},{\tkzBaMbas}) -- ({#3},{\pflOy})%
+        ({#4},{\tkzBaMbas}) -- ({#4},{\pflOy})%
+        ({#5},{\tkzBaMbas}) -- ({#5},{\pflOy})%
+        ({#6},{\tkzBaMbas}) -- ({#6},{\pflOy}) ;%
+    }%
+    {}%
+  % boîte Q1--Q3
+  \draw[pflcourbe,\tkzBaMCouleur,fill=\tkzBaMRemplissage]%
+    ({#3},{\tkzBaMbas}) rectangle ({#5},{\tkzBaMhaut}) ;%
+  % moustaches horizontales
+  \draw[pflcourbe,\tkzBaMCouleur]%
+    ({#2},{\tkzBaMElevation}) -- ({#3},{\tkzBaMElevation})%
+    ({#5},{\tkzBaMElevation}) -- ({#6},{\tkzBaMElevation}) ;%
+  % barres verticales : min, médiane, max
+  \draw[pflcourbe,\tkzBaMCouleur]%
+    ({#2},{\tkzBaMbas}) -- ({#2},{\tkzBaMhaut})%
+    ({#6},{\tkzBaMbas}) -- ({#6},{\tkzBaMhaut})%
+    ({#4},{\tkzBaMbas}) -- ({#4},{\tkzBaMhaut}) ;%
+  % moyenne optionnelle
+  \ifboolKV[tkzBoiteMoustaches]{AffMoyenne}%
+    {\filldraw[\tkzBaMCouleur] ({\tkzBaMMoyenne},{\tkzBaMElevation}) circle[pflpointmc] ;}%
+    {}%
+  % valeurs des 5 paramètres sur l'axe Ox
+  \ifboolKV[tkzBoiteMoustaches]{Valeurs}%
+    {%
+      \foreach \tkzBaMval in {#2,#3,#4,#5,#6}{%
+        \draw[\tkzBaMCouleur]%
+          ({\tkzBaMval},{\pflOy}) node[below,pfllabeleffectifs]%
+          {\ArrondirNum[\tkzBaMArrondi]{\tkzBaMval}} ;%
+      }%
+    }%
+    {}%
+}
+
+\NewDocumentCommand\TracerBoiteMoustaches{ s O{} m }{%
+  % version normale  : #3 = min/Q1/mediane/Q3/max  (valeurs explicites)
+  % version étoilée  : #3 = liste CSV brute        (calcul auto des params)
+  \restoreKV[tkzBoiteMoustaches]%
+  \setKV[tkzBoiteMoustaches]{#2}%
+  \IfBooleanTF{#1}%
+    {%
+      % calcul des 5 paramètres depuis la liste brute (données individuelles ou groupées)
+      \ifboolKV[tkzBoiteMoustaches]{Regroup}%
+        {%
+          \tkzgCalcParamStats*{#3}%
+            [\tkzBaMautomin][\tkzBaMautoquun][\tkzBaMautomed][\tkzBaMautoqutr][\tkzBaMautomax]%
+        }%
+        {%
+          \tkzgCalcParamStats{#3}%
+            [\tkzBaMautomin][\tkzBaMautoquun][\tkzBaMautomed][\tkzBaMautoqutr][\tkzBaMautomax]%
+        }%
+      \tkzg@bam@draw{}%
+        {\tkzBaMautomin}{\tkzBaMautoquun}{\tkzBaMautomed}%
+        {\tkzBaMautoqutr}{\tkzBaMautomax}%
+    }%
+    {%
+      % lecture des 5 paramètres explicites (format min/Q1/med/Q3/max)
+      \setsepchar[.]{/}%
+      \readlist*\tkzBaMParams{#3}%
+      \itemtomacro\tkzBaMParams[1]\tkzBaMp@min%
+      \itemtomacro\tkzBaMParams[2]\tkzBaMp@qu%
+      \itemtomacro\tkzBaMParams[3]\tkzBaMp@med%
+      \itemtomacro\tkzBaMParams[4]\tkzBaMp@qt%
+      \itemtomacro\tkzBaMParams[5]\tkzBaMp@max%
+      \tkzg@bam@draw{}%
+        {\tkzBaMp@min}{\tkzBaMp@qu}{\tkzBaMp@med}%
+        {\tkzBaMp@qt}{\tkzBaMp@max}%
+    }%
+}
+
+%====DIAGRAMME CIRCULAIRE
+\defKV[GraphiqueTikzCamembert]{%
+  CouleurDefaut=\def\pflcamcouldef{#1},%
+  RayonInt=\def\pflcamrayonint{#1},%
+  Rayon=\def\pflcamrayon{#1},%
+  Titre=\def\pflcamtitre{#1},%
+  NomGraphique=\def\pflcamnomgraph{#1}%
+}
+\setKVdefault[GraphiqueTikzCamembert]{%
+  CouleurDefaut=lightgray,%
+  RayonInt=1.75,%
+  Rayon=3,%
+  Titre={},%
+  NomGraphique={}
+}
+
+\defKV[GraphiqueTikzCamembertLeg]{%
+  TailleCarreau=\def\pflcamlegtaille{#1},%
+  Arrondi=\def\pflcamlegarrondi{#1},%
+  Espacement=\def\pflcamespleg{#1},%
+  DecalEst=\def\pflcamdecalest{#1}%
+}
+\setKVdefault[GraphiqueTikzCamembertLeg]{%
+  TailleCarreau=0.28,%
+  Pct=true,%
+  Arrondi=0,%
+  Espacement=0.55,%
+  DecalEst=0.4%
+}
+
+%====DIAGRAMME
+\NewDocumentCommand\DiagrammeCirculaire{ O{} m }{%
+  \restoreKV[GraphiqueTikzCamembert]%
+  \setKV[GraphiqueTikzCamembert]{#1}%
+  \setsepchar[.]{,./}%
+  \readlist*\pflcamlist{#2}%
+  % calcul du total
+  \xdef\pflcamtotalglobal{0}%
+  \xintFor* ##1 in {\xintSeq{1}{\pflcamlistlen}} \do{%
+    \itemtomacro\pflcamlist[##1,2]\tmpval%
+    \xdef\pflcamtotalglobal{\xintfloateval{\pflcamtotalglobal+\tmpval}}%
+  }%
+  % nœuds cardinaux
+  \IfEq{\pflcamnomgraph}{}%
+    {%
+      \coordinate (cam-centre) at (0,0) ;%
+      \coordinate (cam-nord)   at (0,\pflcamrayon) ;%
+      \coordinate (cam-sud)    at (0,-\pflcamrayon) ;%
+      \coordinate (cam-est)    at (\pflcamrayon,0) ;%
+      \coordinate (cam-ouest)  at (-\pflcamrayon,0) ;%
+    }%
+    {%
+      \coordinate (\pflcamnomgraph-cam-centre) at (0,0) ;%
+      \coordinate (\pflcamnomgraph-cam-nord)   at (0,\pflcamrayon) ;%
+      \coordinate (\pflcamnomgraph-cam-sud)    at (0,-\pflcamrayon) ;%
+      \coordinate (\pflcamnomgraph-cam-est)    at (\pflcamrayon,0) ;%
+      \coordinate (\pflcamnomgraph-cam-ouest)  at (-\pflcamrayon,0) ;%
+    }%
+  % tracé des secteurs + nœuds
+  \xdef\pflcamangle{90}%
+  \xintFor* ##1 in {\xintSeq{1}{\pflcamlistlen}} \do{%
+    \itemtomacro\pflcamlist[##1,2]\tmpval%
+    \itemtomacro\pflcamlist[##1,3]\tmpcoulcam%
+    \itemtomacro\pflcamlist[##1,4]\tmptypecam%
+    \IfEq{\tmpcoulcam}{}%
+      {\def\tmpcoulcam{\pflcamcouldef}}%
+      {}
+    \IfEq{\tmptypecam}{}%
+      {\def\tmptypecam{solid}}%
+      {}
+    \xdef\pflcamsectangle{\xintfloateval{360*\tmpval/\pflcamtotalglobal}}%
+    \xdef\pflcamanglefin{\xintfloateval{\pflcamangle-\pflcamsectangle}}%
+    \xdef\pflcamanglemil{\xintfloateval{\pflcamangle-\pflcamsectangle/2}}%
+    \IfEq{\tmptypecam}{solid}%
+      {%
+        \draw[fill=\tmpcoulcam,pfltraitcamembert] (0,0)
+          -- (\pflcamangle:\pflcamrayon)
+          arc (\pflcamangle:\pflcamanglefin:\pflcamrayon)
+          -- cycle ;%
+      }%
+      {%
+        \draw[pattern={\tmptypecam},pattern color={\tmpcoulcam},pfltraitcamembert] (0,0)
+          -- (\pflcamangle:\pflcamrayon)
+          arc (\pflcamangle:\pflcamanglefin:\pflcamrayon)
+          -- cycle ;%
+      }%
+    \IfEq{\pflcamnomgraph}{}%
+      {%
+        \coordinate (cam-##1-debut) at (\pflcamangle:\pflcamrayon) ;%
+        \coordinate (cam-##1-fin)   at (\pflcamanglefin:\pflcamrayon) ;%
+        \coordinate (cam-##1-mil)   at (\pflcamanglemil:\pflcamrayon) ;%
+        \coordinate (cam-##1-int)   at (\pflcamanglemil:{0.68*\pflcamrayon}) ;%
+        \coordinate (cam-##1-ext)   at (\pflcamanglemil:{1.15*\pflcamrayon}) ;%
+      }%
+      {%
+        \coordinate (\pflcamnomgraph-cam-##1-debut) at (\pflcamangle:\pflcamrayon) ;%
+        \coordinate (\pflcamnomgraph-cam-##1-fin)   at (\pflcamanglefin:\pflcamrayon) ;%
+        \coordinate (\pflcamnomgraph-cam-##1-mil)   at (\pflcamanglemil:\pflcamrayon) ;%
+        \coordinate (\pflcamnomgraph-cam-##1-int)   at (\pflcamanglemil:{0.68*\pflcamrayon}) ;%
+        \coordinate (\pflcamnomgraph-cam-##1-ext)   at (\pflcamanglemil:{1.15*\pflcamrayon}) ;%
+      }%
+    \xdef\pflcamangle{\pflcamanglefin}%
+  }%
+  \draw[pfltraitcamembert] (0,0) circle (\pflcamrayon) ;%
+  \IfStrEq{\pflcamtitre}{}{}%
+    {\node[pfllegendetitre] at (cam-nord) {\pflcamtitre} ;}%
+}
+
+\NewCommandCopy\TracerDiagrammeCirculaire\DiagrammeCirculaire
+
+\NewDocumentCommand\TracerDiagrammeAnneau{ O{} m }{%
+  \restoreKV[GraphiqueTikzCamembert]%
+  \setKV[GraphiqueTikzCamembert]{#1}%
+  \setsepchar[.]{,./}%
+  \readlist*\pflcamlist{#2}%
+  % calcul du total
+  \xdef\pflcamtotalglobal{0}%
+  \xintFor* ##1 in {\xintSeq{1}{\pflcamlistlen}} \do{%
+    \itemtomacro\pflcamlist[##1,2]\tmpval%
+    \xdef\pflcamtotalglobal{\xintfloateval{\pflcamtotalglobal+\tmpval}}%
+  }%
+  % nœuds cardinaux
+  \IfEq{\pflcamnomgraph}{}%
+    {%
+      \coordinate (cam-centre) at (0,0) ;%
+      \coordinate (cam-nord)   at (0,\pflcamrayon) ;%
+      \coordinate (cam-sud)    at (0,-\pflcamrayon) ;%
+      \coordinate (cam-est)    at (\pflcamrayon,0) ;%
+      \coordinate (cam-ouest)  at (-\pflcamrayon,0) ;%
+    }%
+    {%
+      \coordinate (\pflcamnomgraph-cam-centre) at (0,0) ;%
+      \coordinate (\pflcamnomgraph-cam-nord)   at (0,\pflcamrayon) ;%
+      \coordinate (\pflcamnomgraph-cam-sud)    at (0,-\pflcamrayon) ;%
+      \coordinate (\pflcamnomgraph-cam-est)    at (\pflcamrayon,0) ;%
+      \coordinate (\pflcamnomgraph-cam-ouest)  at (-\pflcamrayon,0) ;%
+    }%
+  % tracé des secteurs + nœuds
+  \xdef\pflcamangle{90}%
+  \begin{scope}
+    %\clip[even odd rule] (0,0) circle (\pflcamrayon) (0,0) circle (\pflcamrayonint) ;
+    % tracé des secteurs
+    \xintFor* ##1 in {\xintSeq{1}{\pflcamlistlen}} \do{%
+    \itemtomacro\pflcamlist[##1,2]\tmpval%
+    \itemtomacro\pflcamlist[##1,3]\tmpcoulcam%
+    \itemtomacro\pflcamlist[##1,4]\tmptypecam%
+    \IfEq{\tmpcoulcam}{}%
+      {\def\tmpcoulcam{\pflcamcouldef}}%
+      {}
+    \IfEq{\tmptypecam}{}%
+      {\def\tmptypecam{solid}}%
+      {}
+    \xdef\pflcamsectangle{\xintfloateval{360*\tmpval/\pflcamtotalglobal}}%
+    \xdef\pflcamanglefin{\xintfloateval{\pflcamangle-\pflcamsectangle}}%
+    \xdef\pflcamanglemil{\xintfloateval{\pflcamangle-\pflcamsectangle/2}}%
+    \IfEq{\tmptypecam}{solid}%
+      {%
+        \draw[fill=\tmpcoulcam, pfltraitcamembert] 
+          (\pflcamangle:\pflcamrayonint)                           % départ arc intérieur
+          -- (\pflcamangle:\pflcamrayon)                           % rayon de départ
+          arc (\pflcamangle:\pflcamanglefin:\pflcamrayon)          % arc extérieur
+          -- (\pflcamanglefin:\pflcamrayonint)                     % rayon de fin
+          arc (\pflcamanglefin:\pflcamangle:\pflcamrayonint)       % arc intérieur (sens inverse)
+          -- cycle ;
+      }%
+      {%
+        \draw[even odd rule,pattern={\tmptypecam},pattern color={\tmpcoulcam},pfltraitcamembert]
+          (\pflcamangle:\pflcamrayonint)                           % départ arc intérieur
+          -- (\pflcamangle:\pflcamrayon)                           % rayon de départ
+          arc (\pflcamangle:\pflcamanglefin:\pflcamrayon)          % arc extérieur
+          -- (\pflcamanglefin:\pflcamrayonint)                     % rayon de fin
+          arc (\pflcamanglefin:\pflcamangle:\pflcamrayonint)       % arc intérieur (sens inverse)
+          -- cycle ;
+      }%
+    \IfEq{\pflcamnomgraph}{}%
+      {%
+        \coordinate (cam-##1-debut) at (\pflcamangle:\pflcamrayon) ;%
+        \coordinate (cam-##1-fin)   at (\pflcamanglefin:\pflcamrayon) ;%
+        \coordinate (cam-##1-mil)   at (\pflcamanglemil:\pflcamrayon) ;%
+        \coordinate (cam-##1-int)   at (\pflcamanglemil:{0.68*\pflcamrayon}) ;%
+        \coordinate (cam-##1-ext)   at (\pflcamanglemil:{1.15*\pflcamrayon}) ;%
+      }%
+      {%
+        \coordinate (\pflcamnomgraph-cam-##1-debut) at (\pflcamangle:\pflcamrayon) ;%
+        \coordinate (\pflcamnomgraph-cam-##1-fin)   at (\pflcamanglefin:\pflcamrayon) ;%
+        \coordinate (\pflcamnomgraph-cam-##1-mil)   at (\pflcamanglemil:\pflcamrayon) ;%
+        \coordinate (\pflcamnomgraph-cam-##1-int)   at (\pflcamanglemil:{0.68*\pflcamrayon}) ;%
+        \coordinate (\pflcamnomgraph-cam-##1-ext)   at (\pflcamanglemil:{1.15*\pflcamrayon}) ;%
+      }%
+    \xdef\pflcamangle{\pflcamanglefin}%
+  }%
+  \end{scope}
+  \draw[pfltraitcamembert] (0,0) circle (\pflcamrayon) ;%
+  \draw[pfltraitcamembert] (0,0) circle (\pflcamrayonint) ;%
+  \IfStrEq{\pflcamtitre}{}{}%
+    {\node[pfllegendetitre] at (cam-nord) {\pflcamtitre} ;}%
+}
+
+%====LÉGENDE — sous-tikzpicture ancré sur cam-est
+\NewDocumentCommand\LegendeCirculaire{ O{} m }{%
+  \restoreKV[GraphiqueTikzCamembertLeg]%
+  \setKV[GraphiqueTikzCamembertLeg]{#1}%
+  \setsepchar[.]{,./}%
+  \readlist*\pflcamleglist{#2}%
+  % calcul du total
+  \xdef\pflcamlegtotal{0}%
+  \xintFor* ##1 in {\xintSeq{1}{\pflcamleglistlen}} \do{%
+    \itemtomacro\pflcamleglist[##1,2]\tmpval%
+    \xdef\pflcamlegtotal{\xintfloateval{\pflcamlegtotal+\tmpval}}%
+  }%
+  % sous-tikzpicture dans un node ancré sur cam-est
+  \IfEq{\pflcamnomgraph}{}%
+    {%
+      \coordinate (cam-legende) at ([xshift=\pflcamdecalest cm]cam-est) ;
+    }%
+    {%
+      \coordinate (cam-legende) at ([xshift=\pflcamdecalest cm]\pflcamnomgraph-cam-est) ;
+    }%
+  \node[anchor=west] at (cam-legende) {%
+    \begin{tikzpicture}
+      \xintFor* ##1 in {\xintSeq{1}{\pflcamleglistlen}} \do{%
+        \itemtomacro\pflcamleglist[##1,1]\tmplabel%
+        \itemtomacro\pflcamleglist[##1,2]\tmpval%
+        \itemtomacro\pflcamleglist[##1,3]\tmpcoulcam%
+        \itemtomacro\pflcamleglist[##1,4]\tmptypecam%
+        \IfEq{\tmptypecam}{}%
+          {\def\tmptypecam{solid}}%
+          {}%
+        \IfEq{\tmpcoulcam}{}%
+          {\def\tmpcoulcam{\pflcamcouldef}}%
+          {}
+        \xdef\tmppct{\xintfloateval{%
+            round(100*\tmpval/\pflcamlegtotal,\pflcamlegarrondi)}}%
+        \xdef\tmpy{\xintfloateval{-(##1-1)*\pflcamespleg}}%
+        % carreau coloré
+        \IfEq{\tmptypecam}{solid}%
+          {%
+            \draw[pflpointggb,fill={\tmpcoulcam}] (0,{\tmpy-\pflcamlegtaille/2}) rectangle (\pflcamlegtaille,{\tmpy+\pflcamlegtaille/2}) ;%
+          }%
+          {%
+            \draw[pflpointggb,pattern={\tmptypecam},pattern color={\tmpcoulcam}] (0,{\tmpy-\pflcamlegtaille/2}) rectangle (\pflcamlegtaille,{\tmpy+\pflcamlegtaille/2}) ;%
+          }%
+        % label — colonne 1
+        \node[anchor=west,pfllegendelabels]
+          at ({\pflcamlegtaille+0.1},\tmpy) {{\tmplabel} (\ifboolKV[GraphiqueTikzCamembertLeg]{Pct}{\tmppct\,\%}{\ArrondirNum[\pflcamlegarrondi]{\tmpval}})} ;%
+      }%
+    \end{tikzpicture}%
+  } ;%
+}
 
 \endinput

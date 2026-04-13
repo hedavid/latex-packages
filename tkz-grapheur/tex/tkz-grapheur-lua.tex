@@ -40,7 +40,7 @@
     }%
     {%
       \def\pfl@pasx{\pflpasimpl}%
-      \def\pflpasyimplcalc{\pflpasimpl}%
+      \def\pfl@pasy{\pflpasimpl}%
     }%
     \edef\tmplistepts{\directlua{tex.sprint(pfl.marching_squares("\luaescapestring{#2}",\pflxmin,\pflxmax,\pflymin,\pflymax,\pfl@pasx,\pfl@pasy,\pfltoleranceimplic))}}%
     \begin{scope}
