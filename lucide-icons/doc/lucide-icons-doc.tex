@@ -5,6 +5,7 @@
 \documentclass{article}
 \usepackage[margin=1in]{geometry}
 \usepackage{lucide-icons}
+\usepackage{xcolor}
 \usepackage{longtable}
 \usepackage{booktabs}
 \usepackage{hyperref}
@@ -32,7 +33,7 @@
 
 \begin{document}
 
-\title{The \textsf{lucide-icons} package (0.1.1) -- 26/12/2025}
+\title{The \textsf{lucide-icons} package (0.1.2) -- 17/04/2026}
 \author{%
 	Cédric Pierquet\\%
 	\url{https://lucide.dev} (Source version 0.562.0)\\%
@@ -52,6 +53,14 @@ To use \textsf{lucide-icons} in your document, include the package with |\usepac
 
 An icon can be accessed using the icon name. A list of all included icons with their respective \textit{page} can be found at the end of this document.
 
+\medskip
+
+The individual icons are provided as pages of a PDF and are ultimately loaded using the |\includegraphics| command from the |graphicx| package.
+
+\medskip
+
+Thanks to \textsf{priiduonu} for the tip with stroke color !
+
 \section{Example}
 
 \begin{Verbatim}[frame=single]
@@ -60,12 +69,14 @@ An icon can be accessed using the icon name. A list of all included icons with t
 ...
 \begin{document}
 ...
-Inline \lucideicon{anchor} version
+Inline \lucideicon{anchor} version, and colored \textcolor{red}{\lucideicon{anchor}}
 ...
 \end{document}
 \end{Verbatim}
 
-Result: Inline \lucideicon{anchor} version
+Result: Inline \lucideicon{anchor} version, and \textcolor{red}{\lucideicon{anchor}} colored version
+
+\pagebreak
 
 \section{Usage}
 
