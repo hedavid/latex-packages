@@ -5,6 +5,7 @@
 \documentclass{article}
 \usepackage[margin=1in]{geometry}
 \usepackage{tablericons}
+\usepackage{xcolor}
 \usepackage{longtable}
 \usepackage{booktabs}
 \usepackage{hyperref}
@@ -36,7 +37,7 @@
 
 \begin{document}
 
-\title{The \textsf{tablericons} package (0.1.2) -- 26/12/2025}
+\title{The \textsf{tablericons} package (0.1.3) -- 17/04/2026}
 \author{%
 	Cédric Pierquet\\%
 	\url{https://tabler.io/icons} (Source version 3.36.0)\\%
@@ -56,6 +57,14 @@ To use \textsf{tablericons} in your document, include the package with |\usepack
 
 An icon can be accessed using the icon name. A list of all included icons with their respective \textit{page} can be found at the end of this document.
 
+\medskip
+
+The individual icons are provided as pages of a PDF and are ultimately loaded using the |\includegraphics| command from the |graphicx| package.
+
+\medskip
+
+Thanks to \textsf{priiduonu} for the tip with stroke color !
+
 \section{Example}
 
 \begin{Verbatim}[frame=single]
@@ -64,12 +73,15 @@ An icon can be accessed using the icon name. A list of all included icons with t
 ...
 \begin{document}
 ...
-Inline\tablericon{alarm-snooze}version
+Inline\tablericon{alarm-snooze}version,
+and colored\textcolor{red}{\tablericon{alarm-snooze}}
 ...
 \end{document}
 \end{Verbatim}
 
-Result: Inline\tablericon{alarm-snooze}version
+Result: Inline\tablericon{alarm-snooze}version, and colored\textcolor{red}{\tablericon{alarm-snooze}}
+
+\pagebreak
 
 \section{Usage}
 
