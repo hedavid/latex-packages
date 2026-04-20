@@ -3,7 +3,7 @@
 % arara: lualatex: {shell: yes, synctex: no, interaction: batchmode} if found('log', '(undefined references|Please rerun|Rerun to get)')
 
 \documentclass[a4paper,11pt]{article}
-\def\PLver{0.1.5}
+\def\PLver{0.1.6}
 \usepackage[margin=1.5cm]{geometry}
 \usepackage{pynotebook}
 \usepackage[executable=python]{pyluatex}
@@ -19,6 +19,7 @@
 \documentclass{article}
 \usepackage{pynotebook}
 \usepackage[executable=python]{pyluatex}  % with a specific compilation !!
+                                          % pyluatex version > 0.7.0
 \end{codehigh}
 
 \section{With gobble}
@@ -32,11 +33,7 @@ Due to \texttt{gobble} options with \textsf{piton}, it's possible to add \texttt
 	\item \texttt{<tabs-auto-gobble>}.
 \end{itemize}
 
-\noindent{}\textbf{Explanations} are given in the doc of \textsf{piton} :
-
-\begin{itemize}
-	\item \texttt{https://ctan.org/pkg/piton}
-\end{itemize}
+\noindent{}\textbf{Explanations} are given in the doc of \textsf{piton} : \texttt{https://ctan.org/pkg/piton}
 
 \section{Examples of text blocks}
 
