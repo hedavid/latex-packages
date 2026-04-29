@@ -1,748 +1,297 @@
-% Author                         : C. Pierquet (auteur principal)
-% Contributors                  : Le Chat (Mistral AI) – Adaptations pour la version allemande (2026)
-%                                David Herrmann – Intégration des adaptations et tests
-% licence                        : Released under the LaTeX Project Public License v1.3c or later,
-%                                see http://www.latex-project.org/lppl.txt
-% Copyright                      : Scrabble, TradeMark by Hasbro or Mattel
-% Inspiration                    : Mark Wibrow in https://tex.stackexchange.com/questions/194780/tikz-drawing-a-rectangle-with-spikes-on-borders
-
-\NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{Scrabble}[2026/04/29 0.21a Scrabble (DE: Genderstein/*IN, SS, couleurs et libellés allemands)]
-% 0.21a:
-%   --- Adaptations pour l'allemand ---
-%   - Ajout du "Genderstein" (*IN, 10 points) et de la ligature SS (8 points)
-%     / Hinzufügen des Gendersteins (*IN, 10 Punkte) und der SS-Ligatur (8 Punkte)
-%   - Libellés allemands raccourcis (ex: "DREIFACH WORT" au lieu de "DREI FACHER WORT WERT")
-%     / Kürzere deutsche Beschriftungen (z. B. "DREIFACH WORT")
-%   - Couleurs allemandes pour le plateau et les jetons
-%     / Deutsche Farben für Board und Steine
-%   - Nouvelle environnement "EnvScrabbleDE" pour les utilisateurs allemands
-%     / Neue Umgebung "EnvScrabbleDE" für deutsche Nutzer:innen
-%   - Prise en charge explicite de *IN et SS dans les jetons et les mots en ligne
-%     / Explizite Unterstützung für *IN und SS in Steinen und Inline-Wörtern
-%
-%   --- Utilisation du Genderstein (*IN) ---
-%   Le Genderstein (*IN) est un jeton spécial introduit par Mattel pour permettre le genre en allemand.
-%   Règles d'utilisation (selon Mattel) :
-%     - Peut être utilisé UNIQUEMENT avec des noms relatifs aux personnes (ex: LEHRER*IN, ÄRZT*IN)
-%     - Doit être placé à la FIN d'un mot se terminant par -er ou -e (ex: "LEHRER" -> "LEHRER*IN")
-%     - Vaut 10 points (comme Q ou Y)
-%     - En cas d'absence du jeton physique, un joker (*) peut être utilisé comme *IN
-%     / Der Genderstein (*IN) ist ein spezieller Stein von Mattel zum Gendern im Deutschen.
-%     / Nutzungsregeln (laut Mattel):
-%     /   - Darf NUR bei personenbezogenen Substantiven verwendet werden (z. B. LEHRER*IN, ÄRZT*IN)
-%     /   - Muss am ENDE eines Wortes stehen, das auf -er oder -e endet (z. B. "LEHRER" -> "LEHRER*IN")
-%     /   - Zählt 10 Punkte (wie Q oder Y)
-%     /   - Falls kein physischer Stein vorhanden ist, kann ein Joker (*) als *IN genutzt werden
-%
-%   --- Utilisation de la ligature SS ---
-%   La ligature SS est un jeton spécial en allemand valant 8 points.
-%   Elle peut être utilisée comme un jeton normal (ex: STRASSE).
-%     / Die SS-Ligatur ist ein spezieller Stein im Deutschen mit 8 Punkten.
-%     / Sie kann wie ein normaler Stein verwendet werden (z. B. STRASSE).
-%
-% 0.20a: Correction d'un bug avec les 'lettres simples'
-% 0.1.9: Oubli de cases (merci Patrick Jenty) + couleurs
-% 0.1.8: Bugfix
-% 0.1.7: Clé pour mélanger les mots en ligne
-% 0.1.6: Correction d'un bug avec le jeton joker + améliorations dans la doc et dans la version [DE]
-% 0.1.5: Ajout de lettres spéciales en Allemand et en Espagnol
-% 0.1.4: Ajout d'un mode inline
-% 0.1.3: Refonte des commandes fr/en + gestion mot
-% 0.1.2: Clé <EchelleLabels> pour les labels des cases
-% 0.1.1: Commandes en/fr
-% 0.1:   Version initiale
-
-% ----- Paquets et bibliothèques -----
-\RequirePackage{tikz}
-\RequirePackage{pgf,pgffor}
-\RequirePackage{randintlist}
-\RequirePackage{calc}
-\RequirePackage{xstring}
-\RequirePackage{etoolbox}
-\usetikzlibrary{calc,shapes.geometric}
-
-% ----- Alphabets et valeurs de points (adaptés pour DE) -----
-% A-Z (26), Ä (27), Ö (28), Ü (29), SS (30), *IN (31)
-% / A-Z (26), Ä (27), Ö (28), Ü (29), SS (30), *IN (31)
-\def\AlphabetMajuscule{ABCDEFGHIJKLMNOPQRSTUVWXYZÄÖÜSS*IN}
-\def\AlphabetMinuscule{abcdefghijklmnopqrstuvwxyzäöüßss*in}
-\setsepchar{,}%
-% Valeurs de points: A-Z, Ä, Ö, Ü, SS, *IN
-% / Punktewerte: A-Z, Ä, Ö, Ü, SS, *IN
-\def\PointsScrabbleFR{1,3,3,2,1,4,2,4,1,8,10,1,2,1,1,3,8,1,1,1,1,4,10,10,10,10, , , , , , , }
-\readlist*\PtsScrbFR{\PointsScrabbleFR}
-\def\PointsScrabbleEN{1,3,3,2,1,4,2,4,1,8,5,1,3,1,1,3,10,1,1,1,1,4,4,8,4,10, , , , , , , }
-\readlist*\PtsScrbEN{\PointsScrabbleEN}
-% DE: A-Z, Ä, Ö, Ü, SS, *IN (10 points)
-% / DE: A-Z, Ä, Ö, Ü, SS, *IN (10 Punkte)
-\def\PointsScrabbleDE{1,3,4,1,1,2,2,2,2,1,6,4,2,3,2,4,10,1,1,1,1,6,3,8,10,3,6,8,6,8,10, , , , }
-\readlist*\PtsScrbDE{\PointsScrabbleDE}
-\def\PointsScrabbleES{1,3,3,2,1,4,2,4,1,8, ,1,3,1,1,3,5,1,1,1,1,4, ,8,4,10, , , ,5,8,8,8}
-\readlist*\PtsScrbES{\PointsScrabbleES}
-
-% ----- Calcul des points pour une lettre (incluant *IN et SS) -----
-% Fonction pour récupérer le score d'une lettre, avec gestion du joker (*) et des jetons spéciaux (*IN, SS)
-% / Funktion zur Punkteberechnung für einen Buchstaben, mit Joker (*) und Sondersteinen (*IN, SS)
-\newcommand\scrabblescorelettre[2][EN]{%
-  \IfStrEq{#2}{*}{% Joker
-    {}%
-  }{%
-    \IfSubStr{\AlphabetMajuscule}{#2}{% Majuscule ou minuscule
-      \StrPosition{\AlphabetMajuscule}{#2}[\pos]% Position dans l'alphabet (majuscule)
-    }{%
-      \StrPosition{\AlphabetMinuscule}{#2}[\pos]% Position dans l'alphabet (minuscule)
-    }%
-    \IfStrEq{#1}{FR}{\PtsScrbFR[\pos]}{}% Score FR
-    \IfStrEq{#1}{EN}{\PtsScrbEN[\pos]}{}% Score EN
-    \IfStrEq{#1}{DE}{\PtsScrbDE[\pos]}{}% Score DE
-    \IfStrEq{#1}{ES}{\PtsScrbES[\pos]}{}% Score ES
+ % ====================================================================
+ % Package Scrabble / ScrabbleDE
+ % Pour jouer au Scrabble / Für deutsches Scrabble
+ %
+ % Author                         : C. Pierquet
+ % Licence                        : Released under the LaTeX Project Public License v1.3c or later, see http://www.latex-project.org/lppl.txt
+ % Copyright                      : Scrabble, TradeMark by Hasbro or Mattel
+ % Inspiration                    : Mark Wibrow in https://tex.stackexchange.com/questions/194780/tikz-drawing-a-rectangle-with-spikes-on-borders
+ %
+ % Version history:
+ % v1.0 : Original package version for international Scrabble (C. Pierquet)
+ % v1.1 : Initial German translation and letter value adjustments
+ % v1.2 : Full integration of parallel standard/DE commands and Genderstein (*IN)
+ % ====================================================================
+ \NeedsTeXFormat{LaTeX2e}
+ \ProvidesPackage{Scrabble}[2026/04/29 v1.2 Scrabble Board DE]
+ 
+ \RequirePackage{tikz}
+ \usetikzlibrary{calc, shapes.geometric}
+ \RequirePackage{xcolor}
+ \RequirePackage{xstring}
+ 
+ % --- Définitions des couleurs / Farbendefinitionen ---
+ \definecolor{scrRed}{HTML}{E51A1C}       % Mot compte triple / Dreifacher Wortwert
+ \definecolor{scrPink}{HTML}{F094A4}      % Mot compte double / Doppelter Wortwert
+ \definecolor{scrDarkBlue}{HTML}{3581D8}  % Lettre compte triple / Dreifacher Buchstabenwert
+ \definecolor{scrLightBlue}{HTML}{A9D1EA} % Lettre compte double / Doppelter Buchstabenwert
+ \definecolor{scrBg}{HTML}{D1E3D1}        % Fond du plateau / Spielbrett Hintergrund (grünlich/vert)
+ \definecolor{scrTile}{HTML}{FDF2D8}      % Couleur de la tuile / Steinfarbe
+ 
+ % --- Coordonnées des cases spéciales / Felder-Koordinaten ---
+ % X/Y, 0-14, (0,0) en haut à gauche / oben links
+ \def\scrRedFields{0/0, 7/0, 14/0, 0/7, 14/7, 0/14, 7/14, 14/14}
+ \def\scrPinkFields{1/1, 2/2, 3/3, 4/4, 10/10, 11/11, 12/12, 13/13, 1/13, 2/12, 3/11, 4/10, 10/4, 11/3, 12/2, 13/1, 7/7}
+ \def\scrDarkBlueFields{5/1, 9/1, 1/5, 5/5, 9/5, 13/5, 1/9, 5/9, 9/9, 13/9, 5/13, 9/13}
+ \def\scrLightBlueFields{3/0, 11/0, 6/2, 8/2, 0/3, 7/3, 14/3, 2/6, 6/6, 8/6, 12/6, 3/7, 11/7, 2/8, 6/8, 8/8, 12/8, 0/11, 7/11, 14/11, 6/12, 8/12, 3/14, 11/14}
+ 
+ % --- Macros d'aide pour le texte / Hilfsmakros für Text ---
+ % Standard (Englisch/International)
+ \def\scrTextTW{TRIPLE\\WORD\\SCORE}
+ \def\scrTextDW{DOUBLE\\WORD\\SCORE}
+ \def\scrTextTL{TRIPLE\\LETTER\\SCORE}
+ \def\scrTextDL{DOUBLE\\LETTER\\SCORE}
+ 
+ % Deutsch
+ \def\scrTextDWS{DREIFACHER\\WORTWERT}
+ \def\scrTextZWS{DOPPELTER\\WORTWERT}
+ \def\scrTextDBS{DREIFACHER\\BUCHSTABEN-\\WERT}
+ \def\scrTextZBS{DOPPELTER\\BUCHSTABEN-\\WERT}
+ 
+ % --- Valeurs des lettres / Werte der Buchstaben ---
+ % Standard Scrabble Werte (Englisch)
+ \newcommand{\ScrabbleValue}[1]{%
+  \IfStrEqCase{#1}{%
+   {A}{1}{B}{3}{C}{3}{D}{2}{E}{1}{F}{4}{G}{2}{H}{4}{I}{1}{J}{8}%
+   {K}{5}{L}{1}{M}{3}{N}{1}{O}{1}{P}{3}{Q}{10}{R}{1}{S}{1}{T}{1}%
+   {U}{1}{V}{4}{W}{4}{X}{8}{Y}{4}{Z}{10}%
+  }[0]% Blanko-Stein (0 Punkte)
+ }
+ 
+ % Deutsche Scrabble Werte
+ \newcommand{\ScrabbleValueDE}[1]{%
+  \IfStrEqCase{#1}{%
+   {A}{1}{B}{3}{C}{4}{D}{1}{E}{1}{F}{4}{G}{2}{H}{2}{I}{1}{J}{6}%
+   {K}{4}{L}{2}{M}{3}{N}{1}{O}{2}{P}{4}{Q}{10}{R}{1}{S}{1}{T}{1}%
+   {U}{1}{V}{6}{W}{3}{X}{8}{Y}{10}{Z}{3}{Ä}{6}{Ö}{8}{Ü}{6}%
+   {*IN}{10}% Tuile de genre / Genderstein Sonderwert
+  }[0]% Tuile blanche / Blanko-Stein (0 Punkte)
+ }
+ 
+ % --- Fonction pour vérifier si une case est de la même couleur / Funktion zur Überprüfung der gleichen Farbe ---
+ \newcommand{\isSameColor}[4]{%
+  % #1: x, #2: y, #3: color list, #4: result macro
+  \gdef#4{0}%
+  \foreach \cx/\cy in #3 {%
+   \ifnum \cx=#1 \ifnum \cy=#2 \gdef#4{1} \breakforeach \fi \fi%
   }%
-}
-
-% ----- Libellés localisés (adaptés pour l'allemand) -----
-% Libellés raccourcis pour l'allemand, conformes à l'usage officiel du Scrabble en Allemagne
-% / Kürzere deutsche Beschriftungen, entsprechend der offiziellen Scrabble-Regeln in Deutschland
-\newcommand\SCRBMCT[1]{%
-  \IfStrEq{#1}{DE}{DREIFACH\\[-0.3ex]WORT}{}% DREIFACH WORT (3x Wortwert)
-  \IfStrEq{#1}{FR}{MOT\\[-0.3ex]COMPTE\\[-0.3ex]TRIPLE}{}
-  \IfStrEq{#1}{EN}{TRIPLE\\[-0.3ex]WORD\\[-0.3ex]SCORE}{}
-  \IfStrEq{#1}{ES}{TRIPLE\\[-0.3ex]PALABRA}{}
-}
-\newcommand\SCRBMCD[1]{%
-  \IfStrEq{#1}{DE}{DOPPELT\\[-0.3ex]WORT}{}% DOPPELT WORT (2x Wortwert)
-  \IfStrEq{#1}{FR}{MOT\\[-0.3ex]COMPTE\\[-0.3ex]DOUBLE}{}
-  \IfStrEq{#1}{EN}{DOUBLE\\[-0.3ex]WORD\\[-0.3ex]SCORE}{}
-  \IfStrEq{#1}{ES}{DOBLE\\[-0.3ex]PALABRA}{}
-}
-\newcommand\SCRBLCT[1]{%
-  \IfStrEq{#1}{DE}{DREIFACH\\[-0.3ex]BUCHSTABE}{}% DREIFACH BUCHSTABE (3x Buchstabenwert)
-  \IfStrEq{#1}{FR}{LETTRE\\[-0.3ex]COMPTE\\[-0.3ex]TRIPLE}{}
-  \IfStrEq{#1}{EN}{TRIPLE\\[-0.3ex]LETTER\\[-0.3ex]SCORE}{}
-  \IfStrEq{#1}{ES}{TRIPLE\\[-0.3ex]LETRA}{}
-}
-\newcommand\SCRBLCD[1]{%
-  \IfStrEq{#1}{DE}{DOPPELT\\[-0.3ex]BUCHSTABE}{}% DOPPELT BUCHSTABE (2x Buchstabenwert)
-  \IfStrEq{#1}{FR}{LETTRE\\[-0.3ex]COMPTE\\[-0.3ex]DOUBLE}{}
-  \IfStrEq{#1}{EN}{DOUBLE\\[-0.3ex]LETTER\\[-0.3ex]SCORE}{}
-  \IfStrEq{#1}{ES}{DOBLE\\[-0.3ex]LETRA}{}
-}
-
-% ----- Couleurs allemandes pour le plateau et les jetons -----
-% Couleurs inspirées du Scrabble allemand officiel (Mattel)
-% / Farben inspiriert vom offiziellen deutschen Scrabble (Mattel)
-\colorlet{triplewordscore}{red!80!black}       % DREIFACH WORT (rot foncé)
-\colorlet{doublewordscore}{red!50}            % DOPPELT WORT (rot clair)
-\colorlet{tripleletterscore}{blue!80}        % DREIFACH BUCHSTABE (bleu foncé)
-\colorlet{doubleletterscore}{blue!50}        % DOPPELT BUCHSTABE (bleu clair)
-\colorlet{scrabblebgtile}{yellow!30}          % Fond des jetons (jaune pâle)
-\colorlet{scrabblebloard}{brown!20}          % Fond du plateau (marron clair)
-
-% ----- Styles TikZ pour les jetons et les cases -----
-\tikzset{
-  scorelettre/.style={
-    font=\sffamily\bfseries\tiny,align=center,draw=none,fill=none
-  },
-  pics/.cd,
-  pointes/.style args={#1#2#3}{
-    code={
-      \fill [#3,scale=0.5*0.9] (-1,1) {
-        \foreach \i in {0,1,2,3}{
-          [rotate=-\i*90] -- (-#1*#2,1) {
-            \foreach \j in {1,...,#1} {-- ++(#2,#2) -- ++(#2,-#2)}
-          } -- (1,1)
-        }
-      } -- cycle;
-    }
-  },
-  casecentrale/.style={
-    code={
-      \path pic {pointes={2}{0.15}{doublewordscore}};
-      \node [scale=\fpeval{\PLSCRBBLEechelleLabel*0.9},star,fill,star point ratio=2.35] {};
-    }
-  },
-  jeton/.style={
-    code={
-      % --- Jeton standard (lettres A-Z) ---
-      % / Standard-Stein (Buchstaben A-Z)
-      \IfStrEq{#1}{*}{% Joker
-        \node[fill=scrabblebgtile,minimum size=0.9 cm,rounded corners=\fpeval{\PLSCRBBLEechelle*0.15} cm,font=\Large\sffamily\bfseries] (JETON) {};
-      }{%
-        % --- Jetons spéciaux pour l'allemand ---
-        % / Spezielle Steine für Deutsch
-        \IfStrEq{#1}{Ä}{% Ä (6 points)
-          \node[fill=scrabblebgtile,minimum size=0.9 cm,rounded corners=\fpeval{\PLSCRBBLEechelle*0.15} cm,font=\Large\sffamily\bfseries] (JETON) {\"A};
-          \node[inner sep=2pt,font=\sffamily\scriptsize,anchor=south east] at (JETON.south east) { \scrabblescorelettre[\PLSCRBBLElangue]{Ä} };
-        }{%
-          \IfStrEq{#1}{Ö}{% Ö (8 points)
-            \node[fill=scrabblebgtile,minimum size=0.9 cm,rounded corners=\fpeval{\PLSCRBBLEechelle*0.15} cm,font=\Large\sffamily\bfseries] (JETON) {\"O};
-            \node[inner sep=2pt,font=\sffamily\scriptsize,anchor=south east] at (JETON.south east) { \scrabblescorelettre[\PLSCRBBLElangue]{Ö} };
-          }{%
-            \IfStrEq{#1}{Ü}{% Ü (8 points)
-              \node[fill=scrabblebgtile,minimum size=0.9 cm,rounded corners=\fpeval{\PLSCRBBLEechelle*0.15} cm,font=\Large\sffamily\bfseries] (JETON) {\"U};
-              \node[inner sep=2pt,font=\sffamily\scriptsize,anchor=south east] at (JETON.south east) { \scrabblescorelettre[\PLSCRBBLElangue]{Ü} };
-            }{%
-              \IfStrEq{#1}{SS}{% SS (8 points) – Ligature allemande
-                \node[fill=scrabblebgtile,minimum size=0.9 cm,rounded corners=\fpeval{\PLSCRBBLEechelle*0.15} cm,font=\Large\sffamily\bfseries] (JETON) {\scalebox{0.7}[1]{SS}};
-                \node[inner sep=2pt,font=\sffamily\scriptsize,anchor=south east] at (JETON.south east) { \scrabblescorelettre[\PLSCRBBLElangue]{SS} };
-              }{%
-                \IfStrEq{#1}{*IN}{% Genderstein (10 points) – Jeton de genre allemand
-                  % Le Genderstein (*IN) est utilisé pour le genre en allemand.
-                  % Règles: Uniquement à la fin des noms relatifs aux personnes (ex: LEHRER*IN).
-                  % / Der Genderstein (*IN) wird zum Gendern im Deutschen verwendet.
-                  % / Regeln: Nur am Ende von personenbezogenen Substantiven (z. B. LEHRER*IN).
-                  \node[fill=scrabblebgtile,minimum size=0.9 cm,rounded corners=\fpeval{\PLSCRBBLEechelle*0.15} cm,font=\Large\sffamily\bfseries] (JETON) {\scalebox{0.5}[1]{*IN}};
-                  \node[inner sep=2pt,font=\sffamily\scriptsize,anchor=south east] at (JETON.south east) {10};
-                }{%
-                  % --- Jetons spéciaux pour d'autres langues (ES: CH, RR, LL, Ñ) ---
-                  % / Spezielle Steine für andere Sprachen (ES: CH, RR, LL, Ñ)
-                  \IfInteger{#1}{%
-                    \IfEq{#1}{6}{% CH (Espagnol, 5 points)
-                      \node[fill=scrabblebgtile,minimum size=0.9 cm,rounded corners=\fpeval{\PLSCRBBLEechelle*0.15} cm,font=\Large\sffamily\bfseries] (JETON) {\scalebox{0.5}[1]{CH}};
-                      \node[inner sep=2pt,font=\sffamily\scriptsize,anchor=south east] at (JETON.south east) { \scrabblescorelettre[\PLSCRBBLElangue]{#1} };
-                    }{%
-                      \IfEq{#1}{7}{% Ñ (Espagnol, 8 points)
-                        \node[fill=scrabblebgtile,minimum size=0.9 cm,rounded corners=\fpeval{\PLSCRBBLEechelle*0.15} cm,font=\Large\sffamily\bfseries] (JETON) {\~{N}};
-                        \node[inner sep=2pt,font=\sffamily\scriptsize,anchor=south east] at (JETON.south east) { \scrabblescorelettre[\PLSCRBBLElangue]{#1} };
-                      }{%
-                        \IfEq{#1}{8}{% RR (Espagnol, 8 points)
-                          \node[fill=scrabblebgtile,minimum size=0.9 cm,rounded corners=\fpeval{\PLSCRBBLEechelle*0.15} cm,font=\Large\sffamily\bfseries] (JETON) {\scalebox{0.5}[1]{RR}};
-                          \node[inner sep=2pt,font=\sffamily\scriptsize,anchor=south east] at (JETON.south east) { \scrabblescorelettre[\PLSCRBBLElangue]{#1} };
-                        }{%
-                          \IfEq{#1}{9}{% LL (Espagnol, 8 points)
-                            \node[fill=scrabblebgtile,minimum size=0.9 cm,rounded corners=\fpeval{\PLSCRBBLEechelle*0.15} cm,font=\Large\sffamily\bfseries] (JETON) {\scalebox{0.5}[1]{LL}};
-                            \node[inner sep=2pt,font=\sffamily\scriptsize,anchor=south east] at (JETON.south east) { \scrabblescorelettre[\PLSCRBBLElangue]{#1} };
-                          }{%
-                            % Jeton standard (lettre simple)
-                            \node[fill=scrabblebgtile,minimum size=0.9 cm,rounded corners=\fpeval{\PLSCRBBLEechelle*0.15} cm,font=\Large\sffamily\bfseries] (JETON) {\expandafter\MakeUppercase\expandafter{#1}};
-                            \node[inner sep=2pt,font=\sffamily\scriptsize,anchor=south east] at (JETON.south east) { \scrabblescorelettre[\PLSCRBBLElangue]{#1} };
-                          }%
-                        }%
-                      }%
-                    }%
-                  }{%
-                    % Jeton standard (lettre simple, ex: A, B, ...)
-                    \node[fill=scrabblebgtile,minimum size=0.9 cm,rounded corners=\fpeval{\PLSCRBBLEechelle*0.15} cm,font=\Large\sffamily\bfseries] (JETON) {\expandafter\MakeUppercase\expandafter{#1}};
-                    \node[inner sep=2pt,font=\sffamily\scriptsize,anchor=south east] at (JETON.south east) { \scrabblescorelettre[\PLSCRBBLElangue]{#1} };
-                  }%
-                }%
-              }%
-            }%
-          }%
-        }%
-      }%
-    }
-  },
-  placemotH/.style={
-    code={
-      \StrLen{#1}[\lgmot]%
-      \foreach \l in {1,...,\lgmot} {
-        \StrChar{#1}{\l}[\ll]
-        \path ({\l-2},-1) pic {jeton={\ll}};
-      }
-    }
-  },
-  placemotV/.style={
-    code={
-      \StrLen{#1}[\lgmot]%
-      \foreach \l in {1,...,\lgmot} {
-        \StrChar{#1}{\l}[\ll]
-        \path (-1,{-\l}) pic {jeton={\ll}};
-      }
-    }
-  },
-  % ---- Types de cases pour DE (avec libellés allemands) ----
-  motcomptetriplede/.style={
-    code={
-      \path pic {pointes={3}{0.15}{triplewordscore}};%
-      \ifboolKV[PLSCRABBLETIKZDE]{Beschriftungen}%
-        {\node [scorelettre,xscale=\fpeval{\PLSCRBBLEechelleLabel*0.8},yscale=\fpeval{\PLSCRBBLEechelleLabel*0.8}] { \SCRBMCT{\PLSCRBBLElangue} };}{}%
-    }
-  },
-  motcomptedoublede/.style={
-    code={
-      \path pic {pointes={2}{0.15}{doublewordscore}};%
-      \ifboolKV[PLSCRABBLETIKZDE]{Beschriftungen}%
-        {\node [scorelettre,xscale=\fpeval{\PLSCRBBLEechelleLabel*0.8},yscale=\fpeval{\PLSCRBBLEechelleLabel*0.8}] { \SCRBMCD{\PLSCRBBLElangue} };}{}%
-    }
-  },
-  lettrecomptetriplede/.style={
-    code={
-      \path pic {pointes={3}{0.15}{tripleletterscore}};%
-      \ifboolKV[PLSCRABBLETIKZDE]{Beschriftungen}%
-        {\node [scorelettre,xscale=\fpeval{\PLSCRBBLEechelleLabel*0.8},yscale=\fpeval{\PLSCRBBLEechelleLabel*0.8}] { \SCRBLCT{\PLSCRBBLElangue} };}{}%
-    }
-  },
-  lettrecomptedoublede/.style={
-    code={
-      \path pic {pointes={2}{0.15}{doubleletterscore}};%
-      \ifboolKV[PLSCRABBLETIKZDE]{Beschriftungen}%
-        {\node [scorelettre,xscale=\fpeval{\PLSCRBBLEechelleLabel*0.8},yscale=\fpeval{\PLSCRBBLEechelleLabel*0.8}] { \SCRBLCD{\PLSCRBBLElangue} };}{}%
-    }
-  },
-  % ---- Types de cases pour FR/EN/ES (inchangés) ----
-  motcomptetriplefr/.style={
-    code={
-      \path pic {pointes={3}{0.15}{triplewordscore}};%
-      \ifboolKV[PLSCRABBLETIKZFR]{Labels}%
-        {\node [scorelettre,xscale=\fpeval{\PLSCRBBLEechelleLabel*0.8},yscale=\fpeval{\PLSCRBBLEechelleLabel*0.8}] { \SCRBMCT{\PLSCRBBLElangue} };}{}%
-    }
-  },
-  motcomptedoublefr/.style={
-    code={
-      \path pic {pointes={2}{0.15}{doublewordscore}};%
-      \ifboolKV[PLSCRABBLETIKZFR]{Labels}%
-        {\node [scorelettre,xscale=\fpeval{\PLSCRBBLEechelleLabel*0.8},yscale=\fpeval{\PLSCRBBLEechelleLabel*0.8}] { \SCRBMCD{\PLSCRBBLElangue} };}{}%
-    }
-  },
-  lettrecomptetriplefr/.style={
-    code={
-      \path pic {pointes={3}{0.15}{tripleletterscore}};%
-      \ifboolKV[PLSCRABBLETIKZFR]{Labels}%
-        {\node [scorelettre,xscale=\fpeval{\PLSCRBBLEechelleLabel*0.8},yscale=\fpeval{\PLSCRBBLEechelleLabel*0.8}] { \SCRBLCT{\PLSCRBBLElangue} };}{}%
-    }
-  },
-  lettrecomptedoublefr/.style={
-    code={
-      \path pic {pointes={2}{0.15}{doubleletterscore}};%
-      \ifboolKV[PLSCRABBLETIKZFR]{Labels}%
-        {\node [scorelettre,xscale=\fpeval{\PLSCRBBLEechelleLabel*0.8},yscale=\fpeval{\PLSCRBBLEechelleLabel*0.8}] { \SCRBLCD{\PLSCRBBLElangue} };}{}%
-    }
-  },
-  motcomptetripleen/.style={
-    code={
-      \path pic {pointes={3}{0.15}{triplewordscore}};%
-      \ifboolKV[PLSCRABBLETIKZEN]{Labels}%
-        {\node [scorelettre,xscale=\fpeval{\PLSCRBBLEechelleLabel*0.8},yscale=\fpeval{\PLSCRBBLEechelleLabel*0.8}] { \SCRBMCT{\PLSCRBBLElangue} };}{}%
-    }
-  },
-  motcomptedoubleen/.style={
-    code={
-      \path pic {pointes={2}{0.15}{doublewordscore}};%
-      \ifboolKV[PLSCRABBLETIKZEN]{Labels}%
-        {\node [scorelettre,xscale=\fpeval{\PLSCRBBLEechelleLabel*0.8},yscale=\fpeval{\PLSCRBBLEechelleLabel*0.8}] { \SCRBMCD{\PLSCRBBLElangue} };}{}%
-    }
-  },
-  lettrecomptetripleen/.style={
-    code={
-      \path pic {pointes={3}{0.15}{tripleletterscore}};%
-      \ifboolKV[PLSCRABBLETIKZEN]{Labels}%
-        {\node [scorelettre,xscale=\fpeval{\PLSCRBBLEechelleLabel*0.8},yscale=\fpeval{\PLSCRBBLEechelleLabel*0.8}] { \SCRBLCT{\PLSCRBBLElangue} };}{}%
-    }
-  },
-  lettrecomptedoubleen/.style={
-    code={
-      \path pic {pointes={2}{0.15}{doubleletterscore}};%
-      \ifboolKV[PLSCRABBLETIKZEN]{Labels}%
-        {\node [scorelettre,xscale=\fpeval{\PLSCRBBLEechelleLabel*0.8},yscale=\fpeval{\PLSCRBBLEechelleLabel*0.8}] { \SCRBLCD{\PLSCRBBLElangue} };}{}%
-    }
+ }
+ 
+ % --- Dessiner les indicateurs de bord / Randmarkierungen zeichnen ---
+ \newcommand{\drawEdgeIndicators}[4]{%
+  % #1: x, #2: y, #3: color name, #4: color list macro
+  \pgfmathtruncatemacro{\x}{#1}
+  \pgfmathtruncatemacro{\y}{#2}
+  \pgfmathsetmacro{\ypos}{14-\y}
+  
+  % Top Rand (Nicht am äußeren Rand zeichnen / Pas sur le bord extérieur)
+  \pgfmathtruncatemacro{\ytop}{\y-1}
+  \ifnum\y>0
+  \isSameColor{\x}{\ytop}{#4}{\isSame}
+  \ifnum\isSame=0
+  \draw[color=#3, line width=2.5pt] (\x+0.15, \ypos+1) -- (\x+0.3, \ypos+1) (\x+0.425, \ypos+1) -- (\x+0.575, \ypos+1) (\x+0.7, \ypos+1) -- (\x+0.85, \ypos+1);
+  \fi
+  \fi
+  
+  % Bottom Rand (Nicht am äußeren Rand zeichnen / Pas sur le bord extérieur)
+  \pgfmathtruncatemacro{\ybottom}{\y+1}
+  \ifnum\y<14
+  \isSameColor{\x}{\ybottom}{#4}{\isSame}
+  \ifnum\isSame=0
+  \draw[color=#3, line width=2.5pt] (\x+0.15, \ypos) -- (\x+0.3, \ypos) (\x+0.425, \ypos) -- (\x+0.575, \ypos) (\x+0.7, \ypos) -- (\x+0.85, \ypos);
+  \fi
+  \fi
+  
+  % Left Rand (Nicht am äußeren Rand zeichnen / Pas sur le bord extérieur)
+  \pgfmathtruncatemacro{\xleft}{\x-1}
+  \ifnum\x>0
+  \isSameColor{\xleft}{\y}{#4}{\isSame}
+  \ifnum\isSame=0
+  \draw[color=#3, line width=2.5pt] (\x, \ypos+0.15) -- (\x, \ypos+0.3) (\x, \ypos+0.425) -- (\x, \ypos+0.575) (\x, \ypos+0.7) -- (\x, \ypos+0.85);
+  \fi
+  \fi
+  
+  % Right Rand (Nicht am äußeren Rand zeichnen / Pas sur le bord extérieur)
+  \pgfmathtruncatemacro{\xright}{\x+1}
+  \ifnum\x<14
+  \isSameColor{\xright}{\y}{#4}{\isSame}
+  \ifnum\isSame=0
+  \draw[color=#3, line width=2.5pt] (\x+1, \ypos+0.15) -- (\x+1, \ypos+0.3) (\x+1, \ypos+0.425) -- (\x+1, \ypos+0.575) (\x+1, \ypos+0.7) -- (\x+1, \ypos+0.85);
+  \fi
+  \fi
+ }
+ 
+ % --- Dessiner la base du plateau / Spielbrett Basis zeichnen ---
+ % Standard Board (Englisch/International)
+ \newcommand{\ScrabbleBoard}{%
+  \fill[scrBg] (0,0) rectangle (15,15);
+  
+  \foreach \x/\y in \scrRedFields {
+   \fill[scrRed] (\x, 14-\y) rectangle ++(1,1);
+   \node[align=center, font=\sffamily\fontsize{3.5}{4}\selectfont\bfseries, text=black] at (\x+0.5, 14-\y+0.5) {\scrTextTW};
+   \drawEdgeIndicators{\x}{\y}{scrRed}{\scrRedFields}
   }
-}
-
-% ----- Commandes pour placer des mots -----
-% / Befehle zum Platzieren von Wörtern
-\newcommand\ScrabblePlaceMot[3][H]{%
-  \IfStrEq{#1}{H}%
-    {\path (#3) pic {placemotH={#2}};}%
-    {\path (#3) pic {placemotV={#2}};}%
-}
-\newcommand\ScrabblePutWord[3][H]{%
-  \IfStrEq{#1}{H}%
-    {\path (#3) pic {placemotH={#2}};}%
-    {\path (#3) pic {placemotV={#2}};}%
-}
-
-% ----- Clés pour FR/EN/DE -----
-% / Schlüssel für FR/EN/DE
-\defKV[PLSCRABBLETIKZFR]{%
-  Echelle=\xdef\PLSCRBBLEechelle{#1},%
-  EchelleLabels=\xdef\PLSCRBBLEechelleLabel{#1}%
-}
-\defKV[PLSCRABBLETIKZEN]{%
-  Scale=\xdef\PLSCRBBLEechelle{#1},%
-  ScaleLabels=\xdef\PLSCRBBLEechelleLabel{#1}%
-}
-% --- Clés pour DE (avec noms allemands) ---
-% / Schlüssel für DE (mit deutschen Namen)
-\defKV[PLSCRABBLETIKZDE]{%
-  Echelle=\xdef\PLSCRBBLEechelle{#1},%
-  EchelleLabels=\xdef\PLSCRBBLEechelleLabel{#1},%
-  Rahmen=\xdef\PLSCRBBLErahmen{#1},%
-  Beschriftungen=\xdef\PLSCRBBLEbeschriftungen{#1},%
-  Hilfe=\xdef\PLSCRBBLEhilfe{#1}%
-}
-\setKVdefault[PLSCRABBLETIKZFR]{%
-  Echelle=1,%
-  EchelleLabels=1,%
-  Cadre=true,%
-  Labels=true,%
-  Aide=false%
-}
-\setKVdefault[PLSCRABBLETIKZEN]{%
-  Scale=1,%
-  ScaleLabels=1,%
-  Border=true,%
-  Labels=true,%
-  Help=false%
-}
-\setKVdefault[PLSCRABBLETIKZDE]{%
-  Echelle=1,%
-  EchelleLabels=1,%
-  Rahmen=true,%
-  Beschriftungen=true,%
-  Hilfe=false%
-}
-
-% ----- Environnement pour Scrabble allemand (EnvScrabbleDE) -----
-% Nouvel environnement optimisé pour l'allemand avec :
-%   - Couleurs allemandes
-%   - Libellés allemands
-%   - Prise en charge de *IN et SS
-% / Neue Umgebung für deutsches Scrabble (EnvScrabbleDE) mit:
-% /   - Deutschen Farben
-% /   - Deutschen Beschriftungen
-% /   - Unterstützung für *IN und SS
-\NewDocumentEnvironment{EnvScrabbleDE}{ O{} }{%
-  \xdef\PLSCRBBLElangue{DE}%
-  \useKVdefault[PLSCRABBLETIKZDE]%
-  \setKV[PLSCRABBLETIKZDE]{#1}%
-  \begin{tikzpicture}[scale=\PLSCRBBLEechelle,every node/.style={scale=\PLSCRBBLEechelle}]%
-    % Plateau
-    \fill[scrabblebloard] (-.5,-.5) rectangle ++(15,15);%
-    \draw[white,line width=\fpeval{\PLSCRBBLEechelle*0.1} cm, shift={(-.5,-.5)}] grid (15,15);%
-    % Cases spéciales (symétriques)
-    \foreach \scrcase in {(\x,\y),(\y,14-\x),(14-\x,14-\y),(14-\y,\x)}{%
-      \foreach \x/\y in {0/0,7/0}{\path \scrcase pic {motcomptetriplede};}%
-      \foreach \x/\y in {1/1,2/2,3/3,4/4}{\path \scrcase pic {motcomptedoublede};}%
-      \foreach \x/\y in {1/5,5/1,5/5}{\path \scrcase pic {lettrecomptetriplede};}%
-      \foreach \x/\y in {3/0,0/3,2/6,6/2,6/6}{\path \scrcase pic {lettrecomptedoublede};}%
-    }%
-    % Cases LCD manquantes (ajout manuel)
-    \path (7,3) pic {lettrecomptedoublede};%
-    \path (7,11) pic {lettrecomptedoublede};%
-    \path (3,7) pic {lettrecomptedoublede};%
-    \path (11,7) pic {lettrecomptedoublede};%
-    % Case centrale
-    \path (7,7) pic {casecentrale};%
-    % Cadre
-    \ifboolKV[PLSCRABBLETIKZDE]{Rahmen}{\draw[line width=\fpeval{\PLSCRBBLEechelle*0.075} cm] (-0.6,-0.6) rectangle (14.6,14.6);}{}%
-    % Lignes d'aide (coordonnées)
-    \ifboolKV[PLSCRABBLETIKZDE]{Hilfe}{%
-      \foreach \nb in {1,2,...,15}%
-        {\draw[gray] ({\nb-1},-0.65) node[below,font=\sffamily] {\nb};%
-         \draw[gray] (-0.65,{\nb-1}) node[left,font=\sffamily] {\nb};}%
-    }{}%
-}{%
-  \end{tikzpicture}%
-}
-
-% ----- Environnements pour FR/EN (inchangés) -----
-% / Umgebungen für FR/EN (unchanged)
-\NewDocumentEnvironment{EnvScrabbleFR}{ D<>{FR} O{} }{%
-  \xdef\PLSCRBBLElangue{#1}%
-  \useKVdefault[PLSCRABBLETIKZFR]%
-  \setKV[PLSCRABBLETIKZFR]{#2}%
-  \begin{tikzpicture}[scale=\PLSCRBBLEechelle,every node/.style={scale=\PLSCRBBLEechelle}]%
-    \fill[scrabblebloard] (-.5,-.5) rectangle ++(15,15);%
-    \draw[white,line width=\fpeval{\PLSCRBBLEechelle*0.1} cm, shift={(-.5,-.5)}] grid (15,15);%
-    \foreach \scrcase in {(\x,\y),(\y,14-\x),(14-\x,14-\y),(14-\y,\x)}{%
-      \foreach \x/\y in {0/0,7/0}{\path \scrcase pic {motcomptetriplefr};}%
-      \foreach \x/\y in {1/1,2/2,3/3,4/4}{\path \scrcase pic {motcomptedoublefr};}%
-      \foreach \x/\y in {1/5,5/1,5/5}{\path \scrcase pic {lettrecomptetriplefr};}%
-      \foreach \x/\y in {3/0,0/3,2/6,6/2,6/6}{\path \scrcase pic {lettrecomptedoublefr};}%
-    }%
-    \path (7,3) pic {lettrecomptedoublefr};%
-    \path (7,11) pic {lettrecomptedoublefr};%
-    \path (3,7) pic {lettrecomptedoublefr};%
-    \path (11,7) pic {lettrecomptedoublefr};%
-    \path (7,7) pic {casecentrale};%
-    \ifboolKV[PLSCRABBLETIKZFR]{Cadre}{\draw[line width=\fpeval{\PLSCRBBLEechelle*0.075} cm] (-0.6,-0.6) rectangle (14.6,14.6);}{}%
-    \ifboolKV[PLSCRABBLETIKZFR]{Aide}{%
-      \foreach \nb in {1,2,...,15}%
-        {\draw[gray] ({\nb-1},-0.65) node[below,font=\sffamily] {\nb};%
-         \draw[gray] (-0.65,{\nb-1}) node[left,font=\sffamily] {\nb};}%
-    }{}%
+  \foreach \x/\y in \scrPinkFields {
+   \fill[scrPink] (\x, 14-\y) rectangle ++(1,1);
+   \node[align=center, font=\sffamily\fontsize{3.5}{4}\selectfont\bfseries, text=black] at (\x+0.5, 14-\y+0.5) {\scrTextDW};
+   \drawEdgeIndicators{\x}{\y}{scrPink}{\scrPinkFields}
+  }
+  \foreach \x/\y in \scrDarkBlueFields {
+   \fill[scrDarkBlue] (\x, 14-\y) rectangle ++(1,1);
+   \node[align=center, font=\sffamily\fontsize{3}{3.5}\selectfont\bfseries, text=white] at (\x+0.5, 14-\y+0.5) {\scrTextTL};
+   \drawEdgeIndicators{\x}{\y}{scrDarkBlue}{\scrDarkBlueFields}
+  }
+  \foreach \x/\y in \scrLightBlueFields {
+   \fill[scrLightBlue] (\x, 14-\y) rectangle ++(1,1);
+   \node[align=center, font=\sffamily\fontsize{3}{3.5}\selectfont\bfseries, text=black] at (\x+0.5, 14-\y+0.5) {\scrTextDL};
+   \drawEdgeIndicators{\x}{\y}{scrLightBlue}{\scrLightBlueFields}
+  }
+  
+  \node[star, star points=5, star point ratio=2.25, fill=black, minimum size=0.6cm] at (7.5,7.5) {};
+  \draw[thick, black!80] (0,0) grid (15,15);
+ }
+ 
+ % Deutsches Board
+ \newcommand{\ScrabbleBoardDE}{%
+  % Fond du jeu / Hintergrund
+  \fill[scrBg] (0,0) rectangle (15,15);
+  
+  \foreach \x/\y in \scrRedFields {
+   \fill[scrRed] (\x, 14-\y) rectangle ++(1,1);
+   \node[align=center, font=\sffamily\fontsize{3.5}{4}\selectfont\bfseries, text=black] at (\x+0.5, 14-\y+0.5) {\scrTextDWS};
+   \drawEdgeIndicators{\x}{\y}{scrRed}{\scrRedFields}
+  }
+  \foreach \x/\y in \scrPinkFields {
+   \fill[scrPink] (\x, 14-\y) rectangle ++(1,1);
+   \node[align=center, font=\sffamily\fontsize{3.5}{4}\selectfont\bfseries, text=black] at (\x+0.5, 14-\y+0.5) {\scrTextZWS};
+   \drawEdgeIndicators{\x}{\y}{scrPink}{\scrPinkFields}
+  }
+  \foreach \x/\y in \scrDarkBlueFields {
+   \fill[scrDarkBlue] (\x, 14-\y) rectangle ++(1,1);
+   \node[align=center, font=\sffamily\fontsize{3}{3.5}\selectfont\bfseries, text=white] at (\x+0.5, 14-\y+0.5) {\scrTextDBS};
+   \drawEdgeIndicators{\x}{\y}{scrDarkBlue}{\scrDarkBlueFields}
+  }
+  \foreach \x/\y in \scrLightBlueFields {
+   \fill[scrLightBlue] (\x, 14-\y) rectangle ++(1,1);
+   \node[align=center, font=\sffamily\fontsize{3}{3.5}\selectfont\bfseries, text=black] at (\x+0.5, 14-\y+0.5) {\scrTextZBS};
+   \drawEdgeIndicators{\x}{\y}{scrLightBlue}{\scrLightBlueFields}
+  }
+  
+  % Étoile centrale sur la case rose / Mittelstern auf dem pinken Zentrumsfeld
+  \node[star, star points=5, star point ratio=2.25, fill=black, minimum size=0.6cm] at (7.5,7.5) {};
+  
+  % Lignes de la grille / Gitterlinien
+  \draw[thick, black!80] (0,0) grid (15,15);
+ }
+ 
+ % --- Dessiner la tuile de base / Basis-Stein zeichnen ---
+ % Standard Basis-Stein
+ \newcommand{\ScrabbleSteinBase}[3]{%
+  \StrDel{#3}{ }[\cleanletter]%
+  \begin{scope}[shift={(#1, #2)}]
+   \filldraw[fill=scrTile, draw=black!70, rounded corners=1.5pt, thick] (0.05, 0.05) rectangle (0.95, 0.95);
+   \node[font=\sffamily\bfseries\Large] at (0.5, 0.5) {\cleanletter};
+   \node[font=\sffamily\tiny, anchor=south east, inner sep=2pt] at (0.95, 0.05) {\ScrabbleValue{\cleanletter}};
+  \end{scope}
+ }
+ 
+ % Deutscher Basis-Stein
+ \newcommand{\ScrabbleSteinBaseDE}[3]{%
+  % #1: x-offset (cm)
+  % #2: y-offset (cm)
+  % #3: Lettre / Buchstabe
+  \StrDel{#3}{ }[\cleanletter]% Supprimer les espaces / Leerzeichen entfernen
+  \begin{scope}[shift={(#1, #2)}]
+   \filldraw[fill=scrTile, draw=black!70, rounded corners=1.5pt, thick] (0.05, 0.05) rectangle (0.95, 0.95);
+   \IfStrEq{\cleanletter}{*IN}{%
+    % Logo *IN: hochgestelltes Sternchen und IN in Normalgröße / Asterisk en exposant et IN normal
+    \node[font=\sffamily\bfseries\Large] at (0.5, 0.5) {\raisebox{0.6ex}{\small *}IN};
+    \node[font=\sffamily\tiny, anchor=south east, inner sep=2pt] at (0.95, 0.05) {\ScrabbleValueDE{\cleanletter}};
+   }{%
+    \node[font=\sffamily\bfseries\Large] at (0.5, 0.5) {\cleanletter};
+    \node[font=\sffamily\tiny, anchor=south east, inner sep=2pt] at (0.95, 0.05) {\ScrabbleValueDE{\cleanletter}};
+   }
+  \end{scope}
+ }
+ 
+ % --- Placer une tuile sur le plateau / Stein auf dem Spielfeld platzieren ---
+ % Standard Stein
+ \newcommand{\ScrabbleStein}[3]{%
+  \ScrabbleSteinBase{#1}{14-#2}{#3}%
+ }
+ 
+ % Deutscher Stein
+ \newcommand{\ScrabbleSteinDE}[3]{%
+  \ScrabbleSteinBaseDE{#1}{14-#2}{#3}%
+ }
+ 
+ % --- Placer un mot / Wort setzen ---
+ % Standard Wort
+ \newcommand{\ScrabbleWort}[4][H]{%
+  \foreach \letter [count=\lettercnt] in {#4} {%
+   \IfStrEq{#1}{H}{%
+    \pgfmathtruncatemacro{\xpos}{#2 + \lettercnt - 1}%
+    \pgfmathtruncatemacro{\ypos}{#3}%
+   }{%
+    \pgfmathtruncatemacro{\xpos}{#2}%
+    \pgfmathtruncatemacro{\ypos}{#3 + \lettercnt - 1}%
+   }%
+   \ScrabbleStein{\xpos}{\ypos}{\letter}%
+  }
+ }
+ 
+ % Deutsches Wort
+ \newcommand{\ScrabbleWortDE}[4][H]{%
+  \foreach \letter [count=\lettercnt] in {#4} {%
+   \IfStrEq{#1}{H}{%
+    \pgfmathtruncatemacro{\xpos}{#2 + \lettercnt - 1}%
+    \pgfmathtruncatemacro{\ypos}{#3}%
+   }{%
+    \pgfmathtruncatemacro{\xpos}{#2}%
+    \pgfmathtruncatemacro{\ypos}{#3 + \lettercnt - 1}%
+   }%
+   \ScrabbleSteinDE{\xpos}{\ypos}{\letter}%
+  }
+ }
+ 
+ % --- Dessiner le chevalet / Wortbank zeichnen ---
+ % Standard Bank
+ \newcommand{\ScrabbleBank}[2][]{%
+  \begin{scope}[#1]
+   \filldraw[fill=brown!40, draw=black!80, rounded corners=2pt, thick] (-0.2, -0.2) rectangle (7.2, 1.2);
+   \foreach \letter [count=\lettercnt] in {#2} {%
+    \pgfmathtruncatemacro{\xpos}{\lettercnt - 1}%
+    \ScrabbleSteinBase{\xpos}{0}{\letter}%
+   }
+  \end{scope}
+ }
+ 
+ % Deutsche Bank
+ \newcommand{\ScrabbleBankDE}[2][]{%
+  \begin{scope}[#1]
+   \filldraw[fill=brown!40, draw=black!80, rounded corners=2pt, thick] (-0.2, -0.2) rectangle (7.2, 1.2);
+   \foreach \letter [count=\lettercnt] in {#2} {%
+    \pgfmathtruncatemacro{\xpos}{\lettercnt - 1}%
+    \ScrabbleSteinBaseDE{\xpos}{0}{\letter}%
+   }
+  \end{scope}
+ }
+ 
+ % --- Environnement pour le plateau / Umgebung für das Scrabble Board ---
+ % Standard Umgebung
+ \newenvironment{EnvScrabble}[1][]{%
+  \begin{tikzpicture}[x=1cm, y=1cm, #1]
+   \ScrabbleBoard
   }{%
-  \end{tikzpicture}%
-}
-
-\NewDocumentEnvironment{EnvScrabble}{ D<>{EN} O{} }{%
-  \xdef\PLSCRBBLElangue{#1}%
-  \useKVdefault[PLSCRABBLETIKZEN]%
-  \setKV[PLSCRABBLETIKZEN]{#2}%
-  \begin{tikzpicture}[scale=\PLSCRBBLEechelle,every node/.style={scale=\PLSCRBBLEechelle}]%
-    \fill[scrabblebloard] (-.5,-.5) rectangle ++(15,15);%
-    \draw[white,line width=\fpeval{\PLSCRBBLEechelle*0.1} cm, shift={(-.5,-.5)}] grid (15,15);%
-    \foreach \scrcase in {(\x,\y),(\y,14-\x),(14-\x,14-\y),(14-\y,\x)}{%
-      \foreach \x/\y in {0/0,7/0}{\path \scrcase pic {motcomptetripleen};}%
-      \foreach \x/\y in {1/1,2/2,3/3,4/4}{\path \scrcase pic {motcomptedoubleen};}%
-      \foreach \x/\y in {1/5,5/1,5/5}{\path \scrcase pic {lettrecomptetripleen};}%
-      \foreach \x/\y in {3/0,0/3,2/6,6/2,6/6}{\path \scrcase pic {lettrecomptedoubleen};}%
-    }%
-    \path (7,3) pic {lettrecomptedoubleen};%
-    \path (7,11) pic {lettrecomptedoubleen};%
-    \path (3,7) pic {lettrecomptedoubleen};%
-    \path (11,7) pic {lettrecomptedoubleen};%
-    \path (7,7) pic {casecentrale};%
-    \ifboolKV[PLSCRABBLETIKZEN]{Border}{\draw[line width=\fpeval{\PLSCRBBLEechelle*0.075} cm] (-0.6,-0.6) rectangle (14.6,14.6);}{}%
-    \ifboolKV[PLSCRABBLETIKZEN]{Help}{%
-      \foreach \nb in {1,2,...,15}%
-        {\draw[gray] ({\nb-1},-0.65) node[below,font=\sffamily] {\nb};%
-         \draw[gray] (-0.65,{\nb-1}) node[left,font=\sffamily] {\nb};}%
-    }{}%
+  \end{tikzpicture}
+ }
+ 
+ % Deutsche Umgebung
+ \newenvironment{EnvScrabbleDE}[1][]{%
+  \begin{tikzpicture}[x=1cm, y=1cm, #1]
+   \ScrabbleBoardDE
   }{%
-  \end{tikzpicture}%
-}
-
-% ----- Plateaux (inchangés) -----
-% / Plateaus (unchanged)
-\NewDocumentCommand\PlateauScrabble{ D<>{FR} O{} }{%
-  \xdef\PLSCRBBLElangue{#1}%
-  \useKVdefault[PLSCRABBLETIKZFR]%
-  \setKV[PLSCRABBLETIKZFR]{#2}%
-  \begin{tikzpicture}[scale=\PLSCRBBLEechelle,every node/.style={scale=\PLSCRBBLEechelle}]%
-    \fill[scrabblebloard] (-.5,-.5) rectangle ++(15,15);%
-    \draw[white,line width=\fpeval{\PLSCRBBLEechelle*0.1} cm, shift={(-.5,-.5)}] grid (15,15);%
-    \foreach \scrcase in {(\x,\y),(\y,14-\x),(14-\x,14-\y),(14-\y,\x)}{%
-      \foreach \x/\y in {0/0,7/0}{\path \scrcase pic {motcomptetriplefr};}%
-      \foreach \x/\y in {1/1,2/2,3/3,4/4}{\path \scrcase pic {motcomptedoublefr};}%
-      \foreach \x/\y in {1/5,5/1,5/5}{\path \scrcase pic {lettrecomptetriplefr};}%
-      \foreach \x/\y in {3/0,0/3,2/6,6/2,6/6}{\path \scrcase pic {lettrecomptedoublefr};}%
-    }%
-    \path (7,3) pic {lettrecomptedoublefr};%
-    \path (7,11) pic {lettrecomptedoublefr};%
-    \path (3,7) pic {lettrecomptedoublefr};%
-    \path (11,7) pic {lettrecomptedoublefr};%
-    \path (7,7) pic {casecentrale};%
-    \ifboolKV[PLSCRABBLETIKZFR]{Cadre}{\draw[line width=\fpeval{\PLSCRBBLEechelle*0.075} cm] (-0.6,-0.6) rectangle (14.6,14.6);}{}%
-  \end{tikzpicture}%
-}
-
-\NewDocumentCommand\ScrabbleBoard{ D<>{EN} O{} }{%
-  \xdef\PLSCRBBLElangue{#1}%
-  \useKVdefault[PLSCRABBLETIKZEN]%
-  \setKV[PLSCRABBLETIKZEN]{#2}%
-  \begin{tikzpicture}[scale=\PLSCRBBLEechelle,every node/.style={scale=\PLSCRBBLEechelle}]%
-    \fill[scrabblebloard] (-.5,-.5) rectangle ++(15,15);%
-    \draw[white,line width=\fpeval{\PLSCRBBLEechelle*0.1} cm, shift={(-.5,-.5)}] grid (15,15);%
-    \foreach \scrcase in {(\x,\y),(\y,14-\x),(14-\x,14-\y),(14-\y,\x)}{%
-      \foreach \x/\y in {0/0,7/0}{\path \scrcase pic {motcomptetripleen};}%
-      \foreach \x/\y in {1/1,2/2,3/3,4/4}{\path \scrcase pic {motcomptedoubleen};}%
-      \foreach \x/\y in {1/5,5/1,5/5}{\path \scrcase pic {lettrecomptetripleen};}%
-      \foreach \x/\y in {3/0,0/3,2/6,6/2,6/6}{\path \scrcase pic {lettrecomptedoubleen};}%
-    }%
-    \path (7,3) pic {lettrecomptedoubleen};%
-    \path (7,11) pic {lettrecomptedoubleen};%
-    \path (3,7) pic {lettrecomptedoubleen};%
-    \path (11,7) pic {lettrecomptedoubleen};%
-    \path (7,7) pic {casecentrale};%
-    \ifboolKV[PLSCRABBLETIKZEN]{Border}{\draw[line width=\fpeval{\PLSCRBBLEechelle*0.075} cm] (-0.6,-0.6) rectangle (14.6,14.6);}{}%
-  \end{tikzpicture}%
-}
-
-% ----- Mots en ligne (avec prise en charge de *IN et SS) -----
-% / Inline-Wörter (mit Unterstützung für *IN und SS)
-\newlength{\tmp@scrabword@total@height}
-\newlength{\tmp@scrabword@depth}
-
-\defKV[SCRABBLEWORDINLINEFR]{%
-  CouleurFond=\def\ScrWordInlColFond{#1},%
-  Police=\def\ScrWordInlFonte{#1},%
-  CouleurPolice=\def\ScrWordInlColFonte{#1},%
-  Langue=\def\ScrWordInlLang{#1},%
-  Offset=\def\ScrWordInlOffset{#1},%
-  Echelle=\def\ScrWordInlScale{#1}%
-}
-
-\setKVdefault[SCRABBLEWORDINLINEFR]{%
-  CouleurFond=scrabblebgtile,%%
-  Police=\bfseries\sffamily,%%
-  CouleurPolice=black,%%
-  Langue=FR,%%
-  Offset=0.1pt,%%
-  Score=true,%%
-  Echelle=0.6,%%
-  Melange=false%
-}
-
-\NewDocumentCommand\MotScrabble{ O{} m }{%
-  \useKVdefault[SCRABBLEWORDINLINEFR]%
-  \setKV[SCRABBLEWORDINLINEFR]{#1}%
-  \settototalheight{\tmp@scrabword@total@height}{\hbox{ABCDEFGHIJKLMNOPQQRSTUVWXYZabcdefghijklmnopqqrstuvwxyz}}%
-  \settodepth{\tmp@scrabword@depth}{\hbox{q}}%
-  \StrLen{#2}[\lgmot]%
-  \ifboolKV[SCRABBLEWORDINLINEFR]{Melange}%
-    {%
-      \randintlist[min=1,max=\lgmot,nb=\lgmot]{\mylistmelangemot}%%
-      \def\tmpmotscrabble{}%
-      \foreach \i in {1,...,\lgmot}%
-        {%
-          \getitemfromrandintlist{\mylistmelangemot}{\i}[\myindice]%
-          \StrChar{#2}{\myindice}[\mytmpletter]%
-          \xdef\tmpmotscrabble{\tmpmotscrabble\mytmpletter}%
-        }%
-    }%
-    {\xdef\tmpmotscrabble{#2}}%
-  \raisebox{-\tmp@scrabword@depth+0.025\tmp@scrabword@total@height}{%
-    \foreach \l in {1,...,\lgmot}%
-      {%
-        \StrChar{\tmpmotscrabble}{\l}[\ll]%
-        \IfStrEq{\ll}{*}{% Joker
-          {\tikz \filldraw[\ScrWordInlColFond,rounded corners={0.15\tmp@scrabword@total@height}] (0,0) rectangle++ ({0.9\tmp@scrabword@total@height},{0.9\tmp@scrabword@total@height}) ;}%
-        }{%
-          \IfStrEq{\ll}{Ä}{% Ä
-            {\tikz {%
-              \filldraw[\ScrWordInlColFond,rounded corners={0.15\tmp@scrabword@total@height}] (0,0) rectangle++ ({0.9\tmp@scrabword@total@height},{0.9\tmp@scrabword@total@height}) node[inner sep=0pt,midway,font=\ScrWordInlFonte,scale=\ScrWordInlScale,text=\ScrWordInlColFonte] {\scalebox{1}[0.85]{\"A}};%
-              \ifboolKV[SCRABBLEWORDINLINEFR]{Score}%
-                {\draw ({0.9\tmp@scrabword@total@height},0) node[inner sep=0pt,above left={0.075\tmp@scrabword@total@height},font=\ScrWordInlFonte,scale={0.25*\ScrWordInlScale},text=\ScrWordInlColFonte] { \scrabblescorelettre[\ScrWordInlLang]{Ä} } ;}{}%
-            }}%
-          }{%
-            \IfStrEq{\ll}{Ö}{% Ö
-              {\tikz {%
-                \filldraw[\ScrWordInlColFond,rounded corners={0.15\tmp@scrabword@total@height}] (0,0) rectangle++ ({0.9\tmp@scrabword@total@height},{0.9\tmp@scrabword@total@height}) node[inner sep=0pt,midway,font=\ScrWordInlFonte,scale=\ScrWordInlScale,text=\ScrWordInlColFonte] {\scalebox{1}[0.85]{\"O}};%
-                \ifboolKV[SCRABBLEWORDINLINEFR]{Score}%
-                  {\draw ({0.9\tmp@scrabword@total@height},0) node[inner sep=0pt,above left={0.075\tmp@scrabword@total@height},font=\ScrWordInlFonte,scale={0.25*\ScrWordInlScale},text=\ScrWordInlColFonte] { \scrabblescorelettre[\ScrWordInlLang]{Ö} } ;}{}%
-              }}%
-            }{%
-              \IfStrEq{\ll}{Ü}{% Ü
-                {\tikz {%
-                  \filldraw[\ScrWordInlColFond,rounded corners={0.15\tmp@scrabword@total@height}] (0,0) rectangle++ ({0.9\tmp@scrabword@total@height},{0.9\tmp@scrabword@total@height}) node[inner sep=0pt,midway,font=\ScrWordInlFonte,scale=\ScrWordInlScale,text=\ScrWordInlColFonte] {\scalebox{1}[0.85]{\"U}};%
-                  \ifboolKV[SCRABBLEWORDINLINEFR]{Score}%
-                    {\draw ({0.9\tmp@scrabword@total@height},0) node[inner sep=0pt,above left={0.075\tmp@scrabword@total@height},font=\ScrWordInlFonte,scale={0.25*\ScrWordInlScale},text=\ScrWordInlColFonte] { \scrabblescorelettre[\ScrWordInlLang]{Ü} } ;}{}%
-                }}%
-              }{%
-                \IfStrEq{\ll}{SS}{% SS (Ligature allemande, 8 points)
-                  {\tikz {%
-                    \filldraw[\ScrWordInlColFond,rounded corners={0.15\tmp@scrabword@total@height}] (0,0) rectangle++ ({0.9\tmp@scrabword@total@height},{0.9\tmp@scrabword@total@height}) node[inner sep=0pt,midway,font=\ScrWordInlFonte,scale=\ScrWordInlScale,text=\ScrWordInlColFonte] {\scalebox{0.7}[1]{SS}};%
-                    \ifboolKV[SCRABBLEWORDINLINEFR]{Score}%
-                      {\draw ({0.9\tmp@scrabword@total@height},0) node[inner sep=0pt,above left={0.075\tmp@scrabword@total@height},font=\ScrWordInlFonte,scale={0.25*\ScrWordInlScale},text=\ScrWordInlColFonte] { \scrabblescorelettre[\ScrWordInlLang]{SS} } ;}{}%
-                  }}%
-                }{%
-                  \IfStrEq{\ll}{*IN}{% Genderstein (10 points)
-                    % Le Genderstein (*IN) est utilisé pour le genre en allemand.
-                    % Règles: Uniquement à la fin des noms relatifs aux personnes (ex: LEHRER*IN).
-                    % / Der Genderstein (*IN) wird zum Gendern im Deutschen verwendet.
-                    % / Regeln: Nur am Ende von personenbezogenen Substantiven (z. B. LEHRER*IN).
-                    {\tikz {%
-                      \filldraw[\ScrWordInlColFond,rounded corners={0.15\tmp@scrabword@total@height}] (0,0) rectangle++ ({0.9\tmp@scrabword@total@height},{0.9\tmp@scrabword@total@height}) node[inner sep=0pt,midway,font=\ScrWordInlFonte,scale=\ScrWordInlScale,text=\ScrWordInlColFonte] {\scalebox{0.5}[1]{*IN}};%
-                      \ifboolKV[SCRABBLEWORDINLINEFR]{Score}%
-                        {\draw ({0.9\tmp@scrabword@total@height},0) node[inner sep=0pt,above left={0.075\tmp@scrabword@total@height},font=\ScrWordInlFonte,scale={0.25*\ScrWordInlScale},text=\ScrWordInlColFonte] {10};}{}%
-                    }}%
-                  }{%
-                    {\tikz {%
-                      \filldraw[\ScrWordInlColFond,rounded corners={0.15\tmp@scrabword@total@height}] (0,0) rectangle++ ({0.9\tmp@scrabword@total@height},{0.9\tmp@scrabword@total@height}) node[inner sep=0pt,midway,font=\ScrWordInlFonte,scale=\ScrWordInlScale,text=\ScrWordInlColFonte] {\expandafter\MakeUppercase\expandafter{\ll}};%
-                      \ifboolKV[SCRABBLEWORDINLINEFR]{Score}%
-                        {\draw ({0.9\tmp@scrabword@total@height},0) node[inner sep=0pt,above left={0.075\tmp@scrabword@total@height},font=\ScrWordInlFonte,scale={0.25*\ScrWordInlScale},text=\ScrWordInlColFonte] { \scrabblescorelettre[\ScrWordInlLang]{\ll} } ;}{}%
-                    }}%
-                  }%
-                }%
-              }%
-            }%
-          }%
-        }%
-        \ifnum \l<\lgmot \hspace*{\ScrWordInlOffset}\fi%
-      }%
-  }%
-}
-
-\defKV[SCRABBLEWORDINLINEEN]{%
-  Colback=\def\ScrWordInlColFond{#1},%
-  Font=\def\ScrWordInlFonte{#1},%
-  Colfonte=\def\ScrWordInlColFonte{#1},%
-  Lang=\def\ScrWordInlLang{#1},%
-  Offset=\def\ScrWordInlOffset{#1},%
-  Scale=\def\ScrWordInlScale{#1}%
-}
-
-\setKVdefault[SCRABBLEWORDINLINEEN]{%
-  Colback=scrabblebgtile,%%
-  Font=\bfseries\sffamily,%%
-  Colfonte=black,%%
-  Lang=EN,%%
-  Offset=0.1pt,%%
-  Score=true,%%
-  Scale=0.6,%%
-  Shuffle=false%
-}
-
-\NewDocumentCommand\ScrabbleWord{ O{} m }{%
-  \useKVdefault[SCRABBLEWORDINLINEEN]%
-  \setKV[SCRABBLEWORDINLINEEN]{#1}%
-  \settototalheight{\tmp@scrabword@total@height}{\hbox{ABCDEFGHIJKLMNOPQQRSTUVWXYZabcdefghijklmnopqqrstuvwxyz}}%
-  \settodepth{\tmp@scrabword@depth}{\hbox{q}}%
-  \StrLen{#2}[\lgmot]%
-  \ifboolKV[SCRABBLEWORDINLINEEN]{Shuffle}%
-    {%
-      \randintlist[min=1,max=\lgmot,nb=\lgmot]{\mylistmelangemot}%%
-      \def\tmpmotscrabble{}%
-      \foreach \i in {1,...,\lgmot}%
-        {%
-          \getitemfromrandintlist{\mylistmelangemot}{\i}[\myindice]%
-          \StrChar{#2}{\myindice}[\mytmpletter]%
-          \xdef\tmpmotscrabble{\tmpmotscrabble\mytmpletter}%
-        }%
-    }%
-    {\xdef\tmpmotscrabble{#2}}%
-  \raisebox{-\tmp@scrabword@depth+0.025\tmp@scrabword@total@height}{%
-    \foreach \l in {1,...,\lgmot}%
-      {%
-        \StrChar{\tmpmotscrabble}{\l}[\ll]%
-        \IfStrEq{\ll}{*}{% Joker
-          {\tikz \filldraw[\ScrWordInlColFond,rounded corners={0.15\tmp@scrabword@total@height}] (0,0) rectangle++ ({0.9\tmp@scrabword@total@height},{0.9\tmp@scrabword@total@height}) ;}%
-        }{%
-          \IfStrEq{\ll}{Ä}{% Ä
-            {\tikz {%
-              \filldraw[\ScrWordInlColFond,rounded corners={0.15\tmp@scrabword@total@height}] (0,0) rectangle++ ({0.9\tmp@scrabword@total@height},{0.9\tmp@scrabword@total@height}) node[inner sep=0pt,midway,font=\ScrWordInlFonte,scale=\ScrWordInlScale,text=\ScrWordInlColFonte] {\scalebox{1}[0.85]{\"A}};%
-              \ifboolKV[SCRABBLEWORDINLINEEN]{Score}%
-                {\draw ({0.9\tmp@scrabword@total@height},0) node[inner sep=0pt,above left={0.075\tmp@scrabword@total@height},font=\ScrWordInlFonte,scale={0.25*\ScrWordInlScale},text=\ScrWordInlColFonte] { \scrabblescorelettre[\ScrWordInlLang]{Ä} } ;}{}%
-            }}%
-          }{%
-            \IfStrEq{\ll}{Ö}{% Ö
-              {\tikz {%
-                \filldraw[\ScrWordInlColFond,rounded corners={0.15\tmp@scrabword@total@height}] (0,0) rectangle++ ({0.9\tmp@scrabword@total@height},{0.9\tmp@scrabword@total@height}) node[inner sep=0pt,midway,font=\ScrWordInlFonte,scale=\ScrWordInlScale,text=\ScrWordInlColFonte] {\scalebox{1}[0.85]{\"O}};%
-                \ifboolKV[SCRABBLEWORDINLINEEN]{Score}%
-                  {\draw ({0.9\tmp@scrabword@total@height},0) node[inner sep=0pt,above left={0.075\tmp@scrabword@total@height},font=\ScrWordInlFonte,scale={0.25*\ScrWordInlScale},text=\ScrWordInlColFonte] { \scrabblescorelettre[\ScrWordInlLang]{Ö} } ;}{}%
-              }}%
-            }{%
-              \IfStrEq{\ll}{Ü}{% Ü
-                {\tikz {%
-                  \filldraw[\ScrWordInlColFond,rounded corners={0.15\tmp@scrabword@total@height}] (0,0) rectangle++ ({0.9\tmp@scrabword@total@height},{0.9\tmp@scrabword@total@height}) node[inner sep=0pt,midway,font=\ScrWordInlFonte,scale=\ScrWordInlScale,text=\ScrWordInlColFonte] {\scalebox{1}[0.85]{\"U}};%
-                  \ifboolKV[SCRABBLEWORDINLINEEN]{Score}%
-                    {\draw ({0.9\tmp@scrabword@total@height},0) node[inner sep=0pt,above left={0.075\tmp@scrabword@total@height},font=\ScrWordInlFonte,scale={0.25*\ScrWordInlScale},text=\ScrWordInlColFonte] { \scrabblescorelettre[\ScrWordInlLang]{Ü} } ;}{}%
-                }}%
-              }{%
-                \IfStrEq{\ll}{SS}{% SS (Ligature allemande, 8 points)
-                  {\tikz {%
-                    \filldraw[\ScrWordInlColFond,rounded corners={0.15\tmp@scrabword@total@height}] (0,0) rectangle++ ({0.9\tmp@scrabword@total@height},{0.9\tmp@scrabword@total@height}) node[inner sep=0pt,midway,font=\ScrWordInlFonte,scale=\ScrWordInlScale,text=\ScrWordInlColFonte] {\scalebox{0.7}[1]{SS}};%
-                    \ifboolKV[SCRABBLEWORDINLINEEN]{Score}%
-                      {\draw ({0.9\tmp@scrabword@total@height},0) node[inner sep=0pt,above left={0.075\tmp@scrabword@total@height},font=\ScrWordInlFonte,scale={0.25*\ScrWordInlScale},text=\ScrWordInlColFonte] { \scrabblescorelettre[\ScrWordInlLang]{SS} } ;}{}%
-                  }}%
-                }{%
-                  \IfStrEq{\ll}{*IN}{% Genderstein (10 points)
-                    % Le Genderstein (*IN) est utilisé pour le genre en allemand.
-                    % Règles: Uniquement à la fin des noms relatifs aux personnes (ex: LEHRER*IN).
-                    % / Der Genderstein (*IN) wird zum Gendern im Deutschen verwendet.
-                    % / Regeln: Nur am Ende von personenbezogenen Substantiven (z. B. LEHRER*IN).
-                    {\tikz {%
-                      \filldraw[\ScrWordInlColFond,rounded corners={0.15\tmp@scrabword@total@height}] (0,0) rectangle++ ({0.9\tmp@scrabword@total@height},{0.9\tmp@scrabword@total@height}) node[inner sep=0pt,midway,font=\ScrWordInlFonte,scale=\ScrWordInlScale,text=\ScrWordInlColFonte] {\scalebox{0.5}[1]{*IN}};%
-                      \ifboolKV[SCRABBLEWORDINLINEEN]{Score}%
-                        {\draw ({0.9\tmp@scrabword@total@height},0) node[inner sep=0pt,above left={0.075\tmp@scrabword@total@height},font=\ScrWordInlFonte,scale={0.25*\ScrWordInlScale},text=\ScrWordInlColFonte] {10};}{}%
-                    }}%
-                  }{%
-                    {\tikz {%
-                      \filldraw[\ScrWordInlColFond,rounded corners={0.15\tmp@scrabword@total@height}] (0,0) rectangle++ ({0.9\tmp@scrabword@total@height},{0.9\tmp@scrabword@total@height}) node[inner sep=0pt,midway,font=\ScrWordInlFonte,scale=\ScrWordInlScale,text=\ScrWordInlColFonte] {\expandafter\MakeUppercase\expandafter{\ll}};%
-                      \ifboolKV[SCRABBLEWORDINLINEEN]{Score}%
-                        {\draw ({0.9\tmp@scrabword@total@height},0) node[inner sep=0pt,above left={0.075\tmp@scrabword@total@height},font=\ScrWordInlFonte,scale={0.25*\ScrWordInlScale},text=\ScrWordInlColFonte] { \scrabblescorelettre[\ScrWordInlLang]{\ll} } ;}{}%
-                    }}%
-                  }%
-                }%
-              }%
-            }%
-          }%
-        }%
-        \ifnum \l<\lgmot \hspace*{\ScrWordInlOffset}\fi%
-      }%
-  }%
-}
-
-\endinput
+  \end{tikzpicture}
+ }
+ 
+ \endinput
